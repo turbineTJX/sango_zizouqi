@@ -1,3 +1,4 @@
+import {isRoutineMerit} from './journal-record.mjs';
 import {observeBanditCamps,knownBanditCamps} from './bandit-state.mjs';
 import {generatedOfficer,validGeneratedOfficer} from './generated-officers.mjs';
 import {campaignDate} from './national-scenarios.mjs';
@@ -105,7 +106,7 @@ export function updateVision(s){
   for(const r of s.campaign.battles)if((r.battle.sides.some(x=>x.faction===f)||r.settled&&visible(r.point))&&!record.battles.includes(r.id))record.battles.push(r.id);
   record.battles=record.battles.filter(id=>s.campaign.battles.some(r=>r.id===id)||s.campaign.archive?.some(r=>r.id===id));
   const known=new Set(record.chronicle.map(l=>l.sourceId));
-  for(const n of today)if((n.faction===f||n.cityId&&!n.phase.startsWith('SCOUT')&&visible(mapNode(s,n.cityId)))&&!known.has(n.sourceId)){record.chronicle.unshift({turn:Math.floor((n.day-1)/10)+1,type:n.category==='battle'?'war':'event',text:n.text,sourceId:n.sourceId});known.add(n.sourceId);}
+  for(const n of today)if((n.faction===f||n.cityId&&!n.phase.startsWith('SCOUT')&&visible(mapNode(s,n.cityId)))&&!known.has(n.sourceId)){record.chronicle.unshift({day:n.day,routineMerit:isRoutineMerit(n),turn:Math.floor((n.day-1)/10)+1,type:n.category==='battle'?'war':'event',text:n.text,sourceId:n.sourceId});known.add(n.sourceId);}
   record.chronicle=record.chronicle.slice(0,300);
  }
 }
@@ -145,7 +146,7 @@ function observedBattle(s,r,faction){
  if(r.battle.sides.some(x=>x.faction===faction))return r;
  // Foreign battles expose the present observation, not earlier unseen days.
  const battle={...r.battle,logs:[]};
- return {...r,battle,templates:{},snapshots:[{day:s.campaign.day,tick:battle.tick,data:battle}],report:r.report?{reason:r.report.reason,winner:r.report.winner,growth:[],stats:[]}:null};
+ return {...r,battle,replay:undefined,templates:{},snapshots:[{day:s.campaign.day,tick:battle.tick,data:battle}],report:r.report?{reason:r.report.reason,winner:r.report.winner,growth:[],stats:[]}:null};
 }
 function observedBattles(s,faction,sources){return s.campaign.battles.filter(r=>battleVisible(s,r,faction,sources)).map(r=>observedBattle(s,r,faction));}
 // The army projection is also used by read-only threat assessments. Preserve
@@ -201,7 +202,7 @@ export function intelligenceWorld(s,faction=playerFaction(s)){
 export function fogMarkup(s,id='world-fog',project=null){
  if(!visionEnabled(s))return '';
  const circles=visionSources(s).map(v=>{const p=project?(v.kind==='city'?project({location:v.id}):project(v.object)):v;return `<circle cx="${p.x}" cy="${p.y}" r="${v.radius}" fill="url(#${id}-edge)"/>`+(!project?(v.regions||[]).map(r=>`<polygon data-vision-region="${r.id}" points="${r.points}" fill="black" stroke="black" stroke-width=".08"/>`).join(''):'');}).join('');
- return `<defs><radialGradient id="${id}-edge"><stop offset="0" stop-color="black"/><stop offset=".42" stop-color="black"/><stop offset=".74" stop-color="black" stop-opacity=".55"/><stop offset="1" stop-color="black" stop-opacity="0"/></radialGradient><mask id="${id}-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="1024" height="1024"><rect width="1024" height="1024" fill="white"/>${circles}</mask></defs><g class="war-fog" aria-hidden="true" pointer-events="none"><rect width="1024" height="1024" fill="#515a55" opacity=".36" mask="url(#${id}-mask)"/></g>`;
+ return `<defs><radialGradient id="${id}-edge"><stop offset="0" stop-color="black"/><stop offset=".42" stop-color="black"/><stop offset=".74" stop-color="black" stop-opacity=".55"/><stop offset="1" stop-color="black" stop-opacity="0"/></radialGradient><filter id="${id}-feather"><feGaussianBlur stdDeviation="2"/></filter><mask id="${id}-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="1024" height="1024"><rect width="1024" height="1024" fill="white"/>${circles}</mask></defs><g class="war-fog" filter="url(#${id}-feather)" aria-hidden="true" pointer-events="none"><rect width="1024" height="1024" fill="#515a55" opacity=".28" mask="url(#${id}-mask)"/></g>`;
 }
 export function watchtowerObservations(s,faction=playerFaction(s)){
  const base=s[origin]||s,result=new Map(Object.entries(base.campaign.vision?.factions[faction]?.towers||{}));
@@ -227,7 +228,7 @@ export function validateVision(s){
   for(const sight of r.scouted)fail(Number.isSafeInteger(sight.id)&&sight.id>=1&&sight.id<r.nextSightId&&Object.hasOwn(OFFICER_BY_ID,sight.officerId)&&Number.isFinite(sight.x)&&Number.isFinite(sight.y)&&Number.isSafeInteger(sight.seenDay)&&sight.seenDay>=1&&sight.seenDay<=s.campaign.day&&Number.isSafeInteger(sight.expiresDay)&&sight.expiresDay>sight.seenDay&&sight.expiresDay<=s.campaign.day+MOVEMENT_RULES.scouting.baseMaximumDays+MOVEMENT_RULES.scouting.intellectExtension&&mapNode(s,sight.location)&&(!sight.travel||Number.isFinite(roadCost(s,sight.travel.from,sight.travel.to))&&sight.travel.from===sight.location&&Number.isFinite(sight.travel.progress)&&sight.travel.progress>=0&&sight.travel.progress<=roadDistance(s,sight.travel.from,sight.travel.to)));
   fail(r.armies&&typeof r.armies==='object'&&!Array.isArray(r.armies)&&Object.keys(r.armies).length<=200);
   for(const [id,i]of Object.entries(r.armies))fail(/^a\d+$/.test(id)&&Number.isSafeInteger(i.day)&&i.day>=1&&i.day<=s.campaign.day&&Number.isSafeInteger(i.receivedDay)&&i.receivedDay>=i.day&&i.receivedDay<=s.campaign.day&&i.data?.id===id&&(i.data.faction==='neutral'||Object.hasOwn(FACTIONS,i.data.faction))&&Array.isArray(i.data.units)&&i.data.units.every(u=>(Object.hasOwn(OFFICER_BY_ID,u.id)||validGeneratedOfficer(u))&&Number.isFinite(u.troops)&&u.troops>=0)&&i.data.route?.length===0&&i.data.target===null&&i.data.supplyLine===null);
-  fail(r.chronicle.every(l=>Number.isSafeInteger(l.turn)&&l.turn>=1&&typeof l.type==='string'&&typeof l.text==='string'&&l.text.length<2000));
+  fail(r.chronicle.every(l=>Number.isSafeInteger(l.turn)&&l.turn>=1&&typeof l.type==='string'&&typeof l.text==='string'&&l.text.length<2000&&(l.day===undefined||Number.isSafeInteger(l.day)&&l.day>=1&&l.day<=s.campaign.day)&&(l.routineMerit===undefined||typeof l.routineMerit==='boolean')));
  }
  fail(s.cities.every(c=>c.owner==='neutral'||Object.hasOwn(v.factions,c.owner)));
 }

@@ -54,8 +54,8 @@ try{
   await page.screenshot({path:`${out}/${name}-overview-${expected}.png`});await page.locator('[data-city-card-close]').click();assert.equal(await page.evaluate(async ()=>await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2')),before);
  };
  const inspect=async()=>{
-  await page.locator('#national-city-search').selectOption(siteId);assert.match(await page.locator('.strategy-panel').innerText(),/许昌都市圈/);
-  await page.locator('.strategy-panel [data-action="map-city-inspect"]').click();assert.match(await pref.getAttribute('class'),/is-town-focused/);
+  await page.locator('#national-city-search').selectOption(siteId);assert.match(await page.locator('.map-selection-card').innerText(),/隶属许昌/);
+  await page.locator('.map-selection-card [data-action="map-city-inspect"]').click();assert.match(await pref.getAttribute('class'),/is-town-focused/);
   assert.equal(await pref.locator('.map-city-scene .town-foundation').count(),0);
   await pref.locator('.map-city-scene [data-city-building="farm"] .city-district-hit').click();
   assert.match(await page.locator('.city-building-card').innerText(),/府内设施/);

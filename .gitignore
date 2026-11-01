@@ -5,3 +5,10 @@ test-results/
 dist/
 art.local.json
 outputs/local-art/
+# The desktop manual ships these screenshots with the application.
+!docs/images/player-actions/*.webp
+# Shared UI material is a source dependency, including in offline builds.
+!ui-materials/ink-grain.svg
+!ui-materials/cloud-jade-frame.png
+!ui-materials/ink-silk-panel.png
+!ui-fonts/noto-serif-sc.woff2

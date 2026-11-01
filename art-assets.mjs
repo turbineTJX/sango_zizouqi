@@ -43,7 +43,7 @@ export const art={pack:{...builtin},_officers:{},hasOfficerArt:false,enabled:tru
  set officers(value){this._officers=value;this.hasOfficerArt=Object.values(value).some(s=>s.portrait||s.detail||OFFICER_ART_SOURCE_KEYS.some(k=>s[k]));},
  async init({onChange=()=>{}}={}){
   const generation=this.generation=(this.generation||0)+1;
-  try{this.enabled=localStorage.getItem('sango-art-mode')!=='builtin';}catch{}
+  this.enabled=true;
   this.pack={...builtin};this.officers={};this.images.clear();this.imageListeners.clear();this.failed.clear();
   applyAssetCatalog({version:1,id:'none'});
   await Promise.allSettled([
@@ -57,7 +57,6 @@ export const art={pack:{...builtin},_officers:{},hasOfficerArt:false,enabled:tru
    })()
   ]);
  },
- toggle(){this.enabled=!this.enabled;try{localStorage.setItem('sango-art-mode',this.enabled?'local':'builtin');}catch{}},
  get active(){return this.enabled&&(this.pack.id!=='builtin'||this.hasOfficerArt);},
  resolvePortrait(id,scene='roster'){
   if(!this.active)return null;
@@ -84,6 +83,11 @@ export const art={pack:{...builtin},_officers:{},hasOfficerArt:false,enabled:tru
   return null;
  },
  decorate(root=document){
+  for(const el of root.querySelectorAll('[data-art-treasure]')){
+   const url=assetCatalog.treasures[el.dataset.artTreasure];
+   if(!url||el.querySelector('img')?.getAttribute('src')===url)continue;
+   const img=document.createElement('img');img.src=url;img.alt=el.getAttribute('aria-label')||'';img.loading='lazy';img.decoding='async';img.onerror=()=>img.remove();el.replaceChildren(img);
+  }
   for(const [el] of this.cropFrames)if(!el.isConnected){this.cropObserver?.unobserve(el);this.cropFrames.delete(el);}
   const lobby=root.querySelector('.mode-selection');if(lobby&&this.active&&this.pack.backgrounds.lobby){lobby.style.setProperty('--art-background',`url("${this.pack.backgrounds.lobby}")`);lobby.classList.add('has-art-background');}
   for(const el of root.querySelectorAll('[data-art-portrait]')){

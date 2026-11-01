@@ -17,7 +17,7 @@ for(const allAI of [false,true])test((allAI?'AI':'player')+' grain purchase floo
  // start from whole stock, and save validation rejects fractional inventories.
  assert.throws(()=>validateCampaign(JSON.parse(before)),/资源须为非负整数/);c.grain=Math.ceil(c.grain);
  const gold=c.gold;beginDomesticTurn(s);
- if(!allAI){assert.ok(a.proposal);assert.equal(c.gold,gold);assert.equal(decideDomesticProposal(s,a.proposal.id,true),null);}
+ assert.equal(a.proposal,null); // A safe fee no longer needs player approval.
  assert.equal(a.action.key,'buy');assert.equal(a.action.amount,431);
  const paid=s.campaign.domestic.assignments.filter(x=>x.cityId===c.id&&x.action).reduce((n,x)=>n+x.action.cost,0);
  assert.equal(c.gold,gold-paid);

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <!-- Neutral, deterministic surface grain; interface color comes from CSS. -->
+  <filter id="fibre" x="0" y="0" width="100%" height="100%">
+    <feTurbulence type="fractalNoise" baseFrequency=".57 .81" numOctaves="3" seed="17" stitchTiles="stitch"/>
+    <feColorMatrix type="saturate" values="0"/>
+    <feComponentTransfer><feFuncA type="linear" slope=".045"/></feComponentTransfer>
+  </filter>
+  <filter id="wash" x="0" y="0" width="100%" height="100%">
+    <feTurbulence type="fractalNoise" baseFrequency=".025 .046" numOctaves="3" seed="9" stitchTiles="stitch"/>
+    <feColorMatrix type="saturate" values="0"/>
+    <feComponentTransfer><feFuncA type="linear" slope=".025"/></feComponentTransfer>
+  </filter>
+  <path d="M0 0h256v256H0z" filter="url(#wash)"/>
+  <path d="M0 0h256v256H0z" filter="url(#fibre)"/>
+</svg>

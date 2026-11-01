@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {newGame,orderArmy,advanceTurn,startBattle,lockDeployment,issueCommand,COMMAND_RESOURCE,validateSave,stepBattle} from '../engine.mjs';
 import {STRATAGEMS,OFFICER_STRATAGEMS} from '../stratagems.mjs';
 import {stratagemAreaContains,chooseStratagemPoint} from '../stratagem-area.mjs';
-import {areaPreview} from '../stratagem-area-view.mjs';
+import {areaPreview,stratagemTargetIds} from '../stratagem-area-view.mjs';
 import {appointTestCommanders} from './helpers/commanders.mjs';
 function scene(leader='person-246',advisor='yu'){
  const s=newGame();appointTestCommanders(s,leader,advisor);orderArmy(s,'a1','guandu');advanceTurn(s);startBattle(s);lockDeployment(s.battle);s.battle.commandProgress=COMMAND_RESOURCE.capacity;return s;
@@ -64,4 +64,21 @@ test('disrupt affects only selected active enemies and AI chooses effective cove
  assert.equal(issueCommand(b,'disrupt',{x:4,y:2}),null);
  assert.ok(a.statuses.stun);assert.equal(z.statuses.stun,undefined);
  for(const u of b.sides[1].units.filter(u=>u.status==='reserve'))assert.equal(u.statuses.stun,undefined);
+});
+
+test('target feedback preserves the pre-cast healing targets after wounds are treated',()=>{
+ const b=scene('person-246','person-668').battle,u=b.sides[0].units.find(u=>u.status==='active');
+ u.hp-=500;u.battleDamage+=500;const p={x:u.x,y:u.y},before=JSON.stringify(b);
+ const targets=stratagemTargetIds(b,'heal',p);assert.deepEqual(targets,[u.id]);assert.equal(JSON.stringify(b),before);
+ assert.equal(issueCommand(b,'heal',p),null);
+ assert.deepEqual(stratagemTargetIds(b,'heal',p,{cast:true,fallback:targets}),[u.id]);
+ assert.deepEqual(stratagemTargetIds(b,'heal',p),[]);
+});
+
+test('all-army target feedback excludes reserves and already protected troops',()=>{
+ const b=scene('cao','yu').battle,active=b.sides[0].units.filter(u=>u.status==='active');
+ const ids=stratagemTargetIds(b,'cao-wuchao');assert.deepEqual(ids,active.map(u=>u.id));
+ assert.equal(issueCommand(b,'cao-wuchao'),null);
+ assert.deepEqual(stratagemTargetIds(b,'cao-wuchao',null,{cast:true,fallback:ids}),ids);
+ assert.deepEqual(stratagemTargetIds(b,'cao-wuchao'),[]);
 });

@@ -1,3 +1,4 @@
+import {equippedTreasureIds,validTreasureLoadout,treasureSlot,treasureInSlot,setTreasureEquipment,removeTreasureEquipment} from './treasure-equipment.mjs';
 import {TREASURE_DESIGNS,TREASURE_IDS,TREASURE_RULES,EYE_ACTIONS,TREASURE_HIDE_REGIONS,DISCOVERY_CATEGORIES,treasureDesign,validTreasureId} from './data/design/treasures.mjs';
 import {TREASURE_INITIAL_HOLDERS,NATIONAL_SCENARIO_DESIGNS} from './data/design/national-scenarios.mjs';
 import {OFFICER_BY_ID} from './officer-catalog.mjs';
@@ -8,8 +9,9 @@ import {appendActivityNode} from './activity-nodes.mjs';
 import {playerFaction,isAIControlled} from './player-faction.mjs';
 import {DOMESTIC_ACTION_DESIGNS} from './data/design/domestic-actions.mjs';
 import {ACTIONS} from './domestic-designs.mjs';
-import {treasureBondBonus} from './treasure-battle.mjs';
+import {treasureBondBonuses} from './treasure-battle.mjs';
 import {bondLevels} from './bonds.mjs';
+import {refreshTreasureStatuses} from './treasure-statuses.mjs';
 
 const integer=(n,max=Number.MAX_SAFE_INTEGER)=>Number.isSafeInteger(n)&&n>=0&&n<=max;
 const state=s=>s.campaign?.treasures;
@@ -37,7 +39,7 @@ export function treasureRecipient(s,id,faction){
 export const treasureRecord=(s,id)=>state(s)?.items.find(t=>t.id===id)||null;
 export function treasureLocation(s,t){
  const o=t.holderId&&treasureOfficer(s,t.holderId);
- return {faction:['person','captive'].includes(t.state)?o?.faction||null:t.state==='city'?mapNode(s,t.cityId)?.owner:null,cityId:o?.location||t.cityId,officer:o};
+ return {faction:t.state==='treasury'?t.factionId:['person','captive'].includes(t.state)?t.factionId??o?.faction??null:null,cityId:o?.location||t.cityId,officer:o};
 }
 export function closestTreasureCity(s,nodeId){
  if(s.cities.some(c=>c.id===nodeId))return nodeId;
@@ -64,28 +66,37 @@ export function initializeTreasures(s){
   state(s).items.push(t);
  }
  const preferred=['skyHalberd','greenDragon','serpentSpear','twinSwords','mengde','ancientBlade','medicineBook','peaceBook','blueSteel'];
- for(const id of preferred){const t=treasureRecord(s,id),o=t.state==='person'&&treasureOfficer(s,t.holderId);if(o&&!o.unit.treasureId)o.unit.treasureId=id;}
+ const priority=id=>preferred.includes(id)?preferred.indexOf(id):100+TREASURE_IDS.indexOf(id);
+ for(const t of [...state(s).items].sort((a,b)=>priority(a.id)-priority(b.id))){
+  const o=t.state==='person'&&treasureOfficer(s,t.holderId);
+  if(!o)continue;
+  if(!treasureInSlot(o.unit,treasureSlot(t.id))){setTreasureEquipment(o.unit,t.id,s);t.factionId=o.faction;}
+  else Object.assign(t,{state:o.faction!=='neutral'?'treasury':'hidden',holderId:null,cityId:o.faction!=='neutral'?null:closestTreasureCity(s,o.location),factionId:o.faction!=='neutral'?o.faction:null});
+ }
 }
-function clearEquipped(s,id){for(const o of treasureOfficerRows(s))if(o.unit.treasureId===id)o.unit.treasureId=null;}
-function moveItem(s,t,next){clearEquipped(s,t.id);Object.assign(t,{holderId:null,cityId:null},next);}
+function clearEquipped(s,id){for(const o of treasureOfficerRows(s))if(equippedTreasureIds(o.unit).includes(id))removeTreasureEquipment(o.unit,id);}
+export function followTreasureOfficerFaction(s,officerId,faction){for(const t of state(s)?.items||[])if(t.holderId===officerId&&t.state==='person')t.factionId=faction;}
+function moveItem(s,t,next){clearEquipped(s,t.id);Object.assign(t,{holderId:null,cityId:null,factionId:null},next);}
 export function treasureDistributionError(s,id,faction=playerFaction(s)){
  const t=treasureRecord(s,id);if(!t)return '宝物不存在';
- if(!['person','city'].includes(t.state))return t.state==='captive'?'宝物随俘虏封存，不能分配':'该宝物尚不可使用';
+ if(!['person','treasury'].includes(t.state))return t.state==='captive'?'宝物随俘虏封存，不能分配':'该宝物尚不可使用';
  const at=treasureLocation(s,t);if(at.faction!==faction)return '只能分配本势力宝物';
  if(t.state==='person'&&!treasureRecipient(s,t.holderId,faction))return '武将已出征或正在撤离，随身宝物锁定，回城交接后可分配';
- if(t.state==='city'&&s.campaign.battles.some(r=>!r.settled&&r.cityId===at.cityId))return '围城或交战期间不能分配库藏宝物';
  return null;
 }
 function editable(s,faction,automatic){return !s.finished&&(automatic||!s.campaign.allAI&&s.campaign.phase==='planning')&&(!automatic||isAIControlled(s,faction));}
-export function grantTreasure(s,id,recipientId,{equip=false,faction=playerFaction(s),automatic=false,checkOnly=false}={}){
+export function grantTreasure(s,id,recipientId,{replace=false,faction=playerFaction(s),automatic=false,checkOnly=false}={}){
  if(!editable(s,faction,automatic))return '须在筹划阶段授予宝物';
  const error=treasureDistributionError(s,id,faction);if(error)return error;
  const to=treasureRecipient(s,recipientId,faction);if(!to)return '只能授予本势力未出征的武将，参战或撤离者不可选择';
  const t=treasureRecord(s,id);
   if(checkOnly)return null;
-  moveItem(s,t,{state:'person',holderId:recipientId});
-  if(equip)to.unit.treasureId=id;
-  announce(s,'grant:'+id+':'+day(s)+':'+state(s).events.length,'granted',faction,recipientId,to.location,treasureDesign(id).name+'已授予'+to.unit.name+'。',{treasureId:id});
+  const previous=state(s).items.find(item=>item.holderId===recipientId&&item.id!==id&&item.state==='person'&&treasureSlot(item.id)===treasureSlot(id));
+  if(previous&&!replace)return '须确认替换现有宝物：'+treasureDesign(previous.id,s).name+'；原宝物将归还国库';
+  if(previous)moveItem(s,previous,{state:'treasury',factionId:faction});
+  moveItem(s,t,{state:'person',holderId:recipientId,factionId:faction});
+  setTreasureEquipment(to.unit,id,s);
+  announce(s,'grant:'+id+':'+day(s)+':'+state(s).events.length,'granted',faction,recipientId,to.location,treasureDesign(id,s).name+'已授予'+to.unit.name+'。',{treasureId:id});
   state(s).events.push({id:'grant:'+id+':'+day(s)+':'+state(s).events.length,day:day(s),kind:'grant',faction,treasureId:id,officerId:recipientId});
   return null;
 }
@@ -93,12 +104,26 @@ export function equipTreasure(s,officerId,id,{faction=playerFaction(s),automatic
  if(!editable(s,faction,automatic))return '须在筹划阶段装备宝物';
  const o=treasureRecipient(s,officerId,faction);if(!o)return '出征、参战或撤离期间不能换装';
  if(id){const t=treasureRecord(s,id);if(t?.state!=='person'||t.holderId!==officerId)return '只能装备本人实际携带的宝物';}
- o.unit.treasureId=id||null;return null;
+ if(!id){for(const held of [...equippedTreasureIds(o.unit)]){const error=storeTreasure(s,held,{faction,automatic});if(error)return error;}return null;}
+ setTreasureEquipment(o.unit,id,s);return null;
 }
 export function storeTreasure(s,id,{faction=playerFaction(s),automatic=false}={}){
  if(!editable(s,faction,automatic))return '须在筹划阶段收回宝物';
  const error=treasureDistributionError(s,id,faction);if(error)return error;
- const t=treasureRecord(s,id),at=treasureLocation(s,t);if(t.state==='person'&&!treasureResident(s,t.holderId,faction))return '收回至城库须等待携带者实际回城';moveItem(s,t,{state:'city',cityId:at.cityId});return null;
+ const t=treasureRecord(s,id);moveItem(s,t,{state:'treasury',factionId:faction});return null;
+}
+export function conquerTreasures(s,oldFaction,newFaction,eventId){
+ if(!state(s)||oldFaction==='neutral'||oldFaction===newFaction||s.cities.some(c=>c.owner===oldFaction))return [];
+ const items=state(s).items.filter(t=>['treasury','person','captive'].includes(t.state)&&treasureLocation(s,t).faction===oldFaction),ids=new Set(items.map(t=>t.id));
+ for(const r of s.campaign.battles.filter(r=>!r.settled&&!r.battle.result))for(const u of r.battle.sides.flatMap(side=>side.units))for(const id of [...equippedTreasureIds(u)].filter(id=>ids.has(id))){
+  const e=u.treasureEntries?.[id];if(e){e.removed=true;refreshTreasureStatuses(r.battle,u);}
+  for(const [key,status]of Object.entries(u.statuses||{}))if(status.sourceTreasure===id&&!status.sources)delete u.statuses[key];
+  const shield=u.statuses?.shield;if(shield){if(!shield.layers.length)delete u.statuses.shield;else{shield.amount=shield.layers.reduce((n,l)=>n+l.amount,0);shield.until=Math.max(...shield.layers.map(l=>l.until));}}
+  if(u.treasureEntries)delete u.treasureEntries[id];removeTreasureEquipment(u,id);
+ }
+ for(const t of items)moveItem(s,t,{state:'treasury',factionId:newFaction});
+ if(items.length)announce(s,'conquest:'+eventId,'acquired',newFaction,null,null,'接收灭亡势力的'+items.length+'件宝物，已收入国库。',{treasureIds:[...ids],previous:oldFaction});
+ return [...ids];
 }
 export function loseTreasureTransport(s,o,nodeId){
  for(const t of state(s)?.items||[])if(t.holderId===o.unit.id&&t.state==='person')moveItem(s,t,{state:'hidden',cityId:closestTreasureCity(s,nodeId)||s.cities[0].id});
@@ -107,10 +132,10 @@ export function treasureFate(s,officerId,result,nodeId){
  for(const t of state(s)?.items||[])if(t.holderId===officerId&&['person','captive'].includes(t.state)){
   if(result==='DEAD')moveItem(s,t,{state:'hidden',cityId:closestTreasureCity(s,nodeId)||s.cities[0].id});
   else if(result==='CAPTIVE'){clearEquipped(s,t.id);t.state='captive';}
-  else if(result==='RELEASE')t.state='person';
+  else if(result==='RELEASE'){t.state='person';const o=treasureOfficer(s,officerId);if(o)setTreasureEquipment(o.unit,t.id,s);}
  }
 }
-const atHidden=(s,cityId,categories=null)=>state(s).items.filter(t=>t.state==='hidden'&&t.cityId===cityId&&(!categories||categories.includes(treasureDesign(t.id).category)));
+const atHidden=(s,cityId,categories=null)=>state(s).items.filter(t=>t.state==='hidden'&&t.cityId===cityId&&(!categories||categories.includes(treasureDesign(t.id,s).category)));
 export function recordTreasureWork(s,{id,key,officerId,faction,cityId,siteId,factor,productive,finished}){
  if(!state(s)||!finished||factor<=0||!productive)return;
  if(state(s).sources.some(x=>x.id===id))return;
@@ -123,10 +148,10 @@ function rollEvent(s,id,kind,faction,candidate,probability,officerId,sourceId=nu
  const roll=random(s),won=roll<probability,e={id,day:day(s),kind,faction,treasureId:candidate?.id||null,officerId,sourceId,probability,roll,won};t.events.push(e);return e;
 }
 function receive(s,item,faction,cityId,holderId,event){
- event.recipientId=holderId||null;event.cityId=cityId;
- moveItem(s,item,holderId?{state:'person',holderId}:{state:'city',cityId});
+ event.recipientId=null;event.cityId=cityId;
+ moveItem(s,item,{state:'treasury',factionId:faction});
  if(event.kind!=='capture')state(s).lastDiscovery[faction]=day(s);
- announce(s,event.id,'acquired',faction,holderId||event.officerId,cityId,(OFFICER_BY_ID[event.officerId]?.name||mapNode(s,cityId)?.name||'本方')+(event.kind==='capture'?'缴获':'发现')+treasureDesign(item.id).name+'。',{treasureId:item.id,kind:event.kind,sourceId:event.sourceId});
+ announce(s,event.id,'acquired',faction,holderId||event.officerId,cityId,(OFFICER_BY_ID[event.officerId]?.name||mapNode(s,cityId)?.name||'本方')+(event.kind==='capture'?'缴获':'发现')+treasureDesign(item.id,s).name+'。',{treasureId:item.id,kind:event.kind,sourceId:event.sourceId});
 }
 export function finishTreasureTurn(s){
  const t=state(s),turn=Math.floor((day(s)-1)/10)+1;if(!t)return;
@@ -155,10 +180,13 @@ export function settleBattleTreasures(s,r,candidates){
  const enemy=b.sides[1-winner].units.some(u=>u.bondEntry&&!u.isDecoy&&u.initial>0);
  if(carrier&&enemy&&cityId){
   if(candidates.length){
-   const selected=candidates[Math.floor(random(s)*candidates.length)],target=b.sides[1-winner].units.find(u=>u.id===selected.holderId),plunder=fighters.filter(u=>hasStrategicTrait(u,'treasureCapture')&&(u.treasureDamage?.[target.id]||0)>=target.initial*TREASURE_RULES.plunderDamage).sort((a,b)=>(b.treasureDamage?.[target.id]||0)-(a.treasureDamage?.[target.id]||0)||a.id.localeCompare(b.id))[0];
+   candidates=candidates.filter(c=>treasureRecord(s,c.id)?.state!=='treasury');
+   const selected=candidates.length?candidates[Math.floor(random(s)*candidates.length)]:null,target=selected&&b.sides[1-winner].units.find(u=>u.id===selected.holderId),plunder=target&&fighters.filter(u=>hasStrategicTrait(u,'treasureCapture')&&(u.treasureDamage?.[target.id]||0)>=target.initial*TREASURE_RULES.plunderDamage).sort((a,b)=>(b.treasureDamage?.[target.id]||0)-(a.treasureDamage?.[target.id]||0)||a.id.localeCompare(b.id))[0];
+   if(selected){
    const e=rollEvent(s,'battle:'+r.id+':capture','capture',faction,selected,plunder?TREASURE_RULES.plunderChance:TREASURE_RULES.captureChance,plunder?.id||carrier.id,selected.holderId);
    if(e)e.battleSource={battleId:r.id,enemyId:target.id,initial:target.initial,damage:plunder?.treasureDamage?.[target.id]||0,entryTick:plunder?.bondEntry.tick??carrier.bondEntry.tick};
    if(e?.won){receive(s,treasureRecord(s,selected.id),faction,cityId,carrier.id,e);awards.push(selected.id);}
+   }
   }
   const pool=atHidden(s,cityId).filter(t=>!candidates.some(c=>c.id===t.id));
   if(!awards.length&&pool.length&&discoveryAvailable(s,faction)){
@@ -171,13 +199,14 @@ export function settleBattleTreasures(s,r,candidates){
  t.events.push({id:'battle:'+r.id+':done',day:day(s),kind:'settled',faction,treasureId:null,officerId:null});return awards;
 }
 export function manageTreasuresAI(s){
+ if(!isAITurnStart(s))return;
  const t=state(s);if(!t)return;
- for(const item of t.items.filter(t=>['city','person'].includes(t.state))){
+ for(const item of t.items.filter(t=>t.state==='treasury')){
   const at=treasureLocation(s,item),faction=at.faction;if(!isAIControlled(s,faction)||treasureDistributionError(s,item.id,faction))continue;
   const current=item.state==='person'?treasureOfficer(s,item.holderId):null;
-  if(current?.unit.treasureId)continue;
-  const candidates=treasureOfficerRows(s).filter(o=>!o.unit.treasureId&&treasureRecipient(s,o.unit.id,faction));
-  const d=treasureDesign(item.id),good=o=>d.kind==='bond'?!!treasureBondBonus({...o.unit,treasureId:item.id},bondLevels(o.unit)):d.status==='longRange'?['archer','crossbow','longbow'].includes(o.unit.type):true;
+  if(current&&treasureInSlot(current.unit,treasureSlot(item.id)))continue;
+  const candidates=treasureOfficerRows(s).filter(o=>!treasureInSlot(o.unit,treasureSlot(item.id))&&treasureRecipient(s,o.unit.id,faction));
+  const d=treasureDesign(item.id,s),good=o=>d.kind==='bond'?treasureBondBonuses({...o.unit,treasureIds:[...equippedTreasureIds(o.unit),item.id],treasureId:undefined,...(s.treasureDesigns?{treasureDesigns:{...o.unit.treasureDesigns,[item.id]:d}}:{})},bondLevels(o.unit)).some(b=>b.id===d.bondId):d.status==='longRange'?['archer','crossbow','longbow'].includes(o.unit.type):true;
   const selected=candidates.filter(good).sort((a,b)=>Number(b.unit.troops>0)-Number(a.unit.troops>0)||a.unit.id.localeCompare(b.unit.id))[0];
   if(selected)grantTreasure(s,item.id,selected.unit.id,{faction,automatic:true,equip:true});
  }
@@ -187,14 +216,16 @@ export function validateTreasures(s,fail){
  const ids=new Set(),rows=treasureOfficerRows(s),get=id=>rows.find(o=>o.unit.id===id);
  for(const item of t.items){
   fail(item&&TREASURE_DESIGNS[item.id]&&!ids.has(item.id),'宝物实体重复或未知');ids.add(item.id);
-  fail(['absent','hidden','city','person','captive'].includes(item.state),'宝物位置状态无效');
-  if(['absent','hidden','city'].includes(item.state))fail(item.holderId===null&&s.cities.some(c=>c.id===item.cityId)&&!Object.hasOwn(item,'delivery'),'宝物城市引用无效');
+  fail(['absent','hidden','treasury','person','captive'].includes(item.state),'宝物位置状态无效');
+  if(item.state==='treasury')fail(item.holderId===null&&item.cityId===null&&typeof item.factionId==='string'&&item.factionId!=='neutral'&&s.cities.some(c=>c.owner===item.factionId),'宝物国库归属无效');
+  else if(['absent','hidden'].includes(item.state))fail(item.holderId===null&&s.cities.some(c=>c.id===item.cityId)&&!Object.hasOwn(item,'delivery'),'宝物城市引用无效');
   else{const o=get(item.holderId);fail(!!o&&item.cityId===null,'宝物携带者无效');
-   if(item.state==='person')fail(!['dead','unavailable','captive'].includes(o.kind)&&!Object.hasOwn(item,'delivery'),'宝物持有人状态无效');
+   fail(t.items.filter(t=>['person','captive'].includes(t.state)&&t.holderId===item.holderId&&treasureSlot(t.id)===treasureSlot(item.id)).length===1,'每名武将每类仅可持有一件宝物');
+   if(item.state==='person')fail(!['dead','unavailable','captive'].includes(o.kind)&&equippedTreasureIds(o.unit).includes(item.id)&&!Object.hasOwn(item,'delivery'),'宝物持有与装备必须一致');
    if(item.state==='captive')fail(o.kind==='captive'&&!Object.hasOwn(item,'delivery'),'宝物封存状态无效');
   }
  }
- const equipped=new Set();for(const o of rows){fail(validTreasureId(o.unit.treasureId),'武将宝物无效');if(!o.unit.treasureId)continue;const item=treasureRecord(s,o.unit.treasureId);fail(item.state==='person'&&item.holderId===o.unit.id&&!equipped.has(item.id),'宝物装备与原物不一致');equipped.add(item.id);}
+ const equipped=new Set();for(const o of rows){fail(validTreasureLoadout(o.unit),'武将每类宝物装备无效');for(const id of equippedTreasureIds(o.unit)){const item=treasureRecord(s,id);fail(item.state==='person'&&item.holderId===o.unit.id&&!equipped.has(item.id),'宝物装备与原物不一致');equipped.add(item.id);}}
  for(const o of s.campaign.idle)fail(!o.cargo?.treasureIds,'不再使用宝物货队');
  fail(t.lastDiscovery&&Object.values(t.lastDiscovery).every(n=>integer(n,day(s)))&&t.lastTurn&&Object.values(t.lastTurn).every(n=>integer(n,Math.floor((day(s)-1)/10)+1)),'宝物获取日期无效');
  fail(Array.isArray(t.sources)&&new Set(t.sources.map(x=>x.id)).size===t.sources.length&&t.sources.every(x=>typeof x.id==='string'&&DOMESTIC_ACTION_DESIGNS[x.key]&&OFFICER_BY_ID[x.officerId]&&s.cities.some(c=>c.id===x.cityId)&&mapNode(s,x.siteId)&&integer(x.day,day(s))&&x.day>0&&typeof x.eye==='boolean'&&(!x.eye||hasStrategicTrait({id:x.officerId},'treasureDiscovery')&&EYE_ACTIONS.includes(x.key))),'宝物内政来源无效');
@@ -206,3 +237,4 @@ export function validateTreasures(s,fail){
   if(e.won)fail(s.cities.some(c=>c.id===e.cityId)&&(e.recipientId===null||!!OFFICER_BY_ID[e.recipientId]),'宝物接收凭据无效');
   fail(typeof e.id==='string'&&integer(e.day,day(s))&&e.day>0&&['grant','capture','discovery','settled'].includes(e.kind)&&typeof e.faction==='string'&&(e.treasureId===null||!!TREASURE_DESIGNS[e.treasureId])&&(e.officerId===null||!!OFFICER_BY_ID[e.officerId]),'宝物结算来源无效');if(e.roll!==undefined)fail(Number.isFinite(e.roll)&&e.roll>=0&&e.roll<1&&[.02,.04,.05,.10].includes(e.probability)&&typeof e.won==='boolean'&&e.won===(e.roll<e.probability),'宝物判定或随机结果无效');}
 }
+import {isAITurnStart} from './ai-turn.mjs';

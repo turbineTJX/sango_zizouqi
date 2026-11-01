@@ -1,3 +1,4 @@
+import {chooseAssignment} from './assignment-picker-ui-helpers.mjs';
 import assert from 'node:assert/strict';
 import {spawn} from 'node:child_process';
 import {mkdir,writeFile} from 'node:fs/promises';
@@ -44,7 +45,7 @@ try{
  };
 
  await cityCommand('xuchang','military','expedition');
- assert.equal(await page.locator('.expedition-selection').count(),1);assert.match(await page.locator('.expedition-selection thead').first().innerText(),/统率[\s\S]*战法[\s\S]*羁绊/);
+ assert.equal(await page.locator('.expedition-selection').count(),1);assert.match(await page.locator('.expedition-selection thead').first().innerText(),/统／武／智[\s\S]*战法[\s\S]*羁绊/);
  const unit=page.locator('[data-command-army-unit]:not(:disabled)').first(),unitId=await unit.getAttribute('data-command-army-unit');
  await unit.check();assert.ok(await unit.evaluate(el=>el===document.activeElement),'selecting a unit must retain keyboard focus');
  await page.keyboard.press('Space');assert.equal(await unit.isChecked(),false);await page.keyboard.press('Space');assert.equal(await unit.isChecked(),true);
@@ -96,13 +97,13 @@ try{
 
  await page.setViewportSize({width:1440,height:900});await page.locator('.world-commands [data-action="scout-open"]').click();
  const city='town-8',officer=scoutCandidates(initial,city)[0].unit.id,target=scoutTargets(initial,city)[0].id;
- await page.locator('#scout-city').focus();await page.locator('#scout-city').selectOption(city);
+ await page.locator('#scout-city').focus();await chooseAssignment(page,'#scout-city',city);
  assert.ok(await page.locator('#scout-city').evaluate(el=>el===document.activeElement));
  await page.keyboard.press('Tab');assert.ok(await page.locator('#scout-officer').evaluate(el=>el===document.activeElement));
- await page.locator('#scout-officer').selectOption(officer);await page.keyboard.press('Tab');assert.ok(await page.locator('#scout-target').evaluate(el=>el===document.activeElement));
- await page.locator('#scout-target').selectOption(target);assert.ok(await action('scout-dispatch').isEnabled());
+ await chooseAssignment(page,'#scout-officer',officer);await page.keyboard.press('Tab');assert.ok(await page.locator('#scout-target').evaluate(el=>el===document.activeElement));
+ await chooseAssignment(page,'#scout-target',target);assert.ok(await action('scout-dispatch').isEnabled());
  await layout('scouting',844,390);
- await page.locator('#scout-city').selectOption('xuchang');assert.equal(await page.locator('#scout-officer').inputValue(),'');assert.equal(await page.locator('#scout-target').inputValue(),'');assert.ok(await action('scout-dispatch').isDisabled());
+ await chooseAssignment(page,'#scout-city','xuchang');assert.equal(await page.locator('#scout-officer').getAttribute('data-selected'),'');assert.equal(await page.locator('#scout-target').getAttribute('data-selected'),'');assert.ok(await action('scout-dispatch').isDisabled());
  await page.keyboard.press('Escape');assert.equal(await saved(),original);
  checks.push('scouting source/officer/target keyboard flow, upstream reset, landscape map and fixed dispatch');
  assert.deepEqual(errors,[]);

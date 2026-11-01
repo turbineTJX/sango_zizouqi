@@ -1,5 +1,5 @@
 import {plannedGrain} from './strategic-intent.mjs';
-import {armyStrategicTrait,hasStrategicTrait,strategicTraits} from './strategic-traits.mjs';
+import {armyStrategicTrait,hasStrategicTrait} from './strategic-traits.mjs';
 import {redirectRetreat} from './strategic-retreat.mjs';
 import {rallyWithdrawn} from './army-rally.mjs';
 import {TACTICS} from './engine.mjs';
@@ -13,31 +13,45 @@ import {resolveOfficerLoss,personnelEvent,sendOfficerHome} from './officer-fates
 import {loseTreasureTransport} from './treasures.mjs';
 import {transportMerit,settleMeritCapacity,transportRelievesShortage} from './campaign-merit.mjs';
 import {findCampaignRoute} from './strategic-campaign.mjs';
-import {roadCost,roadDistance,validMapRoute,threatenedTransportRoute} from './strategic-movement.mjs';
+import {roadCost,roadDistance,chosenRoad,movementPoints,validMapRoute,threatenedTransportRoute} from './strategic-movement.mjs';
 import {intelligenceWorld} from './strategic-vision.mjs';
 import {cityFoodRequirement} from './city-logistics.mjs';
 const town=mapNode;
 export const PERSONNEL_SPEED=MOVEMENT_RULES.personnel.light;
-export const TRANSPORT_SPEED=MOVEMENT_RULES.personnel.transport;
-export const isTransport=o=>(!!o.destination||o.retreating)&&(o.unit.troops>0||o.unit.wounded>0||o.cargo?.gold>0||o.cargo?.grain>0||o.cargo?.manpower>0||!!o.convoyCycle);
+// A common infantry formation is the reference for every convoy, regardless
+// of its cargo, carried troop type, officer traits or empty cycle return.
+export function transportSpeed(terrain='land'){
+ const r=MOVEMENT_RULES.personnel.transport;
+ return movementPoints({units:[{id:'transport-reference',type:r.troop,troops:1,leadership:r.leadership,equipment:{ship:r.ship}}],leader:'transport-reference',morale:r.morale,hunger:0,travel:{terrain}})*r.armySpeedFactor;
+}
+export const TRANSPORT_SPEED=transportSpeed();
+export const isTransport=o=>!o.returningHome&&(!!o.destination||o.retreating)&&(o.journey?.transport||o.unit.troops>0||o.unit.wounded>0||o.cargo?.gold>0||o.cargo?.grain>0||o.cargo?.manpower>0||!!o.convoyCycle);
 export const lightPersonnelSpeed=u=>PERSONNEL_SPEED;
-export const personnelSpeed=o=>isTransport(o)?TRANSPORT_SPEED*Math.max(1,...(!o.retreating&&(o.cargo?.grain>0||o.convoyCycle)?strategicTraits(o.unit).filter(t=>['relayCargo','cycleCargo'].includes(t.strategic.effect)).map(t=>t.strategic.speed||1):[])):lightPersonnelSpeed(o.unit);
+export const personnelSpeed=(o,terrain='land')=>isTransport(o)?transportSpeed(terrain):lightPersonnelSpeed(o.unit);
+export function currentPersonnelSpeed(s,o){const to=o.journey?.route[0];return personnelSpeed(o,to?chosenRoad(s,o.location,to)?.terrain:'land');}
 export function startPersonnelJourney(s,o,path=null){
- if(isTransport(o)&&!o.retreating&&o.convoyCycle?.leg!=='return'&&!o.meritTransport)o.meritTransport={id:`transport:${o.unit.id}:${s.campaign.day}:${s.campaign.activity?.nextSequence||0}`,source:o.location,target:o.relayDestination||o.destination,troopsCredited:false};
+ if(isTransport(o)&&!o.retreating&&!o.returningHome&&o.convoyCycle?.leg!=='return'&&!o.meritTransport)o.meritTransport={id:`transport:${o.unit.id}:${s.campaign.day}:${s.campaign.activity?.nextSequence||0}`,source:o.location,target:o.relayDestination||o.destination,troopsCredited:false};
  const route=path||findCampaignRoute(s,o.location,o.destination,isTransport(o)?o.faction:null);
- o.journey={route:route||[],progress:0,blocked:route?'':'道路不通'};
+ o.journey={route:route||[],progress:0,blocked:route?'':'道路不通',...(isTransport(o)?{transport:true}:{})};
  updatePersonnelETA(s,o);
 }
-// A relay finishes its handoff before continuing on the following day.
-// Preview and live ETA share the real carrier speed, including cargo traits.
+// Convoys use the army's one-leg-per-day rule and each road's actual terrain.
+// Light personnel retain their continuous fast travel across road nodes.
 export function personnelRouteDays(s,o,route,{progress=0,relay=null}={}){
- let from=o.location,cost=-progress,days=0;const speed=personnelSpeed(o);
+ let from=o.location,cost=-progress,days=0;
+ if(isTransport(o)){
+  for(const to of route){const road=chosenRoad(s,from,to);if(!road)return Infinity;days+=Math.ceil(Math.max(0,road.cost-progress)/personnelSpeed(o,road.terrain));progress=0;from=to;}
+  return days;
+ }
+ const speed=personnelSpeed(o);
  for(const to of route){cost+=roadCost(s,from,to);from=to;if(to===relay){days+=Math.ceil(cost/speed);cost=0;}}
  return days+Math.ceil(cost/speed);
 }
-function updatePersonnelETA(s,o){
- o.remainingDays=Math.max(1,personnelRouteDays(s,o,o.journey.route,{progress:o.journey.progress}));
+export function remainingPersonnelDays(s,o){
+ if(!o.journey||o.journey.blocked)return o.remainingDays;
+ return Math.max(1,personnelRouteDays(s,o,o.journey.route,{progress:o.journey.progress}));
 }
+function updatePersonnelETA(s,o){o.remainingDays=Math.max(1,personnelRouteDays(s,o,o.journey.route,{progress:o.journey.progress}));}
 function handoffGrain(s,o,traffic,t0=0,t1=1){
  if(!o.cargo?.grain||o.journey.progress!==0||transportEnemy(s,o,o.location,0,0,t0,t1,traffic))return;
  for(const a of s.armies.filter(a=>a.faction===o.faction&&!a.disbanded&&!a.travel&&a.location===o.location&&armyStrategicTrait(a,'receiveGrain')&&!s.campaign.battles.some(r=>!r.settled&&r.armyIds.includes(a.id))).sort((a,b)=>a.id.localeCompare(b.id))){const n=Math.max(0,Math.min(o.cargo.grain,a.supplyCapacity-a.supply));a.supply+=n;o.cargo.grain-=n;}
@@ -45,12 +59,16 @@ function handoffGrain(s,o,traffic,t0=0,t1=1){
 // Position uses the same normalized road distance as army map projections.
 export function transportProxy(s,o){
  const to=o.journey?.route[0],cost=to?roadCost(s,o.location,to):0;
- return {id:'transport:'+o.unit.id,name:o.unit.name+(o.retreating?'撤离队':'运输队'),faction:o.faction,units:[o.unit],location:o.location,
+ return {id:'transport:'+o.unit.id,name:o.unit.name+(o.retreating?'撤离队':'运输队'),faction:o.faction,units:[o.unit],leader:o.unit.id,morale:MOVEMENT_RULES.personnel.transport.morale,location:o.location,route:[...(o.journey?.route||[])],
   travel:to?{from:o.location,to,road:'main',progress:roadDistance(s,o.location,to)*o.journey.progress/cost}:null,
   transport:o,task:o.journey?.blocked||(o.retreating?'撤离':'运输')};
 }
 export function advancePersonnel(s,o,traffic=[],dayFraction=1){
  if(!o.destination&&!o.retreating)return false;
+ if(o.returningHome&&town(s,o.destination)?.owner!==o.faction){
+  const next=o.journey.route[0],edge=next?{from:o.location,to:next,fraction:o.journey.progress/roadCost(s,o.location,next)}:null;
+  s.campaign.idle=s.campaign.idle.filter(x=>x!==o);sendOfficerHome(s,o.unit,o.faction,o.location,{edge,reason:'原归城失守，改道返城'});return false;
+ }
  if(o.retreating&&!redirectRetreat(s,o)){
   const next=o.journey.route[0]||o.location,p=next===o.location?0:o.journey.progress/roadCost(s,o.location,next);
   const hit=transportEnemy(s,o,next,p,p,0,dayFraction,traffic);
@@ -63,9 +81,12 @@ export function advancePersonnel(s,o,traffic=[],dayFraction=1){
  handoffGrain(s,o,traffic,0,dayFraction);
 
  if(town(s,o.destination).owner!==o.faction&&!isTransport(o)){const edge=j.route.length?{from:o.location,to:j.route[0],fraction:j.progress/roadCost(s,o.location,j.route[0])}:null;s.campaign.idle=s.campaign.idle.filter(x=>x!==o);sendOfficerHome(s,o.unit,o.faction,o.location,{edge,reason:o.movementReason||'改道返城'});return false;}
- if(!j.route.length&&o.location!==o.destination)startPersonnelJourney(s,o);
+ if(!j.route.length&&o.location!==o.destination)startPersonnelJourney(s,o,o.returningHome?findCampaignRoute(s,o.location,o.destination):null);
  const move=o.journey;
- const speed=personnelSpeed(o);let budget=speed*dayFraction;
+ const convoy=isTransport(o),speed=currentPersonnelSpeed(s,o);let budget=speed*dayFraction;
+ // Withdrawn convoys advance in battle steps. Reaching a road node still ends
+ // their movement for this day, just as it does for a daily army march.
+ if(convoy&&move.haltedDay===s.campaign.day){const hit=transportEnemy(s,o,o.location,0,0,0,dayFraction,traffic);if(hit){loseTransport(s,o,hit,o.location,0);return false;}budget=0;}
  while(move.route.length&&budget>0){
   const next=move.route[0];
   const cost=roadCost(s,o.location,next),used=Math.min(budget,cost-move.progress),from=move.progress/cost,to=(move.progress+used)/cost,t0=dayFraction-budget/speed,t1=t0+used/speed;
@@ -74,7 +95,7 @@ export function advancePersonnel(s,o,traffic=[],dayFraction=1){
    if(hit){loseTransport(s,o,hit,next,from);return false;}
   }
   move.progress+=used;budget-=used;if(used>0)delete o.retreatOrigin;
-  if(move.progress>=cost){o.location=next;move.route.shift();move.progress=0;handoffGrain(s,o,traffic,t1,t1);}else break;
+  if(move.progress>=cost){o.location=next;move.route.shift();move.progress=0;handoffGrain(s,o,traffic,t1,t1);if(convoy){if(move.route.length){if(dayFraction<1)move.haltedDay=s.campaign.day;const hit=transportEnemy(s,o,o.location,0,0,t1,dayFraction,traffic);if(hit){loseTransport(s,o,hit,o.location,0);return false;}}break;}}else break;
  }
  if(o.location===o.destination&&!move.route.length&&o.relayDestination){
   const final=o.relayDestination;if(town(s,final)?.owner!==o.faction||town(s,o.location)?.owner!==o.faction){move.blocked='接力据点失守，等待改令';o.remainingDays=1;return false;}
@@ -96,7 +117,7 @@ export function advancePersonnel(s,o,traffic=[],dayFraction=1){
   if(o.cargo?.grain>0){move.blocked='目的地粮仓不足，等待卸载';o.remainingDays=1;return false;}
   if(o.convoyCycle&&--o.convoyCycle.remaining>0){const plan=o.convoyCycle,route=plan.route?[...plan.route].reverse().slice(1):findCampaignRoute(s,o.location,plan.source,o.faction);if(town(s,plan.source)?.owner===o.faction&&route&&validMapRoute(s,o.location,plan.source,route,o.faction,'trade')&&!threatenedTransportRoute(intelligenceWorld(s,o.faction),o.location,route,o.faction)){delete o.meritTransport;o.destination=plan.source;plan.leg='return';startPersonnelJourney(s,o,route);return false;}}
   delete o.convoyCycle;
-  o.destination=null;o.remainingDays=0;o.unit.homeCity=c.id;delete o.journey;delete o.cargo;delete o.retreating;delete o.retreatOrigin;delete o.retreatFormation;
+  o.destination=null;o.remainingDays=0;o.unit.homeCity=c.id;delete o.journey;delete o.cargo;delete o.retreating;delete o.retreatOrigin;delete o.retreatFormation;delete o.returningHome;
   delete o.meritTransport;
   if(o.unit.troops>0||o.unit.wounded>0){c.units.push(o.unit);s.campaign.idle=s.campaign.idle.filter(x=>x!==o);}
   settleMeritCapacity(s);
@@ -109,10 +130,11 @@ function loseTransport(s,o,hit,next,from){
  const fraction=hit.fraction??from;
  if(o.meritTransport){const m=o.meritTransport;transportMerit(s,o.unit,o.faction,m.source,m.target,{...o.cargo,manpower:(o.cargo?.manpower||0)+o.unit.troops+o.unit.wounded},{sourceId:m.id+':loss',failed:true,reason:'运输遇敌损失'});}
  personnelEvent(s,`transport-loss:${o.unit.id}:${s.campaign.day}`,'TRANSPORT_LOST',o.unit,`${o.unit.name}${o.retreating?'撤离队':'运输队'}遭遇敌军，部队、伤兵及物资全部损失。`);
- resolveOfficerLoss(s,{unit:o.unit,faction:o.faction,location:o.location,enemy:hit.faction,eventId:`transport-fate:${o.unit.id}:${s.campaign.day}`,edge:next!==o.location?{from:o.location,to:next,fraction}:null,reason:o.retreating?'撤离队遇敌':'运输队遇敌'});
+ resolveOfficerLoss(s,{unit:o.unit,faction:o.faction,location:o.location,enemy:hit.faction,eventId:`transport-fate:${o.unit.id}:${s.campaign.day}`,edge:next!==o.location?{from:o.location,to:next,fraction}:null,reason:o.retreating?'撤离队遇敌':'运输队遇敌',context:'transport'});
 }
 export function validatePersonnelJourney(s,o){
  const fail=ok=>{if(!ok)throw new Error('人才移动或运输存档无效');};
+ if(o.returningHome!==undefined)fail(o.returningHome===true&&!!o.destination&&!o.retreating&&!o.cargo&&!o.unit.troops);
  if(o.meritTransport){const m=o.meritTransport;fail(!!o.destination&&!o.retreating&&typeof m.id==='string'&&m.id.startsWith('transport:')&&town(s,m.source)&&town(s,m.target)&&m.source!==m.target&&typeof m.troopsCredited==='boolean');}
  if(o.convoyCycle){const p=o.convoyCycle;fail(hasStrategicTrait(o.unit,'cycleCargo')&&!o.unit.troops&&!o.unit.wounded&&!!o.cargo&&!!o.destination&&['out','return'].includes(p.leg)&&town(s,p.source)&&town(s,p.target)&&p.source!==p.target&&Number.isSafeInteger(p.batch)&&p.batch>0&&Number.isInteger(p.remaining)&&p.remaining>0&&p.remaining<=5&&o.destination===(p.leg==='out'?p.target:p.source)&&o.cargo.manpower===0&&o.cargo.grain<=p.batch);}
  if(o.relayDestination!==undefined)fail(hasStrategicTrait(o.unit,'relayCargo')&&!!o.destination&&!!o.cargo&&town(s,o.relayDestination)&&o.relayDestination!==o.destination);
@@ -125,10 +147,12 @@ export function validatePersonnelJourney(s,o){
  fail((!!o.destination||!!o.retreating)===!!o.journey);
  if(!o.journey)return;
  const j=o.journey;fail((!!o.destination||o.retreating)&&Array.isArray(j.route)&&j.route.length<=mapNodes(s).length&&typeof j.blocked==='string'&&Number.isFinite(j.progress)&&j.progress>=0);
+ if(j.transport!==undefined)fail(j.transport===true&&!o.returningHome);
+ if(j.haltedDay!==undefined)fail(Number.isSafeInteger(j.haltedDay)&&j.haltedDay>=1&&j.haltedDay<=s.campaign.day);
  let from=o.location;for(const to of j.route){fail(Number.isFinite(roadCost(s,from,to)));from=to;}
  fail(!j.route.length?j.progress===0&&(o.location===o.destination||!!j.blocked):(from===o.destination||o.retreating&&j.blocked==='无合法撤离据点')&&j.progress<roadCost(s,o.location,j.route[0]));
 }
-// Enemy sweeps and convoy segments use the same day-time interval, including multi-edge express travel.
+// Enemy sweeps and convoy segments use the same day-time interval.
 export function transportEnemy(s,o,next,p0,p1,t0,t1,traffic=[]){
  const hits=[],from=o.location;
  const crossings=traffic.length?traffic:s.armies.filter(a=>!a.disbanded&&a.units.some(u=>u.troops>0)).map(a=>({id:a.id,faction:a.faction,location:a.location,edge:a.travel?{from:a.travel.from,to:a.travel.to,road:a.travel.road||'main',p0:a.travel.progress/roadDistance(s,a.travel.from,a.travel.to),p1:a.travel.progress/roadDistance(s,a.travel.from,a.travel.to),until:1}:null}));
@@ -141,6 +165,7 @@ export function transportEnemy(s,o,next,p0,p1,t0,t1,traffic=[]){
   }
   if(!e.edge){if(e.location===from&&p0===0)hits.push({faction:e.faction,time:t0,fraction:0});if(e.location===next&&p1>=1)hits.push({faction:e.faction,time:t1,fraction:1});continue;}
   const x=e.edge;
+  if(from===next&&p0===0&&p1===0&&x.to===from&&x.p1>=1&&x.until<=t1){hits.push({faction:e.faction,time:Math.max(t0,x.until),fraction:0});continue;}
   // A convoy can meet a force arriving from a different branch at their shared junction.
   if(x.p1>=1){
    if(x.to===next&&p1>=1&&t1>=x.until)hits.push({faction:e.faction,time:t1,fraction:1});

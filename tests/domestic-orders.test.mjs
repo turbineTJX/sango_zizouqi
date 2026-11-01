@@ -5,7 +5,7 @@ import assert from 'node:assert/strict';
 import {newCampaign,beginExecution,advanceCampaignDay,advanceCampaignStep,activeBattles,chooseEncounter,serializeCampaign,validateCampaign,splitCampaignArmy,mergeCampaignArmies} from './helpers/auto-domestic-campaign.mjs';
 import {issueCommand} from '../engine.mjs';
 import {ACTIONS,assignDomestic,assignmentFor,cancelDomestic,removeDomesticOrder,beginDomesticTurn} from '../domestic.mjs';
-import {requestStrategicOrder,resolveStrategicOrders} from '../strategic-orders.mjs';
+import {requestStrategicOrder,requestFactionOrder,resolveStrategicOrders} from '../strategic-orders.mjs';
 const restore=s=>validateCampaign(JSON.parse(serializeCampaign(s)));
 function advance(s,target){for(let i=0;i<500&&s.campaign.day<target;i++){if(s.campaign.phase==='planning')beginExecution(s);for(const r of activeBattles(s).filter(r=>r.awaiting))chooseEncounter(s,r.id,false);advanceCampaignDay(s);}assert.equal(s.campaign.day,target);}
 test('interruption prompt has no side effects; immediate reassignment archives the interrupted work',()=>{
@@ -22,7 +22,7 @@ test('deferred reassignment persists and switches after real completion with det
 });
 test('queued departure reserves the exact garrison and leaves only after its action completes',()=>{
  const {s,army,id}=busyFixture(),count=army.units.length;
- assert.equal(requestStrategicOrder(s,{...expeditionFrom(army),target:'chenliu',policy:'main'},'after').queued,true);
+ assert.equal(requestFactionOrder(s,s.campaign.playerFaction,{...expeditionFrom(army),target:'chenliu',policy:'main'},'after').queued,true);
  assert.equal(army.route.length,0);assert.ok(splitCampaignArmy(s,army.id,[id]));assert.equal(s.armies.filter(a=>a.faction==='cao').length,0);
  beginDomesticTurn(s);assert.equal(army.units.length,count);restore(s);
  const copy=restore(s);advance(s,61);advance(copy,61);assert.equal(serializeCampaign(s),serializeCampaign(copy));assert.equal(s.campaign.domestic.orders.length,0);assert.equal(assignmentFor(s,id),undefined);assert.ok(s.armies.some(a=>a.units.some(u=>u.id===id)&&a.target==='chenliu'));
@@ -31,7 +31,7 @@ test('queued departure reserves the exact garrison and leaves only after its act
 test('waiting departure prevents idle members from picking new work across turns',()=>{
  const {s,army,id}=busyFixture(),other=army.units.find(u=>u.id!==id).id;
  assert.equal(assignDomestic(s,'xuchang','agriculture',other),null);
- requestStrategicOrder(s,{...expeditionFrom(army),target:'chenliu'},'after');beginExecution(s);
+ requestFactionOrder(s,s.campaign.playerFaction,{...expeditionFrom(army),target:'chenliu'},'after');beginExecution(s);
  assert.equal(assignmentFor(s,other).action,null);assert.ok(assignmentFor(s,id).action);restore(s);
 });
 test('cancelling or replacing a queued order leaves active work unchanged until explicitly interrupted',()=>{
@@ -65,7 +65,7 @@ test('a failed ordinary attempt is finished work and releases a deferred dismiss
 });
 test('a queued garrison defends an actual siege and interrupts work and cancels its deferred departure',()=>{
  const {s,id,army}=busyFixture(19),enemy=invadeFromGuandu(s);
- requestStrategicOrder(s,{...expeditionFrom(army),target:'chenliu'},'after');enemy.route=['xuchang'];enemy.target='xuchang';beginExecution(s);
+ requestFactionOrder(s,s.campaign.playerFaction,{...expeditionFrom(army),target:'chenliu'},'after');enemy.route=['xuchang'];enemy.target='xuchang';beginExecution(s);
  for(let i=0;i<10&&!activeBattles(s).some(r=>r.cityId==='xuchang');i++)advanceCampaignDay(s);
  const battle=activeBattles(s).find(r=>r.cityId==='xuchang');assert.ok(battle);chooseEncounter(s,battle.id,false);assert.equal(assignmentFor(s,id).action,null);
  advanceCampaignDay(s);assert.equal(assignmentFor(s,id).action,null);assert.equal(s.campaign.domestic.orders.length,0);assert.equal(army.route.length,0);restore(s);

@@ -1,4 +1,5 @@
 import {personalBondsMarkup} from './bond-display.mjs';
+import {aptitudesMarkup} from './aptitude-display.mjs';
 import {abilityButton} from './ability-reference.mjs';
 import {traitChips} from './trait-display.mjs';
 import {sortButton} from './list-sort.mjs';
@@ -18,7 +19,7 @@ export function rosterMarkup({query='',sort='source',direction,kind='all',page=0
  const rows=matches.slice(page*24,(page+1)*24);
  return `
  <div class="catalog-toolbar"><label>搜索<input id="catalog-query" type="search" value="${esc(query)}" placeholder="姓名、字或编号" autocomplete="off"></label>
- <label>来源<select id="catalog-kind">${[['all','全部人物'],['common','武将库']].map(([v,n])=>`<option value="${v}" ${v===kind?'selected':''}>${n}</option>`).join('')}</select></label>
+ <label>来源<select id="catalog-kind">${[['all','全部人物'],['common','武将库'],['custom','自建武将']].map(([v,n])=>`<option value="${v}" ${v===kind?'selected':''}>${n}</option>`).join('')}</select></label>
  <div class="field-sort-bar" aria-label="点击字段排序">${[['source','来源编号'],['name','姓名'],...stats].map(([k,n])=>sortButton('catalog',k,n,sort,direction||(sort==='source'?'asc':'desc'))).join('')}</div></div>
  ${picker?'':`<section class="catalog-selection"><b>试炼阵容 ${selected.length} / 6</b>
  <div>${selected.length?selected.map(id=>`<button class="button secondary" data-action="catalog-toggle" data-id="${id}" title="移出阵容">${esc(OFFICER_BY_ID[id]?.name)} ×</button>`).join(''):'尚未选将，在下方卡片加入。'}</div>
@@ -55,14 +56,13 @@ export function officerProfileMarkup(u,scores={},types={}){
 export function officerDetailMarkup(id,scores={},types={},preview=null){
  const u=Object.hasOwn(OFFICER_BY_ID,id)?{...OFFICER_BY_ID[id],...preview}:null;if(!u)return '<p>未找到武将。</p>';
  const s=u.profileSource;
- const aptitude=[['spearLv','枪兵'],['halberdLv','戟兵'],['crossbowLv','弓兵'],['rideLv','骑兵'],['machineLv','兵器'],['waterLv','水军']];
  return `<div class="catalog-detail-heading"><span class="portrait catalog-art-portrait" data-art-portrait="${esc(u.id)}" data-art-scene="detail"><span>${esc(u.name.slice(-1))}</span></span><h3>${esc(u.name)} ${u.courtesy?'<small>字 '+esc(u.courtesy)+'</small>':''}</h3><span>${origin(u)} #${u.sourceId}</span></div>${statMarkup(u)}
  ${officerCommandMarkup(id,u)}
  ${traitMarkup(u)}
  ${officerProfileMarkup(u,scores,types)}
  ${SPECIAL_TACTICS[id]?abilityButton('tactic',SPECIAL_TACTICS[id],TACTICS_BOOK[SPECIAL_TACTICS[id]].name):''}
  <dl class="catalog-facts">${[['登场年',s.yearAvailable??'未载'],['原始忠诚',s.loyalty??'未载']].map(([label,value])=>`<div><dt>${label}</dt><dd>${esc(value)}</dd></div>`).join('')}</dl>
- <h3 class="stats-section-title">兵种适性</h3><div class="catalog-aptitudes">${aptitude.map(([key,label])=>`<span>${label}<b>${['C','B','A','S'][s[key]]??'未载'}</b></span>`).join('')}</div>
+ <h3 class="stats-section-title">兵种适性</h3>${aptitudesMarkup(u)}
  <details class="profile-disclosure"><summary>人物生平</summary><p class="catalog-biography">${esc(u.biography||'暂无记录')}</p></details>
  `;
 }

@@ -1,0 +1,82 @@
+@import "./ui-fonts/font-face.css";
+/* Canonical interface values. See docs/界面设计规范.md.
+   These are UI colors; faction, terrain, bond and combat-effect colors are separate. */
+:root {
+  /* RTK11 dialogue reference: neutral smoke ground, ivory edge/text,
+     jade confined to selection and confirmation rather than every surface. */
+  --ui-canvas: #252426;
+  --ui-panel: #424044;
+  --ui-panel-raised: #514e52;
+  --ui-panel-recessed: #302f33;
+  --ui-row: #3a393d;
+  --ui-row-alt: #403e42;
+  --ui-row-hover: #514f51;
+  --ui-jade: #35473e;
+  --ui-jade-deep: #23372e;
+  --ui-selected: #40564a;
+  --ui-text: #eeeae0;
+  --ui-muted: #cbc6bd;
+  --ui-line: #868178;
+  --ui-line-soft: #5d5958;
+  --ui-edge: #bbb5a5;
+  --ui-bronze: #a49572;
+  --ui-accent: #d8c594;
+  --ui-primary: #425b49;
+  --ui-primary-hover: #526c57;
+  --ui-success: #aac8ad;
+  --ui-danger: #e0a69a;
+  --ui-disabled: #a39e96;
+  --ui-disabled-bg: #39373b;
+  --ui-backdrop: #15141955;
+  --ui-shadow-color: #15131780;
+  --ui-surface-light: #e8e2d31a;
+  --ui-edge-light: #ebe5d047;
+  --ui-edge-dark: #201f22;
+  --ui-silk: url("./ui-materials/ink-silk-panel.png");
+  --ui-fine-grain: url("./ui-materials/ink-grain.svg");
+  --ui-frame-art: url("./ui-materials/cloud-jade-frame.png");
+  --ui-frame-slice: 280;
+  --ui-frame-width: 44px;
+  --ui-frame-outset: 4px;
+  --ui-canvas-fill: linear-gradient(#252426e0,#1d1d20ee), var(--ui-silk);
+  --ui-panel-fill: linear-gradient(#454247d9,#353439e0), var(--ui-silk);
+  --ui-header-fill: linear-gradient(100deg,#3e3c40ec,#2d2d31f0), var(--ui-silk);
+  --ui-control-fill: var(--ui-fine-grain), linear-gradient(#5f5c58,#49484a 38%,#38373b);
+  --ui-primary-fill: var(--ui-fine-grain), linear-gradient(#576952,#425b49 38%,#304535);
+  --ui-frame-shadow: inset 0 0 24px var(--ui-shadow-color), 0 9px 22px var(--ui-shadow-color);
+  --ui-control-shadow: inset 0 1px var(--ui-edge-light), inset 1px 0 var(--ui-edge-light), inset 0 -2px var(--ui-edge-dark), inset -1px 0 var(--ui-edge-dark), 0 1px 2px var(--ui-shadow-color);
+  --ui-title-shadow: 0 1px 1px var(--ui-edge-dark);
+  --ui-font-body: "Sango Serif", "Noto Serif SC", "Songti SC", "SimSun", serif;
+  --ui-font-title: var(--ui-font-body);
+  --ui-font-display: var(--ui-font-body);
+  --ui-weight-body: 500;
+  --ui-weight-label: 600;
+  --ui-weight-strong: 650;
+  --ui-weight-title: 700;
+  --ui-tracking-title: .08em;
+  --ui-tracking-label: .02em;
+  --ui-text-xs: 12px;
+  --ui-text-sm: 14px;
+  --ui-text-base: 16px;
+  --ui-text-section: 18px;
+  --ui-text-title: 24px;
+  --ui-text-title-compact: 20px;
+  --ui-text-page: 30px;
+  --ui-line-height: 1.6;
+  --ui-space-1: 4px;
+  --ui-space-2: 8px;
+  --ui-space-3: 12px;
+  --ui-space-4: 16px;
+  --ui-space-5: 24px;
+  --ui-control-height: 38px;
+  --ui-icon-size: 36px;
+  --ui-touch-height: 42px;
+  --ui-radius: 2px;
+  --ui-control-radius: 3px 9px 3px 9px;
+  --ui-row-height: 38px;
+  --ui-focus: 2px solid var(--ui-accent);
+  --ui-speed: 120ms;
+}
+@media (pointer: coarse) {
+  :root { --ui-control-height: var(--ui-touch-height); --ui-icon-size: var(--ui-touch-height); --ui-row-height: var(--ui-touch-height); }
+}

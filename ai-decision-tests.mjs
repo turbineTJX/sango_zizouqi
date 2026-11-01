@@ -1,6 +1,7 @@
 import {STRATAGEM_DESIGNS} from './data/design/stratagems.mjs';
 // Named behavior tests are required, not just a declaration or an import check.
 const cases=(file,...names)=>names.map(name=>({file:'tests/'+file+'.test.mjs',name}));
+const turnTiming=cases('ai-turn-decisions','every strategic AI controller ignores daily changes and execution pauses until the next planning boundary','newly observed danger waits for the next turn before changing an existing strategic order','a turn-start dated expedition preserves its chosen officers route and appointments through actual deferred execution','AI final diplomatic approval waits for the next planning boundary while negotiation keeps advancing daily','an unmodified national all-AI campaign chooses only at turn starts and resumes deterministically across the boundary');
 const behaviorTests={
  domestic:[...cases('domestic-cooperation','failed research cooperation cannot count rounded progress as a bonus and remains saveable','failed repair cooperation cannot claim saved fractional work as an extra result'),...cases('officer-recommendation','related traits add fifty once regardless of count and never change real attributes','AI secures needed food staffing with shared task scores, preserves appointments and uses each actor once'),...cases('ai-city-budget','a penniless AI city reuses a waiting optional worker for real cash production','voluntary orders retain the last necessary resident food or cash worker'),...cases('ai-domestic-grain-trade','AI grain purchase with fractional stock remains saveable through actual daily execution'),...cases('talent-economy','player and AI autonomous work reject wasteful management and full-warehouse irrigation, without granting predicted income')],
  proposals:[...cases('domestic-proposals','approval rechecks city gold and sites without charging or substituting the original proposal','automatic approval applies to pending and future work and is saved; free operations need no proposal'),...cases('all-ai-campaign','observation crosses turns without approvals and resumes deterministically from its current save'),...cases('ai-domestic-grain-trade','player grain purchase floors fractional warehouse space before approval and save','AI grain purchase floors fractional warehouse space before approval and save')],
@@ -9,11 +10,11 @@ const behaviorTests={
  governor:cases('ai-default-policies','AI governor selection uses the shared ranking and excludes queued local officers'),
  scouting:[...cases('strategic-ai-scouting','AI assigns at most two unique scout targets and uses eligible officers in intelligence order','the complete military planner makes identical faction decisions when only hidden enemy state changes'),...cases('talent-intelligence','cao persuasion decisions ignore hidden loyalty and rival staffing','yuan persuasion decisions ignore hidden loyalty and rival staffing','an actual paid persuasion journey rejects a loyal target, saves its response and waits before retrying')],
  formation:cases('strategic-ai','shared recruitment spends one city quota and the AI treasury only, preserving planned grain'),
- expedition:[...cases('strategic-ai','a winnable attack is refused when casualty replacement is unaffordable','deferred AI departure rechecks the home guard when the original work finishes','offensive grain reservations include home rations and wait for actual supplies'),...cases('strategic-algorithms','an optimistic evaluator cannot override source budgets, staffing or physical supply constraints','a substituted battle model receives dated lawful intelligence, never hidden stocks or RNG'),...cases('strategic-planning','default development and recovery cannot veto a better feasible offensive through the switching margin'),...cases('strategic-opposition','paid emergency defense is estimated from observed gold reserves and quota without creating soldiers','timely nearby field reinforcements raise defense losses and can veto a previously viable attack','observed approaching relief counts fully while armies too late on real roads do not count','potential city relief retains half its garrison and includes arrival during the siege','a known neutral objective includes a timely competing hostile force before treating occupation as free','opposition estimates cannot read hidden city resources officers secret orders or random outcomes','militarily inadequate small variants do not prevent assembling an actually superior legal force','a launched operation rechecks newly observed timely relief before contact and really returns','military evidence survives ordinary all AI save continuation and malformed forecasts fail validation')],
+ expedition:[...cases('strategic-ai','a winnable attack is refused when casualty replacement is unaffordable','deferred AI departure rechecks the home guard when the original work finishes','offensive grain reservations include home rations and wait for actual supplies'),...cases('strategic-algorithms','an optimistic evaluator cannot override source budgets, staffing or physical supply constraints','a substituted battle model receives dated lawful intelligence, never hidden stocks or RNG'),...cases('strategic-planning','default development and recovery cannot veto a better feasible offensive through the switching margin'),...cases('strategic-opposition','paid emergency defense is estimated from observed gold reserves and quota without creating soldiers','timely nearby field reinforcements raise defense losses and can veto a previously viable attack','observed approaching relief counts fully while armies too late on real roads do not count','potential city relief retains half its garrison and includes arrival during the siege','a known neutral objective includes a timely competing hostile force before treating occupation as free','opposition estimates cannot read hidden city resources officers secret orders or random outcomes','militarily inadequate small variants do not prevent assembling an actually superior legal force','a launched operation rechecks overwhelming newly observed relief at the next turn and really returns','military evidence survives ordinary all AI save continuation and malformed forecasts fail validation')],
  routes:cases('strategic-ai','hungry marching columns reverse continuous road progress once without teleporting','travel estimates charge each road separately, matching lost movement at city arrivals'),
  transport:[...cases('strategic-support-ai','AI plans bounded repeat grain shipments, counts future batches and takes each batch from its source','waiting transports recheck the saved route and do not spend resources after a new visible blockade'),...cases('integer-resource-quantities','fractional supply rates move only whole grain without inventing stock or road capacity'),...cases('strategic-staffing','a staffing promise survives real travel and reload, appoints on arrival and completes only after actual work')],
- timing:cases('strategic-ai','a persisted common AI order waits for real domestic work and never creates an army early','recent real interruption protects the next task across reload except when rescue would be missed'),
- diplomacy:[...cases('diplomacy','player and AI approval use the same final proposal, version and lawful preflight without paying early','AI uses real candidates and ruler valuation, never supplies player approval'),...cases('diplomacy-tempo','unrelated diplomatic priorities never generate city exchanges','AI city exchange waits six strategic turns and cannot bypass the departure gate','city exchange requires visible cities and better road connections for both factions')],
+ timing:cases('strategic-ai','a persisted common AI order waits for real domestic work and never creates an army early','departure timing weighs current work and rescue urgency without an interruption cooldown'),
+ diplomacy:[...cases('diplomacy','player and AI approval use the same final proposal, version and lawful preflight without paying early','AI uses real candidates and ruler valuation, never supplies player approval'),...cases('diplomacy-tempo','unrelated diplomatic priorities never generate city exchanges','AI city exchange is available on any turn when observed geography benefits both sides','city exchange requires visible cities and better road connections for both factions')],
  armies:[...cases('battle-decisions','human and AI appointment selection share scores, local candidates and atomic execution','a withdrawing commander leaves a vacancy until real battle settlement and save reload does not appoint early','postbattle human vacancies persist and reject zero troops while AI fills the same legal roles in background','reinforcement councils appoint only arrived local survivors and preserve prior command effects through reload'),...cases('player-ai-decisions','AI remnant merging calls the shared atomic draft and preserves real men and food','background submission cannot waive the same real military conversion fee'),...cases('strategic-management-ai','management capacity counts zero-strength officers so it skips impossible remnant merges'),...cases('integer-resource-quantities','splitting an odd food stock preserves integer shares and their exact total')],
  march:[...cases('march-duration','sub-one daily movement retains its full remaining road time','army itinerary uses each actual land or water speed instead of reusing land speed'),...cases('strategic-management-ai','march AI restores full baggage at home after arrival or a changed unsafe route','forced march needs a real arrival improvement and enough food for the shorter journey','background AI restores a real arrived light column through the paid shared baggage handler'),...cases('integer-resource-quantities','light baggage floors odd capacity and returns whole grain while conserving the warehouse total')],
  support:cases('strategic-support-ai','a visible blockade of an actual supply corridor dispatches real guards and retains city rations','AI reinforcements walk to an ongoing field battle and enter its actual reserve pool'),
@@ -24,16 +25,18 @@ const behaviorTests={
  treasure:[...cases('treasures','AI allocates a city treasure to an eligible officer in another city without a courier'),...cases('ai-default-policies','AI treasure policy retains an existing lawful equipment choice and never rerolls resources')],
  captive:cases('ai-default-policies','AI captive policy holds a guarded prisoner until lawful release and spends no automatic ransom')
 };
+behaviorTests.proposals.push(...cases('domestic-turn-approval','旬初进行后统一提出内政提案，逐项批准前不推进一天且仅按各城实际扣费','内政批准、暂缓及委托审批仅能在旬初窗口办理，窗口外失败不改变状态','旬初审批窗口一经执行关闭，同日暂停或读档不能重开，也拒绝伪造未处理提案','旬内完成已付费研究后可接续无需批准的免费研究，原进度与费用守恒并可确定性读档','旬内可接续预算充足且无需裁决的付费事务，仍从原城真实扣费','旬内完工后只剩需批准事项即保持空闲，不逐日重试，到下一旬才重新提出提案','旬初暂缓或本来空闲的人不会在旬内另行重提或自动接替新工作'));
+for(const category of ['scouting','expedition','transport','diplomacy','armies','march','support','treasure'])behaviorTests[category].push(...turnTiming);
 behaviorTests.expedition.push(...cases('strategic-concentration',
  "partial preparation rejects an assembled roster that cannot traverse its real water route",
  "an insufficient assault force can fund one bounded real preparation without declaring war or inventing arrivals",
  "partial concentration obeys real destination funding and safe donor roads",
- "concentration arrivals stay reserved until a turn review and continuation preserves the fixed deadline",
- "closing unsafe preparation releases claims without teleporting real journeys and prevents immediate shuffling",
+ "concentration arrivals stay reserved until a turn review and continuation preserves its planning estimate",
+ "closing unsafe preparation releases claims without teleporting journeys or adding a timed retry lock",
  "a ready attack on the same objective releases concentration claims before reserving its soldiers",
- "a delayed concentration departure rechecks funding and its remaining fixed travel window",
+ "a delayed concentration departure rechecks funding instead of an elapsed deadline",
  "hidden enemy stocks and battle randomness cannot alter a partial concentration choice",
- "fixed preparation expiry cancels without refreshing itself or moving travelling troops",
+ "passing a preparation estimate does not cancel an actual ongoing journey",
  "concentration validation rejects fractional requirements duplicate claims and deadline resets"));
 behaviorTests.support.push(...cases('strategic-support-ai',
  'support preserves an unrelated offensive when its troops have no route or cannot arrive in time',
@@ -83,7 +86,7 @@ behaviorTests.command.push(...cases('battle-spatial-ai','AI area command ties ro
 behaviorTests.expedition.push(...cases('strategic-tempo',
  'conquest stock value is bounded to fresh observed resources and cannot credit hidden or stale warehouses',
  'large troop formations carry real thirty day rations under the same player and AI stock rules',
- 'war stages follow strategic turns while real funded forces limit campaign and joint operations',
+ 'war capacity follows current funded forces regardless of calendar turn',
  'current training reservations cannot consume every future turn recruitment quota',
  'continuing an affordable attack tolerates bounded changes but never accepts a weaker army',
  'launched operations protect real replacement resources from optional domestic spending',
@@ -94,11 +97,11 @@ behaviorTests.routes.push(...cases('strategic-tempo',
 behaviorTests.expedition.push(...cases('strategic-tempo',
  'sustained refill capacity reduces a long operation burden within a bound without altering losses or food',
  'a stalled middle game front concentrates real troops before the late game without counting arrivals early',
- 'middle game concentration can use more than ten arrived units through legal ten-unit armies',
- 'early game capacity does not enable the middle game concentration fallback',
+ 'current capacity enables coordinated columns before the former late game unlock',
+ 'a funded front can concentrate on the first turn without a calendar unlock',
  'an observed empty city does not acquire a fictional siege after the expedition departs'));
 behaviorTests.expedition.push(...cases('strategic-temperament',
- 'ruler personality and attributes change sampled risk taking while early turns and quiet pressure remain bounded',
+ 'ruler personality and attributes change risk preference without calendar or inactivity bonuses',
  'one ruler preference is drawn per strategic turn and survives a real save and daily continuation',
  'a willing ruler can admit an affordable marginal offensive without changing power losses resources or combat RNG',
  'ruler willingness cannot waive actual supply home guards or casualty replacement costs',
@@ -108,7 +111,7 @@ behaviorTests.expedition.push(...cases('strategic-temperament',
 behaviorTests.expedition.push(...cases('strategic-coordination',
  'central assembly budgets replenishment at its real return depot before reserving distant troops',
  'a recoverable staffing gap retains its original objective and resumes only after real replacement and delivery',
- 'a persistent preparation gap expires without extending the original deadline or creating troops',
+ 'preparation reevaluates actual staffing and funding after its estimate without a timeout',
  'active plan guard repairs can reference a real source depot without borrowing another plans request',
  'a marginal military gap can add real available troops to the same objective only at the next turn review',
  'an imminent real home threat still cancels a preparing attack instead of waiting for promised guards',

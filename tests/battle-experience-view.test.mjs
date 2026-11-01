@@ -4,7 +4,7 @@ import {defaultCustomBattle} from '../custom-battle.mjs';
 import {generateBattle} from '../battle-generator.mjs';
 import {lockDeployment,stepBattle,confirmReinforcementCouncil,validateSave,settleBattle} from '../engine.mjs';
 import {councilArrivals,reinforcementArrivalMarkup,appointmentResultMarkup,battleStrength,participationMarkup} from '../battle-experience-view.mjs';
-import {battleCouncilMarkup} from '../battle-council.mjs';
+import {battleCouncilMarkup,battleReserveBenchMarkup} from '../battle-council.mjs';
 import {OFFICER_BY_ID} from '../officer-catalog.mjs';
 
 test('arrival presentation uses the real newly arrived army and survives save/restore without future units',()=>{
@@ -24,12 +24,18 @@ test('arrival presentation uses the real newly arrived army and survives save/re
  confirmReinforcementCouncil(b);assert.deepEqual(councilArrivals(b),[]);
 });
 
-test('first-team action is available only for prebattle reserves',()=>{
+test('the visible bench separates reserves from settings and marks future arrivals without changing battle state',()=>{
  const d=defaultCustomBattle();d.ownTeam=Object.keys(OFFICER_BY_ID).filter(id=>id!=='shao').slice(0,10).map(id=>({id,type:'spear',troops:3000,level:10}));
  const s=generateBattle(d),b=s.battle;
- assert.match(battleCouncilMarkup(b),/换上首发/);
- lockDeployment(b);b.reinforcementCouncil='open';
- assert.doesNotMatch(battleCouncilMarkup(b),/换上首发/);
+ const reserves=b.sides[0].units.filter(u=>u.status==='reserve'),active=b.sides[0].units.find(u=>u.status==='active');
+ reserves[0].arrivalConfirmed=false;reserves[0].arrivalTick=10;
+ const before=JSON.stringify(b),markup=battleReserveBenchMarkup(b,{armies:s.armies});
+ assert.equal((markup.match(/data-council-unit=/g)||[]).length,reserves.length);
+ assert.match(markup,/reserve-waiting/);assert.match(markup,/待援/);assert.match(markup,/reserve-empty-slot/);
+ assert.ok(!markup.includes(`data-council-unit="${active.id}"`));assert.doesNotMatch(battleCouncilMarkup(b),/data-reserve-bench/);
+ assert.equal(JSON.stringify(b),before);
+ lockDeployment(b);assert.equal(battleReserveBenchMarkup(b),'');
+ b.reinforcementCouncil='open';assert.match(battleReserveBenchMarkup(b),/data-reserve-bench/);
 });
 
 test('required appointment summary shows recorded outcomes and both sides actual survivors',()=>{
@@ -40,8 +46,12 @@ test('required appointment summary shows recorded outcomes and both sides actual
  assert.equal(JSON.stringify(s),before);
  assert.equal(appointmentResultMarkup({campaign:{battles:[{id:report.id,report}]}},pending),markup);
  const independent=appointmentResultMarkup(s,pending,'合肥守城');
- assert.match(independent,/合肥守城/);assert.doesNotMatch(independent,/官渡/);assert.match(independent,/100 战斗回合/);
+ assert.match(independent,/合肥守城/);assert.doesNotMatch(independent,/官渡/);assert.match(independent,/交战 5 天/);
  assert.equal(appointmentResultMarkup({campaign:{battles:[{id:report.id,report}]}},pending,'合肥守城'),markup);
+ const {tick,city,...strategicReport}=report,strategic={cities:[{id:'guandu',name:city}],campaign:{battles:[{id:report.id,cityId:'guandu',battle:{tick},report:strategicReport}]}};
+ const original=JSON.stringify(strategic);
+ assert.equal(appointmentResultMarkup(strategic,pending),markup);
+ assert.equal(JSON.stringify(strategic),original);
 });
 
 test('battle strength separates pending reinforcements and saved results distinguish troops that never entered',()=>{

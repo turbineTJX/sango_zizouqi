@@ -10,7 +10,12 @@ test('each connection has one bidirectional road with terrain costs',()=>{
   for(const [a,b] of s.roads){const roads=campaignRoads(s,a,b);assert.equal(roads.length,1);assert.deepEqual(roads,campaignRoads(s,b,a));}
   const gate=s.roads.find(([a,b])=>s.junctions.some(c=>[a,b].includes(c.id)&&c.kind==='gate'));
   assert.ok(roadCost(s,...gate)>roadDistance(s,...gate));
-  assert.equal((renderRoads(s).match(/<title>/g)||[]).length,s.roads.length);
+  const before=JSON.stringify(s),html=renderRoads(s),land=s.roads.filter(([a,b])=>campaignRoads(s,a,b)[0].terrain!=='water').length;
+  assert.equal((html.match(/<title>/g)||[]).length,s.roads.length);
+  assert.equal((html.match(/data-road-from=/g)||[]).length,s.roads.length);
+  assert.equal((html.match(/class="map-road-shoulder"/g)||[]).length,land);
+  assert.equal((html.match(/class="map-road-wear"/g)||[]).length,land);
+  assert.equal(JSON.stringify(s),before);
 });
 test('movement budget reflects active troops, commander, morale and hunger',()=>{
   const a={leader:'u',morale:80,hunger:0,units:[{id:'u',troops:1000,type:'cavalry',leadership:80}]};

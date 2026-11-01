@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {newCampaign,transferOfficer,serializeCampaign,validateCampaign,beginExecution,advanceCampaignDay,armyActionPoints,activeBattles,chooseEncounter} from './helpers/auto-domestic-campaign.mjs';
-import {advancePersonnel,personnelSpeed,PERSONNEL_SPEED,TRANSPORT_SPEED,isTransport} from '../personnel-movement.mjs';
+import {newCampaign,transferOfficer,serializeCampaign,validateCampaign,beginExecution,advanceCampaignDay,findCampaignRoute,armyActionPoints,activeBattles,chooseEncounter} from './helpers/auto-domestic-campaign.mjs';
+import {advancePersonnel,personnelSpeed,PERSONNEL_SPEED,TRANSPORT_SPEED,isTransport,personnelRouteDays} from '../personnel-movement.mjs';
 import {armyMapMarkers} from '../strategic-army-markers.mjs';
 import {requestStrategicOrder} from '../strategic-orders.mjs';
 import {busyFixture} from './helpers/domestic-orders.mjs';
@@ -22,16 +22,16 @@ test('transport carries prepared troops and cargo once, projects position, then 
 test('cargo-only convoys are visible and full warehouses retain cargo',()=>{
  const {s,c,dest}=fixture(),o=s.campaign.idle.find(o=>o.location===c.id&&o.unit.id!==c.governor&&o.faction==='cao');
  assert.equal(transferOfficer(s,o.unit.id,dest.id,{cargo:{grain:1000,manpower:0}}),null);assert.ok(isTransport(o));dest.grain=10000+dest.granary*10000;
- for(let i=0;i<10&&o.location!==dest.id;i++)advancePersonnel(s,o);assert.equal(o.destination,dest.id);assert.match(o.journey.blocked,/粮仓/);assert.equal(o.cargo.grain,1000);s.grain=Math.floor(s.cities.filter(c=>c.owner==='cao').reduce((n,c)=>n+c.grain,0));restore(s);
+ for(let i=0,days=o.remainingDays;i<days&&o.location!==dest.id;i++)advancePersonnel(s,o);assert.equal(o.destination,dest.id);assert.match(o.journey.blocked,/粮仓/);assert.equal(o.cargo.grain,1000);s.grain=Math.floor(s.cities.filter(c=>c.owner==='cao').reduce((n,c)=>n+c.grain,0));restore(s);
  dest.grain-=400;advancePersonnel(s,o);assert.equal(o.cargo.grain,600);assert.equal(o.destination,dest.id);restore(s);dest.grain-=600;advancePersonnel(s,o);assert.equal(o.destination,null);assert.equal(dest.grain,10000+dest.granary*10000);assert.ok(s.campaign.idle.includes(o));restore(s);
 });
 test('deferred transport preserves cargo instructions without deducting resources or moving its officer',()=>{
  const {s,c,id}=busyFixture(),command={kind:'transfer',cityId:c.id,officerIds:[id],target:'chenliu',cargo:{gold:0,grain:600,manpower:200}},before=serializeCampaign(s);
  assert.ok(requestStrategicOrder(s,command).confirmation);assert.equal(serializeCampaign(s),before);const grain=c.grain,men=c.manpower;
  assert.ok(requestStrategicOrder(s,command,'after').queued);assert.deepEqual(s.campaign.domestic.orders[0].cargo,command.cargo);assert.equal(c.grain,grain);assert.equal(c.manpower,men);assert.ok(c.units.some(u=>u.id===id));const copy=restore(s);
- const orderId=s.campaign.domestic.orders[0].id;
- for(const value of [s,copy]){const receipts=new Set();for(let i=0;i<300&&value.campaign.day<61;i++){if(value.campaign.phase==='planning')beginExecution(value);for(const b of activeBattles(value).filter(b=>b.awaiting))chooseEncounter(value,b.id,false);advanceCampaignDay(value);for(const e of value.campaign.domestic.events)if(e.phase==='order-done'&&e.result.orderId===orderId)receipts.add(e.id);}assert.equal(receipts.size,1,'queued cargo executes once before old receipts are compacted');}
- assert.equal(s.campaign.day,61);assert.equal(serializeCampaign(s),serializeCampaign(copy));assert.equal(s.campaign.domestic.orders.length,0);assert.ok(s.cities.find(c=>c.id==='chenliu').units.some(u=>u.id===id));restore(s);
+ const orderId=s.campaign.domestic.orders[0].id,finishDay=61+personnelRouteDays(s,{unit:c.units.find(u=>u.id===id),location:c.id,destination:'chenliu',cargo:command.cargo},findCampaignRoute(s,c.id,'chenliu'));
+ for(const value of [s,copy]){const receipts=new Set();for(let i=0;i<1000&&value.campaign.day<finishDay;i++){if(value.campaign.ai)value.campaign.ai.lastPlanDay=value.campaign.day;if(value.campaign.phase==='planning')beginExecution(value);for(const b of activeBattles(value).filter(b=>b.awaiting))chooseEncounter(value,b.id,false);advanceCampaignDay(value);for(const e of value.campaign.domestic.events)if(e.phase==='order-done'&&e.result.orderId===orderId)receipts.add(e.id);}assert.equal(receipts.size,1,'queued cargo executes once before old receipts are compacted');}
+ assert.equal(s.campaign.day,finishDay);assert.equal(serializeCampaign(s),serializeCampaign(copy));assert.equal(s.campaign.domestic.orders.length,0);assert.ok(s.cities.find(c=>c.id==='chenliu').units.some(u=>u.id===id));restore(s);
 });
 test('real daily execution resumes a transport deterministically and rejects corrupt journey cargo',()=>{
  const {s,id,dest}=fixture();assert.equal(transferOfficer(s,id,dest.id,{cargo:{grain:100,manpower:100}}),null);beginExecution(s);advanceCampaignDay(s);const copy=restore(s);

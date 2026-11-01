@@ -1,11 +1,14 @@
 import {prepareMapCameraPreview} from './map-camera-preview.mjs';
+import {forgetMarkup} from './strategic-dom.mjs';
+import {metropolisLabelPosition} from './map-label-layout.mjs';
+import {layoutOverviewSites,regionalSiteOpacity} from './map-overview-layout.mjs';
 import {fogMarkup,intelligenceWorld,cityIntelligence} from './strategic-vision.mjs';
 import {citySoldierLabel} from './city-budget.mjs';
 import {cityStaffBadge} from './domestic-feedback.mjs';
 import {clampMapView,centeredMapView,MIN_MAP_SIZE,mapDetailLevel,MAP_DETAIL_NAMES,metropolitanMemberView,metropolitanOverviewView} from './strategic-map-camera.mjs';
 import {cityBuildingCard,citySceneMarkup,cityCompactMarkup,CITY_DETAIL_THRESHOLD,CITY_INTERIOR_SIZE} from './city-scene.mjs';
 import {TOWN_FRAME} from './town-art.mjs';
-import {mapDetailBlend} from './map-detail-level.mjs';
+import {mapDetailBlend,overviewSymbolBlend} from './map-detail-level.mjs';
 import {armyMapMarkers,battleMapMarkers,ARMY_CARD} from './strategic-army-markers.mjs';
 import {renderRoads,renderMarchRoute,roadPoint,renderSupplyRoute} from './strategic-movement.mjs';
 import {nationalArtMap,nationalTerrain} from './national-map-view.mjs';
@@ -123,9 +126,24 @@ export function attachStrategicMap(root,ui,onFailure){
  const detailButtons=[...root.querySelectorAll('[data-map-view="metropolis"],[data-map-view="settlements"],[data-map-view="city"]')];
  // The map is replaced when game state changes; camera movement reuses its nodes.
  const places=[...svg.querySelectorAll('.node-city,.node-metropolitan-site')].map(node=>({node,x:+node.dataset.x,y:+node.dataset.y,source:node.querySelector('[data-city-model]'),scene:node.querySelector('[data-city-scene]'),compact:node.querySelector('.map-city-model'),mapSites:[...node.querySelectorAll('[data-map-building]')],sites:[],interactive:false,mapInteractive:null}));
- for(const place of places)place.modelScale=place.source?JSON.parse(place.source.textContent).layout.mapScale:+(place.compact?.dataset.modelScale||0);
+ for(const place of places){
+  place.id=place.node.dataset.city||place.node.dataset.commandCity||place.node.dataset.junction;
+  place.kind=place.node.classList.contains('node-junction')?'junction':null;
+  place.primary=place.node.classList.contains('node-city')&&place.node.dataset.citySize==='large';
+  place.metropolisId=place.node.dataset.metropolis||place.id;
+  place.targetSelected=place.node.dataset.mapTarget==='selected';
+  const layout=place.source?JSON.parse(place.source.textContent).layout:null;
+  place.modelScale=layout?.mapScale??+(place.compact?.dataset.modelScale||0);
+  place.labelOffset=(layout?.kind==='gate'?110:layout?.kind==='port'?180:250)*place.modelScale;
+  const overview=place.node.querySelector('[data-overview-bounds]');
+  const [x,y,w,h]=(overview?.dataset.overviewBounds||'-5 -5 10 10').split(' ').map(Number);
+  place.overviewBounds={x,y,w,h};
+  const [ax,ay,aw,ah]=(overview?.dataset.overviewArtBounds||'-5 -5 10 10').split(' ').map(Number);
+  place.overviewArtBounds={x:ax,y:ay,w:aw,h:ah};
+ }
+ const placeByNode=new Map(places.map(place=>[place.node,place]));
  const priority=node=>Number(node.dataset.mapTarget==='selected')*8+node.classList.contains('selected')*4+node.classList.contains('node-city')*2+(node.dataset.citySize==='large');
- const nodes=[...svg.querySelectorAll('.national-node')].sort((a,b)=>priority(b)-priority(a)).map(node=>({node,x:+node.dataset.x,y:+node.dataset.y,selected:node.dataset.mapTarget==='selected'||node.classList.contains('selected'),city:node.classList.contains('node-city'),staff:!!node.querySelector('.map-staff-status'),labels:[...node.querySelectorAll('.map-city-banner,.national-place-name,.map-city-strength,.map-city-grain,.map-staff-status')]}));
+ const nodes=[...svg.querySelectorAll('.national-node,.node-metropolitan-site')].sort((a,b)=>priority(b)-priority(a)).map(node=>({node,x:+node.dataset.x,y:+node.dataset.y,selected:node.dataset.mapTarget==='selected'||node.classList.contains('selected'),city:node.classList.contains('node-city'),staff:!!node.querySelector('.map-staff-status'),name:node.querySelector('.national-place-name,.junction-name')?.textContent||'',labels:[...node.querySelectorAll('.map-city-banner,.national-place-name,.map-city-strength,.map-city-grain,.map-staff-status,.junction-name')]}));
  if(commandMap)for(const {node} of nodes){
   const glyph=node.querySelector('[data-map-glyph]');
   if(glyph&&!glyph.querySelector('.command-target-hit')){const hit=document.createElementNS('http://www.w3.org/2000/svg','circle');hit.setAttribute('class','command-target-hit');hit.setAttribute('r','20');glyph.prepend(hit);}
@@ -133,24 +151,28 @@ export function attachStrategicMap(root,ui,onFailure){
  for(const {node} of nodes.filter(p=>p.node.dataset.mapTarget==='selected'))node.parentNode.append(node);
  const glyphs=[...svg.querySelectorAll('[data-map-glyph]')].filter(node=>!node.closest('[data-metropolis-focus]')).map(node=>({node,place:node.closest('.node-city,.node-metropolitan-site')}));
  const banners=[...svg.querySelectorAll('.map-city-banner')];
+ const overviewGlyphs=[...svg.querySelectorAll('[data-map-overview-glyph]')].map(node=>({node,label:node.querySelector('.overview-place-name'),place:placeByNode.get(node.closest('.node-city,.node-metropolitan-site'))}));
  const geography=[...svg.querySelectorAll('.geography-labels text')].map(node=>{
   const size=+(node.getAttribute('font-size')||node.parentElement.getAttribute('font-size')||13);
   node.style.fontSize=(size*1.25)+'px';node.style.letterSpacing='2px';node.style.strokeWidth='1.4px';
   if(!geographySources.has(node))geographySources.set(node,node.getAttribute('transform')||'');
-  return {node,x:+node.getAttribute('x'),y:+node.getAttribute('y'),transform:geographySources.get(node)};
+  const transform=geographySources.get(node),anchor=transform.match(/translate\(([-\d.]+)[ ,]+([-\d.]+)\)/);
+  return {node,x:+node.getAttribute('x'),y:+node.getAttribute('y'),anchorX:anchor?+anchor[1]:+node.getAttribute('x'),anchorY:anchor?+anchor[2]:+node.getAttribute('y'),transform};
  });
- const metropolises=[...svg.querySelectorAll('[data-metropolis-focus]')].sort((a,b)=>Number(b.classList.contains('selected'))-Number(a.classList.contains('selected'))).map(node=>({node,glyph:node.querySelector('[data-map-glyph]'),x:+node.dataset.x,y:+node.dataset.y,hidden:false}));
+ const metropolises=[...svg.querySelectorAll('[data-metropolis-focus]')].sort((a,b)=>Number(b.classList.contains('selected'))-Number(a.classList.contains('selected'))).map(node=>({node,glyph:node.querySelector('[data-map-glyph]'),x:+node.dataset.x,y:+node.dataset.y,width:+node.querySelector('.metropolis-label').getAttribute('width'),hidden:false}));
  const markers=[...svg.querySelectorAll('[data-map-army-anchor]')].sort((a,b)=>Number(b.classList.contains('selected'))-Number(a.classList.contains('selected'))).map(node=>({x:+node.dataset.x,y:+node.dataset.y,glyph:node.querySelector('[data-map-army-glyph]'),card:node.querySelector('[data-map-army-card]'),line:node.querySelector('.army-location-line')}));
  const encounters=[...svg.querySelectorAll('[data-map-battle-anchor]')].map(node=>({x:+node.dataset.x,y:+node.dataset.y,glyph:node.querySelector('[data-map-battle-glyph]')}));
  const bandits=[...svg.querySelectorAll('.bandit-map-marker')].map(node=>({x:+node.dataset.x,y:+node.dataset.y,glyph:node.querySelector('[data-map-glyph]'),line:node.querySelector('[data-bandit-location]')}));
  // Opacity is not inherited. Set it on each visual layer instead of changing
  // root custom properties, which restyle every mountain, building and road.
  const opacityLayers=national?[
-  ['.map-metropolises,.metropolis-footprints',b=>b.metropolis],
+  ['.map-metropolises',(b,d)=>b.metropolis*(1-d)],
+  ['.metropolis-footprints',b=>b.metropolis],
   ['.national-node>[data-map-glyph],.strategy-junction>[data-map-glyph]',b=>b.settlements],
   ['.atlas-province-labels',b=>.3*(1-b.interior)],
-  ['.terrain-relief,.terrain-landscape',b=>1-b.interior*.85],
-  ['.strategy-road',b=>.15+b.settlements*.43]
+  ['.terrain-relief',b=>1-b.interior*.22],
+  ['.terrain-landscape',b=>1-b.interior*.12],
+  ['.map-road',b=>.55+b.settlements*.45]
  ].map(([selector,value])=>({nodes:[...svg.querySelectorAll(selector)],value,last:null})):[];
  const attr=(node,key,value)=>{value=String(value);if(node.getAttribute(key)!==value)node.setAttribute(key,value);};
  const visible=(p,margin)=>p.x>=view.x-margin&&p.x<=view.x+view.width+margin&&p.y>=view.y-margin&&p.y<=view.y+view.height+margin;
@@ -159,6 +181,7 @@ export function attachStrategicMap(root,ui,onFailure){
   if(frame){cancelAnimationFrame(frame);frame=0;}
   // Read layout before changing styles, classes, viewBox or city geometry.
   const screenWidth=svg.clientWidth,screenHeight=svg.clientHeight;
+  const labelLimit=Math.max(6,Math.min(28,Math.floor(screenWidth*screenHeight/26000)));
   const screenBox=svg.getBoundingClientRect(),occluders=workspace?[...workspace.querySelectorAll('.sovereign-hud,.world-toolbar,.faction-navigation,.world-turn,.world-commands,.map-information,.map-search[open] .national-search,.national-legend[open]>div,.strategy-notice,.national-map-tools,.encounter-callout,.map-workspace-actions,.map-quick-directory')].map(node=>node.getBoundingClientRect()).filter(r=>r.width&&r.height):[];
   const previous=animate?svg.viewBox.animVal:null,from=previous?{x:previous.x,y:previous.y,width:previous.width,height:previous.height}:null;
   if(!continuous)clearTimeout(previewTimer);
@@ -171,8 +194,9 @@ export function attachStrategicMap(root,ui,onFailure){
   if(continuous&&Math.min(view.width,view.height)>90&&cameraPreview?.ready()){cameraPreview(view);return;}
   cameraPreview?.(false);
   svg.setAttribute('viewBox',`${view.x} ${view.y} ${view.width} ${view.height}`);svg.classList.toggle('map-detail',Math.min(view.width,view.height)<=420);svg.classList.toggle('map-overview',Math.min(view.width,view.height)>=720);
-  const level=mapDetailLevel(view),blend=mapDetailBlend(view),overview=Math.min(view.width,view.height)>=720,close=national&&level==='interior';
-  for(const layer of opacityLayers){const value=layer.value(blend);if(value!==layer.last){for(const node of layer.nodes){node.style.setProperty('opacity',value,'important');node.style.display=value?'':'none';}layer.last=value;}}
+  const level=mapDetailLevel(view),blend=mapDetailBlend(view),distant=national?overviewSymbolBlend(view):0,overview=Math.min(view.width,view.height)>=720,close=national&&level==='interior';
+  svg.classList.toggle('map-distant-symbols',distant>0);svg.dataset.distantBlend=String(distant);
+  for(const layer of opacityLayers){const value=layer.value(blend,distant);if(value!==layer.last){for(const node of layer.nodes){node.style.setProperty('opacity',value,'important');node.style.display=value?'':'none';}layer.last=value;}}
   if(national){if(svg.dataset.mapDetail!==level)svg.dataset.mapDetail=level;for(const key of Object.keys(MAP_DETAIL_NAMES))svg.classList.toggle('map-layer-'+key,key===level);}
   const detailText=MAP_DETAIL_NAMES[level];if(detailLabel&&detailLabel.textContent!==detailText)detailLabel.textContent=detailText;
   for(const button of detailButtons)attr(button,'aria-pressed',({metropolis:'metropolis',settlements:'settlements',city:'interior'})[button.dataset.mapView]===level);
@@ -182,18 +206,26 @@ export function attachStrategicMap(root,ui,onFailure){
   const center={x:view.x+view.width/2,y:view.y+view.height/2},nearby=places.filter(p=>p.source&&visible(p,40));
   const sceneFocus=blend.interior>0?nearby.reduce((best,p)=>!best||Math.hypot(p.x-center.x,p.y-center.y)<Math.hypot(best.x-center.x,best.y-center.y)?p:best,null)?.node:null;
   const cityFocus=close?sceneFocus:null;
+  const focusLabelOffset=places.find(p=>p.node===cityFocus)?.labelOffset||0;
+  const pixelScale=(overview?.9:Math.min(1.45,Math.max(1.05,screenHeight/720)))/(Math.min(screenWidth/view.width,screenHeight/view.height)||1);
+  const focusMetropolis=places.find(p=>p.id===ui.city)?.metropolisId;
+  const overviewSites=layoutOverviewSites(places,{view,scale:pixelScale,selectedId:ui.city,limit:labelLimit});
   if(buildingCard&&buildingCard.dataset.compact!=='true'&&buildingCard.dataset.cityId!==(cityFocus?.dataset.city||cityFocus?.dataset.commandCity||cityFocus?.dataset.junction))closeBuilding();
   if(buildingCard?.dataset.compact==='true'&&!nearby.some(p=>(p.node.dataset.city||p.node.dataset.commandCity||p.node.dataset.junction)===buildingCard.dataset.cityId))closeBuilding();
   for(const place of places){
    const {node,scene,source,compact}=place;
+   const density=regionalSiteOpacity(place,{size:Math.min(view.width,view.height),settlements:blend.settlements,selectedId:ui.city,focusMetropolis});
+   place.renderable=density>0&&(distant<1||overviewSites.has(place.id));
+   place.density=density;
+   node.style.display=place.renderable?'':'none';
    node.classList.toggle('is-town-focused',node===cityFocus);
    // Neighbours retain their complete compact building models. Only the
    // nearest settlement needs the panorama, staff and interactive districts.
    const show=blend.interior>0&&source&&node===sceneFocus;
-   // Physical buildings and worksites persist at every map scale. Zoom only
-   // crossfades the focused site's detailed panorama over the same geometry.
-   if(compact){const opacity=String(show?1-blend.interior:1);if(compact.style.opacity!==opacity)compact.style.opacity=opacity;}
-   const mapInteractive=!commandMap&&!show&&visible(place,40);
+   // Only the far national view uses symbols. Buildings return at their fixed
+   // world coordinates when zooming into the operation area.
+   if(compact){const opacity=String((show?1-blend.interior:1)*(1-distant)*density);if(compact.style.opacity!==opacity)compact.style.opacity=opacity;compact.style.display=distant===1?'none':'';compact.dataset.densityOpacity=String(density);}
+   const mapInteractive=!commandMap&&!show&&distant<1&&place.renderable&&visible(place,40);
    if(mapInteractive!==place.mapInteractive){for(const site of place.mapSites){attr(site,'tabindex',mapInteractive?'0':'-1');attr(site,'role',commandMap?'presentation':'button');}place.mapInteractive=mapInteractive;}
    if(scene){
     const display=show?'':'none';if(scene.style.display!==display)scene.style.display=display;
@@ -203,44 +235,55 @@ export function attachStrategicMap(root,ui,onFailure){
     const interactive=node===cityFocus&&!commandMap;
     if(created||interactive!==place.interactive){for(const site of place.sites){attr(site,'tabindex',interactive?'0':'-1');attr(site,'role',interactive?'button':'presentation');}place.interactive=interactive;}
    }
-   attr(node,'tabindex',national&&level==='metropolis'?'-1':'0');
+   attr(node,'tabindex',!place.renderable||national&&level==='metropolis'&&distant<.5?'-1':'0');
   }
-  const pixelScale=(overview?.9:Math.min(1.45,Math.max(1.05,screenHeight/720)))/(Math.min(screenWidth/view.width,screenHeight/view.height)||1);
-  for(const banner of banners)attr(banner,'height',overview?'18':'38');for(const glyph of glyphs)attr(glyph.node,'transform',`${glyph.place&&glyph.place===cityFocus?'translate(0 20) ':''}scale(${pixelScale})`);
+  for(const {node,label,place} of overviewGlyphs){const layout=place&&overviewSites.get(place.id),show=distant>0&&layout;attr(node,'transform',`scale(${pixelScale})`);node.style.opacity=String(distant);node.style.display=show?'inline':'none';if(label){label.style.display=layout?.labelVisible?'':'none';if(layout)attr(label,'y',layout.labelY);}}
+  for(const banner of banners)attr(banner,'height',overview?'18':'38');for(const glyph of glyphs)attr(glyph.node,'transform',`${glyph.place&&glyph.place===cityFocus?`translate(0 ${focusLabelOffset}) `:''}scale(${pixelScale})`);
   const placedBandits=[];
   for(const marker of bandits){
    const choices=[[20,-24],[-28,-24],[20,35],[-28,35],[55,-45],[-65,-45],[55,65],[-65,65]],clear=([dx,dy])=>!placedBandits.some(p=>Math.abs(marker.x/pixelScale+dx-p.x)<72&&Math.abs(marker.y/pixelScale+dy-p.y)<48),[dx,dy]=choices.find(clear)||choices.at(-1);
    placedBandits.push({x:marker.x/pixelScale+dx,y:marker.y/pixelScale+dy});attr(marker.glyph,'transform',`translate(${dx*pixelScale} ${dy*pixelScale}) scale(${pixelScale})`);attr(marker.line,'x2',dx*pixelScale);attr(marker.line,'y2',dy*pixelScale);
   }
   // Scale shaped text instead of changing its font and laying it out per frame.
-  for(const {node,x,y,transform} of geography)attr(node,'transform',`${transform} translate(${x} ${y}) scale(${pixelScale}) translate(${-x} ${-y})`);
   const labels=[];
   for(const item of nodes){
-   const {node,staff,selected,city}=item,show=visible(item,Math.max(40,100*pixelScale));
+   const {node,staff,selected,city}=item,show=placeByNode.get(node)?.renderable!==false&&visible(item,Math.max(40,100*pixelScale));
    const display=show?'':'none';if(node.style.display!==display)node.style.display=display;
    if(!show||!blend.settlements)continue;
-   const x=item.x-(staff?39:27)*pixelScale,y=item.y+(node===cityFocus?20:0)+12*pixelScale,w=(staff?78:54)*pixelScale,h=(commandMap?20:staff?55:overview?18:38)*pixelScale;
-   const collides=dy=>labels.some(r=>x<r.x+r.w+2*pixelScale&&x+w+2*pixelScale>r.x&&y+dy*pixelScale<r.y+r.h+2*pixelScale&&y+(dy+h/pixelScale+2)*pixelScale>r.y);
+   const labelWidth=city?(staff?78:54):Math.max(24,[...item.name].length*13),port=node.classList.contains('node-port');
+   const x=item.x+(city?-(staff?39:27):port?-labelWidth/2:9)*pixelScale,y=item.y+(node===cityFocus?focusLabelOffset:0)+(city?12:port?9:-9)*pixelScale,w=labelWidth*pixelScale,h=(city?(commandMap?20:staff?55:overview?18:38):18)*pixelScale;
+   const collides=dy=>labels.length>=labelLimit||labels.some(r=>x<r.x+r.w+10*pixelScale&&x+w+10*pixelScale>r.x&&y+dy*pixelScale<r.y+r.h+8*pixelScale&&y+(dy+h/pixelScale+8)*pixelScale>r.y);
    const offset=commandMap?[0,-46,24,-70].find(dy=>!collides(dy)):0;
    const hidden=!selected&&(commandMap?offset===undefined:collides(0));
    if(commandMap)for(const el of item.labels)attr(el,'transform',`translate(0 ${offset||0})`);
    if(item.hidden!==hidden){for(const el of item.labels)el.style.visibility=hidden?'hidden':'';item.hidden=hidden;}
    if(!hidden&&(!overview||city||selected))labels.push({x,y:y+(offset||0)*pixelScale,w,h});
+   node.classList.toggle('is-map-name-hidden',hidden);
   }
   // Labels must leave actual city and prefecture footprints unobscured, even
   // when their fixed screen size covers several nearby places on small screens.
-  const footprints=places.filter(p=>p.compact).map(p=>({x:p.x+TOWN_FRAME.x*p.modelScale,y:p.y+TOWN_FRAME.y*p.modelScale,w:TOWN_FRAME.width*p.modelScale,h:TOWN_FRAME.height*p.modelScale}));
+  const footprints=places.filter(p=>p.compact&&p.renderable).map(p=>({x:p.x+TOWN_FRAME.x*p.modelScale*(1-distant)+p.overviewBounds.x*pixelScale*distant,y:p.y+TOWN_FRAME.y*p.modelScale*(1-distant)+p.overviewBounds.y*pixelScale*distant,w:TOWN_FRAME.width*p.modelScale*(1-distant)+p.overviewBounds.w*pixelScale*distant,h:TOWN_FRAME.height*p.modelScale*(1-distant)+p.overviewBounds.h*pixelScale*distant}));
   const overlaps=(a,b)=>a.x<b.x+b.w+3*pixelScale&&a.x+a.w+3*pixelScale>b.x&&a.y<b.y+b.h+3*pixelScale&&a.y+a.h+3*pixelScale>b.y;
-  const metroLabels=[],offsets=[[0,0],[0,-38],[-104,0],[104,0],[0,92],[-104,54],[104,54],[0,-76],[0,130]];
+  const metroLabels=[];
   for(const item of metropolises){
    const {node,glyph,x:mx,y:my}=item;
-   const available=rect=>!footprints.some(r=>overlaps(rect,r))&&!metroLabels.some(r=>overlaps(rect,r));
-   const labelPosition=offsets.map(([dx,dy])=>({dx,dy,x:mx+(-54+dx)*pixelScale,y:my+(-62+dy)*pixelScale,w:120*pixelScale,h:36*pixelScale})).find(available);
-   const position=labelPosition||offsets.map(([dx,dy])=>({dx,dy,x:mx+(-44+dx)*pixelScale,y:my+(-50+dy)*pixelScale,w:16*pixelScale,h:16*pixelScale})).find(available);
-   const {dx,dy}=position||{dx:0,dy:0};
-   attr(glyph,'transform',`translate(${dx*pixelScale} ${dy*pixelScale}) scale(${pixelScale})`);
-   item.hidden=!position;node.classList.toggle('is-label-hidden',!labelPosition);node.classList.toggle('is-marker-hidden',item.hidden);attr(node,'aria-hidden',item.hidden);
+   const position=metroLabels.length+labels.length>=labelLimit&&!node.classList.contains('selected')?null:metropolisLabelPosition({x:mx,y:my},pixelScale,view,{footprints,labels:[...labels,...metroLabels],width:item.width});
+   const {dx,dy}=position||{dx:0,dy:-40};
+   attr(glyph,'transform',`translate(${dx*pixelScale} ${(dy+58)*pixelScale}) scale(${pixelScale})`);
+   const line=node.querySelector('.metropolis-location-line');
+   if(line){const nearX=clamp(0,(dx-item.width/2)*pixelScale,(dx+item.width/2)*pixelScale),nearY=dy<0?(dy+24)*pixelScale:dy*pixelScale;attr(line,'d',`M0 0L${nearX} ${nearY}`);line.style.display=position?'':'none';}
+   item.hidden=!position;node.classList.toggle('is-label-hidden',item.hidden);node.classList.toggle('is-marker-hidden',item.hidden);attr(node,'aria-hidden',item.hidden);
    if(position)metroLabels.push(position);
+  }
+  // Scenery names share the same free space as settlement names. Keep only a
+  // few useful river/mountain labels instead of filling every gap with text.
+  const sceneryLabels=[],occupied=distant>.5?[...overviewSites.values()]:[...labels,...metroLabels],sceneryLimit=Math.max(2,Math.floor(labelLimit/3));
+  for(const {node,x,y,anchorX,anchorY,transform} of geography){
+   attr(node,'transform',`${transform} translate(${x} ${y}) scale(${pixelScale}) translate(${-x} ${-y})`);
+   const minor=!['黄河','长江'].includes(node.textContent),size=Math.max(18,[...node.textContent].length*13)*pixelScale;
+   const r={x:anchorX-size/2,y:anchorY-size/2,w:size,h:size};
+   const show=!(minor&&distant===1)&&sceneryLabels.length<sceneryLimit&&visible({x:anchorX,y:anchorY},0)&&![...occupied,...sceneryLabels].some(p=>overlaps(r,p));
+   node.style.opacity=String(minor?1-distant:1);node.style.display=show?'':'none';if(show)sceneryLabels.push(r);
   }
   const unit=Math.min(screenWidth/view.width,screenHeight/view.height)||1,left=screenBox.x+(screenWidth-view.width*unit)/2,top=screenBox.y+(screenHeight-view.height*unit)/2;
   const uiBlocks=occluders.map(r=>({x:view.x+(r.x-left)/unit,y:view.y+(r.y-top)/unit,w:r.width/unit,h:r.height/unit}));
@@ -368,7 +411,7 @@ export function attachStrategicMap(root,ui,onFailure){
   const hit=previewClick;previewClick=null;
   if(hit&&e.target===svg&&hit.target!==svg&&hit.target?.isConnected&&Math.hypot(e.clientX-hit.x,e.clientY-hit.y)<4){e.stopImmediatePropagation();hit.target.dispatchEvent(new MouseEvent('click',{bubbles:true,cancelable:true,clientX:e.clientX,clientY:e.clientY}));}
  },{capture:true});
- listen(svg,'pointerdown',e=>{if(![0,2].includes(e.button)||(e.button===0&&(previewClick?.target||e.target).closest('[data-road-from],[data-junction],[data-city],[data-command-city],[data-campaign-army],[data-transport-officer],[data-action],[data-metropolis-focus]')))return;closeBuilding();ui.mapObject=null;root.querySelector('.map-object-menu')?.remove();const m=svg.getScreenCTM();drag={x:e.clientX,y:e.clientY,view:{...view},scaleX:m.a,scaleY:m.d};svg.setPointerCapture(e.pointerId);});
+ listen(svg,'pointerdown',e=>{if(![0,2].includes(e.button)||(e.button===0&&(previewClick?.target||e.target).closest('[data-road-from],[data-junction],[data-city],[data-command-city],[data-campaign-army],[data-transport-officer],[data-action],[data-metropolis-focus]')))return;closeBuilding();ui.mapObject=null;ui.mapSupplyArmy=null;root.querySelector('.map-object-menu')?.remove();root.querySelector('.army-supply-route')?.remove();forgetMarkup(root);const m=svg.getScreenCTM();drag={x:e.clientX,y:e.clientY,view:{...view},scaleX:m.a,scaleY:m.d};svg.setPointerCapture(e.pointerId);});
  listen(svg,'pointermove',e=>{if(!drag)return;view={...drag.view,x:drag.view.x-(e.clientX-drag.x)/drag.scaleX,y:drag.view.y-(e.clientY-drag.y)/drag.scaleY};scheduleApply();});
  for(const event of ['pointerup','pointercancel','lostpointercapture'])listen(svg,event,()=>{drag=null;});
  const keyboard=e=>{

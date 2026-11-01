@@ -23,5 +23,11 @@ export const OFFICER_TRAITS=Object.freeze(Object.fromEntries(Object.entries(OFFI
 export const independentTrait=id=>!!TRAIT_DESIGNS[id]&&TRAIT_DESIGNS[id]?.domain!=='battle'||TRAIT_DESIGNS[id]?.mechanics?.some(m=>m.roles);
 export const officerTraits=u=>(OFFICER_TRAITS[u.id]||[]).filter(independentTrait);
 export const hasTrait=(u,id)=>!!u&&officerTraits(u).includes(id);
-export const taskTraits=(u,def)=>officerTraits(u).filter(id=>{const t=WORK_TRAITS[id];return (!t?.work||t.work.actions.includes(def.id))&&t?.kinds?.includes(def.kind)&&(!t.direction||t.direction===def.direction)&&(!t.value||t.value===def.value);});
+export const traitMatchesTask=(t,def)=>!!t&&(!t.work||t.work.actions.includes(def.id))&&!!t.kinds?.includes(def.kind)&&(!t.direction||t.direction===def.direction)&&(!t.value||t.value===def.value);
+export const taskTraits=(u,def)=>officerTraits(u).filter(id=>traitMatchesTask(WORK_TRAITS[id],def));
+// Appointments include command effects and real cooperation/discovery hooks.
+// Military roles, transport and battle traits do not supply domestic effects.
+const domesticTraitMatchesDirection=(t,defs)=>t?.domain==='domestic'&&(defs.some(def=>traitMatchesTask(t,def)||t.strategic?.effect==='treasureDiscovery'&&t.strategic.actions.includes(def.id))||defs.length>0&&(t.scope==='cooperation'||t.strategic?.effect==='crossCooperate'));
+export const domesticDirectionTraitCatalog=defs=>Object.entries(WORK_TRAITS).filter(([,t])=>domesticTraitMatchesDirection(t,defs)).map(([id,t])=>({id,...t}));
+export const domesticDirectionTraits=(u,defs)=>officerTraits(u).filter(id=>domesticTraitMatchesDirection(WORK_TRAITS[id],defs));
 export const taskTraitBonus=(u,def,key)=>u?taskTraits(u,def).reduce((n,id)=>Math.max(n,WORK_TRAITS[id][key]||0),0):0;

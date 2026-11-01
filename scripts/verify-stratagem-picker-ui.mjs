@@ -33,7 +33,7 @@ try{
  }
  await mkdir('outputs/stratagem-picker-ui',{recursive:true});
  await page.screenshot({path:'outputs/stratagem-picker-ui/desktop.png',fullPage:true});
- await page.setViewportSize({width:390,height:844});
+ await page.setViewportSize({width:844,height:390});
  assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
  assert.ok(await dialog.evaluate(el=>el.scrollWidth<=el.clientWidth));
  await page.screenshot({path:'outputs/stratagem-picker-ui/mobile.png',fullPage:true});
@@ -48,7 +48,8 @@ try{
  assert.ok(await dialog.locator('[data-command="cao-wuchao"]').isDisabled());
  assert.deepEqual((await read()).battle,saved.battle);
  const emptyState=createScenario('custom-battle',4511,20,null,{seed:4511,terrain:'land',ownTeam:[unit('person-472'),unit('chu')],enemyTeam:[unit('shao')],ownTeamRoles:{leader:'person-472',advisor:'chu'}});
- const emptyPage=await browser.newPage({viewport:{width:390,height:844}});emptyPage.on('pageerror',e=>errors.push(e.message));
+ lockDeployment(emptyState.battle);
+ const emptyPage=await browser.newPage({viewport:{width:844,height:390}});emptyPage.on('pageerror',e=>errors.push(e.message));
  await emptyPage.addInitScript(data=>localStorage.setItem('sango-historical-battle-v1',JSON.stringify(data)),emptyState);
  await emptyPage.goto('http://127.0.0.1:4329/#historical-battle');await emptyPage.locator('#command-cue').click();
  const emptyDialog=emptyPage.getByRole('dialog',{name:'选择军略'});

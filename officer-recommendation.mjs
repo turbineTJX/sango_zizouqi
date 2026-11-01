@@ -8,7 +8,7 @@ import {personnelSpeed} from './personnel-movement.mjs';
 import {troopCapacity} from './troop-capacity.mjs';
 import {ACTIONS,actionCandidates,DIRECTIONS} from './domestic.mjs';
 import {DOMESTIC_STAT_LABELS} from './domestic-cooperation.mjs';
-import {roleTraits,officerTraits,WORK_TRAITS} from './officer-traits.mjs';
+import {roleTraits,officerTraits,domesticDirectionTraits} from './officer-traits.mjs';
 import {PASSIVES} from './passives.mjs';
 import {troopAptitude} from './tactic-learning.mjs';
 import {unitTactics,TROOPS,officerStratagems,STRATAGEMS} from './engine.mjs';
@@ -22,7 +22,7 @@ export function officerRecommendation(s,u,p){
  const c=s.cities?.find(c=>c.id===(p.city||p.cityId)),ids=officerTraits(u);let score=0,traits=[],reasons=[],available=true;
  if(p.task==='domestic'){
   const defs=Object.values(ACTIONS).filter(d=>d.direction===p.direction),ability=u[DIRECTION_STATS[p.direction]]??0;
-  traits=ids.filter(id=>{const t=WORK_TRAITS[id];return id==='administration'||id==='benevolence'&&p.direction==='talent'||t?.scope==='cooperation'||t?.strategic?.effect==='crossCooperate'||t?.kinds&&defs.some(d=>(!t.work||t.work.actions.includes(d.id))&&t.kinds.includes(d.kind)&&(!t.direction||t.direction===d.direction)&&(!t.value||t.value===d.value));});
+  traits=domesticDirectionTraits(u,defs);
   const choices=c?actionCandidates(s,{cityId:c.id,direction:p.direction,officerId:u.id,lastKey:null,failures:0}):[];
   // Rank appointments by their displayed main attribute and related traits.
   // Actual work selection and results keep their own shared execution rules.

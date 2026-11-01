@@ -4,6 +4,7 @@ import {roadCost,roadDistance,chosenRoad} from '../road-metrics.mjs';
 import {fileURLToPath} from 'node:url';
 import {resolve} from 'node:path';
 import {RIVERS} from '../national-geography.mjs';
+import {roadPoint} from '../strategic-movement.mjs';
 
 export function geographicRiverCrossings(s){
  const nodes=new Map(mapNodes(s).map(n=>[n.id,n])),side=(a,b,p)=>(b[0]-a[0])*(p[1]-a[1])-(b[1]-a[1])*(p[0]-a[0]);
@@ -11,8 +12,8 @@ export function geographicRiverCrossings(s){
  const crossings=[];
  for(const river of RIVERS.filter(r=>['huanghe','changjiang','huaihe','hanshui'].includes(r.id)))for(const [a,b] of s.roads){
   if(chosenRoad(s,a,b).terrain==='water')continue;
-  const x=nodes.get(a),y=nodes.get(b);
-  if(river.points.slice(1).some((p,i)=>intersects([x.x,x.y],[y.x,y.y],river.points[i],p)))crossings.push({river:river.name,from:x.name,to:y.name});
+  const x=nodes.get(a),y=nodes.get(b),path=Array.from({length:65},(_,i)=>roadPoint(x,y,i/64));
+  if(river.points.slice(1).some((p,i)=>path.slice(1).some((q,j)=>intersects([path[j].x,path[j].y],[q.x,q.y],river.points[i],p))))crossings.push({river:river.name,from:x.name,to:y.name});
  }
  return crossings;
 }

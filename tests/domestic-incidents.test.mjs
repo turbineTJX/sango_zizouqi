@@ -1,11 +1,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {newCampaign,beginExecution,advanceCampaignDay,serializeCampaign,validateCampaign,transferOfficer,activeBattles,chooseEncounter} from '../strategic-campaign.mjs';
+import {newCampaign,beginExecution,advanceCampaignDay,serializeCampaign,validateCampaign,transferOfficer,appointGovernor,activeBattles,chooseEncounter} from '../strategic-campaign.mjs';
 import {ACTIONS,assignDomestic,assignmentFor,setDomesticAutoApprove,siegeOpening,cancelDomestic,researchDailyRate} from '../domestic.mjs';
 import {DOMESTIC_INCIDENTS,DOMESTIC_INCIDENT_RULES,incidentFor,incidentModifiers,effectiveDomesticChance} from '../domestic-incidents.mjs';
 import {cityBaseIncome,cityWorkLimit} from '../economy.mjs';
 import {pendingActivityReports,acknowledgeActivityReports} from '../activity-nodes.mjs';
-import {cityDomesticMarkup} from '../strategic-view.mjs';
+import {cityDomesticMarkup,factionAffairsMarkup} from '../strategic-view.mjs';
 import {domesticDirectionMarkup} from '../domestic-direction-view.mjs';
 import {reportTone} from '../reward-presentation.mjs';
 import {cityPersonnel} from '../city-personnel.mjs';
@@ -93,13 +93,13 @@ test('departure breaks the joint effect, and different tasks never produce socia
 });
 test('positive stories improve friendship and saved settlement never rerolls or pays twice',()=>{
  const f=example(fixture(),'marketPeace'),r=f.r,before=serializeCampaign(f.s),copy=restore(f.s);assert.equal(serializeCampaign(copy),before);assert.equal(r.relationship.delta,12);assert.equal(r.resources.delta.gold,2000);
- cityDomesticMarkup(f.s,f.c.id);pendingActivityReports(f.s);assert.equal(serializeCampaign(f.s),before);assert.match(cityDomesticMarkup(f.s,f.c.id),/已结算/);
+ assert.doesNotMatch(cityDomesticMarkup(f.s,f.c.id),/data-city-incident/);assert.match(factionAffairsMarkup(f.s),/已结算/);pendingActivityReports(f.s);assert.equal(serializeCampaign(f.s),before);
  const reports=pendingActivityReports(f.s);acknowledgeActivityReports(f.s,reports.map(n=>n.id));assert.equal(pendingActivityReports(restore(f.s)).length,0);acknowledgeActivityReports(copy,reports.map(n=>n.id));
  advanceCampaignDay(f.s);advanceCampaignDay(copy);assert.equal(serializeCampaign(f.s),serializeCampaign(copy));assert.equal(f.s.campaign.domestic.incidents.events.length,1);days(f.s,11);restore(f.s);
 });
 test('unapproved work and nonresident characters never generate a story',()=>{
  const s=peacefulCities(newCampaign(7));fundCities(s,40000);const c=s.cities.find(c=>c.id==='xuchang'),id=s.campaign.idle.find(o=>o.location===c.id).unit.id;for(const [key,def]of Object.entries(ACTIONS))if(def.direction==='technology'&&key!=='research')c.domestic.cooldowns[key]=10000;assignDomestic(s,c.id,'technology',id);beginExecution(s);assert.ok(assignmentFor(s,id).proposal);assert.equal(advanceCampaignDay(s).proposals,true);assert.equal(s.campaign.domestic.incidents.events.length,0);
- const base=fixture();for(const o of cityPersonnel(base.s,base.c.id).filter(o=>o.unit.id!==base.ids[0]))assert.equal(transferOfficer(base.s,o.unit.id,'chenliu',{scheduled:true}),null);
+ const base=fixture();for(const o of cityPersonnel(base.s,base.c.id).filter(o=>o.unit.id!==base.ids[0])){if(base.c.governor===o.unit.id)assert.equal(appointGovernor(base.s,base.c.id,null,{scheduled:true}),null);assert.equal(transferOfficer(base.s,o.unit.id,'chenliu',{scheduled:true}),null);}
  for(let seed=1;seed<=20;seed++){const copy=structuredClone(base.s);copy.campaign.domestic.incidents.seed=Math.imul(seed,0x9e3779b1)>>>0;advanceCampaignDay(copy);assert.equal(copy.campaign.domestic.incidents.events.length,0);}restore(base.s);
 });
 test('one faction receives at most one incident per turn; saved source and effect tampering is rejected',()=>{

@@ -7,7 +7,7 @@ import assert from 'node:assert/strict';
 import {newCampaign,beginExecution,advanceCampaignDay,activeBattles,chooseEncounter,validateCampaign,serializeCampaign,disbandCityUnits} from './helpers/auto-domestic-campaign.mjs';
 import {assignDomestic,assignmentFor,actionCandidates,ACTIONS,cancelDomestic,finishDomesticDay} from '../domestic.mjs';
 import {willingness,talentEligibility,talentKey,talentContext,projectNeed,progressFor,refreshTalentDemand,servingPeople,reassuranceCap,righteousness,isLord,affinityFit} from '../talent-core.mjs';
-import {discoverTalent,initializeTalent,finishTalentDay,resolveTalentOffers,startTalentProject,completeTalentProject,noteTalentCityCapture,processTalentDefeats,refreshTalentProjects,validateTalent} from '../talent-lifecycle.mjs';
+import {discoverTalent,initializeTalent,finishTalentDay,resolveTalentResignations,resolveTalentOffers,startTalentProject,completeTalentProject,noteTalentCityCapture,processTalentDefeats,refreshTalentProjects,validateTalent} from '../talent-lifecycle.mjs';
 import {OFFICER_BY_ID,OFFICER_CATALOG} from '../officer-catalog.mjs';
 import {setRelationshipType} from '../relationships.mjs';
 import {readyTalent} from './helpers/talent.mjs';
@@ -24,7 +24,7 @@ function project(s,id,faction='cao',cityId='xuchang',progress=0){const a={office
 
 test('all catalogue people exist once, historical debut dates and timeless heroes differ',()=>{
  for(const spec of [null,'guandu-200','heroes-251']){const s=newCampaign(42,spec),ids=[...servingPeople(s).keys(),...s.campaign.domestic.people.map(p=>p.id)];assert.equal(ids.length,OFFICER_CATALOG.length);assert.equal(new Set(ids).size,ids.length);restore(s);
-  if(spec==='guandu-200'){const p=s.campaign.domestic.people.find(p=>OFFICER_BY_ID[p.id].birthYear>200);assert.equal(p.status,'NOT_DEBUTED');assert.ok(p.debutDay>1);}else assert.ok(s.campaign.domestic.people.every(p=>p.status==='FREE'||p.status==='EXCLUDED'));
+  if(spec==='guandu-200'){const p=s.campaign.domestic.people.find(p=>OFFICER_BY_ID[p.id].birthYear>200);assert.equal(p.status,'NOT_DEBUTED');assert.ok(p.debutDay>1);}else assert.ok(s.campaign.domestic.people.every(p=>p.status==='FREE'||p.status==='EXCLUDED'||spec==='heroes-251'&&p.status==='DEAD'));
   assert.ok(s.campaign.domestic.people.filter(p=>OFFICER_BY_ID[p.id].sourceKind!=='common').every(p=>p.status==='EXCLUDED'));
   for(const id of ['person-671','person-717','person-756'])assert.equal(s.campaign.domestic.people.find(p=>p.id===id)?.status,'EXCLUDED');
  }
@@ -84,13 +84,14 @@ test('project decay begins after 90 idle days plus a 30-day interval and is idem
 test('loyal foreign officers and reigning lords cannot be persuaded',()=>{
  const s=scene(),o=s.campaign.idle.find(o=>o.faction==='yuan');o.location='guandu';assert.equal(talentEligibility(s,o.unit.id,'cao','xuchang','persuade').reason,'loyal');assert.ok(isLord(s,'shao','yuan'));assert.ok(isLord(s,'cao','cao'));
 });
-test('continuous employment prevents losses; idle warnings require 30 actual days to cancel',()=>{
- const s=scene(),o=s.campaign.idle.find(o=>o.location==='xuchang'),r=s.campaign.talent.records[o.unit.id];r.graceUntilDay=1;r.idleDays=180;r.idleTurns=18;r.leaveAtDay=30;s.campaign.domestic.loyalty[o.unit.id]=30;
- assignDomestic(s,'xuchang','talent',o.unit.id);for(let n=1;n<=29;n++){s.campaign.day=n;finishTalentDay(s,cancelDomestic);}assert.equal(r.leaveAtDay,30);assert.equal(r.idleTurns,18);s.campaign.day=30;finishTalentDay(s,cancelDomestic);assert.equal(r.leaveAtDay,null);assert.equal(r.idleTurns,0);assert.ok(servingPeople(s).has(o.unit.id));
+test('continuous employment resets idle history but does not erase a still-low loyalty reminder',()=>{
+ const s=scene(),o=s.campaign.idle.find(o=>o.location==='xuchang'),r=s.campaign.talent.records[o.unit.id];r.graceUntilDay=1;r.idleDays=180;r.idleTurns=18;r.loyaltyWarning=true;s.campaign.domestic.loyalty[o.unit.id]=30;
+ assignDomestic(s,'xuchang','talent',o.unit.id);for(let n=1;n<=30;n++){s.campaign.day=n;finishTalentDay(s,cancelDomestic,{deferResignations:true});s.campaign.talent.seed=0;resolveTalentResignations(s,cancelDomestic);}
+ assert.equal(r.workedDays,30);assert.equal(r.idleTurns,0);assert.equal(r.loyaltyWarning,true);assert.ok(servingPeople(s).has(o.unit.id));
 });
-test('one-day boundary appointments do not erase idle history; resignation preserves learned officer',()=>{
- const s=scene(),o=s.campaign.idle.find(o=>o.location==='xuchang'),original=structuredClone(o.unit),r=s.campaign.talent.records[o.unit.id];r.graceUntilDay=1;r.idleDays=200;r.idleTurns=20;r.leaveAtDay=30;s.campaign.domestic.loyalty[o.unit.id]=20;
- for(let n=1;n<=30;n++){s.campaign.day=n;if(n%10===0){s.campaign.phase='planning';assignDomestic(s,'xuchang','talent',o.unit.id);}else cancelDomestic(s,o.unit.id);finishTalentDay(s,cancelDomestic);}
+test('a sudden low-loyalty resignation preserves the learned officer and normal rejoining limits',()=>{
+ const s=scene(),o=s.campaign.idle.find(o=>o.location==='xuchang'),original=structuredClone(o.unit),r=s.campaign.talent.records[o.unit.id];r.graceUntilDay=1;r.idleDays=200;r.idleTurns=20;s.campaign.domestic.loyalty[o.unit.id]=20;
+ s.campaign.day=30;s.campaign.talent.seed=1972;resolveTalentResignations(s,cancelDomestic);
  assert.ok(!servingPeople(s).has(o.unit.id));const p=s.campaign.domestic.people.find(p=>p.id===o.unit.id);assert.deepEqual(p.unit,original);assert.equal(r.hardWaitUntilDay,91);assert.equal(r.rejoinBlocks.cao,211);assert.equal(talentEligibility(s,p.id,'cao','xuchang','hire').reason,'hardWait');
 });
 test('a year-end resignation releases only that officer staffing promise and saves without changing resources',()=>{
@@ -98,26 +99,24 @@ test('a year-end resignation releases only that officer staffing promise and sav
  if(o.cityUnit){assert.equal(disbandCityUnits(s,o.location,[o.unit.id],{scheduled:true,faction:o.faction}),null);o=servingPeople(s).get(o.unit.id);}
  s.campaign.day=360;s.turn=36;
  assert.equal(assignDomestic(s,o.location,'military',o.unit.id,{scheduled:true,faction:o.faction}),null);
- const r=s.campaign.talent.records[o.unit.id];Object.assign(r,{graceUntilDay:1,idleDays:300,idleTurns:30,leaveAtDay:360,workedDays:8});
+ const r=s.campaign.talent.records[o.unit.id];Object.assign(r,{graceUntilDay:1,idleDays:300,idleTurns:30,workedDays:8});s.campaign.domestic.loyalty[o.unit.id]=20;
  const promise=unit=>({faction:unit.faction,officerId:unit.unit.id,cityId:unit.location,direction:'military',createdDay:351,arrivedDay:352,phase:'work'});
  const other=[...servingPeople(s).values()].find(v=>v.unit.id!==o.unit.id&&!v.army&&!v.destination);
  const retained=promise(other);s.campaign.ai.staffing=[promise(o),retained];
  const stocks=()=>s.cities.map(c=>({id:c.id,gold:c.gold,grain:c.grain,manpower:c.manpower})),before=stocks();
- finishDomesticDay(s);
+ s.campaign.talent.seed=1972;resolveTalentResignations(s,cancelDomestic);finishDomesticDay(s);
  assert.equal(servingPeople(s).has(o.unit.id),false);assert.equal(s.campaign.domestic.people.find(p=>p.id===o.unit.id).status,'FREE');
  assert.deepEqual(s.campaign.ai.staffing,[retained]);assert.deepEqual(stocks(),before);assert.equal(assignmentFor(s,o.unit.id),undefined);
  s.campaign.day=361;s.turn=37;
  const saved=serializeCampaign(s);assert.equal(serializeCampaign(validateCampaign(JSON.parse(saved))),saved);
 });
-test('no-benefit reassurance is not charged and cannot delete a warning',()=>{
+test('no-benefit reassurance is not charged when all local officers already have full loyalty',()=>{
  const s=scene(),a=only(s,'reassure');for(const o of servingPeople(s).values())s.campaign.domestic.loyalty[o.unit.id]=100;
- const r=s.campaign.talent.records[a.officerId];r.idleTurns=18;r.idleDays=180;r.leaveAtDay=30;s.campaign.domestic.loyalty[a.officerId]=50;
- assert.equal(reassuranceCap(s,a.officerId),55);assert.equal(actionCandidates(s,a).length,0);beginExecution(s);assert.equal(a.action,null);assert.equal(r.leaveAtDay,30);
+ const before=s.gold;assert.equal(reassuranceCap(s,a.officerId),100);assert.equal(actionCandidates(s,a).length,0);beginExecution(s);assert.equal(a.action,null);assert.equal(s.gold,before);
 });
-test('defeat waits for effective armies, preserves people, and processes each event once',()=>{
- const s=scene();const enemy=fieldFromCity(s,'guandu');enemy.units.forEach(u=>u.troops=100);for(const c of s.cities)if(c.owner==='yuan'){c.owner='cao';c.governor=null;}noteTalentCityCapture(s,'yuan','cao','last-city');processTalentDefeats(s,cancelDomestic);assert.equal(s.campaign.talent.processedEvents.length,0);
- const ids=[...servingPeople(s).values()].filter(o=>o.faction==='yuan').map(o=>o.unit.id);for(const a of s.armies.filter(a=>a.faction==='yuan'))for(const u of a.units){u.troops=0;u.wounded=0;}
- processTalentDefeats(s,cancelDomestic);const before=s.campaign.domestic.people.length;processTalentDefeats(s,cancelDomestic);assert.equal(s.campaign.domestic.people.length,before);assert.ok(ids.every(id=>s.campaign.domestic.people.some(p=>p.id===id)));assert.equal(s.campaign.talent.processedEvents.length,1);assert.ok(s.campaign.talent.records.shao.hardWaitUntilDay>1);
+test('losing every city releases uncaptured remote officers and processes each event once',()=>{
+ const s=scene();const enemy=fieldFromCity(s,'guandu');enemy.units.forEach(u=>u.troops=100);for(const c of s.cities)if(c.owner==='yuan'){c.owner='cao';c.governor=null;}const ids=[...servingPeople(s).values()].filter(o=>o.faction==='yuan').map(o=>o.unit.id);noteTalentCityCapture(s,'yuan','cao','last-city');processTalentDefeats(s,cancelDomestic);assert.ok(!s.armies.some(a=>a.faction==='yuan'));
+ const before=s.campaign.domestic.people.length;processTalentDefeats(s,cancelDomestic);assert.equal(s.campaign.domestic.people.length,before);assert.ok(ids.every(id=>s.campaign.domestic.people.some(p=>p.id===id)));assert.equal(s.campaign.talent.processedEvents.length,1);assert.ok(s.campaign.talent.records.shao.hardWaitUntilDay>1);
 });
 test('new version persists projects, phases and RNG, UI reads do not mutate saves',()=>{
  const s=scene(),p=readyTalent(s);only(s,'hire');advance(s,8);const b=restore(s),saved=serializeCampaign(s);strategicView(s,{city:'xuchang'});assert.equal(serializeCampaign(s),saved);advance(s,101);advance(b,101);assert.equal(serializeCampaign(s),serializeCampaign(b));restore(s);
@@ -152,17 +151,17 @@ test('initial SEEK lasts exactly eighteen turns and dead or captive people are n
  for(const status of ['DEAD','CAPTIVE','NOT_DEBUTED']){p.travel=null;p.status=status;r.phase='SEEK';assert.equal(talentEligibility(s,p.id,'cao','xuchang','hire').ok,false);}
 });
 test('reigning lord is excluded even as a local idle officer with zero loyalty',()=>{
- const s=scene(),a=s.cities.find(c=>c.units.some(u=>u.id==='shao')),u=a.units.find(u=>u.id==='shao');a.units=a.units.filter(u=>u.id!=='shao');s.campaign.idle.push({unit:u,faction:'yuan',location:'guandu',destination:null,remainingDays:0});s.campaign.domestic.loyalty.shao=0;
- assert.equal(talentEligibility(s,'shao','cao','xuchang','persuade').reason,'lord');const r=s.campaign.talent.records.shao;r.idleDays=300;r.idleTurns=30;r.graceUntilDay=1;s.campaign.day=30;finishTalentDay(s,cancelDomestic);assert.equal(r.leaveAtDay,null);
+ const s=scene(),a=s.cities.find(c=>c.units.some(u=>u.id==='shao')),u=a.units.find(u=>u.id==='shao');a.units=a.units.filter(u=>u.id!=='shao');if(a.governor==='shao')a.governor=null;s.campaign.idle.push({unit:u,faction:'yuan',location:'guandu',destination:null,remainingDays:0});s.campaign.domestic.loyalty.shao=0;
+ assert.equal(talentEligibility(s,'shao','cao','xuchang','persuade').reason,'lord');const r=s.campaign.talent.records.shao;r.idleDays=300;r.idleTurns=30;r.graceUntilDay=1;s.campaign.day=30;finishTalentDay(s,cancelDomestic);assert.equal(r.loyaltyWarning,false);
 });
 test('arrival grace on a non-boundary day neither leaks loyalty nor avoids later idle penalties',()=>{
  const s=scene(),o=s.campaign.idle.find(o=>o.location==='xuchang'),r=s.campaign.talent.records[o.unit.id];r.graceUntilDay=93;s.campaign.domestic.loyalty[o.unit.id]=80;
  for(let n=1;n<=190;n++){s.campaign.day=n;finishTalentDay(s,cancelDomestic);if(n===90)assert.equal(s.campaign.domestic.loyalty[o.unit.id],80);}
  assert.ok(s.campaign.domestic.loyalty[o.unit.id]<80);const before=s.campaign.domestic.loyalty[o.unit.id];for(let n=191;n<=200;n++){s.campaign.day=n;finishTalentDay(s,cancelDomestic);}assert.equal(s.campaign.domestic.loyalty[o.unit.id],before);
 });
-test('an empty army does not protect an idle officer from a due resignation',()=>{
- const s=scene(),a=s.cities.find(c=>c.owner==='cao'&&c.units.length&&!c.units.some(u=>u.id==='cao'));for(const u of a.units){u.troops=0;u.wounded=0;}a.route=[];a.travel=null;const u=a.units[0],r=s.campaign.talent.records[u.id];r.idleDays=240;r.idleTurns=24;r.leaveAtDay=10;r.graceUntilDay=1;s.campaign.domestic.loyalty[u.id]=10;s.campaign.day=10;
- finishTalentDay(s,cancelDomestic);assert.ok(!servingPeople(s).has(u.id));assert.ok(s.campaign.domestic.people.some(p=>p.id===u.id));
+test('an empty army does not protect an idle officer from a sudden low-loyalty resignation',()=>{
+ const s=scene(),c=s.cities.find(c=>c.owner==='cao'&&c.units.length&&!c.units.some(u=>u.id==='cao')),a=fieldFromCity(s,c.id);for(const u of a.units){u.troops=0;u.wounded=0;}a.route=[];a.travel=null;const u=a.units[0],r=s.campaign.talent.records[u.id];r.idleDays=240;r.idleTurns=24;r.graceUntilDay=1;s.campaign.domestic.loyalty[u.id]=10;s.campaign.day=10;
+ s.campaign.talent.seed=1972;resolveTalentResignations(s,cancelDomestic);assert.ok(!servingPeople(s).has(u.id));assert.ok(s.campaign.domestic.people.some(p=>p.id===u.id));
 });
 
 test('prepared garrison strength alone is idle employment while a real appointment prevents idle days',()=>{
@@ -177,8 +176,8 @@ test('prepared garrison strength alone is idle employment while a real appointme
 test('an idle prepared officer resignation returns every soldier and wounded man without freeing a duplicate',()=>{
  const s=scene(),c=s.cities.find(c=>c.id==='xuchang'),u=c.units.find(u=>!isLord(s,u.id,c.owner)&&u.id!==c.governor&&!assignmentFor(s,u.id));assert.ok(u);
  u.wounded=17;const men=u.troops+u.wounded,before=c.manpower,r=s.campaign.talent.records[u.id];
- Object.assign(r,{graceUntilDay:1,idleDays:240,idleTurns:24,leaveAtDay:10});s.campaign.domestic.loyalty[u.id]=10;s.campaign.day=10;
- const copy=JSON.parse(serializeCampaign(s));for(const world of [s,copy])finishTalentDay(world,cancelDomestic);
+ Object.assign(r,{graceUntilDay:1,idleDays:240,idleTurns:24});s.campaign.domestic.loyalty[u.id]=10;s.campaign.day=10;s.campaign.talent.seed=1972;
+ const copy=JSON.parse(serializeCampaign(s));for(const world of [s,copy])resolveTalentResignations(world,cancelDomestic);
  assert.equal(serializeCampaign(s),serializeCampaign(copy));assert.equal(c.manpower,before+men);assert.equal(servingPeople(s).has(u.id),false);
  const free=s.campaign.domestic.people.filter(p=>p.id===u.id);assert.equal(free.length,1);assert.equal(free[0].unit.troops,0);assert.equal(free[0].unit.wounded,0);
  assert.equal(s.campaign.idle.some(o=>o.unit.id===u.id),false);

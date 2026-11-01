@@ -3,7 +3,7 @@ import {fieldFromCity,approachDestination,marchTestTurns} from './helpers/field-
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {newCampaign,prepareSiegeUnits,launchExpedition,prepareCityUnits,beginExecution,advanceCampaignDay,advanceCampaignStep,activeBattles,chooseEncounter,serializeCampaign,validateCampaign,assignDomestic} from './helpers/auto-domestic-campaign.mjs';
-import {requestStrategicOrder} from '../strategic-orders.mjs';
+import {requestStrategicOrder,requestFactionOrder} from '../strategic-orders.mjs';
 import {ACTIONS,assignmentFor} from '../domestic.mjs';
 import {campaignOfficers} from '../strategic-roster.mjs';
 const town=(s,id)=>s.cities.find(c=>c.id===id);
@@ -18,8 +18,8 @@ test('preparing units preserves domestic duties and creates no army; departure c
  assert.equal(assignDomestic(s,c.id,'commerce',idle.unit.id),null);assert.equal(prepareCityUnits(s,c.id,[idle.unit.id]),null);
  assert.equal(s.armies.length,0);assert.ok(c.units.some(u=>u.id===idle.unit.id));assert.ok(assignmentFor(s,idle.unit.id));
  const q=order(s),before=c.units.length,grain=c.grain,learning=q.officerIds.map(id=>structuredClone(c.units.find(u=>u.id===id).tacticLearning));
- assert.deepEqual(requestStrategicOrder(s,q),{applied:true});assert.equal(s.armies.length,1);assert.equal(c.units.length,before-2);
- assert.deepEqual(s.armies[0].units.map(u=>u.id),q.officerIds);assert.deepEqual(s.armies[0].units.map(u=>u.tacticLearning),learning);assert.equal(grain-c.grain,s.armies[0].supply);reload(s);
+ assert.ok(requestStrategicOrder(s,q).confirmation);assert.deepEqual(requestStrategicOrder(s,q,'now'),{applied:true});assert.equal(s.armies.length,1);assert.equal(town(s,c.id).units.length,before-2);
+ assert.deepEqual(s.armies[0].units.map(u=>u.id),q.officerIds);assert.deepEqual(s.armies[0].units.map(u=>u.tacticLearning),learning);assert.equal(grain-town(s,c.id).grain,s.armies[0].supply);reload(s);
 });
 test('invalid commander and duplicate selection cannot partially create a field army',()=>{
  const s=newCampaign(5,'guandu-200'),q=order(s),before=serializeCampaign(s);
@@ -39,7 +39,7 @@ test('a deferred expedition stores composition, creates no army early, and launc
  for(let n=0;n<30&&s.campaign.day<11;n++)advance(s);
  assert.equal(s.campaign.day,11);assert.ok(assignmentFor(s,id).action);
  q.formation={types:{},reinforce:false};const before=serializeCampaign(s);assert.ok(requestStrategicOrder(s,q).confirmation);assert.equal(serializeCampaign(s),before);
- assert.ok(requestStrategicOrder(s,q,'after').queued);assert.equal(s.armies.filter(a=>a.faction==='cao').length,0);assert.ok(c.units.some(u=>u.id===id));
+ assert.ok(requestFactionOrder(s,'cao',q,'after').queued);assert.equal(s.armies.filter(a=>a.faction==='cao').length,0);assert.ok(c.units.some(u=>u.id===id));
  const loaded=reload(s);assert.equal(loaded.campaign.domestic.orders[0].leader,q.leader);
  for(let n=0;n<80&&loaded.campaign.domestic.orders.length;n++)advance(loaded);
  assert.equal(loaded.campaign.domestic.orders.length,0);assert.ok(loaded.armies.some(a=>a.faction==='cao'&&a.leader===id&&a.route.length));assert.equal(loaded.campaign.domestic.workHistory[id][0].status,'completed');reload(loaded);

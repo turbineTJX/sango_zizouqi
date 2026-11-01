@@ -19,8 +19,8 @@ const link=(action,label,extra='')=>`<button class="dispatch-link" data-action="
 export function reportTone(e){
  if(e.phase==='incident'&&DOMESTIC_INCIDENTS[e.result?.incident?.code]?.relationDelta<0)return 'concern';
  if(e.result?.reward)return 'reward';
- if(['discovered','project-resumed','retained'].includes(e.phase))return 'notice';
- return ['budget-warning','failure','pause','cancel','offer-paused','leave-warning','resigned','changed-side','DEAD','CAPTIVE','TRANSPORT_LOST'].includes(e.phase)||e.result?.lost?'concern':'notice';
+ if(['discovered','project-resumed','loyalty-restored'].includes(e.phase))return 'notice';
+ return ['budget-warning','failure','pause','cancel','offer-paused','loyalty-low','resigned','changed-side','DEAD','CAPTIVE','TRANSPORT_LOST'].includes(e.phase)||e.result?.lost?'concern':'notice';
 }
 function rewardBody(s,e){
  const r=e.result?.reward;if(!r)return '';
@@ -35,7 +35,7 @@ function rewardBody(s,e){
  }
  if(r.kind==='technology'){
   const tech=TECHNOLOGIES.records.find(t=>t.id===r.technologyId);
-  return `<span class="reward-kicker">技术突破</span><h3>${esc(tech?.name)}</h3><div class="reward-effect">${esc(mapNode(s,e.cityId)?.name)}：${esc(tech?.parameters.description)}</div>${link('domestic-alert-city','查看城市',`data-town="${esc(e.cityId)}"`)}`;
+  return `<h3>${esc(tech?.name)}</h3><div class="reward-effect">${esc(mapNode(s,e.cityId)?.name)}：${esc(tech?.parameters.description)}</div>${link('campaign-info-detail','查看城市',`data-kind="city" data-id="${esc(e.cityId)}"`)}`;
  }
  return '';
 }
@@ -43,8 +43,8 @@ export function outcomeReportMarkup(s,e){
  const officer=OFFICER_BY_ID[e.officerId],city=mapNode(s,e.siteId),name=officer?.name||'纪事',reward=e.result?.reward,body=rewardBody(s,e);
  const label=e.phase==='incident'?'内政纪事':reward?.kind==='officer'?'新入麾下':reward?.kind==='building'?'设施成果':reward?.kind==='technology'?'技术突破':reportTone(e)==='concern'?'需留意':'事项通知';
  const portrait=reward?.kind==='building'?`<svg class="reward-building-art" viewBox="-70 -105 140 130" role="img" aria-label="${esc(BUILDINGS[reward.buildingKey].name)}">${townSprite(reward.buildingKey,{width:130,id:e.id+'-reward'})}</svg>`:`<div class="report-portrait" ${officer?`data-art-portrait="${esc(e.officerId)}" data-art-scene="${reward?.kind==='officer'?'detail':reportArtScene(e)}"`:''}><span>${esc(name.slice(0,1))}</span></div>`;
- const original=`<p>${reportText(e.text,e.officerIds?.map(id=>OFFICER_BY_ID[id]?.name).filter(Boolean)|| (officer?[name]:[]))}</p>`;
- return `<article class="report-dispatch report-${reportTone(e)} ${reward?'reward-'+reward.kind:''}" data-report-node="${esc(e.id)}" data-report-tone="${reportTone(e)}"><aside class="report-speaker">${portrait}<b>${esc(reward?.kind==='building'?BUILDINGS[reward.buildingKey].name:name)}</b></aside><div class="report-message"><small>${campaignDate(s,{day:e.day})}${city?' · '+esc(city.name):''} · ${label}</small>${body}${body?`<details class="reward-source"><summary>办理经过</summary>${original}</details>`:original}${e.category==='diplomacy'&&e.phase==='pending'&&s.campaign.diplomacy.proposals.some(p=>p.id===e.result.proposalId&&p.status==='pending')?`<button class="button primary" data-action="diplomacy-review" data-proposal="${e.result.proposalId}">核阅方案</button>`:''}${link('activity-alert-record','查看事项 ↗',`data-node="${esc(e.id)}"`)}${!reward&&s.cities.find(c=>c.id===e.cityId)?.owner===playerFaction(s)?link('domestic-alert-city',esc(mapNode(s,e.cityId).name)+' ↗',`data-town="${esc(e.cityId)}"`):''}</div></article>`;
+ const original=`<p>${reportText(e.text,e.officerIds?.map(id=>OFFICER_BY_ID[id]?.name).filter(Boolean)|| (officer?[name]:[]))}</p>`+(e.phase==='loyalty-low'&&s.cities.find(c=>c.id===e.cityId)?.owner===playerFaction(s)?link('domestic-direction-open','人才事务',`data-town="${esc(e.cityId)}" data-direction="talent"`):'');
+ return `<article class="report-dispatch report-${reportTone(e)} ${reward?'reward-'+reward.kind:''}" data-report-node="${esc(e.id)}" data-report-tone="${reportTone(e)}"><aside class="report-speaker">${portrait}<b>${esc(reward?.kind==='building'?BUILDINGS[reward.buildingKey].name:name)}</b></aside><div class="report-message"><small>${campaignDate(s,{day:e.day})}${city?' · '+esc(city.name):''} · ${label}</small>${body}${body?`<details class="reward-source"><summary>办理经过</summary>${original}</details>`:original}${e.category==='diplomacy'&&e.phase==='pending'&&s.campaign.diplomacy.proposals.some(p=>p.id===e.result.proposalId&&p.status==='pending')?`<button class="button primary" data-action="diplomacy-review" data-proposal="${e.result.proposalId}">核阅方案</button>`:''}${link('activity-alert-record','查看事项 ↗',`data-node="${esc(e.id)}"`)}${!reward&&s.cities.find(c=>c.id===e.cityId)?.owner===playerFaction(s)?link('campaign-info-detail',esc(mapNode(s,e.cityId).name)+' ↗',`data-kind="city" data-id="${esc(e.cityId)}"`):''}</div></article>`;
 }
 export function harvestStripMarkup(s){
  const e=s.campaign.activity.nodes.findLast(n=>n.phase==='harvest'&&n.faction===playerFaction(s));if(!e)return '';

@@ -19,8 +19,7 @@ test('a city with no cash can propose a real grain sale, with commission and pro
   const {s,c}=fixture(seed,{allAI,only:'sell'}),a=appoint(s,c,'person-367'),grain=c.grain;
   beginDomesticTurn(s);assert.equal(c.gold,0);assert.equal(c.grain,grain);
   s.campaign.domestic.assignments=s.campaign.domestic.assignments.filter(x=>x.cityId!==c.id||x===a);
-  if(!allAI){assert.ok(a.proposal);assert.equal(a.proposal.expenses.gold,0);assert.equal(a.proposal.expenses.grain,1200);assert.match(domesticProposalText(s,a),/成交后.*30金手续费/);
-   assert.equal(decideDomesticProposal(s,a.proposal.id,true),null);}
+  assert.equal(a.proposal,null); // Funded normal operations proceed without an approval dialog.
   assert.equal(a.action.key,'sell');assert.equal(a.action.cost,0);
   for(let i=0;i<10;i++){
    if(i<9){assert.equal(c.gold,0);assert.equal(c.grain,grain);}

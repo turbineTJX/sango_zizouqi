@@ -6,7 +6,7 @@ import {assignDomestic} from '../domestic.mjs';
 import {talentContext,servingPeople} from '../talent-core.mjs';
 
 const days=Number(process.argv[2]||360),peaceful=process.argv.includes('--peaceful'),results=[],sources={};
-for(const file of ['talent-core.mjs','talent-lifecycle.mjs','domestic.mjs','strategic-campaign.mjs','strategic-ai.mjs','national-scenarios.mjs'])sources[file]=createHash('sha256').update(await readFile(file)).digest('hex');
+for(const file of ['talent-core.mjs','talent-lifecycle.mjs','data/design/talent-loyalty.mjs','domestic.mjs','strategic-campaign.mjs','strategic-ai.mjs','national-scenarios.mjs'])sources[file]=createHash('sha256').update(await readFile(file)).digest('hex');
 for(const scenario of [null,'guandu-200','heroes-251'])for(const seed of [23,71]){
  const s=newCampaign(seed,scenario),samples=[],events=new Map(),displaced=new Map(),domesticEvents=new Map();
  if(peaceful)s.armies.forEach(a=>a.stationary=true);
@@ -27,7 +27,7 @@ for(const scenario of [null,'guandu-200','heroes-251'])for(const seed of [23,71]
  assert.ok(s.campaign.day>days||s.finished,'audit must finish');validateCampaign(JSON.parse(serializeCampaign(s)));
  const records=[...events.values()],signed=records.filter(e=>e.code==='signed'),costs=signed.map(e=>e.cost).sort((a,b)=>a-b),elapsed=signed.map(e=>e.elapsed).sort((a,b)=>a-b),distribution=list=>({count:list.length,mean:list.length?list.reduce((a,b)=>a+b,0)/list.length:null,p50:list[Math.floor(list.length*.5)]??null,p90:list[Math.min(list.length-1,Math.floor(list.length*.9))]??null});
  const reassurance=[...domesticEvents.values()].filter(e=>e.text.includes('安抚本城人才'));
- results.push({scenario:scenario||'small-map',seed,day:s.campaign.day,finished:s.finished||null,samples,newHires:signed.length,cost:distribution(costs),elapsed:distribution(elapsed),reassurance:{spent:reassurance.filter(e=>e.phase==='start').reduce((n,e)=>n+e.result.cost,0),zeroOutcome:reassurance.filter(e=>['complete','failure'].includes(e.phase)&&e.result.actual===0).length},resigned:records.filter(e=>e.code==='resigned').length,warnings:records.filter(e=>e.code==='leave-warning').length,defeatDestinations:Object.fromEntries(displaced),projects:Object.values(s.campaign.talent.projects).length,events:records});
+ results.push({scenario:scenario||'small-map',seed,day:s.campaign.day,finished:s.finished||null,samples,newHires:signed.length,cost:distribution(costs),elapsed:distribution(elapsed),reassurance:{spent:reassurance.filter(e=>e.phase==='start').reduce((n,e)=>n+e.result.cost,0),zeroOutcome:reassurance.filter(e=>['complete','failure'].includes(e.phase)&&e.result.actual===0).length},resigned:records.filter(e=>e.code==='resigned').length,warnings:records.filter(e=>e.code==='loyalty-low').length,defeatDestinations:Object.fromEntries(displaced),projects:Object.values(s.campaign.talent.projects).length,events:records});
  console.log(scenario||'small-map',seed,s.campaign.day,'hires',signed.length,'resignations',results.at(-1).resigned);
  await mkdir('outputs/talent-audit',{recursive:true});await writeFile(`outputs/talent-audit/results-${days}${peaceful?'-peaceful':''}.json`,JSON.stringify({days,peaceful,sources,results},null,2));
 }

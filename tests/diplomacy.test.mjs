@@ -1,3 +1,4 @@
+import {diplomaticProposalLabel} from '../diplomatic-labels.mjs';
 import {fundCities} from './resource-fixtures.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -8,7 +9,7 @@ import {pendingActivityReports,acknowledgeActivityReports} from '../activity-nod
 import {cityStaffStatus} from '../domestic-feedback.mjs';
 import {diplomacyMarkup} from '../diplomacy-view.mjs';
 
-const fresh=()=>{const s=newCampaign(281,'guandu-200');fundCities(s,9000);return s;};
+const fresh=()=>{const s=newCampaign(281,'guandu-200');fundCities(s,9000);for(const pair of Object.keys(s.campaign.diplomacy.wars))if(pair.split(':').includes('cao'))s.campaign.diplomacy.relations[pair]=90;return s;};
 // Isolate logistics from new military offensives. Diplomacy AI, economics,
 // personnel movement and existing battles still use their actual daily engines.
 function nextDay(s){s.campaign.ai.lastPlanDay=s.campaign.day;if(s.campaign.phase==='planning')beginExecution(s);for(const r of s.campaign.battles.filter(r=>r.awaiting))chooseEncounter(s,r.id,false);for(let i=0;i<3;i++){const before=s.campaign.day;advanceCampaignDay(s);if(s.campaign.day!==before)break;for(const r of s.campaign.battles.filter(r=>r.awaiting))chooseEncounter(s,r.id,false);}validateCampaign(JSON.parse(serializeCampaign(s)));}
@@ -31,6 +32,13 @@ test('player and AI approval use the same final proposal, version and lawful pre
  const s=fresh(),o=appoint(s);waitFor(s,()=>s.campaign.diplomacy.proposals.some(p=>p.status==='pending'&&p.officerId===o.unit.id));
  const p=s.campaign.diplomacy.proposals.find(p=>p.officerId===o.unit.id),ai=structuredClone(s);ai.campaign.allAI=true;
  const before=structuredClone(s.cities);
+ const site=p.sites.cao;p.sites.cao=s.cities.find(c=>c.owner==='cao'&&c.id!==site).id;
+ const staleSave=serializeCampaign(s),markup=diplomacyMarkup(s);
+ assert.match(markup,/君主驻城已变化，需要重新交涉/);
+ assert.match(markup,new RegExp(`data-action="diplomacy-approve" data-proposal="${p.id}"[^>]+disabled`));
+ assert.equal(serializeCampaign(s),staleSave,'approval preview is read-only');
+ assert.match(approveDiplomaticProposal(s,p.id,p.version),/君主驻城已变化/);
+ p.sites.cao=site;
  assert.equal(approveDiplomaticProposal(s,p.id,p.version),null);assert.equal(approveDiplomaticProposal(ai,p.id,p.version,{faction:'cao',automatic:true}),null);
  const automatic=ai.campaign.diplomacy.proposals.find(q=>q.id===p.id);
  assert.deepEqual(automatic.approvals.cao.terms,p.approvals.cao.terms);assert.equal(automatic.approvals.cao.controller,'ai');assert.equal(p.approvals.cao.controller,'player');
@@ -55,5 +63,14 @@ test('AI uses real candidates and ruler valuation, never supplies player approva
  nextDay(s);assert.ok(s.campaign.diplomacy.assignments.some(a=>a.faction!=='cao'));waitFor(s,()=>s.campaign.diplomacy.proposals.some(p=>p.status==='pending'&&p.factions.includes('cao')),100);const p=s.campaign.diplomacy.proposals.find(p=>p.status==='pending'&&p.factions.includes('cao'));assert.equal(p.approvals.cao,undefined);const f=p.factions.find(f=>f!=='cao'),bad=structuredClone(p);bad.clauses=[{id:1,kind:'gold',from:f,to:'cao',amount:50000}];assert.equal(evaluateDiplomaticProposal(s,bad,f).approve,false);assert.match(diplomacyMarkup(s),/待批准/);
 });
 test('ruler move or exhausted inventory stops signing an already approved version',()=>{
- const s=fresh(),o=appoint(s);waitFor(s,()=>s.campaign.diplomacy.proposals.some(p=>p.status==='pending'&&p.officerId===o.unit.id));const p=s.campaign.diplomacy.proposals.find(p=>p.officerId===o.unit.id);assert.equal(approveDiplomaticProposal(s,p.id,p.version),null);fundCities(s,500);nextDay(s);assert.equal(p.status,'cancelled');assert.equal(s.campaign.diplomacy.contracts.some(c=>c.id===p.id),false);assert.match(p.failure||s.campaign.activity.nodes.findLast(n=>n.result.proposalId===p.id&&n.phase==='failed').text,/不足/);
+ const s=fresh(),o=appoint(s);waitFor(s,()=>s.campaign.diplomacy.proposals.some(p=>p.status==='pending'&&p.officerId===o.unit.id));const p=s.campaign.diplomacy.proposals.find(p=>p.officerId===o.unit.id);assert.equal(approveDiplomaticProposal(s,p.id,p.version),null);assert.equal(approveDiplomaticProposal(s,p.id,p.version,{faction:p.factions.find(f=>f!=='cao'),automatic:true}),null);fundCities(s,500);nextDay(s);assert.equal(p.status,'cancelled');assert.equal(s.campaign.diplomacy.contracts.some(c=>c.id===p.id),false);assert.match(p.failure||s.campaign.activity.nodes.findLast(n=>n.result.proposalId===p.id&&n.phase==='failed').text,/不足/);
+});
+
+test('incoming trade labels follow the viewer resource flow rather than the initiator goal',()=>{
+ const p={factions:['yuan','cao'],goal:'sellGrain',clauses:[{kind:'grain',from:'yuan',to:'cao',amount:3000},{kind:'gold',from:'cao',to:'yuan',amount:540}]},before=JSON.stringify(p);
+ assert.equal(diplomaticProposalLabel(p,'cao'),'购入粮食');assert.equal(diplomaticProposalLabel(p,'yuan'),'出售粮食');
+ p.goal='buyGrain';p.clauses[0]={kind:'grain',from:'cao',to:'yuan',amount:3000};
+ assert.equal(diplomaticProposalLabel(p,'cao'),'出售粮食');assert.equal(diplomaticProposalLabel(p,'yuan'),'购入粮食');
+ const original=JSON.parse(before);diplomaticProposalLabel(original,'cao');assert.equal(JSON.stringify(original),before);
+ assert.equal(diplomaticProposalLabel({...p,goal:'funding'},'cao'),'筹措借款（对方提议）');
 });

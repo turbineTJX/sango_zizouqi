@@ -32,7 +32,7 @@ test('transport preview uses actual carrier speed and relay handoff days without
   assert.equal(serializeCampaign(s),before);
   assert.equal(transferOfficer(s,unit.id,p.destination,{cargo:p.cargo,relay:p.relay}),null);
   const carrier=s.campaign.idle.find(o=>o.unit.id===unit.id);let actual=0;
-  while(carrier.destination&&actual<30){advancePersonnel(s,carrier);actual++;}
+  while(carrier.destination&&actual<=days){advancePersonnel(s,carrier);actual++;}
   assert.equal(carrier.destination,null);assert.equal(actual,days,JSON.stringify({relay:p.relay,grain,days,actual}));
  }
 });

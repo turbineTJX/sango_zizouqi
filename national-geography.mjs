@@ -3,7 +3,17 @@ import {atlasPoint,ATLAS_COAST,ATLAS_FRONTIER,ATLAS_HIGHLANDS,ATLAS_PROVINCES} f
 // River courses are traced/adapted from the supplied scan, not historical GIS.
 const points=ps=>ps.map(atlasPoint);
 export const polygonPath=ps=>'M'+ps.map(p=>p.join(' ')).join('L')+'Z';
-export const LAND_PATH=polygonPath(points(ATLAS_COAST));
+export const LAND_POLYGON=points(ATLAS_COAST);
+export const LAND_PATH=polygonPath(LAND_POLYGON);
+// Display geometry only. Labels and scenery must use the same coast as the atlas.
+export function isLandPoint(x,y){
+ let inside=false;
+ for(let i=0,j=LAND_POLYGON.length-1;i<LAND_POLYGON.length;j=i++){
+  const a=LAND_POLYGON[i],b=LAND_POLYGON[j];
+  if((a[1]>y)!==(b[1]>y)&&x<(b[0]-a[0])*(y-a[1])/(b[1]-a[1])+a[0])inside=!inside;
+ }
+ return inside;
+}
 export const NORTHERN_PATH=polygonPath(points([[-50,-35],[1420,-35],...ATLAS_FRONTIER.toReversed(),[-50,280]]));
 export const HIGHLAND_PATH=polygonPath(points([...ATLAS_HIGHLANDS,[190,1260],[310,1384],[560,1477],[-50,1515],[-50,282]]));
 export const PROVINCE_LABELS=ATLAS_PROVINCES.map(([name,x,y])=>({name,point:atlasPoint([x,y])}));

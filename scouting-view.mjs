@@ -1,3 +1,4 @@
+import {assignmentField} from './assignment-picker.mjs';
 import {campaignDate} from './national-scenarios.mjs';
 import {gateDurability} from './building-durability.mjs';
 import {mapNode} from './map-node-data.mjs';
@@ -14,7 +15,7 @@ const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 const number=v=>Number.isFinite(v)?Math.floor(v).toLocaleString('zh-CN'):'—';
 export function scoutSelection(s,selection={}){
  const faction=playerFaction(s),cities=s.cities.filter(c=>c.owner===faction),city=cities.find(c=>c.id===selection.city);
- const candidates=city?scoutCandidates(s,city.id):[],officer=candidates.find(o=>o.unit.id===selection.officer);
+ const candidates=city?scoutCandidates(s,city.id,playerFaction(s),{reassign:true}):[],officer=candidates.find(o=>o.unit.id===selection.officer);
  const targets=officer?scoutTargets(s,city.id):[],target=targets.find(n=>n.id===selection.target);
  const route=target?(selection.route?(validScoutRoute(s,city.id,target.id,selection.route)?selection.route:null):scoutRoute(s,city.id,target.id)):null;
  return {cities,city,candidates,officer,targets,target,route};
@@ -22,12 +23,12 @@ export function scoutSelection(s,selection={}){
 export function scoutingMarkup(s,selection={},mapMarkup=''){
  const {cities,city,candidates,officer,targets,target,route}=scoutSelection(s,selection),range=scoutingDurationRange(officer?.unit.intellect),days=CAMPAIGN_TIME.daysPerTurn,tasks=scoutAssignments(s).filter(t=>t.faction===playerFaction(s));
  const cost=route?.reduce((sum,id,i)=>sum+roadCost(s,i?route[i-1]:city.id,id),0),besieged=city&&s.campaign.battles.some(b=>!b.settled&&b.kind==='siege'&&b.cityId===city.id),allowed=s.campaign.phase==='planning'&&!s.finished&&!besieged&&officer&&route?.length;
- const fields=`<div class="scout-fields"><label>派出城市<select id="scout-city"><option value="">选择城市</option>${cities.map(c=>`<option value="${esc(c.id)}" ${city?.id===c.id?'selected':''}>${esc(c.name)}</option>`).join('')}</select></label><label>执行人<select id="scout-officer" ${city?'':'disabled'}><option value="">选择武将</option>${candidates.map(o=>`<option value="${esc(o.unit.id)}" ${officer?.unit.id===o.unit.id?'selected':''}>${esc(o.unit.name)} · 智 ${o.unit.intellect}</option>`).join('')}</select></label><label>终点<select id="scout-target" ${officer?'':'disabled'}><option value="">选择终点</option>${targets.map(n=>`<option value="${esc(n.id)}" ${target?.id===n.id?'selected':''}>${esc(n.name)}</option>`).join('')}</select></label></div>${city&&!candidates.length?'<p role="status">本城暂无可执行侦察的武将</p>':''}`;
+ const fields=`<div class="scout-fields">${assignmentField('scout-city','派出城市',city?.name,{kind:'scout-city',selection:city?.id})}${assignmentField('scout-officer','执行人',officer?.unit.name,{kind:'scout-officer',disabled:!city,selection:officer?.unit.id})}${assignmentField('scout-target','终点',target?.name,{kind:'scout-target',disabled:!officer,selection:target?.id})}</div>${city&&!candidates.length?'<p role="status">本城暂无可执行侦察的武将</p>':''}`;
  const missions=tasks.map(t=>{const o=scoutOperator(s,t);return `<article><b>${esc(o?.unit.name)}</b><span>${esc(mapNode(s,t.homeCity).name)} → ${esc(mapNode(s,t.targetCity).name)}</span><small>${scoutStatus(t)}</small><button class="button secondary" data-action="scout-recall" data-officer="${esc(t.officerId)}">停止</button><details class="scout-contact-list"><summary>情报 ${t.contacts.length}</summary>${t.contacts.map(c=>`<p>${esc(c.name)} · ${campaignDate(s,{day:c.report.day})} <button class="personnel-name" data-action="scout-report" data-task="${t.id}" data-key="${esc(c.key)}">查看</button></p>`).join('')||'<p>暂无情报</p>'}</details></article>`;}).join('');
  const readiness=stateMessage();
  function stateMessage(){
   if(s.finished)return '本局已结束';
-  if(s.campaign.phase!=='planning')return '筹划阶段可派遣';
+  if(s.campaign.phase!=='planning'){const nextDay=(Math.floor(((s.campaign.day||1)-1)/days)+1)*days+1;return `当前为执行阶段；请在${campaignDate(s,{day:nextDay})}新旬筹划时派遣侦察`;}
   if(besieged)return '围城中，无法派遣';
   if(!city)return '请选择派出城市';
   if(!officer)return candidates.length?'请选择执行人':'本城暂无可用武将';
@@ -40,7 +41,7 @@ export function scoutingMarkup(s,selection={},mapMarkup=''){
 export function scoutingReportMarkup(s,selection={}){
  const t=scoutAssignments(s).find(t=>t.id===selection.task&&t.faction===playerFaction(s)),c=t?.contacts.find(c=>c.key===selection.key);
  if(!c)return {title:'侦察情报',body:'<p>该侦察记录已结束。</p>'};
- const d=c.report.data,fields=c.kind==='city'?[['势力',FACTIONS[d.owner]?.name||'无主'],['本城金',number(d.gold)],['存粮',number(d.grain)],['预备兵',number(d.manpower)],['城门耐久',number(gateDurability(d).hp)],['驻城士兵',number(d.units.reduce((n,u)=>n+u.troops,0))]]:c.kind==='army'?[['势力',FACTIONS[d.faction]?.name||'无主'],['兵力',number(d.units.reduce((n,u)=>n+u.troops,0))],['士气',number(d.morale)],['携粮',number(d.supply)],['观察位置',d.travel?mapNode(s,d.travel.from).name+' → '+mapNode(s,d.travel.to).name:mapNode(s,d.location).name]]:[['类型',({gate:'关卡',port:'港口',junction:'路口'})[d.kind]],['地域',d.province]];
+ const d=c.report.data,fields=c.kind==='city'?[['势力',FACTIONS[d.owner]?.name||'无主'],['本城金',number(d.gold)],['存粮',number(d.grain)],['预备兵',number(d.manpower)],['城门耐久',number(gateDurability(d).hp)],['主将在城兵力',number(d.units.reduce((n,u)=>n+u.troops,0))]]:c.kind==='army'?[['势力',FACTIONS[d.faction]?.name||'无主'],['兵力',number(d.units.reduce((n,u)=>n+u.troops,0))],['士气',number(d.morale)],['携粮',number(d.supply)],['观察位置',d.travel?mapNode(s,d.travel.from).name+' → '+mapNode(s,d.travel.to).name:mapNode(s,d.location).name]]:[['类型',({gate:'关卡',port:'港口',junction:'路口'})[d.kind]],['地域',d.province]];
  if(c.kind==='bandit')fields.splice(0,fields.length,['类型','固定贼寨'],['所在',mapNode(s,d.nodeId).name],['兵力',number(d.units.reduce((n,u)=>n+u.troops,0))],['贼将',d.units.length]);
- return {title:c.name,body:`<p>${campaignDate(s,{day:c.report.day})}的侦察报告 · 负责人${esc(scoutOperator(s,t)?.unit.name)}在${esc(mapNode(s,t.homeCity).name)}工作。</p><dl class="info-fields">${fields.map(([k,v])=>`<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('')}</dl>${d.units?`<h3>${c.kind==='army'?'所属部队':'驻城部队'}</h3><div class="personnel-table-wrap"><table><thead><tr><th>武将</th><th>兵种</th><th>士兵</th></tr></thead><tbody>${d.units.map(u=>`<tr><td>${esc(u.name)}</td><td>${esc(TROOP_DESIGNS[u.type]?.name)}</td><td>${number(u.troops)}</td></tr>`).join('')||'<tr><td colspan="3">未发现驻军</td></tr>'}</tbody></table></div>`:''}`};
+ return {title:c.name,body:`<p>${campaignDate(s,{day:c.report.day})} · ${esc(scoutOperator(s,t)?.unit.name)}</p><dl class="info-fields">${fields.map(([k,v])=>`<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('')}</dl>${d.units?`<h3>${c.kind==='army'?'所属部队':'驻城部队（主将在城）'}</h3><div class="personnel-table-wrap"><table><thead><tr><th>武将</th><th>兵种</th><th>士兵</th></tr></thead><tbody>${d.units.map(u=>`<tr><td>${esc(u.name)}</td><td>${esc(TROOP_DESIGNS[u.type]?.name)}</td><td>${number(u.troops)}</td></tr>`).join('')||'<tr><td colspan="3">未发现驻军</td></tr>'}</tbody></table></div>`:''}`};
 }

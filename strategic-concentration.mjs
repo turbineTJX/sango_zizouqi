@@ -4,8 +4,6 @@ import {removeDomesticOrder} from './domestic.mjs';
 import {STRATEGIC_PLANNING_RULES as R} from './data/design/strategic-planning-rules.mjs';
 
 export const activeConcentration=(s,faction)=>s.campaign.ai.concentrations.find(p=>p.faction===faction&&p.status==='active');
-export const concentrationResting=(s,id,destination)=>s.campaign.ai.concentrations.some(p=>p.status!=='active'&&s.campaign.day<=p.finishedDay+R.concentration.restDays&&p.officerIds.includes(id)&&p.staging!==destination);
-export const concentrationRetryBlocked=(s,faction,staging,target)=>s.campaign.ai.concentrations.some(p=>p.faction===faction&&p.status==='cancelled'&&p.staging===staging&&p.target===target&&s.campaign.day<=p.finishedDay+R.concentration.restDays);
 
 export function closeConcentration(s,p,status,reason){
  if(p.status!=='active')return;
@@ -21,18 +19,21 @@ export function closeConcentration(s,p,status,reason){
 
 export function adoptConcentration(s,faction,candidate){
  const active=activeConcentration(s,faction);
- if(active&&candidate?.concentration&&candidate.staging===active.staging&&candidate.targetCity===active.target)return active;
+ if(active&&candidate?.concentration&&candidate.staging===active.staging&&candidate.targetCity===active.target){active.score=candidate.score;active.reason=candidate.reason;active.requirements=structuredClone(candidate.requirements);active.full=candidate.concentration.full;return active;}
  if(active)closeConcentration(s,active,'cancelled','改选可行战略，释放原前沿准备');
  if(!candidate?.concentration)return null;
  const day=s.campaign.day;
  const p={faction,staging:candidate.staging,target:candidate.targetCity,status:'active',createdDay:day,deadline:day+R.preparationTurns*10,lastProgressDay:day,finishedDay:null,
   intendedIds:[...candidate.concentration.intendedIds],officerIds:[],arrivedIds:[],requirements:structuredClone(candidate.requirements),score:candidate.score,full:candidate.concentration.full,reason:candidate.reason};
+ s.campaign.ai.concentrations=s.campaign.ai.concentrations.filter(q=>q.status==='active'||q.faction!==faction||q.createdDay!==day);
  s.campaign.ai.concentrations.push(p);return p;
 }
 
 export function progressConcentrations(s,{power,unsafe,reviewFaction=null}){
  const day=s.campaign.day;
- s.campaign.ai.concentrations=s.campaign.ai.concentrations.filter(p=>p.status==='active'||day<=p.finishedDay+R.concentration.restDays);
+ // Keep a bounded diagnostic record; history never blocks a new decision.
+ const recent=new Set(Object.keys(s.campaign.ai.factions).flatMap(f=>s.campaign.ai.concentrations.filter(p=>p.faction===f&&p.status!=='active').slice(-2)));
+ s.campaign.ai.concentrations=s.campaign.ai.concentrations.filter(p=>p.status==='active'||recent.has(p));
  for(const p of s.campaign.ai.concentrations.filter(p=>p.status==='active')){
   const c=s.cities.find(c=>c.id===p.staging);
   if(!c||c.owner!==p.faction||unsafe(p,c)){closeConcentration(s,p,'cancelled','前沿准备的归属、道路或实际防务已变化');continue;}
@@ -52,16 +53,15 @@ export function progressConcentrations(s,{power,unsafe,reviewFaction=null}){
   // the arrived roster at the turn review; ordinary attack admission still
   // checks the current force, home defense, intelligence and full supply cost.
   const allArrived=p.intendedIds.every(id=>p.officerIds.includes(id)&&p.arrivedIds.includes(id));
-  // Arrival is observed daily, but completion and military reevaluation belong
-  // to the normal turn review. The deadline is never refreshed by progress.
-  if(day<=p.deadline&&reviewFaction===p.faction&&p.officerIds.length&&!travelling&&!waiting&&(allArrived||Math.ceil(power(c))>=p.requirements[0].defensePower)){closeConcentration(s,p,'complete','本步现役已实际到达，交由本旬重新评估出征');continue;}
-  if(day>p.deadline||!allArrived&&!travelling&&!waiting&&day-p.lastProgressDay>=R.concentration.stallDays)closeConcentration(s,p,'cancelled','前沿准备到期或没有实际进展，释放人员与预算');
+  // The saved date is a planning estimate, never an automatic exit condition.
+  if(reviewFaction===p.faction&&p.officerIds.length&&!travelling&&!waiting&&(allArrived||Math.ceil(power(c))>=p.requirements[0].defensePower)){closeConcentration(s,p,'complete','本步现役已实际到达，交由本旬重新评估出征');continue;}
+  if(reviewFaction===p.faction&&!travelling&&!waiting&&!allArrived)closeConcentration(s,p,'cancelled','当前已无有效集结步骤，释放人员与预算后重评');
  }
 }
 
 export function validateConcentrations(s,fail,claimed){
  const ai=s.campaign.ai,day=s.campaign.day,int=(n,max=Number.MAX_SAFE_INTEGER)=>Number.isSafeInteger(n)&&n>=0&&n<=max,city=id=>s.cities.some(c=>c.id===id),active=new Set(),keys=new Set();
- fail(Array.isArray(ai.concentrations)&&ai.concentrations.length<=Object.keys(ai.factions).length*(R.concentration.restDays/10+3));
+ fail(Array.isArray(ai.concentrations)&&ai.concentrations.length<=Object.keys(ai.factions).length*4);
  for(const p of ai.concentrations){
   fail(p&&Object.hasOwn(ai.factions,p.faction)&&city(p.staging)&&city(p.target)&&p.target!==p.staging&&['active','complete','cancelled'].includes(p.status));
   const key=p.faction+':'+p.createdDay;fail(!keys.has(key));keys.add(key);

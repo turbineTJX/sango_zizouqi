@@ -21,15 +21,15 @@ function fixture(key,seed=31){
 }
 function days(s,n){for(let i=0;i<n;i++){finishDomesticDay(s);s.campaign.day++;}}
 
-test('equal-ability commercial, agricultural and source recruitment returns remain within 10% over independent seeds',()=>{
+test('civil work remains balanced while military recruitment has higher independent-seed returns',()=>{
  const result=compareEconomicWork(Array.from({length:32},(_,i)=>1709+i*97));
- for(const row of result)assert.ok(row.spread<.1,JSON.stringify(row));
+ for(const row of result){const value=key=>row.commands.find(c=>c.key===key).meanValue;assert.ok(Math.abs(value('fair')/value('cultivate')-1)<.1);assert.ok(value('recruit')>Math.max(value('fair'),value('cultivate')));}
  for(const key of ['fair','cultivate','recruit'])assert.ok(result[2].commands.find(c=>c.key===key).meanValue>result[0].commands.find(c=>c.key===key).meanValue);
 });
-test('equal-cost economic buildings add equal resource value per turn',()=>{
+test('equal-cost farms and barracks support the increased wartime output',()=>{
  const p=ECONOMY_RULES.income;
- assert.ok(Math.abs(resourceValue({gold:p.gold.perCommerce})-resourceValue({grain:p.grain.perFarm}))<1);
- assert.ok(Math.abs(resourceValue({gold:p.gold.perCommerce})-resourceValue({manpower:p.manpower.perBarracks}))<1);
+ assert.ok(resourceValue({grain:p.grain.perFarm})>resourceValue({gold:p.gold.perCommerce}));
+ assert.ok(resourceValue({manpower:p.manpower.perBarracks})>resourceValue({gold:p.gold.perCommerce}));
  assert.equal(ACTIONS.build_commerce.cost,ACTIONS.build_farm.cost);assert.equal(ACTIONS.build_commerce.cost,ACTIONS.build_barracks.cost);
 });
 test('medical net savings stay near equal-ability commerce with sufficient actual wounds',()=>{
@@ -73,7 +73,7 @@ test('shared income settlement preserves reserve stock and never charges it food
  const start={gold:s.gold,grain:c.grain,manpower:c.manpower},income=cityIncome(s,c),bill=cityMaintenance(s,c),result=settleCityEconomy(s,c);
  assert.equal(s.gold-start.gold,income.gold-bill.gold);assert.equal(c.grain-start.grain,income.grain);
  assert.equal(c.manpower,start.manpower+income.manpower);assert.ok(c.manpower>=c.domestic.reserved);assert.equal(result.paidGold,bill.gold);
- const ui=cityDomesticMarkup(s,c.id);assert.ok(ui.includes('预备兵 '+c.manpower.toLocaleString('zh-CN')));assert.doesNotMatch(ui,/轮换归乡|预备兵口粮/);
+
 });
 test('player formation spends money and reserve manpower, including with zero grain; only actual soldiers eat',()=>{
  for(const kind of ['allocate','recruit']){

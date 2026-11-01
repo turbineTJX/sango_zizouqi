@@ -38,7 +38,7 @@ export function prepareMapCameraPreview(svg){
   // overview uses each settlement's actual compact buildings and worksites.
   copy.querySelectorAll('script,title,foreignObject,.map-city-scene,animate,animateTransform').forEach(node=>node.remove());
   copy.querySelectorAll('.national-node').forEach(node=>{node.style.display='';});
-  copy.querySelectorAll('.map-city-model').forEach(node=>{node.style.opacity='1';});
+  copy.querySelectorAll('.map-city-model').forEach(node=>{node.style.opacity=String((1-(+svg.dataset.distantBlend||0))*(+(node.dataset.densityOpacity??1)));});
   const css=[...document.styleSheets].flatMap(sheet=>{try{return [...sheet.cssRules].map(rule=>rule.cssText);}catch{return [];}}).join('\n');
   const style=document.createElementNS(ns,'style');style.textContent=css;copy.prepend(style);
   const resources=new Map();

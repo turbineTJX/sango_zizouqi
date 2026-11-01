@@ -16,6 +16,12 @@ import {transitionFrame} from './battle-transitions.mjs';
 const hitWhite=new T.Color(0xffffff);
 
 export class ModelLayer {
+ pending=new Map();
+ async whenReady(report=()=>{}){
+  const jobs=[...this.pending.values()];let done=0;
+  report('正在准备部队…',0,jobs.length);
+  await Promise.allSettled(jobs.map(job=>job.finally(()=>report('正在准备部队…',++done,jobs.length))));
+ }
  constructor(board,pack){
   this.board=board;this.pack=pack;this.scene=new T.Scene();this.cache=new Map();this.objects=new Map();this.wanted=new Map();this.batches=new NativeModelBatches(this.scene);this.scene.matrixWorldAutoUpdate=false;
   this.renderer=new T.WebGLRenderer({alpha:true,antialias:true,powerPreference:'high-performance'});this.renderer.setPixelRatio(Math.min(devicePixelRatio||1,2));this.renderer.setClearColor(0,0);this.renderer.outputColorSpace=T.SRGBColorSpace;this.renderer.toneMapping=T.ACESFilmicToneMapping;this.renderer.toneMappingExposure=1.1;this.renderer.domElement.className='art-models';this.renderer.domElement.setAttribute('aria-hidden','true');board.prepend(this.renderer.domElement);
@@ -28,7 +34,7 @@ export class ModelLayer {
  }
  async load(key){
   if(!this.cache.has(key))this.cache.set(key,(async()=>{
-   if(key.startsWith('builtin:troop:')){const [, ,type,side]=key.split(':'),model=createTroopModel(type,Number(side));await this.batches.prepare(model,()=>this.dead);if(this.dead){dispose(model);return null;}return model;}
+   if(key.startsWith('builtin:troop:')){const [, ,type,side,treasureId]=key.split(':'),model=createTroopModel(type,Number(side),treasureId);await this.batches.prepare(model,()=>this.dead);if(this.dead){dispose(model);return null;}return model;}
    if(key.startsWith('builtin:'))return createSiegeModel(key.slice(8));
    const def=this.pack.models[key];if(!def)return null;let obj;
    if(def.format==='glb'){const gltf=await new GLTFLoader().loadAsync(def.url);obj=gltf.scene;obj.animations=gltf.animations;}
@@ -51,7 +57,7 @@ export class ModelLayer {
   for(const u of snapshot.units){const key=unitModelKey(this.pack,u);add('unit-'+u.id,key,u.x,u.y,key?.startsWith('builtin:troop:')?1.03:.8);const d=wanted.get('unit-'+u.id);if(d)d.unit=u;}
   this.wanted=wanted;
   for(const [id,o]of this.objects)if(!wanted.has(id)||wanted.get(id).key!==o.key){this.scene.remove(o.root);o.flashMaterials?.forEach(m=>m.material.dispose());this.objects.delete(id);}
-  for(const [id,def]of wanted){if(this.objects.has(id))continue;this.load(def.key).then(source=>{
+  for(const [id,def]of wanted){if(this.objects.has(id)||this.pending.has(id))continue;const job=this.load(def.key).then(source=>{
    if(!source||this.dead||!this.wanted.has(id)||this.wanted.get(id).key!==def.key||this.objects.has(id))return;
    const model=cloneAnimatedModel(source),tilt=new T.Group(),root=new T.Group();tilt.add(model);tilt.rotation.x=model.userData.nativeTroop?.62:Math.PI/3;root.add(tilt);
    const flashMaterials=[],copies=new Map(),copy=m=>{
@@ -62,9 +68,10 @@ export class ModelLayer {
    if(model.userData.nativeTroop)tilt.position.set(-center.x,-box.min.y,-center.z);else tilt.position.sub(center);
    const clips=model.animations||[],mixer=clips.length?new T.AnimationMixer(model):null;
    this.scene.add(root);this.objects.set(id,{root,tilt,model,clips,mixer,key:def.key,width:size.x,height:size.y,flashMaterials});this.board.dataset.modelStatus='ready';this.board.dataset.modelCount=String(this.objects.size);this.onChange?.();
-  });}
+  }).catch(()=>null).finally(()=>this.pending.delete(id));this.pending.set(id,job);}
  }
  hasUnit(id){return !this.failed&&this.objects.has('unit-'+id);}
+ captionRise(id){const obj=this.objects.get('unit-'+id);return obj?this.h/6.25*.12+obj.height*obj.root.scale.y*(obj.model.userData.nativeTroop?1:.5):null;}
  bodyAnchors(id){const obj=this.objects.get('unit-'+id);return obj?.model?.userData.nativeTroop?troopModelAnchors(obj,this.h):null;}
  draw(clock,presentation=null){
   if(this.dead||this.failed)return;const {w,h,compact} = this.viewport||{w:this.board.clientWidth,h:this.board.clientHeight,compact:(this.board.parentElement?.clientWidth||this.board.clientWidth)<600};if(!w||!h)return;

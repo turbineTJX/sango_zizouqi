@@ -4,6 +4,8 @@ import {armyDetailsMarkup} from './army-details.mjs';
 import {playerFaction} from './player-faction.mjs';
 import {unitMusterMarkup,unitReviewMarkup,commanderSetupMarkup} from './army-setup-view.mjs';
 import {combatComparison} from './combat-comparison.mjs';
+import {personalBondsMarkup} from './bond-display.mjs';
+import {troopAptitude} from './tactic-learning.mjs';
 import {rankOfficerCandidates} from './officer-recommendation.mjs';
 import {canEditArmy,needsSiegeDefense} from './strategic-campaign.mjs';
 import {siegeDefensePlan} from './siege-defense.mjs';
@@ -22,9 +24,8 @@ export function militaryFlowMarkup(s,p){
  let body=`<div class="command-flow"><p class="decision-context">${esc(a.name)} · ${esc(c.name)}</p>`;
  if(p.step==='purpose')body+=`<div class="command-choices">${(isJunction(s,a.location)?['adjust','split','merge']:['adjust','split','merge','recruit']).map(k=>button('military-purpose',names[k],`data-kind="${k}"`)).join('')}</div>`;
  if(p.step==='select'){
-  body+=`<h3>${p.kind==='merge'?'选择并入本军的军团':p.kind==='split'?'选择另立军团的部队':'选择需要补充兵员的部队'}</h3>`;
   if(p.kind==='merge')body+=s.armies.filter(b=>b.id!==a.id&&b.faction===playerFaction(s)&&b.location===a.location&&canEditArmy(s,b)).map(b=>`<label class="command-reinforce"><input type="radio" name="military-target" data-military-target="${b.id}" ${p.target===b.id?'checked':''}>${esc(b.name)} · ${b.units.length} 队 · 合并后 ${a.units.length+b.units.length} 队</label>`).join('')||'<p>此地暂无可合并军团。</p>';
-  else body+='<div class="combat-comparison"><table class="personnel-table"><thead><tr><th>选择</th><th>武将</th><th>兵种</th><th>现役</th><th>伤兵</th><th>带兵上限</th><th>可补兵员</th></tr></thead><tbody>'+rankOfficerCandidates(s,a.units,{task:p.kind,city:c.id}).map(({unit:u})=>`<tr><td><input type="checkbox" data-military-unit="${u.id}" ${p.selected.includes(u.id)?'checked':''}></td><td>${button('military-detail',esc(u.name),`data-id="${u.id}"`)}</td><td>${TROOPS[u.type].name}</td><td>${u.troops}</td><td>${u.wounded}</td><td>${troopCapacity(u)}</td><td>${Math.max(0,troopCapacity(u)-u.troops-u.wounded)}</td></tr>`).join('')+'</tbody></table></div>';
+  else body+='<div class="combat-comparison"><table class="personnel-table"><thead><tr><th>选择</th><th>武将</th><th>兵种</th><th>现役</th><th>伤兵</th>'+(p.kind==='split'?'<th>统／武／智</th><th>羁绊</th>':'<th>带兵上限</th><th>可补兵员</th>')+'</tr></thead><tbody>'+rankOfficerCandidates(s,a.units,{task:p.kind,city:c.id}).map(({unit:u})=>`<tr><td><input type="checkbox" data-military-unit="${u.id}" ${p.selected.includes(u.id)?'checked':''}></td><td>${button('military-detail',esc(u.name),`data-id="${u.id}"`)}</td><td>${TROOPS[u.type].name}${p.kind==='split'?' · '+['C','B','A','S'][troopAptitude(u,u.type)]:''}</td><td>${u.troops}</td><td>${u.wounded}</td>${p.kind==='split'?`<td>${u.leadership} / ${u.force} / ${u.intellect}</td><td>${personalBondsMarkup(u,null,{compact:true})}</td>`:`<td>${troopCapacity(u)}</td><td>${Math.max(0,troopCapacity(u)-u.troops-u.wounded)}</td>`}</tr>`).join('')+'</tbody></table></div>';
  }
  const configured=selected.map(u=>({...u,...p.units[u.id]}));
  if(p.step==='configure')body+=unitMusterMarkup(configured,{editTroop:!isJunction(s,a.location),equipmentCity:c,types:isJunction(s,a.location)?[]:Object.keys(TROOPS).filter(type=>canTrain(c,type)||TROOPS[type].category==='troop'&&selected.some(u=>u.type===type)),typeAttribute:'data-military-type',detailAction:'military-detail',detailAttribute:'data-id'});
@@ -50,10 +51,10 @@ export function encounterFlowMarkup(s,p){
  if(!r)return {title:'战线已处理',body:'请选择其它战线。',footer:button('military-cancel','返回')};
  const c=mapNode(s,r.cityId),own=r.battle.sides[0],enemy=r.battle.sides[1],steps=['查看敌情','整备部队','确认指挥'];
  let body=`${pending.length>1?`<div class="command-choices">${pending.map(b=>button('encounter-select',b.name,`data-id="${b.id}" ${b.id===p.id?'disabled':''}`)).join('')}</div>`:''}<h3>${esc(r.name)}</h3><p class="decision-context">${esc(c.name)} · ${campaignDate(s)}${pending.length>1?' · 待处理 '+pending.length+' 处战线':''}</p>`;
- if(p.step===0)body+=`<div class="encounter-versus"><div><b>我军</b><strong>${own.units.reduce((n,u)=>n+u.hp,0)} 人</strong></div><span>对</span><div><b>敌军</b><strong>${enemy.units.reduce((n,u)=>n+u.hp,0)} 人</strong></div></div><p>${r.kind==='siege'?'攻守城战 · 城门耐久 '+Math.round(r.battle.siege.gate.hp):'野外遭遇 · 双方以现有军团接战'}</p><details><summary>敌军部队情报</summary>${enemy.units.map(u=>`<p>${esc(u.name)} · ${TROOPS[u.type]?.name||u.type} · ${Math.round(u.hp)} 人 ${button('military-detail','查看部队',`data-id="${u.id}" data-battle="${r.id}"`)}</p>`).join('')}</details>`;
- if(p.step===1)body+=`<h3>核阅参战部队</h3>${own.units.map(u=>`<p>${esc(u.name)} · ${TROOPS[u.type]?.name||u.type} · ${Math.round(u.hp)} 人 ${button('military-detail','查看部队',`data-id="${u.id}" data-battle="${r.id}"`)}</p>`).join('')}`;
+ if(p.step===0)body+=`<div class="encounter-versus"><div><b>我军</b><strong>${own.units.reduce((n,u)=>n+u.hp,0)} 人</strong></div><span>对</span><div><b>敌军</b><strong>${enemy.units.reduce((n,u)=>n+u.hp,0)} 人</strong></div></div><p>${r.kind==='siege'?'攻守城战 · 城门耐久 '+Math.round(r.battle.siege.gate.hp):'野外遭遇'}</p><details><summary>敌军部队情报</summary>${enemy.units.map(u=>`<p>${esc(u.name)} · ${TROOPS[u.type]?.name||u.type} · ${Math.round(u.hp)} 人 ${button('military-detail','查看部队',`data-id="${u.id}" data-battle="${r.id}"`)}</p>`).join('')}</details>`;
+ if(p.step===1)body+=`<h3>参战部队</h3>${own.units.map(u=>`<p>${esc(u.name)} · ${TROOPS[u.type]?.name||u.type} · ${Math.round(u.hp)} 人 ${button('military-detail','查看部队',`data-id="${u.id}" data-battle="${r.id}"`)}</p>`).join('')}`;
  if(p.step===1||needsSiegeDefense(r))body+=siegeDefenseOptionsMarkup(s,r);
  if(p.step===1)body+=combatComparison(r.battle,own.units,{commanders:own.commanders},{prefix:'参战'});
- if(p.step===2)body+=`<h3>请选择本战指挥方式</h3><label class="command-reinforce"><input type="radio" name="encounter-control" value="manual" ${p.control==='manual'?'checked':''}>亲自指挥</label><label class="command-reinforce"><input type="radio" name="encounter-control" value="auto" ${p.control==='auto'?'checked':''}>委托作战</label>`;
+ if(p.step===2)body+=`<label class="command-reinforce"><input type="radio" name="encounter-control" value="manual" ${p.control==='manual'?'checked':''}>亲自指挥</label><label class="command-reinforce"><input type="radio" name="encounter-control" value="auto" ${p.control==='auto'?'checked':''}>委托作战</label>`;
  return {title:steps[p.step],body,footer:button('military-cancel','返回')+(p.step?button('encounter-back','上一步'):'')+button(p.step===2?'encounter-confirm':'encounter-next',p.step===2?'确认':'下一步',p.step===2&&needsSiegeDefense(r)?'disabled':'')};
 }

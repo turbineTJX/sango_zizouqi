@@ -7,6 +7,10 @@ const cwd=fileURLToPath(new URL('..',import.meta.url));
 test('strategy tables reject duplicate/disconnected roads, invalid work handlers and conflicting building values',()=>{
  for(const [edit,needle] of [
   [d=>d.roadNetwork.trailCost=0,'小路代价'],
+  [d=>d.roadNetwork.historical.corridors[0].sources=['missing'],'历史通道须有唯一编号'],
+  [d=>d.roadNetwork.historical.reconnect[0].distance=0,'接路须为具名陆路'],
+  [d=>d.roadNetwork.crossings[0].roads[0].at=1,'交点须引用唯一有效陆路'],
+  [d=>d.roadNetwork.crossings[0].roads[0].source=['town-1','xuchang'],'交点须引用唯一有效陆路'],
   [d=>d.roadNetwork.geography.terrain['chenliu:wan']='water','水路必须在两个真实港口之间'],
   [d=>d.roads.push(['atlas-guangling','atlas-jingkou']),'道路必须实际落实地理增删'],
   [d=>d.roadNetwork.bypasses.push([...d.roadNetwork.bypasses[0]]),'重复小路'],
@@ -44,13 +48,13 @@ test('edited action/building/road/movement records drive real autonomous work, r
  import {ROAD_DISTANCE_DESIGNS as D} from './data/design/road-distances.mjs';
  import {MOVEMENT_RULES as M} from './data/design/movement-rules.mjs';
  A.fair.cost=321;A.fair.days=7;B.commerce.cost=777;B.commerce.days=17;
- R.push(['town-1','town-42']);D['town-1:town-42']=80;M.roadVariants.main.costFactors.land=2;M.army.speedByTroop.cavalry=60;M.personnel.light=90;M.personnel.transport=130;
+ R.push(['town-1','town-42']);D['town-1:town-42']=80;M.roadVariants.main.costFactors.land=2;M.army.speedByTroop.cavalry=60;M.personnel.light=90;M.personnel.transport.armySpeedFactor=1.8;
  const e=await import('./strategic-campaign.mjs'),w=await import('./domestic.mjs'),m=await import('./strategic-movement.mjs'),p=await import('./personnel-movement.mjs');
  assert.equal(w.ACTIONS.build_commerce.cost,777);assert.equal(w.ACTIONS.build_commerce.days,17);assert.equal(e.PROJECTS.commerce.cost,777);assert.equal(e.PROJECTS.commerce.turns,1.7);
  const s=e.newCampaign(42,'heroes-251');assert.deepEqual(e.findCampaignRoute(s,'town-1','town-42'),['town-42']);
  assert.equal(m.roadCost(s,'town-1','town-42','main'),m.roadDistance(s,'town-1','town-42')*2);
  assert.equal(m.movementPoints({leader:'u',morale:80,hunger:0,units:[{id:'u',troops:1000,type:'cavalry',leadership:80}]}),Math.round(65.4*M.army.landSpeedFactor*1000)/1000);
- assert.equal(p.lightPersonnelSpeed({id:'dun'}),90);assert.equal(p.personnelSpeed({destination:'ye',unit:{id:'dun',troops:1000}}),130);
+ assert.equal(p.lightPersonnelSpeed({id:'dun'}),90);assert.equal(p.personnelSpeed({destination:'ye',unit:{id:'dun',troops:1000}}),m.movementPoints({leader:'transport-reference',morale:M.personnel.transport.morale,hunger:0,units:[{id:'transport-reference',type:M.personnel.transport.troop,troops:1,leadership:M.personnel.transport.leadership,equipment:{ship:M.personnel.transport.ship}}]})*1.8);
  const c=s.cities.find(c=>c.id==='xuchang');c.commerce=1;const {addCityGold}=await import('./city-resources.mjs');addCityGold(s,c,20000-c.gold);
  for(const [id,a] of Object.entries(w.ACTIONS))if(a.direction==='commerce'&&id!=='fair')c.domestic.cooldowns[id]=1000;
  assert.equal(w.assignDomestic(s,c.id,'commerce','cao'),null);w.setDomesticAutoApprove(s,true);w.beginDomesticTurn(s);

@@ -21,7 +21,8 @@ for(const [key,point] of Object.entries(ATLAS_JUNCTION_POINTS)){
 }
 // For new routes only, calculate the authored starting length from the new
 // projection. Existing route budgets stay explicit and are not recomputed.
-const network=buildRoadNetwork(layout.cities,layout.roads,{requireLengths:false});
+// Author parent road budgets here; the runtime derives crossing sections.
+const network=buildRoadNetwork(layout.cities,layout.roads,{requireLengths:false,includeCrossings:false});
 const world={cities:layout.cities,...network},distances={};
 for(const [a,b] of network.roads){const key=edgeKey(a,b),x=mapNode(world,a),y=mapNode(world,b);distances[key]=ROAD_DISTANCE_DESIGNS[key]??network.roadSegments[key]?.distance??Math.max(30,Math.round(Math.hypot(x.x-y.x,x.y-y.y)*.5));}
 NATIONAL_MAP.cities=structuredClone(layout.cities);NATIONAL_MAP.roads=structuredClone(layout.roads);

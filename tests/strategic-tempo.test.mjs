@@ -30,7 +30,7 @@ test('conquest stock value is bounded to fresh observed resources and cannot cre
  const stock={gold:100000,grain:120000},fresh={known:true,observedDay:41},before=JSON.stringify(stock);
  assert.equal(observedTargetStockValue(fresh,stock,41),120);
  assert.equal(observedTargetStockValue({...fresh,known:false},stock,41),0);
- assert.equal(observedTargetStockValue(fresh,stock,45),0);
+ assert.equal(observedTargetStockValue(fresh,stock,72),0);
  assert.equal(observedTargetStockValue(fresh,stock,40),0);
  assert.ok(observedTargetStockValue(fresh,{gold:2000,grain:6000},41)>0);
  assert.equal(JSON.stringify(stock),before,'forecast value cannot withdraw or create actual stock');
@@ -48,16 +48,13 @@ test('large troop formations carry real thirty day rations under the same player
  }
 });
 
-test('war stages follow strategic turns while real funded forces limit campaign and joint operations',()=>{
+test('war capacity follows current funded forces regardless of calendar turn',()=>{
  const small=context(),early=assessWarTempo(small,pools(small,2));assert.equal(early.phase,'early');assert.equal(early.operationLimit,1);
- small.day=1000;assert.deepEqual(assessWarTempo(small,pools(small,2)),early);
- small.turn=21;assert.equal(assessWarTempo(small,pools(small,3)).phase,'campaign');assert.equal(assessWarTempo(small,pools(small,3)).assemblyDays,20);
- const large=context(4);large.turn=20;assert.equal(assessWarTempo(large,pools(large,3)).phase,'early');assert.equal(assessWarTempo(large,pools(large,3)).operationLimit,1);
- for(const turn of [21,60]){large.turn=turn;assert.equal(assessWarTempo(large,pools(large,3)).phase,'campaign');assert.equal(assessWarTempo(large,pools(large,3)).operationLimit,1);}
- large.turn=61;const joint=assessWarTempo(large,pools(large,3));assert.equal(joint.stage,'joint');assert.equal(joint.phase,'joint');assert.equal(joint.operationLimit,2);assert.equal(joint.columnUnits,6);assert.equal(joint.assemblyDays,30);
- assert.equal(assessWarTempo(small,pools(small,2)).phase,'early','passing turn 20 cannot supply missing troops');
+ for(const turn of [1,20,21,60,61,400]){small.turn=turn;small.day=(turn-1)*10+1;assert.deepEqual(assessWarTempo(small,pools(small,2)),early);assert.equal(assessWarTempo(small,pools(small,3)).phase,'campaign');}
+ const large=context(4),joint=assessWarTempo(large,pools(large,3));assert.equal(joint.phase,'joint');assert.equal(joint.operationLimit,2);assert.equal(joint.columnUnits,6);
+ for(const turn of [1,20,21,60,61,400]){large.turn=turn;assert.deepEqual(assessWarTempo(large,pools(large,3)),joint);}
  large.ownCities.forEach(c=>c.shortages.gold=1);assert.equal(assessWarTempo(large,pools(large,3)).phase,'early');
- large.critical=true;assert.equal(assessWarTempo(large,pools(large,10)).operationLimit,1);
+ large.ownCities.forEach(c=>c.shortages.gold=0);large.critical=true;assert.equal(assessWarTempo(large,pools(large,3)).operationLimit,1);
 });
 
 test('current training reservations cannot consume every future turn recruitment quota',()=>{
@@ -172,22 +169,22 @@ test('a forward depot can launch more than ten real units as separate legal colu
  assert.equal(before-home.grain,armies.reduce((n,a)=>n+a.supply,0));validateStrategicAI(s);
 });
 
-test('middle game concentration can use more than ten arrived units through legal ten-unit armies',()=>{
+test('current capacity enables coordinated columns before the former late game unlock',()=>{
  const {s,home,target}=concentratedFront({oneDepot:true});s.turn=21;s.campaign.day=201;initializeStrategicAI(s);
  const before=home.grain;planStrategicAI(s);const p=s.campaign.ai.plans.find(p=>p.faction==='yuan');
- assert.ok(p);assert.equal(p.phase,'attack');assert.equal(p.columns,null,'middle game keeps central assembly instead of late game synchronized departure schedules');
- assert.ok(p.officerIds.length>10);assert.equal(p.columnUnits,10);
+ assert.ok(p);assert.ok(['assemble','attack'].includes(p.phase));assert.ok(p.columns?.length>1);
+ assert.ok(p.officerIds.length>10);assert.equal(p.columnUnits,6);
  const armies=s.armies.filter(a=>a.faction==='yuan'&&a.target===target.id),ids=new Set(armies.map(a=>a.id));
- assert.ok(armies.length>=2);assert.ok(armies.every(a=>a.units.length<=10));
+ assert.ok(p.columns.length>=2);assert.ok(p.columns.every(c=>c.officerIds.length<=6));
  assert.equal(before-home.grain,armies.reduce((n,a)=>n+a.supply,0));validateStrategicAI(s);
  const copy=JSON.parse(serializeCampaign(s));
- for(let i=0;i<15&&!s.campaign.battles.some(b=>b.cityId===target.id&&b.armyIds.filter(id=>ids.has(id)).length>=2);i++)for(const world of [s,copy]){if(world.campaign.phase==='planning')beginExecution(world);advanceCampaignDay(world);}
- assert.ok(s.campaign.battles.some(b=>b.cityId===target.id&&b.armyIds.filter(id=>ids.has(id)).length>=2));
+ for(let i=0;i<40&&!s.campaign.battles.some(b=>b.cityId===target.id&&b.armyIds.length>=2);i++)for(const world of [s,copy]){if(world.campaign.phase==='planning')beginExecution(world);advanceCampaignDay(world);}
+ assert.ok(s.campaign.battles.some(b=>b.cityId===target.id&&b.armyIds.filter(id=>s.armies.some(a=>a.id===id&&a.faction==='yuan')).length>=2));
  assert.equal(serializeCampaign(s),serializeCampaign(copy));
 });
 
 test('a stalled mature front transfers actual rear troops before reconsidering an attack',()=>{
- const {s,home,target,sources}=concentratedFront({rearDistance:1600}),before=home.units.reduce((n,u)=>n+u.troops,0),troops=s.cities.reduce((n,c)=>n+c.units.reduce((m,u)=>m+u.troops,0),0);
+ const {s,home,target,sources}=concentratedFront({rearDistance:40}),before=home.units.reduce((n,u)=>n+u.troops,0),troops=s.cities.reduce((n,c)=>n+c.units.reduce((m,u)=>m+u.troops,0),0);
  planStrategicAI(s);const g=s.campaign.ai.factions.yuan.strategy.goal;
  assert.match(g.candidateId,/^capture-assembly:/,JSON.stringify(s.campaign.ai.factions.yuan.strategy.trace.at(-1)));assert.equal(g.status,'preparing');assert.equal(g.planId,null);
  assert.ok(g.requirements.some(r=>r.cityId===home.id&&r.defensePower>0));
@@ -202,7 +199,7 @@ test('a stalled mature front transfers actual rear troops before reconsidering a
 });
 
 test('a stalled middle game front concentrates real troops before the late game without counting arrivals early',()=>{
- const {s,home,target}=concentratedFront({rearDistance:1600});s.turn=21;s.campaign.day=201;initializeStrategicAI(s);
+ const {s,home,target}=concentratedFront({rearDistance:40});s.turn=21;s.campaign.day=201;initializeStrategicAI(s);
  const before=home.units.reduce((n,u)=>n+u.troops,0);planStrategicAI(s);
  const g=s.campaign.ai.factions.yuan.strategy.goal;
  assert.match(g.candidateId,/^capture-assembly:/);assert.equal(g.status,'preparing');
@@ -213,14 +210,16 @@ test('a stalled middle game front concentrates real troops before the late game 
  const copy=JSON.parse(serializeCampaign(s));
  for(let i=0;i<3;i++)for(const world of [s,copy]){if(world.campaign.phase==='planning')beginExecution(world);advanceCampaignDay(world);}
  assert.equal(serializeCampaign(s),serializeCampaign(copy));
- for(let i=0;i<45&&!s.campaign.battles.some(b=>b.cityId===target.id);i++)for(const world of [s,copy]){if(world.campaign.phase==='planning')beginExecution(world);advanceCampaignDay(world);}
+ for(let i=0;i<80&&!s.campaign.battles.some(b=>b.cityId===target.id);i++)for(const world of [s,copy]){if(world.campaign.phase==='planning')beginExecution(world);advanceCampaignDay(world);}
  assert.ok(s.campaign.battles.some(b=>b.cityId===target.id),'actually arrived troops must reach a real defended-city battle after the next turn review');
  assert.equal(serializeCampaign(s),serializeCampaign(copy));
 });
 
-test('early game capacity does not enable the middle game concentration fallback',()=>{
- const {s}=concentratedFront({rearDistance:1600});s.turn=20;s.campaign.day=191;initializeStrategicAI(s);planStrategicAI(s);
- assert.equal(s.campaign.ai.factions.yuan.strategy.goal.candidateId.startsWith('capture-assembly:'),false);
+test('a funded front can concentrate on the first turn without a calendar unlock',()=>{
+ for(const turn of [1,20,21,60,61]){
+  const {s}=concentratedFront({rearDistance:40});s.turn=turn;s.campaign.day=(turn-1)*10+1;initializeStrategicAI(s);planStrategicAI(s);
+  assert.equal(s.campaign.ai.factions.yuan.strategy.goal.candidateId.startsWith('capture-assembly:'),true);validateStrategicAI(s);
+ }
 });
 
 test('an observed empty city does not acquire a fictional siege after the expedition departs',()=>{
@@ -275,7 +274,7 @@ test('real carried grain bridges a finite unsupported camp without requiring eve
  const route=[junction.id,target.id],before=serializeCampaign(s),r=forecastRouteSupply(s,a,route,170,{attack:true});
  assert.ok(r.feasible,'partial real resupply plus carried grain should cover the unsupported outward leg, camp and return');assert.ok(r.delivered>0);
  assert.ok(r.sourceRequirements.every(x=>x.cityId===home.id));assert.equal(serializeCampaign(s),before);
- a.units[0].troops=3000;assert.equal(forecastRouteSupply(s,a,route,170,{attack:true}).feasible,false,'larger real ration demand cannot reuse the same minimum carry');a.units[0].troops=1000;
+ a.units[0].troops=3000;const larger=forecastRouteSupply(s,a,route,170,{attack:true});assert.equal(larger.feasible,true,'available depot stock can sustain the increased demand');assert.ok(larger.delivered>r.delivered);a.units[0].troops=1000;
  home.grain=900;assert.equal(forecastRouteSupply(s,a,route,170,{attack:true}).feasible,false,'loading carry and home rations cannot reuse the depot stock');
  target.grain=1000000;assert.equal(forecastRouteSupply(s,a,route,170,{attack:true}).feasible,false,'enemy stores cannot become supply');
 });

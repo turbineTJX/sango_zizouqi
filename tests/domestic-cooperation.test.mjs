@@ -52,7 +52,7 @@ test('compatibility uses circular distance including zero, and relation/affinity
 
 test('same-direction different actions can cooperate; waiting colleagues can assist a single research slot',()=>{
  const {s,c,r}=example(['build_workshop','research'],r=>r.success);assert.equal(r.direction,'technology');assert.ok(events(s).some(e=>e.phase==='start'&&e.text.includes('研制')));assert.ok(events(s).some(e=>e.phase==='start'&&e.text.includes('工坊')));assert.ok(r.actual>0);restore(s);
- const waiting=example(['research'],r=>r.success);assert.equal(events(waiting.s).filter(e=>e.phase==='start').length,1);assert.ok(waiting.r.actual>0);assert.ok(waiting.r.relationGain>0);restore(waiting.s);
+ const waiting=example(['research'],r=>r.success),ledger=events(waiting.s),starts=ledger.filter(e=>e.phase==='start'&&e.cityId===waiting.c.id);assert.ok(starts.length>0);for(let i=1;i<starts.length;i++){const ended=ledger.find(e=>e.actionId===starts[i-1].actionId&&['complete','failure'].includes(e.phase));assert.ok(ended&&ended.id<starts[i].id,'a new routine round must wait for the prior research slot to finish');}assert.ok(waiting.r.actual>0);assert.ok(waiting.r.relationGain>0);restore(waiting.s);
 });
 
 test('real cash cooperation increases actual income, grows relationship once, and consumes no extra action cost',()=>{

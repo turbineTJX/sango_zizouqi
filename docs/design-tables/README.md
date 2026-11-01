@@ -11,6 +11,7 @@
 
 | 一览表 | 正式设计源 | 当前范围 |
 | --- | --- | --- |
+| [人员战后去向与俘虏](人员战后去向与俘虏一览表.md) | [officer-fate-rules.mjs](../../data/design/officer-fate-rules.mjs) | 野战1%、攻城5%、灭势力30%俘虏率；胜方真实伤兵接收及赎金 |
 | [特技一览表](特技一览表.md) | [traits.mjs](../../data/design/traits.mjs) | 当前接入67项特性（52普通、15专属） |
 | [内政命令特性](内政命令特性一览表.md) | [traits.mjs](../../data/design/traits.mjs) | 已接入50项，修改既有命令的实际成果、工期或费用；持有者见正式分配 |
 | [战法一览表](战法一览表.md) | [tactics.mjs](../../data/design/tactics.mjs) | 82项效果定义；标明当前携带兵种／16名将专属／未配置效果库，以及门槛、冷却、次数和效果参数 |

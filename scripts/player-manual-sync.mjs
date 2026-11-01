@@ -24,6 +24,10 @@ export async function runtimeSources(root){
   for(const entry of entries){const path=dir+'/'+entry.name;if(entry.isDirectory())await scan(path);else if(/\.(mjs|json)$/.test(path))files.add(path);}
  }
  await scan('data');
+ // Desktop-only entry and packaging are outside the browser import graph.
+ for(const path of ['packaging/desktop.mjs','packaging/preload.cjs','scripts/build-desktop-manual.mjs','scripts/build-native.mjs']){
+  try{await readFile(resolve(root,path));files.add(path);}catch(error){if(error.code!=='ENOENT')throw error;}
+ }
  for(const path of [...files].sort()){
   if(path==='source-offline-files.js')continue;
   const bytes=await readFile(resolve(root,path));
@@ -128,7 +132,7 @@ export function formatManualStatus(status){
 
 export async function renderManual(state,{check=false}={}){
  const {content,status}=state,{chapters,captures,used,reference,actions}=content;
- const payload={date:'2026-10-29',chapters,captures:Object.fromEntries(used.map(id=>[id,captures[id]])),maintenance:status};
+ const payload={date:'2026-10-31',chapters,captures:Object.fromEntries(used.map(id=>[id,captures[id]])),maintenance:status};
  const template=await readFile(resolve(state.root,'docs/manual/template.html'),'utf8');
  assert.equal(template.split('/*__MANUAL_DATA__*/').length,2,'Expected one manual data placeholder');
  const html=template.replace('/*__MANUAL_DATA__*/',JSON.stringify(payload).replace(/</g,'\\u003c'));

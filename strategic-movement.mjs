@@ -4,6 +4,7 @@ export {roadDistance,campaignRoads,chosenRoad,roadCost} from './road-metrics.mjs
 
 import {mapNode,roadSegment,isJunction,junctionBlocked} from './road-network.mjs';
 import {MOVEMENT_RULES as RULES} from './data/design/movement-rules.mjs';
+import {curvedRoadPoint,roadCurve} from './road-geometry.mjs';
 import {diplomaticPassage,factionsHostile} from './diplomacy-relations.mjs';
 // Road variants are deterministic map data, shared by both factions.
 const node=mapNode;
@@ -45,17 +46,39 @@ export function threatenedTransportRoute(s,from,path,faction){
  return false;
 }
 export function roadPoint(from,to,p,road='main'){
+  const curve=curvedRoadPoint(from,to,p);if(curve)return curve;
   // Canonical orientation keeps both directions on the same physical curve.
   const sign=from.id<to.id?1:-1,dx=to.x-from.x,dy=to.y-from.y,length=Math.hypot(dx,dy)||1;
   const bend=2*p*(1-p)*(RULES.roadVariants[road]||RULES.roadVariants.main).offset*sign;
   return {x:from.x+dx*p-dy/length*bend,y:from.y+dy*p+dx/length*bend};
 }
 export function roadPath(from,to,road='main',start=0){
-  return Array.from({length:17},(_,i)=>{const p=roadPoint(from,to,start+(1-start)*i/16,road);return `${i?'L':'M'}${p.x} ${p.y}`;}).join('');
+  const curve=roadCurve(from,to);
+  if(curve){
+   const forward=from.id<to.id,points=forward?curve.points:[...curve.points].reverse(),lengths=forward?curve.lengths:[...curve.lengths].reverse().map(n=>curve.length-n);
+   const distance=Math.max(0,Math.min(1,start))*curve.length;
+   const path=[roadPoint(from,to,start,road),...points.filter((_,i)=>lengths[i]>distance+1e-8)];
+   return path.map((p,i)=>`${i?'L':'M'}${p.x.toFixed(8)} ${p.y.toFixed(8)}`).join('');
+  }
+  return Array.from({length:65},(_,i)=>{const p=roadPoint(from,to,start+(1-start)*i/64,road);return `${i?'L':'M'}${p.x.toFixed(3)} ${p.y.toFixed(3)}`;}).join('');
+}
+function roadEdges(from,to,road,width,ribbon=false){
+ const points=Array.from({length:65},(_,i)=>roadPoint(from,to,i/64,road));
+ const edges=[-1,1].map(side=>points.map((p,i)=>{
+  const a=points[Math.max(0,i-1)],b=points[Math.min(64,i+1)],dx=b.x-a.x,dy=b.y-a.y,length=Math.hypot(dx,dy)||1;
+  const spread=width*(ribbon?1+.12*Math.sin(i*1.7)+.08*Math.cos(i*.73):1)*side;
+  return {x:p.x-dy/length*spread,y:p.y+dx/length*spread};
+ }));
+ const path=ps=>ps.map((p,i)=>`${i?'L':'M'}${p.x.toFixed(3)} ${p.y.toFixed(3)}`).join('');
+ return ribbon?path([...edges[0],...edges[1].reverse()])+'Z':edges.map(path).join('');
 }
 export function renderRoads(s,anchors=null){
   const at=id=>({...node(s,id),...(anchors?.[id]||{})});
-  return s.roads.flatMap(([a,b])=>campaignRoads(s,a,b).map(r=>`<path d="${roadPath(at(a),at(b),r.id)}" data-road-from="${a}" data-road-to="${b}" tabindex="0" role="button" aria-label="${node(s,a).name}至${node(s,b).name}" class="strategy-road road-${r.terrain} ${r.id==='side'||roadSegment(s,a,b)?.trail?'strategy-side-road':''}" ><title>${node(s,a).name}—${node(s,b).name} · ${r.name} · 消耗 ${r.cost} 行动力</title></path>`)).join('');
+  return s.roads.flatMap(([a,b])=>campaignRoads(s,a,b).map(r=>{
+   const from=at(a),to=at(b),d=roadPath(from,to,r.id),trail=r.id==='side'||roadSegment(s,a,b)?.trail;
+   // Decorative layers share the actual marching curve; only the surface is interactive.
+   return `<g class="map-road map-road-${r.terrain} ${trail?'map-road-trail':''}">${r.terrain==='water'?'':`<path class="map-road-shoulder" d="${roadEdges(from,to,r.id,trail?.43:.69,true)}" aria-hidden="true"/>`}<path d="${d}" data-road-from="${a}" data-road-to="${b}" tabindex="0" role="button" aria-label="${node(s,a).name}至${node(s,b).name}" class="strategy-road road-${r.terrain} ${trail?'strategy-side-road':''}"><title>${node(s,a).name}—${node(s,b).name} · ${r.name} · 消耗 ${r.cost} 行动力</title></path>${r.terrain==='water'?'':`<path class="map-road-wear" d="${roadEdges(from,to,r.id,trail?.13:.23)}" aria-hidden="true"/>`}</g>`;
+  })).join('');
 }
 export function renderMarchRoute(s,a,anchors=null){
   if(!a?.route.length)return '';
@@ -68,8 +91,8 @@ export function renderSupplyRoute(s,a,link,anchors=null){
   if(!link)return '';
   const at=id=>({...node(s,id),...(anchors?.[id]||{})});
   let result=link.path.slice(1).map((to,i)=>`<path class="strategy-supply-path" d="${roadPath(at(link.path[i]),at(to),link.roads[i])}"/>`).join('');
-  if(a.travel){const t=a.travel,p=t.progress/roadDistance(s,t.from,t.to);
-    const points=Array.from({length:17},(_,i)=>{const v=roadPoint(at(t.from),at(t.to),p*i/16,t.road||'main');return `${i?'L':'M'}${v.x} ${v.y}`;}).join('');
+  if(a.travel){const saved=a.travel,reverse=link.path.at(-1)===saved.to,t=reverse?{...saved,from:saved.to,to:saved.from,progress:roadDistance(s,saved.from,saved.to)-saved.progress}:saved,p=t.progress/roadDistance(s,t.from,t.to);
+    const points=Array.from({length:65},(_,i)=>{const v=roadPoint(at(t.from),at(t.to),p*i/64,t.road||'main');return `${i?'L':'M'}${v.x} ${v.y}`;}).join('');
     result+=`<path class="strategy-supply-path" d="${points}"/>`;
   }
   return result;

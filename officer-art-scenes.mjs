@@ -56,7 +56,7 @@ export function workArtScene({kind,direction,buildingKey}={}){
 export function reportArtScene(node={}){
  if(node.category==='occupation'&&node.phase==='lost')return 'report-concern';
  if(node.category==='battle'&&node.phase==='settled'&&node.result?.winner&&node.result.winner!==node.faction)return 'report-concern';
- const concern=['event','pause','failure','cancel','blocked','failed','war','DEAD','CAPTIVE','TRANSPORT_LOST','leave-warning','resigned','changed-side','offer-paused','displaced'];
+ const concern=['event','pause','failure','cancel','blocked','failed','war','DEAD','CAPTIVE','TRANSPORT_LOST','loyalty-low','resigned','changed-side','offer-paused','displaced'];
  return concern.includes(node.phase)||node.result?.lost===true?'report-concern':'report';
 }
 export function activityArtScene(activity={},work={}){

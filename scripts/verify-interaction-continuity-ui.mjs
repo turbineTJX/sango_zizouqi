@@ -1,3 +1,4 @@
+import {chooseAssignment} from './assignment-picker-ui-helpers.mjs';
 import assert from 'node:assert/strict';
 import {spawn} from 'node:child_process';
 import {mkdir,writeFile} from 'node:fs/promises';
@@ -53,7 +54,7 @@ try{
 
  await page.setViewportSize({width:1440,height:900});await page.locator('.world-commands [data-action="scout-open"]').click();
  const city='town-8',target='town-5',via='town-57',officer=scoutCandidates(state,city)[0].unit.id;
- await page.locator('#scout-city').selectOption(city);await page.locator('#scout-officer').selectOption(officer);await page.locator('#scout-target').selectOption(target);
+ await chooseAssignment(page,'#scout-city',city);await chooseAssignment(page,'#scout-officer',officer);await chooseAssignment(page,'#scout-target',target);
  const point=selector=>page.locator(selector).evaluate(el=>{const m=el.getScreenCTM();return {x:m.e,y:m.f};});
  const handle=await point('[data-route-handle="0.5"]'),drop=await point(`[data-command-city="${via}"]`);
  await page.mouse.move(handle.x,handle.y);await page.mouse.down();await page.mouse.move(drop.x,drop.y,{steps:10});await page.mouse.up();
@@ -64,7 +65,7 @@ try{
  assert.equal(await page.locator('.scouting-screen').count(),1,'Escape cancels the active drag without closing the draft');
  assert.equal(await page.locator('.route-handle.dragging').count(),0);assert.equal(await page.locator('.route-draft-line').getAttribute('points'),route);
  await page.locator(`[data-command-city="${target}"]`).press('Enter');assert.equal(await page.locator('.route-draft-line').getAttribute('points'),route,'reselecting the same map target retains edited route');
- await page.locator('#scout-target').selectOption(target);assert.equal(await page.locator('.route-draft-line').getAttribute('points'),route,'reselecting the same dropdown target retains edited route');
+ await chooseAssignment(page,'#scout-target',target);assert.equal(await page.locator('.route-draft-line').getAttribute('points'),route,'reselecting the same picker target retains edited route');
  await page.screenshot({path:`${out}/scouting-preserved-route.png`});
  await action('route-reset').click();assert.equal(await page.locator('.route-handle.pinned').count(),0);assert.notEqual(await page.locator('.route-draft-line').getAttribute('points'),route);
  await page.keyboard.press('Escape');assert.equal(await saved(),before);

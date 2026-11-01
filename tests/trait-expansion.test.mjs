@@ -18,7 +18,10 @@ function fixture(key,id,seed=71){
  const s=peacefulCities(newCampaign(seed)),c=s.cities.find(c=>c.id==='xuchang');fundCities(s,100000);
  for(const t of s.cities)t.units=t.units.filter(u=>u.id!==id);for(const a of s.armies)a.units=a.units.filter(u=>u.id!==id);s.campaign.idle=s.campaign.idle.filter(o=>o.unit.id!==id);s.campaign.domestic.people=s.campaign.domestic.people.filter(p=>p.id!==id);
  const u={...makeOfficer(id,2000),homeCity:c.id};c.units.push(u);Object.assign(c,{granary:5,grain:20000,clinic:1,workshop:1,farm:1,commerce:1,drill:1,walls:1,hall:1,manpower:10000});
- for(const v of c.units){v.troops=2000;v.wounded=1000;s.campaign.domestic.loyalty[v.id]=25;}
+ for(const v of c.units){v.troops=2000;v.wounded=1000;s.campaign.domestic.loyalty[v.id]=key==='reassure'?25:85;}
+ // Only reassurance trials need low-loyalty recipients. An unrelated work
+ // trial must not accidentally turn its executor into a resignation case.
+ s.campaign.domestic.loyalty[id]=100;
  if(key==='buy')c.grain=1000;
  if(['research','breakthrough','craftsmen','master','imitate'].includes(key)){c.domestic.techs=['efficientConstruction'];c.workshop=3;c.domestic.research={type:'siegeEngineering',progress:0,spent:600,workedDays:0};}
  if(ACTIONS[key].opportunity)c.domestic.opportunities.push({kind:ACTIONS[key].opportunity,expires:100,saved:0,amount:600});

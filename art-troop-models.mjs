@@ -3,6 +3,7 @@ import {mergeGeometries} from './vendor/three/utils/BufferGeometryUtils.js';
 import {TROOP_DESIGNS} from './data/design/troops.mjs';
 import {unitStatusMotion} from './battle-unit-motion.mjs';
 import {sampleTroopPose,sampleFacing} from './troop-animation.mjs';
+import {treasureAppearance} from './treasure-appearance.mjs';
 
 const TAU=Math.PI*2;
 const baseMaterial=new T.MeshStandardMaterial({vertexColors:true,roughness:.76,metalness:.16});
@@ -140,22 +141,42 @@ function quiver(){
   for(let i=0;i<4;i++){const x=(i-1.5)*.036;beam(wood,[x,.1,0],[x,.48+(i%2)*.04,0],.009);sphere('#d1c3a0',x,.43+(i%2)*.04,0,.02,.06,.012);}
  });
 }
-function soldier(type,cloth,index,{mounted=false,heavy=false,rattan=false}={}){
+function treasureWeapon(a){
+ if(a.shape==='fan')return part('treasure-weapon',({sphere,beam,curve})=>{beam(a.trim,[0,-.4,0],[0,.2,0],.035);for(let i=-3;i<=3;i++){const x=i*.11;sphere(a.metal,x,.35-Math.abs(i)*.026,0,.1,.36,.025);curve('#b1a47d',[[0,.02,.025],[x,.58-Math.abs(i)*.026,.025]],.009);}});
+ if(a.shape==='hammer')return part('treasure-weapon',({sphere,curve,add})=>{curve(a.trim,[[0,-.35,0],[.12,.1,0],[.3,.28,0]],.025);sphere(a.metal,.34,.36,0,.17,.17,.17);for(let i=0;i<6;i++){const angle=i*Math.PI/3;add(new T.ConeGeometry(.035,.13,6),a.metal,.34+Math.cos(angle)*.16,.36+Math.sin(angle)*.16,0,1,1,1,0,0,angle-Math.PI/2);}});
+ if(a.shape==='hook')return part('treasure-weapon',({beam,curve,box})=>{beam(a.trim,[0,-.45,0],[0,0,0],.04);curve(a.metal,[[0,0,0],[.1,.5,0],[.32,.88,0],[.46,.8,0],[.39,.64,0]],.045);box('#b4a069',0,-.01,0,.3,.05,.07);});
+ if(a.shape==='bow'){const root=bowWeapon('longbow');root.add(part('treasure-bow-trim',({curve})=>curve(a.metal,[[0,-.73,0],[0,-.3,.18],[0,.3,.18],[0,.73,0]],.045)));return root;}
+ return part('treasure-weapon',({add,beam,curve,box,sphere})=>{
+  const long=['halberd','guandao','serpent','trident','lance','doubleHalberd'].includes(a.shape);
+  beam(a.trim,[0,long?-.85:-.45,0],[0,long?1.3:-.04,0],long?.035:.045);
+  if(long){
+   if(a.shape==='serpent'){const shape=new T.Shape();shape.moveTo(-.045,1.25);for(let i=0;i<=12;i++)shape.lineTo(Math.sin(i*.85)*.075-.035,1.25+i*.04);shape.lineTo(0,1.85);for(let i=12;i>=0;i--)shape.lineTo(Math.sin(i*.85)*.075+.035,1.25+i*.04);shape.closePath();add(new T.ExtrudeGeometry(shape,{depth:.03,bevelEnabled:false}),a.metal);}
+   else{add(bladeGeometry(.47,.11),a.metal,0,1.28,0);if(a.shape==='trident')for(const sign of [-1,1]){beam(a.trim,[0,1.2,0],[sign*.2,1.42,0],.025);add(bladeGeometry(.32,.08),a.metal,sign*.2,1.41,0);}for(const sign of a.shape==='halberd'?[-1,1]:['lance','trident'].includes(a.shape)?[]:[1]){const shape=new T.Shape();shape.moveTo(sign*.04,1.27);shape.quadraticCurveTo(sign*.56,1.16,sign*.36,1.82);shape.quadraticCurveTo(sign*.19,1.53,sign*.04,1.51);shape.closePath();add(new T.ExtrudeGeometry(shape,{depth:.04,bevelEnabled:true,bevelThickness:.01,bevelSize:.01,bevelSegments:1}),a.metal);}}
+   sphere(a.trim,0,1.25,0,.085,.14,.085);curve('#ab3b30',[[0,1.23,0],[-.13,1.02,-.03],[-.23,.89,-.08]],.035);
+  }else{
+   add(bladeGeometry(a.shape==='dao'?1.08:1.18,a.shape==='dao'?.19:.11),a.metal,0,-.02,0);box('#c6a864',0,-.06,0,.38,.065,.09);sphere(a.trim,0,-.5,0,.08,.07,.06);if(a.stars)for(let i=0;i<a.stars;i++)sphere('#cbb56e',.02,.08+i*.12,.025,.018);if(a.serrated)for(let i=0;i<6;i++)add(bladeGeometry(.09,.05),a.metal,-.07,.13+i*.13,0,1,1,1,0,0,Math.PI/2);
+  }
+ });
+}
+function soldier(type,cloth,index,{mounted=false,heavy=false,rattan=false,treasure=null,armor=null}={}){
  const root=new T.Group();root.name='soldier-'+index;
  const body=joint(root,'body',0,mounted?1.45:.76,0,torso(cloth,heavy));
+ if(armor?.shape==='robe')body.add(part('treasure-robe',({box,curve})=>{box(armor.trim,0,.2,-.23,.65,.75,.06);for(const x of [-.25,-.12,0,.12,.25])curve(armor.metal,[[x,.54,-.27],[x*.7,.2,-.28],[x*1.1,-.14,-.29]],.014);}));
+ else if(armor)body.add(part('treasure-mirror-armor',({sphere,box})=>{if(!armor.armorStyle||armor.armorStyle==='mirror'){for(const x of armor.armorStyle? [0]:[-.15,.15])sphere(armor.metal,x,.46,.24,armor.armorStyle ? .21 : .15,.17,.055);}else{for(let row=0;row<4;row++)for(let col=0;col<5;col++){const x=(col-2)*.105,y=.19+row*.12;if(armor.armorStyle==='chain')sphere(armor.metal,x,y,.24,.065,.07,.025);else box(armor.metal,x,y,.245,.095,.105,.035);} }box(armor.trim,0,.12,.24,.56,.08,.06);}));
  joint(body,'head',0,.85,0,head(cloth,index));
  for(const sign of [-1,1]){
   const arm=joint(body,sign<0?'arm-l':'arm-r',sign*.34,.58,0,upperArm(cloth,sign));
   const fore=joint(arm,sign<0?'fore-l':'fore-r',0,-.29,0,forearm());fore.rotation.x=-.28;
-  if(sign===(['archer','longbow'].includes(type)?-1:1)){const held=joint(fore,'weapon',0,-.23,.04,weapon(type,cloth));held.rotation.z=-.12;}
+  if(sign===(['archer','longbow'].includes(type)?-1:1)){const held=joint(fore,'weapon',0,-.23,.04,treasure&&!['armor','horse','wagon','robe'].includes(treasure.shape)?treasureWeapon(treasure):weapon(type,cloth));held.rotation.z=-.12;}
+  else if(['twins','doubleHalberd'].includes(treasure?.shape))joint(fore,'second-sword',0,-.23,.04,treasureWeapon(treasure));
   else if(!['archer','longbow','crossbow'].includes(type)){const held=joint(fore,'shield',-.03,-.19,.12,shield(cloth,rattan));held.rotation.y=-.2;}
   const hip=joint(root,sign<0?'leg-l':'leg-r',sign*.13,mounted?1.5:.73,0,leg(cloth));if(mounted){hip.rotation.z=sign*.28;hip.rotation.x=-.15;}
  }
  if(['archer','longbow','crossbow'].includes(type))joint(body,'quiver',-.18,.43,-.19,quiver());
  return root;
 }
-function horse(cloth,index,white=false){
- const root=new T.Group();root.name='horse-'+index;const coat=white?'#b6b1a0':index%2?'#6b5545':'#886747';
+function horse(cloth,index,white=false,treasure=null){
+ const root=new T.Group();root.name='horse-'+index;const coat=treasure?.coat||(white?'#b6b1a0':index%2?'#6b5545':'#886747');
  root.add(part('horse-body',({sphere,box,curve})=>{
   sphere(coat,0,.84,-.05,.3,.34,.63);
   box(cloth,0,1.09,-.13,.68,.08,.72);box(leather,0,1.16,-.16,.42,.12,.46);
@@ -179,22 +200,29 @@ function horse(cloth,index,white=false){
  }
  return root;
 }
+function treasureWagon(a){
+ const cart=new T.Group();cart.name='treasure-wagon';cart.add(part('treasure-wagon-body',({box,beam})=>{box(wood,0,.44,0,.68,.12,.88);box(a.trim,0,.8,-.32,.68,.6,.06);box(a.trim,0,.7,0,.68,.1,.55);for(const x of [-.31,.31])for(const z of [-.35,.35])beam(wood,[x,.48,z],[x,1.55,z],.022);box(a.trim,0,1.56,0,.8,.09,1.02);}));
+ for(const x of [-.4,.4])for(const z of [-.3,.3]){const wheel=new T.Group();wheel.name='wagon-wheel';wheel.position.set(x,.26,z);wheel.add(part('wagon-wheel-mesh',({add,beam})=>{add(new T.TorusGeometry(.23,.035,6,12),a.metal,0,0,0,1,1,1,0,Math.PI/2,0);for(let i=0;i<6;i++){const angle=i*Math.PI/3;beam(wood,[0,0,0],[0,Math.sin(angle)*.23,Math.cos(angle)*.23],.014);}}));cart.add(wheel);}return cart;
+}
 function pennant(cloth){
  const root=new T.Group();root.add(part('standard-pole',({beam})=>beam(wood,[0,0,0],[0,2.45,0],.018)));
  joint(root,'standard-cloth',0,2.4,0,part('standard-mesh',({add})=>{const shape=new T.Shape();shape.moveTo(0,0);shape.lineTo(.43,-.07);shape.lineTo(.35,-.47);shape.lineTo(0,-.41);shape.closePath();add(new T.ExtrudeGeometry(shape,{depth:.012,bevelEnabled:false}),cloth);}));return root;
 }
-export function createTroopModel(type,side=0){
+export function createTroopModel(type,side=0,treasureId=null){
  const family=TROOP_DESIGNS[type]?.family;if(!['spear','halberd','cavalry','archer'].includes(family))return null;
  const root=new T.Group();root.name='troop-'+type;root.userData.nativeTroop=true;root.userData.type=type;root.userData.side=side;
+ const ids=(Array.isArray(treasureId)?treasureId:String(treasureId||'').split('+')).filter(treasureAppearance),looks=ids.map(treasureAppearance),treasure=looks.find(a=>!['armor','horse','wagon','robe'].includes(a.shape)),armor=looks.find(a=>['armor','robe'].includes(a.shape)),wagon=looks.find(a=>a.shape==='wagon'),mount=looks.find(a=>a.shape==='horse');root.userData.treasureIds=ids;
  const cloth=side?'#8a4737':'#496858',mounted=family==='cavalry',heavy=['greatHalberd','tigerCavalry'].includes(type);
  const weaponType=type==='crossbow'?'crossbow':type==='longbow'?'longbow':family==='archer'?'archer':family==='halberd'?'halberd':'spear';
  const layout=mounted?[[-.5,0],[.5,-.28]]:[[-.36,-.33],[.36,-.33],[-.36,.33],[.36,.33]];
  layout.forEach(([x,z],i)=>{
   const member=new T.Group();member.name='member-'+i;member.position.set(x,0,z);member.userData.rest=[x,0,z];member.userData.index=i;
-  if(mounted)member.add(horse(cloth,i,type==='whiteHorse'));
-  member.add(soldier(weaponType,cloth,i,{mounted,heavy,rattan:type==='rattan'}));root.add(member);
+  if(mounted)member.add(horse(cloth,i,type==='whiteHorse',i===0?mount:null));
+  member.add(soldier(weaponType,cloth,i,{mounted,heavy,rattan:type==='rattan',treasure:i===0?treasure:null,armor:i===0?armor:null}));root.add(member);
  });
  const standard=pennant(cloth);standard.position.set(-.62,0,-.42);root.add(standard);
+ if(wagon){const cart=treasureWagon(wagon);cart.position.set(.85,0,-.35);root.add(cart);}
+ if(!mounted&&mount){const companion=horse(cloth,'treasure',false,mount);companion.position.set(.96,0,-.2);companion.scale.setScalar(.84);root.add(companion);}
  // Soft contact patches are flat ground shadows, not selection or status rings.
  const shadowMaterial=contactShadow();
  for(const member of root.children.filter(n=>n.name.startsWith('member-'))){const shadow=new T.Mesh(new T.PlaneGeometry(mounted?.7:.44,mounted?1.25:.45),shadowMaterial);shadow.rotation.x=-Math.PI/2;shadow.position.set(0,.008,0);member.add(shadow);}
@@ -240,6 +268,13 @@ export function animateTroopModel(obj,{time=0,progress=1,moving=false,moveProgre
    rig.arrow.visible=pose.arrowVisible;rig.arrow.position.z=-pull;
   }
   if(i===0){obj.flagPose=pose.flag;obj.flagDrop=pose.fall;}
+ }
+ const cart=obj.model.getObjectByName('treasure-wagon');if(cart){cart.rotation.y=obj.troopRig[0]?.member.rotation.y||0;if(moving)for(const wheel of cart.children.filter(n=>n.name==='wagon-wheel'))wheel.rotation.x=time*.006;}
+ const companion=obj.model.getObjectByName('horse-treasure');if(companion){
+  const pose=sampleTroopPose({type:'cavalry',family:'cavalry',progress,time,index:0,moving,moveProgress,kind,reaction,guardImpact,reduced,death});
+  companion.position.y=pose.horseBob;companion.rotation.y=obj.troopRig[0]?.member.rotation.y||0;companion.rotation.z=pose.fall;
+  companion.getObjectByName('horse-neck').rotation.x=pose.neck;companion.getObjectByName('horse-tail').rotation.z=pose.tail;
+  companion.children.filter(n=>n.name==='horse-leg').forEach((leg,j)=>{leg.rotation.x=pose.horseLegs[j].hip;leg.getObjectByName('horse-knee').rotation.x=pose.horseLegs[j].knee;});
  }
  const flag=obj.troopFlag||=obj.model.getObjectByName('standard-cloth');if(flag){flag.rotation.y=obj.flagPose*2;flag.rotation.z=obj.flagPose*.3;flag.parent.rotation.z=-obj.flagDrop;}
 }

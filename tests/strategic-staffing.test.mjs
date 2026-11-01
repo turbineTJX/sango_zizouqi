@@ -33,24 +33,25 @@ function transfer(){
  for(const [faction,p] of Object.entries(s.campaign.ai.factions)){drawFactionTemperament(s.campaign.ai,faction,s.turn,factionStrategicProfile(s,faction),0);p.lastReviewTurn=s.turn;}
  return {s,home,rear,id:u.id};
 }
+const nextPlanning=s=>{s.campaign.day=(Math.floor((s.campaign.day-1)/10)+1)*10+1;s.turn=Math.floor((s.campaign.day-1)/10)+1;s.campaign.phase='planning';};
 function arrive(s,id){for(let i=0;i<30&&s.campaign.idle.find(o=>o.unit.id===id)?.destination;i++)advancePersonnel(s,s.campaign.idle.find(o=>o.unit.id===id));}
 
 test('a staffing promise survives real travel and reload, appoints on arrival and completes only after actual work',()=>{
  const {s,id,rear}=transfer();progressStrategicStaffing(s);assert.ok(staffingOfficer(s,id));assert.equal(assignmentFor(s,id),undefined);validateStrategicAI(s);
  const copy=JSON.parse(serializeCampaign(s));
- for(const world of [s,copy]){arrive(world,id);world.campaign.day++;progressStrategicStaffing(world);assert.equal(assignmentFor(world,id).cityId,rear.id);assert.equal(assignmentFor(world,id).direction,'commerce');assert.equal(world.campaign.ai.staffing[0].phase,'work');beginDomesticTurn(world);assert.ok(assignmentFor(world,id).action);}
+ for(const world of [s,copy]){arrive(world,id);nextPlanning(world);progressStrategicStaffing(world);assert.equal(assignmentFor(world,id).cityId,rear.id);assert.equal(assignmentFor(world,id).direction,'commerce');assert.equal(world.campaign.ai.staffing[0].phase,'work');beginDomesticTurn(world);assert.ok(assignmentFor(world,id).action);}
  assert.equal(serializeCampaign(s),serializeCampaign(copy));validateStrategicAI(s);
- for(let i=0;i<30&&staffingOfficer(s,id);i++)for(const world of [s,copy]){world.campaign.day++;finishDomesticDay(world);progressStrategicStaffing(world);}
+ for(let i=0;i<30&&staffingOfficer(s,id);i++)for(const world of [s,copy]){world.campaign.day++;finishDomesticDay(world);world.turn=Math.floor((world.campaign.day-1)/10)+1;progressStrategicStaffing(world);}
  assert.equal(staffingOfficer(s,id),false);assert.ok(s.campaign.domestic.workHistory[id].some(h=>h.status!=='interrupted'));assert.equal(serializeCampaign(s),serializeCampaign(copy));
 });
 
 test('ordinary logistics preserves an arrived staffing appointment until its first real work attempt',()=>{
- const {s,home,rear,id}=transfer();arrive(s,id);s.campaign.day++;progressStrategicStaffing(s);home.gold=0;
+ const {s,home,rear,id}=transfer();arrive(s,id);nextPlanning(s);progressStrategicStaffing(s);home.gold=0;
  planStrategicAI(s);assert.ok(staffingOfficer(s,id));assert.equal(s.campaign.idle.find(o=>o.unit.id===id).destination,null);assert.equal(assignmentFor(s,id).cityId,rear.id);validateStrategicAI(s);
 });
 
 test('urgent real food transport may release staffing while lost ownership and duplicate claims invalidate it',()=>{
- const {s,home,id}=transfer();arrive(s,id);s.campaign.day++;progressStrategicStaffing(s);home.grain=0;home.hunger=1;
+ const {s,home,id}=transfer();arrive(s,id);nextPlanning(s);progressStrategicStaffing(s);home.grain=0;home.hunger=1;
  planStrategicAI(s);assert.equal(staffingOfficer(s,id),false);const o=s.campaign.idle.find(o=>o.unit.id===id);assert.equal(o.destination,home.id);assert.ok(o.cargo.grain>0);assert.ok(s.campaign.ai.decisions.some(d=>d.reason.startsWith('口粮救急优先')));validateStrategicAI(s);
  const lost=transfer();lost.rear.owner='cao';progressStrategicStaffing(lost.s);assert.equal(lost.s.campaign.ai.staffing.length,0);
  const duplicate=transfer();duplicate.s.campaign.ai.staffing.push(structuredClone(duplicate.s.campaign.ai.staffing[0]));assert.throws(()=>validateStrategicAI(duplicate.s),/战略AI/);
@@ -66,7 +67,7 @@ test('AI redistributes an idle prepared garrison to a small city that already ha
  const o=s.campaign.idle.find(o=>o.unit.id===p.officerId);assert.equal(o.location,home.id);assert.equal(o.destination,rear.id);assert.ok(o.unit.troops>0);
  assert.equal(home.units.reduce((n,u)=>n+u.troops+u.wounded,0)+o.unit.troops+o.unit.wounded,before);assert.equal(home.gold,gold);
  planStrategicPersonnel(s,'yuan');assert.equal(s.campaign.ai.staffing.filter(p=>p.cityId===rear.id).length,1);
- arrive(s,o.unit.id);s.campaign.day++;progressStrategicStaffing(s);assert.equal(assignmentFor(s,o.unit.id).cityId,rear.id);
+ arrive(s,o.unit.id);nextPlanning(s);progressStrategicStaffing(s);assert.equal(assignmentFor(s,o.unit.id).cityId,rear.id);
  beginDomesticTurn(s);assert.ok(assignmentFor(s,o.unit.id).action);assert.equal(home.governor,'shao');
 });
 
@@ -75,7 +76,7 @@ test('AI staffing uses available work rather than an unavailable higher attribut
  for(const [key,def]of Object.entries(ACTIONS))if(def.direction!=='agriculture')rear.domestic.cooldowns[key]=1000;
  assert.equal(assignDomestic(s,rear.id,'agriculture',rear.units[0].id,{faction:'yuan',scheduled:true}),null);
  planStrategicPersonnel(s,'yuan');const p=s.campaign.ai.staffing.find(p=>p.cityId===rear.id);assert.ok(p);assert.equal(p.direction,'agriculture');
- arrive(s,p.officerId);s.campaign.day++;progressStrategicStaffing(s);assert.equal(assignmentFor(s,p.officerId).direction,'agriculture');
+ arrive(s,p.officerId);nextPlanning(s);progressStrategicStaffing(s);assert.equal(assignmentFor(s,p.officerId).direction,'agriculture');
  assert.equal(s.campaign.domestic.assignments.filter(a=>a.cityId===rear.id&&a.direction==='agriculture').length,2);
 });
 

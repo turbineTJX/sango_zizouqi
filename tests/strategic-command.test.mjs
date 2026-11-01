@@ -4,6 +4,21 @@ import assert from 'node:assert/strict';
 import {newCampaign,serializeCampaign,validateCampaign,assignDomestic} from './helpers/auto-domestic-campaign.mjs';
 import {campaignOfficers,pickerReason} from '../strategic-roster.mjs';
 import {changeCommandUnit,removeCommandUnit,newCommand,prepareCommandFormation,commandCanAdvance,commandReadinessError,commandRoute,commandMarkup,commandSteps} from '../strategic-command.mjs';
+
+test('bandit expedition keeps its known camp name in target and final review without leaking unseen camps',()=>{
+ const s=newCampaign(203,'guandu-200'),p=newCommand(s,'expedition','xuchang'),u=s.cities.find(c=>c.id===p.city).units[0];
+ Object.assign(p,{selected:[u.id],leader:u.id,advisor:u.id,destination:'chenliu',banditTarget:'test-camp'});
+ const observation={day:s.campaign.day,data:{id:'test-camp',nodeId:'chenliu',name:'陈留贼寨',clearedDay:null,units:[]}};
+ s.campaign.bandits.observations[s.campaign.playerFaction]={'test-camp':observation};
+ const before=serializeCampaign(s);
+ for(const step of ['target','review']){
+  p.step=step;assert.match(commandMarkup(s,{officerPick:p,personnel:{}},'').body,/陈留贼寨/);
+  p.destination='luoyang';assert.doesNotMatch(commandMarkup(s,{officerPick:p,personnel:{}},'').body,/陈留贼寨/);p.destination='chenliu';
+ }
+ assert.equal(serializeCampaign(s),before);
+ delete s.campaign.bandits.observations[s.campaign.playerFaction]['test-camp'];
+ for(const step of ['target','review']){p.step=step;assert.doesNotMatch(commandMarkup(s,{officerPick:p,personnel:{}},'').body,/陈留贼寨/);}
+});
 test('inline city roster edits enlist existing units and validate the same allocation on a copy',()=>{
  const s=newCampaign(203,'guandu-200'),c=s.cities.find(c=>c.id==='xuchang'),u=c.units[0],p=newCommand(s,'draft',c.id),before=serializeCampaign(s);
  assert.equal(changeCommandUnit(s,p,u.id,'troops',1000),null);
@@ -38,7 +53,7 @@ test('a changed officer state blocks final formation without partial changes',()
 test('target is an explicit decision and routes follow transfer ownership rules',()=>{
  const s=newCampaign(203,'guandu-200'),p=newCommand(s,'transfer','xuchang');p.step='target';
  assert.equal(commandCanAdvance(s,p),false);p.destination='xuchang';assert.equal(commandCanAdvance(s,p),false);
- p.destination='chenliu';assert.ok(commandRoute(s,p));assert.equal(commandCanAdvance(s,p),false,'a destination cannot skip selecting an executor');p.selected=[s.cities.find(c=>c.id===p.city).units[0].id];assert.equal(commandCanAdvance(s,p),true);
+ p.destination='chenliu';assert.ok(commandRoute(s,p));assert.equal(commandCanAdvance(s,p),false,'a destination cannot skip selecting an executor');p.selected=[campaignOfficers(s).find(r=>r.location===p.city&&!pickerReason(s,r,p)).unit.id];assert.equal(commandCanAdvance(s,p),true);
 });
 
 test('ordinary formation owns officer selection and army selection lists compiled units',()=>{
@@ -58,7 +73,8 @@ test('domestic appointment exposes six simple directions and keeps commerce and 
  assert.doesNotMatch(html,/command-steps|下令步骤/);
  for(const [id,name,stat] of [['commerce','商业','政治'],['agriculture','农业','政治'],['military','军务','统率'],['martial','武备','武力'],['technology','技术','智力'],['talent','人才','魅力']]){
   assert.equal((html.match(new RegExp('data-direction="'+id+'"','g'))||[]).length,1);
-  assert.match(html,new RegExp('<b>'+name+' · \\d+ / \\d+ 人</b><small>'+stat+'＋适用特性</small>'));
+  assert.match(html,new RegExp('<b>'+name+' · \\d+ / \\d+ 人</b>'));
+  assert.doesNotMatch(html,new RegExp(stat+'＋适用特性'));
  }
  assert.doesNotMatch(html,/当前重点|参考需求|成功把握|请选择具体事务/);
 });
@@ -68,7 +84,7 @@ test('army composition displays current work and puts idle units first without c
  assignDomestic(s,c.id,'commerce',u.id);beginDomesticTurn(s);assert.ok(assignmentFor(s,u.id).action);
  const p=newCommand(s,'expedition',c.id);p.step='unit-select';p.selected=[];p.formationPool=[];
  const before=serializeCampaign(s),html=commandMarkup(s,{officerPick:p,personnel:{}},'').body;
- assert.match(html,/事务余/);assert.match(html,/待命/);assert.equal(serializeCampaign(s),before);
+ assert.match(html,/还需/);assert.match(html,/空闲/);assert.match(html,/商业负责人/);assert.doesNotMatch(html,/ · 待命/);assert.equal(serializeCampaign(s),before);
  const ids=[...html.matchAll(/data-command-army-unit="([^"]+)"/g)].map(m=>m[1]);assert.notEqual(ids[0],u.id);assert.ok(ids.includes(u.id));
 });
 
@@ -112,3 +128,23 @@ test('transport readiness identifies the missing resource before spending it',()
  const before=serializeCampaign(s);assert.equal(commandReadinessError(s,p),'粮还差 7');assert.equal(commandCanAdvance(s,p),false);assert.equal(serializeCampaign(s),before);
  p.cargo.grain=0;assert.equal(commandCanAdvance(s,p),true);
 });
+
+ test('march rerouting discloses the unfinished leg on target and review without changing the army',async()=>{
+ const {fieldCampaign}=await import('./helpers/field-campaign.mjs');
+ const {orderCampaignArmy,beginExecution,advanceCampaignStep}=await import('./helpers/auto-domestic-campaign.mjs');
+ const s=fieldCampaign(),a=s.armies[0];
+ assert.equal(orderCampaignArmy(s,a.id,'guandu','main'),null);
+ beginExecution(s);advanceCampaignStep(s);assert.ok(a.travel);
+ const p=newCommand(s,'march',a.location,{armyId:a.id}),next=s.cities.find(c=>c.id===a.travel.to)||s.junctions.find(c=>c.id===a.travel.to);
+ const before=serializeCampaign(s);
+ assert.match(commandMarkup(s,{officerPick:p,personnel:{}},'').body,/先到.+再改线/);
+ p.destination=a.travel.from;
+ for(const step of ['target','review']){
+  p.step=step;const html=commandMarkup(s,{officerPick:p,personnel:{}},'').body;
+  assert.ok(html.includes('先到'+next.name+'再改线'));
+  assert.match(html,/途中可能接敌/);
+ }
+ assert.equal(serializeCampaign(s),before);
+ a.travel=null;p.step='target';
+ assert.doesNotMatch(commandMarkup(s,{officerPick:p,personnel:{}},'').body,/先到.+再改线/);
+ });

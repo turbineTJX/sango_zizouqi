@@ -1,0 +1,18 @@
+{
+  "url": "https://raw.githubusercontent.com/google/fonts/8b0a1d0f5983c89bc2b93f1b5fb55f9e252744b5/ofl/notoserifsc/NotoSerifSC%5Bwght%5D.ttf",
+  "repository": "https://github.com/google/fonts",
+  "sha256": "050080d9255a86808f2945bffac582b31ef32bc36411ce29563b4961670c66f9",
+  "commit": "8b0a1d0f5983c89bc2b93f1b5fb55f9e252744b5",
+  "file": "noto-serif-sc.woff2",
+  "license": "SIL Open Font License 1.1",
+  "conversion": "FontTools 4.68.0 WOFF2 compression only; all glyphs, weight axes and font metadata retained. No subsetting.",
+  "characters": 30928,
+  "axes": [
+    {
+      "tag": "wght",
+      "min": 200.0,
+      "max": 900.0
+    }
+  ],
+  "woff2Sha256": "0a42e413bd10fe6728e33177fbef642b60640368ccc76c38909066f8b2826f3d"
+}

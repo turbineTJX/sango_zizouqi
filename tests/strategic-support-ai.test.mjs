@@ -29,24 +29,28 @@ function scene({alternative=false}={}){
  initializeVision(s);initializeStrategicAI(s);for(const [faction,p] of Object.entries(s.campaign.ai.factions)){drawFactionTemperament(s.campaign.ai,faction,s.turn,factionStrategicProfile(s,faction),0);p.lastReviewTurn=s.turn;}for(const p of Object.values(s.campaign.diplomacy.policies))p.feeBudget=0;
  return {s,source,front,rear,enemy,node,client,foe};
 }
-const next=s=>{s.campaign.day++;s.turn=Math.floor((s.campaign.day-1)/10)+1;planStrategicAI(s);};
+const next=s=>{s.campaign.day=(Math.floor((s.campaign.day-1)/10)+1)*10+1;s.turn=Math.floor((s.campaign.day-1)/10)+1;s.campaign.phase='planning';planStrategicAI(s);};
 function worker(s,source,effect){const id=Object.keys(OFFICER_BY_ID).find(id=>hasStrategicTrait({id},effect)&&!s.cities.flatMap(c=>c.units).concat(s.armies.flatMap(a=>a.units)).some(u=>u.id===id));s.campaign.domestic.people=s.campaign.domestic.people.filter(p=>p.id!==id);const o={unit:{...makeOfficer(id,0,0,3),homeCity:source.id},faction:'yuan',location:source.id,destination:null,remainingDays:0};s.campaign.idle.push(o);return o;}
 
 test('a visible blockade of an actual supply corridor dispatches real guards and retains city rations',()=>{
  const {s,source,node,client}=scene();assert.equal(supplyConnection(s,client),null);assert.ok(strategicSupportObjectives(s,'yuan').some(q=>q.kind==='guard'&&q.target===node.id));
  const men=source.units.reduce((n,u)=>n+u.troops,0);planStrategicAI(s);const mission=s.campaign.ai.supports.find(q=>q.kind==='guard');assert.ok(mission);const guard=s.armies.find(a=>a.target===node.id&&a.faction==='yuan');assert.ok(guard);assert.ok(guard.route.length);assert.ok(source.grain>2500);assert.equal(source.units.reduce((n,u)=>n+u.troops,0)+guard.units.reduce((n,u)=>n+u.troops,0),men);validateStrategicAI(s);
- const count=s.armies.length,copy=JSON.parse(serializeCampaign(s));next(s);next(copy);assert.equal(s.armies.length,count);assert.equal(serializeCampaign(s),serializeCampaign(copy));validateStrategicAI(s);
+ const count=s.armies.length,copy=JSON.parse(serializeCampaign(s));s.campaign.day++;copy.campaign.day++;planStrategicAI(s);planStrategicAI(copy);assert.equal(s.armies.length,count);assert.equal(serializeCampaign(s),serializeCampaign(copy));validateStrategicAI(s);
 });
 
 test('hidden enemies, their losses and secret destinations do not influence guard decisions',()=>{
  const {s,foe,enemy}=scene();enemy.x=800;foe.location=enemy.id;initializeVision(s);const copy=JSON.parse(serializeCampaign(s));copy.armies.find(a=>a.id===foe.id).target=s.junctions[0].id;copy.armies.find(a=>a.id===foe.id).units[0].troops=1;
  assert.deepEqual(strategicSupportObjectives(s,'yuan'),strategicSupportObjectives(copy,'yuan'));
 });
-test('an existing corridor mission adds timely real guards after a visible threat grows',()=>{
+test('an existing corridor mission adds real guards at the next turn after a visible threat grows',()=>{
  const {s,source,foe}=scene();planStrategicAI(s);const mission=s.campaign.ai.supports.find(q=>q.faction==='yuan'&&q.kind==='guard'),initial=[...mission.officerIds];
- foe.units[0].troops=6000;updateVision(s);next(s);
+ foe.units[0].troops=6000;updateVision(s);s.campaign.day=2;planStrategicAI(s);
+ assert.deepEqual(s.campaign.ai.supports.find(q=>q.id===mission.id).officerIds,initial,'no new strategic support decision within the turn');
+ s.campaign.day=11;s.turn=2;s.campaign.phase='planning';planStrategicAI(s);
  const updated=s.campaign.ai.supports.find(q=>q.id===mission.id);assert.ok(updated.officerIds.length>initial.length);assert.ok(initial.every(id=>updated.officerIds.includes(id)));
- assert.equal(s.campaign.ai.supports.filter(q=>q.faction==='yuan'&&q.target===mission.target).length,1);assert.ok(source.units.length);validateStrategicAI(s);
+ assert.equal(s.campaign.ai.supports.filter(q=>q.faction==='yuan'&&q.target===mission.target).length,1);
+ // The new turn may choose a real local road sortie to defend this city.
+ assert.ok(source.units.length||s.armies.some(a=>a.faction==='yuan'&&a.homeCity===source.id&&a.target===mission.target&&a.units.some(u=>updated.officerIds.includes(u.id))));validateStrategicAI(s);
  const count=updated.officerIds.length;next(s);assert.equal(updated.officerIds.length,count);
 });
 
@@ -95,8 +99,8 @@ test('support releases a feasible nearby commitment and actually pays for the re
 });
 
 test('AI reinforcements walk to an ongoing field battle and enter its actual reserve pool',()=>{
- const {s,source,client,foe}=scene();foe.units[0].troops=6000;client.units[0].troops=4500;client.route=[foe.location,source.id];client.target=source.id;s.campaign.ai.lastPlanDay=s.campaign.day;beginExecution(s);advanceCampaignDay(s);
- const r=activeBattles(s)[0];assert.ok(r);if(r.awaiting)chooseEncounter(s,r.id,false);s.campaign.ai.lastPlanDay=0;updateVision(s);planStrategicAI(s);
+ const {s,source,client,foe}=scene();foe.units[0].troops=6000;client.units[0].troops=4500;client.route=[foe.location,source.id];client.target=source.id;s.campaign.ai.lastPlanDay=s.campaign.day;beginExecution(s);s.campaign.day=10;advanceCampaignDay(s);
+ const r=activeBattles(s)[0];assert.ok(r);if(r.awaiting)chooseEncounter(s,r.id,false);if(s.campaign.day===10)advanceCampaignDay(s);assert.equal(s.campaign.day,11);s.campaign.ai.lastPlanDay=0;updateVision(s);planStrategicAI(s);
  const mission=s.campaign.ai.supports.find(q=>q.kind==='reinforce'&&q.battleId===r.id);assert.ok(mission);const reinforcement=s.armies.find(a=>a.units.some(u=>mission.officerIds.includes(u.id)));assert.ok(reinforcement);assert.ok(!r.armyIds.includes(reinforcement.id));
  const copy=JSON.parse(serializeCampaign(s));for(let i=0;i<6&&!r.armyIds.includes(reinforcement.id);i++)for(const world of [s,copy]){if(world.campaign.phase==='planning')beginExecution(world);for(const battle of activeBattles(world).filter(r=>r.awaiting))chooseEncounter(world,battle.id,false);advanceCampaignDay(world);}
  assert.ok(r.armyIds.includes(reinforcement.id));assert.ok(r.battle.sides.flatMap(side=>side.units).some(u=>u.armyId===reinforcement.id));assert.equal(serializeCampaign(s),serializeCampaign(copy));
@@ -137,6 +141,16 @@ test('a water corridor guard buys legal ships with city gold before actual depar
 
 test('guards return along real roads after their corridor threat disappears',()=>{
  const {s,source,foe}=scene();planStrategicAI(s);const q=s.campaign.ai.supports.find(q=>q.kind==='guard'),ids=[...q.officerIds];foe.units[0].troops=0;updateVision(s);beginExecution(s);
- for(let i=0;i<9;i++){for(const r of activeBattles(s).filter(r=>r.awaiting))chooseEncounter(s,r.id,false);if(s.campaign.phase==='planning')beginExecution(s);advanceCampaignDay(s);}
+ for(let i=0;i<24;i++){for(const r of activeBattles(s).filter(r=>r.awaiting))chooseEncounter(s,r.id,false);if(s.campaign.phase==='planning')beginExecution(s);advanceCampaignDay(s);}
  assert.ok(!s.campaign.ai.supports.some(p=>p.id===q.id));assert.ok(ids.every(id=>s.cities.some(c=>c.owner==='yuan'&&c.units.some(u=>u.id===id))));validateStrategicAI(s);
+});
+
+
+test('guard decisions retain a current threat past the mission estimate and end immediately when it disappears',()=>{
+ const {s,foe}=scene();planStrategicAI(s);const q=s.campaign.ai.supports.find(q=>q.kind==='guard');assert.ok(q);
+ const returns=[],hooks={availableUnits:()=>[],commandUnits:()=>false,retreatArmy:(world,a)=>{returns.push(a.id);a.task='回城补给';}};
+ s.campaign.day=(Math.floor(q.deadline/10)+1)*10+1;s.turn=Math.floor((s.campaign.day-1)/10)+1;updateVision(s);
+ planStrategicSupport(s,'yuan',hooks);assert.ok(s.campaign.ai.supports.includes(q));assert.deepEqual(returns,[]);
+ foe.units.forEach(u=>u.troops=0);updateVision(s);planStrategicSupport(s,'yuan',hooks);
+ assert.ok(returns.length>0);assert.ok(!s.campaign.ai.supports.includes(q));
 });

@@ -66,7 +66,10 @@ export const OFFICER_ASSIGNMENTS = {
     "specialTactic": null
   },
   "person-13": {
-    "traits": [],
+    "traits": [
+      "farmYield",
+      "storageRescue"
+    ],
     "stratagems": [],
     "specialTactic": null
   },
@@ -113,7 +116,10 @@ export const OFFICER_ASSIGNMENTS = {
     "specialTactic": null
   },
   "person-22": {
-    "traits": [],
+    "traits": [
+      "reserveGrain",
+      "taxOrder"
+    ],
     "stratagems": [
       "refresh"
     ],
@@ -180,7 +186,10 @@ export const OFFICER_ASSIGNMENTS = {
     "specialTactic": null
   },
   "person-35": {
-    "traits": [],
+    "traits": [
+      "marketYield",
+      "reserveGrain"
+    ],
     "stratagems": [],
     "specialTactic": null
   },
@@ -265,7 +274,10 @@ export const OFFICER_ASSIGNMENTS = {
     "specialTactic": null
   },
   "person-52": {
-    "traits": [],
+    "traits": [
+      "storageRescue",
+      "taxOrder"
+    ],
     "stratagems": [],
     "specialTactic": null
   },
@@ -275,7 +287,10 @@ export const OFFICER_ASSIGNMENTS = {
     "specialTactic": null
   },
   "person-54": {
-    "traits": [],
+    "traits": [
+      "partnershipDeal",
+      "provision"
+    ],
     "stratagems": [
       "ambush"
     ],
@@ -299,7 +314,10 @@ export const OFFICER_ASSIGNMENTS = {
     "specialTactic": null
   },
   "person-58": {
-    "traits": [],
+    "traits": [
+      "irrigationYield",
+      "storageRescue"
+    ],
     "stratagems": [],
     "specialTactic": null
   },
@@ -452,7 +470,10 @@ export const OFFICER_ASSIGNMENTS = {
     "specialTactic": null
   },
   "dun": {
-    "traits": [],
+    "traits": [
+      "farmYield",
+      "irrigationYield"
+    ],
     "stratagems": [],
     "specialTactic": null
   },
@@ -1111,7 +1132,10 @@ export const OFFICER_ASSIGNMENTS = {
     "specialTactic": null
   },
   "person-212": {
-    "traits": [],
+    "traits": [
+      "taxOrder",
+      "irrigationYield"
+    ],
     "stratagems": [],
     "specialTactic": null
   },
@@ -1225,7 +1249,10 @@ export const OFFICER_ASSIGNMENTS = {
     "specialTactic": null
   },
   "person-234": {
-    "traits": [],
+    "traits": [
+      "farmYield",
+      "harvestRescue"
+    ],
     "stratagems": [],
     "specialTactic": null
   },
@@ -1338,7 +1365,9 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-255": {
     "traits": [
-      "xunTalent"
+      "xunTalent",
+      "taxOrder",
+      "provision"
     ],
     "stratagems": [
       "heal"
@@ -1579,7 +1608,10 @@ export const OFFICER_ASSIGNMENTS = {
     "specialTactic": null
   },
   "person-296": {
-    "traits": [],
+    "traits": [
+      "irrigationYield",
+      "merchantReach"
+    ],
     "stratagems": [],
     "specialTactic": null
   },
@@ -1882,7 +1914,10 @@ export const OFFICER_ASSIGNMENTS = {
     "specialTactic": null
   },
   "ju": {
-    "traits": [],
+    "traits": [
+      "provision",
+      "taxOrder"
+    ],
     "stratagems": [
       "ward"
     ],
@@ -1951,7 +1986,10 @@ export const OFFICER_ASSIGNMENTS = {
     "specialTactic": null
   },
   "person-367": {
-    "traits": [],
+    "traits": [
+      "merchantReach",
+      "purchaseFill"
+    ],
     "stratagems": [],
     "specialTactic": null
   },
@@ -2179,7 +2217,10 @@ export const OFFICER_ASSIGNMENTS = {
     "specialTactic": null
   },
   "person-411": {
-    "traits": [],
+    "traits": [
+      "marketConstruction",
+      "farmConstruction"
+    ],
     "stratagems": [
       "refresh"
     ],
@@ -2391,7 +2432,10 @@ export const OFFICER_ASSIGNMENTS = {
     "specialTactic": null
   },
   "person-449": {
-    "traits": [],
+    "traits": [
+      "taxOrder",
+      "storageRescue"
+    ],
     "stratagems": [],
     "specialTactic": null
   },
@@ -2416,7 +2460,10 @@ export const OFFICER_ASSIGNMENTS = {
     "specialTactic": null
   },
   "person-454": {
-    "traits": [],
+    "traits": [
+      "partnershipDeal",
+      "storageRescue"
+    ],
     "stratagems": [],
     "specialTactic": null
   },
@@ -2534,12 +2581,18 @@ export const OFFICER_ASSIGNMENTS = {
     "specialTactic": null
   },
   "person-475": {
-    "traits": [],
+    "traits": [
+      "farmConstruction",
+      "harvestRescue"
+    ],
     "stratagems": [],
     "specialTactic": null
   },
   "tian": {
-    "traits": [],
+    "traits": [
+      "farmConstruction",
+      "marketConstruction"
+    ],
     "stratagems": [
       "disrupt"
     ],
@@ -2561,12 +2614,18 @@ export const OFFICER_ASSIGNMENTS = {
     "specialTactic": null
   },
   "person-480": {
-    "traits": [],
+    "traits": [
+      "marketYield",
+      "storageRescue"
+    ],
     "stratagems": [],
     "specialTactic": null
   },
   "person-481": {
-    "traits": [],
+    "traits": [
+      "taxOrder",
+      "harvestRescue"
+    ],
     "stratagems": [],
     "specialTactic": null
   },
@@ -2677,7 +2736,10 @@ export const OFFICER_ASSIGNMENTS = {
     "specialTactic": null
   },
   "person-501": {
-    "traits": [],
+    "traits": [
+      "farmYield",
+      "taxOrder"
+    ],
     "stratagems": [],
     "specialTactic": null
   },
@@ -2779,7 +2841,10 @@ export const OFFICER_ASSIGNMENTS = {
     "specialTactic": null
   },
   "person-520": {
-    "traits": [],
+    "traits": [
+      "merchantReach",
+      "purchaseFill"
+    ],
     "stratagems": [
       "ward"
     ],
@@ -2801,7 +2866,10 @@ export const OFFICER_ASSIGNMENTS = {
     "specialTactic": null
   },
   "person-524": {
-    "traits": [],
+    "traits": [
+      "taxOrder",
+      "storageRescue"
+    ],
     "stratagems": [],
     "specialTactic": null
   },
@@ -3029,7 +3097,10 @@ export const OFFICER_ASSIGNMENTS = {
     "specialTactic": null
   },
   "person-565": {
-    "traits": [],
+    "traits": [
+      "marketConstruction",
+      "farmConstruction"
+    ],
     "stratagems": [],
     "specialTactic": null
   },
@@ -3046,7 +3117,10 @@ export const OFFICER_ASSIGNMENTS = {
     "specialTactic": null
   },
   "person-568": {
-    "traits": [],
+    "traits": [
+      "provision",
+      "taxOrder"
+    ],
     "stratagems": [],
     "specialTactic": null
   },
@@ -3384,7 +3458,10 @@ export const OFFICER_ASSIGNMENTS = {
     "specialTactic": null
   },
   "person-634": {
-    "traits": [],
+    "traits": [
+      "grainSale",
+      "taxOrder"
+    ],
     "stratagems": [],
     "specialTactic": null
   },
@@ -3410,7 +3487,10 @@ export const OFFICER_ASSIGNMENTS = {
     "specialTactic": null
   },
   "person-638": {
-    "traits": [],
+    "traits": [
+      "irrigationYield",
+      "farmConstruction"
+    ],
     "stratagems": [],
     "specialTactic": null
   },
@@ -3472,7 +3552,10 @@ export const OFFICER_ASSIGNMENTS = {
     "specialTactic": null
   },
   "person-649": {
-    "traits": [],
+    "traits": [
+      "farmYield",
+      "merchantReach"
+    ],
     "stratagems": [],
     "specialTactic": null
   },

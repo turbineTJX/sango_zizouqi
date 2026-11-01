@@ -12,7 +12,7 @@ import {domesticAbility} from './domestic-cooperation.mjs';
 import {residentOfficer} from './city-personnel.mjs';
 import {technologyIncomeBonus} from './city-technology.mjs';
 import {roadCost,threatenedTransportRoute} from './strategic-movement.mjs';
-import {personnelSpeed} from './personnel-movement.mjs';
+import {personnelRouteDays} from './personnel-movement.mjs';
 import {factionsHostile} from './diplomacy-relations.mjs';
 import {ECONOMY_RULES} from './data/design/economy-rules.mjs';
 import {withPlanningQueries} from './planning-queries.mjs';
@@ -44,8 +44,7 @@ function readStrategicContext(s,faction){
    commerce:known||c.owner===faction?c.commerce:null,farm:known||c.owner===faction?c.farm:null,
    grain:known||c.owner===faction?c.grain:null};});
  const incoming=s.campaign.idle.filter(o=>o.faction===faction&&o.destination&&o.cargo&&o.journey&&!o.retreating&&!o.journey.blocked&&!threatenedTransportRoute(view,o.location,o.journey.route,faction)).map(o=>{
-  let from=o.location,cost=-o.journey.progress;for(const to of o.journey.route){cost+=roadCost(view,from,to);from=to;}
-  return {cityId:o.destination,afterDays:Math.max(1,Math.ceil(cost/personnelSpeed(o))),resources:{gold:o.cargo.gold||0,grain:o.cargo.grain||0,manpower:o.cargo.manpower||0}};
+  return {cityId:o.destination,afterDays:Math.max(1,personnelRouteDays(view,o,o.journey.route,{progress:o.journey.progress})),resources:{gold:o.cargo.gold||0,grain:o.cargo.grain||0,manpower:o.cargo.manpower||0}};
  });
  const ownCities=own.map(c=>{const b=cityBudget(s,c,{supplies,supplyForecast,workPolicy:'essential'});
   // Use public success chances, never saved random outcomes. Only work that

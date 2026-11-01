@@ -1,0 +1,52 @@
+.scenario-editor { max-width: 1600px; margin: auto; }
+.scenario-editor .lobby-nav { flex-wrap: wrap; gap: var(--ui-space-3); }
+.scenario-editor .lobby-nav h1 { margin-right: auto; font-size: var(--ui-text-title); }
+.scenario-editor-workspace { display: grid; grid-template-columns: 230px minmax(0, 1fr); gap: var(--ui-space-4); align-items: start; }
+.scenario-editor .ui-panel-body { padding: var(--ui-space-4); }
+.scenario-editor-library .button { white-space: normal; text-align: left; }
+.scenario-editor-library details > .button { display: block; width: 100%; margin-block: var(--ui-space-1); }
+.scenario-editor-library-row { display: flex; gap: var(--ui-space-1); margin-block: var(--ui-space-1); }
+.scenario-editor-library-row > :first-child { flex: 1; min-width: 0; }
+.scenario-editor-content { min-width: 0; }
+.scenario-editor-toolbar, .scenario-editor-officer-form { display: flex; flex-wrap: wrap; align-items: end; gap: var(--ui-space-3); margin-block: var(--ui-space-3); }
+.scenario-editor .ui-tabs { display: flex; flex-wrap: wrap; gap: var(--ui-space-2); margin-block: var(--ui-space-4); }
+.scenario-editor-form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--ui-space-4); }
+.scenario-editor label { display: grid; gap: var(--ui-space-2); min-width: 0; }
+.scenario-editor input, .scenario-editor select, .scenario-editor textarea { width: 100%; min-width: 0; }
+.scenario-editor-description { grid-column: 1 / -1; }
+.scenario-editor-description textarea { min-height: 100px; resize: vertical; }
+.scenario-editor-search { max-width: 400px; margin-block: var(--ui-space-3); }
+.scenario-editor-table { overflow: auto; max-height: 65vh; }
+.scenario-editor .ui-table { width: 100%; border-collapse: collapse; white-space: nowrap; }
+.scenario-editor .ui-table :is(th, td) { padding: var(--ui-space-2) var(--ui-space-3); text-align: left; }
+.scenario-editor-city-layout { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(200px, 1fr); gap: var(--ui-space-4); align-items: start; }
+.scenario-editor-city-layout .scenario-editor-form { grid-template-columns: 1fr; }
+.scenario-editor-map { width: 100%; max-height: 560px; }
+.scenario-editor-map text { fill: var(--ui-text); font-size: 16px; paint-order: stroke; stroke: var(--ui-canvas); stroke-width: 3px; }
+.scenario-editor-map g[role=button] { cursor: pointer; }
+.scenario-editor-city-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(145px, 1fr)); gap: var(--ui-space-2); max-height: 260px; overflow-y: auto; }
+.scenario-editor-errors, .scenario-editor-confirm, .scenario-editor-warning { margin-block: var(--ui-space-4); }
+.scenario-editor-errors p, .scenario-editor-warning { color: var(--ui-danger); overflow-wrap: anywhere; }
+.scenario-editor-confirm { padding: var(--ui-space-3); border: 1px solid var(--ui-line); }
+.scenario-editor .ui-panel-header h2 { overflow-wrap: anywhere; }
+.scenario-editor-techs { display: grid; grid-template-columns: repeat(auto-fit,minmax(190px,1fr)); gap: var(--ui-space-3); margin-block: var(--ui-space-3); }
+.scenario-editor-techs label { display: flex; flex-wrap: wrap; align-items: center; }
+.scenario-editor-techs input { width: auto; }
+.scenario-editor-person { margin-block: var(--ui-space-4); }
+.scenario-editor-person .scenario-editor-form { grid-template-columns: repeat(auto-fit,minmax(180px,1fr)); }
+.scenario-editor-table input { min-width: 90px; }
+.scenario-editor-table select { min-width: 110px; }
+@media (max-width: 900px) {
+ .scenario-editor-workspace { grid-template-columns: 175px minmax(0, 1fr); gap: var(--ui-space-2); }
+ .scenario-editor .ui-panel-body { padding: var(--ui-space-2); }
+ .scenario-editor-city-layout { grid-template-columns: 1fr; }
+ .scenario-editor-city-layout .scenario-editor-form { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+ .scenario-editor-map { max-height: 280px; }
+}
+@media (max-width: 600px) {
+ .scenario-editor-workspace { grid-template-columns: 1fr; }
+ .scenario-editor-library .ui-panel-body { display: flex; flex-wrap: wrap; align-items: start; gap: var(--ui-space-2); }
+ .scenario-editor-library h2 { width: 100%; }
+ .scenario-editor-library details { flex: 1; max-height: 200px; overflow-y: auto; }
+ .scenario-editor-form { grid-template-columns: 1fr; }
+}

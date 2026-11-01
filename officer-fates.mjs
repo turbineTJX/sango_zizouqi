@@ -1,5 +1,5 @@
 import {treasureFate} from './treasures.mjs';
-import {mapNode,mapNodes} from './road-network.mjs';
+import {mapNode} from './road-network.mjs';
 import {appendActivityNode} from './activity-nodes.mjs';
 import {officerActivities} from './officer-activity.mjs';
 import {playerFaction} from './player-faction.mjs';
@@ -9,7 +9,8 @@ import {roadCost,roadDistance} from './strategic-movement.mjs';
 import {startPersonnelJourney} from './personnel-movement.mjs';
 import {cancelDomestic} from './domestic.mjs';
 import {factionFundingCity} from './city-resources.mjs';
-import {addCityGold} from './talent-core.mjs';
+import {addCityGold,factionLord,servingPeople} from './talent-core.mjs';
+import {OFFICER_FATE_RULES} from './data/design/officer-fate-rules.mjs';
 const town=mapNode;
 export function personnelEvent(s,id,type,unit,text,context=null){
  if(s.campaign.personnelEvents.some(e=>e.id===id))return;
@@ -20,39 +21,49 @@ export function personnelEvent(s,id,type,unit,text,context=null){
 export function fateRoll(s,key){let h=s.seed>>>0;for(const c of key)h=Math.imul(h^c.charCodeAt(0),16777619)>>>0;h^=h>>>16;h=Math.imul(h,0x45d9f3b)>>>0;return h/4294967296;}
 export function removeOfficer(s,id){
  cancelDomestic(s,id,'人员离队');
- for(const c of s.cities){c.units=c.units.filter(u=>u.id!==id);if(c.governor===id)c.governor=null;}
+ for(const c of s.cities){c.units=c.units.filter(u=>u.id!==id);if(c.governor===id){c.governor=null;c.domestic.approvalGovernor=null;}}
  for(const a of s.armies){a.units=a.units.filter(u=>u.id!==id);for(const role of ['leader','advisor'])if(a[role]===id)a[role]=s.campaign.battles.some(r=>!r.settled&&r.armyIds.includes(a.id))?null:a.units.find(u=>u.troops>0)?.id||a.units[0]?.id||null;}
  s.campaign.idle=s.campaign.idle.filter(o=>o.unit.id!==id);
  s.campaign.domestic.people=s.campaign.domestic.people.filter(p=>p.id!==id);
 }
-function nearestHome(s,start,faction){
- const todo=[{id:start,cost:0,route:[]}],seen=new Set(),neighbors=new Map(mapNodes(s).map(c=>[c.id,[]]));for(const [a,b]of s.roads){neighbors.get(a).push(b);neighbors.get(b).push(a);}
- while(todo.length){todo.sort((a,b)=>a.cost-b.cost||a.id.localeCompare(b.id));const x=todo.shift();if(seen.has(x.id))continue;seen.add(x.id);if(town(s,x.id).owner===faction)return {c:town(s,x.id),route:x.route,end:start,cost:x.cost};for(const to of neighbors.get(x.id))if(!seen.has(to))todo.push({id:to,cost:x.cost+roadCost(s,x.id,to),route:[...x.route,to]});}return null;
+export function officerReturnCity(s,unit,faction){
+ const cities=s.cities.filter(c=>c.owner===faction),owned=id=>cities.find(c=>c.id===id);
+ const home=owned(unit.homeCity);if(home)return home;
+ const lord=servingPeople(s).get(factionLord(s,faction));
+ // When the ruler is away, use their actual base or recorded seat, never a
+ // nearest-city search. A surviving faction always keeps a temporary seat.
+ return owned(lord&&!lord.destination&&!lord.unit.mission&&!lord.army?.travel?lord.location:null)||owned(lord?.unit.homeCity)||owned(s.campaign.diplomacy?.contacts?.[faction])||cities[0]||null;
 }
 export function sendOfficerHome(s,unit,faction,location,{edge=null,reason='返城'}={}){
  delete unit.mission;
+ const destination=officerReturnCity(s,unit,faction);
+ if(!destination){unit.troops=0;unit.wounded=0;s.campaign.domestic.people.push({id:unit.id,unit,cityId:location,status:'FREE',debutDay:s.campaign.day,travel:null});const r=s.campaign.talent.records[unit.id];r.phase='WAIT';r.phaseUntilDay=s.campaign.day+OFFICER_FATE_RULES.noHomeWaitDays;r.hardWaitUntilDay=r.phaseUntilDay;return null;}
  const options=[];
- for(const end of edge?[edge.from,edge.to]:[location]){const option=nearestHome(s,end,faction);if(!option)continue;if(edge)option.cost+=roadCost(s,edge.from,edge.to)*(end===edge.from?edge.fraction:1-edge.fraction);options.push(option);}
- options.sort((a,b)=>a.cost-b.cost||a.c.id.localeCompare(b.c.id));
- if(!options.length){s.campaign.domestic.people.push({id:unit.id,unit,cityId:location,status:'FREE',debutDay:s.campaign.day,travel:null});const r=s.campaign.talent.records[unit.id];r.phase='WAIT';r.phaseUntilDay=s.campaign.day+31;r.hardWaitUntilDay=s.campaign.day+31;return null;}
- const best=options[0],o={unit,faction,location,destination:best.c.id,remainingDays:1,movementReason:reason};unit.homeCity=best.c.id;
- startPersonnelJourney(s,o);
- if(edge){const forward=best.end===edge.to,from=forward?edge.from:edge.to,to=best.end,progress=roadCost(s,from,to)*(forward?edge.fraction:1-edge.fraction);o.location=from;o.journey={route:[to,...best.route],progress,blocked:''};if(progress>=roadCost(s,from,to)){o.location=to;o.journey.route.shift();o.journey.progress=0;}o.remainingDays=Math.max(1,Math.ceil(best.cost/70));}
+ for(const end of edge?[edge.from,edge.to]:[location]){
+  const route=findCampaignRoute(s,end,destination.id);if(!route)continue;
+  let from=end,cost=0;for(const to of route){cost+=roadCost(s,from,to);from=to;}
+  if(edge)cost+=roadCost(s,edge.from,edge.to)*(end===edge.from?edge.fraction:1-edge.fraction);
+  options.push({end,route,cost});
+ }
+ options.sort((a,b)=>a.cost-b.cost||a.end.localeCompare(b.end));
+ const best=options[0],o={unit,faction,location,destination:destination.id,remainingDays:1,movementReason:reason,returningHome:true};
+ startPersonnelJourney(s,o,best?.route||[]);
+ if(!best)o.journey.blocked='返城道路不通';
+ if(best&&edge){const forward=best.end===edge.to,from=forward?edge.from:edge.to,to=best.end,progress=roadCost(s,from,to)*(forward?edge.fraction:1-edge.fraction);o.location=from;o.journey={route:[to,...best.route],progress,blocked:''};if(progress>=roadCost(s,from,to)){o.location=to;o.journey.route.shift();o.journey.progress=0;}o.remainingDays=Math.max(1,Math.ceil(best.cost/70));}
  s.campaign.idle.push(o);return o;
 }
-export function resolveOfficerLoss(s,{unit,faction,location,enemy,eventId,edge=null,reason='部队全歼',survivingArmy=null}){
+export function cityCaptureContext(s,faction){return s.cities.some(c=>c.owner===faction)?'siege':'elimination';}
+export function officerLossResult(roll,enemy,context='field'){
+ const chance=OFFICER_FATE_RULES.captureChance[context];
+ if(chance===undefined)throw Error('未知战后俘虏情境');
+ return roll<OFFICER_FATE_RULES.deathChance?'DEAD':enemy&&roll<OFFICER_FATE_RULES.deathChance+chance?'CAPTIVE':'ESCAPED';
+}
+export function resolveOfficerLoss(s,{unit,faction,location,enemy,eventId,edge=null,reason='部队全歼',survivingArmy=null,context='field'}){
  if(s.campaign.personnelEvents.some(e=>e.id===eventId))return null;
- const roll=fateRoll(s,eventId);let result=roll<.02?'DEAD':enemy&&roll<.35?'CAPTIVE':'ESCAPED';
+ const roll=fateRoll(s,eventId);let result=officerLossResult(roll,enemy,context);
  if(result==='CAPTIVE'&&!s.cities.some(c=>c.owner===enemy))result='ESCAPED';
- // An escaped officer and their empty unit record stay with a surviving army.
- // Keep appointments, wounded, growth and learning; zero troops cannot fight.
- if(result==='ESCAPED'&&survivingArmy&&s.armies.includes(survivingArmy)&&!survivingArmy.disbanded&&survivingArmy.faction===faction&&survivingArmy.units.includes(unit)&&survivingArmy.units.some(u=>u!==unit&&u.troops>0)){
-  delete unit.mission;unit.troops=0;
-  personnelEvent(s,eventId,'ESCAPED',unit,`${unit.name}${reason}后脱身，随${survivingArmy.name}待整编，战后复核军团任职；补充兵员前不能参战或提供军略。`);
-  return 'ESCAPED';
- }
  treasureFate(s,unit.id,result,location);
- removeOfficer(s,unit.id);delete unit.mission;unit.troops=0;unit.wounded=0;
+ removeOfficer(s,unit.id);delete unit.mission;unit.troops=0;if(result!=='ESCAPED')unit.wounded=0;
  let escapedHome=null;
  if(result==='ESCAPED')escapedHome=sendOfficerHome(s,unit,faction,location,{edge,reason:'败军脱身返城'});
  else {const prisons=s.cities.filter(c=>c.owner===enemy),prison=prisons.sort((a,b)=>Math.hypot(a.x-town(s,location).x,a.y-town(s,location).y)-Math.hypot(b.x-town(s,location).x,b.y-town(s,location).y)||a.id.localeCompare(b.id))[0];
@@ -60,9 +71,9 @@ export function resolveOfficerLoss(s,{unit,faction,location,enemy,eventId,edge=n
   if(result==='CAPTIVE'){const start=edge?.to||location,route=findCampaignRoute(s,start,prison.id)||[];prisoner.custody={destination:prison.id,route:edge?[edge.to,...route]:route,progress:edge?roadCost(s,edge.from,edge.to)*edge.fraction:0};if(edge)prisoner.cityId=edge.from;if(prisoner.custody.route.length&&prisoner.custody.progress>=roadCost(s,prisoner.cityId,prisoner.custody.route[0])){prisoner.cityId=prisoner.custody.route.shift();prisoner.custody.progress=0;}if(!prisoner.custody.route.length)delete prisoner.custody;}
   s.campaign.domestic.people.push(prisoner);
  }
- personnelEvent(s,eventId,result,unit,`${unit.name}${reason}：${result==='DEAD'?'战死':result==='CAPTIVE'?`被${FACTIONS[enemy].name}俘获`:escapedHome?'脱身，正沿道路返回友城':'脱身，但已无可归城池，转为在野'}。`,{faction,siteId:location});return result;
+ personnelEvent(s,eventId,result,unit,`${unit.name}${reason}：${result==='DEAD'?'战死':result==='CAPTIVE'?`被${FACTIONS[enemy].name}俘获`:escapedHome?`脱身，正沿道路返回${town(s,escapedHome.destination).name}`:'脱身，但已无可归城池，转为在野'}。`,{faction,siteId:location});return result;
 }
-export const ransomCost=p=>300+5*Math.max(p.unit.leadership,p.unit.force,p.unit.intellect);
+export const ransomCost=p=>OFFICER_FATE_RULES.ransom.base+OFFICER_FATE_RULES.ransom.perHighestStat*Math.max(p.unit.leadership,p.unit.force,p.unit.intellect);
 export function releaseCaptive(s,id,{ransom=false,automatic=false,diplomatic=false,faction=playerFaction(s),scheduled=false}={}){
  const p=s.campaign.domestic.people.find(p=>p.id===id&&p.status==='CAPTIVE'&&p.fate);
  if(!p)return '该武将不在被俘状态';
@@ -87,5 +98,5 @@ export function roadEdgeForArmy(s,a){return a.travel?{from:a.travel.from,to:a.tr
 export function displaceCityOfficers(s,cityId,oldFaction,eventId){
  const c=town(s,cityId);if(c.owner===oldFaction)return;
  const people=[...s.campaign.idle.filter(o=>o.faction===oldFaction&&o.location===cityId&&!o.destination&&!o.retreating&&!o.unit.mission).map(o=>o.unit),...c.units.filter(u=>!u.mission)];
- for(const unit of people)resolveOfficerLoss(s,{unit,faction:oldFaction,location:cityId,enemy:c.owner,eventId:eventId+':resident:'+unit.id,reason:'城池失守'});
+ for(const unit of people)resolveOfficerLoss(s,{unit,faction:oldFaction,location:cityId,enemy:c.owner,eventId:eventId+':resident:'+unit.id,reason:'城池失守',context:cityCaptureContext(s,oldFaction)});
 }

@@ -77,7 +77,7 @@ export async function buildCodeRelease(out){
  const original=await readFile(resolve(ROOT,'index.html'),'utf8');
  const styles=[...original.matchAll(/<link[^>]*rel="stylesheet"[^>]*href="([^"]+)"[^>]*>/g)].map(match=>match[1]);
  await build({stdin:{contents:styles.map(path=>`@import ${JSON.stringify(path)};`).join('\n'),resolveDir:ROOT,loader:'css'},
-  bundle:true,minify:true,outfile:resolve(out,'app.css'),loader:{'.svg':'file'},assetNames:'[name]',legalComments:'external'});
+  bundle:true,minify:true,outfile:resolve(out,'app.css'),loader:{'.svg':'file','.png':'file','.woff2':'file'},assetNames:'[name]',legalComments:'external'});
  let html=original.replace(/\s*<link[^>]*rel="stylesheet"[^>]*>/g,'').replace(/\s*<script type="importmap">.*?<\/script>/s,'');
  html=html.replace('</head>','<link rel="stylesheet" href="./app.css">\n</head>').replace('src="./app.js"','src="./bootstrap.js"');
  html=html.replace('<div id="app"></div>','<div id="app" role="status">正在载入游戏…</div>');
@@ -90,7 +90,7 @@ export async function buildCodeRelease(out){
  await writeFile(resolve(out,'package.json'),JSON.stringify(serverPackage,null,2)+'\n');
  await copyFile(resolve(ROOT,'start-game.cmd'),resolve(out,'start-game.cmd'));
  await mkdir(resolve(out,'licenses'),{recursive:true});
- for(const [name,path] of Object.entries({three:'vendor/three/LICENSE.txt',messagepack:'node_modules/@msgpack/msgpack/LICENSE',fflate:'node_modules/fflate/LICENSE',
+ for(const [name,path] of Object.entries({notoSerifSC:'ui-fonts/OFL.txt',three:'vendor/three/LICENSE.txt',messagepack:'node_modules/@msgpack/msgpack/LICENSE',fflate:'node_modules/fflate/LICENSE',
   capacitor:'node_modules/@capacitor/core/LICENSE',capacitorAndroid:'node_modules/@capacitor/android/LICENSE',
   capacitorApp:'node_modules/@capacitor/app/LICENSE',capacitorFilesystem:'node_modules/@capacitor/filesystem/LICENSE',capacitorShare:'node_modules/@capacitor/share/LICENSE'}))await copyFile(resolve(ROOT,path),resolve(out,'licenses',name+'.txt'));
  try{await copyFile(resolve(out,'app.js.LEGAL.txt'),resolve(out,'licenses','bundled-code.txt'));}catch(error){if(error.code!=='ENOENT')throw error;}

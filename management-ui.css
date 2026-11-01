@@ -1,0 +1,192 @@
+/* Strategic ledgers: restrained frames, readable tables and stable action areas. */
+#overlay-root .management-window {
+  --sans: "Microsoft YaHei UI", "Microsoft YaHei", "Noto Sans SC", system-ui, sans-serif;
+  --serif: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "SimSun", serif;
+  --paper-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72 .28' numOctaves='3' seed='11' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='.14'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --text: #322d24;
+  --muted: #70624e;
+  --gold: #75402c;
+  --gold-light: #713d28;
+  --border: #ad946c;
+  --line: #c0ad89;
+  --paper: #e7dcc2;
+  --ink: #322d24;
+  color-scheme: light;
+  font: 14px/1.5 var(--sans);
+  color: var(--text);
+  position:relative;
+  isolation:isolate;
+  background:var(--paper-grain),radial-gradient(ellipse at 45% 15%,#fff5d388,transparent 85%),#e0d0ad;
+  border:3px solid #393d32;
+  border-radius:3px;
+  box-shadow:0 0 0 1px #b29258,0 0 0 4px #222b29,0 18px 60px #0b151bb3,inset 0 0 0 1px #f6e9b3,inset 0 0 32px #75572c26;
+}
+.management-backdrop.modal-backdrop {background: #0b141e70;backdrop-filter:none}
+.detail-replaces-source .management-backdrop.detail-inspection.modal-backdrop {background:#0b141e70;backdrop-filter:none}
+#overlay-root .management-window :is(button,input,select,summary) {font-family:var(--sans);letter-spacing:0}
+#overlay-root .management-window :is(h2,h3,h4) {font-family:var(--sans);font-weight:600;letter-spacing:0}
+#overlay-root .management-window :is(.modal-header,.detail-source-header) {padding:10px 18px;min-height:56px;background:linear-gradient(105deg,#fff3c70b,transparent 42%),repeating-linear-gradient(0deg,#0000 0 2px,#1019100b 2px 3px),linear-gradient(#465146,#26352e 54%,#26322c);border:0;border-bottom:3px ridge #a98a52;color:#f0e3bd;box-shadow:inset 0 1px #d0b77d80,0 2px 5px #392d2033}
+#overlay-root .management-window :is(.modal-header,.detail-source-header) h2 {font:600 20px/1.4 var(--serif);letter-spacing:2px;text-shadow:0 1px 2px #000;display:flex;align-items:center;gap:11px}
+#overlay-root .management-window :is(.modal-header,.detail-source-header) .eyebrow {color:#c1ccc3}
+#overlay-root .management-window :is(.close-button,.detail-source-close,.page-guide-trigger) {border:1px solid #d6e0d035;border-radius:0;background:transparent;color:#d7dfd4;box-shadow:none;min-width:32px;min-height:32px}
+#overlay-root .management-window :is(.close-button,.detail-source-close,.page-guide-trigger):hover {background:#ffffff12;color:#fff}
+#overlay-root .management-window :is(.modal-body,.detail-source-body) {padding:16px 20px}
+#overlay-root .management-window :is(.modal-footer,.detail-source-footer) {padding:10px 18px;border-top:1px solid #af956b;background:var(--paper-grain),linear-gradient(#ded0af,#c3b18b);box-shadow:inset 0 1px #fff5d5}
+#overlay-root .management-window .button {font:14px/1.4 var(--sans);letter-spacing:0;min-height:34px;padding:7px 14px;border:1px solid #a38d64;border-radius:2px;box-shadow:inset 0 1px #fff9e1a0,0 1px 2px #52422630;text-shadow:0 1px #fff7df88}
+#overlay-root .management-window .button.secondary {color:#3e382a;background:linear-gradient(#f4e7c9,#d7c396);border-color:#9d8250}
+#overlay-root .management-window .button.primary {color:#fff0ca;background:linear-gradient(#985136,#683626);border-color:#aa7541;box-shadow:inset 0 1px #e2b27466,0 1px 3px #3b291955;text-shadow:0 1px #392219}
+#overlay-root .management-window .button:hover:not(:disabled) {filter:none;background:#e7cf9f;color:#3c3120;border-color:#9a7440}
+#overlay-root .management-window .button.primary:hover:not(:disabled) {background:#633925;color:#fff}
+#overlay-root .management-window button:disabled {opacity:.4;cursor:default}
+#overlay-root .management-window :is(button,input,select,summary):focus-visible {outline:2px solid #8e633a;outline-offset:2px}
+#overlay-root .management-window input:not([type=checkbox]):not([type=radio]) {background:var(--paper-grain),linear-gradient(#d2c09b,#e8dbbb 5px,#f2e7cd);border:1px solid #a18b63;border-radius:2px;color:#302a21;padding:7px 10px;font-size:14px;min-height:34px;box-shadow:inset 0 1px 3px #5f462c40,0 1px #fff5d1}
+#overlay-root .management-window input::placeholder {color:#877454}
+#overlay-root .management-window :is(.muted,.strategy-muted,.personnel-count) {color:#70624e}
+#overlay-root .management-window .directory-tabs, #overlay-root .management-window .info-tabs {gap:0;border-bottom:1px solid #aa8e5e;margin:0 0 12px;padding:0;flex-wrap:nowrap;overflow-x:auto}
+#overlay-root .management-window .directory-tabs button,#overlay-root .management-window .info-tabs .button {flex:0 0 auto;min-height:36px;padding:8px 17px;border:0;border-bottom:3px solid transparent;border-radius:2px 2px 0 0;background:linear-gradient(#e9dbbd70,#b6a07426);color:#66563c;font:14px/1.4 var(--sans);box-shadow:inset 0 1px #fff8e055;white-space:nowrap;margin:0 3px 0 0}
+#overlay-root .management-window .directory-tabs button[aria-pressed=true],#overlay-root .management-window .info-tabs .button[aria-pressed=true] {border-bottom-color:#ba9455;background:linear-gradient(#8f5037,#653a2c);color:#fff0c8;font-weight:600;box-shadow:inset 0 1px #e3b87088,inset 1px 0 #d1a05d44,0 1px 3px #51422c66;text-shadow:0 1px #392619}
+#overlay-root .management-window :is(.directory-tabs button,.info-tabs .button):hover {background:#e6d4ae}
+#overlay-root .management-window .directory-toolbar {align-items:center;gap:12px;margin:0 0 12px}
+#overlay-root .management-window .directory-toolbar .strategy-field {display:flex;flex-direction:row;align-items:center;gap:10px;max-width:450px;font-size:13px;white-space:nowrap;color:#716044}
+#overlay-root .management-window .directory-toolbar input {flex:1;width:100%;min-width:0}
+#overlay-root .management-window .directory-toolbar .personnel-count {margin:0;font-size:13px}
+#overlay-root .management-window .info-scope-filter {border:1px solid #a18b63;border-radius:2px}
+#overlay-root .management-window .info-scope-filter button {background:#eee1bf;color:#5a4b34;min-height:34px}
+#overlay-root .management-window .info-scope-filter [aria-pressed=true] {background:#4d5741;color:#faf6e8}
+#overlay-root .management-window:has(> :is(.modal-body,.detail-source-body) > :is(.information-directory,.faction-directory)) {height:min(760px,calc(100dvh - 48px))}
+#overlay-root .management-window :is(.modal-body,.detail-source-body):has(> :is(.information-directory,.faction-directory)) {display:flex;flex:1;min-height:0;overflow:hidden;padding:14px 20px}
+#overlay-root .management-window :is(.information-directory,.faction-directory) {display:flex;flex:1;flex-direction:column;min-height:0;min-width:0}
+#overlay-root .management-window :is(.information-directory,.faction-directory)>.personnel-table-wrap {flex:1;min-height:0;max-height:none;overflow:auto;overscroll-behavior:contain}
+#overlay-root .management-window :is(.directory-tabs,.directory-toolbar,.talent-panel) {flex-shrink:0}
+#overlay-root .management-window .personnel-table-wrap {border:1px solid #92784e;border-radius:1px;background:var(--paper-grain),#e9dec2;box-shadow:0 1px #fff0c5,inset 0 0 7px #4e391a35;scrollbar-color:#96805c #cdbb96;scrollbar-width:thin}
+#overlay-root .management-window .personnel-table {color:#342e23;border-collapse:separate;border-spacing:0;font:14px/1.4 var(--sans);font-variant-numeric:tabular-nums}
+#overlay-root .management-window .personnel-table :is(th,td) {padding:4px 12px;height:36px;border:0;border-bottom:1px solid #bca78166;text-align:left;background-color:#e9dec2;background-image:var(--paper-grain);color:#342e23;font-size:14px;line-height:1.4}
+#overlay-root .management-window .personnel-table tbody tr:nth-child(even)>td {background-color:#e0d3b4;background-image:var(--paper-grain)}
+#overlay-root .management-window .personnel-table tbody tr:hover>td,#overlay-root .management-window .personnel-table tbody tr:focus-within>td {background-color:#dcc191;background-image:var(--paper-grain);box-shadow:inset 0 1px #f6e8c4,inset 0 -1px #b6975d}
+#overlay-root .management-window .personnel-table th {position:sticky;top:0;z-index:2;background:linear-gradient(#5a624e,#414c3c);color:#e9d6a7;font-weight:500;border-bottom:2px ridge #b19961;box-shadow:inset 0 1px #e6c48544;white-space:nowrap}
+#overlay-root .management-window .personnel-table :is(th,td):first-child {position:sticky;left:0;z-index:1;min-width:100px;border-right:1px solid #bba57a66}
+#overlay-root .management-window .personnel-table th:first-child {z-index:3;background:linear-gradient(#5a624e,#414c3c)}
+#overlay-root .management-window .personnel-table .field-sort {background:transparent;color:#e8d6af;font:13px var(--sans);font-weight:500;min-height:28px;padding:3px 0;border:0;white-space:nowrap}
+#overlay-root .management-window .personnel-table .field-sort.active {background:#c6aa6a15;color:#fff0c5;font-weight:600}
+#overlay-root .management-window .field-sort:not(.active) span {opacity:.35}
+#overlay-root .management-window .personnel-table .personnel-name {display:inline-flex;align-items:center;min-height:28px;padding:0;color:#3a4c3d;font:500 14px/1.4 var(--sans);background:transparent;border:0;gap:9px}
+#overlay-root .management-window .personnel-name:hover {color:#75402c;text-decoration:underline;text-underline-offset:3px}
+#overlay-root .management-window .personnel-table small {font-size:12px;color:#70624e}
+#overlay-root .management-window .personnel-table td.numeric {text-align:right}
+#overlay-root .management-window .personnel-table th:has([data-sort-key]:is([data-sort-key=leadership],[data-sort-key=force],[data-sort-key=intellect],[data-sort-key=politics],[data-sort-key=charm],[data-sort-key=level],[data-sort-key=loyalty],[data-sort-key=gold],[data-sort-key=grain],[data-sort-key=manpower],[data-sort-key=gateHp],[data-sort-key=troops],[data-sort-key=wounded],[data-sort-key=supply],[data-sort-key=morale],[data-sort-key=units],[data-sort-key=cities],[data-sort-key=armies],[data-sort-key=officers],[data-sort-key=count],[data-sort-key=idle])) {text-align:right}
+#overlay-root .management-window .personnel-table .city-needs-work>td {color:#6b471e}
+#overlay-root .management-window .personnel-table .city-fully-assigned>td {color:#807259}
+#overlay-root .management-window .personnel-table .city-fully-assigned .personnel-name {color:#807259}
+#overlay-root .management-window .talent-panel {margin:10px 0 0;border:0;border-top:1px solid #a68c5f;background:transparent;padding:0;border-radius:0}
+#overlay-root .management-window .talent-panel>summary {padding:9px 0;font-size:13px;color:#6b593d}
+#overlay-root .management-window .talent-panel[open] {max-height:40%;overflow:auto;overscroll-behavior:contain}
+#overlay-root .management-window .talent-panel[open]>summary {position:sticky;top:0;background:#e7dcc2;z-index:1}
+#overlay-root .management-window :is(.ability-link,.unit-trait-name,.personnel-name) {color:#3a4c3d}
+#overlay-root .management-window .unit-trait-name {background:transparent;border-color:#baa071;border-radius:0}
+#overlay-root .management-window .info-identity {padding:10px 8px;border:1px solid #9e8653;background:var(--paper-grain),radial-gradient(ellipse at 50% 35%,#d8c393,#9a865f);box-shadow:inset 0 0 0 3px #e8d8ad80,inset 0 0 32px #59432444,0 2px 6px #4d3c252e}
+#overlay-root .management-window .info-object-list {border-right:1px solid #a68c5f;background:transparent}
+#overlay-root .management-window .info-object-list h3 {color:#786441;font-size:13px}
+#overlay-root .management-window .info-object {background:transparent;border:0;color:#473a29;border-radius:0}
+#overlay-root .management-window .info-object.selected {background:#d9c294;color:#713d28;border-left:3px solid #9e5737}
+#overlay-root .management-window .info-section {padding:12px 0;border-bottom:1px solid #bba47b88;background:transparent;border-radius:0}
+#overlay-root .management-window .info-section h3 {font-size:14px;color:#665034;margin:0 0 8px}
+#overlay-root .management-window .info-section[data-info-section=status] {margin:0;padding:12px 0;border:0;border-bottom:1px solid #aa8e5e;background:transparent}
+#overlay-root .management-window .info-fields {gap:0 16px}
+#overlay-root .management-window .info-fields>div {display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:7px 0;border-bottom:1px dotted #bba47b88}
+#overlay-root .management-window .info-fields dt {flex-shrink:0;margin:0;color:#7a6847;font-size:13px}
+#overlay-root .management-window .info-fields dd {text-align:right;color:#3c3323;font-size:14px;font-variant-numeric:tabular-nums}
+#overlay-root .management-window .info-fields dd .personnel-name {color:#3a4c3d;font-size:14px}
+#overlay-root .management-window .info-member-link {padding:8px 0;background:transparent;border:0}
+#overlay-root .management-window .info-section[data-info-section=bonds]>h3 {display:none}
+#overlay-root .management-window .officer-directory .personal-bonds {margin:0;padding:0;border:0;background:none}
+#overlay-root .management-window .catalog-aptitudes {max-width:600px;gap:0;border-top:1px solid #aa8e5e;border-bottom:1px solid #aa8e5e}
+#overlay-root .management-window .catalog-aptitudes>span {padding:12px 16px;border-right:1px solid #bba47b88;font-size:14px;color:#665034}
+#overlay-root .management-window .catalog-aptitudes>span:last-child {border-right:0}
+#overlay-root .management-window [data-officer-page=aptitudes] td.numeric {font-weight:600;color:#75402c}
+#overlay-root .management-window [data-officer-page=aptitudes] th:not(:first-child) {text-align:right}
+#overlay-root .management-window .info-section .passive-panel {margin:12px 0 0;padding:0;border:0;background:transparent}
+#overlay-root .management-window .personal-bonds h4 {font-size:14px;font-weight:600;color:#665034}
+#overlay-root .management-window .intelligence-menu {width:100%;margin:0;padding:0;border:0;background:transparent;box-shadow:none}
+#overlay-root .management-window:has(.intelligence-menu) {width:540px}
+#overlay-root .management-window .intelligence-tabs {margin:0 0 18px;gap:0;border-bottom:1px solid #aa8e5e}
+#overlay-root .management-window .intelligence-tabs .button {border:0;border-bottom:3px solid transparent;border-radius:0;background:transparent;color:#66573e;min-height:38px}
+#overlay-root .management-window .intelligence-tabs .button[aria-pressed=true] {background:#d8c8a6;color:#503020;border-bottom-color:#9e5737;font-weight:600}
+#overlay-root .management-window .intelligence-grid {min-height:0;gap:8px}
+#overlay-root .management-window .intelligence-grid .button {min-height:42px}
+#overlay-root .management-window:has(.domestic-ledger) {width:780px}
+#overlay-root .management-window .domestic-ledger {display:grid;grid-template-columns:minmax(0,1fr);min-width:0;gap:22px}
+#overlay-root .management-window :is(.domestic-governance,.domestic-work-overview) {min-width:0;max-width:100%}
+#overlay-root .management-window .domestic-proposals {margin:0;padding:0;border:0;border-radius:0;background:transparent}
+#overlay-root .management-window .domestic-proposals:not(:has(.domestic-proposal)) {padding:0 0 16px;border-bottom:1px solid #b59b70;gap:12px}
+#overlay-root .management-window .domestic-proposals>header h3 {color:#59442c;font-size:15px;font-weight:600}
+#overlay-root .management-window .domestic-proposals>header h3 span {color:#8a7654;font-weight:400}
+#overlay-root .management-window .approval-policy {color:#746143}
+#overlay-root .management-window .approval-policy .button {font-size:13px;min-height:34px}
+#overlay-root .management-window .domestic-proposal {border:0;border-top:1px solid #b59b70;border-radius:0;background:transparent;padding:14px 0;margin:0}
+#overlay-root .management-window .domestic-proposal .proposal-heading {background:transparent}
+#overlay-root .management-window .domestic-proposal h4 {color:var(--ui-text,#493a25)}
+#overlay-root .management-window .domestic-proposal :is(small,.decision-facts dt) {color:#7e6948}
+#overlay-root .management-window .domestic-proposal .decision-facts {border-color:#bba47b88;background:transparent}
+#overlay-root .management-window .domestic-proposal .decision-facts dd {color:var(--ui-text,#5b442c);font-size:18px}
+#overlay-root .management-window .priority-ledger>header {display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}
+#overlay-root .management-window .priority-ledger h3 {font-size:15px;margin:0;color:#59442c}
+#overlay-root .management-window .faction-priorities {display:block;margin:0;border:1px solid #a68c5f}
+#overlay-root .management-window .faction-priorities>div {display:grid;grid-template-columns:60px 1fr 84px;align-items:center;gap:16px;padding:4px 14px;min-height:42px;border-bottom:1px solid #bca78166;background:#e9dec2}
+#overlay-root .management-window .faction-priorities>.priority-table-head {min-height:32px;background:#d3bc90;color:#6c5232;font-size:12px}
+#overlay-root .management-window .priority-row:nth-child(odd) {background:#e0d3b4}
+#overlay-root .management-window .priority-row:last-child {border-bottom:0}
+#overlay-root .management-window .priority-row b {font-size:14px;font-weight:500}
+#overlay-root .management-window .priority-rank {font-variant-numeric:tabular-nums;color:#816b48}
+#overlay-root .management-window .priority-controls {display:flex;gap:6px}
+#overlay-root .management-window .priority-move {display:grid;place-items:center;width:34px;height:32px;padding:0;border:1px solid #a18855;background:linear-gradient(#f4e5c0,#d1bd90);color:#53452e;border-radius:2px;box-shadow:inset 0 1px #fff4d6,0 1px 2px #59472830}
+#overlay-root .management-window .priority-move:hover:not(:disabled) {background:#dfc99c;border-color:#97723e}
+@media(max-width:700px) {
+ #overlay-root .management-window :is(.modal-header,.detail-source-header) {padding:8px 12px;min-height:48px}
+ #overlay-root .management-window :is(.modal-header,.detail-source-header) h2 {font-size:18px}
+ #overlay-root .management-window :is(.modal-body,.detail-source-body) {padding:12px}
+ #overlay-root .management-window :is(.modal-body,.detail-source-body):has(> :is(.information-directory,.faction-directory)) {padding:10px}
+ #overlay-root .management-window .directory-tabs button,#overlay-root .management-window .info-tabs .button {padding:8px 12px}
+ #overlay-root .management-window .directory-toolbar {gap:8px;flex-wrap:wrap}
+ #overlay-root .management-window .directory-toolbar .strategy-field {flex-basis:100%;max-width:none}
+ #overlay-root .management-window .personnel-table :is(th,td) {padding:4px 10px;font-size:13px}
+ #overlay-root .management-window .info-fields>div {gap:8px;flex-wrap:wrap}
+}
+@media(max-height:600px) and (orientation:landscape) {
+ #overlay-root .management-window:has(> :is(.modal-body,.detail-source-body) > :is(.information-directory,.faction-directory)) {height:calc(100dvh - 16px)}
+ #overlay-root .management-window :is(.modal-header,.detail-source-header) {min-height:44px;padding:6px 12px}
+ #overlay-root .management-window :is(.modal-header,.detail-source-header) h2 {font-size:18px}
+ #overlay-root .management-window :is(.modal-body,.detail-source-body):has(> :is(.information-directory,.faction-directory)) {padding:8px 12px}
+ #overlay-root .management-window .directory-tabs,#overlay-root .management-window .directory-toolbar {margin-bottom:6px}
+ #overlay-root .management-window .directory-tabs button {min-height:32px;padding:5px 12px}
+ #overlay-root .management-window .personnel-table :is(th,td) {height:34px;padding:2px 10px;font-size:13px}
+ #overlay-root .management-window .talent-panel {margin-top:6px}
+ #overlay-root .management-window .talent-panel>summary {padding:4px 0}
+ #overlay-root .management-window .officer-directory>:is(.directory-tabs,.directory-toolbar) {margin-bottom:0}
+ #overlay-root .management-window .officer-directory>.talent-panel {margin-top:0}
+ #overlay-root .management-window .domestic-ledger {gap:12px}
+ #overlay-root .management-window:has(.domestic-ledger) :is(.modal-header,.detail-source-header) {padding:4px 12px;min-height:40px}
+ #overlay-root .management-window:has(.domestic-ledger) :is(.modal-body,.detail-source-body) {padding:8px 12px}
+ #overlay-root .management-window .domestic-ledger {grid-template-columns:210px minmax(0,1fr);align-items:start}
+ #overlay-root .management-window .domestic-ledger>.domestic-proposals {max-height:calc(100dvh - 88px);overflow:auto;display:block;padding:0;border:0}
+ #overlay-root .management-window .domestic-ledger>.domestic-proposals>.approval-policy {margin:10px 0;display:flex;flex-wrap:wrap;gap:8px}
+ #overlay-root .management-window .priority-ledger>header {margin-bottom:2px}
+ #overlay-root .management-window .faction-priorities>.priority-row {padding:0 10px;min-height:40px}
+ #overlay-root .management-window .faction-priorities>.priority-table-head {min-height:24px;padding:2px 10px}
+}
+@media(pointer:coarse) {
+ #overlay-root .management-window .personnel-table :is(td,th) {height:42px}
+ #overlay-root .management-window :is(.button,.priority-move,.info-scope-filter button,.directory-tabs button) {min-height:40px}
+ #overlay-root .management-window .priority-move {width:40px}
+ #overlay-root .management-window .faction-priorities>div {grid-template-columns:48px 1fr 86px}
+}
+
+/* Small material details stay on edges; the reading surface stays quiet. */
+#overlay-root .management-window::before{content:"";position:absolute;inset:3px;pointer-events:none;z-index:5;border:1px solid #cfb47855;border-radius:1px}
+#overlay-root .management-window .directory-portrait{display:inline-grid;place-items:center;width:26px;height:32px;flex:none;border:1px solid #927347;background:linear-gradient(135deg,#b8a075,#77623f);box-shadow:0 1px 2px #483a2755;color:#f8e6bb;font:14px var(--serif)}
+#overlay-root .management-window .officer-directory .personnel-table :is(td,th):first-child{width:160px}
+#overlay-root .management-window .info-identity .info-portrait{background:transparent;border:0;filter:drop-shadow(2px 4px 3px #49352250)}
+#overlay-root .management-window .button:active:not(:disabled),#overlay-root .management-window .priority-move:active:not(:disabled){box-shadow:inset 0 2px 4px #49372066;transform:translateY(1px)}
+#overlay-root .management-window .faction-priorities>.priority-table-head{background:linear-gradient(#5a624e,#414c3c);color:#e8d6af;border-bottom:2px ridge #b19961}
+#overlay-root .management-window .faction-priorities>.priority-row{background-image:var(--paper-grain)}
+#overlay-root .management-window .directory-tabs button[aria-pressed=true]:hover,#overlay-root .management-window .info-tabs .button[aria-pressed=true]:hover{background:linear-gradient(#a75e3e,#7c4330);color:#fff0c8}
+@media(max-height:600px) and (orientation:landscape){#overlay-root .management-window .directory-portrait{width:22px;height:26px}}

@@ -56,13 +56,14 @@ export function visibleStatuses(b,u){
 
 export const ARMY_STATUS_DISPLAY={blockadeUntil:['截断援路','暂停敌方预备队入场']};
 export function statusSources(b,s){
-  if(s.key==='hunger'&&s.state.sourceEvent===undefined)return ['军团补给 · 缺粮'];
-  if(s.army)return ['军团军略 · '+s.name];
+  if(s.key==='hunger'&&s.state.sourceEvent===undefined)return ['军团补给'];
+  if(s.army)return ['军略「'+s.name+'」'];
   if(s.key==='shield')return (s.state.layers||[]).filter(l=>l.until>b.tick&&l.amount>0).map(l=>l.label);
   const origins=s.state.sources?.length?s.state.sources:s.state.origins?.length?s.state.origins:[s.state];
   return [...new Set(origins.map(o=>{
     const actor=o.sourceName||b.sides?.flatMap(side=>side.units||[]).find(u=>u.id===o.sourceId)?.name;
-    return [actor,o.sourceSkillName,s.state.sourceNote].filter(Boolean).join(' · ')||'未记录来源';
+    const source=(actor||'')+(o.sourceSkillName?'「'+o.sourceSkillName+'」':'');
+    return [source,s.state.sourceNote].filter(Boolean).join('，')||'来源不明';
   }))];
 }
 export function inspectionStatuses(b,u){

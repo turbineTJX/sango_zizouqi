@@ -1,6 +1,7 @@
+import {isAITurnStart} from './ai-turn.mjs';
 import {STRATEGIC_SUPPORT_RULES as R} from './data/design/strategic-support-rules.mjs';
 import {armySupplyCapacity} from './army-supply.mjs';
-import {intelligenceWorld} from './strategic-vision.mjs';
+import {intelligenceWorld,cityObservation} from './strategic-vision.mjs';
 import {isJunction} from './road-network.mjs';
 import {findCampaignRoute,supplyConnection,campaignBattleSide} from './strategic-campaign.mjs';
 import {strategicPower,strategicTravelDays,strategicCityBudget,strategicArrivalDays,plannedCombatForce} from './strategic-ai.mjs';
@@ -11,14 +12,13 @@ import {removeDomesticOrder} from './domestic.mjs';
 import {chosenRoad,roadCost} from './strategic-movement.mjs';
 import {canEquip,equipmentTypes,equipmentCost} from './troop-equipment.mjs';
 import {TROOP_DESIGNS} from './data/design/troops.mjs';
-import {CAMPAIGN_TIME} from './combat-rules.mjs';
 import {ECONOMY_RULES} from './data/design/economy-rules.mjs';
 
 const food=units=>units.reduce((n,u)=>n+u.troops/100+u.wounded/200,0);
 const inBattle=(s,a)=>s.campaign.battles.some(r=>!r.settled&&r.armyIds.includes(a.id));
 const key=q=>q.kind+':'+(q.battleId||q.target);
 function supportUnits(s,c,path,view,availableUnits){
- const units=availableUnits(s,c).filter(u=>!u.mission&&!u.scouting&&u.wounded/Math.max(1,u.troops+u.wounded)<=ECONOMY_RULES.ai.offensive.maxWoundedShare).slice(0,10);
+ const units=availableUnits(s,c,{defenseTarget:path.at(-1)}).filter(u=>!u.mission&&!u.scouting&&u.wounded/Math.max(1,u.troops+u.wounded)<=ECONOMY_RULES.ai.offensive.maxWoundedShare).slice(0,10);
  if(!path.some((id,i)=>chosenRoad(view,i?path[i-1]:c.id,id)?.terrain==='water'))return units;
  const ship=equipmentTypes('ship').filter(id=>canEquip(c,id)).sort((a,b)=>TROOP_DESIGNS[a].goldPerThousand-TROOP_DESIGNS[b].goldPerThousand||a.localeCompare(b))[0];
  return units.filter(u=>u.equipment.ship||ship).map(u=>u.equipment.ship?u:{...u,equipment:{...u.equipment,ship}});
@@ -27,13 +27,12 @@ function supportUnits(s,c,path,view,availableUnits){
 // are never inputs, including when restoring a recently blocked supply line.
 export function strategicSupportObjectives(s,faction){
  const view=intelligenceWorld(s,faction),objectives=new Map(),add=q=>{const old=objectives.get(key(q));if(!old||q.power>old.power)objectives.set(key(q),q);};
- for(const r of view.campaign.battles.filter(r=>!r.settled)){
+ for(const r of view.campaign.battles.filter(r=>!r.settled&&r.kind!=='siege')){
   const a=s.armies.find(a=>a.faction===faction&&r.armyIds.includes(a.id));if(!a)continue;
   const side=campaignBattleSide(s,r,a),own=r.battle.sides[side];if(side<0||own.retreat)continue;
   const power=i=>r.battle.sides[i].units.filter(u=>u.hp>0&&['active','reserve'].includes(u.status)&&(u.arrivalTick||0)<=r.battle.tick&&u.arrivalConfirmed!==false).reduce((n,u)=>n+u.hp*(.7+u.leadership/200+u.force/500+u.intellect/800),0);
   const need=Math.max(0,power(1-side)*R.reinforceRatio-power(side));if(!need)continue;
-  const remaining=Math.ceil((r.battle.maxTicks-r.battle.tick)/CAMPAIGN_TIME.stepsPerDay);if(remaining<=0)continue;
-  add({kind:'reinforce',target:a.travel?.to||a.location,battleId:r.id,power:need,days:Math.min(R.maxTravelDays,remaining),priority:200,reason:'己方战场兵力不足，沿实际道路增援'});
+  add({kind:'reinforce',target:a.travel?.to||a.location,battleId:r.id,power:need,days:R.maxTravelDays,priority:200,reason:'己方战场兵力不足，沿实际道路增援'});
  }
  const enemies=view.armies.filter(a=>!a.disbanded&&factionsHostile(s,a.faction,faction)&&a.units.some(u=>u.troops>0));
  if(!enemies.length)return [...objectives.values()].sort((a,b)=>b.priority-a.priority||b.power-a.power||key(a).localeCompare(key(b)));
@@ -102,21 +101,32 @@ function releasableSupportPlan(s,faction,q,availableUnits){
  return null;
 }
 export function planStrategicSupport(s,faction,{availableUnits,commandUnits,retreatArmy,cancelPlan},released=false){
+ if(!isAITurnStart(s))return;
  const ai=s.campaign.ai,day=s.campaign.day,objectives=strategicSupportObjectives(s,faction),byKey=new Map(objectives.map(q=>[key(q),q]));
+ // Other reinforcement orders may also be aimed at a city. Observe their
+ // destination before turning an original relief order into an attack.
+ for(const a of s.armies.filter(a=>a.faction===faction&&!a.disbanded&&a.task==='增援'&&s.cities.some(c=>c.id===a.target)&&!inBattle(s,a)))
+  if(cityObservation(s,a.target,faction)?.owner!==faction&&!ai.supports.some(q=>q.kind==='city-relief'&&q.officerIds.some(id=>a.units.some(u=>u.id===id))))retreatArmy(s,a,'增援目标已失守，本旬结束增援并沿道路撤回');
  for(const q of [...ai.supports].filter(q=>q.faction===faction)){
   const armies=s.armies.filter(a=>a.faction===faction&&a.units.some(u=>q.officerIds.includes(u.id))),waiting=s.campaign.domestic.orders.filter(o=>o.kind==='expedition'&&o.faction===faction&&o.officerIds.some(id=>q.officerIds.includes(id)));
   const present=new Set([...armies.flatMap(a=>a.units.map(u=>u.id)),...waiting.flatMap(o=>o.officerIds)]);q.officerIds=q.officerIds.filter(id=>present.has(id));
   if(byKey.has(key(q)))q.lastNeededDay=day;
-  const ended=q.kind==='reinforce'&&!s.campaign.battles.some(r=>r.id===q.battleId&&!r.settled),quiet=q.kind==='guard'&&day-q.lastNeededDay>=R.quietDays;
-  if((!armies.length&&!waiting.length)||armies.length&&armies.every(a=>a.task==='回城补给'&&!inBattle(s,a))||ended||quiet||day>q.deadline){
-   for(const o of waiting)removeDomesticOrder(s,o.id,'原增援或护路任务已结束');
-   ai.supports=ai.supports.filter(x=>x!==q);
-   for(const a of armies.filter(a=>!inBattle(s,a)))retreatArmy(s,a,'增援或护路任务结束，沿真实道路回城');
+  const cityRelief=q.kind==='city-relief',lost=cityRelief&&cityObservation(s,q.target,faction)?.owner!==faction;
+  const ended=q.kind==='reinforce'&&!s.campaign.battles.some(r=>r.id===q.battleId&&!r.settled),unneeded=q.kind==='guard'&&!byKey.has(key(q));
+  if((!armies.length&&!waiting.length)||armies.length&&armies.every(a=>a.task==='回城补给'&&!inBattle(s,a))||lost||ended||unneeded){
+   const reason=lost?'增援目标已失守，本旬结束增援并沿道路撤回':'增援或护路任务结束，沿真实道路回城';
+   for(const o of waiting)removeDomesticOrder(s,o.id,reason);
+   for(const a of armies.filter(a=>!inBattle(s,a)))retreatArmy(s,a,reason);
+   // Fighting troops finish through shared battle rules. Failed return orders
+   // retain their commitment so the next turn may try a real route again.
+   const keep=cityRelief&&lost?armies.filter(a=>inBattle(s,a)||a.task!=='回城补给'):[];
+   q.officerIds=q.officerIds.filter(id=>keep.some(a=>a.units.some(u=>u.id===id)));
+   if(!q.officerIds.length)ai.supports=ai.supports.filter(x=>x!==q);
   }
  }
  for(const q of objectives){
   const existing=ai.supports.find(x=>x.faction===faction&&key(x)===key(q));
-  if(!existing&&ai.supports.filter(x=>x.faction===faction).length>=R.maxMissions)continue;
+  if(!existing&&ai.supports.filter(x=>x.faction===faction&&x.kind!=='city-relief').length>=R.maxMissions)continue;
   const {need,groups}=supportForcePlan(s,faction,q,availableUnits);
   if(need>0){const optional=cancelPlan&&!released&&releasableSupportPlan(s,faction,q,availableUnits);if(optional){cancelPlan(s,optional,'释放尚未出发的进攻部队，可及时组成足够的增援或护路军团');return planStrategicSupport(s,faction,{availableUnits,commandUnits,retreatArmy,cancelPlan},true);}continue;}
   const ids=[];for(const x of groups)if(commandUnits(s,x.c,x.units,q.target,q.kind,q.reason,{arrivalDeadline:day+q.days}))ids.push(...x.units.map(u=>u.id));

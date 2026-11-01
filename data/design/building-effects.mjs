@@ -19,7 +19,7 @@ export default {
       "id": "farm",
       "name": "农田",
       "parameters": {
-        "description": "每级增加770粮／旬"
+        "description": "每级增加1200粮／旬"
       },
       "source": "strategic-campaign.mjs",
       "todo": "将说明拆成有单位的效果系数，逐项核对实际结算；费用和工期仍引用建筑表"

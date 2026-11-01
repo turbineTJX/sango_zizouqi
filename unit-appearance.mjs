@@ -1,9 +1,12 @@
+import {equippedTreasureIds} from './treasure-equipment.mjs';
 import {combatType,combatFamily} from './troop-equipment.mjs';
 import {TROOP_DESIGNS} from './data/design/troops.mjs';
+import {treasureAppearance} from './treasure-appearance.mjs';
 
 export const siegeAppearance=u=>TROOP_DESIGNS[combatType(u)]?.equipmentSlot==='siege'?combatType(u):null;
 export function unitModelKey(pack,u){
  const type=combatType(u),siege=siegeAppearance(u);
+ if(!siege&&['spear','halberd','cavalry','archer'].includes(combatFamily(u))&&equippedTreasureIds(u).some(treasureAppearance))return `builtin:troop:${type}:${u.side===1?1:0}:${equippedTreasureIds(u).filter(treasureAppearance).join('+')}`;
  if(pack.models?.[type])return type;
  if(siege)return 'builtin:'+siege;
  const family=combatFamily(u);

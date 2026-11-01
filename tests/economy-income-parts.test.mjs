@@ -37,11 +37,11 @@ test('actual operation is accounted separately and monthly settlement never pays
 test('economic construction preserves the longer market labor cost and equal real investment',()=>{
  const result=compareConstruction(Array.from({length:32},(_,i)=>9001+i*137));
  for(const row of result){
-  assert.ok(row.engineeringSpread<.1,JSON.stringify(row));assert.ok(row.costEfficiencySpread<.1,JSON.stringify(row));
+  assert.ok(row.engineeringSpread<.1,JSON.stringify(row));assert.ok(Math.max(...row.commands.map(c=>c.meanSpent))/Math.min(...row.commands.map(c=>c.meanSpent))-1<.1);
   const market=row.commands.find(c=>c.key==='build_commerce');for(const other of row.commands.filter(c=>c.key!=='build_commerce'))assert.ok(market.meanValuePerOfficerDay<other.meanValuePerOfficerDay*.5,'market expansion must consume its longer actual labor time');
   for(const c of row.commands)for(const r of c.runs){
    assert.ok(r.days>=r.nominalDays);assert.equal(r.charged,500);assert.equal(r.spent+r.refund,r.charged);
-   assert.ok(r.baseValue>99&&r.baseValue<101);assert.ok(r.spent>0);
+   assert.equal(r.baseValue,{build_commerce:100,build_farm:156,build_barracks:153}[c.key]);assert.ok(r.spent>0);
   }
  }
  assert.ok(result.flatMap(r=>r.commands.flatMap(c=>c.runs)).some(r=>r.days>r.nominalDays),'include real construction setbacks');

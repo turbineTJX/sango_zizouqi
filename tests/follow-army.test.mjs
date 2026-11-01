@@ -9,7 +9,7 @@ import assert from 'node:assert/strict';
 import {newCampaign,beginExecution,advanceCampaignStep,advanceCampaignDay,activeBattles,chooseEncounter,serializeCampaign,validateCampaign,armyPosition,orderCampaignArmy,recruitCityUnits} from './helpers/auto-domestic-campaign.mjs';
 import {newGame,startBattle,deployUnit,lockDeployment,issueCommand,armyCommanders,armyStratagems,battleStratagems} from '../engine.mjs';
 import {fieldFromCity,approachFieldContact} from './helpers/field-campaign.mjs';
-import {fateRoll,resolveOfficerLoss} from '../officer-fates.mjs';
+import {fateRoll,officerLossResult,resolveOfficerLoss} from '../officer-fates.mjs';
 import {campaignInfoDetail} from '../campaign-info.mjs';
 import {movementPoints} from '../strategic-movement.mjs';
 
@@ -52,21 +52,19 @@ test('Cao survives with his learned abilities, while battle settlement appoints 
  run(s,r);run(resumed,copyRecord);assert.equal(serializeCampaign(s),serializeCampaign(resumed));
  for(const state of [s,resumed])for(const p of [...pendingArmyAppointments(state)])assert.equal(confirmPostbattleAppointments(state,p.armyId,recommendArmyAppointments(state.armies.find(a=>a.id===p.armyId))),null);
  assert.equal(serializeCampaign(s),serializeCampaign(resumed));
- assert.equal(r.battle.result.winner,0);assert.ok(s.armies.includes(a));assert.notEqual(a.leader,'cao');assert.ok(a.units.some(u=>u.id===a.leader&&u.troops>0));assert.ok(a.units.includes(cao));assert.equal(cao.troops,0);
+ assert.equal(r.battle.result.winner,0);assert.ok(s.armies.includes(a));assert.notEqual(a.leader,'cao');assert.ok(a.units.some(u=>u.id===a.leader&&u.troops>0));assert.ok(!a.units.includes(cao));assert.equal(cao.troops,0);
  assert.deepEqual(cao.tacticLearning,learning);assert.ok(cao.wounded>0);
- assert.ok(!s.campaign.idle.some(o=>o.unit.id==='cao'));assert.ok(!s.campaign.domestic.people.some(p=>p.id==='cao'));assert.ok(!s.cities.some(c=>c.units.some(u=>u.id==='cao')));
- assert.match(s.campaign.personnelEvents.find(e=>e.id===r.id+':cao').text,/随.*待整编/);
- assert.match(campaignInfoDetail(s,'officer','cao').sections.map(x=>x.html).join(''),/随军待整编/);
- assert.match(campaignInfoDetail(s,'army',a.id).sections.map(x=>x.html).join(''),/随军待整编/);
+ assert.ok(s.campaign.idle.some(o=>o.unit.id==='cao'&&o.returningHome&&o.destination==='xuchang'));assert.ok(!s.campaign.domestic.people.some(p=>p.id==='cao'));assert.ok(!s.cities.some(c=>c.units.some(u=>u.id==='cao')));
+ assert.match(s.campaign.personnelEvents.find(e=>e.id===r.id+':cao').text,/返回许昌/);
+ assert.match(campaignInfoDetail(s,'officer','cao').sections.map(x=>x.html).join(''),/返城|移动|运输/);
  assert.ok(!armyCommanders(a).some(c=>c.id==='cao'));assert.ok(!armyStratagems(a).includes('cao-wuchao'));
  const next=nextBattle(a,r.armies.find(x=>x.faction==='yuan'));
  assert.ok(!next.sides[0].units.some(u=>u.id==='cao'));assert.ok(!next.sides[0].commanders.some(c=>c.id==='cao'));assert.ok(!battleStratagems(next).includes('cao-wuchao'));
  const commander=a.units.find(u=>u.id===a.leader);assert.ok(next.sides[0].units.every(u=>u.commandBonus===commander.leadership/1000));
  assert.ok(movementPoints(a)>movementPoints({...a,units:a.units.map(u=>u.id===a.leader?{...u,leadership:0}:u)}));
  const count=s.campaign.personnelEvents.length;advanceCampaignStep(s);assert.equal(s.campaign.personnelEvents.length,count);restore(s);
- // A returning army becomes independent city units; the existing legal recruit
- // action restores actual manpower and then permits this officer to fight again.
- run(s,r,()=>s.campaign.phase==='planning');assert.equal(orderCampaignArmy(s,a.id,'xuchang','auto',{reverse:true}),null);beginExecution(s);
+ // The escaped officer returns independently; legal city recruitment restores
+ // actual manpower without changing learned abilities.
  run(s,r,()=>s.cities.find(c=>c.id==='xuchang').units.some(u=>u.id==='cao'));run(s,r,()=>s.campaign.phase==='planning');
  const c=s.cities.find(c=>c.id==='xuchang');assert.ok(c.units.includes(cao));c.manpower=10000;c.grain=20000;c.drafted=0;fundCities(s,10000);
  assert.equal(recruitCityUnits(s,c.id,['cao']),null);assert.ok(cao.troops>0);assert.ok(c.manpower<10000);
@@ -89,12 +87,12 @@ test('previous followers return physically when their remaining escort is annihi
  assert.ok(!s.campaign.personnelEvents.some(e=>e.id===r.id+':cao'));assert.ok(!s.campaign.domestic.people.some(p=>p.id==='cao'));restore(s);
 });
 
-test('death and captivity still remove a commander; only escape keeps a living army appointment',()=>{
+test('death, captivity and escape all release the former commander; escape returns home',()=>{
  for(const kind of ['DEAD','CAPTIVE','ESCAPED']){
   const s=newCampaign(23),a=fieldFromCity(s,'xuchang',{target:'guandu'}),u=a.units.find(u=>u.id==='cao');let key;
-  for(let i=0;i<10000;i++){const k='follow-fate:'+i,roll=fateRoll(s,k);if(kind==='DEAD'?roll<.02:kind==='CAPTIVE'?roll>=.02&&roll<.35:roll>=.35){key=k;break;}}
+  for(let i=0;i<10000;i++){const k='follow-fate:'+i,roll=fateRoll(s,k);if(officerLossResult(roll,'yuan')===kind){key=k;break;}}
   assert.equal(resolveOfficerLoss(s,{unit:u,faction:a.faction,location:a.location,enemy:'yuan',eventId:key,survivingArmy:a}),kind);
-  assert.equal(a.units.includes(u),kind==='ESCAPED');assert.equal(a.leader==='cao',kind==='ESCAPED');
+  assert.equal(a.units.includes(u),false);assert.notEqual(a.leader,'cao');if(kind==='ESCAPED')assert.ok(s.campaign.idle.some(o=>o.unit.id===u.id&&o.returningHome));
   assert.equal(resolveOfficerLoss(s,{unit:u,faction:a.faction,location:a.location,enemy:'yuan',eventId:key,survivingArmy:a}),null);restore(s);
  }
 });

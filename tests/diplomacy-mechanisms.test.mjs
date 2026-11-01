@@ -6,14 +6,16 @@ import {newCampaign,validateCampaign,serializeCampaign,orderCampaignArmy,settleD
 import {lordCity,approveDiplomaticProposal,decideDiplomaticProposal,diplomaticAIPlan,diplomaticRoute,assignDiplomat,cancelDiplomaticOrder,setDiplomaticGoal} from '../diplomacy.mjs';
 import {factionsHostile,diplomaticProtection,diplomaticPassage,diplomaticPair} from '../diplomacy-relations.mjs';
 import {servingPeople,factionLord} from '../talent-core.mjs';
-import {resolveOfficerLoss,ransomCost} from '../officer-fates.mjs';
+import {resolveOfficerLoss,ransomCost,fateRoll,officerLossResult} from '../officer-fates.mjs';
 import {fieldFromCity,approachDestination} from './helpers/field-campaign.mjs';
 import {proposeDiplomatic,approveAndSign,diplomaticDay,untilDiplomatic} from './helpers/diplomacy-campaign.mjs';
 import {requestStrategicOrder} from '../strategic-orders.mjs';
 import {assignmentFor,assignDomestic} from '../domestic.mjs';
 import {diplomacyMarkup} from '../diplomacy-view.mjs';
 import {interruptionMarkup} from '../strategic-order-view.mjs';
-const fresh=()=>{const s=newCampaign(281,'guandu-200');fundCities(s,9000);return s;};
+import {equipCityUnit} from '../strategic-campaign.mjs';
+import {canEquip} from '../troop-equipment.mjs';
+const fresh=()=>{const s=newCampaign(281,'guandu-200');fundCities(s,9000);for(const pair of Object.keys(s.campaign.diplomacy.wars))s.campaign.diplomacy.relations[pair]=90;return s;};
 const leg=(kind,from,to,extra={})=>({kind,from,to,...extra});
 const peaceTerms=duration=>[leg('peace','cao','sunce',{duration}),leg('nonaggression','cao','sunce',{duration}),leg('nonaggression','sunce','cao',{duration})];
 
@@ -65,6 +67,9 @@ test('a renewal waits for a new approval and starts after existing protection',(
 test('an approved fixed-price framework creates bounded batches with inherited approval and real cargo',()=>{
  const s=fresh();s.campaign.diplomacy.wars[diplomaticPair('cao','sunce')].active=false;lordCity(s,'cao').grain=1800;s.grain=Math.floor(s.cities.filter(c=>c.owner==='cao').reduce((n,c)=>n+c.grain,0));
  const {p}=proposeDiplomatic(s,{goal:'trade',direction:'commerce',clauses:[leg('trade','cao','sunce',{duration:60,resource:'grain',quota:3000,unitPrice:.18}),leg('tradePass','cao','sunce',{duration:60}),leg('tradePass','sunce','cao',{duration:60})]});approveAndSign(s,p);
+ // The envoy journey crosses a harvest; establish a real shortage when the
+ // framework starts, rather than assuming the opening stock remains unchanged.
+ lordCity(s,'cao').grain=1000;
  untilDiplomatic(s,()=>s.campaign.diplomacy.contracts.some(b=>b.parentId===p.id));const batch=s.campaign.diplomacy.contracts.find(b=>b.parentId===p.id),grain=batch.clauses.find(c=>c.kind==='grain');
  assert.equal(batch.approvals.cao.sourceContractId,p.id);assert.equal(batch.approvals.cao.day,p.approvals.cao.day);assert.ok(grain.amount<=3000);assert.equal(batch.clauses.find(c=>c.kind==='gold').amount,Math.ceil(grain.amount*.18));
  // Observe the creation receipt while it is current; routine civil records
@@ -85,7 +90,10 @@ test('a loan creates a real future debt, keeps unpaid balance and debits actual 
 
 test('peace stops an actual live battle while preserving casualties and physical retreat',()=>{
  const s=fresh(),{p,o}=proposeDiplomatic(s,{clauses:peaceTerms(30)});untilDiplomatic(s,()=>p.status==='pending');
- const c=s.cities.find(c=>c.id===o.location),ids=c.units.filter(u=>!u.mission&&u.troops>0).slice(0,2).map(u=>u.id),a=fieldFromCity(s,c.id,{ids,target:p.sites.sunce});approachDestination(s,a);assert.equal(approveDiplomaticProposal(s,p.id,p.version),null);
+ const c=s.cities.find(c=>c.id===o.location),ids=c.units.filter(u=>!u.mission&&u.troops>0).slice(0,2).map(u=>u.id),a=fieldFromCity(s,c.id,{ids,target:p.sites.sunce});
+ // This fixture checks ceasefire during combat, not the preceding journey.
+ // Approach the final road so contact occurs before the signed peace takes effect.
+ a.location=a.route.at(-2)||a.location;a.route=[a.route.at(-1)];approachDestination(s,a);assert.equal(approveDiplomaticProposal(s,p.id,p.version),null);
  untilDiplomatic(s,()=>s.campaign.battles.some(r=>r.armyIds.includes(a.id)),10);const r=s.campaign.battles.find(r=>r.armyIds.includes(a.id)),tick=r.battle.tick;
  untilDiplomatic(s,()=>r.settled,10);assert.equal(r.report.reason,'停战退兵');assert.ok(r.battle.tick>=tick);assert.equal(s.cities.find(c=>c.id===r.cityId).owner,'sunce');assert.equal(r.report.winner,null);assert.ok(r.report.stats.some(x=>x.initial>0));assert.ok(!armyBattle(s,a.id));
 });
@@ -118,7 +126,7 @@ test('AI priorities respond to real shortages and judgments never modify stocks'
 test('a locked actual captive finishes original custody, is escorted and released once for the agreed ransom',()=>{
  const s=fresh();let prisoner;
  for(const o of [...servingPeople(s).values()].filter(o=>o.faction==='cao'&&!o.army&&o.unit.id!==factionLord(s,'cao')).slice(0,30)){
-  resolveOfficerLoss(s,{unit:o.unit,faction:'cao',location:o.location,enemy:'sunce',eventId:'diplomacy-captive-fixture:'+o.unit.id});prisoner=s.campaign.domestic.people.find(t=>t.id===o.unit.id&&t.status==='CAPTIVE');if(prisoner)break;
+  resolveOfficerLoss(s,{unit:o.unit,faction:'cao',location:o.location,enemy:'sunce',eventId:Array.from({length:10000},(_,i)=>'diplomacy-captive-fixture:'+o.unit.id+':'+i).find(key=>officerLossResult(fateRoll(s,key),'sunce')==='CAPTIVE')});prisoner=s.campaign.domestic.people.find(t=>t.id===o.unit.id&&t.status==='CAPTIVE');if(prisoner)break;
  }
  assert.ok(prisoner);const {p}=proposeDiplomatic(s,{goal:'prisoners',clauses:[leg('prisoner','sunce','cao',{officerId:prisoner.id}),leg('gold','cao','sunce',{amount:ransomCost(prisoner)+100})]});approveAndSign(s,p);assert.equal(prisoner.diplomaticLock,p.id);const c=p.clauses.find(c=>c.kind==='prisoner');untilDiplomatic(s,()=>c.status==='done');
  assert.equal(c.delivered,1);assert.equal(p.clauses.find(c=>c.kind==='gold').delivered,p.clauses.find(c=>c.kind==='gold').amount);assert.equal(s.campaign.domestic.people.some(t=>t.id===prisoner.id&&t.status==='CAPTIVE'),false);assert.equal(servingPeople(s).get(prisoner.id).faction,'cao');const count=s.campaign.activity.nodes.filter(n=>n.category==='personnel'&&n.officerId===prisoner.id&&n.phase==='RELEASE').length;diplomaticDay(s);assert.equal(s.campaign.activity.nodes.filter(n=>n.category==='personnel'&&n.officerId===prisoner.id&&n.phase==='RELEASE').length,count);assert.equal(count,1);
@@ -126,6 +134,9 @@ test('a locked actual captive finishes original custody, is escorted and release
 
 test('real allied aid keeps its faction and joins the recipient battle on the correct side',()=>{
  const s=fresh(),choices=[];
+ // Both the relief force and the opposing march may cross rivers. Equip
+ // actual boats at eligible cities before selecting a traversable route.
+ for(const c of s.cities.filter(c=>['yuan','sunce'].includes(c.owner)&&canEquip(c,'ship')))for(const u of c.units.filter(u=>u.troops>0))assert.equal(equipCityUnit(s,c.id,u.id,{...u.equipment,ship:'ship'},{faction:c.owner}),null);
  for(const target of s.cities.filter(c=>c.owner==='cao'&&c.units.length)){
   const enemy=s.cities.filter(c=>c.owner==='yuan'&&c.units.length>1).map(c=>{const units=c.units.filter(u=>!u.mission&&u.troops>0).slice(0,2),path=findCampaignRoute(s,c.id,target.id,'yuan');return {c,units,path,days:units.length&&path?strategicTravelDays(s,{units,leader:units[0].id,morale:80,hunger:0},path,c.id):Infinity};}).filter(x=>Number.isFinite(x.days)).sort((a,b)=>a.days-b.days)[0];if(!enemy)continue;
   for(const source of s.cities.filter(c=>c.owner==='sunce')){const unit=source.units.find(u=>u.troops>0&&u.id!==factionLord(s,'sunce')&&u.id!==source.governor),path=diplomaticRoute(s,source.id,target.id,'sunce','cao','military');if(unit&&path){const days=strategicTravelDays(s,{units:[unit],leader:unit.id,morale:80,hunger:0},path,source.id);if(Number.isFinite(days))choices.push({target,enemy,source,unit,path,days});}}
@@ -133,6 +144,8 @@ test('real allied aid keeps its faction and joins the recipient battle on the co
  choices.sort((a,b)=>a.days-b.days);const x=choices[0];assert.ok(x);
  const raidDays=x.enemy.days,permissionDays=Math.min(360,x.days*2+raidDays+80);
  const {p}=proposeDiplomatic(s,{goal:'aid',clauses:[...peaceTerms(permissionDays),leg('militaryPass','cao','sunce',{route:x.path,duration:permissionDays,officerIds:[x.unit.id],troopCap:x.unit.troops}),leg('station','cao','sunce',{cityId:x.target.id,duration:permissionDays,officerIds:[x.unit.id],troopCap:x.unit.troops}),leg('deploy','sunce','cao',{cityId:x.source.id,targetId:x.target.id,enemy:'yuan',officerIds:[x.unit.id],troops:x.unit.troops,days:x.days,route:x.path,task:'defend',deadline:s.campaign.day+x.days+90,duration:Math.min(360,raidDays+60)}),leg('gold','cao','sunce',{amount:1500,milestone:'arrival',aid:true})]});approveAndSign(s,p);const task=p.clauses.find(c=>c.kind==='deploy');untilDiplomatic(s,()=>task.status==='active',x.days+60);const helper=s.armies.find(a=>a.id===task.armyId);assert.equal(helper.faction,'sunce');assert.equal(helper.location,x.target.id);
- const raid=fieldFromCity(s,x.enemy.c.id,{ids:x.enemy.c.units.filter(u=>!u.mission&&u.troops>0).slice(0,2).map(u=>u.id),target:x.target.id});raid.route=[...x.enemy.path];untilDiplomatic(s,()=>s.campaign.battles.some(r=>r.armyIds.includes(raid.id)&&r.armyIds.includes(helper.id)),raidDays+30);const battle=s.campaign.battles.find(r=>r.armyIds.includes(raid.id)&&r.armyIds.includes(helper.id));assert.ok(battle.battle.sides[0].units.some(u=>u.armyId===helper.id));assert.equal(battle.armies.find(a=>a.id===helper.id).faction,'sunce');validateCampaign(JSON.parse(serializeCampaign(s)));
+// Relief has completed its actual journey. Stage the hostile column on the final
+ // road to test joint battle membership, not conquest of intermediate cities.
+ const raid=fieldFromCity(s,x.enemy.c.id,{ids:x.enemy.c.units.filter(u=>!u.mission&&u.troops>0).slice(0,2).map(u=>u.id),target:x.target.id});raid.route=[...x.enemy.path];raid.location=raid.route.at(-2)||raid.location;raid.route=[raid.route.at(-1)];approachDestination(s,raid);untilDiplomatic(s,()=>s.campaign.battles.some(r=>r.armyIds.includes(raid.id)&&r.armyIds.includes(helper.id)),raidDays+30);const battle=s.campaign.battles.find(r=>r.armyIds.includes(raid.id)&&r.armyIds.includes(helper.id));assert.ok(battle.battle.sides[0].units.some(u=>u.armyId===helper.id));assert.equal(battle.armies.find(a=>a.id===helper.id).faction,'sunce');validateCampaign(JSON.parse(serializeCampaign(s)));
  untilDiplomatic(s,()=>battle.settled,50);const aidReport=s.campaign.activity.nodes.find(n=>n.category==='battle'&&n.faction==='sunce'&&n.result.battleId===battle.id);assert.ok(aidReport);assert.ok(aidReport.officerIds.includes(x.unit.id));assert.equal(s.campaign.activity.nodes.filter(n=>n.category==='battle'&&n.faction==='cao'&&n.result.battleId===battle.id).some(n=>n.officerIds.includes(x.unit.id)),false);assert.equal(battle.armies.find(a=>a.id===helper.id).faction,'sunce');
 });

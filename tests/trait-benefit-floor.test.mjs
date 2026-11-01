@@ -95,13 +95,13 @@ test('all diplomatic trait directions match or beat 100 attribute at 50 and rema
   assert.ok(diplomaticFee(151,u,direction)<=151);
  }
 });
-test('grain transport boost applies on both relay legs and cycle returns, never on empty ordinary travel or retreat',()=>{
+test('grain, relay, cycle returns and retreat share the common convoy speed',()=>{
  const unit=makeOfficer(holders('relayCargo')[0],0),ordinary={unit,destination:'chenliu',cargo:{grain:500}};
- assert.equal(personnelSpeed({...ordinary,relayDestination:'wan'}),TRANSPORT_SPEED*2);
- assert.equal(personnelSpeed(ordinary),TRANSPORT_SPEED*2);
+ assert.equal(personnelSpeed({...ordinary,relayDestination:'wan'}),TRANSPORT_SPEED);
+ assert.equal(personnelSpeed(ordinary),TRANSPORT_SPEED);
  assert.equal(personnelSpeed({...ordinary,retreating:true}),TRANSPORT_SPEED);
  assert.equal(personnelSpeed({...ordinary,cargo:{grain:0}}),PERSONNEL_SPEED);
- assert.equal(personnelSpeed({unit:makeOfficer(holders('cycleCargo')[0],0),destination:'wan',cargo:{grain:0},convoyCycle:{leg:'return'}}),TRANSPORT_SPEED*2);
+ assert.equal(personnelSpeed({unit:makeOfficer(holders('cycleCargo')[0],0),destination:'wan',cargo:{grain:0},convoyCycle:{leg:'return'}}),TRANSPORT_SPEED);
 });
 test('strong defensive preparation survives actual deployment and battle save validation',()=>{
  const f=setup([holders('zhouDrill')[0]],'exercise');Object.assign(f.c,{drill:5,walls:3});initializeBuildingDurability(f.c);

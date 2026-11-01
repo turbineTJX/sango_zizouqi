@@ -158,7 +158,7 @@ test('a real AI siege can order physical withdrawal before a cut grain line caus
  if(battle.awaiting)chooseEncounter(s,battle.id,false);
  const a=s.armies.find(a=>a.faction==='yuan');assert.ok(a);a.supply=dailyConsumption(s,a);a.hunger=0;
  const blocker={...cityForce(front),id:'a'+s.nextId++,units:[{...makeOfficer('dun',3000,0,3),homeCity:front.id}],location:front.id,faction:'cao',travel:{from:front.id,to:source.id,road:'main',progress:roadLength(s,front.id,source.id)/2},route:[source.id],supply:900,supplyCapacity:900};delete blocker.cityForce;s.armies.push(blocker);initializeVision(s);
- assert.equal(supplyConnection(s,a),null);const before={supply:a.supply,men:a.units[0].troops};s.campaign.ai.lastPlanDay=0;planStrategicAI(s);
+ assert.equal(supplyConnection(s,a),null);const before={supply:a.supply,men:a.units[0].troops};s.campaign.day=(Math.floor((s.campaign.day-1)/10)+1)*10+1;s.turn=Math.floor((s.campaign.day-1)/10)+1;s.campaign.phase='planning';planStrategicAI(s);
  assert.equal(a.hunger,0);assert.equal(battle.battle.sides[battle.attackSide].retreat,true);
  assert.equal(a.supply,before.supply);assert.equal(a.units[0].troops,before.men);
  assert.equal(a.location,front.id);assert.ok(s.armies.includes(a),'the order does not teleport or delete the army');

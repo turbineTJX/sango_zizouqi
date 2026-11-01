@@ -14,7 +14,7 @@ export default {
         "conditions": null,
         "score": null,
         "successFormula": null,
-        "interruption": "沿用立即执行／完成当前事务后执行与返程规则"
+        "interruption": "玩家出征／侦察提示后立即中止可解除事务；其它改任保留完成后执行；外出实际返程"
       },
       "source": "domestic.mjs",
       "todo": "逐动作提取前置条件、需求评分、成功率和失败结算；null表示尚未提取，绝非无限制或零概率"
@@ -28,7 +28,7 @@ export default {
         "conditions": null,
         "score": null,
         "successFormula": null,
-        "interruption": "沿用立即执行／完成当前事务后执行与返程规则"
+        "interruption": "玩家出征／侦察提示后立即中止可解除事务；其它改任保留完成后执行；外出实际返程"
       },
       "source": "domestic.mjs",
       "todo": "逐动作提取前置条件、需求评分、成功率和失败结算；null表示尚未提取，绝非无限制或零概率"
@@ -42,7 +42,7 @@ export default {
         "conditions": null,
         "score": null,
         "successFormula": null,
-        "interruption": "沿用立即执行／完成当前事务后执行与返程规则"
+        "interruption": "玩家出征／侦察提示后立即中止可解除事务；其它改任保留完成后执行；外出实际返程"
       },
       "source": "domestic.mjs",
       "todo": "逐动作提取前置条件、需求评分、成功率和失败结算；null表示尚未提取，绝非无限制或零概率"
@@ -56,7 +56,7 @@ export default {
         "conditions": null,
         "score": null,
         "successFormula": null,
-        "interruption": "沿用立即执行／完成当前事务后执行与返程规则"
+        "interruption": "玩家出征／侦察提示后立即中止可解除事务；其它改任保留完成后执行；外出实际返程"
       },
       "source": "domestic.mjs",
       "todo": "逐动作提取前置条件、需求评分、成功率和失败结算；null表示尚未提取，绝非无限制或零概率"
@@ -70,7 +70,7 @@ export default {
         "conditions": null,
         "score": null,
         "successFormula": null,
-        "interruption": "沿用立即执行／完成当前事务后执行与返程规则"
+        "interruption": "玩家出征／侦察提示后立即中止可解除事务；其它改任保留完成后执行；外出实际返程"
       },
       "source": "domestic.mjs",
       "todo": "逐动作提取前置条件、需求评分、成功率和失败结算；null表示尚未提取，绝非无限制或零概率"
@@ -84,7 +84,7 @@ export default {
         "conditions": null,
         "score": null,
         "successFormula": null,
-        "interruption": "沿用立即执行／完成当前事务后执行与返程规则"
+        "interruption": "玩家出征／侦察提示后立即中止可解除事务；其它改任保留完成后执行；外出实际返程"
       },
       "source": "domestic.mjs",
       "todo": "逐动作提取前置条件、需求评分、成功率和失败结算；null表示尚未提取，绝非无限制或零概率"
@@ -98,7 +98,7 @@ export default {
         "conditions": null,
         "score": null,
         "successFormula": null,
-        "interruption": "沿用立即执行／完成当前事务后执行与返程规则"
+        "interruption": "玩家出征／侦察提示后立即中止可解除事务；其它改任保留完成后执行；外出实际返程"
       },
       "source": "domestic.mjs",
       "todo": "逐动作提取前置条件、需求评分、成功率和失败结算；null表示尚未提取，绝非无限制或零概率"
@@ -112,7 +112,7 @@ export default {
         "conditions": null,
         "score": null,
         "successFormula": null,
-        "interruption": "沿用立即执行／完成当前事务后执行与返程规则"
+        "interruption": "玩家出征／侦察提示后立即中止可解除事务；其它改任保留完成后执行；外出实际返程"
       },
       "source": "domestic.mjs",
       "todo": "逐动作提取前置条件、需求评分、成功率和失败结算；null表示尚未提取，绝非无限制或零概率"
@@ -126,7 +126,7 @@ export default {
         "conditions": null,
         "score": null,
         "successFormula": null,
-        "interruption": "沿用立即执行／完成当前事务后执行与返程规则"
+        "interruption": "玩家出征／侦察提示后立即中止可解除事务；其它改任保留完成后执行；外出实际返程"
       },
       "source": "domestic.mjs",
       "todo": "逐动作提取前置条件、需求评分、成功率和失败结算；null表示尚未提取，绝非无限制或零概率"
@@ -140,7 +140,7 @@ export default {
         "conditions": null,
         "score": null,
         "successFormula": null,
-        "interruption": "沿用立即执行／完成当前事务后执行与返程规则"
+        "interruption": "玩家出征／侦察提示后立即中止可解除事务；其它改任保留完成后执行；外出实际返程"
       },
       "source": "domestic.mjs",
       "todo": "逐动作提取前置条件、需求评分、成功率和失败结算；null表示尚未提取，绝非无限制或零概率"
@@ -154,7 +154,7 @@ export default {
         "conditions": null,
         "score": null,
         "successFormula": null,
-        "interruption": "沿用立即执行／完成当前事务后执行与返程规则"
+        "interruption": "玩家出征／侦察提示后立即中止可解除事务；其它改任保留完成后执行；外出实际返程"
       },
       "source": "domestic.mjs",
       "todo": "逐动作提取前置条件、需求评分、成功率和失败结算；null表示尚未提取，绝非无限制或零概率"
@@ -168,7 +168,7 @@ export default {
         "conditions": null,
         "score": null,
         "successFormula": null,
-        "interruption": "沿用立即执行／完成当前事务后执行与返程规则"
+        "interruption": "玩家出征／侦察提示后立即中止可解除事务；其它改任保留完成后执行；外出实际返程"
       },
       "source": "domestic.mjs",
       "todo": "逐动作提取前置条件、需求评分、成功率和失败结算；null表示尚未提取，绝非无限制或零概率"
@@ -182,7 +182,7 @@ export default {
         "conditions": null,
         "score": null,
         "successFormula": null,
-        "interruption": "沿用立即执行／完成当前事务后执行与返程规则"
+        "interruption": "玩家出征／侦察提示后立即中止可解除事务；其它改任保留完成后执行；外出实际返程"
       },
       "source": "domestic.mjs",
       "todo": "逐动作提取前置条件、需求评分、成功率和失败结算；null表示尚未提取，绝非无限制或零概率"
@@ -196,7 +196,7 @@ export default {
         "conditions": null,
         "score": null,
         "successFormula": null,
-        "interruption": "沿用立即执行／完成当前事务后执行与返程规则"
+        "interruption": "玩家出征／侦察提示后立即中止可解除事务；其它改任保留完成后执行；外出实际返程"
       },
       "source": "domestic.mjs",
       "todo": "逐动作提取前置条件、需求评分、成功率和失败结算；null表示尚未提取，绝非无限制或零概率"
@@ -210,7 +210,7 @@ export default {
         "conditions": null,
         "score": null,
         "successFormula": null,
-        "interruption": "沿用立即执行／完成当前事务后执行与返程规则"
+        "interruption": "玩家出征／侦察提示后立即中止可解除事务；其它改任保留完成后执行；外出实际返程"
       },
       "source": "domestic.mjs",
       "todo": "逐动作提取前置条件、需求评分、成功率和失败结算；null表示尚未提取，绝非无限制或零概率"
@@ -224,7 +224,7 @@ export default {
         "conditions": null,
         "score": null,
         "successFormula": null,
-        "interruption": "沿用立即执行／完成当前事务后执行与返程规则"
+        "interruption": "玩家出征／侦察提示后立即中止可解除事务；其它改任保留完成后执行；外出实际返程"
       },
       "source": "domestic.mjs",
       "todo": "逐动作提取前置条件、需求评分、成功率和失败结算；null表示尚未提取，绝非无限制或零概率"
@@ -238,7 +238,7 @@ export default {
         "conditions": null,
         "score": null,
         "successFormula": null,
-        "interruption": "沿用立即执行／完成当前事务后执行与返程规则"
+        "interruption": "玩家出征／侦察提示后立即中止可解除事务；其它改任保留完成后执行；外出实际返程"
       },
       "source": "domestic.mjs",
       "todo": "逐动作提取前置条件、需求评分、成功率和失败结算；null表示尚未提取，绝非无限制或零概率"
@@ -252,7 +252,7 @@ export default {
         "conditions": null,
         "score": null,
         "successFormula": null,
-        "interruption": "沿用立即执行／完成当前事务后执行与返程规则"
+        "interruption": "玩家出征／侦察提示后立即中止可解除事务；其它改任保留完成后执行；外出实际返程"
       },
       "source": "domestic.mjs",
       "todo": "逐动作提取前置条件、需求评分、成功率和失败结算；null表示尚未提取，绝非无限制或零概率"
@@ -266,7 +266,7 @@ export default {
         "conditions": null,
         "score": null,
         "successFormula": null,
-        "interruption": "沿用立即执行／完成当前事务后执行与返程规则"
+        "interruption": "玩家出征／侦察提示后立即中止可解除事务；其它改任保留完成后执行；外出实际返程"
       },
       "source": "domestic.mjs",
       "todo": "逐动作提取前置条件、需求评分、成功率和失败结算；null表示尚未提取，绝非无限制或零概率"
@@ -280,7 +280,7 @@ export default {
         "conditions": null,
         "score": null,
         "successFormula": null,
-        "interruption": "沿用立即执行／完成当前事务后执行与返程规则"
+        "interruption": "玩家出征／侦察提示后立即中止可解除事务；其它改任保留完成后执行；外出实际返程"
       },
       "source": "domestic.mjs",
       "todo": "逐动作提取前置条件、需求评分、成功率和失败结算；null表示尚未提取，绝非无限制或零概率"
@@ -294,7 +294,7 @@ export default {
         "conditions": null,
         "score": null,
         "successFormula": null,
-        "interruption": "沿用立即执行／完成当前事务后执行与返程规则"
+        "interruption": "玩家出征／侦察提示后立即中止可解除事务；其它改任保留完成后执行；外出实际返程"
       },
       "source": "domestic.mjs",
       "todo": "逐动作提取前置条件、需求评分、成功率和失败结算；null表示尚未提取，绝非无限制或零概率"
@@ -308,7 +308,7 @@ export default {
         "conditions": null,
         "score": null,
         "successFormula": null,
-        "interruption": "沿用立即执行／完成当前事务后执行与返程规则"
+        "interruption": "玩家出征／侦察提示后立即中止可解除事务；其它改任保留完成后执行；外出实际返程"
       },
       "source": "domestic.mjs",
       "todo": "逐动作提取前置条件、需求评分、成功率和失败结算；null表示尚未提取，绝非无限制或零概率"
@@ -322,7 +322,7 @@ export default {
         "conditions": null,
         "score": null,
         "successFormula": null,
-        "interruption": "沿用立即执行／完成当前事务后执行与返程规则"
+        "interruption": "玩家出征／侦察提示后立即中止可解除事务；其它改任保留完成后执行；外出实际返程"
       },
       "source": "domestic.mjs",
       "todo": "逐动作提取前置条件、需求评分、成功率和失败结算；null表示尚未提取，绝非无限制或零概率"
@@ -336,7 +336,7 @@ export default {
         "conditions": null,
         "score": null,
         "successFormula": null,
-        "interruption": "沿用立即执行／完成当前事务后执行与返程规则"
+        "interruption": "玩家出征／侦察提示后立即中止可解除事务；其它改任保留完成后执行；外出实际返程"
       },
       "source": "domestic.mjs",
       "todo": "逐动作提取前置条件、需求评分、成功率和失败结算；null表示尚未提取，绝非无限制或零概率"
@@ -350,7 +350,7 @@ export default {
         "conditions": null,
         "score": null,
         "successFormula": null,
-        "interruption": "沿用立即执行／完成当前事务后执行与返程规则"
+        "interruption": "玩家出征／侦察提示后立即中止可解除事务；其它改任保留完成后执行；外出实际返程"
       },
       "source": "domestic.mjs",
       "todo": "逐动作提取前置条件、需求评分、成功率和失败结算；null表示尚未提取，绝非无限制或零概率"
@@ -364,7 +364,7 @@ export default {
         "conditions": null,
         "score": null,
         "successFormula": null,
-        "interruption": "沿用立即执行／完成当前事务后执行与返程规则"
+        "interruption": "玩家出征／侦察提示后立即中止可解除事务；其它改任保留完成后执行；外出实际返程"
       },
       "source": "domestic.mjs",
       "todo": "逐动作提取前置条件、需求评分、成功率和失败结算；null表示尚未提取，绝非无限制或零概率"
@@ -378,7 +378,7 @@ export default {
         "conditions": null,
         "score": null,
         "successFormula": null,
-        "interruption": "沿用立即执行／完成当前事务后执行与返程规则"
+        "interruption": "玩家出征／侦察提示后立即中止可解除事务；其它改任保留完成后执行；外出实际返程"
       },
       "source": "domestic.mjs",
       "todo": "逐动作提取前置条件、需求评分、成功率和失败结算；null表示尚未提取，绝非无限制或零概率"
@@ -392,7 +392,7 @@ export default {
         "conditions": null,
         "score": null,
         "successFormula": null,
-        "interruption": "沿用立即执行／完成当前事务后执行与返程规则"
+        "interruption": "玩家出征／侦察提示后立即中止可解除事务；其它改任保留完成后执行；外出实际返程"
       },
       "source": "domestic.mjs",
       "todo": "逐动作提取前置条件、需求评分、成功率和失败结算；null表示尚未提取，绝非无限制或零概率"
@@ -406,7 +406,7 @@ export default {
         "conditions": null,
         "score": null,
         "successFormula": null,
-        "interruption": "沿用立即执行／完成当前事务后执行与返程规则"
+        "interruption": "玩家出征／侦察提示后立即中止可解除事务；其它改任保留完成后执行；外出实际返程"
       },
       "source": "domestic.mjs",
       "todo": "逐动作提取前置条件、需求评分、成功率和失败结算；null表示尚未提取，绝非无限制或零概率"
@@ -420,7 +420,7 @@ export default {
         "conditions": null,
         "score": null,
         "successFormula": null,
-        "interruption": "沿用立即执行／完成当前事务后执行与返程规则"
+        "interruption": "玩家出征／侦察提示后立即中止可解除事务；其它改任保留完成后执行；外出实际返程"
       },
       "source": "domestic.mjs",
       "todo": "逐动作提取前置条件、需求评分、成功率和失败结算；null表示尚未提取，绝非无限制或零概率"
@@ -434,7 +434,7 @@ export default {
         "conditions": null,
         "score": null,
         "successFormula": null,
-        "interruption": "沿用立即执行／完成当前事务后执行与返程规则"
+        "interruption": "玩家出征／侦察提示后立即中止可解除事务；其它改任保留完成后执行；外出实际返程"
       },
       "source": "domestic.mjs",
       "todo": "逐动作提取前置条件、需求评分、成功率和失败结算；null表示尚未提取，绝非无限制或零概率"
@@ -448,7 +448,7 @@ export default {
         "conditions": null,
         "score": null,
         "successFormula": null,
-        "interruption": "沿用立即执行／完成当前事务后执行与返程规则"
+        "interruption": "玩家出征／侦察提示后立即中止可解除事务；其它改任保留完成后执行；外出实际返程"
       },
       "source": "domestic.mjs",
       "todo": "逐动作提取前置条件、需求评分、成功率和失败结算；null表示尚未提取，绝非无限制或零概率"
@@ -462,7 +462,7 @@ export default {
         "conditions": null,
         "score": null,
         "successFormula": null,
-        "interruption": "沿用立即执行／完成当前事务后执行与返程规则"
+        "interruption": "玩家出征／侦察提示后立即中止可解除事务；其它改任保留完成后执行；外出实际返程"
       },
       "source": "domestic.mjs",
       "todo": "逐动作提取前置条件、需求评分、成功率和失败结算；null表示尚未提取，绝非无限制或零概率"
@@ -476,7 +476,7 @@ export default {
         "conditions": null,
         "score": null,
         "successFormula": null,
-        "interruption": "沿用立即执行／完成当前事务后执行与返程规则"
+        "interruption": "玩家出征／侦察提示后立即中止可解除事务；其它改任保留完成后执行；外出实际返程"
       },
       "source": "domestic.mjs",
       "todo": "逐动作提取前置条件、需求评分、成功率和失败结算；null表示尚未提取，绝非无限制或零概率"
@@ -490,7 +490,7 @@ export default {
         "conditions": null,
         "score": null,
         "successFormula": null,
-        "interruption": "沿用立即执行／完成当前事务后执行与返程规则"
+        "interruption": "玩家出征／侦察提示后立即中止可解除事务；其它改任保留完成后执行；外出实际返程"
       },
       "source": "domestic.mjs",
       "todo": "逐动作提取前置条件、需求评分、成功率和失败结算；null表示尚未提取，绝非无限制或零概率"
@@ -504,7 +504,7 @@ export default {
         "conditions": null,
         "score": null,
         "successFormula": null,
-        "interruption": "沿用立即执行／完成当前事务后执行与返程规则"
+        "interruption": "玩家出征／侦察提示后立即中止可解除事务；其它改任保留完成后执行；外出实际返程"
       },
       "source": "domestic.mjs",
       "todo": "逐动作提取前置条件、需求评分、成功率和失败结算；null表示尚未提取，绝非无限制或零概率"
@@ -518,7 +518,7 @@ export default {
         "conditions": null,
         "score": null,
         "successFormula": null,
-        "interruption": "沿用立即执行／完成当前事务后执行与返程规则"
+        "interruption": "玩家出征／侦察提示后立即中止可解除事务；其它改任保留完成后执行；外出实际返程"
       },
       "source": "domestic.mjs",
       "todo": "逐动作提取前置条件、需求评分、成功率和失败结算；null表示尚未提取，绝非无限制或零概率"
@@ -532,7 +532,7 @@ export default {
         "conditions": null,
         "score": null,
         "successFormula": null,
-        "interruption": "沿用立即执行／完成当前事务后执行与返程规则"
+        "interruption": "玩家出征／侦察提示后立即中止可解除事务；其它改任保留完成后执行；外出实际返程"
       },
       "source": "domestic.mjs",
       "todo": "逐动作提取前置条件、需求评分、成功率和失败结算；null表示尚未提取，绝非无限制或零概率"
@@ -546,7 +546,7 @@ export default {
         "conditions": null,
         "score": null,
         "successFormula": null,
-        "interruption": "沿用立即执行／完成当前事务后执行与返程规则"
+        "interruption": "玩家出征／侦察提示后立即中止可解除事务；其它改任保留完成后执行；外出实际返程"
       },
       "source": "domestic.mjs",
       "todo": "逐动作提取前置条件、需求评分、成功率和失败结算；null表示尚未提取，绝非无限制或零概率"
@@ -560,7 +560,7 @@ export default {
         "conditions": null,
         "score": null,
         "successFormula": null,
-        "interruption": "沿用立即执行／完成当前事务后执行与返程规则"
+        "interruption": "玩家出征／侦察提示后立即中止可解除事务；其它改任保留完成后执行；外出实际返程"
       },
       "source": "domestic.mjs",
       "todo": "逐动作提取前置条件、需求评分、成功率和失败结算；null表示尚未提取，绝非无限制或零概率"

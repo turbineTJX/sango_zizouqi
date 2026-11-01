@@ -1,3 +1,4 @@
+import {equippedTreasureIds} from './treasure-equipment.mjs';
 import {combatType,combatFamily} from './troop-equipment.mjs';
 import {TROOP_DESIGNS} from './data/design/troops.mjs';
 import {hidden} from './battle-status-rules.mjs';
@@ -23,9 +24,13 @@ export function facingRow(dx,dy,side=0){
  return dx<0?(dy<0?0:1):(dy>0?2:3);
 }
 export class BattleArt {
+ async whenReady(report){
+  await this.modelReady;
+  if(!this.dead)await this.models?.whenReady(report);
+ }
  constructor(board,fx=null){
   this.board=board;this.fx=fx;this.canvas=document.createElement('canvas');this.canvas.className='art-sprites';this.canvas.setAttribute('aria-hidden','true');board.prepend(this.canvas);this.ctx=this.canvas.getContext('2d');
-  this.units=new Map();this.bodies=new Map();this.clock=0;this.last=0;this.paused=true;this.reduced=matchMedia('(prefers-reduced-motion: reduce)');
+  this.units=new Map();this.bodies=new Map();this.captionRises=new Map();this.clock=0;this.last=0;this.paused=true;this.reduced=matchMedia('(prefers-reduced-motion: reduce)');
   this.onAssetReady=()=>{this.invalidate();this.fx?.invalidate?.();};this.modelPack=art.pack;this.modelGeneration=0;
   this.resize=new ResizeObserver(()=>this.measure());this.resize.observe(board);this.measure();
   this.onVisibility=()=>{this.last=0;this.invalidate();};document.addEventListener?.('visibilitychange',this.onVisibility);this.invalidate();
@@ -57,7 +62,7 @@ export class BattleArt {
   }
   for(const u of live){
    const old=this.units.get(u.id),pos=hexCenter(u.x,u.y),moved=old&&(old.x!==u.x||old.y!==u.y);
-   const next={...old,id:u.id,type:combatType(u),baseType:u.type,side:u.side,x:u.x,y:u.y,pos,hp:u.hp,maxHp:u.maxHp};
+   const next={...old,id:u.id,type:combatType(u),baseType:u.type,treasureIds:[...equippedTreasureIds(u)],side:u.side,x:u.x,y:u.y,pos,hp:u.hp,maxHp:u.maxHp};
    if(moved){next.from=paused?undefined:this.position(old);next.moveAt=paused?undefined:this.clock;next.facing=facingRow(pos.x-old.pos.x,pos.y-old.pos.y,u.side);}
    const hit=localEvents.find(e=>e.from===u.id&&!e.ongoing&&e.damageKind!=='dot'&&!e.enchantment&&(e.skill||e.damage>0||e.shieldAbsorbed>0||e.skill===false&&!e.abilityKind));
    if(hit){next.attackAt=this.clock;next.target=hexCenter(hit.x,hit.y);next.facing=facingRow(next.target.x-pos.x,next.target.y-pos.y,u.side);}
@@ -69,7 +74,7 @@ export class BattleArt {
   if(this.board&&!this.models&&!this.modelLoading&&(Object.keys(art.pack.models||{}).length||this.snapshot.units.some(u=>unitModelKey(art.pack,u)))){
    this.modelLoading=true;
    const generation=this.modelGeneration;
-   import('./art-models.mjs').then(({ModelLayer})=>{if(!this.dead&&generation===this.modelGeneration){try{this.models=new ModelLayer(this.board,art.pack);this.models.onChange=()=>this.invalidate();this.models.update(this.snapshot);this.invalidate();}catch{this.board.dataset.modelStatus='fallback';}}}).catch(()=>{if(!this.dead&&generation===this.modelGeneration)this.board.dataset.modelStatus='fallback';});
+   this.modelReady=import('./art-models.mjs').then(({ModelLayer})=>{if(!this.dead&&generation===this.modelGeneration){try{this.models=new ModelLayer(this.board,art.pack);this.models.onChange=()=>this.invalidate();this.models.update(this.snapshot);this.invalidate();}catch{this.board.dataset.modelStatus='fallback';}}}).catch(()=>{if(!this.dead&&generation===this.modelGeneration)this.board.dataset.modelStatus='fallback';});
   }
   this.models?.update(this.snapshot);
   // Preload while deployed so the first cast never waits on an image request.
@@ -166,7 +171,15 @@ export class BattleArt {
    c.restore();
    c.restore();
   }
-  this.models?.draw(this.clock,{position:u=>this.position(u),actions,hits:this.fx?.feedback?.hits,statuses:id=>this.fx?.feedback?.statusesFor(id,this.fx.clock)||[],transition:id=>this.fx?.transitions?.forUnit(id,this.fx.clock),clock:this.fx?.clock});if(!this.paused)this.invalidate();
+  this.models?.draw(this.clock,{position:u=>this.position(u),actions,hits:this.fx?.feedback?.hits,statuses:id=>this.fx?.feedback?.statusesFor(id,this.fx.clock)||[],transition:id=>this.fx?.transitions?.forUnit(id,this.fx.clock),clock:this.fx?.clock});
+  let captionsChanged=false;
+  for(const [id,el]of elements){
+   const rise=this.models?.hasUnit(id)?this.models.captionRise(id):el.classList.contains('has-unit-art')?cell*.68:null;
+   if(this.captionRises.get(id)!==rise){this.captionRises.set(id,rise);captionsChanged=true;}
+  }
+  for(const id of this.captionRises.keys())if(!elements.has(id)){this.captionRises.delete(id);captionsChanged=true;}
+  if(captionsChanged)this.onCaptionChange?.();
+  if(!this.paused)this.invalidate();
  }
  destroy(){this.dead=true;art.releaseImageListener(this.onAssetReady);document.removeEventListener?.('visibilitychange',this.onVisibility);cancelAnimationFrame(this.frame);this.resize.disconnect();this.models?.destroy();this.canvas.remove();}
 }

@@ -1,9 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {newCampaign,beginExecution,advanceCampaignDay,serializeCampaign,validateCampaign} from './helpers/auto-domestic-campaign.mjs';
+import {newCampaign,beginExecution,advanceCampaignDay,serializeCampaign,validateCampaign,disbandCityUnits} from './helpers/auto-domestic-campaign.mjs';
 import {ACTIONS,assignDomestic,assignmentFor,actionCandidates,actionChance} from '../domestic.mjs';
-import {talentCandidates,refreshTalentProjects} from '../talent-lifecycle.mjs';
-import {talentKey,factionLord,isLord,persuasionEligibility,talentEligibility} from '../talent-core.mjs';
+import {talentCandidates,refreshTalentProjects,startTalentProject,resolveTalentOffers} from '../talent-lifecycle.mjs';
+import {talentKey,factionLord,isLord,persuasionEligibility,talentEligibility,projectNeed,servingPeople} from '../talent-core.mjs';
+import {cancelDomestic} from '../domestic.mjs';
 import {cityVisible,updateVision,intelligenceWorld} from '../strategic-vision.mjs';
 import {setRelationshipType} from '../relationships.mjs';
 import {peacefulCities} from './helpers/field-campaign.mjs';
@@ -59,4 +60,25 @@ test('an actual paid persuasion journey rejects a loyal target, saves its respon
  assert.equal(talentCandidates(s,home,'persuade').some(p=>p.id===target.unit.id),false);
  const knowledge=structuredClone(project);s.campaign.domestic.loyalty[target.unit.id]=1;refreshTalentProjects(s);
  assert.equal(project.progress,knowledge.progress);assert.equal(project.spent,knowledge.spent);assert.equal(project.attempts,knowledge.attempts);assert.equal(project.nextAttemptDay,knowledge.nextAttemptDay);
+});
+
+test('the original faction learns a persuaded officer changed sides only when the real offer signs',()=>{
+ const f=fixture(),{s,home,rival}=f;observe(f);
+ const resident=servingPeople(s).get('gao');assert.equal(disbandCityUnits(s,resident.location,['gao'],{scheduled:true,faction:rival}),null);
+ const target=s.campaign.idle.find(o=>o.unit.id==='gao');target.location=f.city.id;s.campaign.domestic.loyalty[target.unit.id]=65;
+ assert.equal(setRelationshipType(s,target.unit.id,'cao','sworn',100),null);
+ const actor=s.campaign.idle.find(o=>o.faction==='cao'&&o.location===home.id);
+ assert.equal(setRelationshipType(s,target.unit.id,factionLord(s,rival),'disliked',0),null);
+ assert.equal(setRelationshipType(s,target.unit.id,actor.unit.id,'sworn',100),null);
+ const work={officerId:actor.unit.id,action:{key:'persuade',targetId:target.unit.id,cost:ACTIONS.persuade.cost}};
+ startTalentProject(s,work,home);const p=s.campaign.talent.projects[talentKey(target.unit.id,'cao')];
+ assert.equal(servingPeople(s).get(target.unit.id).faction,rival);
+ assert.ok(!s.campaign.talent.reports.some(n=>n.personId===target.unit.id&&n.faction===rival&&n.code==='changed-side'));
+ // A completed, eligible offer is an explicit mechanism input; ownership still
+ // changes only through the common signing and real personnel-journey path.
+ p.progress=projectNeed(target.unit.id,'persuade');assert.equal(talentEligibility(s,target.unit.id,'cao',home.id,'persuade').ok,true,JSON.stringify(talentEligibility(s,target.unit.id,'cao',home.id,'persuade')));resolveTalentOffers(s,cancelDomestic);
+ assert.equal(servingPeople(s).get(target.unit.id).faction,'cao');
+ const notices=s.campaign.talent.reports.filter(n=>n.personId===target.unit.id&&n.faction===rival&&n.code==='changed-side');
+ assert.equal(notices.length,1);assert.equal(notices[0].day,s.campaign.day);
+ assert.doesNotMatch(notices[0].text,/预计|将于|倒计时/);
 });

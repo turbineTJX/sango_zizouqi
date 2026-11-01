@@ -19,10 +19,10 @@ export const ATLAS_SCENARIO_ANCHORS = {
  'atlas-baling':32,'atlas-linchuan':27,'atlas-leling':4,'atlas-donglai':8,'atlas-lishi':6,
  'atlas-changzi':6,'atlas-jingxing':7,
 };
-const historicalNote='人物与势力关系参考项目人物库，领地按年代作玩法适配；未登场及已去世人物不进入开局。';
+const historicalNote='人物归属及登场年取自参考项目英雄集结，领地与势力关系按年代适配；未登场者到年再登场，已去世者不进入开局。';
 export const NATIONAL_SCENARIO_DESIGNS = [
- {id:'guandu-200',name:'官渡风云',year:200,era:'建安五年',kind:'historical',difficulty:'推荐入门',capital:'xuchang',description:'曹操立足许昌，袁绍雄踞河北。先守住黄河沿线，再向江东、荆襄与巴蜀推进。',hint:'曹操开局拥有多座城池与充足人才；先委任内政，再从许昌编军北上。',factions:['cao','yuan','force-7','sunce'],note:'四势力试玩：曹操、袁绍、刘表、孙策。其他地区为地方据点；归属与兵力为玩法改编。',layout:'legacy-guandu'},
- {id:'heroes-251',name:'英雄集结',year:251,era:'群英并起',kind:'fictional',difficulty:'群雄混战',capital:'xuchang',description:'曹操居中原，袁绍据河北，刘备领巴蜀荆襄，孙策控江东。四方群英同世，争夺关津与天下。',hint:'四方均有腹地与前线，先守住关隘和粮道，再集中军团突破。',factions:['cao','yuan','force-2','sunce'],note:'四势力架空试玩；参考项目人物按区域归并，不限制生卒年。',layout:'legacy-heroes'},
+ {id:'guandu-200',name:'官渡风云',year:200,era:'建安五年',kind:'historical',difficulty:'推荐入门',capital:'xuchang',description:'曹操立足许昌，袁绍雄踞河北。先守住黄河沿线，再向江东、荆襄与巴蜀推进。',hint:'曹操开局拥有多座城池与充足人才；先委任内政，再从许昌编军北上。',factions:['cao','yuan','force-7','sunce'],note:'四势力试玩：曹操、袁绍、刘表、孙策。人物身份与登场年参考来源，部分人事按官渡年代调整；其他地区为地方据点。',layout:'legacy-guandu',rosterDistribution:'reference'},
+ {id:'heroes-251',name:'英雄集结',year:251,era:'群英并起',kind:'fictional',difficulty:'群雄混战',capital:'xuchang',description:'曹操居中原，袁绍据河北，刘备领巴蜀荆襄，孙策控江东。四方群英同世，争夺关津与天下。',hint:'四方均有腹地与前线，先守住关隘和粮道，再集中军团突破。',factions:['cao','yuan','force-2','sunce'],note:'四势力架空试玩；来源在职人物按区域归并，在野保持在野，不限制生卒年。',layout:'legacy-heroes',rosterDistribution:'reference'},
  {id:'coalition-190',name:'群雄讨董',year:190,era:'初平元年',kind:'historical',difficulty:'诸侯并起',capital:'chenliu',layout:'historical',rosterDistribution:'reference',description:'董卓据守关中与洛阳，关东诸侯各有城池。曹操、袁绍、孙坚与刘备从各自领地起兵。',hint:'小势力先稳住本城、招揽人才；关中势力依托关隘守备。',note:historicalNote,
   capitals:{'force-4':'town-22','force-5':'town-40','force-7':'town-30'},officerPlacements:[{sourceId:390,faction:'force-17',cityId:'town-8'},{sourceId:447,faction:'cao',cityId:'chenliu'}],
   cityGroups:{cao:[13],yuan:[4],'force-6':[16,18,19,20],'force-2':[5],'force-3':[32],'force-4':[21,22],'force-5':[36,37,38,39,40,41,42],'force-7':[28,29,30,31,33,34,35],'force-9':[17],'force-12':[2],'force-13':[1],'force-14':[3],'force-15':[7],'force-17':[8],'force-18':[12],'force-19':[9,10],'force-20':[15]},
@@ -43,12 +43,14 @@ export const NATIONAL_SCENARIO_DESIGNS = [
 ];
 export const NATIONAL_SCENARIO_SOURCES = [
  ['人物与势力分布','Build/Content/Scenario/Scenario.json'],
+ ['人物登场年复核','Data/Export/Scenario/剧本配置.xlsx · personSet.yearAvailable（对应运行数据 appearance）'],
  ['讨董、兖州与南征背景','https://www.quanxue.cn/ls_zhengshi/sanguozhi/sanguozhi01.html'],
  ['刘备与汉中背景','https://www.quanxue.cn/ls_zhengshi/sanguozhi/sanguozhi32.html'],
  ['孙权与江东背景','https://www.quanxue.cn/ls_zhengshi/sanguozhi/sanguozhi47.html'],
 ];
 // Gameplay chronology; legendary weapons follow the documented literary setup.
 export const TREASURE_INITIAL_HOLDERS={
+ sevenStarBlade:{190:'person-26',fictional:'person-26'},twinIronHalberds:{all:'person-472'},ironSerpent:{all:'person-467'},threePointBlade:{all:'person-147'},liGuangBow:{all:'person-186'},luBuBow:{early:'person-661',fictional:'person-661'},whiteFeatherFan:{late:'person-290',fictional:'person-290',absentBefore:207},whiteDragon:{all:'person-396'},fourWheels:{late:'person-290',fictional:'person-290',absentBefore:207},twentyFour:{late:'person-290',fictional:'person-290',absentBefore:207},westernShuMap:{all:'person-421'},southernMap:{all:'person-654'},bronzeBird:{late:'cao',fictional:'cao',absentBefore:210},
  skyHalberd:{early:'person-661',fictional:'person-661'},
  greenDragon:{all:'person-99'},serpentSpear:{all:'person-433'},
  blueSteel:{190:'cao',194:'cao',200:'cao',208:'cao',219:'person-396',fictional:'person-396'},

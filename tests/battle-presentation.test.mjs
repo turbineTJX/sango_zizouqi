@@ -27,6 +27,14 @@ test('dense identity flags stay local even when avoiding every overlap is imposs
  assert.deepEqual(placeBattleCaptions(entries,700,360),placed);
 });
 
+test('compact bars sit just above the model top and stay within the map at its edge',()=>{
+ const entries=[{id:'a',x:120,y:140,headY:80,width:41,height:14},{id:'b',x:310,y:230,headY:158,width:36,height:12}];
+ const placed=placeBattleCaptions(entries,700,360);
+ for(const e of entries){const p=placed.get(e.id);assert.equal(p.y+e.height,e.headY-2);assert.equal(p.x+e.width/2,e.x);}
+ const edge=placeBattleCaptions([{id:'edge',x:18,y:8,headY:-12,width:36,height:12}],700,360).get('edge');
+ assert.ok(edge.x>=2&&edge.y>=2&&edge.x+36<=698&&edge.y+12<=358);
+});
+
 test('mobile flags remain associated with actual soldier centers after resizing and crowding',()=>{
  const entries=Array.from({length:12},(_,i)=>({id:'mobile-'+i,x:70+i%4*32,y:60+Math.floor(i/4)*28,width:54,height:28}));
  const stale=new Map(entries.map(e=>[e.id,{x:e.x+90,y:e.y+120}]));

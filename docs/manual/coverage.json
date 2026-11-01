@@ -1,9 +1,9 @@
 {
-  "date": "2026-10-29",
-  "workflows": 106,
+  "date": "2026-10-31",
+  "workflows": 111,
   "chapters": 14,
-  "screenshots": 137,
-  "referenceHash": "f22b1842ddb6ee6c2c1053c97746e408467687b9604333cbe98321007cf704fa",
+  "screenshots": 198,
+  "referenceHash": "ba8a9af1295e8f39ef75aaa131057f83b334e5db851361b5367461244b1f2c9b",
   "items": [
     {
       "id": "action-85",
@@ -60,10 +60,48 @@
       ]
     },
     {
+      "id": "action-111",
+      "name": "编辑武将",
+      "screenshots": [
+        "officer-editor",
+        "officer-editor-custom",
+        "officer-editor-landscape"
+      ]
+    },
+    {
+      "id": "action-110",
+      "name": "编辑宝物配置",
+      "screenshots": [
+        "treasure-editor",
+        "treasure-editor-landscape"
+      ]
+    },
+    {
       "id": "action-91",
       "name": "管理地图包",
       "screenshots": [
         "map-library"
+      ]
+    },
+    {
+      "id": "action-108",
+      "name": "编辑普通剧本",
+      "screenshots": [
+        "scenario-editor-overview",
+        "scenario-city-development",
+        "scenario-person-appointment",
+        "scenario-person-schedule",
+        "scenario-custom-force",
+        "scenario-initial-diplomacy",
+        "scenario-landscape-schedule"
+      ]
+    },
+    {
+      "id": "action-109",
+      "name": "交换与管理剧本",
+      "screenshots": [
+        "scenario-editor-overview",
+        "scenario-editor-factions"
       ]
     },
     {
@@ -78,7 +116,8 @@
       "name": "打开城市命令",
       "screenshots": [
         "map",
-        "city-menu"
+        "city-menu",
+        "city-detail"
       ]
     },
     {
@@ -92,6 +131,9 @@
       "id": "action-3",
       "name": "查找军团或战线",
       "screenshots": [
+        "army-card",
+        "army-detail",
+        "army-units",
         "army-menu",
         "battle-history"
       ]
@@ -101,8 +143,14 @@
       "name": "查阅人物与部队",
       "screenshots": [
         "personnel",
+        "personnel-abilities",
+        "personnel-aptitudes",
+        "personnel-bonds",
+        "personnel-tactics",
+        "personnel-stratagems",
         "officer",
-        "battle-unit"
+        "battle-unit",
+        "battle-officer-aptitudes"
       ]
     },
     {
@@ -119,7 +167,8 @@
       "name": "查看城内与建筑",
       "screenshots": [
         "city-interior",
-        "building-detail"
+        "building-detail",
+        "node-panel"
       ]
     },
     {
@@ -135,6 +184,7 @@
       "name": "委任内政负责人",
       "screenshots": [
         "domestic",
+        "domestic-landscape",
         "direction",
         "appointment",
         "appointment-selected"
@@ -161,15 +211,17 @@
       "id": "action-11",
       "name": "任命或更换太守",
       "screenshots": [
-        "city-menu",
-        "governor"
+        "governor-entry",
+        "governor",
+        "governor-assigned"
       ]
     },
     {
       "id": "action-12",
       "name": "解除太守",
       "screenshots": [
-        "governor-assigned"
+        "governor-assigned",
+        "governor-removed"
       ]
     },
     {
@@ -211,9 +263,10 @@
     },
     {
       "id": "action-18",
-      "name": "设置后续自动同意",
+      "name": "委托太守审批",
       "screenshots": [
-        "proposals-policy"
+        "governor-delegation",
+        "governor-delegated"
       ]
     },
     {
@@ -229,9 +282,11 @@
       "id": "action-20",
       "name": "安排人才工作",
       "screenshots": [
-        "domestic",
-        "direction",
-        "talent"
+        "loyalty-warning",
+        "loyalty-talent",
+        "loyalty-appointment",
+        "loyalty-assigned",
+        "loyalty-roster"
       ]
     },
     {
@@ -239,9 +294,12 @@
       "name": "派遣侦察",
       "screenshots": [
         "scout-source",
+        "scout-cities",
+        "scout-officers",
         "scout-route",
         "scout-running",
-        "scout-landscape"
+        "scout-landscape",
+        "player-handoff"
       ]
     },
     {
@@ -272,6 +330,7 @@
       "screenshots": [
         "troop-list",
         "troop-officer",
+        "troop-officer-landscape",
         "troop-edit",
         "troop-configured",
         "troop-review"
@@ -413,9 +472,9 @@
       "id": "action-41",
       "name": "纯人员调任",
       "screenshots": [
-        "transfer-person",
-        "transfer-empty",
-        "transport-review"
+        "light-transfer-person",
+        "light-transfer-target",
+        "transfer-empty-review"
       ]
     },
     {
@@ -425,6 +484,9 @@
         "transfer-person",
         "transport",
         "transport-review",
+        "transport-running",
+        "transport-detail",
+        "transport-detail-landscape",
         "transport-landscape"
       ]
     },
@@ -491,6 +553,8 @@
       "id": "action-51",
       "name": "委任使臣",
       "screenshots": [
+        "diplomacy-cities",
+        "diplomacy-officers",
         "diplomacy-appoint"
       ]
     },
@@ -555,22 +619,24 @@
       "name": "授予宝物",
       "screenshots": [
         "treasures",
+        "treasure-recipients",
         "treasure-grant",
         "treasure-equipped"
       ]
     },
     {
       "id": "action-60",
-      "name": "装备／卸下",
+      "name": "收回国库",
       "screenshots": [
-        "treasure-equipped"
+        "treasure-equipped",
+        "treasure-returned"
       ]
     },
     {
       "id": "action-61",
-      "name": "收回城库",
+      "name": "查看三类装备",
       "screenshots": [
-        "treasure-equipped"
+        "treasure-slots"
       ]
     },
     {
@@ -628,6 +694,7 @@
       "id": "action-68",
       "name": "排列出阵顺序",
       "screenshots": [
+        "battlefield",
         "council"
       ]
     },
@@ -643,7 +710,7 @@
       "id": "action-70",
       "name": "设置后备入场位置",
       "screenshots": [
-        "council",
+        "battlefield",
         "reserve-position"
       ]
     },
@@ -688,7 +755,22 @@
       "name": "查看战场与部队",
       "screenshots": [
         "battlefield",
-        "battle-unit"
+        "battle-unit",
+        "battle-buffs",
+        "battle-buffs-landscape"
+      ]
+    },
+    {
+      "id": "action-107",
+      "name": "查看战场指引",
+      "screenshots": [
+        "battle-help-first",
+        "battle-help-first-landscape",
+        "battle-help-first-combat",
+        "battle-help-basics",
+        "battle-help-controls",
+        "battle-help-tactics",
+        "battle-help-statuses"
       ]
     },
     {
@@ -736,8 +818,9 @@
       "id": "action-82",
       "name": "查看或接管其他战线",
       "screenshots": [
-        "battle-history",
-        "encounter-control"
+        "battle-navigation",
+        "battle-navigation-confirm",
+        "battle-navigation-loading"
       ]
     },
     {
@@ -757,7 +840,7 @@
     },
     {
       "id": "action-93",
-      "name": "执行本旬",
+      "name": "进行",
       "screenshots": [
         "map",
         "harvest"
@@ -789,6 +872,7 @@
       "id": "action-97",
       "name": "查看战史与回放",
       "screenshots": [
+        "battle-replay",
         "battle-history",
         "battle-report"
       ]
@@ -850,7 +934,9 @@
       "id": "action-105",
       "name": "查阅指引",
       "screenshots": [
-        "guide"
+        "guide",
+        "desktop-manual-settings",
+        "desktop-manual-catalogue"
       ]
     },
     {

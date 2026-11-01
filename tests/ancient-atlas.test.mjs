@@ -8,7 +8,10 @@ import {ROAD_DISTANCE_DESIGNS} from '../data/design/road-distances.mjs';
 import {newCampaign,validateCampaign,serializeCampaign} from './helpers/auto-domestic-campaign.mjs';
 import {nationalArtMap,nationalTerrain} from '../national-map-view.mjs';
 import {roadDistance} from '../strategic-movement.mjs';
-import {edgeKey} from '../road-network.mjs';
+import {edgeKey,buildRoadNetwork} from '../road-network.mjs';
+import {NATIONAL_ROAD_DESIGNS} from '../data/design/roads.mjs';
+import {crossingRoadSection} from '../road-crossings.mjs';
+import {UNPLACED_ROAD_LINKS} from '../data/design/road-link-policy.mjs';
 import {RIVERS,LAKES,LAND_PATH,polyline} from '../national-geography.mjs';
 
 test('the supplied atlas projects all places and junctions without stretching the scan',()=>{
@@ -24,9 +27,11 @@ test('the supplied atlas projects all places and junctions without stretching th
 });
 test('atlas reprojection preserves every authored travel length and supports current deterministic saves',()=>{
  for(const scenario of ['guandu-200','heroes-251']){
-  const s=newCampaign(217,scenario);assert.equal(s.cities.length,76);assert.equal(s.junctions.length,77);assert.equal(s.roads.length,249);
-  assert.equal(Object.keys(ROAD_DISTANCE_DESIGNS).length,s.roads.length);
-  for(const [a,b] of s.roads)assert.equal(roadDistance(s,a,b),ROAD_DISTANCE_DESIGNS[edgeKey(a,b)]);
+  const s=newCampaign(217,scenario);assert.equal(s.cities.length,76);assert.equal(s.junctions.length,77);assert.equal(s.roads.length,223);
+  const base=buildRoadNetwork(CITY_DESIGNS,NATIONAL_ROAD_DESIGNS,{includeCrossings:false});
+  assert.equal(Object.keys(ROAD_DISTANCE_DESIGNS).length,base.roads.length);
+  for(const [a,b] of s.roads){const section=crossingRoadSection(a,b),reconnected=ROAD_NETWORK_DESIGN.historical.reconnect.find(r=>edgeKey(r.from,r.to)===edgeKey(a,b)),expected=reconnected?.distance??(section?ROAD_DISTANCE_DESIGNS[edgeKey(...section.source)]*(section.end-section.start):ROAD_DISTANCE_DESIGNS[edgeKey(a,b)]);assert.ok(Math.abs(roadDistance(s,a,b)-expected)<1e-8);}
+  for(const edge of UNPLACED_ROAD_LINKS)assert.ok(!s.roads.some(e=>edgeKey(...e)===edgeKey(...edge)));
   const saved=serializeCampaign(s);assert.equal(serializeCampaign(validateCampaign(JSON.parse(saved))),saved);
   s.campaign.version=28;assert.throws(()=>validateCampaign(s),/重新开始/);
  }

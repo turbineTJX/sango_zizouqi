@@ -8,8 +8,9 @@ import {compatibilityInfo} from './domestic-cooperation.mjs';
 import {diplomaticFeeReserve,diplomaticAssetReserve} from './diplomacy-relations.mjs';
 import {cityPayroll} from './officer-salaries.mjs';
 import {cityVisible,observedArmies,visionSources} from './strategic-vision.mjs';
+import {TALENT_LOYALTY_RULES as LOYALTY} from './data/design/talent-loyalty.mjs';
 
-export const TALENT_RULES=Object.freeze({version:2,standardSoldiers:6000,adultAge:16,seekDays:180,graceDays:90});
+export const TALENT_RULES=Object.freeze({version:3,standardSoldiers:6000,adultAge:16,seekDays:180,graceDays:90});
 export const clamp=(n,min,max)=>Math.max(min,Math.min(max,n));
 export const talentTurn=s=>Math.floor((s.campaign.day-1)/10);
 export const talentKey=(id,faction)=>`${id}:${faction}`;
@@ -35,6 +36,7 @@ export function servingPeople(s){
 }
 const lordIds=new Map();
 export function factionLord(s,faction){
+ if(FACTIONS[faction]?.leaderId)return FACTIONS[faction].leaderId;
  if(lordIds.has(faction))return lordIds.get(faction);
  const source=FACTIONS[faction]?.leaderSourceId;
  const id=Object.values(OFFICER_BY_ID).find(u=>u.sourceKind==='common'&&u.sourceId===source)?.id||({cao:'cao',yuan:'shao'}[faction])||null;lordIds.set(faction,id);return id;
@@ -94,8 +96,13 @@ export function willingness(s,id,faction,context=talentContext(s)){
 }
 export const projectNeed=(id,mode='hire')=>Math.round(80+2*Math.max(talentQuality(OFFICER_BY_ID[id])-70,0))+(mode==='persuade'?40:0);
 export const progressFor=factor=>factor>1?20:factor===1?12:factor>0?6:0;
-export function reassuranceCap(s,id){const idle=s.campaign.talent.records[id]?.idleTurns||0;return idle>=18?55:idle>=9?75:100;}
-export const TALENT_REASONS=Object.freeze({ready:'愿意洽谈',unknown:'尚无有效位置情报',range:'不在可通行接洽范围',waiting:'暂不求仕',hardWait:'战后／辞官整理期',rejoin:'暂不接受原势力邀请',cooldown:'接洽冷却',unwilling:'观望／拒绝考虑',loyal:'忠诚稳定，不接受劝说',difference:'改仕意愿不足',invalid:'人物身份或归属已改变',lord:'在位君主不可劝说',full:'进度已满，等待签约复核',limit:'并行接洽名额已占用'});
+export function reassuranceCap(){return LOYALTY.maximum;}
+export const loyaltyWarningThreshold=(s,id,faction)=>righteousness(id)>=LOYALTY.steadfastRighteousness||relation(s,id,factionLord(s,faction))>=LOYALTY.steadfastRelation?LOYALTY.steadfastThreshold:LOYALTY.warningThreshold;
+export function loyaltyResignationChance(s,id,faction){
+ const loyalty=s.campaign.domestic.loyalty[id]??85,threshold=loyaltyWarningThreshold(s,id,faction);
+ return loyalty>=threshold?0:Math.max(LOYALTY.minimumDailyResignationChance,LOYALTY.maximumDailyResignationChance*((threshold-loyalty)/threshold)**LOYALTY.severityExponent);
+}
+export const TALENT_REASONS=Object.freeze({ready:'愿意洽谈',unknown:'尚无有效位置情报',range:'不在可通行接洽范围',waiting:'暂不求仕',hardWait:'战后／辞官整理期',rejoin:'暂不接受原势力邀请',cooldown:'接洽冷却',unwilling:'暂不愿接受招揽',loyal:'忠诚稳定，不接受劝说',difference:'改仕意愿不足',invalid:'人物身份或归属已改变',lord:'在位君主不可劝说',full:'进度已满，等待签约复核',limit:'并行接洽名额已占用'});
 // A decision is an invitation based on visible people and the inviting faction's
 // own roster. Private loyalty and the rival's staffing never enter this preview.
 export function persuasionEligibility(s,id,faction,cityId,context=talentContext(s,faction)){

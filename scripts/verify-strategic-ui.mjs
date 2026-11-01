@@ -1,3 +1,4 @@
+import {runCampaignDay,playBattleTicks} from './time-control-ui-helpers.mjs';
 import {newCampaign,serializeCampaign} from '../strategic-campaign.mjs';
 import {createRequire} from 'node:module';
 import {mkdir,writeFile} from 'node:fs/promises';
@@ -11,7 +12,7 @@ const base=process.env.GAME_URL||'http://127.0.0.1:4173',output='outputs/strateg
 const action=name=>page.locator(`[data-action="${name}"]`);
 const saved=()=>page.evaluate(async ()=>JSON.parse(await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2')));
 async function pauseMap(){if(await action('campaign-run').count()&&await action('campaign-run').innerText()==='暂停世界')await action('campaign-run').click();}
-async function day(){await action('campaign-day').click();}
+async function day(){await runCampaignDay(page);}
 try{
  await context.addInitScript(raw=>{if(!localStorage.getItem('sango-sovereign-v2'))localStorage.setItem('sango-sovereign-v2',raw);},serializeCampaign(newCampaign(521200)));
   await page.goto(base+'/#strategy');await page.locator('.strategy-clock').waitFor();
@@ -49,7 +50,7 @@ try{
   await action('lobby').click();await page.locator('.campaign-lobby').waitFor();await action('campaign-lobby').click();await action('launch-history').click();await page.locator('#battle-board').waitFor();
   assert.equal(await page.locator('#campaign-battle-bar').count(),0);assert.equal(await page.locator('#battle-terrain').isDisabled(),true);
   await action('pause').click();await action('pause').click();await page.locator('[data-panel="tools"]').click();
-  await page.locator('[data-action="step-scenario"][data-steps="10"]').click();assert.equal(await page.evaluate(async ()=>JSON.parse(await (await import('/save-storage.mjs')).readSavedGame('sango-historical-battle-v1')).battle.tick),10);
+  assert.equal(await page.locator('[data-action="step-scenario"]').count(),0);await playBattleTicks(page,'sango-historical-battle-v1');assert.ok(await page.evaluate(async ()=>JSON.parse(await (await import('/save-storage.mjs')).readSavedGame('sango-historical-battle-v1')).battle.tick)>=10);
   assert.deepEqual(errors,[]);await writeFile(output+'/result.json',JSON.stringify({passed:true,errors,strategicDay:(await saved()).campaign.day},null,2));
   console.log('Strategic UI: planning, domestic actions, encounter, delegate, takeover, reload, turn boundary, return, snapshot, mobile, historical mode passed.');
 }catch(error){await page.screenshot({path:output+'/failure.png',fullPage:true});console.error('Page errors:',errors);throw error;}finally{await browser.close();}

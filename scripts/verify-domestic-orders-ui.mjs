@@ -1,3 +1,4 @@
+import {runCampaignDay} from './time-control-ui-helpers.mjs';
 import {chooseCommandTarget} from './map-target-ui-helpers.mjs';
 import {createRequire} from 'node:module';
 import {mkdir,writeFile} from 'node:fs/promises';
@@ -17,7 +18,7 @@ try{
  await page.screenshot({path:out+'/interruption-desktop.png',animations:'disabled'});
  await page.locator('[data-action="campaign-order-choice"][data-choice="after"]').click();assert.equal((await saved()).campaign.domestic.orders.length,1);assert.equal((await saved()).campaign.domestic.assignments.find(a=>a.officerId===id).direction,'technology');
  await page.reload();await page.locator('.pending-orders').waitFor();await page.screenshot({path:out+'/queued-after-reload.png',animations:'disabled'});
- for(let i=0;i<60&&(await saved()).campaign.domestic.orders.length;i++){if((await saved()).campaign.phase==='planning')await execute();else await action('campaign-day').click();}
+ for(let i=0;i<60&&(await saved()).campaign.domestic.orders.length;i++){if((await saved()).campaign.phase==='planning')await execute();else await runCampaignDay(page);}
  let state=await saved();assert.equal(state.campaign.domestic.orders.length,0);assert.equal(state.campaign.domestic.assignments.find(a=>a.officerId===id).direction,'commerce');assert.equal(state.campaign.domestic.workHistory[id][0].status,'completed');
  await action('campaign-personnel').first().click();await page.locator(`[data-action="campaign-person-detail"][data-officer="${id}"]`).click();await page.locator('.officer-work details').evaluate(el=>el.open=true);assert.match(await page.locator('.officer-work').innerText(),/工坊/);await page.screenshot({path:out+'/personal-work-history.png',animations:'disabled'});
  const next=await open();await page.locator('[data-action="campaign-tab"][data-tab="army"]').click();await action('campaign-order').click();await chooseCommandTarget(page,'chenliu');await action('campaign-command-next').click();await action('campaign-pick-confirm').click();assert.match(await page.locator('.modal-body').innerText(),/全军等/);

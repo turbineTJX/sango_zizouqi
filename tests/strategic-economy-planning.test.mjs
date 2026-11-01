@@ -70,7 +70,7 @@ test('losing an old consolidation target cannot recall officers already fighting
  const army=s.armies.find(a=>a.faction==='yuan'&&a.units.some(u=>current.officerIds.includes(u.id)));
  assert.ok(army);assert.ok(army.units.some(u=>old.officerIds.includes(u.id)));assert.equal(army.target,next.id);
  assert.ok(old.tasks.every(t=>!t.refs.includes('army:'+army.id)));
- target.owner='cao';target.domestic.owner='cao';s.campaign.day++;initializeVision(s);planStrategicAI(s);
+ target.owner='cao';target.domestic.owner='cao';s.campaign.day=101;s.turn=11;initializeVision(s);planStrategicAI(s);
  assert.equal(old.phase,'cancelled');assert.equal(current.phase,'attack');assert.equal(army.target,next.id);
  assert.ok(old.tasks.every(t=>!t.refs.includes('army:'+army.id)));
  assert.equal(s.campaign.ai.factions.yuan.stance,'attack');assert.equal(s.campaign.ai.factions.yuan.strategy.goal.planId,current.id);validateStrategicAI(s);

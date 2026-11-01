@@ -56,6 +56,14 @@
 @media(max-width:1050px){.custom-teams{grid-template-columns:1fr}}
 @media(max-width:600px){.custom-battle{padding:16px}.custom-unit{grid-template-columns:1fr 1fr}.custom-unit>.text-button{margin:0;justify-self:start}.custom-options label{width:100%}}
 .mode-selection{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:0 0 36px}
+.lobby-start{display:grid;grid-template-columns:minmax(0,1fr) minmax(220px,320px);gap:var(--ui-space-5);align-items:center;min-height:calc(100svh - 114px);padding-block:var(--ui-space-5)}
+#app .mode-lobby .lobby-hero{min-height:0;align-self:stretch;margin-bottom:0}
+.mode-lobby .lobby-hero-copy{width:100%}
+.mode-lobby .lobby-art{width:100%}
+#app .mode-selection.main-menu{grid-template-columns:minmax(0,1fr);gap:var(--ui-space-2);margin:0}
+#app .main-menu>.button{width:100%;min-height:var(--ui-touch-height)}
+@media(max-width:600px) and (orientation:portrait){.lobby-start{grid-template-columns:minmax(0,1fr);gap:var(--ui-space-4)}#app .mode-lobby .lobby-hero{min-height:180px}.mode-lobby .lobby-hero-copy{padding-block:var(--ui-space-3)}}
+@media(max-height:540px) and (orientation:landscape){.mode-lobby .lobby-nav{height:calc(var(--ui-touch-height) + var(--ui-space-1))}.lobby-start{min-height:calc(100svh - 72px);padding-block:var(--ui-space-1)}#app .mode-selection.main-menu{gap:var(--ui-space-1)}#app .main-menu>.button{padding-block:var(--ui-space-1)}}
 .mode-card{text-align:left;padding:30px;border:1px solid #cdb17c44;background:linear-gradient(135deg,#35463888,#1b272baa);color:#e8e6d9;cursor:pointer;transition:border-color .2s,transform .2s}
 .mode-card:hover{border-color:#d5b77e;transform:translateY(-3px)}
 .mode-card:focus-visible{outline:2px solid #d5b77e;outline-offset:5px}

@@ -15,6 +15,7 @@ import {BattleTextCache} from './battle-text-cache.mjs';
 import {presentationStyle} from './presentation-style.mjs';
 import {BattleBondEffects} from './battle-bond-effects.mjs';
 import {BattleTransitions} from './battle-transitions.mjs';
+import {battleHealth,battleHealthText} from './battle-health-view.mjs';
 // Presentation-only effects. All hits and casualties come from engine events.
 
 const COLORS = {
@@ -25,6 +26,7 @@ const COLORS = {
 const clamp = (n, min = 0, max = 1) => Math.max(min, Math.min(max, n));
 const ease = t => 1 - (1 - t) ** 3;
 const damageLabel = e => `${e.critical?'暴击 ':''}−${e.damage}`;
+const healthSnapshot=u=>({hp:u.hp,maxHp:u.maxHp,initial:u.initial??u.maxHp,type:u.type,battleDamage:u.battleDamage??(u.initial??u.maxHp)-u.hp,healed:u.healed||0,battleDeserted:u.battleDeserted||0});
 
 const majorTactics = new Set(Object.values(TACTICS_BOOK).filter(s=>s.threshold>=100).map(s=>s.name));
 export const isMajorCast = events => events.some(e=>!e.ongoing&&e.skill&&(majorTactics.has(e.label)||e.comboLevel>=2||e.combo?.level>=2));
@@ -81,12 +83,12 @@ export class BattleEffects {
       // Stepping through paused turns must not queue historical hits for playback.
       if (paused) { this.items = []; this.cinematics = [];this.actions=[]; }
       this.healthFrom=this.healthTo;
-      this.healthTo=new Map([...battle.sides.flatMap(s=>s.units),...(battle.siege?[battle.siege.gate]:[])].map(u=>[u.id,{hp:u.hp,maxHp:u.maxHp}]));
+      this.healthTo=new Map([...battle.sides.flatMap(s=>s.units),...(battle.siege?[battle.siege.gate]:[])].map(u=>[u.id,healthSnapshot(u)]));
       this.healthFrom ||= this.healthTo;
       this.impactHealth=new Map([...this.healthFrom].map(([id,u])=>[id,u.hp]));
       this.actions=this.actions.filter(a=>a.end>this.clock);
       this.batch = batch; this.consumed = 0;
-    }else this.healthTo=new Map([...battle.sides.flatMap(s=>s.units),...(battle.siege?[battle.siege.gate]:[])].map(u=>[u.id,{hp:u.hp,maxHp:u.maxHp}]));
+    }else this.healthTo=new Map([...battle.sides.flatMap(s=>s.units),...(battle.siege?[battle.siege.gate]:[])].map(u=>[u.id,healthSnapshot(u)]));
     this.unitActions=new Map(battle.sides.flatMap(s=>s.units).filter(u=>u.status==='active'&&(u.side===0||!hidden(battle,u))).map(u=>[u.id,observedUnitAction(battle,u)]));
     this.root=this.canvas.parentElement?.closest?.('.battle-layout');
     this.elements=[...(this.root?.querySelectorAll('.unit-nameplate,[data-unit]')||[])];
@@ -270,16 +272,19 @@ export class BattleEffects {
         if(tag.hidden===!!tag.textContent)tag.hidden=!tag.textContent;
       }
       const actual=this.healthTo?.get(id);if(!actual)continue;
-      let hp=actual.hp;
+      let shown=actual,hp=actual.hp;
       if(playing){
-        hp=this.healthFrom?.get(id)?.hp??actual.hp;
-        for(const action of this.actions)if(this.clock>=action.start+action.duration*.52)for(const e of action.events)if(e.to===id&&e.tick===this.tick){hp+=e.healing||0;hp-=e.damage||0;}
+        shown={...(this.healthFrom?.get(id)||actual)};hp=shown.hp;
+        for(const action of this.actions)if(this.clock>=action.start+action.duration*.52)for(const e of action.events)if(e.to===id&&e.tick===this.tick){hp+=e.healing||0;hp-=e.damage||0;shown.battleDamage+=e.damage||0;shown.healed+=e.healing||0;}
         hp=clamp(hp,0,actual.maxHp);
       }
-      const caption=el.querySelector?.('.unit-map-caption');presentationStyle(caption,'--troop-health',100*hp/Math.max(1,actual.maxHp)+'%');
+      const health=battleHealth({...shown,hp}),caption=el.querySelector?.('.unit-map-caption');
+      for(const bar of [caption,el.querySelector?.('.label-health')]){presentationStyle(bar,'--troop-health',health.currentPercent+'%');presentationStyle(bar,'--troop-recoverable',health.recoverablePercent+'%');}
+      const healthText=battleHealthText(health);
+      for(const bar of [el.querySelector?.('.map-health-bar'),el.querySelector?.('.label-health')])if(bar?.setAttribute)for(const [key,value]of [['aria-valuenow',health.current],['aria-valuemax',health.maximum],['aria-valuetext',healthText],['title',healthText]])if(bar.getAttribute(key)!==String(value))bar.setAttribute(key,String(value));
       const troops=el.querySelector?.('.map-troops');if(troops&&troops.textContent!==Math.round(hp).toString())troops.textContent=Math.round(hp).toString();
       const roster=el.querySelector?.('[data-roster-troops]');if(roster){const text=hp>=10000?(hp/10000).toFixed(1)+'万':Math.round(hp).toLocaleString('zh-CN');if(roster.textContent!==text)roster.textContent=text;}
-      const bar=el.querySelector?.('.label-health em');presentationStyle(bar,'width',100*hp/Math.max(1,actual.maxHp)+'%');
+      const bar=el.querySelector?.('.label-health em');presentationStyle(bar,'width',health.currentPercent+'%');
       if(el.dataset.unit&&actual.hp===0)el.classList.toggle('playback-fallen',!playing||hp<=0);
     }
   }

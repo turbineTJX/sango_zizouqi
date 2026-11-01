@@ -14,6 +14,7 @@ import {cityPayroll} from './officer-salaries.mjs';
 
 export const resourceValue=resources=>Object.entries(resources).reduce((n,[key,value])=>n+value*(ECONOMY_RULES.value[key]||0),0);
 export const economicWorkScale=ability=>ECONOMY_RULES.work.base+ability/ECONOMY_RULES.work.abilityDivisor;
+export const reserveWorkScale=ability=>ECONOMY_RULES.work.base+ability/ECONOMY_RULES.recruitment.workAbilityDivisor;
 export const resourceBuilding={gold:'commerce',grain:'farm',manpower:'barracks'};
 const economicTurn=s=>Math.floor((s.campaign.day-1)/10)+1;
 const rawCityBaseIncome=(s,c)=>Object.fromEntries(Object.entries(resourceBuilding).map(([key,field])=>{const p=ECONOMY_RULES.income[key];return [key,c.owner==='neutral'?0:(p.base+productiveBuildingLevel(s,c,field)*p[{gold:'perCommerce',grain:'perFarm',manpower:'perBarracks'}[key]])*(1+technologyIncomeBonus(c,key))];}));
@@ -38,7 +39,7 @@ export function cityIncomeBreakdown(s,c){
 export const cityRecurringIncome=(s,c)=>cityIncomeBreakdown(s,c).recurring;
 // Shared physical work throughput. Extra officers, cooperation and traits can
 // fill this allowance sooner, but cannot mint unlimited local resources.
-export function cityWorkLimit(s,c,key,multiplier=1){const p=ECONOMY_RULES.development;return Math.floor((p.workValueBase+productiveBuildingLevel(s,c,resourceBuilding[key])*p.workValuePerLevel)*(1+technologyIncomeBonus(c,key))/ECONOMY_RULES.value[key]*Math.max(1,Math.min(MAX_WORK_CAPACITY,multiplier)));}
+export function cityWorkLimit(s,c,key,multiplier=1){const p=ECONOMY_RULES.development;return Math.floor((p.workValueBase+productiveBuildingLevel(s,c,resourceBuilding[key])*p.workValuePerLevel)*(1+technologyIncomeBonus(c,key))/ECONOMY_RULES.value[key]*(key==='manpower'?ECONOMY_RULES.recruitment.workCapacityMultiplier:1)*Math.max(1,Math.min(MAX_WORK_CAPACITY,multiplier)));}
 export const cityWorkRemaining=(s,c,key,multiplier=1)=>Math.max(0,cityWorkLimit(s,c,key,multiplier)-(c.domestic.production.turn===economicTurn(s)?c.domestic.production[key]:0));
 export function creditCityWork(s,c,key,amount,multiplier=1){
  const actual=Math.max(0,Math.floor(Math.min(amount,cityWorkRemaining(s,c,key,multiplier))));

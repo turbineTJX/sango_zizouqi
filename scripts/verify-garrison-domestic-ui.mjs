@@ -21,7 +21,7 @@ try{
  await pick('domestic',armed,'commerce');await pick('governor',armed);
  let state=await saved();assert.equal(state.cities.find(c=>c.id===town).governor,armed);assert.ok(state.armies.some(a=>a.units.some(u=>u.id===armed)));assert.ok(state.campaign.domestic.assignments.some(a=>a.officerId===armed));
  await action('campaign-personnel').first().click();
- const row=page.locator(`[data-action="campaign-person-detail"][data-officer="${armed}"]`).locator('..').locator('..');assert.match(await row.innerText(),/驻军/);assert.match(await row.innerText(),/太守/);assert.match(await row.innerText(),/商业负责人/);
+ const row=page.locator(`[data-action="campaign-person-detail"][data-officer="${armed}"]`).locator('..').locator('..');assert.doesNotMatch(await row.innerText(),/驻城部队|驻军/);assert.match(await row.innerText(),/太守/);assert.match(await row.innerText(),/商业负责人/);
  await page.locator('[data-personnel-filter="status"]').selectOption({label:'内政'});assert.equal(await page.locator(`.modal [data-officer="${armed}"]`).count(),1);
  await page.screenshot({path:out+'/combined-duties.png',animations:'disabled'});await action('close').first().click();
  await pick('governor',idle);await pick('domestic',idle,'agriculture');

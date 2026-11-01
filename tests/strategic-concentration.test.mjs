@@ -2,13 +2,13 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {concentratedFront} from './helpers/strategic-concentration.mjs';
 import {planStrategicAI,strategicDepartureError,validateStrategicAI,strategicPower} from '../strategic-ai.mjs';
-import {activeConcentration,adoptConcentration,closeConcentration,progressConcentrations,concentrationResting,concentrationRetryBlocked} from '../strategic-concentration.mjs';
+import {activeConcentration,adoptConcentration,closeConcentration,progressConcentrations} from '../strategic-concentration.mjs';
 import {plannedOfficer} from '../strategic-intent.mjs';
 import {cityForce} from '../city-units.mjs';
 import {updateVision} from '../strategic-vision.mjs';
 import {serializeCampaign,beginExecution,advanceCampaignDay} from '../strategic-campaign.mjs';
 
-function partialFront(){const f=concentratedFront({rearDistance:1600});f.target.units.forEach(u=>u.troops=8000);updateVision(f.s);return f;}
+function partialFront(){const f=concentratedFront({rearDistance:40});f.target.units.forEach(u=>u.troops=8000);updateVision(f.s);return f;}
 const step=s=>{if(s.campaign.phase==='planning')beginExecution(s);advanceCampaignDay(s);};
 const people=s=>[...s.cities.flatMap(c=>c.units),...s.campaign.idle.map(o=>o.unit),...s.armies.flatMap(a=>a.units)].map(u=>[u.id,u.troops,u.wounded]).sort((a,b)=>a[0].localeCompare(b[0]));
 const checks=s=>({power:c=>strategicPower(s,cityForce(c)),unsafe:()=>false});
@@ -45,26 +45,27 @@ test('partial preparation rejects an assembled roster that cannot traverse its r
  assert.equal(s.campaign.ai.decisions.some(d=>d.faction==='yuan'&&d.kind==='transfer'&&d.target===home.id&&d.reason.includes('主攻准备')),false);
 });
 
-test('concentration arrivals stay reserved until a turn review and continuation preserves the fixed deadline',()=>{
+test('concentration arrivals stay reserved until a turn review and continuation preserves its planning estimate',()=>{
  const {s,home}=partialFront();planStrategicAI(s);const original=activeConcentration(s,'yuan'),deadline=original.deadline,created=original.createdDay;
  const copy=JSON.parse(serializeCampaign(s));let sawArrival=false;
  for(let n=0;n<21;n++){
   step(s);step(copy);assert.equal(serializeCampaign(s),serializeCampaign(copy));
   const p=s.campaign.ai.concentrations.find(p=>p.faction==='yuan'&&p.createdDay===created);assert.equal(p.deadline,deadline);
-  if(p.status==='active'&&p.arrivedIds.length){sawArrival=true;assert.ok(p.arrivedIds.every(id=>home.units.some(u=>u.id===id)&&plannedOfficer(s,id)));}
+  const arrived=p.officerIds.filter(id=>home.units.some(u=>u.id===id));
+  if(p.status==='active'&&arrived.length){sawArrival=true;assert.ok(arrived.every(id=>plannedOfficer(s,id)),'actual arrivals remain reserved until the next planning review');}
   validateStrategicAI(s);
  }
  assert.ok(sawArrival);const p=s.campaign.ai.concentrations.find(p=>p.faction==='yuan'&&p.createdDay===created);
  assert.equal(p.status,'complete');assert.ok(p.finishedDay<=deadline);assert.equal(p.officerIds.length,6);
- assert.ok(p.officerIds.every(id=>concentrationResting(s,id,'town-8')));
+
 });
 
-test('closing unsafe preparation releases claims without teleporting real journeys and prevents immediate shuffling',()=>{
+test('closing unsafe preparation releases claims without teleporting journeys or adding a timed retry lock',()=>{
  const {s,home,target}=partialFront();planStrategicAI(s);const p=activeConcentration(s,'yuan'),journeys=structuredClone(s.campaign.idle);
  progressConcentrations(s,{...checks(s),unsafe:()=>true});assert.equal(p.status,'cancelled');assert.deepEqual(s.campaign.idle,journeys);
- assert.ok(p.officerIds.every(id=>!plannedOfficer(s,id)&&concentrationResting(s,id,'town-8')&&!concentrationResting(s,id,home.id)));
- assert.equal(concentrationRetryBlocked(s,'yuan',home.id,target.id),true);
- s.campaign.day=p.finishedDay+21;assert.equal(concentrationRetryBlocked(s,'yuan',home.id,target.id),false);assert.equal(concentrationResting(s,p.officerIds[0],'town-8'),false);
+ assert.ok(p.officerIds.every(id=>!plannedOfficer(s,id)));
+ const replacement=adoptConcentration(s,'yuan',{staging:home.id,targetCity:target.id,score:p.score,reason:p.reason,requirements:p.requirements,concentration:{full:p.full,intendedIds:p.intendedIds}});
+ assert.equal(replacement.status,'active');assert.equal(replacement.createdDay,s.campaign.day);
 });
 
 test('a ready attack on the same objective releases concentration claims before reserving its soldiers',()=>{
@@ -73,14 +74,14 @@ test('a ready attack on the same objective releases concentration claims before 
  assert.equal(p.status,'cancelled');assert.equal(activeConcentration(s,'yuan'),undefined);assert.ok(p.officerIds.every(id=>!plannedOfficer(s,id)));
 });
 
-test('a delayed concentration departure rechecks funding and its remaining fixed travel window',()=>{
- const {s,home,target,sources}=concentratedFront({rearDistance:1600});target.units.forEach(u=>u.troops=5000);updateVision(s);planStrategicAI(s);const p=activeConcentration(s,'yuan');
+test('a delayed concentration departure rechecks funding instead of an elapsed deadline',()=>{
+ const {s,home,target,sources}=concentratedFront({rearDistance:40});target.units.forEach(u=>u.troops=5000);updateVision(s);planStrategicAI(s);const p=activeConcentration(s,'yuan');
  // Use another still resident intended officer to exercise the shared checker
  // invoked both before orders are accepted and when queued work completes.
  const from=sources.find(c=>c!==home&&c.units.some(u=>p.intendedIds.includes(u.id))),u=from.units.find(u=>p.intendedIds.includes(u.id));
  const q={kind:'transfer',faction:'yuan',cityId:from.id,target:home.id,officerIds:[u.id],cargo:{gold:0,grain:0,manpower:0}};
  home.grain=0;assert.match(strategicDepartureError(s,q),/钱粮/);home.grain=100000;
- s.campaign.day=p.deadline;assert.match(strategicDepartureError(s,q),/固定期限/);
+ s.campaign.day=p.deadline+10;assert.equal(strategicDepartureError(s,q),null);
 });
 
 test('hidden enemy stocks and battle randomness cannot alter a partial concentration choice',()=>{
@@ -89,10 +90,10 @@ test('hidden enemy stocks and battle randomness cannot alter a partial concentra
  planStrategicAI(s);planStrategicAI(copy);assert.deepEqual(activeConcentration(s,'yuan'),activeConcentration(copy,'yuan'));
 });
 
-test('fixed preparation expiry cancels without refreshing itself or moving travelling troops',()=>{
+test('passing a preparation estimate does not cancel an actual ongoing journey',()=>{
  const {s}=partialFront();planStrategicAI(s);const p=activeConcentration(s,'yuan'),journeys=structuredClone(s.campaign.idle),deadline=p.deadline;
- s.campaign.day=deadline+1;progressConcentrations(s,checks(s));assert.equal(p.status,'cancelled');assert.equal(p.deadline,deadline);assert.deepEqual(s.campaign.idle,journeys);
- progressConcentrations(s,checks(s));assert.equal(p.finishedDay,deadline+1);assert.equal(activeConcentration(s,'yuan'),undefined);
+ s.campaign.day=deadline+1;progressConcentrations(s,{...checks(s),reviewFaction:'yuan'});assert.equal(p.status,'active');assert.equal(p.deadline,deadline);assert.deepEqual(s.campaign.idle,journeys);
+ progressConcentrations(s,{...checks(s),unsafe:()=>true,reviewFaction:'yuan'});assert.equal(p.status,'cancelled');assert.equal(p.finishedDay,deadline+1);
 });
 
 test('concentration validation rejects fractional requirements duplicate claims and deadline resets',()=>{
@@ -101,4 +102,12 @@ test('concentration validation rejects fractional requirements duplicate claims 
   const copy=structuredClone(s);mutate(activeConcentration(copy,'yuan'));assert.throws(()=>validateStrategicAI(copy),/战略AI/);
  }
  const copy=structuredClone(s),p=activeConcentration(copy,'yuan');copy.campaign.ai.concentrations.push(structuredClone(p));assert.throws(()=>validateStrategicAI(copy),/战略AI/);
+});
+
+// Long-range fixtures that fit the former express speed no longer fit two turns.
+test('distant rear troops cannot create a concentration that misses its fixed arrival window',()=>{
+ const {s,target}=concentratedFront({rearDistance:1600});target.units.forEach(u=>u.troops=8000);updateVision(s);planStrategicAI(s);
+ assert.equal(activeConcentration(s,'yuan'),undefined);
+ assert.equal(s.campaign.ai.decisions.some(d=>d.faction==='yuan'&&d.kind==='transfer'&&d.reason.includes('主攻准备')),false);
+ validateStrategicAI(s);
 });

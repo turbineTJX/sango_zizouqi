@@ -1,4 +1,4 @@
-import {treasureBondBonus} from './treasure-battle.mjs';
+import {treasureBondBonuses} from './treasure-battle.mjs';
 import {bondReference,bondGradeLabel} from './bond-reference.mjs';
 import {armyFrontlineCapacity} from './army-trait-rules.mjs';
 import {formationBoost,formationChoice,FORMATION_BONDS,openingFormationModifiers} from './bond-battlefield.mjs';
@@ -8,7 +8,7 @@ import {hidden} from './battle-status-rules.mjs';
 import {bondIcon,BOND_VISUALS} from './bond-icons.mjs';
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const link=(id,label)=>`<button class="unit-trait-name bond-grade-${BOND_DESIGNS[id].grade}" aria-label="${esc(label)}，${bondGradeLabel(BOND_DESIGNS[id])}，查看详情" data-action="ability-reference" data-kind="bond" data-id="${esc(id)}">${bondIcon(id)}${esc(label)}</button>`;
-export function personalBondsMarkup(u,b=null){
+export function personalBondsMarkup(u,b=null,{compact=false}={}){
  const levels=bondLevels(u),active=new Set(activeBonds(b,u).filter(d=>d.special!=='entryPower'||(u.bondEntry?.powerUntil||0)>(b?.tick||0)).map(d=>d.id));
  if((u.hp??Infinity)>(u.maxHp??0)*(BOND_DESIGNS.bondLastStand.hpThreshold))active.delete('bondLastStand');
  if(!adjacentBondAlly(b,u))active.delete('bondMuster');
@@ -17,7 +17,7 @@ export function personalBondsMarkup(u,b=null){
  active.delete('bondGuard');if(formationBoost(b||{},u))active.add('bondGuard');if((u.statuses?.peachFury?.until||0)>(b?.tick??Infinity))active.add('bondPeach');
  for(const id of FORMATION_BONDS.filter(id=>id!=='bondGuard'))active.delete(id);
  for(const e of openingFormationModifiers(b||{},u))active.add(e.id);
- return `<section class="personal-bonds"><h4>羁绊 <small>合计 ${Object.values(levels).reduce((n,v)=>n+v,0)} 点</small> <button class="text-button" data-action="bond-overview">一览</button></h4>${Object.keys(bondCaps(u)).map(id=>`<span class="bond-personal ${(levels[id]||0)>0?'learned':''}">${link(id,`${BOND_DESIGNS[id].name}${levels[id]||0}${treasureBondBonus(u,levels)?.id===id?'＋宝物1':''}${active.has(id)?' · 生效':''}`)}</span>`).join('')}</section>`;
+ return `<section class="personal-bonds">${compact?'':`<h4>羁绊 <small>合计 ${Object.values(levels).reduce((n,v)=>n+v,0)} 点</small> <button class="text-button" data-action="bond-overview">一览</button></h4>`}${Object.keys(bondCaps(u)).map(id=>`<span class="bond-personal ${(levels[id]||0)>0?'learned':''}">${link(id,`${BOND_DESIGNS[id].name}${levels[id]||0}${treasureBondBonuses(u,levels).some(b=>b.id===id)?'＋宝物1':''}${active.has(id)?' · 生效':''}`)}</span>`).join('')}</section>`;
 }
 export function bondSummary(units,b=null,side=0){
  const eligible=b?(b.sides[side]?.units||[]).filter(bondOnField):units.filter(u=>(u.hp??u.troops)>0&&!u.isDecoy);
@@ -43,7 +43,7 @@ export function bondsMarkup(units,{battle=null,side=0,title=battle?'在场羁绊
   const progress=`${d.points}/${d.next??d.thresholds.at(-1)}`;
   const effectiveTier=FORMATION_BONDS.includes(d.id)&&selected?.id===d.id?selected.tier:d.tier;
   const lit=effectiveTier>0&&(!FORMATION_BONDS.includes(d.id)||selected?.id===d.id),display={...d,tier:lit?effectiveTier:0};
-  return `<button class="bond-row bond-chip bond-grade-${d.grade} ${lit?'bond-lit':''}" style="--bond-color:${BOND_VISUALS[d.id].color}" data-bond="${d.id}" data-bond-tier="${d.tier}" data-bond-name="${esc(d.name)}" data-bond-hover-key="${esc(title+':'+side+':'+d.id)}" data-bond-contributors="${esc(JSON.stringify(bondContributors(opening,battle,side,d.id)))}" data-action="ability-reference" data-kind="bond" data-id="${d.id}" data-details="${esc(JSON.stringify(bondDetail(display)))}" aria-label="${esc(d.name)}，${progress}点${d.next?'，下一档'+d.next+'点':'，最高档'}，悬停查看贡献部队，点击查看详情">${bondIcon(d.id)}<span class="bond-heading"><span>${esc(d.name)}</span><small class="bond-progress">${progress}${d.treasurePoints?' · 宝物+'+d.treasurePoints:''}${d.grade==='basic'?' · '+d.holders+'人':''}</small></span><span class="bond-tier" aria-hidden="true">${[1,2,3].map(n=>`<i${n<=(lit?effectiveTier:0)?' class="lit"':''}></i>`).join('')}</span></button>`;
+  return `<button class="bond-row bond-chip bond-grade-${d.grade} ${lit?'bond-lit':''}" style="--bond-color:${BOND_VISUALS[d.id].color}" data-bond="${d.id}" data-bond-tier="${d.tier}" data-bond-name="${esc(d.name)}" data-bond-hover-key="${esc(title+':'+side+':'+d.id)}" data-bond-contributors="${esc(JSON.stringify(bondContributors(opening,battle,side,d.id)))}" data-action="ability-reference" data-kind="bond" data-id="${d.id}" data-details="${esc(JSON.stringify(bondDetail(display)))}" aria-label="${esc(d.name)}，${progress}点${d.next?'，下一档'+d.next+'点':'，最高档'}，悬停查看贡献部队，点击查看详情">${bondIcon(d.id)}<span class="bond-heading"><span>${esc(d.name)}</span><small class="bond-progress">${progress}${d.treasurePoints?' · 宝物+'+d.treasurePoints:''}${d.grade==='basic'?' · '+d.holders+'人':''}</small></span><span class="bond-points" aria-hidden="true">${progress}</span><span class="bond-tier" aria-hidden="true">${[1,2,3].map(n=>`<i${n<=(lit?effectiveTier:0)?' class="lit"':''}></i>`).join('')}</span></button>`;
  }).join('')||'<span class="muted">暂无羁绊</span>'}</div></section>`;
 }
 export function bondContributors(units,b,side,id){

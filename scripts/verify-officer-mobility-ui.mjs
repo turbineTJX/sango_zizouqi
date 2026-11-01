@@ -11,7 +11,7 @@ try{
   const fixture=await page.evaluate(async kind=>{
    const {newCampaign,beginExecution,advanceCampaignDay}=await import('/strategic-campaign.mjs'),s=newCampaign(15);s.cities.forEach(c=>c.gold=100000);s.gold=s.cities.filter(c=>c.owner===s.campaign.playerFaction).reduce((n,c)=>n+c.gold,0);const c=s.cities.find(c=>c.id==='xuchang');let id;
    if(kind==='mission'){const {readyTalent}=await import('/tests/helpers/talent.mjs'),{assignDomestic,ACTIONS}=await import('/domestic.mjs');readyTalent(s,'chenliu');const o=s.campaign.idle.find(o=>o.location===c.id&&o.unit.id!==c.governor&&o.faction==='cao');id=o.unit.id;for(const [k,d]of Object.entries(ACTIONS))if(d.direction==='talent'&&k!=='hire')c.domestic.cooldowns[k]=10000;assignDomestic(s,c.id,'talent',id);beginExecution(s);advanceCampaignDay(s);}
-   else {const {resolveOfficerLoss,fateRoll}=await import('/officer-fates.mjs');const unit=c.units[0];id=unit.id;let eventId;for(let i=0;i<10000;i++){const k='ui:'+i,r=fateRoll(s,k);if(r>=.02&&r<.35){eventId=k;break;}}resolveOfficerLoss(s,{unit,faction:'cao',location:'guandu',enemy:'yuan',eventId});}
+   else {const {resolveOfficerLoss,fateRoll,officerLossResult}=await import('/officer-fates.mjs');const unit=c.units[0];id=unit.id;let eventId;for(let i=0;i<10000;i++){const k='ui:'+i,r=fateRoll(s,k);if(officerLossResult(r,'yuan')==='CAPTIVE'){eventId=k;break;}}resolveOfficerLoss(s,{unit,faction:'cao',location:'guandu',enemy:'yuan',eventId});}
    return {s,id};
   },kind);
   await page.addInitScript(s=>{if(!sessionStorage.getItem('fixture')){localStorage.setItem('sango-sovereign-v2',JSON.stringify(s));sessionStorage.setItem('fixture','1');}},fixture.s);await page.reload();

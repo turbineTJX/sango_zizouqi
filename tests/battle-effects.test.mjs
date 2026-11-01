@@ -243,13 +243,18 @@ test('displayed troop strength changes on the recorded impact while combat data 
  const {fx}=scene(t),victim={id:'shao',name:'袁绍',side:1,status:'active',hp:3000,maxHp:3000,statuses:{}};
  const b={id:'health',tick:0,sides:[{units:[]},{units:[victim]}],effects:[]};
  fx.update(b,{paused:true,speed:1});b.tick=1;victim.hp=2685;b.effects=[{...event(),skill:false}];
- fx.update(b,{paused:false,speed:1});const before=JSON.stringify(b),number={textContent:''};
- fx.elements=[{dataset:{unit:'shao'},classList:{toggle(){}},querySelector:s=>s==='.map-troops'?number:null}];
- fx.syncPresentation();assert.equal(number.textContent,'3000');assert.equal(victim.hp,2685);
- fx.update(b,{paused:true,speed:1});fx.elements=[{dataset:{unit:'shao'},classList:{toggle(){}},querySelector:s=>s==='.map-troops'?number:null}];fx.syncPresentation();assert.equal(number.textContent,'3000','pausing must not reveal the hit before its impact');
- fx.update(b,{paused:false,speed:1});fx.elements=[{dataset:{unit:'shao'},classList:{toggle(){}},querySelector:s=>s==='.map-troops'?number:null}];
- fx.clock=fx.actions[0].start+fx.actions[0].duration*.53;fx.syncPresentation();assert.equal(number.textContent,'2685');
+ fx.update(b,{paused:false,speed:1});const before=JSON.stringify(b),number={textContent:''},properties=new Map(),caption={style:{getPropertyValue:k=>properties.get(k),setProperty:(k,v)=>properties.set(k,v)}};
+ const element={dataset:{unit:'shao'},classList:{toggle(){}},querySelector:s=>s==='.map-troops'?number:s==='.unit-map-caption'?caption:null};
+ fx.elements=[element];
+ fx.syncPresentation();assert.equal(number.textContent,'3000');assert.equal(properties.get('--troop-health'),'100%');assert.equal(properties.get('--troop-recoverable'),'100%');assert.equal(victim.hp,2685);
+ fx.update(b,{paused:true,speed:1});fx.elements=[element];fx.syncPresentation();assert.equal(number.textContent,'3000','pausing must not reveal the hit before its impact');assert.equal(properties.get('--troop-health'),'100%');
+ fx.update(b,{paused:false,speed:1});fx.elements=[element];
+ fx.clock=fx.actions[0].start+fx.actions[0].duration*.53;fx.syncPresentation();assert.equal(number.textContent,'2685');assert.equal(properties.get('--troop-health'),'89.5%');assert.ok(Math.abs(parseFloat(properties.get('--troop-recoverable'))-2795/3000*100)<1e-9);
  fx.clock=fx.actions[0].end+1;fx.syncPresentation();assert.equal(number.textContent,'2685');assert.equal(JSON.stringify(b),before);
+ b.tick=2;victim.hp=2785;victim.battleDamage=315;victim.healed=100;b.effects=[{...event(),damage:0,healing:100,ongoing:true}];
+ fx.update(b,{paused:false,speed:1});fx.elements=[element];const healedState=JSON.stringify(b);fx.syncPresentation();assert.equal(number.textContent,'2685','healing waits for its own impact');
+ const limit=properties.get('--troop-recoverable');fx.clock=fx.actions[0].start+fx.actions[0].duration*.53;fx.syncPresentation();
+ assert.equal(number.textContent,'2785');assert.equal(properties.get('--troop-recoverable'),limit,'healing consumes wounds without restoring the lost ceiling');assert.equal(JSON.stringify(b),healedState);
 });
 
 test('intent denial stays visible in clear and full effects, including merged hits and multi-hit cinematics',t=>{

@@ -21,7 +21,7 @@ export function cityStaffBadge(s,c){
  return `<g class="map-staff-status ${x.idle.length?'has-idle':''}" aria-label="${label}"><title>${esc(staffSummary(s,c))}</title><rect x="-39" y="43" width="78" height="14" rx="3"/><g transform="translate(-34 45) scale(.5)" fill="none" stroke="#e5d2a0" stroke-width="1.6"><path d="${METRIC_ICONS.staff}"/></g><text x="-13" y="53">${x.filled}/${x.total}</text><g transform="translate(6 45) scale(.5)" fill="none" stroke="#f6cd79" stroke-width="1.6"><path d="${METRIC_ICONS.idle}"/></g><text x="27" y="53">${x.idle.length}</text></g>`;
 }
 export function staffSummary(s,c){const x=cityStaffStatus(s,c);return `太守：${x.governor?.name||'未任命'}；内政 ${x.filled}/${x.total}，${x.working} 人办理中；${x.missing.length?'缺任：'+x.missing.join('、'):'六方向已齐备'}；空闲 ${x.idle.length} 人${x.idle.length?'：'+x.idle.map(o=>o.unit.name).join('、'):''}`;}
-export function staffSummaryMarkup(s,c){return c.owner===playerFaction(s)?`<p class="city-staff-summary">${esc(staffSummary(s,c))}</p>`:'';}
+export function staffSummaryMarkup(s,c){if(c.owner!==playerFaction(s))return '';const x=cityStaffStatus(s,c);return `<p class="city-staff-summary">太守：${esc(x.governor?.name||'未任命')} · 办理中 ${x.working} 人 · 空闲 ${x.idle.length} 人</p>`;}
 export function importantDomesticEvent(phase,key,result={}){
  return importantActivityNode({category:'domestic',phase,key,result});
 }

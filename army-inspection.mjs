@@ -35,26 +35,3 @@ export function armyHoverMarkup(s,a){
  ['主将',named(a.leader)],['军师',named(a.advisor)],['视野半径',armyVisionRadius(a).toLocaleString('zh-CN',{maximumFractionDigits:2})],['兵粮',num(Math.floor(a.supply||0))],['士兵',num(liveSoldiers(s,a))],['士气',num(a.morale)+'/100'],['兵科',types.length>2?'混编':types.join(' / ')||'—'],...(target?[['目标',target]]:[])
  ]);
 }
-// One delegated hover surface for cities and armies; it never captures clicks.
-export function attachArmyHover(root,s){
- s=intelligenceWorld(s);
- const controller=new AbortController(),options={signal:controller.signal};
- let card,active,description,titles=[];
- const hide=()=>{for(const [title,text]of titles)title.textContent=text;titles=[];if(active){if(description===null)active.removeAttribute('aria-describedby');else active.setAttribute('aria-describedby',description);}card?.remove();card=null;active=null;};
- const show=e=>{
-  if(e.target.closest?.('.map-city-scene')){hide();return;}
-  if(e.pointerType==='touch'||document.querySelector('.modal-backdrop')||root.querySelector('.map-command-screen'))return;
-  const marker=e.target.closest?.('.strategy-world [data-campaign-army],.strategy-world [data-city]');if(!marker||marker===active)return;
-  const army=marker.hasAttribute('data-campaign-army'),object=(army?s.armies:s.cities).find(o=>o.id===(army?marker.dataset.campaignArmy:marker.dataset.city)&&!o.disbanded);if(!object)return;
-  hide();active=marker;titles=[...marker.querySelectorAll('title')].map(title=>[title,title.textContent]);for(const [title]of titles)title.textContent='';description=marker.getAttribute('aria-describedby');card=document.createElement('aside');card.id='map-object-tooltip';card.className='army-hover-card map-hover-summary';card.setAttribute('role','tooltip');card.innerHTML=army?armyHoverMarkup(s,object):cityHoverMarkup(s,object);root.append(card);marker.setAttribute('aria-describedby',[description,card.id].filter(Boolean).join(' '));
-  const r=marker.getBoundingClientRect(),bounds=card.getBoundingClientRect(),left=r.right+12+bounds.width<=innerWidth-8?r.right+12:r.left-bounds.width-12;
-  card.style.left=Math.max(8,Math.min(innerWidth-bounds.width-8,left))+'px';card.style.top=Math.max(8,Math.min(innerHeight-bounds.height-8,r.top))+'px';
- };
- root.addEventListener('pointerover',show,options);root.addEventListener('focusin',show,options);
- root.addEventListener('pointerout',e=>{if(active?.contains(e.target)&&!(e.relatedTarget instanceof Node&&active.contains(e.relatedTarget)))hide();},options);
- root.addEventListener('focusout',hide,options);root.addEventListener('pointerdown',hide,options);
- document.addEventListener('keydown',e=>{if(e.key==='Escape')hide();},options);
- document.addEventListener('pointerdown',hide,{...options,capture:true});
- root.addEventListener('wheel',hide,{...options,passive:true});window.addEventListener('resize',hide,options);
- return ()=>{hide();controller.abort();};
-}

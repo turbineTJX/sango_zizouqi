@@ -1,6 +1,13 @@
 {
   "version": 1,
   "shared": [
+    "ui-tokens.css",
+    "ui-theme.css",
+    "ui-fonts/font-face.css",
+    "ui-fonts/noto-serif-sc.woff2",
+    "ui-materials/ink-grain.svg",
+    "ui-materials/cloud-jade-frame.png",
+    "ui-materials/ink-silk-panel.png",
     "app.js",
     "index.html",
     "styles.css",
@@ -13,6 +20,18 @@
     "page-guides.css"
   ],
   "groups": [
+    {
+      "name": "电脑版图文手册",
+      "actions": [
+        "查阅指引"
+      ],
+      "sources": [
+        "packaging/desktop.mjs",
+        "packaging/preload.cjs",
+        "scripts/build-desktop-manual.mjs",
+        "scripts/build-native.mjs"
+      ]
+    },
     {
       "name": "地图与查询",
       "chapters": [
@@ -56,7 +75,16 @@
         "map-route-editor.mjs",
         "road-network-view.mjs",
         "road-network.mjs",
-        "data/design/road-network.mjs"
+        "data/design/road-network.mjs",
+        "art-strategic-map.mjs",
+        "map-overview-layout.mjs",
+        "prefecture-village.mjs",
+        "town-layout.mjs",
+        "road-geometry.mjs",
+        "road-crossings.mjs",
+        "data/design/road-crossings.mjs",
+        "data/design/historical-road-plan.mjs",
+        "data/design/road-link-policy.mjs"
       ]
     },
     {
@@ -77,7 +105,9 @@
         "faction-affairs.mjs",
         "city-personnel.mjs",
         "data/design/domestic-actions.mjs",
-        "data/design/domestic-decision-rules.mjs"
+        "data/design/domestic-decision-rules.mjs",
+        "city-governance.mjs",
+        "domestic-governance-view.mjs"
       ]
     },
     {
@@ -101,6 +131,9 @@
         "talent-view.mjs",
         "talent-core.mjs",
         "talent-lifecycle.mjs",
+        "data/design/talent-loyalty.mjs",
+        "reward-presentation.mjs",
+        "activity-nodes.mjs",
         "data/design/talent-rules.mjs",
         "domestic.mjs",
         "domestic-direction-view.mjs",
@@ -206,10 +239,13 @@
       "sources": [
         "diplomacy.mjs",
         "diplomacy-view.mjs",
+        "diplomatic-matrix.mjs",
+        "diplomatic-access.mjs",
         "diplomacy-relations.mjs",
         "officer-fates.mjs",
         "data/design/diplomacy-rules.mjs",
-        "data/design/officer-fate-rules.mjs"
+        "data/design/officer-fate-rules.mjs",
+        "diplomatic-labels.mjs"
       ]
     },
     {
@@ -252,7 +288,11 @@
       ],
       "sources": [
         "battlefield.mjs",
+        "scene-loading.mjs",
         "battle-info.mjs",
+        "battle-help.mjs",
+        "battle-onboarding.mjs",
+        "battle-inspection-view.mjs",
         "battle-presentation.mjs",
         "battle-presentation.css",
         "battle-experience-view.mjs",
@@ -266,6 +306,7 @@
         "battle-retreat.mjs",
         "battle-log.mjs",
         "campaign-replay.mjs",
+        "campaign-recording.mjs",
         "battle-journal.mjs"
       ]
     },
@@ -299,6 +340,17 @@
         "campaign-lobby.css",
         "national-lobby.mjs",
         "national-scenarios.mjs",
+        "data/design/national-scenarios.mjs",
+        "data/design/reference-scenario.mjs",
+        "scenario-document.mjs",
+        "scenario-library.mjs",
+        "scenario-editor.mjs",
+        "scenario-editor.css",
+        "scenario-editor-panels.mjs",
+        "scenario-opening.mjs",
+        "scenario-preflight.mjs",
+        "scenario-date.mjs",
+        "faction-registry.mjs",
         "custom-battle.mjs",
         "scenario-setup.mjs",
         "battle-generator.mjs",
@@ -343,7 +395,8 @@
         "campaign-ending-view.mjs",
         "campaign-ending.css",
         "battle-journal.mjs",
-        "campaign-replay.mjs"
+        "campaign-replay.mjs",
+        "campaign-recording.mjs"
       ]
     },
     {
@@ -359,6 +412,55 @@
         "game-audio.mjs",
         "audio.css",
         "presentation-style.mjs"
+      ]
+    },
+    {
+      "name": "策略簿册布局",
+      "actions": [
+        "查阅人物与部队",
+        "查询敌情",
+        "调整全势力内政优先级",
+        "补齐全势力委任",
+        "安排人才工作"
+      ],
+      "sources": [
+        "management-ui.css",
+        "aptitude-display.mjs",
+        "officer-roster.mjs"
+      ]
+    },
+    {
+      "name": "宝物初始配置编辑",
+      "actions": [
+        "编辑宝物配置"
+      ],
+      "sources": [
+        "treasure-editor.mjs",
+        "treasure-editor.css",
+        "treasure-catalog.mjs",
+        "treasure-equipment.mjs",
+        "treasure-battle.mjs",
+        "treasure-statuses.mjs",
+        "treasure-view.mjs",
+        "treasure-art.mjs",
+        "data/design/treasures.mjs",
+        "data/design/bonds.mjs",
+        "scenarios.mjs",
+        "scenario-setup.mjs",
+        "battle-generator.mjs",
+        "campaign-lobby.mjs"
+      ]
+    },
+    {
+      "name": "武将编辑器",
+      "actions": [
+        "编辑武将"
+      ],
+      "sources": [
+        "officer-editor.mjs",
+        "officer-editor.css",
+        "officer-library.mjs",
+        "officer-library-data.mjs"
       ]
     }
   ]

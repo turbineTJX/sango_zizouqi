@@ -78,7 +78,7 @@ test('algorithm identity persists in saves and missing implementations or malfor
 test('switching selectors keeps an already executing plan committed to its actual armies',()=>{
  const {s}=planningFront();planStrategicAI(s);const p=s.campaign.ai.plans.find(p=>p.faction==='yuan'),id=p.id;
  const cleanup=registerStrategicAlgorithm('selector',{id:'test-development-v1',run:({candidates})=>(candidates.find(c=>c.kind==='develop'||c.kind==='recover')||candidates[0]).id});
- try{assert.equal(setStrategicAlgorithms(s,{selector:'test-development-v1'}),null);s.campaign.day++;planStrategicAI(s);
+ try{assert.equal(setStrategicAlgorithms(s,{selector:'test-development-v1'}),null);s.campaign.day=11;s.turn=2;planStrategicAI(s);
   assert.equal(s.campaign.ai.factions.yuan.strategy.goal.planId,id);assert.equal(s.campaign.ai.factions.yuan.strategy.goal.kind,'capture');assert.equal(p.phase,'attack');
   assert.equal(s.campaign.ai.factions.yuan.strategy.trace.at(-1).algorithms.selector,'test-development-v1');
  }finally{cleanup();}

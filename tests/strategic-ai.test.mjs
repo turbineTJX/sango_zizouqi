@@ -97,7 +97,7 @@ test('a worthwhile opening opportunity is evaluated immediately without developm
 
 test('cancelled plans respond to changed conditions without a fixed rest deadline',()=>{
  const {s,target}=scene();planStrategicAI(s);const p=s.campaign.ai.plans[0];gateDurability(target).hp=1000000;next(s);
- assert.equal(p.phase,'cancelled');target.units=[];s.campaign.day=11;s.turn=2;
+ assert.equal(p.phase,'cancelled');target.units=[];s.campaign.day=21;s.turn=3;
  const copy=JSON.parse(serializeCampaign(s));planStrategicAI(s);planStrategicAI(copy);
  assert.equal(serializeCampaign(s),serializeCampaign(copy));assert.equal(s.campaign.ai.plans.length,2);
 });
@@ -157,8 +157,9 @@ function nearFinish(s,id){
  const action=assignmentFor(s,id).action;
  for(let i=0;i<90&&action.remaining>2;i++){s.campaign.day++;finishDomesticDay(s);s.turn=Math.floor((s.campaign.day-1)/10)+1;}
  assert.equal(assignmentFor(s,id).action,action);assert.ok(action.remaining<=2);
+ s.campaign.day=(Math.floor((s.campaign.day-1)/10)+1)*10+1;s.turn=Math.floor((s.campaign.day-1)/10)+1;s.campaign.phase='planning';
 }
-const next=s=>{s.campaign.day++;s.turn=Math.floor((s.campaign.day-1)/10)+1;planStrategicAI(s);};
+const next=s=>{s.campaign.day=(Math.floor((s.campaign.day-1)/10)+1)*10+1;s.turn=Math.floor((s.campaign.day-1)/10)+1;s.campaign.phase='planning';planStrategicAI(s);};
 function incoming(s,c,from,menPerUnit=3000){
  const units=['cao','dun','chu'].map((id,i)=>({...makeOfficer(id,menPerUnit,i,3),homeCity:from.id}));
  for(const town of s.cities)town.units=town.units.filter(u=>!units.some(x=>x.id===u.id));
@@ -183,13 +184,13 @@ test('a serious incoming attack retains the home defense instead of expanding',(
  const {s,home,target}=scene();incoming(s,home,target,6500);planStrategicAI(s);
  assert.equal(s.armies.filter(a=>a.faction==='yuan').length,0);assert.equal(home.units.length,6);assert.ok(s.campaign.ai.decisions.some(d=>d.kind==='hold'&&d.target===home.id));
 });
-test('rescue uses arrival times and does not count a late column as successful relief',()=>{
+test('neighboring city aid follows the strength gap even when it cannot precede enemy contact',()=>{
  for(const timely of [true,false]){
   const {s,home,target,rear}=scene();target.owner='yuan';target.domestic.owner='yuan';target.units=[];gateDurability(target).hp=0;
   const enemyFrom=city(s,'xuchang');// The timely approach is already within the defender's actual sight radius.
   Object.assign(enemyFrom,{x:timely?50:8,y:timely?0:1});s.roads.push([target.id,enemyFrom.id]);s.roadSegments[[target.id,enemyFrom.id].sort().join(':')]={distance:timely?90:7.5};incoming(s,target,enemyFrom,2000);
   if(!timely){home.x=-100;delete s.roadSegments[[home.id,target.id].sort().join(':')];}gateDurability(rear).hp=1000000;planStrategicAI(s);const relief=s.armies.find(a=>a.faction==='yuan'&&a.target===target.id);
-  assert.equal(!!relief,timely);if(timely){assert.ok(relief.units.length<=10);assert.ok(s.campaign.ai.decisions.some(d=>d.kind==='reinforce'));}
+  assert.ok(relief);assert.ok(relief.units.length<=10);assert.ok(relief.route.length);assert.equal(relief.location,home.id);assert.ok(s.campaign.ai.decisions.some(d=>d.kind==='reinforce'));assert.equal(target.units.length,0,'in-transit aid is not already defending the target');
  }
 });
 test('hungry marching columns reverse continuous road progress once without teleporting',()=>{
@@ -297,13 +298,13 @@ test('ordinary ready offensives interrupt lengthy work through the real command 
  city(s,'town-5').units=city(s,'town-5').units.slice(0,2);city(s,'town-5').commerce=10;planStrategicAI(s);assert.ok(s.armies.some(a=>a.faction==='yuan'&&a.units.some(u=>u.id==='ju')));assert.equal(assignmentFor(s,'ju'),undefined);
  assert.ok(s.campaign.domestic.workHistory.ju.some(h=>h.actionId===action.id&&h.status==='interrupted'));
 });
-test('recent real interruption protects the next task across reload except when rescue would be missed',()=>{
+test('departure timing weighs current work and rescue urgency without an interruption cooldown',()=>{
  const {s,home}=scene();home.governor='shao';assignDomestic(s,home.id,'commerce','ju',{faction:'yuan'});beginDomesticTurn(s);assert.ok(assignmentFor(s,'ju').action);
  cancelDomestic(s,'ju','中止后重新安排');assignDomestic(s,home.id,'commerce','ju',{faction:'yuan'});beginDomesticTurn(s);assert.ok(assignmentFor(s,'ju').action);
- const before=serializeCampaign(s),timing=expeditionTiming(s,home.id,['ju']);assert.equal(timing.choice,'after');assert.match(timing.reason,/近一旬/);
- assert.deepEqual(expeditionTiming(JSON.parse(before),home.id,['ju']),timing);assert.equal(serializeCampaign(s),before);
+ const before=serializeCampaign(s),timing=expeditionTiming(s,home.id,['ju']),copy=JSON.parse(before);copy.campaign.domestic.workHistory.ju=[];
+ assert.deepEqual(expeditionTiming(copy,home.id,['ju']),timing);assert.equal(serializeCampaign(s),before);
  assert.equal(expeditionTiming(s,home.id,['ju'],{arrivalDeadline:s.campaign.day+2,travelDays:1}).choice,'now');
- assert.equal(expeditionTiming(s,home.id,['ju'],{arrivalDeadline:s.campaign.day+30,travelDays:1}).choice,'after');
+ assignmentFor(s,'ju').action.remaining=1;assert.equal(expeditionTiming(s,home.id,['ju']).choice,'after');
 });
 test('an expensive real construction near completion is protected even with more than two days left',()=>{
  const {s,home}=scene();home.workshop=0;home.gold=50000;
@@ -318,7 +319,7 @@ test('both national scenarios continue real plans, movements and battles determi
  for(const id of ['guandu-200','heroes-251']){
   const s=newCampaign(643,id);beginExecution(s);
   for(let i=0;s.campaign.day<5&&i<30;i++){advanceCampaignDay(s);for(const b of activeBattles(s).filter(b=>b.awaiting))chooseEncounter(s,b.id,false);}
-  const copy=validateCampaign(JSON.parse(serializeCampaign(s)));assert.deepEqual(copy.campaign.ai,s.campaign.ai);assert.equal(s.campaign.ai.lastPlanDay,s.campaign.day-1,'the real world is reviewed daily even when no affordable offensive is available');
+  const copy=validateCampaign(JSON.parse(serializeCampaign(s)));assert.deepEqual(copy.campaign.ai,s.campaign.ai);assert.equal(s.campaign.ai.lastPlanDay,Math.floor((s.campaign.day-2)/10)*10+1,'the real world is reviewed only at the turn boundary');
   for(let i=0;i<3;i++)for(const state of [s,copy]){advanceCampaignDay(state);for(const b of activeBattles(state).filter(b=>b.awaiting))chooseEncounter(state,b.id,false);}
   assert.equal(serializeCampaign(copy),serializeCampaign(s));
  }

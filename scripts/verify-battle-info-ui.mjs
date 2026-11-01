@@ -16,7 +16,7 @@ try{
  await page.locator('#inspect-unit').selectOption('jin');assert.match(await current.textContent(),/敌军/);
  await page.locator('.modal [data-action="unit-officer"]').click();assert.equal(await current.count(),1);
  await page.locator('.modal [data-action="unit-stats"]').click();
- await page.locator('.modal .tactic-chip').first().click();assert.equal(await page.locator('[data-battle-info="tactic"]').count(),1);assert.match(await page.locator('[data-battle-info="tactic"]').textContent(),/当前可用情况/);
+ await page.locator('.modal .tactic-chip').first().click();assert.equal(await page.locator('[data-battle-info="tactic"]').count(),1);assert.match(await page.locator('[data-battle-info="tactic"]').textContent(),/施放条件/);
  await page.screenshot({path:out+'/tactic-desktop.png',animations:'disabled'});
  await page.setViewportSize({width:844,height:390});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);await page.screenshot({path:out+'/tactic-mobile.png',animations:'disabled'});
  await page.locator('[data-action="inspection-back"]').click();assert.equal(await current.count(),1);assert.equal(await page.locator('#inspect-unit').inputValue(),'jin');await page.screenshot({path:out+'/unit-mobile.png',animations:'disabled'});

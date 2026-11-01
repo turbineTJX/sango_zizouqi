@@ -80,7 +80,7 @@ test('economic depth changes risk tolerance but never gives unknown or stale opp
  const rich=recovery(depot({gold:10000,manpower:10000,quota:10000,nextQuota:10000})),fresh={known:true,observedDay:1};
  assert.equal(recoveryAdvantageRequirement(1.7,rich,fresh,1),1.2);
  assert.equal(recoveryAdvantageRequirement(1.7,rich,{known:false,observedDay:null},1),1.7);
- assert.equal(recoveryAdvantageRequirement(1.7,rich,fresh,10),1.7);
+ assert.equal(recoveryAdvantageRequirement(1.7,rich,fresh,32),1.7);
  assert.equal(recoveryAdvantageRequirement(1.7,recovery(depot()),fresh,1),1.7);
 });
 test('same current military force can be admitted or held by actual refill resources',()=>{

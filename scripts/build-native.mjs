@@ -9,12 +9,12 @@ import sharp from 'sharp';
 import {ROOT,buildCodeRelease,sha256,packedDataPlugin} from './release-lib.mjs';
 import {buildDesktopArt} from './build-desktop-art.mjs';
 import {buildAndroidArt} from './build-android-art.mjs';
+import {buildDesktopManual} from './build-desktop-manual.mjs';
 
 const target=process.argv[2]||'all';
 if(!['windows','android','all','prepare-android'].includes(target))throw Error('Usage: build-native.mjs windows | android | all | prepare-android [--code-only]');
 if(process.argv.includes('--with-art')&&process.argv.includes('--code-only'))throw Error('Choose --with-art or --code-only');
 const withArt=process.argv.includes('--with-art');
-const withInstaller=process.argv.includes('--installer');
 const verifyAndroid=process.argv.includes('--verify-android');
 const exists=async path=>{try{await access(path);return true;}catch{return false;}};
 const packageInfo=JSON.parse(await readFile(join(ROOT,'package.json'),'utf8'));
@@ -39,21 +39,21 @@ async function windows(){
  if(process.platform!=='win32')throw Error('Build the Windows EXE on Windows');
  if(!await exists(join(ROOT,'node_modules/electron/dist/electron.exe')))await run(process.execPath,[join(ROOT,'node_modules/electron/install.js')]);
  const appDir=join(stage,'desktop');await copyWeb(join(appDir,'code'));await copyFile(join(stage,'icon.png'),join(appDir,'icon.png'));
+ const manual=await buildDesktopManual(ROOT,join(appDir,'code/manual'));
  await bundle({entryPoints:[join(ROOT,'packaging/desktop.mjs')],outfile:join(appDir,'main.cjs'),platform:'node',format:'cjs',bundle:true,minify:true,
   external:['electron'],target:'node22',legalComments:'external'});
  await copyFile(join(ROOT,'packaging/preload.cjs'),join(appDir,'preload.cjs'));
  await writeFile(join(appDir,'package.json'),JSON.stringify({name:'sango-sovereign-desktop',version:packageInfo.version,private:true,
   description:'三国 · 君临离线试玩版',author:'Sango',main:'main.cjs'},null,2));
- const filename='sango-'+packageInfo.version+'-windows.exe';
- await buildElectron({targets:Platform.WINDOWS.createTarget(withInstaller?['portable','nsis']:['portable'],Arch.x64),config:{appId:'com.sango.sovereign',productName:'三国 · 君临',
+ const filename='sango-'+packageInfo.version+'-windows-setup.exe';
+ await buildElectron({targets:Platform.WINDOWS.createTarget(['nsis'],Arch.x64),config:{appId:'com.sango.sovereign',productName:'三国 · 君临',
   electronVersion:packageInfo.devDependencies.electron,electronDist:join(ROOT,'node_modules/electron/dist'),directories:{app:appDir,output:release},asar:true,
   files:['main.cjs','main.cjs.LEGAL.txt','preload.cjs','package.json','icon.png','code/**/*'],
   extraResources:withArt?[{from:join(release,'art'),to:'art'}]:[],
-  win:{icon:join(stage,'icon.ico'),executableName:'SangoSovereign'},portable:{artifactName:filename},
-  nsis:{artifactName:'sango-'+packageInfo.version+'-windows-setup.exe',oneClick:false,perMachine:false,allowToChangeInstallationDirectory:true,deleteAppDataOnUninstall:false,createDesktopShortcut:true,createStartMenuShortcut:true},
+  win:{icon:join(stage,'icon.ico'),executableName:'SangoSovereign'},
+  nsis:{artifactName:filename,oneClick:false,perMachine:false,allowToChangeInstallationDirectory:true,deleteAppDataOnUninstall:false,createDesktopShortcut:true,createStartMenuShortcut:true},
   npmRebuild:false,compression:'normal',forceCodeSigning:false}});
- const bytes=await readFile(join(release,filename));artifacts.windows={file:filename,bytes:bytes.length,sha256:sha256(bytes),arch:'x64',signed:false};
- if(withInstaller){const file='sango-'+packageInfo.version+'-windows-setup.exe',bytes=await readFile(join(release,file));artifacts.windowsInstaller={file,bytes:bytes.length,sha256:sha256(bytes),arch:'x64',signed:false};}
+ const bytes=await readFile(join(release,filename));artifacts.windowsInstaller={file:filename,bytes:bytes.length,sha256:sha256(bytes),arch:'x64',signed:false,manual};
 }
 
 async function androidTools(){
@@ -147,5 +147,9 @@ if(target==='windows'||target==='all')await windows();
 if(target==='android'||target==='all'||target==='prepare-android')await android();
 await writeFile(join(release,'native-release.json'),JSON.stringify({formatVersion:1,gameVersion:manifest.gameVersion,rulesVersion:manifest.rulesVersion,
  revision:manifest.revision,codeOnly:!withArt,...(art?{art}:{}),artifacts},null,2)+'\n');
-await writeFile(join(release,'试玩说明.txt'),'三国 · 君临 '+manifest.gameVersion+'\nWindows：双击 EXE，无需安装 Node.js。F11 切换全屏。此试玩版未做 Windows 发布者签名。\nAndroid：安装 APK 后从桌面图标启动；支持 Android 8.0 以上，需要系统 WebView 120 或更新版本。\n首次启动和游玩均无需联网。存档保存在本机应用中，可在设置导出与导入 JSON。替换 EXE 或使用相同签名覆盖安装 APK 会保留应用数据；卸载 Android 应用会删除本机存档。规则变化导致存档不兼容时须重新开始。\n'+(withArt?'本包包含公开清单内的原创图像、音乐、语音，以及保留来源记录的试玩头像、动画和模型；不含美术生产工作目录。':'此包使用姓名与内置地图图形，不含独立美术目录或生产记录。')+'\nAPK 已完成编译及签名校验，设备上的运行情况须另行实测。\n');
+const notes=['三国 · 君临 '+manifest.gameVersion];
+if(artifacts.windowsInstaller)notes.push('Windows：双击 '+artifacts.windowsInstaller.file+' 安装，可选择安装目录并创建快捷方式。无需安装 Node.js，F11 切换全屏。此试玩版未做 Windows 发布者签名。覆盖安装和卸载均保留本机存档。操作手册可从“设置”或“全部指引”打开。');
+if(artifacts.android)notes.push('Android：安装 APK 后从桌面图标启动；支持 Android 8.0 以上，需要系统 WebView 120 或更新版本。使用相同签名覆盖安装会保留应用数据，卸载应用会删除本机存档。APK 已完成编译及签名校验，设备上的运行情况须另行实测。');
+notes.push('首次启动和游玩均无需联网。存档保存在本机应用中，可在设置导出与导入 JSON。规则变化导致存档不兼容时须重新开始。',withArt?'本包包含公开清单内的原创图像、音乐、语音，以及保留来源记录的试玩头像、动画和模型；人物图片自动显示，缺图时自动使用基础图形，不提供美术模式切换。不含美术生产工作目录。':'此包用于代码验证，使用姓名与内置地图图形，不含独立美术目录或生产记录。');
+await writeFile(join(release,'试玩说明.txt'),notes.join('\n')+'\n');
 console.log('Native release: '+release);

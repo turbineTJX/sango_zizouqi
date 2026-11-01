@@ -1,18 +1,20 @@
 import {RIVERS,MOUNTAINS} from './national-geography.mjs';
 import {TOWN_SITES,TOWN_FRAME} from './town-art.mjs';
 import {CITY_DESIGNS} from './data/design/cities.mjs';
+import {ROAD_NETWORK_DESIGN} from './data/design/road-network.mjs';
+import {crossingNodes} from './road-crossings.mjs';
 
 export const TOWN_MAP_SCALE=.06;
 const footprint=place=>place.kind==='junction'?.38:place.kind==='gate'?.58:place.kind==='port'?.65:place.citySize==='small'?.72:1;
-// Keep atlas anchors fixed and reserve countryside between city footprints.
+const settlements=[...CITY_DESIGNS,...Object.entries(ROAD_NETWORK_DESIGN.nodePositions).map(([key,[x,y]])=>({id:'junction:'+key,kind:'junction',x,y})),...crossingNodes];
+// Keep atlas anchors fixed and reserve countryside between all settlement footprints.
 // Authored neighbors make this stable across ownership, construction and saves.
 function mapScale(place){
  const base=TOWN_MAP_SCALE*footprint(place);
- if(place.kind!=='city')return Math.floor(base*10000)/10000;
  let density=1;
  const height=2*Math.max(Math.abs(TOWN_FRAME.y),Math.abs(TOWN_FRAME.y+TOWN_FRAME.height));
- for(const other of CITY_DESIGNS){
-  if(other.id===place.id||other.kind!=='city')continue;
+ for(const other of settlements){
+  if(other.id===place.id)continue;
   const separation=Math.max(Math.abs(place.x-other.x)/TOWN_FRAME.width,Math.abs(place.y-other.y)/height);
   density=Math.min(density,.6*separation/((base+TOWN_MAP_SCALE*footprint(other))/2));
  }

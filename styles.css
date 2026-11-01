@@ -190,9 +190,9 @@
 .catalog-pages{display:flex;gap:20px;justify-content:center;align-items:center;margin-top:24px}
 .catalog-detail-heading{display:flex;align-items:center;justify-content:space-between}.catalog-detail-heading small,.catalog-detail-heading>span{color:var(--muted);font-size:12px}
 .catalog-facts{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.catalog-facts dt,.catalog-relations dt{color:var(--muted);font-size:12px}.catalog-facts dd,.catalog-relations dd{margin:7px 0 0}
-.catalog-aptitudes{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}.catalog-aptitudes span{display:grid;gap:8px;color:var(--muted);font-size:12px}.catalog-aptitudes b{font-size:20px;color:var(--gold)}
+.catalog-aptitudes{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.catalog-aptitudes span{display:grid;gap:8px;color:var(--muted);font-size:12px}.catalog-aptitudes b{font-size:20px;color:var(--gold)}
 .catalog-relations>div{margin:12px 0}.catalog-biography{white-space:pre-line;line-height:1.9;font-size:14px}.catalog-source{margin-top:20px}.catalog-source summary{cursor:pointer;color:var(--muted)}.catalog-source pre{max-height:350px;overflow:auto;padding:14px;background:#101e21;font-size:12px;white-space:pre-wrap;overflow-wrap:anywhere}.catalog-empty{grid-column:1/-1;padding:30px;text-align:center;color:var(--muted)}
-@media(max-width:600px){.catalog-toolbar{grid-template-columns:1fr 1fr}.catalog-toolbar label:first-child{grid-column:1/-1}.catalog-selection>small{display:block;margin:8px 0}.catalog-aptitudes{grid-template-columns:repeat(3,1fr)}.catalog-card .catalog-name{align-items:flex-start}.catalog-stats{gap:8px}.catalog-stats b{font-size:20px}}
+@media(max-width:600px){.catalog-toolbar{grid-template-columns:1fr 1fr}.catalog-toolbar label:first-child{grid-column:1/-1}.catalog-selection>small{display:block;margin:8px 0}.catalog-aptitudes{grid-template-columns:repeat(2,1fr)}.catalog-card .catalog-name{align-items:flex-start}.catalog-stats{gap:8px}.catalog-stats b{font-size:20px}}
 
 /* Read-only character profiles and linked relations. */
 .profile-disclosure{margin:18px 0;border:1px solid var(--border);border-radius:5px;padding:14px}.profile-disclosure>summary{cursor:pointer;color:var(--gold);font-size:13px}.profile-relation-link{display:inline-flex;align-items:baseline;gap:5px;color:var(--gold);border:1px solid var(--border);border-radius:4px;padding:6px 9px;margin:2px 3px 2px 0;background:transparent;font-size:13px}.profile-relation-link:hover{background:#bba67616}.profile-relation-link small{font-size:10px;color:var(--muted)}.officer-profile .catalog-relations{display:grid;grid-template-columns:1fr 1fr;gap:6px 18px}.officer-profile .catalog-relations>div{min-width:0}.officer-profile>.muted{font-size:12px;line-height:1.8}@media(max-width:600px){.officer-profile .catalog-relations{grid-template-columns:1fr}.officer-profile .catalog-facts{grid-template-columns:1fr 1fr}}
@@ -309,9 +309,10 @@ table.info-directory { display:table; width:100%; }
 /* Shared rule 62 states. Decoys never intercept pointer or movement input. */
 .decoy-marker{position:absolute;transform:translate(-50%,-50%);padding:5px 9px;border:1px dashed #b9c9e8;border-radius:50%;background:#59719077;color:#e9f0ff;opacity:.7;pointer-events:none;z-index:5;font-size:12px}.battle-unit.status-stealth{opacity:.48}
 
-#stratagem-area-overlay { position:absolute; inset:0; pointer-events:none; z-index:35; }
-#stratagem-area-overlay svg { width:100%; height:100%; overflow:hidden; fill:#e8b95b44; stroke:#ffe1a0; stroke-width:.045; }
-#stratagem-area-overlay .area-hit { fill:#ffdf7033; stroke:#fff1a6; stroke-width:.08; }
+#stratagem-area-overlay { position:absolute; inset:0; pointer-events:none; z-index:3; }
+#stratagem-area-overlay svg { width:100%; height:100%; overflow:hidden; stroke-width:.065; }
+#stratagem-area-overlay .area-hit { stroke-width:.045; }
+#stratagem-area-overlay .area-target-pointer { stroke-width:.025; }
 .stratagem-area-controls { position:sticky; top:0; z-index:60; display:flex; flex-wrap:wrap; gap:10px; align-items:center; padding:12px; background:#263139; color:#fff0cc; border:1px solid #c7a85b; }
 .stratagem-area-controls[hidden] { display:none; }
 .toolbar-icon-button { display:inline-flex; align-items:center; justify-content:center; flex-shrink:0; }
@@ -335,7 +336,7 @@ table.info-directory { display:table; width:100%; }
 .deployment-targeting .deployment-cell{pointer-events:auto}
 .stratagem-area-effect { flex-basis:100%; min-width:0; overflow-wrap:anywhere; line-height:1.6; color:#ead7a6; }
 
-.battle-unit.stratagem-affected,.unit-nameplate.stratagem-affected { outline:3px solid #ffe58b; outline-offset:3px; box-shadow:0 0 16px #ffd65d99; }
+.unit-nameplate.stratagem-affected { outline-offset:3px; }
 
 #stratagem-zone-overlay { position:absolute; inset:0; pointer-events:none; z-index:20; }
 #stratagem-zone-overlay svg { width:100%; height:100%; overflow:hidden; }
@@ -366,4 +367,19 @@ button.info-portrait{width:calc(100% + 28px);padding:0;border:0;cursor:pointer}
 /* Treasure management shares the existing modal and officer detail surfaces. */
 .treasure-table-scroll{overflow-x:auto}.treasure-table{width:100%;border-collapse:collapse}.treasure-table th,.treasure-table td{padding:12px;text-align:left;vertical-align:top;border-bottom:1px solid #b6a58144}.treasure-table td:first-child{width:40%;min-width:200px}.treasure-table small{display:block;margin-top:6px;line-height:1.6}.treasure-actions{display:flex;flex-wrap:wrap;gap:8px}.treasure-actions button{padding:7px 10px}.treasure-grant{border:1px solid #b6a58166;padding:18px;margin:16px 0}.treasure-grant label{display:block;margin:12px 0}.treasure-grant select{max-width:100%;min-width:220px}.scenario-treasures label{display:inline-block;max-width:100%;margin:8px}.scenario-treasures select{max-width:100%}.unit-treasure p{line-height:1.7}@media(max-width:600px){.treasure-table th,.treasure-table td{padding:8px}.treasure-grant{padding:12px}.treasure-actions{min-width:80px}}
 
-@media(max-width:600px){.treasure-table thead{display:none}.treasure-table tbody{display:block}.treasure-table tr{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;padding:16px 0;border-bottom:1px solid #b6a58144}.treasure-table td{padding:0;border:0;min-width:0}.treasure-table td:first-child{grid-column:1 / -1;width:auto;min-width:0}.treasure-table td:nth-child(2)::before{content:"位置 / 携带者";display:block;font-size:11px;opacity:.65;margin:6px 0}.treasure-table td:nth-child(3)::before{content:"状态";display:block;font-size:11px;opacity:.65;margin:6px 0}.treasure-table td:nth-child(4)::before{content:"操作";display:block;font-size:11px;opacity:.65;margin:6px 0}.treasure-actions{min-width:0;gap:4px}.treasure-actions button{padding:6px}}
+@media(max-width:600px){.treasure-table thead{display:none}.treasure-table tbody{display:block}.treasure-table tr{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;padding:16px 0;border-bottom:1px solid #b6a58144}.treasure-table td{padding:0;border:0;min-width:0}.treasure-table td:first-child{grid-column:1 / -1;width:auto;min-width:0}.treasure-table td:nth-child(2)::before{content:"类别";display:block;font-size:11px;opacity:.65;margin:6px 0}.treasure-table td:nth-child(3)::before{content:"保管";display:block;font-size:11px;opacity:.65;margin:6px 0}.treasure-table td:nth-child(4)::before{content:"状态";display:block;font-size:11px;opacity:.65;margin:6px 0}.treasure-actions{min-width:0;gap:4px}.treasure-actions button{padding:6px}}
+
+/* Treasure portraits use the same public art catalogue as towns and officers. */
+.treasure-name{display:inline-flex!important;align-items:center;gap:10px;text-align:left;max-width:100%}
+.treasure-art{display:inline-block;flex:0 0 64px;width:64px;height:64px;overflow:hidden;border:1px solid var(--border-color,#716c56);background:#252925;vertical-align:middle}
+.treasure-art img{display:block;width:100%;height:100%;object-fit:contain}
+.treasure-detail-art{display:flex;justify-content:center;margin:0 0 14px}
+.treasure-detail-art .treasure-art{flex-basis:auto;width:min(192px,50vw);height:auto;aspect-ratio:1}
+.treasure-replacement{padding:10px;border-left:3px solid #c4a76b;background:#c4a76b18}
+@media(max-height:500px){.treasure-art{flex-basis:48px;width:48px;height:48px}.treasure-detail-art .treasure-art{width:140px}}
+.treasure-slots{display:flex;flex-wrap:wrap;gap:10px;margin:8px 0 12px}
+.treasure-slots article{flex:1 1 130px;min-width:0;border:1px solid #89826b55;padding:8px}
+.treasure-slots h5{margin:0 0 6px;color:#c7b98c;font-size:12px}
+.treasure-slots .treasure-name{flex-wrap:wrap;padding:4px}
+
+@media(max-width:600px){.treasure-table td:nth-child(5){grid-column:1 / -1}.treasure-table td:nth-child(5)::before{content:"操作";display:block;font-size:11px;opacity:.65;margin:6px 0}}

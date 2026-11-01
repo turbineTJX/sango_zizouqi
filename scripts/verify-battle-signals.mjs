@@ -63,7 +63,7 @@ try{
   await shot.screenshot({path:out+'/'+key+'.png'});
   if(key==='stun'){
    await shot.emulateMedia({reducedMotion:'reduce'});await shot.reload();await shot.locator('#battle-board').waitFor();await shot.waitForTimeout(200);await shot.screenshot({path:out+'/reduced-motion.png'});
-   await shot.evaluate(()=>localStorage.setItem('sango-art-mode','builtin'));await shot.reload();await shot.locator('#battle-board').waitFor();await shot.waitForTimeout(150);await shot.screenshot({path:out+'/builtin-status.png'});
+   for(const pattern of ['**/assets/**','**/local-art/**'])await shot.route(pattern,route=>route.fulfill({status:404,body:'Not found'}));await shot.reload();await shot.locator('#battle-board').waitFor();await shot.waitForTimeout(150);await shot.screenshot({path:out+'/missing-art-status.png'});
   }
   await shot.close();
  }

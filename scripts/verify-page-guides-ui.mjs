@@ -1,3 +1,4 @@
+import {chooseAssignment} from './assignment-picker-ui-helpers.mjs';
 import {createRequire} from 'node:module';
 import {spawn} from 'node:child_process';
 import {mkdir,writeFile} from 'node:fs/promises';
@@ -92,9 +93,9 @@ try{
  await page.screenshot({path:out+'/scouting-desktop.png'});await page.setViewportSize({width:390,height:844});await page.screenshot({path:out+'/scouting-mobile.png'});
  assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));
  assert.equal(await page.locator('#overlay-root').getAttribute('inert'),null,'coach leaves the actual form interactive');
- await page.locator('#scout-city').selectOption('xuchang');assert.equal(await page.locator('#scout-officer').inputValue(),'');
- const firstScout=await page.locator('#scout-officer option').evaluateAll(ns=>ns.find(n=>n.value)?.value);await page.locator('#scout-officer').selectOption(firstScout);assert.equal(await page.locator('#scout-officer').inputValue(),firstScout);
- await page.keyboard.press('Escape');assert.equal(await page.locator('.scouting-screen').count(),1);
+ await chooseAssignment(page,'#scout-city','xuchang');assert.equal(await page.locator('#scout-officer').getAttribute('data-selected'),'');
+ await page.locator('#scout-officer').click();const firstScout=await page.locator('[data-assignment-choice]:not(:disabled)').first().getAttribute('data-assignment-choice');await page.locator('[data-assignment-choice="'+firstScout+'"]').check();await page.locator('[data-action="assignment-picker-confirm"]').click();assert.equal(await page.locator('#scout-officer').getAttribute('data-selected'),firstScout);
+ if(await guide(page).isVisible())await page.keyboard.press('Escape');assert.equal(await page.locator('.scouting-screen').count(),1);
  assert.equal(await saved(page),before);await page.keyboard.press('Escape');
  await action(page,'settings').first().click();await expectGuide(page,'设置与存档');await closeGuide(page);
  await page.locator('[data-guide-action="toggle"]').click();assert.equal(await page.locator('[data-guide-action="toggle"]').getAttribute('aria-pressed'),'false');
@@ -117,7 +118,7 @@ try{
  const domesticPage=await pageFor({unseen:['domestic','appoint'],save:serializeCampaign(domesticState)});await domesticPage.goto(base+'/#strategy');await domesticPage.locator('.sovereign-hud').waitFor();
  await domesticPage.locator('[data-action="map-quick-open"][data-kind="city"]').first().click();
  await domesticPage.locator('[data-action="map-quick-select"][data-id="xuchang"]').click();
- await domesticPage.locator('[data-action="city-idle-assign"][data-town="xuchang"]').click();await expectGuide(domesticPage,'城市内政');
+ await domesticPage.locator('[data-action="city-idle-assign"][data-town="xuchang"]').click();await expectGuide(domesticPage,'委任');
  const appointButton=domesticPage.locator('#modal-panel-root .domestic-direction [data-action="domestic-direction-open"]').first();
  await expectSpotlight(domesticPage,'.domestic-direction [data-action="domestic-direction-open"]');
  assert.equal(await domesticPage.locator('.page-guide-shade').count(),0);
@@ -152,7 +153,7 @@ try{
  const routePage=await pageFor({unseen:['routes'],save:serializeCampaign(routeState)});await routePage.goto(base+'/#strategy');await routePage.locator('.sovereign-hud').waitFor();
  await routePage.locator('.map-search summary').click();await routePage.locator('#national-city-search').selectOption('xuchang');
  await routePage.locator('[data-action="map-city-commands"][data-group="military"]').click();await routePage.locator('.city-command-grid [data-task="expedition"]').click();
- await action(routePage,'campaign-command-next').click();await routePage.locator('[data-command-army-unit]').first().check();
+ await routePage.locator('[data-command-army-unit]:not([disabled])').first().check();
  await action(routePage,'campaign-command-next').click();await action(routePage,'campaign-command-next').click();await expectGuide(routePage,'大地图选路');await closeGuide(routePage);
  await routePage.locator('[data-command-city="chenliu"]').first().press('Enter');await routePage.locator('[data-action="campaign-command-next"]').waitFor();const routeBefore=await saved(routePage);
  await routePage.locator('.map-command-screen [data-guide-action="open"]').click();await expectGuide(routePage,'大地图选路');await expectSpotlight(routePage,'.strategy-city.selected [data-map-glyph],.map-metropolis.selected [data-map-glyph]');await closeGuide(routePage);

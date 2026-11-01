@@ -50,7 +50,7 @@ test('army sight uses the higher actual leader/advisor intellect, follows appoin
  const before=serializeCampaign(s),source=visionSources(s).find(v=>v.object?.id===own.id);
  assert.equal(source.radius,32);assert.deepEqual({x:source.x,y:source.y},visionPosition(s,own));assert.match(fogMarkup(s),/r="32"/);
  assert.match(armyHoverMarkup(s,own),/视野半径<\/th><td>32/);
- assert.match(armyDetailSections(own).find(x=>x.id==='command').html,/大地图视野半径<\/dt><dd>32/);
+ assert.match(armyDetailSections(own).find(x=>x.id==='command').html,/视野半径<\/dt><dd>32/);
  assert.match(strategicView(s,{army:own.id,strategyTab:'army'}),/视野半径 32/);
  assert.equal(serializeCampaign(s),before,'viewing sight cannot change or roll state');
  own.disbanded=true;assert.ok(!visionSources(s).some(v=>v.object?.id===own.id));own.disbanded=false;
@@ -97,6 +97,7 @@ test('national geography is explored while enemy city contents, armies and roste
  assert.ok(!view.campaign.domestic.orders.some(q=>q.target==='secret-target'));
  const map=nationalArtMap(s,{city:'xuchang'},null);assert.ok(map.includes(`data-city="${c.id}"`));assert.ok(map.includes('world-fog-mask'));assert.ok(!map.includes('radar-fog-mask'));assert.ok(!map.includes(`data-campaign-army="${enemy.id}"`));
  assert.ok(map.includes('city-location-model'),'unscouted cities retain a neutral town appearance');
+ assert.doesNotMatch(map,/<text\b[^>]*>[^<]*未侦察[^<]*<\/text>/,'fog shading conveys the unseen state without an extra city subtitle');
  assert.match(campaignInfoMarkup(s,{type:'city',id:c.id}).body,/尚未侦察/);assert.match(cityHoverMarkup(s,c),/未确认/);assert.equal(serializeCampaign(s),before);
 });
 
@@ -105,7 +106,7 @@ test('responsible officer stays working in the city while a simulated scout trav
  const troops=officer.unit.troops;assert.equal(dispatchScout(s,city.id,officer.unit.id,target.id),null);const task=scoutAssignment(s,officer.unit.id);
  assert.equal(officer.unit.mission,undefined);assert.equal(residentOfficer(s,officer.unit.id).location,city.id);assert.equal(officer.unit.troops,troops);assert.equal(officerActivities(s).get(officer.unit.id).action,'负责侦察');assert.equal(officerActivities(s).get(officer.unit.id).siteId,city.id);
  assert.ok(!cityStaffStatus(s,city).idle.some(o=>o.unit.id===officer.unit.id));assert.match(assignDomestic(s,city.id,'technology',officer.unit.id),/负责侦察/);
- assert.match(dispatchScout(s,city.id,officer.unit.id,target.id),/没有其它任务/);
+ assert.match(dispatchScout(s,city.id,officer.unit.id,target.id),/正在负责侦察/);
  let days=0;while(task.phase!=='watch'&&days++<30)nextDay(s);assert.ok(days<30);assert.equal(task.location,target.id);assert.ok(cityVisible(s,target.id));
  assert.equal(cityIntelligence(s,target.id).data.grain,target.grain);assert.ok(task.contacts.some(c=>c.id===target.id&&c.report));assert.equal(residentOfficer(s,officer.unit.id).location,city.id);
  const before=serializeCampaign(s);scoutingMarkup(s);campaignInfoDetail(s,'city',target.id);assert.equal(serializeCampaign(s),before,'browsing cannot reroll or prolong illumination');
@@ -116,7 +117,7 @@ test('responsible officer stays working in the city while a simulated scout trav
 });
 
 test('intellect controls randomized illumination duration, without an intelligence acquisition wait',()=>{
- assert.deepEqual(scoutingDurationRange(0),{min:10,max:20});assert.deepEqual(scoutingDurationRange(31),{min:20,max:40});assert.deepEqual(scoutingDurationRange(100),{min:40,max:60});
+ assert.deepEqual(scoutingDurationRange(0),{min:30,max:50});assert.deepEqual(scoutingDurationRange(31),{min:50,max:70});assert.deepEqual(scoutingDurationRange(100),{min:80,max:100});
  const base=quietGame(),{city,officer}=scout(base),target=scoutTargets(base,city.id).find(c=>c.units&&c.owner!=='cao'),durations=[];
  for(const intellect of [0,100]){const s=JSON.parse(serializeCampaign(base)),u=residentOfficer(s,officer.unit.id).unit;u.intellect=intellect;assert.equal(dispatchScout(s,city.id,u.id,target.id),null);
   const spots=s.campaign.vision.factions.cao.scouted;assert.ok(spots.length);durations.push(spots[0].expiresDay-spots[0].seenDay);assert.ok(durations.at(-1)>=scoutingDurationRange(intellect).min&&durations.at(-1)<=scoutingDurationRange(intellect).max);
@@ -126,16 +127,19 @@ test('intellect controls randomized illumination duration, without an intelligen
 });
 
 test('custom scouting routes persist, use real scout speed, and retain sight through a ten-day turn',()=>{
- const s=newCampaign(203,'guandu-200'),city=s.cities.find(c=>c.id==='town-10'),officer=scoutCandidates(s,city.id)[0],target='town-9',via='junction:town-10:town-9',route=scoutRoute(s,city.id,target,['junction:atlas-pengcheng:town-10',via,'junction:town-8:town-9']);
+ const s=newCampaign(203,'guandu-200'),city=s.cities.find(c=>c.id==='xuchang'),officer=scoutCandidates(s,city.id)[0],target='chenliu',via='junction:atlas-qiao:xuchang',route=scoutRoute(s,city.id,target,[via]);
  assert.ok(route.includes(via));const before=serializeCampaign(s);
  assert.ok(dispatchScout(s,city.id,officer.unit.id,target,{route:[target]}));assert.equal(serializeCampaign(s),before);
  const markup=scoutingMarkup(s,{city:city.id,officer:officer.unit.id,target,route});const cost=route.reduce((n,id,i)=>n+roadCost(s,i?route[i-1]:city.id,id),0);
- assert.match(markup,new RegExp('预计 '+Math.ceil(cost/105)+' 天抵达'));
+ assert.match(markup,new RegExp('预计抵达</dt><dd class="scout-route">'+Math.ceil(cost/105)+' 天'));
  assert.equal(dispatchScout(s,city.id,officer.unit.id,target,{route}),null);assert.deepEqual(scoutAssignment(s,officer.unit.id).route,route);
  const saved=serializeCampaign(s),resumed=validateCampaign(JSON.parse(saved));assert.deepEqual(scoutAssignment(resumed,officer.unit.id).route,route);
  const step=state=>{advanceScouting(state);state.campaign.day++;updateVision(state);};
  step(s);step(resumed);assert.equal(serializeCampaign(s),serializeCampaign(resumed));
- const task=scoutAssignment(s,officer.unit.id),spot={...s.campaign.vision.factions.cao.scouted[0]};assert.equal(task.location,via);assert.ok(task.progress>0,'105 daily points continue onto the next road');
+ const task=scoutAssignment(s,officer.unit.id),spot={...s.campaign.vision.factions.cao.scouted[0]};
+ let remaining=105,location=city.id;for(const to of route){const leg=roadCost(s,location,to);if(remaining<leg)break;remaining-=leg;location=to;}
+ assert.equal(task.location,location);assert.equal(task.phase,location===target?'watch':'travel');
+ assert.equal(task.progress,location===target?0:remaining,'105 daily points carry across real road nodes');
  assert.equal(recallScout(s,officer.unit.id),null);assert.equal(recallScout(resumed,officer.unit.id),null);
  for(let i=0;i<10;i++){step(s);step(resumed);}
  assert.equal(serializeCampaign(s),serializeCampaign(resumed));assert.ok(s.campaign.vision.factions.cao.scouted.some(v=>v.id===spot.id),'sight survives the next planning turn after the scout stops');
@@ -153,13 +157,13 @@ test('scouting a port road endpoint clamps floating point progress and retains a
  s.campaign.day++;resumed.campaign.day++;advanceScouting(s);advanceScouting(resumed);assert.equal(serializeCampaign(s),serializeCampaign(resumed));
 });
 
-test('a civilian scouting officer has real employment and can clear an idle resignation warning',()=>{
+test('a civilian scouting officer has real employment and persists its employment recovery',()=>{
  const s=newCampaign(203,'guandu-200'),home='town-8',id='person-409',o=scoutCandidates(s,home).find(o=>o.unit.id===id);
  assert.equal(o.unit.troops,0);assert.equal(dispatchScout(s,home,id,scoutTargets(s,home)[0].id),null);
- const r=s.campaign.talent.records[id];Object.assign(r,{graceUntilDay:1,idleDays:180,idleTurns:18,workedDays:0,leaveAtDay:30});s.campaign.domestic.loyalty[id]=30;
+ const r=s.campaign.talent.records[id];Object.assign(r,{graceUntilDay:1,idleDays:180,idleTurns:18,workedDays:0});s.campaign.domestic.loyalty[id]=80;
  const resumed=validateCampaign(JSON.parse(serializeCampaign(s)));
  for(let day=1;day<=30;day++)for(const state of [s,resumed]){state.campaign.day=day;state.turn=Math.floor((day-1)/10)+1;finishTalentDay(state,cancelDomestic);}
- assert.equal(r.workedDays,30);assert.equal(r.idleDays,0);assert.equal(r.leaveAtDay,null);assert.ok(residentOfficer(s,id));assert.ok(scoutAssignment(s,id));
+ assert.equal(r.workedDays,30);assert.equal(r.idleDays,0);assert.equal(r.loyaltyWarning,false);assert.ok(residentOfficer(s,id));assert.ok(scoutAssignment(s,id));
  assert.equal(serializeCampaign(s),serializeCampaign(resumed));
 });
 
@@ -182,7 +186,9 @@ test('AI threats ignore hidden armies and secret orders but respond to observed 
 test('foreign battle observations do not disclose unseen history or later outcomes',()=>{
  const s=newCampaign(203,'guandu-200'),home=s.cities.find(c=>c.owner==='cao');
  const r={id:'fog-battle',name:'观察战役',startedDay:1,settled:false,point:{x:home.x,y:home.y},battle:{tick:3,logs:[{text:'侦察前的秘密战况'}],sides:[{faction:'yuan',units:[]},{faction:'wu',units:[]}]},templates:{},snapshots:[{day:1,tick:0,data:{secret:true}}],report:null};
+ r.replay={version:1,frames:[{tick:0,units:[['unseen-history']]}]};
  s.campaign.battles.push(r);updateVision(s);const before=serializeCampaign(s),observed=intelligenceWorld(s).campaign.battles.find(b=>b.id===r.id);
+ assert.equal(observed.replay,undefined,'foreign observations must not reveal prior recorded frames');
  assert.equal(observed.snapshots.length,1);assert.equal(observed.snapshots[0].data.secret,undefined);assert.deepEqual(observed.battle.logs,[]);assert.equal(serializeCampaign(s),before);
  assert.ok(!s.campaign.vision.factions.cao.battles.includes(r.id));
  r.point={x:2000,y:2000};r.settled=true;r.report={reason:'击溃',winner:0,growth:[],stats:[]};
@@ -206,9 +212,9 @@ test('save validation rejects missing work, future sight expiry and invalid scou
 test('scouting selects a home city, then a local officer, and offers only nearby endpoints',()=>{
  const s=quietGame(),{city,officer}=scout(s),targets=scoutTargets(s,city.id),target=targets[0],before=serializeCampaign(s);assert.ok(target);
  const select=(html,id)=>html.match(new RegExp('<(?:select|button)[^>]*id="'+id+'"[^>]*>[\\s\\S]*?</(?:select|button)>'))[0];
- const initial=scoutingMarkup(s);assert.match(select(initial,'scout-officer'),/disabled/);assert.match(select(initial,'scout-target'),/disabled/);assert.doesNotMatch(select(initial,'scout-city'),/disabled|selected/);
+ const initial=scoutingMarkup(s);assert.match(select(initial,'scout-officer'),/disabled/);assert.match(select(initial,'scout-target'),/disabled/);assert.doesNotMatch(select(initial,'scout-city'),/\sdisabled(?:\s|>)/);assert.match(select(initial,'scout-city'),/data-selected=""/);
  assert.equal(scoutSelection(s,{officer:officer.unit.id,target:target.id}).route,null,'officer alone cannot select a city or unlock a route');
- const cityOnly=scoutingMarkup(s,{city:city.id,target:target.id});assert.doesNotMatch(select(cityOnly,'scout-officer'),/disabled|selected/);assert.match(select(cityOnly,'scout-target'),/disabled/);assert.ok(select(cityOnly,'scout-city').includes('value="'+city.id+'" selected'));
+ const cityOnly=scoutingMarkup(s,{city:city.id,target:target.id});assert.doesNotMatch(select(cityOnly,'scout-officer'),/\sdisabled(?:\s|>)/);assert.match(select(cityOnly,'scout-officer'),/data-selected=""/);assert.match(select(cityOnly,'scout-target'),/disabled/);assert.ok(select(cityOnly,'scout-city').includes(city.name));
  const assigned=scoutingMarkup(s,{city:city.id,officer:officer.unit.id});assert.doesNotMatch(select(assigned,'scout-target'),/disabled/);assert.equal(scoutSelection(s,{city:city.id,officer:officer.unit.id}).city.id,city.id);assert.deepEqual(scoutSelection(s,{city:city.id,officer:officer.unit.id}).targets.map(n=>n.id),targets.map(n=>n.id));
  const other=s.cities.find(c=>c.owner==='cao'&&c.id!==city.id),foreignOfficer=scoutCandidates(s,other.id)[0];assert.ok(foreignOfficer);
  assert.match(dispatchScout(s,city.id,foreignOfficer.unit.id,target.id),/本城/);assert.ok(!select(cityOnly,'scout-officer').includes('value="'+foreignOfficer.unit.id+'"'));

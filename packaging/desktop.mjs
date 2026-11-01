@@ -12,12 +12,12 @@ app.setPath('userData',process.env.SANGO_USER_DATA||join(app.getPath('appData'),
 const locked=app.requestSingleInstanceLock();
 if(!locked)app.quit();
 else{
- let window;
+ let window,manualWindow,manualClosed;
  app.on('second-instance',()=>{if(window){if(window.isMinimized())window.restore();window.show();window.focus();}});
  app.whenReady().then(async()=>{
   const code=join(__dirname,'code'),art=app.isPackaged?join(process.resourcesPath,'art'):join(__dirname,'art');
   const playtest=await loadPlaytestArt(join(art,'playtest'));
-  const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.mjs':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json; charset=utf-8','.svg':'image/svg+xml','.bin':'application/octet-stream','.webmanifest':'application/manifest+json'};
+  const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.mjs':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json; charset=utf-8','.svg':'image/svg+xml','.png':'image/png','.webp':'image/webp','.woff2':'font/woff2','.bin':'application/octet-stream','.webmanifest':'application/manifest+json'};
   protocol.handle('sango',async request=>{
    try{
     const url=new URL(request.url);if(url.hostname!=='game'||request.method!=='GET')return new Response('Forbidden',{status:403});
@@ -38,6 +38,10 @@ else{
    }catch{return new Response('Not found',{status:404});}
   });
   Menu.setApplicationMenu(null);
+  ipcMain.handle('sango:exit-game',event=>{
+   if(event.sender!==window.webContents||event.senderFrame!==window.webContents.mainFrame)throw Error('Invalid exit request');
+   app.quit();
+  });
   ipcMain.handle('sango:export-save',async(event,payload)=>{
    if(!event.senderFrame?.url.startsWith('sango://game/')||typeof payload?.name!=='string'||typeof payload.data!=='string'||
     !/^[^\\/:*?"<>|\x00-\x1f]+\.json$/.test(payload.name)||Buffer.byteLength(payload.data)>MAX_SAVE_BYTES)throw Error('Invalid save export');
@@ -47,6 +51,19 @@ else{
    await writeFile(path,payload.data,'utf8');return true;
   });
   const area=screen.getPrimaryDisplay().workAreaSize;
+  ipcMain.handle('sango:open-manual',event=>{
+   if(event.sender!==window.webContents||event.senderFrame!==window.webContents.mainFrame)throw Error('Invalid manual request');
+   if(manualWindow&&!manualWindow.isDestroyed()){manualWindow.focus();return manualClosed;}
+   const reader=manualWindow=new BrowserWindow({parent:window,modal:true,width:Math.min(1440,area.width),height:Math.min(960,area.height),minWidth:Math.min(900,area.width),minHeight:Math.min(650,area.height),title:'三国 · 操作手册',backgroundColor:'#f4f1e9',show:false,autoHideMenuBar:true,
+    webPreferences:{nodeIntegration:false,contextIsolation:true,sandbox:true,spellcheck:false}});
+   reader.webContents.setWindowOpenHandler(()=>({action:'deny'}));
+   reader.webContents.on('will-navigate',(event,url)=>{if(url.split(/[?#]/)[0]!=='sango://game/manual/index.html')event.preventDefault();});
+   manualClosed=new Promise((done,fail)=>{
+    reader.once('closed',()=>{manualWindow=null;manualClosed=null;done();});
+    reader.loadURL('sango://game/manual/index.html').then(()=>{if(!reader.isDestroyed()&&process.env.SANGO_VERIFY!=='1')reader.show();}).catch(error=>{fail(error);reader.destroy();});
+   });
+   return manualClosed;
+  });
   window=new BrowserWindow({width:Math.min(1440,area.width),height:Math.min(960,area.height),minWidth:Math.min(900,area.width),minHeight:Math.min(650,area.height),title:'三国 · 君临',backgroundColor:'#eee5cf',
    show:process.env.SANGO_VERIFY!=='1',icon:join(__dirname,'icon.png'),autoHideMenuBar:true,
    webPreferences:{nodeIntegration:false,contextIsolation:true,sandbox:true,spellcheck:false,preload:join(__dirname,'preload.cjs')}});

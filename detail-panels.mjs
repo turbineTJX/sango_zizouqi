@@ -29,14 +29,16 @@ export function createDetailPanels(root){
  return {
   panelRoot,
   get hasSource(){return !!source;},
+  refreshSource(){if(source)source.dirty=true;},
   sourceContext(target){return target?.closest?.('#detail-source-root')?source?.context:null;},
   returnContext(){returning=!!source;return source?.context||null;},
   render(html,context){
    const detail=!!html&&isObjectDetail(context);
    if(detail&&!source&&rendered&&!isObjectDetail(rendered)&&panelRoot.firstElementChild){
-    source={context:rendered,focus:captureInteractionFocus(panelRoot)};forgetMarkup(panelRoot);
+    source={context:rendered,focus:captureInteractionFocus(panelRoot),replace:!!panelRoot.querySelector('.officer-directory')};forgetMarkup(panelRoot);
     const backdrop=panelRoot.firstElementChild;
     const positions=[backdrop,...backdrop.querySelectorAll('*')].filter(el=>el.scrollTop||el.scrollLeft).map(el=>({el,top:el.scrollTop,left:el.scrollLeft}));
+    source.positions=positions;
     for(const [oldClass,newClass]of Object.entries(aliases))for(const el of backdrop.querySelectorAll('.'+oldClass)){el.classList.replace(oldClass,newClass);}
     const title=backdrop.querySelector('#modal-title');if(title)title.id='detail-source-title';
     const dialog=backdrop.querySelector('[role="dialog"]');if(dialog){dialog.setAttribute('aria-labelledby','detail-source-title');dialog.setAttribute('aria-modal','false');}
@@ -44,20 +46,24 @@ export function createDetailPanels(root){
     for(const p of positions){p.el.scrollTop=p.top;p.el.scrollLeft=p.left;}
    }
    let restored=false,focus=null;
-   if(!detail&&returning&&source&&context.modal===source.context.modal){
+   if(!detail&&source&&(returning||source.replace)&&context.modal===source.context.modal){
     const backdrop=sourceRoot.firstElementChild;
-    const positions=[backdrop,...backdrop.querySelectorAll('*')].filter(el=>el.scrollTop||el.scrollLeft).map(el=>({el,top:el.scrollTop,left:el.scrollLeft}));
+    const positions=source.replace?source.positions:[backdrop,...backdrop.querySelectorAll('*')].filter(el=>el.scrollTop||el.scrollLeft).map(el=>({el,top:el.scrollTop,left:el.scrollLeft}));
     for(const [oldClass,newClass]of Object.entries(aliases))for(const el of backdrop.querySelectorAll('.'+newClass))el.classList.replace(newClass,oldClass);
     const title=backdrop.querySelector('#detail-source-title');if(title)title.id='modal-title';
     const dialog=backdrop.querySelector('[role="dialog"]');if(dialog){dialog.setAttribute('aria-labelledby','modal-title');dialog.setAttribute('aria-modal','true');}
-    panelRoot.replaceChildren(backdrop);forgetMarkup(panelRoot);for(const p of positions){p.el.scrollTop=p.top;p.el.scrollLeft=p.left;}restored=true;focus=source.focus;
+    panelRoot.replaceChildren(backdrop);forgetMarkup(panelRoot);if(source.dirty)patchMarkup(panelRoot,html);for(const p of positions){p.el.scrollTop=p.top;p.el.scrollLeft=p.left;}restored=true;focus=source.focus;
    }
    if(!detail){source=null;sourceRoot.replaceChildren();}
    if(!restored){if(rendered?.modal===context.modal)patchMarkup(panelRoot,html);else{panelRoot.innerHTML=html;forgetMarkup(panelRoot);}}
+   const replacing=!!(detail&&source?.replace);
+   root.classList.toggle('detail-replaces-source',replacing);
+   sourceRoot.hidden=replacing;sourceRoot.inert=replacing;
+   if(replacing)panelRoot.querySelector('[role="dialog"]')?.setAttribute('aria-modal','true');
    returning=false;
    rendered=html?context:null;
    return {detail,restored,focus,blocking:!!html&&(!detail||!!source)};
   },
-  clear(){source=null;rendered=null;returning=false;sourceRoot.replaceChildren();panelRoot.replaceChildren();}
+  clear(){source=null;rendered=null;returning=false;sourceRoot.hidden=false;sourceRoot.inert=false;root.classList.remove('detail-replaces-source');sourceRoot.replaceChildren();panelRoot.replaceChildren();}
  };
 }

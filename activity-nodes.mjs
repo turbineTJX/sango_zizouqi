@@ -5,15 +5,29 @@ import {OFFICER_BY_ID} from './officer-catalog.mjs';
 import {playerFaction} from './player-faction.mjs';
 import {validMeritGrowth,PROGRESSION} from './progression.mjs';
 import {activityBySource} from './activity-query-index.mjs';
+import {governorApprover} from './city-governance.mjs';
 
 // Factual outcomes live in the daily ledger. Reports only select these nodes.
 export function appendActivityNode(s,{sourceId,category,phase,faction,officerId=null,officerIds=[],cityId=null,siteId=cityId,key=null,text,result={}}){
  const ledger=s.campaign.activity;if(!ledger)return null;
  const existing=activityBySource(ledger.nodes,sourceId);if(existing)return existing;
+ const c=s.cities.find(c=>c.id===cityId),approver=c?.owner===faction&&governorApprover(s,c);
+ if(approver&&['domestic','talent'].includes(category))result={...result,governorApprover:approver};
  const sequence=ledger.nextSequence++,node={id:'activity:'+sequence,sourceId,sequence,day:s.campaign.day,category,phase,faction:faction||'neutral',officerId,officerIds:[...new Set([officerId,...officerIds].filter(Boolean))],cityId,siteId,key,text,result:structuredClone(result),read:false};
  ledger.nodes.push(node);return node;
 }
 export function importantActivityNode(n){
+ // Stamp delegation when the outcome happens, so toggling it cannot hide old
+ // reports or make completed ordinary work interrupt again after a reload.
+ if(n.result?.governorApprover){
+  if(n.phase==='event'&&(n.result.opportunity==='master'||n.result.loss===0))return false;
+  if(n.phase==='merit'||n.category==='domestic'&&n.phase==='complete')return false;
+  if(n.category==='talent'&&['discovered','signed'].includes(n.phase))return false;
+  if(n.phase==='incident'){
+   const r=n.result.incident;
+   if(r?.resources&&Object.values(r.resources.delta).every(n=>n>=0)&&r.relationship.delta>=0)return false;
+  }
+ }
  if(n.category==='domestic'&&n.phase==='incident')return true;
  if(n.phase==='merit')return n.result.leveled===true;
  if(n.category==='domestic'&&['harvest','harvest-start'].includes(n.phase))return false;
@@ -26,13 +40,35 @@ export function importantActivityNode(n){
  if(n.category==='treasure')return ['acquired','delivered'].includes(n.phase);
  if(n.category==='battle'||n.category==='occupation')return true;
  if(n.category==='personnel')return ['DEAD','CAPTIVE','ESCAPED','TRANSPORT_LOST','RANSOM','RELEASE','SCOUT_INTEL'].includes(n.phase);
- if(n.category==='talent')return ['discovered','signed','leave-warning','resigned','changed-side','offer-paused','project-closed','retained','displaced'].includes(n.phase);
+ if(n.category==='talent')return ['discovered','signed','loyalty-low','resigned','changed-side','offer-paused','project-closed','displaced'].includes(n.phase);
  const kind=ACTIONS[n.key]?.kind,r=n.result;
  if(['hire','persuade'].includes(kind)&&['complete','failure'].includes(n.phase)&&!r?.leveled)return false;
  return ['budget-warning','event','pause','order-cancel','cancel'].includes(n.phase)||n.phase==='failure'&&['build','rescue'].includes(kind)||n.phase==='complete'&&(kind==='build'||kind==='research'&&r?.reward?.kind==='technology'||kind==='rescue'&&r.changed||r.leveled);
 }
-export const pendingActivityReports=s=>(s.campaign?.activity?.nodes||[]).filter(n=>n.faction===playerFaction(s)&&importantActivityNode(n)&&!n.read).sort((a,b)=>a.sequence-b.sequence);
-export function acknowledgeActivityReports(s,ids){const selected=new Set(ids);for(const n of s.campaign.activity.nodes)if(selected.has(n.id)&&n.faction===playerFaction(s))n.read=true;}
+// Keep both ledger entries, but show the outcome that already includes the same upgrade.
+function reportedMeritPairs(s){
+ const nodes=s.campaign?.activity?.nodes||[],bySource=new Map(nodes.map(n=>[n.sourceId,n])),events=new Map((s.campaign?.domestic?.events||[]).map(e=>['domestic:'+e.id,e])),pairs=new Map();
+ const signature=n=>JSON.stringify([n.faction,n.officerId,n.day,n.cityId,n.result.growth]),legacyMerits=new Map(),legacyOutcomes=new Map();
+ for(const n of nodes){
+  const merit=n.phase==='merit'&&n.sourceId.startsWith('merit:domestic:'),outcome=n.category==='domestic'&&['complete','failure'].includes(n.phase)&&n.result?.leveled&&importantActivityNode(n);
+  if(!merit&&!outcome)continue;const index=merit?legacyMerits:legacyOutcomes,key=signature(n);index.set(key,[...(index.get(key)||[]),n]);
+ }
+ for(const n of nodes){
+  if(n.category!=='domestic'||!['complete','failure'].includes(n.phase)||!n.result?.leveled||!importantActivityNode(n))continue;
+  // Older saves can recover the exact work identity from the existing event receipt.
+  const e=events.get(n.sourceId),source=n.result.meritSourceId||(e?.actionId!=null?`merit:domestic:${e.actionId}:${n.day}:${n.officerId}`:null),matches=legacyMerits.get(signature(n))||[],m=source?bySource.get(source):matches.length===1&&legacyOutcomes.get(signature(n))?.length===1?matches[0]:null;
+  if(m?.phase==='merit'&&m.faction===n.faction&&m.officerId===n.officerId&&m.day===n.day&&m.cityId===n.cityId&&JSON.stringify(m.result.growth)===JSON.stringify(n.result.growth))pairs.set(n.id,m.id);
+ }
+ return pairs;
+}
+export function pendingActivityReports(s){
+ const covered=new Set(reportedMeritPairs(s).values());
+ return (s.campaign?.activity?.nodes||[]).filter(n=>n.faction===playerFaction(s)&&importantActivityNode(n)&&!n.read&&!covered.has(n.id)).sort((a,b)=>a.sequence-b.sequence);
+}
+export function acknowledgeActivityReports(s,ids){
+ const selected=new Set(ids);for(const [outcome,merit]of reportedMeritPairs(s))if(selected.has(outcome))selected.add(merit);
+ for(const n of s.campaign.activity.nodes)if(selected.has(n.id)&&n.faction===playerFaction(s))n.read=true;
+}
 export function activityNodeEntry(s,n){return {milestone:true,nodeId:n.id,sequence:n.sequence,place:mapNode(s,n.siteId)?.name||'战略事项',action:n.text,progress:null,category:n.category,phase:n.phase};}
 export function siteActivityDays(s,id,{beforeDay=s.campaign.day,limit=30}={}){
  const end=Math.min(s.campaign.day,Math.max(1,beforeDay)),start=end,nodes=s.campaign.activity.nodes.filter(n=>n.siteId===id&&n.faction===playerFaction(s));

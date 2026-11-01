@@ -138,17 +138,16 @@ test('default development and recovery cannot veto a better feasible offensive t
  assert.equal(chooseFactionStrategy(recovering,profile,old,[attack]).goal.targetCity,target.id);
 });
 
-test('fresh observations cancel an unsafe existing attack without reselecting objectives within the turn',()=>{
+test('fresh observations wait for the next turn before cancelling an unsafe existing attack',()=>{
  const {s,target}=planningFront();planStrategicAI(s);
  const p=s.campaign.ai.plans.find(p=>p.faction==='yuan'),revision=s.campaign.ai.factions.yuan.strategy.revision,turn=s.turn;
  assert.equal(p.phase,'attack');target.units.forEach(u=>u.troops=100000);
  s.campaign.day++;updateVision(s);planStrategicAI(s);
- assert.equal(s.turn,turn);assert.equal(p.phase,'cancelled');assert.equal(s.campaign.ai.factions.yuan.strategy.revision,revision);
- assert.match(p.reason,/优势(?:消失|不足)/);
+ assert.equal(s.turn,turn);assert.equal(p.phase,'attack');assert.equal(s.campaign.ai.factions.yuan.strategy.revision,revision);
  const signature=s.campaign.ai.factions.yuan.strategy.militarySignature;
  for(let day=3;day<=10;day++){s.campaign.day=day;updateVision(s);planStrategicAI(s);assert.equal(s.campaign.ai.factions.yuan.strategy.revision,revision);assert.equal(s.campaign.ai.factions.yuan.strategy.militarySignature,signature);}
  s.campaign.day=11;s.turn=2;updateVision(s);planStrategicAI(s);
- assert.equal(s.campaign.ai.factions.yuan.strategy.revision,revision+1);assert.equal(s.campaign.ai.factions.yuan.strategy.updatedDay,11);
+ assert.equal(p.phase,'cancelled');assert.match(p.reason,/优势(?:消失|不足)/);assert.equal(s.campaign.ai.factions.yuan.strategy.revision,revision+1);assert.equal(s.campaign.ai.factions.yuan.strategy.updatedDay,11);
  assert.notEqual(s.campaign.ai.factions.yuan.strategy.militarySignature,signature);
  const repeated=JSON.stringify(s.campaign.ai.factions.yuan.strategy);planStrategicAI(s);assert.equal(JSON.stringify(s.campaign.ai.factions.yuan.strategy),repeated);
 });

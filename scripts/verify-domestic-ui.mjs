@@ -1,3 +1,4 @@
+import {runCampaignDay} from './time-control-ui-helpers.mjs';
 import {newCampaign,serializeCampaign} from '../strategic-campaign.mjs';
 import {createRequire} from 'node:module';
 import {mkdir,writeFile} from 'node:fs/promises';
@@ -23,7 +24,7 @@ try{
  await action('campaign-begin').click();await pause();const started=await saved();assert.ok(started.campaign.domestic.events.some(e=>e.phase==='start'));
  for(let i=0;i<18&&(await saved()).campaign.day<11;i++){
   if(await action('campaign-auto').count()){await action('campaign-auto').first().click();await pause();}
-  else {await action('campaign-day').click();await pause();}
+  else {await runCampaignDay(page);await pause();}
  }
  const progressed=await saved();assert.equal(progressed.campaign.day,11);assert.equal(progressed.campaign.domestic.assignments.length,2);
  assert.ok(progressed.campaign.domestic.events.some(e=>['complete','failure'].includes(e.phase)));

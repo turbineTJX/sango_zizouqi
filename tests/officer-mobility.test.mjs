@@ -10,7 +10,7 @@ import {assignDomestic,ACTIONS,assignmentFor} from '../domestic.mjs';
 import {readyTalent} from './helpers/talent.mjs';
 import {peacefulCities,fieldFromCity} from './helpers/field-campaign.mjs';
 import {personnelSpeed,TRANSPORT_SPEED,advancePersonnel,transportEnemy} from '../personnel-movement.mjs';
-import {fateRoll,resolveOfficerLoss,releaseCaptive,updateCaptives,ransomCost} from '../officer-fates.mjs';
+import {fateRoll,officerLossResult,resolveOfficerLoss,releaseCaptive,updateCaptives,ransomCost} from '../officer-fates.mjs';
 import {residentOfficer} from '../city-personnel.mjs';
 import {requestStrategicOrder} from '../strategic-orders.mjs';
 import {campaignInfoDetail} from '../campaign-info.mjs';
@@ -26,12 +26,12 @@ test('an immediate new order recalls the recruiter physically before execution',
 });
 test('express transports outrun armies but swept enemy crossings cause total loss without a battle',()=>{
  const s=newCampaign(203,'guandu-200'),c=s.cities.find(c=>c.id==='xuchang'),id=c.units.find(u=>u.id!==c.governor).id;
- assert.equal(transferOfficer(s,id,'chenliu',{cargo:{grain:500,manpower:200}}),null);const o=s.campaign.idle.find(o=>o.unit.id===id);assert.equal(personnelSpeed(o),100);assert.equal(TRANSPORT_SPEED,100);
+ assert.equal(transferOfficer(s,id,'chenliu',{cargo:{grain:500,manpower:200}}),null);const o=s.campaign.idle.find(o=>o.unit.id===id);assert.equal(personnelSpeed(o),TRANSPORT_SPEED);
  const next=o.journey.route[0],traffic=[{faction:'yuan',edge:{from:next,to:c.id,p0:0,p1:1,until:1}}];assert.ok(transportEnemy(s,o,next,0,1,0,1,traffic));assert.equal(transportEnemy(s,o,next,0,.2,.5,1,[{faction:'yuan',edge:{from:c.id,to:next,p0:.3,p1:1,until:.4}}]),undefined);
  const before=s.campaign.battles.length;advancePersonnel(s,o,traffic);assert.equal(s.campaign.battles.length,before);assert.ok(!s.campaign.idle.includes(o));assert.ok(s.campaign.personnelEvents.some(e=>e.type==='TRANSPORT_LOST'));assert.ok(!s.cities.some(c=>c.units.some(u=>u.id===id)));restore(s);
 });
 test('death, captivity and escape preserve exactly one person; ransom is paid once and return takes time',()=>{
- for(const kind of ['DEAD','CAPTIVE','ESCAPED']){const s=newCampaign(23),c=s.cities.find(c=>c.id==='xuchang'),unit=c.units[0];let key;for(let i=0;i<10000;i++){const k='case:'+i,r=fateRoll(s,k);if(kind==='DEAD'?r<.02:kind==='CAPTIVE'?r>=.02&&r<.35:r>=.35){key=k;break;}}assert.ok(key);
+ for(const kind of ['DEAD','CAPTIVE','ESCAPED']){const s=newCampaign(23),c=s.cities.find(c=>c.id==='xuchang'),unit=c.units[0];let key;for(let i=0;i<10000;i++){const k='case:'+i,r=fateRoll(s,k);if(officerLossResult(r,'yuan')===kind){key=k;break;}}assert.ok(key);
   assert.equal(resolveOfficerLoss(s,{unit,faction:'cao',location:c.id,enemy:'yuan',eventId:key}),kind);restore(s);assert.equal(resolveOfficerLoss(s,{unit,faction:'cao',location:c.id,enemy:'yuan',eventId:key}),null);
   if(kind==='CAPTIVE'){let p=s.campaign.domestic.people.find(p=>p.id===unit.id);assert.ok(p.custody);assert.ok(releaseCaptive(s,unit.id,{ransom:true}));for(let i=0;i<30&&p.custody;i++)updateCaptives(s);assert.equal(p.custody,undefined);const gold=s.gold,cost=ransomCost(p);assert.equal(releaseCaptive(s,unit.id,{ransom:true}),null);assert.equal(s.gold,gold-cost);assert.ok(releaseCaptive(s,unit.id,{ransom:true}));const traveler=s.campaign.idle.find(o=>o.unit.id===unit.id);assert.ok(traveler.destination);assert.equal(residentOfficer(s,unit.id),undefined);restore(s);}
  }

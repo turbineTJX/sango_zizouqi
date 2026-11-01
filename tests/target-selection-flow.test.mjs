@@ -37,7 +37,7 @@ test('diplomatic assignment requires an owned source city and a currently eligib
  assert.equal(diplomaticSelection(s,{'diplomacy-officer-commerce':officer.unit.id},'commerce').officer,undefined);
  assert.equal(diplomaticSelection(s,draft,'commerce').officer.unit.id,officer.unit.id);
  const other=s.cities.find(c=>c.owner==='cao'&&c.id!==officer.location);assert.equal(diplomaticSelection(s,{...draft,'diplomacy-city-commerce':other.id},'commerce').officer,undefined);
- const html=diplomacyMarkup(s,draft);assert.match(html,/diplomatic-assignment-preview/);assert.match(diplomacyMarkup(s),/id="diplomacy-officer-commerce"[^>]*disabled/);assert.equal(serializeCampaign(s),before);
+ const html=diplomacyMarkup(s,draft);assert.match(html,new RegExp('id="diplomacy-officer-commerce-button"[^>]*>[\\s\\S]*?'+officer.unit.name));assert.match(diplomacyMarkup(s),/id="diplomacy-officer-commerce-button"[^>]*disabled/);assert.equal(serializeCampaign(s),before);
 });
 
 test('merge and split cannot advance with no target, a foreign army, or no actual participants',()=>{

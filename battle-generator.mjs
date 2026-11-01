@@ -1,3 +1,5 @@
+import {equippedTreasureIds,validTreasureLoadout,treasureSlot,treasureInSlot,setTreasureEquipment} from './treasure-equipment.mjs';
+import {installTreasureCatalog} from './treasure-catalog.mjs';
 import {newGame,makeOfficer,startBattle,configureBattleTerrain,fillSlots} from './engine.mjs';
 import {validateCustomBattle,customRoles,customFrontlineCapacity,customReserveEntries} from './custom-battle.mjs';
 import {initializeTacticLearning} from './tactic-learning.mjs';
@@ -7,7 +9,7 @@ import {BATTLE_MAPS} from './data/design/battle-maps.mjs';
 
 // The only standalone battle constructor. Presets and editor drafts both enter
 // through the same validation, officer creation, learning and deployment rules.
-export function generateBattle(input,{id='custom-battle',name='自由对战',officerIds}={}){
+export function generateBattle(input,{id='custom-battle',name='自由对战',officerIds,treasureDesigns=null}={}){
   const draft=validateCustomBattle(input),state=newGame(draft.seed);
   if(draft.mapId)name=(draft.mapData||BATTLE_MAPS[draft.mapId]).name;
   state.testScenario={id,seed:draft.seed,shieldPercent:draft.shieldPercent,customBattle:structuredClone(draft),...(officerIds?{officerIds}:{})};
@@ -17,7 +19,7 @@ export function generateBattle(input,{id='custom-battle',name='自由对战',off
     const entries=reinforcement?.team||draft[key],roles=reinforcement?.roles||customRoles(draft,key);
     army.units=entries.map((entry,i)=>{
       const u=makeOfficer(entry.id,entry.troops,i,entry.level,draft.seed);
-      Object.assign(u,{type:entry.type,...(entry.treasureId?{treasureId:entry.treasureId}:{}),equipment:structuredClone(entry.equipment),retreatAt:entry.retreatAt??null,formation:entry.formation||(['spear','halberd'].includes(entry.type)?'front':entry.type==='cavalry'?'left':'back'),first:entry.first??i<customFrontlineCapacity({[key]:entries,[key+'Roles']:roles},key)});
+      Object.assign(u,{type:entry.type,treasureIds:[...equippedTreasureIds(entry)],equipment:structuredClone(entry.equipment),retreatAt:entry.retreatAt??null,formation:entry.formation||(['spear','halberd'].includes(entry.type)?'front':entry.type==='cavalry'?'left':'back'),first:entry.first??i<customFrontlineCapacity({[key]:entries,[key+'Roles']:roles},key)});
       if(reinforcement)Object.assign(u,{reinforcementIndex:index,arrivalTick:reinforcement.tick??null,arrivalConfirmed:reinforcement.tick===0,wave:draft.waves.length+index+1,...(reinforcement.arrivalCondition?{arrivalCondition:structuredClone(reinforcement.arrivalCondition)}:{})});
       return initializeTacticLearning(u,draft.seed);
     });
@@ -27,6 +29,7 @@ export function generateBattle(input,{id='custom-battle',name='自由对战',off
   const defending=draft.battleKind==='defense',city=state.cities.find(c=>c.id==='guandu');
   city.garrison=0;city.owner=defending?'cao':'yuan';
   state.pending={cityId:city.id,attackerId:defending?enemy.id:own.id,defenderIds:state.armies.filter(a=>a.faction===(defending?'cao':'yuan')).map(a=>a.id),origin:'xuchang',defenderFaction:city.owner};
+  if(treasureDesigns)installTreasureCatalog(state,treasureDesigns);
   startBattle(state,{deferEnemyDeployment:true});
   const b=state.battle;b.reinforcementCouncil=null;b.battleEvents=draft.events.map(e=>({...e,triggeredAt:null}));
   // Assign by draft roster, before enemy AI selects any starters.

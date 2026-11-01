@@ -5,7 +5,7 @@ import {fieldFromCity,approachFieldContact} from './helpers/field-campaign.mjs';
 import {mapNode,isJunction} from '../road-network.mjs';
 import {roadDistance,roadCost} from '../strategic-movement.mjs';
 import {retreatDestinations,nearestRetreat,redirectRetreat,dispatchWithdrawn} from '../strategic-retreat.mjs';
-import {advancePersonnel,transportProxy,TRANSPORT_SPEED} from '../personnel-movement.mjs';
+import {advancePersonnel,transportProxy,TRANSPORT_SPEED,personnelRouteDays} from '../personnel-movement.mjs';
 import {canRallyAt} from '../army-rally.mjs';
 import {lockDeployment,battleWounded,issueCommand} from '../engine.mjs';
 import {militaryFlowMarkup,newMilitaryFlow,previewMilitaryFlow,encounterFlowMarkup} from '../military-flow.mjs';
@@ -52,9 +52,9 @@ for(const kind of ['junction','port','gate'])test(`${kind}: actual withdrawal ra
  assert.equal((source?.units.reduce((sum,u)=>sum+u.troops,0)||0)+departed.reduce((sum,u)=>sum+u.hp,0),before.troops);
  const people=[...s.armies.flatMap(a=>a.units),...s.cities.flatMap(c=>c.units),...s.campaign.idle.map(o=>o.unit)];
  for(const id of ids)assert.equal(people.filter(u=>u.id===id).length,1,'withdrawal cannot duplicate personnel');
- const copy=restore(s);
+ const copy=restore(s),travelSteps=(Math.max(0,...convoys.map(o=>personnelRouteDays(s,o,o.journey.route,{progress:o.journey.progress})))+1)*CAMPAIGN.stepsPerDay;
  for(const state of [s,copy]){
-  let steps=0;do{advanceCampaignStep(state);assert.ok(++steps<=40,'withdrawn units must actually reach the node');}while(state.campaign.idle.some(o=>ids.includes(o.unit.id)));
+  let steps=0;do{advanceCampaignStep(state);assert.ok(++steps<=travelSteps,'withdrawn units must actually reach the node at convoy speed');}while(state.campaign.idle.some(o=>ids.includes(o.unit.id)));
  }
  assert.equal(serializeCampaign(s),serializeCampaign(copy));
  const rallied=s.armies.find(a=>ids.every(id=>a.units.some(u=>u.id===id)));assert.ok(rallied);assert.equal(rallied.location,n.id);assert.equal(rallied.supply,cargo);assert.equal(rallied.supplyCapacity,capacity);
@@ -88,7 +88,8 @@ test('full-army retreat forms a new army once and cannot duplicate the original 
  for(const u of b.sides.flatMap(side=>side.units)){u.cooldown=999;u.skillReady=Object.fromEntries(u.tactics.map(id=>[id,999]));}
  b.sides[0].units.filter(u=>u.status==='active').forEach((u,i)=>{u.x=0;u.y=i;});
  assert.equal(issueCommand(b,'retreat'),null);advanceCampaignStep(s);assert.equal(r.settled,true);
- for(let i=0;i<40&&s.campaign.idle.some(o=>o.retreating&&o.faction==='cao');i++)for(const o of [...s.campaign.idle].filter(o=>o.retreating&&o.faction==='cao'))advancePersonnel(s,o,[],1/24);
+ const convoys=s.campaign.idle.filter(o=>o.retreating&&o.faction==='cao'),steps=(Math.max(0,...convoys.map(o=>personnelRouteDays(s,o,o.journey.route,{progress:o.journey.progress})))+1)*CAMPAIGN.stepsPerDay;
+ for(let i=0;i<steps&&s.campaign.idle.some(o=>o.retreating&&o.faction==='cao');i++){if(s.campaign.ai)s.campaign.ai.lastPlanDay=s.campaign.day;if(s.campaign.phase==='planning')beginExecution(s);advanceCampaignStep(s);}
  const a=s.armies.find(a=>a.faction==='cao'&&a.location===n.id);assert.ok(a);assert.ok(a.units.length<=10);
  const people=[...s.armies.flatMap(a=>a.units),...s.cities.flatMap(c=>c.units),...s.campaign.idle.map(o=>o.unit)];
  for(const u of b.sides[0].units)assert.equal(people.filter(v=>v.id===u.id).length,1);restore(s);

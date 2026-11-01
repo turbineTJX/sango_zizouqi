@@ -30,7 +30,7 @@ try{
  await action('campaign-personnel').first().click();
  const count=(await page.locator('.personnel-table tbody tr').count());assert.equal(count,73);
  await page.locator('[data-personnel-filter="query"]').fill('曹操');await page.locator('[data-personnel-filter="query"]').dispatchEvent('change');
- assert.equal(await page.locator('.personnel-table tbody tr').count(),1);assert.match(await page.locator('.personnel-table tbody').innerText(),/驻军/);
+ assert.equal(await page.locator('.personnel-table tbody tr').count(),1);assert.match(await page.locator('.personnel-table tbody').innerText(),/太守/);
  await page.locator('[data-personnel-filter="query"]').fill('');await page.locator('[data-personnel-filter="query"]').dispatchEvent('change');
  await page.locator('[data-field-sort="personnel"][data-sort-key="intellect"]').click();
  await page.screenshot({path:out+'/roster-desktop.png',fullPage:true,animations:'disabled'});

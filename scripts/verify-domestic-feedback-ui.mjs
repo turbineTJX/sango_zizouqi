@@ -31,7 +31,7 @@ try{
  await page.locator('[data-action="campaign-run"]').click();
  await page.getByRole('heading',{name:'战略奏报',exact:true}).waitFor({timeout:15000});
  assert.match(await page.locator('.domestic-alert-list').innerText(),/许昌/);
- const date=await page.locator('.sovereign-identity').innerText();assert.match(date,/已暂停|筹划中/);assert.match(await page.locator('.modal-header').innerText(),/已暂停/);await page.waitForTimeout(3400);assert.equal(await page.locator('.sovereign-identity').innerText(),date);
+ const date=await page.locator('.sovereign-identity').innerText();assert.match(await page.locator('.modal-header').innerText(),/已暂停/);await page.waitForTimeout(3400);assert.equal(await page.locator('.sovereign-identity').innerText(),date);
  await page.screenshot({path:'outputs/domestic-feedback/report-desktop.png',fullPage:true});
  const report=page.locator('[data-report-node]').first(),nodeId=await report.getAttribute('data-report-node'),saveBefore=await page.evaluate(async ()=>await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2')),data=JSON.parse(saveBefore),node=data.campaign.activity.nodes.find(n=>n.id===nodeId);
  assert.ok(node&&!node.read);assert.equal(await report.locator('.report-message p').textContent(),node.text);
@@ -54,6 +54,15 @@ try{
  const disaster=peacefulCities(newCampaign(81,'guandu-200')),town=disaster.cities.find(c=>c.id==='xuchang');town.domestic.opportunities.push({kind:'mold',expires:2,amount:200,saved:0});beginExecution(disaster);advanceCampaignDay(disaster);acknowledgeDomesticAlerts(disaster,pendingDomesticAlerts(disaster).map(n=>n.id));
  await importSaveFixture(page,serializeCampaign(disaster));await page.locator('.national-world').waitFor();await page.locator('[data-action="campaign-run"]').click();await page.getByRole('heading',{name:'战略奏报',exact:true}).waitFor({timeout:15000});
  const citySaved=await page.evaluate(async ()=>await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2')),cityData=JSON.parse(citySaved),cityNode=cityData.campaign.activity.nodes.find(n=>n.category==='domestic'&&n.phase==='event'&&n.result.loss===200&&n.faction==='cao');assert.ok(cityNode);assert.equal(cityNode.officerId,null);assert.equal(cityData.campaign.phase,'executing');
+ // A city link inspects stocks without acknowledging the report or sending the player to appointments.
+ await page.locator(`[data-report-node="${cityNode.id}"] [data-action="campaign-info-detail"][data-kind="city"]`).click();
+ await page.getByRole('heading',{name:'许昌',exact:true}).waitFor();
+ assert.match(await page.locator('.modal').innerText(),/本城金|存粮/);
+ assert.equal(await page.evaluate(async ()=>await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2')),citySaved);
+ await page.screenshot({path:'outputs/domestic-feedback/report-city-detail-mobile.png',fullPage:true});
+ await page.locator('.modal-header [data-action="close"]').click();
+ await page.getByRole('heading',{name:'战略奏报',exact:true}).waitFor();
+ assert.equal(await page.evaluate(async ()=>await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2')),citySaved);
  await page.locator(`[data-report-node="${cityNode.id}"] [data-action="activity-alert-record"]`).click();await page.locator('.activity-selected').waitFor();assert.equal(await page.locator('.activity-selected span').textContent(),cityNode.text);assert.equal(await page.evaluate(async ()=>await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2')),citySaved);
  await page.screenshot({path:'outputs/domestic-feedback/city-source-record-mobile.png',fullPage:true,animations:'disabled'});await page.getByRole('button',{name:'返回奏报',exact:true}).click();await page.getByRole('button',{name:'确认',exact:true}).click();assert.match(await page.locator('[data-action="campaign-run"]').innerText(),/^暂停/);
  await page.waitForFunction(async day=>JSON.parse(await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2')).campaign.day>day,cityData.campaign.day,{timeout:15000});await page.reload();await page.locator('.national-world').waitFor();assert.equal(await page.locator(`[data-report-node="${cityNode.id}"]`).count(),0);

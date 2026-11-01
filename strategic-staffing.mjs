@@ -1,3 +1,4 @@
+import {isAITurnStart} from './ai-turn.mjs';
 import {residentOfficer} from './city-personnel.mjs';
 import {assignDomestic,assignmentFor,ACTIONS,DIRECTIONS} from './domestic.mjs';
 import {rankOfficerCandidates} from './officer-recommendation.mjs';
@@ -7,6 +8,7 @@ import {withPlanningQueries} from './planning-queries.mjs';
 // the shared appointment operation and an actual completed work attempt.
 export const staffingOfficer=(s,id)=>(s.campaign.ai?.staffing||[]).some(p=>p.officerId===id);
 export function progressStrategicStaffing(s){
+ if(!isAITurnStart(s))return;
  const ai=s.campaign.ai,keep=[];
  for(const p of ai.staffing){
   const moving=s.campaign.idle.find(t=>t.unit.id===p.officerId&&t.destination),queued=s.campaign.domestic.orders.find(q=>q.officerIds.includes(p.officerId));
@@ -44,6 +46,8 @@ export function validateStrategicStaffing(s,fail){
    &&s.cities.some(c=>c.id===p.cityId)&&['travel','work'].includes(p.phase)&&Number.isSafeInteger(p.createdDay)&&p.createdDay>0&&p.createdDay<=s.campaign.day
    &&(p.arrivedDay===null||Number.isSafeInteger(p.arrivedDay)&&p.arrivedDay>=p.createdDay&&p.arrivedDay<=s.campaign.day));
   fail(p.phase==='travel'?p.arrivedDay===null:p.arrivedDay!==null);seen.add(p.officerId);
-  fail(!!residentOfficer(s,p.officerId)||s.campaign.idle.some(o=>o.unit.id===p.officerId));
+  // A city-based talent envoy remains employed in its original unit container.
+  // It is absent from residentOfficer while away, but still a valid saved worker.
+  fail(!!residentOfficer(s,p.officerId)||s.campaign.idle.some(o=>o.unit.id===p.officerId)||s.cities.some(c=>c.owner===p.faction&&c.units.some(u=>u.id===p.officerId&&u.mission)));
  }
 }

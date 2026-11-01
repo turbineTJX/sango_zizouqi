@@ -5,11 +5,12 @@ const disposition=p=>p===1||p===2?'cautious':p===4?'bold':'balanced';
 
 // This die expresses a ruler's preference, not a prediction of combat RNG.
 // Both the die and the preference survive saves; candidates never draw dice.
-export function temperamentProbability({turn,personality,leadership,intellect,politics,quietTurns}){
+export function temperamentProbability({personality,leadership,intellect,politics}){
  const r=R.temperament,judgment=(leadership+intellect)/2;
- const impatience=Math.min(r.maximumQuietBonus,Math.max(0,quietTurns-r.quietAfterTurns)*r.quietPerTurn);
- const chance=r.baseChance[personality]+(50-judgment)/100*r.judgmentWeight+(50-politics)/100*r.politicsWeight+impatience;
- return Math.round(clamp(chance*(turn<=R.tempo.earlyLastTurn?r.earlyFactor:1),r.minimumChance,r.maximumChance)*10000)/10000;
+ const chance=r.baseChance[personality]+(50-judgment)/100*r.judgmentWeight+(50-politics)/100*r.politicsWeight;
+ // Actual losses, recovery, intelligence and supply determine whether this
+ // preference can be used. Time without a battle cannot make a war affordable.
+ return Math.round(clamp(chance,r.minimumChance,r.maximumChance)*10000)/10000;
 }
 export function drawFactionTemperament(ai,faction,turn,profile,quietTurns){
  const policy=ai.factions[faction];if(policy.temperament?.turn===turn)return policy.temperament;

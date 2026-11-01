@@ -52,7 +52,7 @@ test('real water marching keeps the arrival port when a mid-river order changes 
  a.travel={from:'town-60',to:'town-71',progress:5,road:'main',terrain:'water'};
  const original=structuredClone(a.travel);assert.equal(orderCampaignArmy(s,a.id,'town-24'),null);
  assert.deepEqual(a.travel,original);assert.equal(a.location,'town-60');assert.equal(a.route[0],'town-71');assert.equal(a.route.at(-1),'town-24');
- assert.equal(orderCampaignArmy(s,a.id,'town-24','auto',{path:['town-24']}),null);assert.equal(a.route[0],'town-71');
+ assert.equal(orderCampaignArmy(s,a.id,'town-24','auto',{path:findCampaignRoute(s,'town-71','town-24')}),null);assert.equal(a.route[0],'town-71');
  assert.ok(orderCampaignArmy(s,a.id,'town-23','auto',{path:['town-23']}));assert.equal(a.route[0],'town-71');
  const restored=validateCampaign(JSON.parse(serializeCampaign(s)));assert.equal(serializeCampaign(restored),serializeCampaign(s));
  const old=JSON.parse(serializeCampaign(s));old.campaign.version=64;assert.throws(()=>validateCampaign(old),/重新开始/);

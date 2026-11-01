@@ -13,11 +13,13 @@
 
 .strategy-map-first.city-view .strategy-notice,.strategy-map-first.city-view .harvest-strip{display:none}
 .national-world .atlas-province-labels{opacity:calc(.3*(1 - var(--interior-opacity,0)))}
-.national-world .terrain-relief,.national-world .terrain-landscape{opacity:calc(1 - var(--interior-opacity,0)*.85)!important}
+.national-world .terrain-relief{opacity:calc(1 - var(--interior-opacity,0)*.22)!important}
+.national-world .terrain-landscape{opacity:calc(1 - var(--interior-opacity,0)*.12)!important}
 
 /* Painted town plates and individually composited facilities. */
 .strategy-map-first .national-map-stage>.national-world.map-close{background:#d3a16f}
 .map-close .strategy-junction.is-town-focused{opacity:1}
+.national-world .is-map-name-hidden:is(:hover,:focus-visible) :is(.national-place-name,.junction-name){visibility:visible!important}
 .map-close .node-metropolitan-site.is-town-focused [data-map-glyph]{opacity:.55}
 @media(prefers-reduced-motion:no-preference){.city-scaffold:not(.is-paused) image{animation:city-building-work 3s ease-in-out infinite}@keyframes city-building-work{50%{filter:brightness(1.14) drop-shadow(0 3px 2px #261b1380)}}}
 .town-panorama{filter:none}
@@ -58,7 +60,6 @@
 .national-world .national-node>[data-map-glyph],.national-world .strategy-junction>[data-map-glyph]{opacity:var(--settlement-opacity,0)}
 .map-layer-metropolis .national-node,.map-layer-metropolis .strategy-junction,.map-layer-metropolis .road-hit{pointer-events:none}
 .map-layer-metropolis .national-node *, .map-layer-metropolis .strategy-junction *{pointer-events:none!important}
-.national-world .strategy-road{opacity:calc(.22 + var(--settlement-opacity,0)*.58)!important}
 .national-world .city-district{pointer-events:none}.map-close .is-town-focused .city-district{pointer-events:all}
 .national-world .city-officers{visibility:hidden}.map-close .is-town-focused .city-officers{visibility:visible}
 .map-layer-metropolis .map-metropolis{pointer-events:all}
@@ -84,6 +85,42 @@
 .national-world .map-metropolis .metropolis-name{font-size:11px;letter-spacing:1px}
 
 .national-world .map-city-model{filter:drop-shadow(0 .5px .5px #20392b30)}
-.map-city-model .town-ground{opacity:.18}.city-scene .town-ground{opacity:.9}
-.strategy-world.national-world .road-land{stroke:#998966;stroke-width:1.1;filter:none}.strategy-world.national-world .road-mountain{stroke:#8a8168;stroke-width:1;filter:none}.strategy-world.national-world .strategy-side-road{stroke:#a39879;stroke-width:.8;filter:none}
-.strategy-world.national-world .strategy-road:hover,.strategy-world.national-world .strategy-road:focus{stroke:#e4c27d;stroke-width:2.5}
+.map-city-model .town-ground,.city-scene .town-ground{opacity:.58}
+.metropolis-location-line{fill:none;stroke:#e1d6b1;stroke-opacity:.55;stroke-width:.7;vector-effect:non-scaling-stroke;pointer-events:none}
+.map-metropolis.is-marker-hidden .metropolis-location-line{display:none}
+.map-overview-site{display:none;--overview-wall:#c9bd97;--overview-roof:#516358;--overview-force:var(--force-color,#88967d);fill:none;stroke:#646852;stroke-width:.65;stroke-linejoin:round;stroke-linecap:round;cursor:pointer}
+.map-overview-site .overview-site-hit{fill:transparent;stroke:none;pointer-events:none}
+.map-overview-site .overview-shadow{fill:#394d39;opacity:.16;stroke:none}
+.map-overview-site .overview-base{fill:#b4ac82;stroke:none}
+.map-overview-site .overview-wall{fill:var(--overview-wall)}
+.map-overview-site .overview-wall-shade{fill:#99977c;stroke:none}
+.map-overview-site .overview-wall-light{fill:#e0d2aa;stroke-width:.5}
+.map-overview-site .overview-roof{fill:var(--overview-roof);stroke:#4b5b4e;stroke-width:.6}
+.map-overview-site .overview-timber{fill:#a28b64}
+.map-overview-site .overview-opening{fill:#424e40;stroke:none}
+.map-overview-site .overview-detail{fill:none;stroke:#857e60;stroke-width:.6}
+.map-overview-site .overview-flagpole{fill:none;stroke:#665d46;stroke-width:.7}
+.map-overview-site .overview-faction{fill:var(--overview-force);stroke:#dfd2aa;stroke-width:.4}
+.map-overview-site .overview-water{fill:none;stroke:#6a9493;stroke-width:.9}
+.map-overview-site .overview-pier{fill:#ad966c;stroke:#756e51;stroke-width:.7}
+.map-overview-site .overview-boat{fill:#806c4d;stroke:#5c624c;stroke-width:.6}
+.map-overview-site .overview-sail{fill:#e6d9b6;stroke:#8c8867;stroke-width:.5}
+.strategy-world .map-overview-site .overview-place-name{font:11px var(--serif);font-weight:600;text-anchor:middle;letter-spacing:1px;fill:#304436;stroke:#e1d7b8;stroke-opacity:.85;stroke-width:2;paint-order:stroke;pointer-events:none}
+.national-world .selected .map-overview-site .overview-place-name{fill:#fff0bf;stroke:#46553b;stroke-opacity:1}
+.fog-city .map-overview-site{--overview-wall:#b8b6a0;--overview-roof:#727c6e;--overview-force:#8d9787}
+.national-world.map-distant-symbols :is(.national-node,.strategy-junction) [data-map-overview-glyph],.national-world.map-distant-symbols :is(.national-node,.strategy-junction) [data-map-overview-glyph] *{pointer-events:all!important}
+.national-world.map-distant-symbols :is(.national-node,.strategy-junction):is(:hover,:focus-visible) .overview-base{fill:#dfc887;stroke:#f4df9c;stroke-width:1}
+.map-command-screen [data-map-target="unavailable"] .map-overview-site{opacity:.35!important}
+.map-command-screen [data-map-target="eligible"] .map-overview-site{stroke:#bda975!important}
+.map-command-screen [data-map-target="selected"] .map-overview-site{--overview-wall:#ead5a0;stroke:#fff0b4!important;stroke-width:1}
+.strategy-map-first .national-world .map-territories{opacity:.055}.strategy-map-first .national-world.map-overview .map-territories{opacity:.1}
+/* World-space road surfaces widen with the landscape, including beneath grey fog. */
+.strategy-world .map-road{--road-width:.95;--road-soil:#baa47b;--road-edge:#9b8d64;fill:none}
+.strategy-world .map-road-mountain{--road-width:.8;--road-soil:#b5a685;--road-edge:#8a7d60}
+.strategy-world .map-road-trail{--road-width:.6;--road-soil:#b5a57b}
+.strategy-world.strategy-world .map-road .strategy-road{stroke:var(--road-soil);stroke-width:var(--road-width);stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;opacity:1;vector-effect:none;filter:none;pointer-events:stroke}
+.strategy-world .map-road-shoulder{fill:var(--road-edge);fill-opacity:.28;stroke:none;pointer-events:none}
+.strategy-world .map-road-wear{stroke:#897950;stroke-width:.055;stroke-opacity:.25;stroke-dasharray:2.7 .5 4.1 .8 1.3 .6;stroke-linecap:round;pointer-events:none}
+.strategy-world .map-road-trail .map-road-wear{stroke-width:.04;stroke-opacity:.2}
+.strategy-world.strategy-world .map-road .road-water{stroke:#65909a;stroke-width:1.4;stroke-dasharray:3 5;opacity:.7;vector-effect:non-scaling-stroke}
+.strategy-world.strategy-world .map-road .strategy-road:is(:hover,:focus-visible){stroke:#e6c27e;outline:none}

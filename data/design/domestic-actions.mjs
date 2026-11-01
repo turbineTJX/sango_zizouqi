@@ -242,7 +242,7 @@ export const DOMESTIC_ACTION_DESIGNS = {
     "days": 10,
     "kind": "recruit",
     "value": 1400,
-    "reserveValue": 882,
+    "reserveValue": 1800,
     "stat": "leadership",
     "cooperation": "quantity"
   },
@@ -253,7 +253,7 @@ export const DOMESTIC_ACTION_DESIGNS = {
     "days": 5,
     "kind": "recruit",
     "value": 1800,
-    "reserveValue": 1350,
+    "reserveValue": 2700,
     "stat": "leadership",
     "cooperation": "quantity",
     "risk": 0.15

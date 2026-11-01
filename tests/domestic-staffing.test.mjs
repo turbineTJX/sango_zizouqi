@@ -133,7 +133,7 @@ test('direction detail shows real portraits, work, traits, reservations and vaca
  const before=serializeCampaign(s),html=domesticDirectionMarkup(s,c.id,'commerce'),upper=cityDomesticMarkup(s,c.id);
  assert.match(html,/data-art-portrait="person-420"/);assert.match(html,/data-domestic-officer="person-420"/);assert.match(html,/相关特性/);assert.match(html,new RegExp(actionNameForTest(s,id)));
  assert.equal((html.match(/data-domestic-slot=/g)||[]).length,3);assert.equal((html.match(/class="domestic-slot empty"/g)||[]).length,2);
- assert.doesNotMatch(upper,/data-art-portrait="person-420"|data-action="domestic-dismiss"|domestic-slot-work/);assert.equal(serializeCampaign(s),before);
+ assert.doesNotMatch(upper,/data-art-portrait="person-420"|data-action="domestic-dismiss"|domestic-slot-work|domestic-proposals|domestic-auto-approve/);assert.equal(serializeCampaign(s),before);
  const busy=busyFixture(),ids=cityPersonnel(busy.s,busy.c.id).map(o=>o.unit.id).filter(x=>x!==busy.id);appoint(busy.s,busy.c,'commerce',ids.slice(0,2));
  assert.ok(requestStrategicOrder(busy.s,{kind:'assign',cityId:busy.c.id,direction:'commerce',officerIds:[busy.id]},'after').queued);
  const queued=domesticDirectionMarkup(busy.s,busy.c.id,'commerce');assert.match(queued,/人数 <b>3\/3<\/b>/);assert.match(queued,/待任/);assert.match(queued,/data-action="campaign-cancel-order"/);assert.doesNotMatch(queued,/class="domestic-slot empty"/);

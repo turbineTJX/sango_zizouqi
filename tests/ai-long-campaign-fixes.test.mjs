@@ -62,7 +62,7 @@ test('deferred payment funds only its unescrowed balance while reciprocal cargo 
  const initialGold=totalGold();assert.ok(assignDiplomat(s,'dun','commerce',{faction:'cao',choice:'now'}).applied);
  const a=s.campaign.diplomacy.assignments.find(a=>a.officerId==='dun'),pass=['envoyPass','tradePass'].flatMap(kind=>[{kind,from:'cao',to:'yuan',duration:180},{kind,from:'yuan',to:'cao',duration:180}]);
  const p=prepareDiplomaticProposal(s,a,{goal:'buyGrain',other:'yuan',targetCity:home.id,path:[home.id],score:60,reason:'实际粮食与延期金交易',clauses:[{kind:'grain',from:'yuan',to:'cao',amount:4000},{kind:'gold',from:'cao',to:'yuan',amount:640,deferred:true,dueOffset:10},...pass]});assert.ok(p,a.waiting);
- const step=()=>{s.campaign.day++;s.turn=Math.floor((s.campaign.day-1)/10)+1;s.campaign.diplomacy.lastAIReview=s.campaign.day;advanceDiplomacy(s);if(p.status==='pending'&&!p.approvals.cao)assert.equal(approveDiplomaticProposal(s,p.id,p.version,{faction:'cao'}),null);validateDiplomacy(s);};
+ const step=()=>{s.campaign.day++;s.turn=Math.floor((s.campaign.day-1)/10)+1;s.campaign.diplomacy.lastAIReview=s.campaign.day;advanceDiplomacy(s);if(p.status==='pending'&&!p.approvals.cao)assert.equal(approveDiplomaticProposal(s,p.id,p.version,{faction:'cao'}),null);if(p.status==='pending'&&!p.approvals.yuan)assert.equal(approveDiplomaticProposal(s,p.id,p.version,{faction:'yuan',automatic:true}),null);validateDiplomacy(s);};
  for(let i=0;i<100&&p.status!=='signed';i++)step();assert.equal(p.status,'signed',p.failure||p.status);
  const gold=p.clauses.find(c=>c.kind==='gold'),grain=p.clauses.find(c=>c.kind==='grain'),escrow=p.escrow.find(e=>e.clauseId===gold.id);let heldDays=0,copy=null;
  for(let i=0;i<100&&grain.status!=='done';i++){

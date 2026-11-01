@@ -82,7 +82,7 @@ test('invalid custom roster, unknown source ID, edited attributes and duplicate 
  }
 });
 test('old officer data versions are rejected without changing saved progress',()=>{
- for(const version of [undefined,1,2,3])for(const s of [newGame(25),createScenario('field',25)]){
+ for(const version of [undefined,1,2,3,4])for(const s of [newGame(25),createScenario('field',25)]){
   s.officerDataVersion=version;const before=structuredClone(s);
   assert.throws(()=>validateSave(s),/武将数据版本/);assert.deepEqual(s,before);
  }

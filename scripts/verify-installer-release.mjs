@@ -9,6 +9,7 @@ import {ROOT,sha256} from './release-lib.mjs';
 if(!process.argv[2])throw Error('Pass the native release directory');
 const directory=resolve(process.argv[2]),manifest=JSON.parse(await readFile(join(directory,'native-release.json'),'utf8')),artifact=manifest.artifacts.windowsInstaller;
 assert.ok(artifact,'Windows installer is present in the release manifest');
+assert.deepEqual(Object.keys(manifest.artifacts).filter(key=>key.startsWith('windows')),['windowsInstaller'],'Windows delivery contains only the installer');
 const installer=join(directory,artifact.file),bytes=await readFile(installer);
 assert.equal(bytes.subarray(0,2).toString(),'MZ');assert.equal(bytes.length,artifact.bytes);assert.equal(sha256(bytes),artifact.sha256);
 const archive=await getPath7za(),out=join(process.env.SANGO_BUILD_ROOT?resolve(process.env.SANGO_BUILD_ROOT):ROOT,'.local','verify-installer-'+Date.now());await mkdir(out,{recursive:true});

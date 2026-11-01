@@ -60,7 +60,7 @@ export function redirectRetreat(s,o){
  const best=preferred?{id:o.destination,path:preferred}:nearestRetreat(s,o.faction,o.location,edge);
  if(!best){o.journey.blocked='无合法撤离据点';return false;}
  const changed=o.destination!==best.id;
- o.destination=best.id;o.location=best.path.location;o.journey={route:best.path.route,progress:best.path.progress,blocked:''};o.remainingDays=1;
+ o.destination=best.id;o.location=best.path.location;o.journey={...o.journey,route:best.path.route,progress:best.path.progress,blocked:''};o.remainingDays=1;
  if(changed)s.campaign.lastNotice=`${o.unit.name}撤离改道至${mapNode(s,best.id).name}。`;
  return true;
 }

@@ -1,0 +1,20 @@
+{
+  "createdOn": "2026-10-30",
+  "purpose": "Shared dialog artwork for the Sango interface; original generated assets inspired by classic Three Kingdoms game UI craftsmanship.",
+  "generator": "Built-in image_gen tool",
+  "referenceImagesUsedAsInput": [],
+  "assets": [
+    {
+      "file": "cloud-jade-frame.png",
+      "role": "Transparent nine-slice border; raised ivory cloud scrolls, silver rims and grey-green jade inlay.",
+      "originalGeneration": "exec-e0de38da-fb8d-41c9-851a-d3c3ce143c8e.png",
+      "layout": "280 source-pixel slices. Corners retain their aspect ratio; only the straight rails stretch. Do not stretch the complete bitmap to a rectangle."
+    },
+    {
+      "file": "ink-silk-panel.png",
+      "role": "Quiet grey-blue ink and silk substrate; CSS glaze controls intensity and text contrast.",
+      "originalGeneration": "exec-4c0594d4-afae-447f-9ae9-f98caacac3ac.png"
+    }
+  ],
+  "constraints": "No official game pixels, characters, branding or lettering are included. UI text remains live HTML. These files ship with code and must be available offline."
+}

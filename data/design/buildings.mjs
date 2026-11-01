@@ -15,7 +15,7 @@ export const BUILDING_DESIGNS = {
     "direction": "agriculture",
     "cost": 500,
     "days": 10,
-    "description": "每级增加770粮／旬",
+    "description": "每级增加1200粮／旬",
     "projectName": "开垦农田",
     "projectDescription": "每级增加 770 粮／旬",
     "durability": 1000

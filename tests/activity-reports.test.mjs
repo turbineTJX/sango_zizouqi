@@ -1,3 +1,4 @@
+import {strategicView,campaignBattleOutcome} from '../strategic-view.mjs';
 import {fundCities} from './resource-fixtures.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -51,7 +52,27 @@ test('actual battle settlement writes one outcome per side and links it to parti
  const s=newCampaign(17);fieldFromCity(s,'xuchang',{target:'guandu'});fieldFromCity(s,'guandu',{target:'xuchang'});beginExecution(s);
  for(let i=0;i<200&&!s.campaign.battles.some(r=>r.settled);i++){if(s.campaign.phase==='planning')beginExecution(s);for(const r of activeBattles(s).filter(r=>r.awaiting))chooseEncounter(s,r.id,false);advanceCampaignDay(s);}
  const battle=s.campaign.battles.find(r=>r.settled);assert.ok(battle);
+ const beforeView=serializeCampaign(s),overview=strategicView(s,{strategyTab:'battles',mapPanelOpen:true});
+ assert.match(overview,/data-tab="battles" class="active">战役/);
+ assert.ok(overview.includes(`data-action="campaign-replay"  data-battle="${battle.id}"`));
+ assert.doesNotMatch(overview,/暂无战役/);
+ const single=strategicView(s,{strategyTab:'battle',directoryBattle:battle.id,mapPanelOpen:true});
+ assert.match(single,/data-tab="battle" class="active">战场/);
+ assert.doesNotMatch(single,/暂无战役/);
+ const missing=strategicView(s,{strategyTab:'battle',directoryBattle:'missing',mapPanelOpen:true});
+ assert.match(missing,/暂无战役/);
+ assert.equal(serializeCampaign(s),beforeView);
+
  const nodes=s.campaign.activity.nodes.filter(n=>n.category==='battle'&&n.result.battleId===battle.id);assert.equal(nodes.length,2);
  const node=nodes.find(n=>n.faction==='cao');assert.ok(pendingDomesticAlerts(s).includes(node));assert.ok(officerActivityDays(s,node.officerId,{beforeDay:node.day}).rows[0].actions.some(a=>a.nodeId===node.id));
  const count=s.campaign.activity.nodes.length;restore(s);assert.equal(s.campaign.activity.nodes.length,count);
+});
+
+test('battle outcome names the winner and retreating faction for either side, draws and archives',()=>{
+ const r={battle:{sides:[{faction:'cao'},{faction:'force-2'}]},report:{winner:0,reason:'撤退'}};
+ assert.equal(campaignBattleOutcome(r),'曹操获胜 · 刘备撤退');
+ r.report.winner=1;assert.equal(campaignBattleOutcome(r),'刘备获胜 · 曹操撤退');
+ r.report.winner=null;assert.equal(campaignBattleOutcome(r),'双方收兵 · 撤退');
+ assert.equal(campaignBattleOutcome({winner:'cao',reason:'击溃'}),'曹操获胜 · 击溃');
+ assert.equal(campaignBattleOutcome({winner:null,reason:'停战退兵'}),'双方收兵 · 停战退兵');
 });

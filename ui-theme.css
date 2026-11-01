@@ -1,0 +1,291 @@
+/* Shared presentation layer, loaded after legacy page/layout styles.
+   Add new shared variants here; page CSS owns geometry, not another palette. */
+:root {
+  color-scheme: dark;
+  --bg: var(--ui-canvas); --surface: var(--ui-panel); --surface-2: var(--ui-panel-raised);
+  --text: var(--ui-text); --muted: var(--ui-muted); --border: var(--ui-line-soft);
+  --gold: var(--ui-accent); --gold-light: var(--ui-text);
+  --green: var(--ui-success); --red: var(--ui-danger);
+  --sans: var(--ui-font-body); --serif: var(--ui-font-title);
+  --paper: var(--ui-panel); --ink: var(--ui-text); --paper-line: var(--ui-line);
+}
+body, body:has(.campaign-lobby) {
+  color-scheme: dark; color: var(--ui-text); background: var(--ui-canvas-fill);
+  font-family: var(--ui-font-body); font-size: var(--ui-text-base); font-weight: var(--ui-weight-body); line-height: var(--ui-line-height);
+}
+button, input, select, textarea, summary { font-family: var(--ui-font-body); }
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, summary:focus-visible, [tabindex]:focus-visible {
+  outline: var(--ui-focus); outline-offset: 2px;
+}
+/* All dialogs, including management, settings, combat and retained source lists. */
+#overlay-root :is(.modal,.detail-source-panel), #app .ui-panel, dialog.scene-loading {
+  --text: var(--ui-text); --muted: var(--ui-muted); --gold: var(--ui-accent);
+  --gold-light: var(--ui-text); --border: var(--ui-line-soft); --line: var(--ui-line);
+  --paper: var(--ui-panel); --ink: var(--ui-text); --paper-grain: var(--ui-silk);
+  --sans: var(--ui-font-body); --serif: var(--ui-font-title);
+  color-scheme: dark; color: var(--ui-text); font: var(--ui-weight-body) var(--ui-text-base)/var(--ui-line-height) var(--ui-font-body);
+  background: var(--ui-panel-fill); background-clip: padding-box; border: 8px solid var(--ui-edge); border-radius: var(--ui-radius);
+  border-image: var(--ui-frame-art) var(--ui-frame-slice) / var(--ui-frame-width) / var(--ui-frame-outset) stretch;
+  box-shadow: var(--ui-frame-shadow);
+}
+#overlay-root .management-window::before { content: none; }
+#overlay-root :is(.modal-backdrop,.management-backdrop), .detail-replaces-source #overlay-root .detail-inspection.modal-backdrop {
+  background: var(--ui-backdrop); backdrop-filter: none;
+}
+#overlay-root :is(.modal,.detail-source-panel) :is(.modal-header,.detail-source-header), #app .ui-panel>.ui-panel-header, .scene-loading>.modal-header {
+  color: var(--ui-text); background: var(--ui-header-fill); border: 0; border-bottom: 3px double var(--ui-edge);
+  box-shadow: inset 0 1px var(--ui-edge-light), 0 1px var(--ui-edge-dark); min-height: 58px; padding: 10px 28px;
+}
+#overlay-root :is(.modal,.detail-source-panel) :is(.modal-header,.detail-source-header) h2, #app .ui-panel-header h2, .scene-loading h2 {
+  color: var(--ui-text); font: var(--ui-weight-title) var(--ui-text-title)/1.4 var(--ui-font-title); letter-spacing: var(--ui-tracking-title); text-shadow: var(--ui-title-shadow);
+}
+#overlay-root :is(.modal,.detail-source-panel) :is(.eyebrow,.muted,.strategy-muted,.personnel-count), #app .ui-muted {
+  color: var(--ui-muted);
+}
+#overlay-root :is(.modal,.detail-source-panel) :is(.modal-footer,.detail-source-footer), #app .ui-panel-footer {
+  color: var(--ui-text); background: var(--ui-header-fill); border-top: 3px double var(--ui-edge);
+  box-shadow: inset 0 1px var(--ui-edge-dark); padding: var(--ui-space-2) 24px;
+}
+#overlay-root :is(.modal,.detail-source-panel) :is(button,input,select,summary,h3,h4) { font-family: var(--ui-font-body); letter-spacing: 0; }
+/* The legacy .button is the same component as .ui-button. */
+:is(#app,#overlay-root,#page-guide-root) :is(.button,.ui-button),
+#overlay-root :is(.modal,.detail-source-panel) :is(.button,.button.secondary,.button.outline-gold) {
+  color: var(--ui-text); background: var(--ui-control-fill); border: 1px solid var(--ui-line);
+  border-radius: var(--ui-control-radius); box-shadow: var(--ui-control-shadow); text-shadow: none;
+  font: var(--ui-weight-label) var(--ui-text-base)/1.4 var(--ui-font-body); letter-spacing: var(--ui-tracking-label);
+  min-height: var(--ui-control-height); padding: 6px var(--ui-space-3); transition: background var(--ui-speed),border-color var(--ui-speed);
+}
+:is(#app,#overlay-root) :is(.button.primary,.ui-button.primary), #overlay-root :is(.modal,.detail-source-panel) .button.primary {
+  color: var(--ui-text); background: var(--ui-primary-fill); border-color: var(--ui-bronze); box-shadow: var(--ui-control-shadow);
+}
+:is(#app,#overlay-root) :is(.button,.ui-button):hover:not(:disabled), #overlay-root :is(.modal,.detail-source-panel) .button:hover:not(:disabled) {
+  color: var(--ui-text); background: var(--ui-row-hover); border-color: var(--ui-edge); filter: none;
+}
+:is(#app,#overlay-root) :is(.button.primary,.ui-button.primary):hover:not(:disabled), #overlay-root :is(.modal,.detail-source-panel) .button.primary:hover:not(:disabled) { background: var(--ui-primary-hover); }
+:is(#app,#overlay-root) :is(.button,.ui-button):active:not(:disabled) { box-shadow: inset 0 2px 3px var(--ui-shadow-color); }
+:is(#app,#overlay-root) :is(.button,.ui-button):disabled, #overlay-root .management-window .button:disabled {
+  color: var(--ui-disabled); background: var(--ui-disabled-bg); opacity: .65; box-shadow: none; cursor: not-allowed;
+}
+#overlay-root :is(.modal,.detail-source-panel) :is(.close-button,.detail-source-close,.page-guide-trigger), #app .ui-icon-button {
+  display: inline-grid; place-items: center; min-width: var(--ui-icon-size); min-height: var(--ui-icon-size);
+  width: auto; height: auto; padding: 4px 8px; color: var(--ui-text); background: var(--ui-control-fill);
+  border: 1px solid var(--ui-edge); border-radius: var(--ui-control-radius); box-shadow: var(--ui-control-shadow); font: var(--ui-weight-label) var(--ui-text-base) var(--ui-font-body);
+}
+#overlay-root :is(.modal,.detail-source-panel) :is(.close-button,.detail-source-close) { font-size: 22px; }
+#overlay-root :is(.modal,.detail-source-panel) :is(.close-button,.detail-source-close,.page-guide-trigger):hover { color: var(--ui-text); background: var(--ui-row-hover); }
+:is(#app,#overlay-root) :is(input:not([type=checkbox]):not([type=radio]):not([type=range]),select,textarea),
+#overlay-root .management-window input:not([type=checkbox]):not([type=radio]):not([type=range]) {
+  color: var(--ui-text); background: var(--ui-panel-recessed); border: 1px solid var(--ui-line); border-radius: var(--ui-radius);
+  box-shadow: inset 0 1px 3px var(--ui-shadow-color); font: var(--ui-weight-body) var(--ui-text-base)/1.4 var(--ui-font-body); min-height: var(--ui-control-height);
+}
+:is(#app,#overlay-root) input::placeholder, #overlay-root .management-window input::placeholder { color: var(--ui-muted); }
+:is(#app,#overlay-root) input[type=range] { accent-color: var(--ui-accent); }
+/* Jade marks selection; table headers stay neutral, and gold is a small highlight. */
+#overlay-root :is(.modal,.detail-source-panel) :is(.directory-tabs,.info-tabs,.intelligence-tabs), #app .ui-tabs { border-color: var(--ui-line-soft); }
+#overlay-root :is(.modal,.detail-source-panel) :is(.directory-tabs button,.info-tabs .button,.intelligence-tabs .button), #app .ui-tabs button {
+  color: var(--ui-muted); background: transparent; border: 1px solid transparent; border-bottom: 1px solid transparent;
+  border-radius: var(--ui-radius); box-shadow: none; text-shadow: none; min-height: var(--ui-control-height);
+  padding: 6px var(--ui-space-3); font: var(--ui-weight-label) var(--ui-text-base)/1.4 var(--ui-font-body); letter-spacing: var(--ui-tracking-label);
+}
+#overlay-root :is(.modal,.detail-source-panel) :is(.directory-tabs button,.info-tabs .button,.intelligence-tabs .button)[aria-pressed=true],
+#overlay-root :is(.modal,.detail-source-panel) :is(.directory-tabs button,.info-tabs .button)[aria-pressed=true]:hover, #app .ui-tabs button[aria-pressed=true] {
+  color: var(--ui-text); background: var(--ui-selected); border-bottom-color: var(--ui-accent); font-weight: 600; box-shadow: inset 0 1px var(--ui-edge-light); text-shadow: var(--ui-title-shadow);
+}
+#overlay-root :is(.modal,.detail-source-panel) .personnel-table-wrap { background: var(--ui-panel-recessed); border-color: var(--ui-line-soft); box-shadow: inset 0 1px 3px var(--ui-shadow-color); scrollbar-color: var(--ui-line) var(--ui-panel-recessed); }
+#overlay-root :is(.modal,.detail-source-panel) .personnel-table, #app .ui-table { color: var(--ui-text); font: var(--ui-weight-body) var(--ui-text-base)/1.5 var(--ui-font-body); font-variant-numeric: tabular-nums; }
+#overlay-root :is(.modal,.detail-source-panel) .personnel-table :is(td,th), #app .ui-table :is(td,th) {
+  color: var(--ui-text); background: var(--ui-row); border-color: var(--ui-line-soft); border-inline: 0; font-size: var(--ui-text-base); height: var(--ui-row-height);
+}
+#overlay-root :is(.modal,.detail-source-panel) .personnel-table tbody tr:nth-child(even)>td, #app .ui-table tbody tr:nth-child(even)>td { background: var(--ui-row-alt); }
+#overlay-root :is(.modal,.detail-source-panel) .personnel-table tbody tr:hover>td,
+#overlay-root :is(.modal,.detail-source-panel) .personnel-table tbody tr:focus-within>td, #app .ui-table tbody tr:hover>td { background: var(--ui-row-hover); box-shadow: none; }
+#overlay-root :is(.modal,.detail-source-panel) .personnel-table :is(th,th:first-child), #app .ui-table th {
+  color: var(--ui-text); background: var(--ui-header-fill); border-bottom: 1px solid var(--ui-bronze); box-shadow: none;
+}
+#overlay-root :is(.modal,.detail-source-panel) .personnel-table :is(.personnel-name,.field-sort,.field-sort.active),
+#overlay-root :is(.modal,.detail-source-panel) :is(.ability-link,.unit-trait-name,.info-fields dd .personnel-name) { color: var(--ui-text); }
+#overlay-root :is(.modal,.detail-source-panel) .personnel-table :is(.personnel-name,.field-sort), #app .ui-table th { font-weight: var(--ui-weight-strong); }
+#overlay-root :is(.modal,.detail-source-panel) .personnel-table small { color: var(--ui-muted); font-size: var(--ui-text-xs); }
+#overlay-root .management-window [data-officer-page=aptitudes] td.numeric { color: var(--ui-accent); }
+#overlay-root .management-window .info-scope-filter { border-color: var(--ui-line); }
+#overlay-root .management-window .info-scope-filter button { color: var(--ui-muted); background: var(--ui-panel-recessed); min-height: var(--ui-control-height); }
+#overlay-root .management-window .info-scope-filter [aria-pressed=true] { color: var(--ui-text); background: var(--ui-selected); }
+#overlay-root .management-window .talent-panel[open]>summary { color: var(--ui-muted); background: var(--ui-panel-recessed); }
+#overlay-root :is(.modal,.detail-source-panel) .personnel-table :is(.city-fully-assigned td,.city-fully-assigned .personnel-name) { color: var(--ui-muted); }
+#overlay-root :is(.modal,.detail-source-panel) .personnel-table .city-needs-work>td { color: var(--ui-accent); }
+#overlay-root :is(.modal,.detail-source-panel) :is(.info-section,.info-section[data-info-section=status],.talent-panel,.domestic-proposals,.domestic-proposal,.decision-facts,.faction-priorities) { background: transparent; border-color: var(--ui-line-soft); }
+#overlay-root :is(.modal,.detail-source-panel) :is(.info-section h3,.personal-bonds h4,.priority-ledger h3,.domestic-proposals h3,.domestic-proposal h4,.decision-facts dd,.info-fields dd) { color: var(--ui-text); }
+#overlay-root .management-window .domestic-proposals>header h3 { color: var(--ui-text); }
+#overlay-root .management-window .domestic-proposals>header h3 span { color: var(--ui-muted); }
+#overlay-root .management-window :is(button,input,select,summary):focus-visible { outline: var(--ui-focus); outline-offset: 2px; }
+#overlay-root :is(.modal,.detail-source-panel) :is(.info-fields dt,.approval-policy,.domestic-proposal small,.decision-facts dt,.talent-panel>summary,.priority-rank,.directory-toolbar .strategy-field) { color: var(--ui-muted); }
+#overlay-root :is(.modal,.detail-source-panel) .info-fields>div { border-color: var(--ui-line-soft); }
+#overlay-root :is(.modal,.detail-source-panel) :is(.info-object,.info-object-list h3,.catalog-aptitudes>span) { color: var(--ui-text); }
+#overlay-root :is(.modal,.detail-source-panel) .info-object.selected { color: var(--ui-text); background: var(--ui-selected); border-color: var(--ui-accent); }
+#overlay-root :is(.modal,.detail-source-panel) :is(.info-identity,.directory-portrait) { background: var(--ui-panel-recessed); border-color: var(--ui-edge); box-shadow: none; }
+#overlay-root :is(.modal,.detail-source-panel) .faction-priorities>.priority-row { color: var(--ui-text); background: var(--ui-row); border-color: var(--ui-line-soft); }
+#overlay-root :is(.modal,.detail-source-panel) .faction-priorities>.priority-row:nth-child(odd) { background: var(--ui-row-alt); }
+#overlay-root :is(.modal,.detail-source-panel) .faction-priorities>.priority-table-head { color: var(--ui-text); background: var(--ui-header-fill); border-color: var(--ui-bronze); }
+#overlay-root :is(.modal,.detail-source-panel) .priority-move { color: var(--ui-text); background: var(--ui-control-fill); border: 1px solid var(--ui-line); min-height: var(--ui-control-height); }
+/* City and army editing share the same ledger materials. */
+:is(#app,#overlay-root) .unit-muster { color: var(--ui-text); background: var(--ui-panel-recessed); border-color: var(--ui-line); box-shadow: none; }
+:is(#app,#overlay-root) :is(.unit-muster-heading,.unit-muster-columns) { color: var(--ui-text); background: var(--ui-header-fill); border-color: var(--ui-bronze); }
+:is(#app,#overlay-root) :is(.unit-muster-heading h3,.unit-muster .unit-muster-name,.unit-muster-heading>span) { color: var(--ui-text); }
+:is(#app,#overlay-root) :is(.unit-muster-heading p,.unit-muster-name small,.muster-order,.unit-muster-type small,.troop-limit,.muster-fixed-troops small,.muster-empty) { color: var(--ui-muted); }
+:is(#app,#overlay-root) .unit-muster-type strong { color: var(--ui-accent); }
+:is(#app,#overlay-root) .unit-muster-row { background: var(--ui-row); border-color: var(--ui-line-soft); }
+:is(#app,#overlay-root) .unit-muster-row:nth-child(odd) { background: var(--ui-row-alt); }
+:is(#app,#overlay-root) .unit-muster-row:focus-within { background: var(--ui-row-hover); box-shadow: inset 3px 0 var(--ui-accent); }
+:is(#app,#overlay-root) :is(.troop-shortcuts button,.unit-muster-actions button,.unit-muster .unit-card-add) { color: var(--ui-text); background: var(--ui-control-fill); border-color: var(--ui-line); border-radius: var(--ui-radius); min-height: var(--ui-control-height); }
+:is(#app,#overlay-root) :is(.troop-shortcuts button,.unit-muster-actions button,.unit-muster .unit-card-add):hover:not(:disabled) { background: var(--ui-row-hover); border-color: var(--ui-edge); }
+:is(#app,#overlay-root) .unit-muster-actions button:last-child:not(:first-child) { color: var(--ui-danger); }
+:is(#app,#overlay-root) .troop-slider input[aria-invalid=true] { border-color: var(--ui-danger); }
+:is(#app,#overlay-root) .unit-muster .workbench-portrait { border-color: var(--ui-edge); }
+:is(#app,#overlay-root) :is(.unit-muster,.troop-slider) :is(button,select,input):focus-visible { outline: var(--ui-focus); outline-offset: 2px; }
+/* Battle information retains compact geometry, with the same material as every dialog. */
+#overlay-root :is(.battle-focus-status,.passive-panel,.unit-tab-panel,.audio-settings,.decision-facts) { color: var(--ui-text); background-color: var(--ui-panel-recessed); border-color: var(--ui-line-soft); }
+#overlay-root :is(.battle-focus-status h3,.battle-focus-status dd,.audio-settings h3) { color: var(--ui-text); }
+#overlay-root :is(.battle-focus-status dt,.battle-focus-status small,.audio-setting-label) { color: var(--ui-muted); }
+/* Lobby and selection screens use the same game materials, with ink scenery behind them. */
+#app .campaign-lobby { color: var(--ui-text); --ink: var(--ui-text); --gold: var(--ui-accent); --muted: var(--ui-muted); }
+#app .selection-screen.national-lobby { background: var(--ui-canvas-fill); }
+#app :is(.custom-battle,.custom-team,.custom-team:last-child,.custom-unit) { color: var(--ui-text); background: var(--ui-panel-fill); border-color: var(--ui-line); border-radius: var(--ui-radius); }
+#app :is(.custom-battle>p,.custom-options>small,.custom-team h3 small,.custom-battle label small,.custom-reinforcements article>small,.custom-reinforcements details p) { color: var(--ui-muted); }
+#app :is(.lobby-brand,.lobby-hero h1,.mode-card h2,.lobby-section-title h2,.selection-header h1) { color: var(--ui-text); font-family: var(--ui-font-title); }
+#app :is(.lobby-edition,.lobby-nav>.text-button,.lobby-footer .text-button,.campaign-lobby .text-button,.mode-card .eyebrow,.lobby-hero .eyebrow,.mode-card small,.lobby-footer small,.selection-footer) { color: var(--ui-muted); }
+#app :is(.lobby-brand>span,.brand-seal) { background: var(--ui-jade); color: var(--ui-text); border-color: var(--ui-edge); box-shadow: inset 0 0 0 2px var(--ui-jade),inset 0 0 0 3px var(--ui-line); transform: none; }
+#app :is(.lobby-hero h1 em,.mode-enter) { color: var(--ui-accent); }
+#app :is(.lobby-nav,.lobby-footer,.lobby-hero,.selection-header,.selection-footer) { border-color: var(--ui-line); }
+#app .lobby-art { opacity: .23; filter: grayscale(.55); }
+#app .art-caption { color: var(--ui-muted); }
+#app .mode-card { color: var(--ui-text); background: var(--ui-panel-fill); border: 1px solid var(--ui-edge); border-radius: var(--ui-radius); box-shadow: var(--ui-frame-shadow); }
+#app .mode-card:before { color: var(--ui-accent); border-color: var(--ui-line); }
+#app .mode-card:hover { background: var(--ui-row-hover); border-color: var(--ui-accent); transform: none; }
+#app .selection-header h1 { background: var(--ui-header-fill); border-left: 1px solid var(--ui-bronze); font-size: var(--ui-text-page); text-shadow: var(--ui-title-shadow); }
+#app .scenario-ribbon { background: var(--ui-header-fill); color: var(--ui-text); border: 1px solid var(--ui-bronze); border-radius: var(--ui-radius); box-shadow: var(--ui-frame-shadow); }
+#app .scenario-ribbon:hover { border-color: var(--ui-accent); transform: none; }
+#app .scenario-ribbon strong { font: var(--ui-text-title) var(--ui-font-title); }
+#app .scenario-ribbon>span { color: var(--ui-muted); background: var(--ui-panel-recessed); }
+#app .scenario-ribbon em { color: var(--ui-accent); }
+#app :is(.scenario-landscape aside,.force-summary,.scenario-portraits>div,.ruler-portrait) { background: var(--ui-panel-fill); color: var(--ui-text); border-color: var(--ui-line); }
+#app :is(.scenario-landscape h2,.force-summary h2,.force-summary p,.force-numbers b,.ruler-portrait>span) { color: var(--ui-text); }
+#app .historical-map-card { background: var(--ui-panel-fill); border: 1px solid var(--ui-edge); border-radius: var(--ui-radius); box-shadow: var(--ui-frame-shadow); }
+#app .historical-map-card :is(h3,p,summary) { color: var(--ui-text); }
+#app .historical-map-card small { color: var(--ui-muted); }
+#app .historical-map-card summary { min-height: var(--ui-control-height); display: list-item; padding: 6px 0; font-size: var(--ui-text-base); }
+/* Strategic and combat chrome share the jade material; faction and bond hues stay semantic. */
+#app :is(.sovereign-hud,.strategy-map-first .faction-navigation,.city-command-menu,.arena-header,.arena-dock,.arena-controls) { color: var(--ui-text); background: var(--ui-panel-fill); border-color: var(--ui-edge); box-shadow: var(--ui-frame-shadow); }
+#app .sovereign-hud { border-radius: var(--ui-radius); }
+#app .sovereign-portrait { border-radius: var(--ui-radius); border-color: var(--ui-edge); }
+#app :is(.world-toolbar button,.world-commands button,.national-map-tools button,.map-search>summary,.national-legend>summary) {
+  color: var(--ui-text); background: var(--ui-header-fill); border: 1px solid var(--ui-line); border-radius: var(--ui-radius); box-shadow: var(--ui-control-shadow);
+  font-family: var(--ui-font-body); font-size: var(--ui-text-base); letter-spacing: 0; min-height: var(--ui-control-height);
+}
+#app :is(.world-commands button,.world-toolbar button):hover:not(:disabled) { color: var(--ui-text); background: var(--ui-selected); transform: none; }
+#app .turn-seal { color: var(--ui-text); background: var(--ui-header-fill); border-color: var(--ui-edge); box-shadow: var(--ui-frame-shadow); }
+#app :is(.sovereign-identity h1,.sovereign-resources b,.faction-navigation button) { color: var(--ui-text); }
+#app :is(.sovereign-resources,.faction-navigation button b,.sovereign-identity small) { color: var(--ui-muted); }
+#app :is(.map-object-menu,.map-quick-directory,.strategy-panel,.army-hover-card,.national-map-tools) { color: var(--ui-text); background: var(--ui-panel-fill); border: 1px solid var(--ui-edge); border-radius: var(--ui-radius); box-shadow: var(--ui-frame-shadow); backdrop-filter: none; }
+#app :is(.map-object-menu,.map-quick-directory,.army-hover-card) :is(header,h3,dd) { color: var(--ui-text); border-color: var(--ui-line); }
+#app :is(.map-object-menu,.map-quick-directory,.army-hover-card) :is(small,p) { color: var(--ui-muted); }
+#app .arena-page :is(#deployment-guide,.deployment-preview) { color: var(--ui-text); background: var(--ui-panel-fill); border: 1px solid var(--ui-edge); border-radius: var(--ui-radius); box-shadow: var(--ui-frame-shadow); }
+#app .arena-page .council-close { color: var(--ui-muted); background: var(--ui-control-fill); border: 1px solid var(--ui-line-soft); border-radius: var(--ui-radius); }
+#app .map-object-menu button { color: var(--ui-text); background: var(--ui-control-fill); border: 1px solid var(--ui-line); border-radius: var(--ui-radius); min-height: var(--ui-control-height); font-family: var(--ui-font-body); }
+#app .map-object-menu button:hover:not(:disabled) { background: var(--ui-row-hover); border-color: var(--ui-edge); }
+#app .map-quick-directory .city-directory-item { color: var(--ui-text); background: var(--ui-row); border-color: var(--ui-line-soft); }
+#app .map-quick-directory .city-directory-item.selected { background: var(--ui-selected); border-color: var(--ui-accent); }
+#app .map-quick-directory nav button { color: var(--ui-muted); background: var(--ui-panel-recessed); border-color: var(--ui-line); }
+#app .map-quick-directory nav [aria-pressed=true] { color: var(--ui-text); background: var(--ui-selected); }
+#app :is(.city-building-card,.map-command-screen aside,.map-command-footer) { color: var(--ui-text); background: var(--ui-panel-fill); border-color: var(--ui-line); border-radius: var(--ui-radius); font-family: var(--ui-font-body); }
+#app .city-building-card :is(h3,p,button) { color: var(--ui-text); }
+#app .city-building-card :is(small,dt) { color: var(--ui-muted); }
+#app .city-building-card header button { min-height: var(--ui-icon-size); min-width: var(--ui-icon-size); }
+/* The end-of-campaign chronicle is another ledger, not an independent skin. */
+#app .campaign-ending { color: var(--ui-text); background: var(--ui-canvas); }
+#app .ending-hero { border-color: var(--ui-bronze); }
+#app .ending-hero h1 { color: var(--ui-text); font-family: var(--ui-font-display); }
+#app :is(.ending-stats article,.ending-section) { color: var(--ui-text); background: var(--ui-panel-fill); border-color: var(--ui-line); }
+#app .ending-stats strong { color: var(--ui-accent); }
+#app :is(.ending-stats p,.ending-section>p,.ending-events span) { color: var(--ui-muted); }
+#app :is(.ending-section th,.ending-section td,.ending-events li) { border-color: var(--ui-line-soft); }
+#app :is(.ending-toolbar button,.ending-pages button) { color: var(--ui-text); background: var(--ui-control-fill); border: 1px solid var(--ui-line); border-radius: var(--ui-radius); }
+#app :is(.ending-toolbar button,.ending-pages button):hover:not(:disabled) { background: var(--ui-row-hover); border-color: var(--ui-edge); }
+/* Help and transient feedback belong to the same interface family. */
+#overlay-root :is(#battle-journal,.report-dispatches) { color: var(--ui-text); background: var(--ui-panel-recessed); border: 1px solid var(--ui-line-soft); box-shadow: inset 0 1px 3px var(--ui-shadow-color); scrollbar-color: var(--ui-line) var(--ui-panel-recessed); }
+#overlay-root :is(.compact-journal-row,.report-dispatches .report-dispatch) { border-color: var(--ui-line-soft); }
+#overlay-root :is(.compact-journal-row p,.report-dispatches .report-message p,.report-speaker b) { color: var(--ui-text); font-family: var(--ui-font-body); }
+#overlay-root :is(.compact-journal-row time,.report-message small) { color: var(--ui-muted); }
+#overlay-root .report-portrait { background: var(--ui-panel); border: 1px solid var(--ui-edge); }
+#overlay-root .dispatch-link { color: var(--ui-accent); font-family: var(--ui-font-body); }
+:is(#app,#page-guide-root) .page-guide-trigger { color: var(--ui-text); background: var(--ui-control-fill); border: 1px solid var(--ui-line); border-radius: var(--ui-radius); font: var(--ui-text-base) var(--ui-font-body); min-height: var(--ui-control-height); }
+#toast { color: var(--ui-text); background: var(--ui-panel); border: 1px solid var(--ui-edge); border-radius: var(--ui-radius); box-shadow: var(--ui-frame-shadow); }
+#page-guide-root :is(.page-guide-dialog,.page-guide-speech) { color: var(--ui-text); background: var(--ui-panel-fill); background-clip: padding-box; border: 6px solid var(--ui-edge); border-image: var(--ui-frame-art) var(--ui-frame-slice) / 28px / 2px stretch; border-radius: var(--ui-radius); box-shadow: var(--ui-frame-shadow); }
+#page-guide-root .page-guide-coach { color: var(--ui-text); background: transparent; border: 0; box-shadow: none; }
+#page-guide-root .page-guide-speech::before { background: var(--ui-panel); border-color: var(--ui-edge); }
+#page-guide-root :is(.page-guide-dialog,.page-guide-coach) :is(h2,h3,h4,p,summary,li) { color: var(--ui-text); }
+#page-guide-root .page-guide-header { background: var(--ui-header-fill); border-color: var(--ui-line); }
+#page-guide-root :is(.page-guide-footer,.page-guide-target-note,.page-guide-tips) { color: var(--ui-text); background: var(--ui-panel-recessed); border-color: var(--ui-line); border-radius: var(--ui-radius); }
+#page-guide-root :is(.page-guide-eyebrow,.page-guide-details,.page-guide-details summary>span,.page-guide-group small) { color: var(--ui-muted); border-color: var(--ui-line-soft); }
+#page-guide-root :is(.page-guide-details summary::before,.page-guide-steps li::marker) { color: var(--ui-accent); }
+#page-guide-root :is(.page-guide-x,.page-guide-stage-nav button,.page-guide-footer button,.page-guide-group button) { color: var(--ui-text); background: var(--ui-control-fill); border: 1px solid var(--ui-line); border-radius: var(--ui-radius); min-height: var(--ui-control-height); min-width: var(--ui-icon-size); }
+#page-guide-root :is(.page-guide-x,.page-guide-stage-nav button,.page-guide-footer button,.page-guide-group button):hover:not(:disabled) { background: var(--ui-row-hover); }
+#page-guide-root .page-guide-stage-nav button[aria-current] { background: var(--ui-selected); border-color: var(--ui-accent); }
+#page-guide-root .page-guide-footer .primary { background: var(--ui-primary); border-color: var(--ui-bronze); }
+#page-guide-root .page-guide-footer { flex-wrap: wrap; }
+#page-guide-root .page-guide-footer>div { flex-wrap: wrap; }
+#page-guide-root .page-guide-body { scrollbar-color: var(--ui-line) var(--ui-panel-recessed); }
+#page-guide-root .page-guide-backdrop { background: var(--ui-backdrop); backdrop-filter: none; }
+@media (max-height:600px) and (orientation:landscape) {
+  #overlay-root :is(.modal,.detail-source-panel) :is(.modal-header,.detail-source-header) { min-height: 44px; padding: 4px var(--ui-space-3); }
+  #overlay-root :is(.modal,.detail-source-panel) :is(.modal-header,.detail-source-header) h2 { font-size: var(--ui-text-title-compact); }
+  #overlay-root :is(.modal,.detail-source-panel) :is(.modal-footer,.detail-source-footer) { padding: 6px var(--ui-space-3); }
+  #overlay-root :is(.modal,.detail-source-panel) .personnel-table :is(th,td) { font-size: var(--ui-text-sm); }
+}
+/* Battlefield briefs reuse the same text and disclosure treatments. */
+#overlay-root .battle-unit-inspection .battle-unit-brief { background: transparent; border: 0; box-shadow: none; }
+#overlay-root .battle-unit-inspection .battle-inspection-type { color: var(--ui-muted); font: var(--ui-text-section) var(--ui-font-title); }
+#overlay-root .battle-unit-inspection :is(.battle-brief-health b,.battle-brief-meters dd) { color: var(--ui-text); font: 600 var(--ui-text-base)/var(--ui-line-height) var(--ui-font-body); font-variant-numeric: tabular-nums; }
+#overlay-root .battle-unit-inspection :is(.battle-brief-health>div>span,.battle-brief-meters dt,.battle-brief-meters small,.battle-brief-action,.battle-brief-empty,.battle-brief-tactic small) { color: var(--ui-muted); font-size: var(--ui-text-sm); }
+#overlay-root .battle-unit-inspection :is(.battle-inspection-more,.battle-brief-effects) { border-top: 1px solid var(--ui-line-soft); }
+#overlay-root .battle-unit-inspection :is(.battle-inspection-more,.battle-brief-effects)>summary { color: var(--ui-text); font-size: var(--ui-text-base); }
+#overlay-root .battle-unit-inspection :is(.battle-inspection-more,.battle-brief-effects)>summary:hover { color: var(--ui-accent); }
+#overlay-root .battle-unit-inspection .battle-brief-tactic.special { border-color: var(--ui-bronze); }
+#overlay-root .battle-unit-inspection .battle-brief-status-icons small { color: var(--ui-text); font-size: var(--ui-text-sm); }
+/* Battle help uses the shared panel and text values. Geometry lives with battle layout. */
+#overlay-root .battle-help :is(h3,dt) { color: var(--ui-text); font: 600 var(--ui-text-base)/var(--ui-line-height) var(--ui-font-body); }
+#overlay-root .battle-help :is(p,dd) { color: var(--ui-text); font-size: var(--ui-text-base); }
+#overlay-root .battle-help :is(small,.muted) { color: var(--ui-muted); font-size: var(--ui-text-sm); }
+#overlay-root .battle-help-symbol { color: var(--ui-accent); }
+#overlay-root .battle-help :is(.battle-help-row,.battle-help-advice>div) { border-bottom: 1px solid var(--ui-line-soft); }
+#overlay-root .battle-help .directory-tabs { background: var(--ui-panel); }
+#overlay-root .battle-unit-inspection .battle-brief-effects h3 { color: var(--ui-text); font-size: var(--ui-text-base); }
+#overlay-root .battle-unit-inspection .battle-brief-effects h3 small { color: var(--ui-muted); font: var(--ui-text-xs) var(--ui-font-body); }
+#overlay-root .battle-unit-inspection .status-values { color: var(--ui-muted); font-size: var(--ui-text-sm); }
+#overlay-root .battle-unit-inspection .status-values summary { cursor: pointer; min-height: var(--ui-control-height); }
+/* Native progress is shared by view loading and other measurable work. */
+.replay-field { border:1px solid var(--ui-line-soft); background:var(--ui-panel-recessed); }
+.replay-unit-card { fill:var(--ui-panel); stroke:var(--replay-faction); stroke-width:3px; }
+.replay-unit-name { fill:var(--ui-text); font:600 var(--ui-text-title) var(--ui-font-body); }
+@media(max-height:500px) and (min-width:600px) { .replay-unit-name { font-size:var(--ui-text-page); } }
+.replay-unit-track { fill:var(--ui-panel-recessed); }
+.replay-unit-health { fill:var(--replay-faction); }
+progress { accent-color:var(--ui-accent); background:var(--ui-panel-recessed); border:1px solid var(--ui-line-soft); border-radius:var(--ui-radius); }
+progress::-webkit-progress-bar { background:var(--ui-panel-recessed); }
+progress::-webkit-progress-value { background:var(--ui-accent); }
+progress::-moz-progress-bar { background:var(--ui-accent); }
+.scene-loading::backdrop { background:var(--ui-backdrop); }
+@media (prefers-reduced-motion:reduce) {
+  :is(#app,#overlay-root) :is(.button,.ui-button,.mode-card,.scenario-ribbon) { transition: none; }
+}
+/* Military target feedback uses the shared ally/enemy and accent palette. */
+#stratagem-area-overlay svg{--area-tone:var(--ui-success);fill:color-mix(in srgb,var(--area-tone),transparent 80%);stroke:var(--area-tone)}
+.army-supply-route .strategy-supply-path{stroke:var(--ui-success);filter:drop-shadow(0 0 1px var(--ui-canvas))}
+#stratagem-area-overlay svg.area-side-1{--area-tone:var(--ui-danger)}
+#stratagem-area-overlay .area-hit{fill:none;stroke:var(--ui-text)}
+#stratagem-area-overlay .area-target-pointer{fill:var(--ui-accent);stroke:var(--ui-canvas)}
+.arena-page .battle-unit.stratagem-affected .unit-map-caption{outline:2px solid var(--ui-accent);outline-offset:2px;background:var(--ui-jade-deep);color:var(--ui-text);box-shadow:0 0 12px var(--ui-shadow-color)}
+.arena-page .battle-unit.stratagem-affected.side-1 .unit-map-caption{background:var(--ui-panel-recessed);outline-color:var(--ui-danger)}
+.arena-page .battle-unit.stratagem-affected .unit-map-caption>b{font-size:var(--ui-text-xs);font-family:var(--ui-font-body);color:var(--ui-text)}
+.arena-page .battle-unit.stratagem-affected .unit-map-caption::after{background:var(--ui-accent);border:1px solid var(--ui-canvas)}
+.arena-page .battle-unit.stratagem-muted .unit-map-caption{opacity:.45}
+.unit-nameplate.stratagem-affected{outline:3px solid var(--ui-accent)}

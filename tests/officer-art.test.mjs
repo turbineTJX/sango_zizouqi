@@ -35,7 +35,7 @@ test('own assets are limited to the same officer and known scene, no arbitrary p
  const result=sanitizeOfficerArt({version:1,id:'original-officers',officers:{cao:{detail:{url:own('cao','detail')},battle:{url:own('person-99','battle')},report:{url:local}}}});
  assert.equal(result.cao.detail.url,own('cao','detail'));assert.equal(result.cao.battle,undefined);assert.equal(result.cao.report,undefined);
 });
-test('scene priority keeps original identity on missing/failed scene and honours the switch',()=>{
+test('scene priority keeps original identity on missing/failed scene and handles unavailable artwork',()=>{
  const saved={officers:art.officers,pack:art.pack,enabled:art.enabled,failed:art.failed};
  try{
   art.officers=sanitizeOfficerArt({version:1,id:'original-officers',officers:{cao:{portrait:{url:own('cao','portrait'),width:1024,height:1024},detail:{url:own('cao','detail')},battle:{url:own('cao','battle'),width:2048,height:1152,fit:'contain'}}}});art.pack={id:'local',portraits:{cao:local}};art.enabled=true;art.failed=new Set();

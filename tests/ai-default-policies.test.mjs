@@ -6,7 +6,7 @@ import {cityPersonnel} from '../city-personnel.mjs';
 import {rankOfficerCandidates} from '../officer-recommendation.mjs';
 import {strategicCityBudget,manageStrategicEconomy} from '../strategic-ai.mjs';
 import {manageTreasuresAI,treasureRecord,treasureOfficerRows,grantTreasure} from '../treasures.mjs';
-import {updateCaptives,resolveOfficerLoss} from '../officer-fates.mjs';
+import {updateCaptives,resolveOfficerLoss,fateRoll,officerLossResult} from '../officer-fates.mjs';
 import {servingPeople,factionLord} from '../talent-core.mjs';
 
 test('AI governor selection uses the shared ranking and excludes queued local officers',()=>{
@@ -36,7 +36,7 @@ test('AI treasure policy retains an existing lawful equipment choice and never r
 test('AI captive policy holds a guarded prisoner until lawful release and spends no automatic ransom',()=>{
  const s=newCampaign(343,'guandu-200','cao',{allAI:true});let prisoner;
  for(const o of [...servingPeople(s).values()].filter(o=>o.faction==='cao'&&!o.army&&o.unit.id!==factionLord(s,'cao'))){
-  resolveOfficerLoss(s,{unit:o.unit,faction:'cao',location:o.location,enemy:'yuan',eventId:'hold-policy:'+o.unit.id});
+  resolveOfficerLoss(s,{unit:o.unit,faction:'cao',location:o.location,enemy:'yuan',eventId:Array.from({length:10000},(_,i)=>'hold-policy:'+o.unit.id+':'+i).find(key=>officerLossResult(fateRoll(s,key),'yuan')==='CAPTIVE')});
   prisoner=s.campaign.domestic.people.find(p=>p.id===o.unit.id&&p.status==='CAPTIVE');if(prisoner)break;
  }
  assert.ok(prisoner);const c=s.cities.find(c=>c.owner==='yuan');prisoner.cityId=c.id;delete prisoner.custody;

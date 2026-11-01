@@ -28,7 +28,7 @@ test('real construction, daily changes, interrupted work and read-only portrait/
  const assignment=s.campaign.domestic.assignments.find(a=>a.officerId===u.id),site=s.cities.find(n=>n.id===(assignment.action.siteId||c.id))||s.junctions.find(n=>n.id===assignment.action.siteId);
  const before=JSON.stringify(s),model=citySceneState(s,site),district=model.districts.find(d=>d.key==='commerce');
  assert.ok(district.officers.some(o=>o.id===u.id));assert.match(citySceneMarkup(model),new RegExp('data-city-officer="'+u.id+'"'));
- assert.match(cityBuildingCard(model,'commerce'),/在此办事/);assert.match(campaignInfoMarkup(s,{type:'officer',id:u.id,page:'当前动态'}).body,/当前动态/);assert.equal(JSON.stringify(s),before);
+ assert.match(cityBuildingCard(model,'commerce'),/在此办事/);assert.match(campaignInfoMarkup(s,{type:'officer',id:u.id,page:'当前动态'}).body,/动态/);assert.equal(JSON.stringify(s),before);
  assert.ok(officerActivityDays(s,u.id).rows[0].actions.some(a=>a.code==='domestic'&&a.siteId===site.id));
  advanceCampaignDay(s);cancelDomestic(s,u.id);recordOfficerActivities(s);
  assert.equal(citySceneState(s,site).districts.find(d=>d.key==='commerce').officers.some(o=>o.id===u.id),false);

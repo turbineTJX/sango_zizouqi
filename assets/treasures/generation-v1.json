@@ -1,0 +1,293 @@
+{
+  "style": "historical game inventory painting, entire object centered, charcoal stone, soft museum light, no text or border",
+  "records": [
+    {
+      "id": "skyHalberd",
+      "url": "./assets/treasures/skyHalberd-v1.webp",
+      "sha256": "e2c7bfb8daa96929678696402c537381af4777c430ed7f071a9e418652253943",
+      "prompt": "Use case: stylized-concept. Asset type: square treasure inventory illustration for a Three Kingdoms strategy game. Subject: 方天画戟, one magnificent Chinese long halberd, symmetrical crescent side blades below a spear point, dark iron shaft, engraved bronze dragon fittings and a deep crimson tassel. Show the entire weapon diagonally from lower left to upper right, all tips visible, centered with generous 12% margins. Refined historical game inventory painting, realistic forged metal, warm muted gold highlights, rich ink-black and deep green patina. A quiet uniform charcoal stone display background, soft directional museum light, legible at thumbnail size, crisp elegant silhouette, no person, no hands, no UI, no letters or calligraphy, no border, no watermark. 1024x1024 square.",
+      "tool": "built-in image_gen",
+      "size": [
+        512,
+        512
+      ],
+      "subject": "方天画戟: symmetrical crescent halberd, bronze dragon fittings and crimson tassel"
+    },
+    {
+      "id": "redFirmament",
+      "url": "./assets/treasures/redFirmament-v1.webp",
+      "sha256": "293b0b179e3437bdc9d6056b08f3a6768aa25535a9d0b3436fb226e8419c4274",
+      "prompt": "Use case: stylized-concept. Asset type: square treasure inventory illustration for a Three Kingdoms strategy game. Subject: 赤霄剑: a single ancient Chinese straight bronze sword with a warm crimson scabbard alongside it, gold cloud motifs, deep red jade pommel. Refined historical game inventory painting, realistic metal, bamboo, silk or horse anatomy as appropriate, warm muted gold highlights with deep green and charcoal tones. Entire main subject centered, all extremities visible, generous 12% margins. Quiet uniform charcoal stone display background, soft directional museum light, strong readable silhouette at thumbnail size. Only the named treasure and its described accessories. No human, no hands, no UI, no border, no labels, no legible letters, no watermark. 1024x1024 square.",
+      "tool": "built-in image_gen",
+      "size": [
+        512,
+        512
+      ],
+      "subject": "赤霄剑: a single ancient Chinese straight bronze sword with a warm crimson scabbard alongside it, gold cloud motifs, deep red jade pommel"
+    },
+    {
+      "id": "darkSteel",
+      "url": "./assets/treasures/darkSteel-v1.webp",
+      "sha256": "3a1c1ba3a706a198c120fbd9c82fa29e64cc6e05c945461dda5072eef946bdb2",
+      "prompt": "Use case: stylized-concept. Asset type: square treasure inventory illustration for a Three Kingdoms strategy game. Subject: 湛卢剑: a single austere blackened steel Chinese straight sword, dark teal patina, restrained silver edge and black jade fittings. Refined historical game inventory painting, realistic metal, bamboo, silk or horse anatomy as appropriate, warm muted gold highlights with deep green and charcoal tones. Entire main subject centered, all extremities visible, generous 12% margins. Quiet uniform charcoal stone display background, soft directional museum light, strong readable silhouette at thumbnail size. Only the named treasure and its described accessories. No human, no hands, no UI, no border, no labels, no legible letters, no watermark. 1024x1024 square.",
+      "tool": "built-in image_gen",
+      "size": [
+        512,
+        512
+      ],
+      "subject": "湛卢剑: a single austere blackened steel Chinese straight sword, dark teal patina, restrained silver edge and black jade fittings"
+    },
+    {
+      "id": "greatEdge",
+      "url": "./assets/treasures/greatEdge-v1.webp",
+      "sha256": "b0ac4abcdf1f37612a25a9cd52edc772f26ed4d6d1d64aca8cf079bc75e9bd48",
+      "prompt": "Use case: stylized-concept. Asset type: square treasure inventory illustration for a Three Kingdoms strategy game. Subject: 泰阿剑: a massive majestic ancient Chinese straight sword, broad polished steel blade, bronze geometric guard, amber jade pommel. Refined historical game inventory painting, realistic metal, bamboo, silk or horse anatomy as appropriate, warm muted gold highlights with deep green and charcoal tones. Entire main subject centered, all extremities visible, generous 12% margins. Quiet uniform charcoal stone display background, soft directional museum light, strong readable silhouette at thumbnail size. Only the named treasure and its described accessories. No human, no hands, no UI, no border, no labels, no legible letters, no watermark. 1024x1024 square.",
+      "tool": "built-in image_gen",
+      "size": [
+        512,
+        512
+      ],
+      "subject": "泰阿剑: a massive majestic ancient Chinese straight sword, broad polished steel blade, bronze geometric guard, amber jade pommel"
+    },
+    {
+      "id": "artOfWar",
+      "url": "./assets/treasures/artOfWar-v1.webp",
+      "sha256": "01aa96f74ae23be455110e760278a8e1bf3490a14b3d3c9643eccdfd4e0ad58c",
+      "prompt": "Use case: stylized-concept. Asset type: square treasure inventory illustration for a Three Kingdoms strategy game. Subject: 孙子兵法: a tied set of dark brown bamboo military manuscript slips, partially unfurled with tiny abstract ink marks, a black silk binding cord. Refined historical game inventory painting, realistic metal, bamboo, silk or horse anatomy as appropriate, warm muted gold highlights with deep green and charcoal tones. Entire main subject centered, all extremities visible, generous 12% margins. Quiet uniform charcoal stone display background, soft directional museum light, strong readable silhouette at thumbnail size. Only the named treasure and its described accessories. No human, no hands, no UI, no border, no labels, no legible letters, no watermark. 1024x1024 square.",
+      "tool": "built-in image_gen",
+      "size": [
+        512,
+        512
+      ],
+      "subject": "孙子兵法: a tied set of dark brown bamboo military manuscript slips, partially unfurled with tiny abstract ink marks, a black silk binding cord"
+    },
+    {
+      "id": "sixTeachings",
+      "url": "./assets/treasures/sixTeachings-v1.webp",
+      "sha256": "0edfd1dc3d88e3465fc824a4c602a8800092204b335f90a995525175b1e2b5f6",
+      "prompt": "Use case: stylized-concept. Asset type: square treasure inventory illustration for a Three Kingdoms strategy game. Subject: 六韬: six elegant warm ochre bamboo manuscript bundles held together by muted red silk, one small slip open in front. Refined historical game inventory painting, realistic metal, bamboo, silk or horse anatomy as appropriate, warm muted gold highlights with deep green and charcoal tones. Entire main subject centered, all extremities visible, generous 12% margins. Quiet uniform charcoal stone display background, soft directional museum light, strong readable silhouette at thumbnail size. Only the named treasure and its described accessories. No human, no hands, no UI, no border, no labels, no legible letters, no watermark. 1024x1024 square.",
+      "tool": "built-in image_gen",
+      "size": [
+        512,
+        512
+      ],
+      "subject": "六韬: six elegant warm ochre bamboo manuscript bundles held together by muted red silk, one small slip open in front"
+    },
+    {
+      "id": "threeStrategies",
+      "url": "./assets/treasures/threeStrategies-v1.webp",
+      "sha256": "12e48647adfd2a6eb5a06ddfaeb5879c1e2fa38722864f85692b471c2849aa7d",
+      "prompt": "Use case: stylized-concept. Asset type: square treasure inventory illustration for a Three Kingdoms strategy game. Subject: 三略: three stacked military manuscript scrolls in old ivory silk, indigo ties and bronze end caps. Refined historical game inventory painting, realistic metal, bamboo, silk or horse anatomy as appropriate, warm muted gold highlights with deep green and charcoal tones. Entire main subject centered, all extremities visible, generous 12% margins. Quiet uniform charcoal stone display background, soft directional museum light, strong readable silhouette at thumbnail size. Only the named treasure and its described accessories. No human, no hands, no UI, no border, no labels, no legible letters, no watermark. 1024x1024 square.",
+      "tool": "built-in image_gen",
+      "size": [
+        512,
+        512
+      ],
+      "subject": "三略: three stacked military manuscript scrolls in old ivory silk, indigo ties and bronze end caps"
+    },
+    {
+      "id": "weiliao",
+      "url": "./assets/treasures/weiliao-v1.webp",
+      "sha256": "ba34c69374ca18153f21f45f1eaeafebd444a54c6236a7487412b8c303cd2f99",
+      "prompt": "Use case: stylized-concept. Asset type: square treasure inventory illustration for a Three Kingdoms strategy game. Subject: 尉缭子: one open dense dark bamboo manuscript on a wooden stand, green silk bindings and a modest bronze seal. Refined historical game inventory painting, realistic metal, bamboo, silk or horse anatomy as appropriate, warm muted gold highlights with deep green and charcoal tones. Entire main subject centered, all extremities visible, generous 12% margins. Quiet uniform charcoal stone display background, soft directional museum light, strong readable silhouette at thumbnail size. Only the named treasure and its described accessories. No human, no hands, no UI, no border, no labels, no legible letters, no watermark. 1024x1024 square.",
+      "tool": "built-in image_gen",
+      "size": [
+        512,
+        512
+      ],
+      "subject": "尉缭子: one open dense dark bamboo manuscript on a wooden stand, green silk bindings and a modest bronze seal"
+    },
+    {
+      "id": "mozi",
+      "url": "./assets/treasures/mozi-v1.webp",
+      "sha256": "cdd0bb294d40e79c0fba4c9cef4c310f47106d8d33f66461821d95679dad2b99",
+      "prompt": "Square museum collection illustration of the ancient Chinese philosophical book Mozi (墨子): a beautiful rolled bamboo manuscript with dark green silk ties, next to a small antique wooden measuring square. Charcoal stone backdrop, warm soft museum light, elegant highly detailed hand-painted inventory art, entire objects visible with generous margins, realistic bamboo, wood and cloth. No people, no readable text, no border, no watermark. 1024x1024.",
+      "tool": "built-in image_gen",
+      "size": [
+        512,
+        512
+      ],
+      "subject": "墨子: one rolled dark leather and bamboo manuscript next to a small wooden measuring square, simple precise unadorned craftsmanship"
+    },
+    {
+      "id": "greenDragon",
+      "url": "./assets/treasures/greenDragon-v1.webp",
+      "sha256": "26b8f98ab8de0aa707ab2a8a80c5c91d1c30b6e0e7d04e57bba12dddd08c6e5d",
+      "prompt": "Use case: stylized-concept. Asset type: square treasure inventory illustration for a Three Kingdoms strategy game. Subject: 青龙偃月刀: one Chinese guandao polearm with a broad crescent blade, engraved jade-green dragon at the socket, long dark shaft and red tassel, full weapon visible diagonally. Refined historical game inventory painting, realistic metal, bamboo, silk or horse anatomy as appropriate, warm muted gold highlights with deep green and charcoal tones. Entire main subject centered, all extremities visible, generous 12% margins. Quiet uniform charcoal stone display background, soft directional museum light, strong readable silhouette at thumbnail size. Only the named treasure and its described accessories. No human, no hands, no UI, no border, no labels, no legible letters, no watermark. 1024x1024 square.",
+      "tool": "built-in image_gen",
+      "size": [
+        512,
+        512
+      ],
+      "subject": "青龙偃月刀: one Chinese guandao polearm with a broad crescent blade, engraved jade-green dragon at the socket, long dark shaft and red tassel, full weapon visible diagonally"
+    },
+    {
+      "id": "serpentSpear",
+      "url": "./assets/treasures/serpentSpear-v1.webp",
+      "sha256": "e2636c8cf41844b4596a693f5fffff07d7b4da10f387061f184f8a6d2e9e5bf4",
+      "prompt": "Use case: stylized-concept. Asset type: square treasure inventory illustration for a Three Kingdoms strategy game. Subject: 丈八蛇矛: one long Chinese spear with a distinctive serpentine wavy steel blade, black shaft, bronze socket and short dark crimson tassel, full weapon visible diagonally. Refined historical game inventory painting, realistic metal, bamboo, silk or horse anatomy as appropriate, warm muted gold highlights with deep green and charcoal tones. Entire main subject centered, all extremities visible, generous 12% margins. Quiet uniform charcoal stone display background, soft directional museum light, strong readable silhouette at thumbnail size. Only the named treasure and its described accessories. No human, no hands, no UI, no border, no labels, no legible letters, no watermark. 1024x1024 square.",
+      "tool": "built-in image_gen",
+      "size": [
+        512,
+        512
+      ],
+      "subject": "丈八蛇矛: one long Chinese spear with a distinctive serpentine wavy steel blade, black shaft, bronze socket and short dark crimson tassel, full weapon visible diagonally"
+    },
+    {
+      "id": "blueSteel",
+      "url": "./assets/treasures/blueSteel-v1.webp",
+      "sha256": "c6807f4a417aa71dc7675574631774721049b36ca4f08545444d6abe099a86cb",
+      "prompt": "Use case: stylized-concept. Asset type: square treasure inventory illustration for a Three Kingdoms strategy game. Subject: 青釭剑: one slender Chinese straight sword, brilliant cold blue-steel blade, silver geometric guard, blue-green wrapped hilt and plain dark scabbard. Refined historical game inventory painting, realistic metal, bamboo, silk or horse anatomy as appropriate, warm muted gold highlights with deep green and charcoal tones. Entire main subject centered, all extremities visible, generous 12% margins. Quiet uniform charcoal stone display background, soft directional museum light, strong readable silhouette at thumbnail size. Only the named treasure and its described accessories. No human, no hands, no UI, no border, no labels, no legible letters, no watermark. 1024x1024 square.",
+      "tool": "built-in image_gen",
+      "size": [
+        512,
+        512
+      ],
+      "subject": "青釭剑: one slender Chinese straight sword, brilliant cold blue-steel blade, silver geometric guard, blue-green wrapped hilt and plain dark scabbard"
+    },
+    {
+      "id": "heavenSword",
+      "url": "./assets/treasures/heavenSword-v1.webp",
+      "sha256": "ffdf848db2f3c91f8c5b57828548653d8a521d148601dbbd61bb7b7ad7ddc0c1",
+      "prompt": "Use case: stylized-concept. Asset type: square treasure inventory illustration for a Three Kingdoms strategy game. Subject: 倚天剑: one majestic long Chinese straight sword, luminous silver blade, engraved golden guard, ivory jade pommel and deep violet scabbard. Refined historical game inventory painting, realistic metal, bamboo, silk or horse anatomy as appropriate, warm muted gold highlights with deep green and charcoal tones. Entire main subject centered, all extremities visible, generous 12% margins. Quiet uniform charcoal stone display background, soft directional museum light, strong readable silhouette at thumbnail size. Only the named treasure and its described accessories. No human, no hands, no UI, no border, no labels, no legible letters, no watermark. 1024x1024 square.",
+      "tool": "built-in image_gen",
+      "size": [
+        512,
+        512
+      ],
+      "subject": "倚天剑: one majestic long Chinese straight sword, luminous silver blade, engraved golden guard, ivory jade pommel and deep violet scabbard"
+    },
+    {
+      "id": "ancientBlade",
+      "url": "./assets/treasures/ancientBlade-v1.webp",
+      "sha256": "6c6213ce9a0036987d34f36bd17f3770536a18c004f8433ad16b9ac0e04301cb",
+      "prompt": "Use case: stylized-concept. Asset type: square treasure inventory illustration for a Three Kingdoms strategy game. Subject: 古锭刀: one antique Chinese single-edged broad ring-pommel dao, dark forged iron with a bright edge, ancient bronze fittings, rugged russet grip. Refined historical game inventory painting, realistic metal, bamboo, silk or horse anatomy as appropriate, warm muted gold highlights with deep green and charcoal tones. Entire main subject centered, all extremities visible, generous 12% margins. Quiet uniform charcoal stone display background, soft directional museum light, strong readable silhouette at thumbnail size. Only the named treasure and its described accessories. No human, no hands, no UI, no border, no labels, no legible letters, no watermark. 1024x1024 square.",
+      "tool": "built-in image_gen",
+      "size": [
+        512,
+        512
+      ],
+      "subject": "古锭刀: one antique Chinese single-edged broad ring-pommel dao, dark forged iron with a bright edge, ancient bronze fittings, rugged russet grip"
+    },
+    {
+      "id": "twinSwords",
+      "url": "./assets/treasures/twinSwords-v1.webp",
+      "sha256": "795b51f7d6d26e91b7a5125a44fcb17f1fb9214e435f6d25a045fd0e6ead0949",
+      "prompt": "Use case: stylized-concept. Asset type: square treasure inventory illustration for a Three Kingdoms strategy game. Subject: 双股剑: a matched pair of Chinese straight swords crossed gently, one longer one shorter, bronze guards, green and red cord wrapped hilts. Refined historical game inventory painting, realistic metal, bamboo, silk or horse anatomy as appropriate, warm muted gold highlights with deep green and charcoal tones. Entire main subject centered, all extremities visible, generous 12% margins. Quiet uniform charcoal stone display background, soft directional museum light, strong readable silhouette at thumbnail size. Only the named treasure and its described accessories. No human, no hands, no UI, no border, no labels, no legible letters, no watermark. 1024x1024 square.",
+      "tool": "built-in image_gen",
+      "size": [
+        512,
+        512
+      ],
+      "subject": "双股剑: a matched pair of Chinese straight swords crossed gently, one longer one shorter, bronze guards, green and red cord wrapped hilts"
+    },
+    {
+      "id": "legendaryBow",
+      "url": "./assets/treasures/legendaryBow-v1.webp",
+      "sha256": "e594ed5df2a243680b56a2e7fa8a9f438ded9d22d4ead94f7b9eeebbff62c993",
+      "prompt": "Use case: stylized-concept. Asset type: square treasure inventory illustration for a Three Kingdoms strategy game. Subject: 养由基弓: one powerful ancient Chinese recurved composite bow, black horn limbs, engraved bronze reinforcements, russet grip, taut visible bowstring, three neatly arranged arrows. Refined historical game inventory painting, realistic metal, bamboo, silk or horse anatomy as appropriate, warm muted gold highlights with deep green and charcoal tones. Entire main subject centered, all extremities visible, generous 12% margins. Quiet uniform charcoal stone display background, soft directional museum light, strong readable silhouette at thumbnail size. Only the named treasure and its described accessories. No human, no hands, no UI, no border, no labels, no legible letters, no watermark. 1024x1024 square.",
+      "tool": "built-in image_gen",
+      "size": [
+        512,
+        512
+      ],
+      "subject": "养由基弓: one powerful ancient Chinese recurved composite bow, black horn limbs, engraved bronze reinforcements, russet grip, taut visible bowstring, three neatly arranged arrows"
+    },
+    {
+      "id": "brightArmor",
+      "url": "./assets/treasures/brightArmor-v1.webp",
+      "sha256": "a403439a08b411fbb6d70fc0adb936442c1d239a934169ac002989b3519bef47",
+      "prompt": "Use case: stylized-concept. Asset type: square treasure inventory illustration for a Three Kingdoms strategy game. Subject: 明光铠: one magnificent ancient Chinese lamellar cuirass displayed alone, paired polished round breast mirrors, layered dark steel plates, muted gold edges and crimson lacing, no mannequin or person. Refined historical game inventory painting, realistic metal, bamboo, silk or horse anatomy as appropriate, warm muted gold highlights with deep green and charcoal tones. Entire main subject centered, all extremities visible, generous 12% margins. Quiet uniform charcoal stone display background, soft directional museum light, strong readable silhouette at thumbnail size. Only the named treasure and its described accessories. No human, no hands, no UI, no border, no labels, no legible letters, no watermark. 1024x1024 square.",
+      "tool": "built-in image_gen",
+      "size": [
+        512,
+        512
+      ],
+      "subject": "明光铠: one magnificent ancient Chinese lamellar cuirass displayed alone, paired polished round breast mirrors, layered dark steel plates, muted gold edges and crimson lacing, no mannequin or person"
+    },
+    {
+      "id": "redHare",
+      "url": "./assets/treasures/redHare-v1.webp",
+      "sha256": "090d4abc7b534df363c13026ab27c4c23e67493b673b616275da1b1a61d17d97",
+      "prompt": "Use case: stylized-concept. Asset type: square treasure inventory illustration for a Three Kingdoms strategy game. Subject: 赤兔: one powerful handsome chestnut-red ancient Chinese warhorse in full body three-quarter side view, red coat and black mane, tasteful bronze and crimson tack, no rider. Refined historical game inventory painting, realistic metal, bamboo, silk or horse anatomy as appropriate, warm muted gold highlights with deep green and charcoal tones. Entire main subject centered, all extremities visible, generous 12% margins. Quiet uniform charcoal stone display background, soft directional museum light, strong readable silhouette at thumbnail size. Only the named treasure and its described accessories. No human, no hands, no UI, no border, no labels, no legible letters, no watermark. 1024x1024 square.",
+      "tool": "built-in image_gen",
+      "size": [
+        512,
+        512
+      ],
+      "subject": "赤兔: one powerful handsome chestnut-red ancient Chinese warhorse in full body three-quarter side view, red coat and black mane, tasteful bronze and crimson tack, no rider"
+    },
+    {
+      "id": "dillu",
+      "url": "./assets/treasures/dillu-v1.webp",
+      "sha256": "3f60848b3423da8b7701d85d5570be43277e91ff329486d7814305b0fd683058",
+      "prompt": "Use case: stylized-concept. Asset type: square treasure inventory illustration for a Three Kingdoms strategy game. Subject: 的卢: one strong elegant white-grey ancient Chinese horse in full body three-quarter side view, distinctive pale forehead blaze, dark grey mane and muted green tack, no rider. Refined historical game inventory painting, realistic metal, bamboo, silk or horse anatomy as appropriate, warm muted gold highlights with deep green and charcoal tones. Entire main subject centered, all extremities visible, generous 12% margins. Quiet uniform charcoal stone display background, soft directional museum light, strong readable silhouette at thumbnail size. Only the named treasure and its described accessories. No human, no hands, no UI, no border, no labels, no legible letters, no watermark. 1024x1024 square.",
+      "tool": "built-in image_gen",
+      "size": [
+        512,
+        512
+      ],
+      "subject": "的卢: one strong elegant white-grey ancient Chinese horse in full body three-quarter side view, distinctive pale forehead blaze, dark grey mane and muted green tack, no rider"
+    },
+    {
+      "id": "shadow",
+      "url": "./assets/treasures/shadow-v1.webp",
+      "sha256": "8067e1ff9ac7fe94d7b392771a7308e30d399da3410295c3fa27fb18840525aa",
+      "prompt": "Use case: stylized-concept. Asset type: square treasure inventory illustration for a Three Kingdoms strategy game. Subject: 绝影: one sleek athletic black ancient Chinese warhorse in full body three-quarter side view, glossy ink-black coat, flowing dark mane and restrained silver-black tack, no rider. Refined historical game inventory painting, realistic metal, bamboo, silk or horse anatomy as appropriate, warm muted gold highlights with deep green and charcoal tones. Entire main subject centered, all extremities visible, generous 12% margins. Quiet uniform charcoal stone display background, soft directional museum light, strong readable silhouette at thumbnail size. Only the named treasure and its described accessories. No human, no hands, no UI, no border, no labels, no legible letters, no watermark. 1024x1024 square.",
+      "tool": "built-in image_gen",
+      "size": [
+        512,
+        512
+      ],
+      "subject": "绝影: one sleek athletic black ancient Chinese warhorse in full body three-quarter side view, glossy ink-black coat, flowing dark mane and restrained silver-black tack, no rider"
+    },
+    {
+      "id": "yellowLightning",
+      "url": "./assets/treasures/yellowLightning-v1.webp",
+      "sha256": "98566737a948273d88ecaf5325d1f89f4ad1f2fb919c8ffeb726ca0a50431bb9",
+      "prompt": "Use case: stylized-concept. Asset type: square treasure inventory illustration for a Three Kingdoms strategy game. Subject: 爪黄飞电: one proud golden-brown ancient Chinese horse in full body three-quarter side view, pale yellow lower legs and hooves, dark mane and indigo-bronze tack, no rider. Refined historical game inventory painting, realistic metal, bamboo, silk or horse anatomy as appropriate, warm muted gold highlights with deep green and charcoal tones. Entire main subject centered, all extremities visible, generous 12% margins. Quiet uniform charcoal stone display background, soft directional museum light, strong readable silhouette at thumbnail size. Only the named treasure and its described accessories. No human, no hands, no UI, no border, no labels, no legible letters, no watermark. 1024x1024 square.",
+      "tool": "built-in image_gen",
+      "size": [
+        512,
+        512
+      ],
+      "subject": "爪黄飞电: one proud golden-brown ancient Chinese horse in full body three-quarter side view, pale yellow lower legs and hooves, dark mane and indigo-bronze tack, no rider"
+    },
+    {
+      "id": "medicineBook",
+      "url": "./assets/treasures/medicineBook-v1.webp",
+      "sha256": "7c0fb139334a7757a29d8afe2a4060c5588b762d3f46343883697adc975d906c",
+      "prompt": "Use case: stylized-concept. Asset type: square treasure inventory illustration for a Three Kingdoms strategy game. Subject: 青囊书: one worn ivory medical manuscript bound in muted teal cloth, rolled soft green physician pouch and a small simple wooden medicine spatula. Refined historical game inventory painting, realistic metal, bamboo, silk or horse anatomy as appropriate, warm muted gold highlights with deep green and charcoal tones. Entire main subject centered, all extremities visible, generous 12% margins. Quiet uniform charcoal stone display background, soft directional museum light, strong readable silhouette at thumbnail size. Only the named treasure and its described accessories. No human, no hands, no UI, no border, no labels, no legible letters, no watermark. 1024x1024 square.",
+      "tool": "built-in image_gen",
+      "size": [
+        512,
+        512
+      ],
+      "subject": "青囊书: one worn ivory medical manuscript bound in muted teal cloth, rolled soft green physician pouch and a small simple wooden medicine spatula"
+    },
+    {
+      "id": "mengde",
+      "url": "./assets/treasures/mengde-v1.webp",
+      "sha256": "f889d4828f1ff34949c7b65774651e5caaa4c56c2aa5da84814f5e116085dabe",
+      "prompt": "Use case: stylized-concept. Asset type: square treasure inventory illustration for a Three Kingdoms strategy game. Subject: 孟德新书: one commanding military manuscript bound in dark red silk, partially opened cream pages, black silk cord and a square bronze seal. Refined historical game inventory painting, realistic metal, bamboo, silk or horse anatomy as appropriate, warm muted gold highlights with deep green and charcoal tones. Entire main subject centered, all extremities visible, generous 12% margins. Quiet uniform charcoal stone display background, soft directional museum light, strong readable silhouette at thumbnail size. Only the named treasure and its described accessories. No human, no hands, no UI, no border, no labels, no legible letters, no watermark. 1024x1024 square.",
+      "tool": "built-in image_gen",
+      "size": [
+        512,
+        512
+      ],
+      "subject": "孟德新书: one commanding military manuscript bound in dark red silk, partially opened cream pages, black silk cord and a square bronze seal"
+    },
+    {
+      "id": "peaceBook",
+      "url": "./assets/treasures/peaceBook-v1.webp",
+      "sha256": "0fecd4975b84897a65ed528d7744b957d2edf0c57957d1a297a6a06f28d99feb",
+      "prompt": "Use case: stylized-concept. Asset type: square treasure inventory illustration for a Three Kingdoms strategy game. Subject: 太平要术: one mysterious old ivory manuscript wrapped in muted golden-yellow silk, a few elegant vermilion abstract talisman strokes on a partly open page, grounded historical style, no glowing magic. Refined historical game inventory painting, realistic metal, bamboo, silk or horse anatomy as appropriate, warm muted gold highlights with deep green and charcoal tones. Entire main subject centered, all extremities visible, generous 12% margins. Quiet uniform charcoal stone display background, soft directional museum light, strong readable silhouette at thumbnail size. Only the named treasure and its described accessories. No human, no hands, no UI, no border, no labels, no legible letters, no watermark. 1024x1024 square.",
+      "tool": "built-in image_gen",
+      "size": [
+        512,
+        512
+      ],
+      "subject": "太平要术: one mysterious old ivory manuscript wrapped in muted golden-yellow silk, a few elegant vermilion abstract talisman strokes on a partly open page, grounded historical style, no glowing magic"
+    }
+  ]
+}

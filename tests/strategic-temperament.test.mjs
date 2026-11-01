@@ -22,15 +22,15 @@ function marginalFront(){
  return {...f,profile:p,proposal};
 }
 
-test('ruler personality and attributes change sampled risk taking while early turns and quiet pressure remain bounded',()=>{
+test('ruler personality and attributes change risk preference without calendar or inactivity bonuses',()=>{
  const sample=personality=>{const ai={temperamentSeed:731,factions:{yuan:{temperament:null}}};let count=0;for(let turn=21;turn<=1020;turn++)count+=Number(drawFactionTemperament(ai,'yuan',turn,{...profile,personality},10).willing);return count;};
  const timid=sample(1),careful=sample(2),balanced=sample(3),bold=sample(4);
  assert.ok(timid<careful&&careful<balanced&&balanced<bold);assert.ok(bold-balanced>200&&balanced-careful>100);assert.ok(bold<1000&&timid>0);
  const base={...profile,turn:21,quietTurns:0};
  assert.ok(temperamentProbability({...base,leadership:95,intellect:95})<temperamentProbability({...base,leadership:30,intellect:30}));
  assert.ok(temperamentProbability({...base,politics:95})<temperamentProbability({...base,politics:30}));
- assert.ok(temperamentProbability({...base,turn:1})<temperamentProbability(base));
- assert.ok(temperamentProbability({...base,quietTurns:10})>temperamentProbability(base));
+ assert.equal(temperamentProbability({...base,turn:1}),temperamentProbability(base));
+ assert.equal(temperamentProbability({...base,quietTurns:10}),temperamentProbability(base));
  assert.equal(temperamentProbability({...base,turn:400,quietTurns:400}),temperamentProbability({...base,turn:40,quietTurns:40}));
 });
 

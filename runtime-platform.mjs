@@ -1,6 +1,14 @@
 export const isNativeApplication=()=>globalThis.location?.protocol==='sango:'||!!globalThis.Capacitor?.isNativePlatform?.();
 export const saveLocationText=()=>isNativeApplication()?'存档保存在本机应用中。':'存档保存在当前浏览器。';
 
+export async function exitApplication(){
+ if(globalThis.sangoDesktop?.exitGame){await globalThis.sangoDesktop.exitGame();return true;}
+ if(globalThis.Capacitor?.isNativePlatform?.()){
+  const {App}=await import('@capacitor/app');await App.exitApp();return true;
+ }
+ globalThis.close?.();return false;
+}
+
 export async function exportSaveFile(name,data){
  name=name.replace(/[\\/:*?"<>|\x00-\x1f]/g,'_');
  if(globalThis.sangoDesktop?.exportSave)return globalThis.sangoDesktop.exportSave(name,data);

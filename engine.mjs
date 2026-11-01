@@ -1,7 +1,9 @@
+import {equippedTreasureIds,validTreasureLoadout,treasureSlot,treasureInSlot,setTreasureEquipment} from './treasure-equipment.mjs';
 import {ECONOMY_RULES} from './data/design/economy-rules.mjs';
 import {validateBattleAppointments,commandProvidersAt,planBattleAppointmentsAI,planArrivalAppointmentsAI,appointBattleRoles} from './battle-appointments.mjs';
 import {preparePostbattleAppointments,validatePendingAppointments,pendingArmyAppointments} from './postbattle-appointments.mjs';
 import {combatType,combatFamily,validEquipment,emptyEquipment,desiredForm,allowedFormTypes,canEquip,equipmentCost} from './troop-equipment.mjs';
+import {installTreasureCatalog,validateTreasureSnapshots} from './treasure-catalog.mjs';
 import {validTreasureId,treasureDesign} from './data/design/treasures.mjs';
 import {recordTreasureDamage,validTreasureBattle} from './treasure-battle.mjs';
 import {refreshTreasureStatuses,treasureHealBudget,debitTreasureHealing,validateTreasureStatus} from './treasure-statuses.mjs';
@@ -33,9 +35,10 @@ import {assertDesignTables} from './design-catalog.mjs';
 import {DEMO_CITY_DESIGNS} from './data/design/cities.mjs';
 import {playerFaction} from './player-faction.mjs';
 import {NATIONAL_FACTIONS,nationalWorld} from './national-scenarios.mjs';
+import {attachFactionTable} from './faction-registry.mjs';
 import {battleBuildings,pulseBattleBuildings,validBuildingCombatState,combatBuildingRule,buildingTargetValue} from './building-rules.mjs';
 import {ATTACK_ORBS} from './attack-orbs.mjs';
-import {OFFICER_BY_ID,officerProfile,PROFILE_FIELDS,RELATION_LIST_FIELDS} from './officer-catalog.mjs';
+import {OFFICER_BY_ID,officerProfile,PROFILE_FIELDS,RELATION_LIST_FIELDS,currentOfficerLibrary,withOfficerLibrary} from './officer-catalog.mjs';
 import {generatedOfficer,validGeneratedOfficer} from './generated-officers.mjs';
 import {troopCapacity} from './troop-capacity.mjs';
 import {validateCustomBattle} from './custom-battle.mjs';
@@ -147,6 +150,7 @@ export const FACTIONS = {
   yuan: { ...NATIONAL_FACTIONS.yuan, name: '袁绍', short: '袁', color: '#c17d71' },
   neutral: { name: '地方势力', short: '守', color: '#b29c77' },
 };
+attachFactionTable(FACTIONS);
 const STARTER_OFFICER_IDS=['cao','dun','liao','chu','jia','yu','yuanxia','jin','shao','yan','wen','he','ju','tian','gao'];
 export function makeOfficer(id, troops = 3000, index = 0, level = 1, learningSeed = 521200) {
   const source=OFFICER_BY_ID[id];
@@ -162,7 +166,8 @@ export function makeOfficer(id, troops = 3000, index = 0, level = 1, learningSee
 export function newGame(seed = 521200) {
   const cities=structuredClone(DEMO_CITY_DESIGNS);
   const state = {
-    pendingAppointments:[], version: VERSION, rulesVersion:RULES_VERSION, officerDataVersion:4, relationshipScores:{}, relationshipTypes:{}, seed, turn: 1, gold: 3200, grain: 12800, fame: 120,
+    ...(currentOfficerLibrary().officers.length?{officerLibrary:currentOfficerLibrary()}:{}),
+    pendingAppointments:[], version: VERSION, rulesVersion:RULES_VERSION, officerDataVersion:5, relationshipScores:{}, relationshipTypes:{}, seed, turn: 1, gold: 3200, grain: 12800, fame: 120,
     cities, roads:structuredClone(DEMO_ROAD_DESIGNS),
     armies: [
       { id: 'a1', name: '虎贲军', faction: 'cao', location: 'xuchang', route: [], target: null, supply: 900, morale: 80, tactic: 'balanced', leader: 'cao', advisor: 'jia',  units: STARTER_OFFICER_IDS.slice(0, 8).map((id, i) => makeOfficer(id, 3000, i)), task: '驻守' },
@@ -322,6 +327,7 @@ export function startBattle(state,{deferEnemyDeployment=false}={}) {
     sides[index].units.push(...garrisonUnits(city).map(u => combatUnit(initializeTacticLearning({...u,level:1,merit:0},state.seed), `city:${city.id}`, index, 70)));
   }
   state.battle = { id: `battle-${state.turn}-${state.nextId++}`, cityId: city.id, context: { ...p, attackingIds: attacking.map(a => a.id) }, tick: 0, seed: state.seed + state.turn, sides, stratagemZones:[], gridType:'hex', terrain:sides.some(s=>s.units.some(u=>combatFamily(u)==='ship'))?'river':'land', relationshipScores:structuredClone(state.relationshipScores||{}), relationshipTypes:structuredClone(state.relationshipTypes||{}), comboWindows:[], comboCounts:[0,0], commandProgress:0, commandCooldown: 0, commandReady:{}, commandSerial:0, lastCommand:null, enemyCommand:{commandProgress:0,commandReady:{},commandSerial:0,lastCommand:null}, deploymentLocked:false, logs: [], effects: [], buildings: [], result: null, settled: false };
+  if(state.treasureDesigns)installTreasureCatalog(state.battle,state.treasureDesigns);
   fillSlots(state.battle, 0);
   if(!deferEnemyDeployment){fillSlots(state.battle, 1);planEnemyArmy(state.battle);}
   battleLog(state.battle,'敌军携带已学战法，依据兵力、分工和战况择序出阵并布阵；开战后独立积累军略。');
@@ -1531,6 +1537,9 @@ function checkCampaign(state) {
   else if (!state.cities.some(c => c.owner === playerFaction(state))) state.finished = 'defeat';
 }
 export function validateSave(value, { strategic = false } = {}) {
+ return withOfficerLibrary(value?.officerLibrary,()=>validateSaveInCatalog(value,{strategic}));
+}
+function validateSaveInCatalog(value, { strategic = false } = {}) {
   const require = (condition, message = '存档数据损坏') => { if (!condition) throw new Error(message); };
   const number = (v, max = Number.MAX_SAFE_INTEGER) => Number.isSafeInteger(v) && v >= 0 && v <= max;
   const text = (v, max = 250) => typeof v === 'string' && v.length <= max && !/[<>"'&]/.test(v);
@@ -1538,8 +1547,9 @@ export function validateSave(value, { strategic = false } = {}) {
   const tactic = v => Object.hasOwn(TACTICS, v);
   const result = r => r && [0, 1, null].includes(r.winner) && ['撤退', '击溃', '久战收兵', '城门失守','坚守成功','停战退兵'].includes(r.reason);
   require(value && value.version === VERSION && number(value.turn) && value.turn > 0 && number(value.seed), '存档版本不兼容或数据损坏');
+  validateTreasureSnapshots(value);
   require(value.rulesVersion===RULES_VERSION,'存档不是当前规则版本，请重新开始');
-  require(value.officerDataVersion===4,'存档不是当前武将数据版本，请重新开始');
+  require(value.officerDataVersion===5,'存档不是当前武将数据版本，请重新开始');
   let scenario = value.testScenario && SCENARIOS.find(s => s.id === value.testScenario.id);
   require(value.testScenario === undefined || (scenario && number(value.testScenario.seed,0xffffffff)), '测试战役无效');
   if(scenario?.id==='officer-lab'){
@@ -1551,7 +1561,7 @@ export function validateSave(value, { strategic = false } = {}) {
   if(scenario){const custom=validateCustomBattle(value.testScenario.customBattle);require(custom.seed===value.testScenario.seed&&custom.shieldPercent===value.testScenario.shieldPercent&&custom.ownTroopBudget===value.testScenario.customBattle.ownTroopBudget,'战役生成配置不一致');scenario={...scenario,limit:custom.limit,ownTroopBudget:custom.ownTroopBudget,waves:custom.waves,reinforcements:custom.reinforcements,events:custom.events,holdUntil:custom.holdUntil,gateHp:custom.battleKind==='field'?0:custom.gateHp,defending:custom.battleKind==='defense'};}
   const initial = strategic && value.campaign?.scenarioId ? nationalWorld(value.campaign.scenarioId) : newGame();
   require(Array.isArray(value.cities) && value.cities.length === initial.cities.length && Array.isArray(value.armies) && value.armies.length <= (strategic||scenario?Object.keys(OFFICER_BY_ID).length:15) && Array.isArray(value.logs) && value.logs.length <= 60 && JSON.stringify(value.roads) === JSON.stringify(initial.roads), '存档结构不完整');
-  if(strategic)require(JSON.stringify(value.junctions)===JSON.stringify(initial.junctions)&&JSON.stringify(value.roadSegments)===JSON.stringify(initial.roadSegments),'路网数据不匹配');
+  if(strategic)require(JSON.stringify(value.junctions)===JSON.stringify(initial.junctions)&&JSON.stringify(value.roadSegments)===JSON.stringify(initial.roadSegments),'路网数据不匹配，请重新开始');
   require(validRelationshipTypes(value.relationshipTypes),'人物关系类型无效');
   require(validRelationshipScores(value.relationshipScores,value.relationshipTypes),'人物关系值无效');
   for (const key of ['gold', 'grain', 'fame', 'nextId', 'victories']) require(number(value[key]), '资源数据无效');
@@ -1567,7 +1577,7 @@ export function validateSave(value, { strategic = false } = {}) {
   function validateUnit(u, combat = false) {
     require(validTacticLearning(u),'战法学习记录无效');
     require(validLoadout({...u,formType:null},u.tactics)||validLoadout(u,u.tactics),'战法配置无效');
-    require(validTreasureId(u.treasureId),'宝物装备无效');
+    require(validTreasureLoadout(u),'宝物装备无效');
     require(validEquipment(u.equipment),'携带装备无效');
     require(u && TROOPS[u.type]?.category==='troop' && ['front', 'middle', 'back', 'left', 'right'].includes(u.formation) && number(u.troops) && number(u.wounded) && typeof u.first === 'boolean', '武将数据无效');
     require(u.retreatAt===undefined||validRetreatAt(u.retreatAt),'撤离设置无效');
@@ -1711,7 +1721,7 @@ export function validateSave(value, { strategic = false } = {}) {
         const sourceOfficer=armyById(value,u.armyId)?.units.find(v=>v.id===u.id);
         require(validBondGrowth(u),'战场羁绊成长数据无效');
         require(validBondEntry(b,u),'入场羁绊快照无效');
-        if(sourceOfficer){require(u.treasureId===sourceOfficer.treasureId,'战场宝物与编制不一致');require(JSON.stringify(u.equipment)===JSON.stringify(sourceOfficer.equipment),'战场携带装备与编制不一致');require(JSON.stringify(u.bondGrowth)===JSON.stringify(sourceOfficer.bondGrowth),'战场羁绊与武将数据不一致');require(u.level===sourceOfficer.level&&u.merit===sourceOfficer.merit,'战场等级与武将数据不一致');require(JSON.stringify(u.tacticLearning)===JSON.stringify(sourceOfficer.tacticLearning),'战场战法学习与武将数据不一致');}
+        if(sourceOfficer){require(JSON.stringify(equippedTreasureIds(u))===JSON.stringify(equippedTreasureIds(sourceOfficer)),'战场宝物与编制不一致');require(JSON.stringify(u.equipment)===JSON.stringify(sourceOfficer.equipment),'战场携带装备与编制不一致');require(JSON.stringify(u.bondGrowth)===JSON.stringify(sourceOfficer.bondGrowth),'战场羁绊与武将数据不一致');require(u.level===sourceOfficer.level&&u.merit===sourceOfficer.merit,'战场等级与武将数据不一致');require(JSON.stringify(u.tacticLearning)===JSON.stringify(sourceOfficer.tacticLearning),'战场战法学习与武将数据不一致');}
         require(u.contribution&&Object.keys(emptyContribution()).every(key=>number(u.contribution[key])),'战斗贡献数据无效');
         require(number(u.battleDamage)&&number(u.healed)&&number(u.battleDeserted||0,u.battleDamage)&&(strategic||!u.battleDeserted)&&u.battleDamage-u.healed===u.initial-u.hp&&u.healed<=Math.floor((u.battleDamage-(u.battleDeserted||0))*.35),'伤兵治疗数据无效');
         const skills=allLearnedTacticIds(u);
@@ -1762,7 +1772,7 @@ export function validateSave(value, { strategic = false } = {}) {
             require(number(status.amount,u.maxHp));
             require(Array.isArray(status.layers)&&status.layers.length>0&&status.layers.length<=60&&status.layers.every(l=>l&&number(l.amount,u.maxHp)&&l.amount>0&&number(l.until)&&text(l.source)&&text(l.label)), '护盾层无效');require(new Set(status.layers.map(l=>l.source)).size===status.layers.length,'护盾来源重复');require(status.amount===status.layers.reduce((n,l)=>n+l.amount,0)&&status.until===Math.max(...status.layers.map(l=>l.until)),'护盾汇总无效');
             require(validEscortStatus(b,u,key,status),'护卫护盾来源或比例无效');
-            for(const layer of status.layers.filter(l=>l.sourceTreasure||l.source.startsWith('treasure:'))){const d=treasureDesign(layer.sourceTreasure),e=u.treasureEntry;require(d?.status==='shield'&&e?.id===layer.sourceTreasure&&layer.source==='treasure:'+e.id&&layer.sourceId===u.id&&layer.until===e.until&&layer.amount<=e.amount&&layer.label===d.name+' · 护盾'&&layer.bondGuardTier===undefined&&layer.sourceCommand===undefined,'宝物护盾来源或额度无效');}
+            for(const layer of status.layers.filter(l=>l.sourceTreasure||l.source.startsWith('treasure:'))){const d=treasureDesign(layer.sourceTreasure,u),e=u.treasureEntries?.[layer.sourceTreasure];require(d?.status==='shield'&&e?.id===layer.sourceTreasure&&layer.source==='treasure:'+e.id&&layer.sourceId===u.id&&layer.until===e.until&&layer.amount<=e.amount&&layer.label===d.name+' · 护盾'&&layer.bondGuardTier===undefined&&layer.sourceCommand===undefined,'宝物护盾来源或额度无效');}
             for(const layer of status.layers.filter(l=>l.sourceCommand||l.source.startsWith('command:'))){
               const design=STRATAGEMS[layer.sourceCommand],provider=commandProvidersAt(side,layer.castTick).find(c=>c.id===layer.sourceId&&commanderStratagems(c).includes(layer.sourceCommand)),p=provider&&stratagemProfile(layer.sourceCommand,provider);
               require(design?.effect==='shield'&&p&&layer.source==='command:'+layer.sourceCommand&&layer.label===design.name&&Number.isInteger(layer.castTick)&&layer.castTick>=0&&layer.castTick<=b.tick&&layer.until===layer.castTick+p.duration+1&&layer.amount<=Math.round(u.maxHp*p.strength),'军略护盾来源或比例无效');

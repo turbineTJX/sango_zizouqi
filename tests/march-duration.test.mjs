@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {newCampaign,orderCampaignArmy,beginExecution,advanceCampaignDay,advanceCampaignStep,serializeCampaign,validateCampaign} from './helpers/auto-domestic-campaign.mjs';
+import {newCampaign,findCampaignRoute,orderCampaignArmy,beginExecution,advanceCampaignDay,advanceCampaignStep,serializeCampaign,validateCampaign} from './helpers/auto-domestic-campaign.mjs';
 import {movementPoints,marchItinerary,remainingMarchDays,roadCost,roadDistance,chosenRoad} from '../strategic-movement.mjs';
 import {strategicTravelDays} from '../strategic-ai.mjs';
 import {fieldFromCity} from './helpers/field-campaign.mjs';
@@ -37,7 +37,7 @@ for(const type of ['spear','cavalry','siege']){
 }
 
 test('sub-one daily movement retains its full remaining road time',()=>{
- const s=newCampaign(217,'guandu-200'),from='town-29',to='runan';
+ const s=newCampaign(217,'guandu-200'),from='town-29',to=findCampaignRoute(s,from,'runan')[0];
  const a={leader:'u',morale:80,hunger:0,units:[{id:'u',type:'spear',troops:1000,leadership:80,equipment:{siege:'ram',ship:null}}],travel:{from,to,road:'main',progress:roadDistance(s,from,to)/2}};
  const speed=movementPoints(a);assert.ok(speed>0&&speed<1);
  assert.equal(remainingMarchDays(s,a),Math.ceil(roadCost(s,from,to)/2/speed));

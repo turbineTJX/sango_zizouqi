@@ -49,7 +49,7 @@ test('stacked attribute losses, army effects and non-stacking haste show margina
 test('current DOT details apply terrain and passive mitigation, before shields',()=>{
   const state=createScenario('field'),b=state.battle,u=b.sides[0].units[0];
   const status={key:'plague',state:{amount:100,sourceName:'贾诩',sourceSkillName:'毒疫'}};
-  assert.deepEqual(statusSources(b,status),['贾诩 · 毒疫']);
+  assert.deepEqual(statusSources(b,status),['贾诩「毒疫」']);
   const rows=statusAmounts(b,u,status);
   assert.match(rows[0][1],/\d+ 人（护盾吸收前）/);
 });

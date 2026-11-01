@@ -11,3 +11,7 @@ export function mapDetailBlend(view){
  const settlements=smooth(490,350),interior=smooth(240,110);
  return {metropolis:1-settlements,settlements,interior};
 }
+export function overviewSymbolBlend(view){
+ const t=Math.max(0,Math.min(1,(Math.min(view.width,view.height)-720)/180));
+ return t*t*(3-2*t);
+}

@@ -11,7 +11,7 @@ import {recordOfficerActivities} from './officer-activity.mjs';
 import {PROGRESSION} from './progression.mjs';
 import {settleOfficerMerit} from './campaign-merit.mjs';
 import {updateVision,visionPosition,armyObservation,directPointVisible} from './strategic-vision.mjs';
-import {cityPersonnel} from './city-personnel.mjs';
+import {cityPersonnel,residentOfficer} from './city-personnel.mjs';
 import {plannedOfficer} from './strategic-intent.mjs';
 import {scoutAssignments,scoutAssignment,scoutOperator,scoutingPosition,scoutVisionProxy,scoutRoute,scoutingNeighborhood,validScoutRoute} from './scouting-state.mjs';
 import {activitySinceDay} from './activity-query-index.mjs';
@@ -23,8 +23,27 @@ export function scoutingDurationRange(intellect){
  return {min:Math.max(r.minimumDays,max-r.randomSpread),max};
 }
 function randomDuration(s,intellect){const state=s.campaign.scouting,range=scoutingDurationRange(intellect);state.seed=(Math.imul(state.seed,1664525)+1013904223)>>>0;return range.min+Math.floor(state.seed/4294967296*(range.max-range.min+1));}
-export function scoutCandidates(s,cityId,faction=playerFaction(s)){
- return cityPersonnel(s,cityId).filter(o=>o.faction===faction&&!o.army&&!o.unit.mission&&!o.unit.scouting&&!s.cities.some(c=>c.governor===o.unit.id)&&!s.campaign.domestic.assignments.some(a=>a.officerId===o.unit.id)&&!s.campaign.domestic.orders.some(q=>q.officerIds.includes(o.unit.id))&&!s.campaign.diplomacy.assignments.some(a=>a.officerId===o.unit.id)&&!plannedOfficer(s,o.unit.id)).sort((a,b)=>Number(a.unit.troops>0)-Number(b.unit.troops>0)||b.unit.intellect-a.unit.intellect||a.unit.id.localeCompare(b.unit.id));
+export function scoutOfficerReason(s,cityId,officerId,faction=playerFaction(s),{reassign=false}={}){
+ const o=residentOfficer(s,officerId);
+ if(!o||o.faction!==faction||o.location!==cityId)return '不在本城';
+ if(o.army)return '已在军团中';
+ if(!reassign&&o.unit.scouting)return '正在负责侦察';
+ if(!reassign&&s.cities.some(c=>c.governor===officerId))return '须先解除太守';
+ if(s.campaign.diplomacy.assignments.some(a=>a.officerId===officerId&&(!reassign||a.projectId)))return '须先结束外交事务';
+ if(plannedOfficer(s,officerId))return '已有军事计划';
+ if(!reassign&&s.campaign.domestic.assignments.some(a=>a.officerId===officerId))return '已有内政任职';
+ if(!reassign&&s.campaign.domestic.orders.some(q=>q.officerIds.includes(officerId)))return '已有待执行命令';
+ return '';
+}
+export function scoutCandidates(s,cityId,faction=playerFaction(s),options={}){
+ return cityPersonnel(s,cityId).filter(o=>!scoutOfficerReason(s,cityId,o.unit.id,faction,options)).sort((a,b)=>Number(a.unit.troops>0)-Number(b.unit.troops>0)||b.unit.intellect-a.unit.intellect||a.unit.id.localeCompare(b.unit.id));
+}
+export function scoutDispatchError(s,cityId,officerId,target,{faction=playerFaction(s),scheduled=false,route:requestedRoute,reassign=false}={}){
+ if(s.finished||!scheduled&&s.campaign.phase!=='planning'||!s.cities.some(c=>c.id===cityId&&c.owner===faction))return '请在筹划阶段从己方城市指派侦察负责人';
+ if(s.campaign.battles.some(r=>!r.settled&&r.kind==='siege'&&r.cityId===cityId))return '围城期间不能指派侦察';
+ const reason=scoutOfficerReason(s,cityId,officerId,faction,{reassign});if(reason)return reason;
+ const route=mapNode(s,target)&&(requestedRoute?(validScoutRoute(s,cityId,target,requestedRoute)?requestedRoute:null):scoutRoute(s,cityId,target));
+ return route?.length?null:'请选择本城周边据点或相邻城市，斥候不能穿过其它城市继续侦察';
 }
 function observedCity(c){return {...copy(c),units:copy(c.units.filter(u=>!u.mission))};}
 function illuminate(s,t){
@@ -47,7 +66,7 @@ function storeContact(s,t,kind,id,data){
    if(amount){settleOfficerMerit(s,scoutOperator(s,t).unit,{sourceId:`scout-information:${t.faction}:${key}:${day}`,amount,faction:t.faction,cityId:t.homeCity,reason:`取得${data.name}有效情报`});nodes.at(-1).result.scouting={faction:t.faction,key,turn};}
   }
  }
- if(first){const u=scoutOperator(s,t).unit,details=kind==='city'?`驻城${data.units.reduce((n,u)=>n+u.troops,0)}人，存粮${Math.floor(data.grain)}。`:kind==='army'?`兵力${data.units.reduce((n,u)=>n+u.troops,0)}人。`:'';
+ if(first){const u=scoutOperator(s,t).unit,details=kind==='city'?`主将在城兵力${data.units.reduce((n,u)=>n+u.troops,0)}人，存粮${Math.floor(data.grain)}。`:kind==='army'?`兵力${data.units.reduce((n,u)=>n+u.troops,0)}人。`:'';
   personnelEvent(s,`scout:${t.id}:${key}:intel`,'SCOUT_INTEL',u,`${u.name}收到${contact.name}的侦察情报：${details}`);
  }
 }
@@ -59,11 +78,8 @@ function scan(s,t){
  for(const c of knownBanditCamps(s,t.faction))if(c.clearedDay===null&&near(mapNode(s,c.nodeId)))storeContact(s,t,'bandit',c.id,copy(c));
 }
 export function dispatchScout(s,cityId,officerId,target,{faction=playerFaction(s),scheduled=false,route:requestedRoute}={}){
- if(s.finished||!scheduled&&s.campaign.phase!=='planning'||mapNode(s,cityId)?.owner!==faction)return '请在筹划阶段从己方城市指派侦察负责人';
- if(s.campaign.battles.some(r=>!r.settled&&r.kind==='siege'&&r.cityId===cityId))return '围城期间不能指派侦察';
- const o=scoutCandidates(s,cityId,faction).find(o=>o.unit.id===officerId),route=mapNode(s,target)&&(requestedRoute?(validScoutRoute(s,cityId,target,requestedRoute)?[...requestedRoute]:null):scoutRoute(s,cityId,target));
- if(!o)return '请选择本城未任职且没有其它任务或待执行命令的武将';
- if(!route?.length)return '请选择本城周边据点或相邻城市，斥候不能穿过其它城市继续侦察';
+ const error=scoutDispatchError(s,cityId,officerId,target,{faction,scheduled,route:requestedRoute});if(error)return error;
+ const o=residentOfficer(s,officerId),route=requestedRoute?[...requestedRoute]:scoutRoute(s,cityId,target);
  const t={id:'scout-'+s.campaign.scouting.nextId++,officerId,faction,homeCity:cityId,targetCity:target,location:cityId,route,progress:0,phase:'outbound',paused:false,lastDay:s.campaign.day-1,contacts:[]};
  o.unit.scouting=t.id;s.campaign.scouting.tasks.push(t);
  personnelEvent(s,`scout:${t.id}:out`,'SCOUT_OUT',o.unit,`${o.unit.name}留在${mapNode(s,cityId).name}负责侦察，派出斥候沿路前往${mapNode(s,target).name}。`);

@@ -1,4 +1,5 @@
 import {intelligenceWorld} from './strategic-vision.mjs';
+import {isAITurnStart} from './ai-turn.mjs';
 import {isAIControlled} from './player-faction.mjs';
 import {rankOfficerCandidates} from './officer-recommendation.mjs';
 import {activePlans} from './strategic-intent.mjs';
@@ -61,7 +62,7 @@ export function chooseArmyMarchMode(facts,a){
  return a.mode;
 }
 export function manageArmyManagementAI(s){
- if(s.finished||!s.campaign.ai)return;
+ if(!isAITurnStart(s)||!s.campaign.ai)return;
  for(const faction of Object.keys(s.campaign.ai.factions).filter(f=>isAIControlled(s,f))){
   let facts=armyManagementFacts(s,faction),choice=chooseArmyManagement(facts);
   if(choice){

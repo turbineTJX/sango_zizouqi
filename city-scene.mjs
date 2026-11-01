@@ -6,6 +6,7 @@ import TECHNOLOGIES from './data/design/technologies.mjs';
 import {cityVisionRadius} from './city-technology.mjs';
 import {TOWN_ART,TOWN_TERRAINS,TOWN_FOUNDATIONS,TOWN_FRAME,townSprite} from './town-art.mjs';
 import {townLayout,TOWN_MAP_SCALE} from './town-layout.mjs';
+import {prefectureVillageMarkup} from './prefecture-village.mjs';
 import {metropolitanCenter,localBuildingLevel,projectSiteId,constructionSiteAvailable,localBuildingLimit} from './metropolitan-areas.mjs';
 import {SETTLEMENT_DETAIL_THRESHOLD} from './map-detail-level.mjs';
 import {officerActivities,domesticWorkplace as jobSite} from './officer-activity.mjs';
@@ -52,13 +53,13 @@ function towerMarkup(model){
  return `<g class="city-watchtower ${model.watchtower.hp<model.watchtower.maxHp*.7?'town-damaged':''}" data-city-watchtower="${esc(model.id)}" data-watchtower-radius="${model.watchtowerRadius}" transform="translate(-172 -60)" pointer-events="none"><title>瞭望塔 · 耐久${model.watchtower.hp}/${model.watchtower.maxHp} · 视野半径${model.watchtowerRadius}</title><ellipse cy="6" rx="20" ry="8" fill="#182329" opacity=".5"/><path d="M-10 0V-37H10V0L0 6Z" fill="#b7986b" stroke="#584732" stroke-width="2"/><path d="M0-37H10V0L0 6Z" fill="#927548"/><path d="M-16-38V-48L0-56L16-48V-38Z" fill="#775332" stroke="#392e27" stroke-width="2"/><path d="M-20-47L0-60L20-47L0-51Z" fill="#35463e"/><path d="M-7-40V-46M6-40V-46M0-13V-22" stroke="#242d29" stroke-width="4"/><circle cy="-58" r="3" fill="${model.watchtowerRadius>=38?'#e4bd66':'#d38541'}"/></g>`;
 }
 function townFoundation(model){
- if(model.kind==='junction')return '';
+ if(model.kind==='junction')return prefectureVillageMarkup(model.layout);
  const frame=TOWN_FRAME;
  return '<image class="town-foundation '+(model.gateCondition<.7?'town-damaged':'')+'" data-town-space="'+model.layout.kind+'" href="'+TOWN_FOUNDATIONS[model.layout.kind]+'" x="'+frame.x+'" y="'+frame.y+'" width="'+frame.width+'" height="'+frame.height+'" transform="'+(model.layout.flip?'scale(-1 1)':'')+'" preserveAspectRatio="none" pointer-events="none"/>';
 }
 function townGround(model,compact=false){
  const frame=TOWN_FRAME,prefix='ground-'+model.id.replace(/[^a-zA-Z0-9_-]/g,'_')+(compact?'-map':'-interior');
- const width=frame.width*1.8,height=frame.height*1.8,x=-width/2,y=-height*.53;
+ const width=frame.width*1.4,height=frame.height*1.4,x=-width/2,y=-height*.53;
  return `<g class="town-ground" pointer-events="none"><defs><radialGradient id="${prefix}-fade" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="white" stop-opacity=".85"/><stop offset=".45" stop-color="white" stop-opacity=".55"/><stop offset=".78" stop-color="white" stop-opacity=".18"/><stop offset="1" stop-color="black"/></radialGradient><mask id="${prefix}-mask" maskUnits="userSpaceOnUse" x="${x}" y="${y}" width="${width}" height="${height}"><rect x="${x}" y="${y}" width="${width}" height="${height}" fill="url(#${prefix}-fade)"/></mask></defs><image class="town-background" href="${TOWN_TERRAINS[model.layout.region]}" x="${x}" y="${y}" width="${width}" height="${height}" transform="${model.layout.flip?'scale(-1 1)':''}" mask="url(#${prefix}-mask)" preserveAspectRatio="none"/></g>`;
 }
 // Known settlement geography without any observed facilities or live city data.

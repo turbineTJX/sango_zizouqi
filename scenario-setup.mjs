@@ -1,10 +1,12 @@
+import {equippedTreasureIds,validTreasureLoadout,treasureSlot,treasureInSlot,setTreasureEquipment} from './treasure-equipment.mjs';
+import {installTreasureCatalog} from './treasure-catalog.mjs';
 import {treasureOptions,treasureUnitMarkup} from './treasure-view.mjs';
 import {emptyEquipment,equipmentTypes,validEquipment} from './troop-equipment.mjs';
 import {initializeTacticLearning} from './tactic-learning.mjs';
 import {armyDetailsMarkup} from './army-details.mjs';
 import {makeOfficer,TROOPS,TACTICS,armyCommanders,isDeploying,fillSlots} from './engine.mjs';
 import {defaultTacticIds} from './tactics.mjs';
-import {OFFICER_BY_ID} from './officer-catalog.mjs';
+import {OFFICER_BY_ID,officerCatalogRevision} from './officer-catalog.mjs';
 import {troopCapacity} from './troop-capacity.mjs';
 import {validateCustomBattle,customRoles,customFrontlineCapacity,customParticipants,customSideEntries,customTroopBudget,customReserveTroops} from './custom-battle.mjs';
 import {highestAptitudeTroop,battleTroopTypes} from './troop-choice.mjs';
@@ -50,12 +52,12 @@ export function scenarioSetupOfficer(p,id){
  if(p.sourceArmy){const source=p.sourceArmy.units.find(x=>x.id===id);if(!source)throw new Error('剧本武将不可替换');const u={...structuredClone(source),type:entry.type,equipment:structuredClone(entry.equipment||emptyEquipment()),formation:entry.formation,first:entry.first};initializeTacticLearning(u);return u;}
  const level=Number.isInteger(entry.level)&&entry.level>=1&&entry.level<=10?entry.level:1;
  const troops=Number.isInteger(entry.troops)&&entry.troops>=0?Math.min(entry.troops,troopCapacity({...OFFICER_BY_ID[id],level})):0;
- const key=[id,p.draft.seed,level,troops,entry.type,entry.formation,entry.first,entry.retreatAt,entry.treasureId,JSON.stringify(entry.equipment)].join(':');
+ const key=[officerCatalogRevision,id,p.draft.seed,level,troops,entry.type,entry.formation,entry.first,entry.retreatAt,JSON.stringify(equippedTreasureIds(entry)),JSON.stringify(entry.equipment)].join(':');
  if(!catalogCache.has(key)){
-  const u=makeOfficer(id,troops,0,level,p.draft.seed);Object.assign(u,{type:entry.type,...(entry.treasureId?{treasureId:entry.treasureId}:{}),equipment:structuredClone(entry.equipment||emptyEquipment()),formation:entry.formation,first:entry.first,retreatAt:entry.retreatAt??null});initializeTacticLearning(u,p.draft.seed);
+  const u=makeOfficer(id,troops,0,level,p.draft.seed);Object.assign(u,{type:entry.type,treasureIds:[...equippedTreasureIds(entry)],equipment:structuredClone(entry.equipment||emptyEquipment()),formation:entry.formation,first:entry.first,retreatAt:entry.retreatAt??null});initializeTacticLearning(u,p.draft.seed);
   if(catalogCache.size>2500)catalogCache.clear();catalogCache.set(key,u);
  }
- return structuredClone(catalogCache.get(key));
+ const unit=structuredClone(catalogCache.get(key));if(p.treasureDesigns&&equippedTreasureIds(unit).length)unit.treasureDesigns=Object.fromEntries(equippedTreasureIds(unit).map(id=>[id,structuredClone(p.treasureDesigns[id])]));return unit;
 }
 const armyIds=p=>p.armySelected??p.selected;
 export const scenarioSetupUnits=p=>(['commanders','review'].includes(p.step)?armyIds(p):p.selected).map(id=>scenarioSetupOfficer(p,id));
@@ -72,6 +74,7 @@ export function changeScenarioSetup(p,field,id,value){
   for(const role of ['leader','advisor'])if(!p.selected.includes(p.roles[role]))p.roles[role]=p.selected[0];
   return;
  }
+ if(field==='treasureIds'&&p.entries[id]&&!p.sourceArmy){const entry=p.entries[id];entry.treasureIds=equippedTreasureIds(entry).filter(t=>treasureSlot(t)!==value.slot);delete entry.treasureId;if(value.id)setTreasureEquipment(entry,value.id);return;}
  if(['siege','ship'].includes(field)&&p.entries[id]){p.entries[id].equipment??=emptyEquipment();p.entries[id].equipment[field]=value||null;return;}
  if(!p.entries[id]||!['type','formation','first','level','troops','treasureId'].includes(field)||p.sourceArmy&&['level','troops','treasureId'].includes(field))return;
  p.entries[id][field]=['level','troops'].includes(field)?Number(value):value;
@@ -118,10 +121,10 @@ export function scenarioSetupMarkup(p,context={}){
  }
  if(p.step==='formation'&&!p.choosingMain)body+=unitManagementMarkup(units,{detailAction:'scenario-setup-detail',unitDetailAction:'scenario-setup-unit-detail',editAction:'scenario-unit-edit',newAction:p.sourceArmy?null:'scenario-unit-new',canAdd,editorId:p.editorId,editorHtml:unitCommanderField(p.editorId?scenarioSetupOfficer(p,p.editorId):null,'scenario-unit-choose')+unitFormationMarkup(p.editorId?[scenarioSetupOfficer(p,p.editorId)]:[],{types:battleTroopTypes(p.terrain||p.draft.terrain),troopsMax:u=>scenarioTroopsMax(p,u),troopsValue:u=>p.entries[u.id].troops,typeAttribute:'data-scenario-type',levelAttribute:p.sourceArmy?null:'data-scenario-level',troopsAttribute:p.sourceArmy?null:'data-scenario-troops',detailAction:'scenario-setup-detail'})});
  if(p.step==='unit-review')body+=unitManagementMarkup(units,{detailAction:'scenario-setup-detail',unitDetailAction:'scenario-setup-unit-detail',editAction:'scenario-unit-edit',disbandAction:p.sourceArmy?null:'scenario-unit-disband',terrain:p.terrain||p.draft.terrain,newAction:p.sourceArmy?null:'scenario-unit-new',canAdd,workbench:p.workbench,types:battleTroopTypes(p.terrain||p.draft.terrain),typeAttribute:'data-scenario-type',troopsAttribute:p.sourceArmy?null:'data-scenario-troops',troopsMax:u=>scenarioTroopsMax(p,u),troopsValue:u=>p.entries[u.id].troops,levelAttribute:p.sourceArmy?null:'data-scenario-level'});
- if(!p.sourceArmy&&['formation','unit-review'].includes(p.step))body+='<section class="scenario-treasures"><h3>宝物配装</h3>'+units.map(u=>treasureOptions(u,'data-scenario-treasure')).join('')+'</section>';
+ if(!p.sourceArmy&&['formation','unit-review'].includes(p.step))body+='<section class="scenario-treasures"><h3>宝物配装</h3>'+units.map(u=>treasureOptions(u,'data-scenario-treasure',context.treasureDesigns)).join('')+'</section>';
  if(p.step==='unit-select')body+=combatComparison(context,units.filter(u=>armyIds(p).includes(u.id)),null,{only:['relations'],relationCandidates:units,relationPicker:{attribute:'data-scenario-army-unit',locked:!!p.sourceArmy}});
- if(p.step==='commanders')body+='<h3>第二阶段 · 将部队编成军团</h3>'+ bondsMarkup(units,{army:p.roles})+commanderSetupMarkup(context,units,p.roles,{attribute:'data-scenario-role'});
- if(p.step==='review')body+=`<h3>核阅编制结果</h3><div class="command-decree"><h2>${esc(title)}</h2><p>${units.length} 队 · ${units.reduce((n,u)=>n+u.troops,0)} 人</p><p>${['leader','advisor'].map(role=>({leader:'军团长',advisor:'军师',})[role]+' '+esc(units.find(u=>u.id===p.roles[role])?.name||'无')).join(' · ')}</p></div>`+armyDetailsMarkup({...p.sourceArmy,morale:p.sourceArmy?.morale??80,hunger:p.sourceArmy?.hunger??0,units,...p.roles})+combatComparison(context,units,p.roles)+'';
+ if(p.step==='commanders')body+=bondsMarkup(units,{army:p.roles})+commanderSetupMarkup(context,units,p.roles,{attribute:'data-scenario-role'});
+ if(p.step==='review')body+=armyDetailsMarkup({...p.sourceArmy,morale:p.sourceArmy?.morale??80,hunger:p.sourceArmy?.hunger??0,units,...p.roles})+combatComparison(context,units,p.roles,{showBonds:false});
  if(!p.sourceArmy){
   const total=customTroopBudget(p.originalDraft||p.draft);
   body=(p.team==='ownTeam'?`<p class="command-reserves" data-scenario-budget>总预备兵 ${total.toLocaleString()} 人 · 已编制 ${(total-available).toLocaleString()} 人 · 可用 ${Math.max(0,available).toLocaleString()} 人</p>`:'<p class="command-reserves">预备兵：inf</p>')+body;
@@ -143,7 +146,7 @@ export function applyBattleSetup(s,p){
  const others=side.units.filter(u=>u.armyId!==army.id);
  side.units=[...army.units].sort((a,b)=>Number(b.first)-Number(a.first)).map(u=>({...old.get(u.id),...u,commandBonus:(leader?.leadership||60)/1000,advisorBonus:(advisor?.intellect||0)/1000,status:'reserve',x:-1,y:-1}));
  side.units.push(...others);
- if(next.testScenario?.customBattle){const d=next.testScenario.customBattle,entries=army.units.map(({id,type,troops,level,formation,first,retreatAt,equipment,treasureId})=>({id,type,troops,level,formation,first,retreatAt,equipment,...(treasureId?{treasureId}:{})})),index=Number(army.id.slice(1))-3;
+ if(next.testScenario?.customBattle){const d=next.testScenario.customBattle,entries=army.units.map(({id,type,troops,level,formation,first,retreatAt,equipment,treasureId,treasureIds})=>({id,type,troops,level,formation,first,retreatAt,equipment,treasureIds:[...equippedTreasureIds({treasureId,treasureIds})]})),index=Number(army.id.slice(1))-3;
   if(index>=0){d.reinforcements[index].team=entries;d.reinforcements[index].roles={...p.roles};d.reinforcements[index].tactic=p.tactic;}
   else{d.ownTeam=entries;d.ownTeamRoles={...p.roles};d.ownTeamTactic=p.tactic;}
  }
@@ -152,6 +155,7 @@ export function applyBattleSetup(s,p){
  side.organizationCommanders=next.armies.filter(a=>a.faction===army.faction).flatMap(armyCommanders);
  side.appointmentEvents=side.appointmentEvents.filter(e=>e.armyId!==army.id);
  side.commanders=commandersAt(side);side.tactic=army.tactic;fillSlots(next.battle,0);
+ if(next.treasureDesigns)installTreasureCatalog(next,next.treasureDesigns);
  return next;
 }
 

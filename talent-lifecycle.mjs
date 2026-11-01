@@ -1,3 +1,5 @@
+import {isAITurnStart} from './ai-turn.mjs';
+import {conquerTreasures,followTreasureOfficerFaction} from './treasures.mjs';
 import {workProfile,workQuantity} from './work-traits.mjs';
 import {ACTIONS} from './domestic-designs.mjs';
 import {mapNode,mapNodes,isJunction} from './road-network.mjs';
@@ -8,6 +10,8 @@ import {ECONOMY_RULES} from './data/design/economy-rules.mjs';
 import {cityNeedsAgriculture,cityNeedsCommerce} from './economy.mjs';
 import {plannedOfficer,domesticIntentWeight} from './strategic-intent.mjs';
 import {diplomaticAssignment} from './diplomacy-relations.mjs';
+import {dismissDiplomat} from './diplomacy.mjs';
+import {recallScout} from './scouting.mjs';
 import {domesticStaffing} from './domestic-staffing.mjs';
 import {assignDomestic,assignmentFor,setDomesticPriority} from './domestic.mjs';
 import {appointGovernor,disbandCityUnits} from './strategic-campaign.mjs';
@@ -21,9 +25,11 @@ import {cityPersonnel} from './city-personnel.mjs';
 import {OFFICER_BY_ID,OFFICER_CATALOG} from './officer-catalog.mjs';
 import {passiveList} from './passives.mjs';
 import {makeOfficer,newGame,validateSave,log} from './engine.mjs';
-import {nationalScenario,talentScenarioEntry} from './national-scenarios.mjs';
+import {nationalScenario,nationalWorld,nationalPersonnel,talentScenarioEntry} from './national-scenarios.mjs';
 import {relationshipInfo,changeRelationshipScore} from './relationships.mjs';
-import {TALENT_RULES,clamp,talentTurn,talentKey,talentQuality,righteousness,relation,servingPeople,factionLord,isLord,nearby,localContact,legalRoad,cityBesieged,refreshTalentDemand,talentContext,willingness,projectNeed,progressFor,talentEligibility,persuasionEligibility,persuasionTargets,TALENT_REASONS} from './talent-core.mjs';
+import {TALENT_RULES,clamp,talentTurn,talentKey,talentQuality,righteousness,relation,servingPeople,factionLord,isLord,loyaltyWarningThreshold,loyaltyResignationChance,nearby,localContact,legalRoad,cityBesieged,refreshTalentDemand,talentContext,willingness,projectNeed,progressFor,talentEligibility,persuasionEligibility,persuasionTargets,TALENT_REASONS} from './talent-core.mjs';
+import {scenarioDateDay} from './scenario-date.mjs';
+import {configuredScenarioOfficer} from './scenario-opening.mjs';
 
 const data=s=>s.campaign.talent;
 const day=s=>s.campaign.day;
@@ -33,25 +39,30 @@ function report(s,code,id,text,faction=playerFaction(s),extra={}){
  const t=data(s);t.reports.unshift({day:day(s),code,personId:id,faction,text,...extra});t.reports=t.reports.slice(0,160);
  const person=servingPeople(s).get(id),project=t.projects[talentKey(id,faction)],cityId=project?.cityId||person?.location||s.campaign.domestic.people.find(p=>p.id===id)?.cityId||null;
  appendActivityNode(s,{sourceId:'talent:'+s.campaign.activity?.nextSequence,category:'talent',phase:code,faction,officerId:id,officerIds:project?.executorId?[project.executorId]:[],cityId,siteId:person?.location||s.campaign.domestic.people.find(p=>p.id===id)?.cityId||cityId,text,result:extra});
- if(faction===playerFaction(s)&&['discovered','signed','leave-warning','resigned','changed-side','offer-paused','project-closed'].includes(code)){
+ if(faction===playerFaction(s)&&['discovered','signed','loyalty-low','resigned','changed-side','offer-paused','project-closed'].includes(code)){
   const d=s.campaign.domestic,person=servingPeople(s).get(id),project=t.projects[talentKey(id,faction)];
   d.events.unshift({id:d.nextId++,actionId:null,assignmentId:null,cityId:project?.cityId||person?.location||d.people.find(p=>p.id===id)?.cityId||null,officerId:id,faction,day:day(s),phase:'event',text,result:{talentCode:code},important:true,read:false});d.events=d.events.slice(0,240);
  }
  if(faction===playerFaction(s))log(s,`第${day(s)}天：${text}`,'event');
 }
-function record(s,id){return data(s).records[id]??={phase:'WAIT',phaseUntilDay:0,hardWaitUntilDay:0,defeatHistory:[],rejoinBlocks:{},idleTurns:0,idleDays:0,idlePenaltyStep:2,workedDays:0,leaveAtDay:null,graceUntilDay:day(s)+90,lastDutyDay:0,voluntaryFaction:null,meritFaction:null};}
+function record(s,id){return data(s).records[id]??={phase:'WAIT',phaseUntilDay:0,hardWaitUntilDay:0,defeatHistory:[],rejoinBlocks:{},idleTurns:0,idleDays:0,idlePenaltyStep:2,workedDays:0,loyaltyWarning:false,lastLoyaltyRiskDay:0,graceUntilDay:day(s)+90,lastDutyDay:0,voluntaryFaction:null,meritFaction:null};}
 export function initializeTalent(s){
- s.campaign.talent={version:TALENT_RULES.version,seed:(s.seed^0x9a325f17)>>>0,records:{},projects:{},knowledge:{},demands:{},demandSignature:'',demandMonth:-1,reports:[],processedEvents:[],defeats:{},lastDay:0,nextProject:1};
- const occupied=servingPeople(s),spec=nationalScenario(s.campaign.scenarioId),t=data(s);let index=0,missing=0;
+ s.campaign.talent={version:TALENT_RULES.version,seed:(s.seed^0x9a325f17)>>>0,records:{},projects:{},knowledge:{},demands:{},demandSignature:'',demandMonth:-1,reports:[],processedEvents:[],defeats:{},lastDay:day(s)-1,nextProject:1};
+ const occupied=servingPeople(s),spec=nationalScenario(s.campaign.scenarioId),t=data(s),presets=new Map((spec?nationalPersonnel(spec.id,s.cities):[]).map(o=>[o.id,o]));let index=0,missing=0;
  for(const f of new Set(s.cities.map(c=>c.owner)))if(f!=='neutral'){t.knowledge[f]={};}
  s.campaign.domestic.people=[];
  for(const u of OFFICER_CATALOG){
   const r=record(s,u.id);if(occupied.has(u.id)){r.meritFaction=occupied.get(u.id).faction;continue;}
-  const entry=talentScenarioEntry(s.campaign.scenarioId,u,s.cities),cityId=entry.activityCityIds[0]||s.cities[index++%s.cities.length].id;if(!entry.activityCityIds.length)missing++;
-  const debutDay=entry.earliestTurn===null?1:1+10*randomInt(s,entry.earliestTurn,entry.latestTurn);
-  const status=!entry.autoEligible?'EXCLUDED':spec&&spec.kind!=='fictional'&&u.deathYear&&u.deathYear<spec.year?'DEAD':debutDay>1?'NOT_DEBUTED':'FREE';
+  const entry=talentScenarioEntry(s.campaign.scenarioId,u,s.cities),preset=presets.get(u.id),location=preset?.cityId||entry.activityCityIds[0],cityId=location||s.cities[index++%s.cities.length].id;if(!location&&entry.autoEligible)missing++;
+  const d=spec?.customDocument||(spec?{...spec,month:spec.month||1,day:spec.day||1}:null);
+  const defaultDebut=entry.earliestTurn===null?1:1+10*randomInt(s,entry.earliestTurn,entry.latestTurn);
+  const debutDay=preset?Math.max(day(s),scenarioDateDay(d,preset.debutDate),preset.state==='free'?scenarioDateDay(d,preset.freeDate):0):defaultDebut;
+  const status=preset?({dead:'DEAD',excluded:'EXCLUDED'}[preset.state]||(debutDay>day(s)?'NOT_DEBUTED':preset.state==='captive'?'CAPTIVE':'FREE')):!entry.autoEligible?'EXCLUDED':spec&&spec.kind!=='fictional'&&u.deathYear&&u.deathYear<spec.year?'DEAD':debutDay>day(s)?'NOT_DEBUTED':'FREE';
   r.phase=talentRandom(s)<.35?'SEEK':'WAIT';r.phaseUntilDay=debutDay+(r.phase==='SEEK'?180:randomInt(s,3,36)*10);
-  s.campaign.domestic.people.push({id:u.id,cityId,status,debutDay,travel:null});
+  const p={id:u.id,cityId:preset?.cityId||cityId,status,debutDay,travel:null};
+  if(preset&&spec.customDocument&&!['DEAD','EXCLUDED'].includes(status)){p.unit={...configuredScenarioOfficer(preset,0,0,d.level,s.seed),homeCity:preset.state==='captive'?d.forces.find(f=>f.id===preset.faction).capitalId:p.cityId};if(status==='CAPTIVE')p.fate={originalFaction:spec.factionMap[preset.faction],captor:spec.factionMap[preset.captor],day:day(s),eventId:'scenario-captive-'+p.id,reason:'剧本初始俘虏'};}
+  if(preset?.loyalty!==undefined)s.campaign.domestic.loyalty[u.id]=preset.loyalty;
+  s.campaign.domestic.people.push(p);
  }
  if(missing)report(s,'initialization',null,`${missing}名人物暂无活动城市配置，暂按地图顺序分布；不代表历史地理。`);
  refreshTalentDemand(s,true);
@@ -63,12 +74,32 @@ export function discoverTalent(s,id,faction){
  if(!k?.locationConfirmed)report(s,'discovered',id,`发现${OFFICER_BY_ID[id].name}在${mapNode(s,p.cityId).name}，${TALENT_REASONS[attitude]}。`,faction);
  return true;
 }
+export function activateScheduledScenarioPeople(s){
+ if(!s.campaign.domestic.people.some(p=>p.status==='NOT_DEBUTED'&&p.debutDay<=day(s)))return;
+ const spec=nationalScenario(s.campaign.scenarioId);if(!spec)return;
+ const d=spec.customDocument||spec,entries=new Map(nationalPersonnel(spec.id,nationalWorld(spec.id).cities).map(o=>[o.id,o])),runtimeFaction=f=>spec.factionMap?.[f]||f;
+ for(const p of [...s.campaign.domestic.people]){
+  if(p.status!=='NOT_DEBUTED'||p.debutDay>s.campaign.day)continue;
+  const entry=entries.get(p.id);
+  const faction=runtimeFaction(entry?.faction),home=s.cities.find(c=>c.id===p.cityId);
+  if(entry?.state==='serving'&&home?.owner===faction){
+   const unit=p.unit||configuredScenarioOfficer(entry,0,0,d.level||3,s.seed);unit.homeCity=home.id;
+   s.campaign.domestic.people=s.campaign.domestic.people.filter(o=>o!==p);
+   if(unit.troops+unit.wounded>0)home.units.push(unit);else s.campaign.idle.push({unit,faction,location:home.id,destination:null,remainingDays:0});
+   s.campaign.domestic.loyalty[p.id]=entry.loyalty??85;Object.assign(record(s,p.id),{meritFaction:faction,graceUntilDay:day(s)+90});
+   if(entry.role==='governor')appointGovernor(s,home.id,p.id,{scheduled:true,faction});
+   else if(entry.role)assignDomestic(s,home.id,entry.role,p.id,{scheduled:true,faction});
+   if(faction===playerFaction(s))report(s,'signed',p.id,unit.name+'已在'+home.name+'登场任职。',faction);
+  }else if(entry?.state==='captive'&&home?.owner===runtimeFaction(entry.captor)){p.status='CAPTIVE';p.fate={originalFaction:runtimeFaction(entry.faction),captor:runtimeFaction(entry.captor),day:day(s),eventId:'scenario-captive-'+p.id,reason:'剧本初始俘虏'};}
+  else {p.status='FREE';if(entry?.state==='serving'&&p.unit){p.unit.troops=0;p.unit.wounded=0;}}
+ }
+}
 export function unknownTalent(s,cityId,faction){return s.campaign.domestic.people.filter(p=>p.status==='FREE'&&!p.travel&&!data(s).knowledge[faction]?.[p.id]?.locationConfirmed&&localContact(s,cityId,p.cityId));}
 // Invitations and local volunteers move the same real person from its actual
 // location, using the existing personnel journey rather than a duplicate.
 function moveFreeTalentIntoService(s,free,unit,faction,homeCity){
  s.campaign.domestic.people=s.campaign.domestic.people.filter(p=>p!==free);
- unit.homeCity=homeCity;const recruit={unit,faction,location:free.cityId,destination:free.cityId===homeCity?null:homeCity,remainingDays:0};
+ followTreasureOfficerFaction(s,unit.id,faction);unit.homeCity=homeCity;const recruit={unit,faction,location:free.cityId,destination:free.cityId===homeCity?null:homeCity,remainingDays:0};
  if(recruit.destination)startPersonnelJourney(s,recruit);s.campaign.idle.push(recruit);return recruit;
 }
 export function welcomeBanditTalent(s,id,faction,homeCity,campName){
@@ -76,7 +107,7 @@ export function welcomeBanditTalent(s,id,faction,homeCity,campName){
  const r=record(s,id);if(r.hardWaitUntilDay>day(s)||(r.rejoinBlocks[faction]||0)>day(s)||Object.values(data(s).projects).some(p=>p.personId===id&&p.state!=='CLOSED'))return false;
  const unit=free.unit||makeOfficer(id,0,0,1,s.seed);if(r.meritFaction&&r.meritFaction!==faction)retainFactionMerit(unit);
  const recruit=moveFreeTalentIntoService(s,free,unit,faction,homeCity);s.campaign.domestic.loyalty[id]=80;
- Object.assign(r,{meritFaction:faction,idleTurns:0,idleDays:0,idlePenaltyStep:2,workedDays:0,leaveAtDay:null,graceUntilDay:day(s)+91,voluntaryFaction:faction});
+ Object.assign(r,{meritFaction:faction,idleTurns:0,idleDays:0,idlePenaltyStep:2,workedDays:0,loyaltyWarning:false,lastLoyaltyRiskDay:0,graceUntilDay:day(s)+91,voluntaryFaction:faction});
  for(const knowledge of Object.values(data(s).knowledge))if(knowledge[id])knowledge[id].locationConfirmed=false;
  report(s,'signed',id,`${unit.name}闻${campName}已平，前来投效${home.name}${recruit.destination?'，正沿道路赴任':''}。`,faction,{banditVolunteer:true});refreshTalentDemand(s,true);return true;
 }
@@ -87,7 +118,7 @@ export function talentCandidates(s,c,mode){
  for(const id of ids){
   const check=eligible(id,c.id,mode);if(!check.ok)continue;
   const saved=t.projects[talentKey(id,c.owner)],p=saved?.state==='CLOSED'?null:saved,need=projectNeed(id,mode);if(p?.progress>=need||p?.lastAttemptTurn===talentTurn(s))continue;
-  if(s.campaign.domestic.assignments.some(a=>s.cities.find(c=>c.id===a.cityId)?.owner===c.owner&&a.action?.targetId===id&&['hire','persuade'].includes(a.action.key)))continue;
+  if(s.campaign.domestic.assignments.some(a=>{const reserved=a.action||a.proposal?.pick;return s.cities.find(c=>c.id===a.cityId)?.owner===c.owner&&reserved?.targetId===id&&['hire','persuade'].includes(reserved.key);}))continue;
   const score=(mode==='hire'?70:45)+Math.floor(15*(p?.progress||0)/need)+clamp((check.Q-70)/2,0,15)+(mode==='hire'&&check.W>=80?5:0);
   candidates.push({id,score,check,progress:p?.progress||0,created:p?.createdOrder??Number.MAX_SAFE_INTEGER});
  }
@@ -145,8 +176,8 @@ export function resolveTalentOffers(s,cancel){
   let recruit;
   if(free)recruit=moveFreeTalentIntoService(s,free,unit,p.factionId,p.cityId);
   else {unit.homeCity=p.cityId;recruit={unit,faction:p.factionId,location,destination:location===p.cityId?null:p.cityId,remainingDays:0};if(recruit.destination)startPersonnelJourney(s,recruit);s.campaign.idle.push(recruit);}
-  s.campaign.domestic.loyalty[p.personId]=free?80:65;
-  const r=record(s,p.personId);Object.assign(r,{idleTurns:0,idleDays:0,idlePenaltyStep:2,workedDays:0,leaveAtDay:null,graceUntilDay:day(s)+91+(location===p.cityId?0:2),voluntaryFaction:p.factionId});
+  followTreasureOfficerFaction(s,unit.id,p.factionId);s.campaign.domestic.loyalty[p.personId]=free?80:65;
+  const r=record(s,p.personId);Object.assign(r,{idleTurns:0,idleDays:0,idlePenaltyStep:2,workedDays:0,loyaltyWarning:false,lastLoyaltyRiskDay:0,graceUntilDay:day(s)+91+(location===p.cityId?0:2),voluntaryFaction:p.factionId});
   for(const other of Object.values(t.projects).filter(x=>x.personId===p.personId)){if(other!==p&&other.state!=='CLOSED'){const o=servingPeople(s).get(other.executorId),penalty=Math.max(0,PROGRESSION.failures.talentProject-other.meritPenalty);if(o?.faction===other.factionId&&penalty)settleOfficerMerit(s,o.unit,{sourceId:`talent-project-failed:${other.createdOrder}`,amount:-penalty,faction:other.factionId,cityId:other.cityId,category:'talent',reason:'接洽项目未能签约'});}if(other!==p&&other.state!=='CLOSED')report(s,'project-closed',p.personId,`${unit.name}已接受其他势力邀请，接洽项目结束。`,other.factionId);other.state='CLOSED';other.reason=other===p?'signed':'other-faction';}
   for(const knowledge of Object.values(t.knowledge))if(knowledge[p.personId])knowledge[p.personId].locationConfirmed=false;
   report(s,'signed',p.personId,`${unit.name}完成接洽，加入${mapNode(s,p.cityId).name}${location===p.cityId?'':'，正沿道路赴任'}。`,p.factionId,{cost:p.spent,elapsed:day(s)-p.createdDay+1,reward:{kind:'officer',officerId:unit.id,stats:Object.fromEntries(['leadership','force','intellect','politics','charm'].map(k=>[k,unit[k]])),traits:passiveList(unit).filter(t=>!t.cap).map(t=>({id:t.id,name:t.name})),location,destination:recruit.destination}});
@@ -172,30 +203,31 @@ function moveFreePerson(s,p){
  if(pick?.path.length){p.travel={path:pick.path,progress:0,remainingDays:Math.ceil(roadCost(s,p.cityId,pick.path[0])/lightPersonnelSpeed(p))};invalidateLocation(s,p.id,p.cityId);return true;}return false;
 }
 function freeOfficer(s,o,{hardDays=60,defeat=null}={}){
+ followTreasureOfficerFaction(s,o.unit.id,'neutral');
  const t=data(s),r=record(s,o.unit.id);s.campaign.idle=s.campaign.idle.filter(x=>x!==o);
  // A former employee cannot retain a staffing promise after leaving service.
  // Release it in this transition so a same-day year-end save remains valid.
  if(s.campaign.ai)s.campaign.ai.staffing=s.campaign.ai.staffing.filter(p=>p.officerId!==o.unit.id);
  if(s.campaign.domestic.people.some(p=>p.id===o.unit.id))throw new Error('人物重复转为在野');
  s.campaign.domestic.people.push({id:o.unit.id,cityId:o.location,status:'FREE',debutDay:day(s),travel:null,unit:o.unit});
- Object.assign(r,{phase:'WAIT',phaseUntilDay:day(s)+hardDays+1,hardWaitUntilDay:day(s)+hardDays+1,idleDays:0,idleTurns:0,idlePenaltyStep:2,workedDays:0,leaveAtDay:null});
+ Object.assign(r,{phase:'WAIT',phaseUntilDay:day(s)+hardDays+1,hardWaitUntilDay:day(s)+hardDays+1,idleDays:0,idleTurns:0,idlePenaltyStep:2,workedDays:0,loyaltyWarning:false,lastLoyaltyRiskDay:0});
  if(defeat)r.defeatHistory.push(defeat);else r.rejoinBlocks[o.faction]=day(s)+181;
  // A free former employee starts a fresh project if they later approach the old employer.
  for(const p of Object.values(t.projects).filter(p=>p.personId===o.unit.id&&p.state!=='CLOSED')){p.mode='hire';p.state='PAUSED';p.reason='hardWait';}
  (t.knowledge[o.faction]??={})[o.unit.id]={discovered:true,lastKnownCityId:o.location,lastSeenDay:day(s),locationConfirmed:true,lastReportedAttitude:'waiting'};
- report(s,defeat?'displaced':'resigned',o.unit.id,`${o.unit.name}${defeat?'因势力灭亡流离在野':'因长期未任用辞官'}，整理${hardDays}天后再考虑出仕。`,o.faction);
+ report(s,defeat?'displaced':'resigned',o.unit.id,`${o.unit.name}${defeat?'因势力灭亡流离在野':'因忠诚低辞官'}，整理${hardDays}天后再考虑出仕。`,o.faction);
 }
-export function noteTalentCityCapture(s,oldFaction,newFaction,eventId){if(oldFaction==='neutral')return;data(s).defeats[oldFaction]={oldFactionId:oldFaction,formerLordId:factionLord(s,oldFaction),defeatingFactionId:newFaction,defeatedTurn:talentTurn(s),eventId};}
+export function noteTalentCityCapture(s,oldFaction,newFaction,eventId){if(oldFaction==='neutral')return;conquerTreasures(s,oldFaction,newFaction,eventId);data(s).defeats[oldFaction]={oldFactionId:oldFaction,formerLordId:factionLord(s,oldFaction),defeatingFactionId:newFaction,defeatedTurn:talentTurn(s),eventId};}
 export function processTalentDefeats(s,cancel){
  const t=data(s);
  for(const [f,h]of Object.entries(t.defeats)){
   if(t.processedEvents.includes(h.eventId)||s.cities.some(c=>c.owner===f))continue;
-  const armies=s.armies.filter(a=>a.faction===f),ongoing=s.campaign.battles.some(b=>!b.settled&&b.armyIds.some(id=>armies.some(a=>a.id===id)));
-  if(ongoing||armies.some(a=>a.units.some(u=>u.troops+u.wounded>0)))continue;
+  const engaged=new Set(s.campaign.battles.filter(b=>!b.settled).flatMap(b=>b.armyIds)),armies=s.armies.filter(a=>a.faction===f&&!engaged.has(a.id)),ongoing=s.armies.some(a=>a.faction===f&&engaged.has(a.id));
   const units=new Map();for(const a of armies){for(const u of a.units)units.set(u.id,{unit:u,faction:f,location:a.location,destination:null,remainingDays:0});for(const o of a.returningOfficers||[])units.set(o.unit.id,o);}
-  s.armies=s.armies.filter(a=>a.faction!==f);for(const o of s.campaign.idle.filter(o=>o.faction===f))units.set(o.unit.id,o);
-  for(const o of units.values()){cancel(s,o.unit.id,'势力灭亡');freeOfficer(s,o,{hardDays:(3+Math.floor(righteousness(o.unit.id)/20))*10,defeat:{...h}});}
-  t.processedEvents.push(h.eventId);
+  s.armies=s.armies.filter(a=>a.faction!==f||engaged.has(a.id));for(const o of s.campaign.idle.filter(o=>o.faction===f))units.set(o.unit.id,o);
+  s.pendingAppointments=s.pendingAppointments.filter(p=>s.armies.some(a=>a.id===p.armyId));
+  for(const o of units.values()){cancel(s,o.unit.id,'势力灭亡');o.unit.troops=0;o.unit.wounded=0;delete o.unit.mission;delete o.unit.scouting;freeOfficer(s,o,{hardDays:(3+Math.floor(righteousness(o.unit.id)/20))*10,defeat:{...h}});}
+  if(!ongoing)t.processedEvents.push(h.eventId);
  }
 }
 function hasDuty(s,o){
@@ -207,12 +239,41 @@ function hasDuty(s,o){
  if(o.destination)return false;
  return s.cities.some(c=>c.id===o.location&&c.owner===o.faction&&(c.governor===o.unit.id||s.campaign.domestic.assignments.some(a=>a.officerId===o.unit.id&&a.cityId===c.id)));
 }
-export function finishTalentDay(s,cancel){
+export function resolveTalentResignations(s,cancel){
+ for(const o of servingPeople(s).values()){
+  if(o.faction==='neutral'||isLord(s,o.unit.id,o.faction))continue;
+  const r=record(s,o.unit.id),checked=r.lastLoyaltyRiskDay===day(s);r.lastLoyaltyRiskDay=day(s);
+  const loyalty=s.campaign.domestic.loyalty[o.unit.id]??85,threshold=loyaltyWarningThreshold(s,o.unit.id,o.faction);
+  if(loyalty>=threshold){if(r.loyaltyWarning){r.loyaltyWarning=false;report(s,'loyalty-restored',o.unit.id,`${o.unit.name}忠诚回升至${loyalty}，解除低忠诚提醒。`,o.faction);}continue;}
+  if(!r.loyaltyWarning){r.loyaltyWarning=true;report(s,'loyalty-low',o.unit.id,`${o.unit.name}忠诚偏低（${loyalty}），可通过本城人才事务安抚。`,o.faction);}
+  if(checked)continue;
+  // Empty formations are not employment. Detach without deleting soldiers
+  // or changing an ongoing battle or the other officers in the army.
+  const a=o.army;
+  const emptyArmy=a&&!a.travel&&!a.route.length&&!a.units.some(u=>u.troops+u.wounded>0)&&!s.campaign.battles.some(b=>!b.settled&&b.armyIds.includes(a.id));
+  if(a&&!emptyArmy||o.destination||o.retreating||o.unit.mission||cityBesieged(s,o.location))continue;
+  if(talentRandom(s)>=loyaltyResignationChance(s,o.unit.id,o.faction))continue;
+  if(emptyArmy){
+   a.units=a.units.filter(u=>u.id!==o.unit.id);if(!a.units.length)s.armies=s.armies.filter(x=>x!==a);else{if(!a.units.some(u=>u.id===a.leader))a.leader=a.units[0].id;if(!a.units.some(u=>u.id===a.advisor))a.advisor=a.units[0].id;}
+   delete o.army;
+  }
+  // A person on a real mission must return before leaving service.
+  if(!o.army&&!o.destination&&!o.retreating&&!o.unit.mission){
+   let leaving=o;
+   // Return all real troops through the shared disband operation first.
+   if(o.cityUnit){if(disbandCityUnits(s,o.location,[o.unit.id],{scheduled:true,faction:o.faction}))continue;leaving=s.campaign.idle.find(x=>x.unit.id===o.unit.id);}
+   if(o.unit.scouting)recallScout(s,o.unit.id,{faction:o.faction});
+   if(diplomaticAssignment(s,o.unit.id))dismissDiplomat(s,o.unit.id,{scheduled:true,faction:o.faction});
+   cancel(s,o.unit.id,'辞官');for(const c of s.cities)if(c.governor===o.unit.id){c.governor=null;c.domestic.approvalGovernor=null;}freeOfficer(s,leaving);
+  }
+ }
+}
+export function finishTalentDay(s,cancel,{deferResignations=false}={}){
  const t=data(s);if(t.lastDay===day(s))return;t.lastDay=day(s);
  processTalentDefeats(s,cancel);
  for(const o of servingPeople(s).values()){
   if(o.faction==='neutral')continue;const r=record(s,o.unit.id);if(r.lastDutyDay===day(s))continue;r.lastDutyDay=day(s);
-  if(hasDuty(s,o)){r.workedDays++;if(r.workedDays>=30){r.idleDays=0;r.idleTurns=0;r.idlePenaltyStep=2;if(r.leaveAtDay!==null){r.leaveAtDay=null;report(s,'retained',o.unit.id,`${o.unit.name}连续任职30天，取消离职预警。`,o.faction);}}}
+  if(hasDuty(s,o)){r.workedDays++;if(r.workedDays>=30){r.idleDays=0;r.idleTurns=0;r.idlePenaltyStep=2;}}
   else {r.workedDays=0;if(day(s)>=r.graceUntilDay)r.idleDays++;}
   r.idleTurns=Math.floor(r.idleDays/10);
   if(day(s)%10||isLord(s,o.unit.id,o.faction))continue;
@@ -221,27 +282,6 @@ export function finishTalentDay(s,cancel){
   if(day(s)>=r.graceUntilDay&&!hasDuty(s,o)&&penaltyStep>r.idlePenaltyStep){loyalty=Math.max(0,loyalty-(high?2:5)*(penaltyStep-r.idlePenaltyStep));r.idlePenaltyStep=penaltyStep;}
   if(r.workedDays>=30&&day(s)%30===0&&loyalty<95)loyalty++;
   s.campaign.domestic.loyalty[o.unit.id]=loyalty;
-  if(day(s)>=r.graceUntilDay&&!hasDuty(s,o)&&r.idleTurns>=18&&loyalty<(high?40:60)&&r.leaveAtDay===null){r.leaveAtDay=day(s)+30;report(s,'leave-warning',o.unit.id,`${o.unit.name}长期闲置，将于第${r.leaveAtDay}天辞官；需连续任职30天挽留，安抚不能取消预警。`,o.faction);}
-  if(r.leaveAtDay!==null&&day(s)>=r.leaveAtDay){
-   // Empty formations are not employment. Detach safely without deleting any
-   // soldiers, changing a live battle or taking the rest of an army along.
-   const a=o.army;
-   if(a&&!a.travel&&!a.route.length&&!a.units.some(u=>u.troops+u.wounded>0)&&!s.campaign.battles.some(b=>!b.settled&&b.armyIds.includes(a.id))){
-    a.units=a.units.filter(u=>u.id!==o.unit.id);if(!a.units.length)s.armies=s.armies.filter(x=>x!==a);else{if(!a.units.some(u=>u.id===a.leader))a.leader=a.units[0].id;if(!a.units.some(u=>u.id===a.advisor))a.advisor=a.units[0].id;}
-    delete o.army;
-   }
-   // Offsite missions keep their original resident container until return.
-   // A due resignation waits for that real return instead of freeing a second
-   // copy at the mission location while leaving the employee in the home city.
-   if(!o.army&&!o.destination&&!o.retreating&&!o.unit.mission){
-    let leaving=o;
-    // A prepared garrison is not employment. Return its real soldiers through
-    // the shared disband operation before freeing the officer; a siege or a
-    // pending expedition can defer the departure, never erase the soldiers.
-    if(o.cityUnit){if(disbandCityUnits(s,o.location,[o.unit.id],{scheduled:true,faction:o.faction}))continue;leaving=s.campaign.idle.find(x=>x.unit.id===o.unit.id);}
-    cancel(s,o.unit.id,'辞官');for(const c of s.cities)if(c.governor===o.unit.id)c.governor=null;freeOfficer(s,leaving);
-   }
-  }
  }
  for(const p of s.campaign.domestic.people){
   const r=record(s,p.id);if(['DEAD','CAPTIVE','EXCLUDED'].includes(p.status))continue;
@@ -255,6 +295,7 @@ export function finishTalentDay(s,cancel){
   }
  }
  if(day(s)%10===0){refreshTalentDemand(s,day(s)%30===0);refreshTalentProjects(s);}
+ if(!deferResignations)resolveTalentResignations(s,cancel);
 }
 export function talentArrived(s,id){const r=record(s,id);r.graceUntilDay=day(s)+90;}
 export function refreshTalentProjects(s){
@@ -277,6 +318,7 @@ export function refreshTalentProjects(s){
  }
 }
 export function prepareEnemyDomestic(s){
+ if(!isAITurnStart(s))return;
  if(!s.campaign.scenarioId)return;
  for(const faction of [...new Set(s.cities.filter(c=>isAIControlled(s,c.owner)).map(c=>c.owner))]){
   const cities=s.cities.filter(c=>c.owner===faction),first=[cities.some(c=>cityNeedsAgriculture(s,c))?'agriculture':null,cities.some(c=>cityNeedsCommerce(s,c))?'commerce':null].filter(Boolean);
@@ -326,7 +368,7 @@ export function validateTalent(s){
  fail(Object.keys(t.records).length===OFFICER_CATALOG.length);
  for(const [id,r]of Object.entries(t.records)){
   fail(OFFICER_BY_ID[id]&&r&&['WAIT','SEEK'].includes(r.phase)&&['phaseUntilDay','hardWaitUntilDay','idleTurns','idleDays','idlePenaltyStep','workedDays','graceUntilDay','lastDutyDay'].every(k=>int(r[k]))&&r.idleTurns===Math.floor(r.idleDays/10)&&r.lastDutyDay<=day(s));
-  fail(r.leaveAtDay===null||int(r.leaveAtDay));fail(r.voluntaryFaction===null||factions.has(r.voluntaryFaction));fail(r.meritFaction===null||factions.has(r.meritFaction));fail(map(r.rejoinBlocks)&&Object.entries(r.rejoinBlocks).every(([f,n])=>factions.has(f)&&int(n))&&Array.isArray(r.defeatHistory));
+  fail(typeof r.loyaltyWarning==='boolean'&&int(r.lastLoyaltyRiskDay,day(s))&&!Object.hasOwn(r,'leaveAtDay'));fail(r.voluntaryFaction===null||factions.has(r.voluntaryFaction));fail(r.meritFaction===null||factions.has(r.meritFaction));fail(map(r.rejoinBlocks)&&Object.entries(r.rejoinBlocks).every(([f,n])=>factions.has(f)&&int(n))&&Array.isArray(r.defeatHistory));
   for(const h of r.defeatHistory)fail(factions.has(h.oldFactionId)&&factions.has(h.defeatingFactionId)&&(h.formerLordId===null||OFFICER_BY_ID[h.formerLordId])&&int(h.defeatedTurn)&&typeof h.eventId==='string');
  }
  const serving=servingPeople(s),seen=new Set(serving.keys());

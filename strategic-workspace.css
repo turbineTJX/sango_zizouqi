@@ -1,4 +1,10 @@
 /* Full-screen strategic workspace. All command panels float above the map. */
+/* Short location cards size to their contents, including on landscape phones. */
+.strategy-page.strategy-map-first .strategy-panel:has(.node-panel-body){bottom:auto;max-height:calc(100dvh - 280px);overflow:auto}
+.strategy-panel:has(.node-panel-body) .strategy-tabs{display:none}
+.strategy-panel .node-panel-body{display:grid;gap:var(--ui-space-2)}
+.strategy-panel .node-panel-body :is(h2,h3,p){margin:0}
+@media(max-height:650px) and (orientation:landscape){.strategy-page.strategy-map-first .strategy-panel:has(.node-panel-body){top:108px;bottom:auto;max-height:calc(100dvh - 124px)}}
 body:has(.strategy-map-first){overflow:hidden}
 .strategy-page.strategy-map-first{position:relative;width:100%;height:100dvh;min-height:540px;padding:0;overflow:hidden;background:#70806a}
 .strategy-page.strategy-map-first .strategy-layout{position:absolute;inset:0;margin:0}
@@ -12,8 +18,8 @@ body:has(.strategy-map-first){overflow:hidden}
 .sovereign-portrait img{position:absolute;width:100%;height:100%;object-fit:cover;object-position:50% 15%}.sovereign-portrait.has-art-portrait span{visibility:hidden}
 .sovereign-identity{flex:1;white-space:nowrap}.sovereign-identity small{font:15px var(--serif);letter-spacing:1px}.sovereign-identity h1{margin:7px 0;font:27px var(--serif);letter-spacing:4px}.sovereign-identity h1 span{font:11px sans-serif;letter-spacing:0;margin-left:10px;color:#c3b291}.sovereign-identity p{margin:0;font-size:11px;color:#d7c69e}
 .sovereign-resources{display:grid;gap:10px;font-size:11px;color:#bfb494}.sovereign-resources b{display:block;font-size:16px;font-variant-numeric:tabular-nums;color:#f2dfaa;margin-top:3px}
-.world-turn{position:absolute;left:22px;top:145px;z-index:9;width:100px;text-align:center}.turn-seal{width:90px;height:90px;border-radius:50%;border:5px double #e2c77d;background:radial-gradient(circle,#f9eabe 48%,#b29a61 50%,#423529 58%);box-shadow:0 4px 15px #18201477;color:#3e3329;font:30px var(--serif);cursor:pointer}.turn-seal small{display:block;font:10px sans-serif;margin-top:3px}.turn-day{color:#f0dba9;background:#292d26d9;border:1px solid #bca67366;padding:5px 12px;margin-top:8px;font-size:11px}
-.world-commands{position:absolute;left:22px;top:286px;z-index:8;width:104px;display:grid;gap:9px}.world-commands>small{color:#fff3d3;text-shadow:0 1px 3px #000;text-align:center;font:15px var(--serif);letter-spacing:3px}.world-commands button{min-height:45px;border:1px solid #c8b783;border-left:4px solid #96713f;background:linear-gradient(100deg,#efe9cdec,#d6d4bde6);color:#3c3429;font:21px var(--serif);letter-spacing:3px;box-shadow:0 3px 10px #1b211c33;cursor:pointer}.world-commands button:nth-last-child(-n+2){font-size:16px;letter-spacing:1px}.world-commands button:hover:not(:disabled){background:#fff0b8;border-color:#fff1b3;transform:translateX(3px)}.world-commands button:disabled,.world-turn button:disabled{opacity:.5;cursor:not-allowed}
+.world-turn{position:absolute;left:22px;top:145px;z-index:9;width:100px;text-align:center}.turn-seal{width:90px;height:90px;border-radius:50%;border:5px double #e2c77d;background:radial-gradient(circle,#f9eabe 48%,#b29a61 50%,#423529 58%);box-shadow:0 4px 15px #18201477;color:#3e3329;font:30px var(--serif);cursor:pointer}.turn-seal small{display:block;font:10px sans-serif;margin-top:3px}
+.world-commands{position:absolute;left:22px;top:252px;z-index:8;width:104px;display:grid;gap:9px}.world-commands>small{color:#fff3d3;text-shadow:0 1px 3px #000;text-align:center;font:15px var(--serif);letter-spacing:3px}.world-commands button{min-height:45px;border:1px solid #c8b783;border-left:4px solid #96713f;background:linear-gradient(100deg,#efe9cdec,#d6d4bde6);color:#3c3429;font:21px var(--serif);letter-spacing:3px;box-shadow:0 3px 10px #1b211c33;cursor:pointer}.world-commands button:nth-last-child(-n+2){font-size:16px;letter-spacing:1px}.world-commands button:hover:not(:disabled){background:#fff0b8;border-color:#fff1b3;transform:translateX(3px)}.world-commands button:disabled,.world-turn button:disabled{opacity:.5;cursor:not-allowed}
 .world-toolbar{position:absolute;right:20px;top:18px;z-index:10;display:flex;gap:5px}.world-toolbar button{padding:9px 18px;background:linear-gradient(#eeead4,#c9c6aa);color:#3d372a;border:1px solid #c0ad78;border-radius:2px;font:17px var(--serif);box-shadow:0 3px 10px #20231944;cursor:pointer}
 .strategy-map-first .faction-navigation{position:absolute;right:20px;top:70px;z-index:8;display:flex;gap:0;flex-wrap:nowrap;margin:0;padding:0;border:1px solid #c2ac7355;background:#2d302adb}.faction-navigation button{padding:11px 14px;color:#e9ddbb;border-right:1px solid #bba56e33;cursor:pointer;font:14px var(--serif)}.faction-navigation button b{display:block;color:#c4b387;font:11px sans-serif;margin-top:5px}
 .strategy-map-first .map-workspace-actions{position:absolute;right:20px;top:134px;z-index:6;padding:0;background:none;gap:5px}.map-workspace-actions span{display:none}.map-workspace-actions button{background:#30352bdb;font-size:12px}
@@ -34,9 +40,9 @@ body:has(.strategy-map-first){overflow:hidden}
 .national-world .national-node .national-symbol{fill:var(--force-color);stroke:#fff3cc;stroke-width:1;filter:drop-shadow(1px 2px 1px #1c281e99)}
 .strategy-world.national-world .national-node .national-place-name{font:11px var(--serif);fill:#fff0c9;stroke:none;letter-spacing:1px}.strategy-world.national-world .national-node .map-city-banner{fill:#2b3027ed;stroke:#c4ac78;stroke-width:.5}.national-node:not(.node-city) .map-city-banner{display:block}.map-city-strength{font:8px sans-serif!important;fill:#efe3bd!important;stroke:none!important}.map-city-flag{fill:var(--force-color);stroke:#eddda5;stroke-width:.6}.map-city-sigil{font:8px var(--serif)!important;fill:#fff4d2!important;stroke:none!important}
 .map-overview .national-node:not(.node-city):not(.selected) .map-city-banner,.map-overview .national-node:not(.node-city):not(.selected) .map-city-strength{display:none}.map-overview .map-city-strength{display:none}
-@media(max-height:760px){.world-commands{top:255px;gap:5px}.world-commands button{min-height:36px;font-size:18px}.world-turn{top:138px}.turn-seal{width:78px;height:78px;font-size:26px}.strategy-page.strategy-map-first .strategy-panel,.strategy-page.strategy-map-first .city-directory{bottom:100px}.strategy-map-first .national-map-tools{right:18px}}
+@media(max-height:760px){.world-commands{top:232px;gap:5px}.world-commands button{min-height:36px;font-size:18px}.world-turn{top:138px}.turn-seal{width:78px;height:78px;font-size:26px}.strategy-page.strategy-map-first .strategy-panel,.strategy-page.strategy-map-first .city-directory{bottom:100px}.strategy-map-first .national-map-tools{right:18px}}
 @media(max-width:1000px){.sovereign-hud{width:340px;padding-left:92px;gap:8px}.sovereign-portrait{width:88px;height:111px}.sovereign-identity small{font-size:12px}.sovereign-resources b{font-size:13px}.world-toolbar button{padding:8px 12px}.strategy-map-first .national-map-tools{max-width:calc(100% - 300px)}.strategy-map-first .national-search{display:none}.strategy-map-first .strategy-notice{display:none}.strategy-page.strategy-map-first.directory-open.panel-open .city-directory{display:none}}
-@media(max-width:700px){.sovereign-hud{left:8px;top:8px;width:248px;min-height:78px;padding:8px 10px 8px 72px}.sovereign-portrait{width:67px;height:87px}.sovereign-identity h1{font-size:20px}.sovereign-identity small{font-size:11px}.sovereign-resources{display:none}.world-toolbar{right:8px;top:8px;display:grid;grid-template-columns:1fr 1fr;gap:3px}.world-toolbar button{font-size:13px;padding:7px 9px}.strategy-map-first .faction-navigation{top:110px;right:8px}.faction-navigation button{padding:8px;font-size:12px}.world-turn{left:8px;top:111px;width:74px}.turn-seal{width:66px;height:66px;font-size:23px}.turn-day{padding:5px;font-size:10px}.world-commands{left:8px;top:226px;width:76px;gap:6px}.world-commands button{min-height:35px;font-size:18px}.world-commands button:nth-last-child(-n+2){font-size:13px}.strategy-map-first .map-workspace-actions{right:8px;top:169px}.strategy-page.strategy-map-first .strategy-panel,.strategy-page.strategy-map-first .city-directory{top:212px;right:8px;bottom:96px;width:min(300px,calc(100vw - 105px))}.strategy-map-first .national-map-tools,.strategy-map-first.panel-open .national-map-tools{right:8px;left:8px;bottom:8px;max-width:none;padding:4px}.strategy-map-first .national-map-tools>div{display:flex;flex-wrap:wrap;gap:3px}.strategy-map-first .national-map-tools button{padding:6px;font-size:10px}.strategy-map-first .national-map-tools label{display:none}.map-reports{left:8px;bottom:100px;width:76px}.map-reports>summary{font-size:10px;padding:8px}.strategy-map-first>.encounter-callout{margin:0 8px 8px 96px;top:215px}.strategy-map-first .national-legend{display:none}}
+@media(max-width:700px){.sovereign-hud{left:8px;top:8px;width:248px;min-height:78px;padding:8px 10px 8px 72px}.sovereign-portrait{width:67px;height:87px}.sovereign-identity h1{font-size:20px}.sovereign-identity small{font-size:11px}.sovereign-resources{display:none}.world-toolbar{right:8px;top:8px;display:grid;grid-template-columns:1fr 1fr;gap:3px}.world-toolbar button{font-size:13px;padding:7px 9px}.strategy-map-first .faction-navigation{top:110px;right:8px}.faction-navigation button{padding:8px;font-size:12px}.world-turn{left:8px;top:111px;width:74px}.turn-seal{width:66px;height:66px;font-size:23px}.world-commands{left:8px;top:194px;width:76px;gap:6px}.world-commands button{min-height:35px;font-size:18px}.world-commands button:nth-last-child(-n+2){font-size:13px}.strategy-map-first .map-workspace-actions{right:8px;top:169px}.strategy-page.strategy-map-first .strategy-panel,.strategy-page.strategy-map-first .city-directory{top:212px;right:8px;bottom:96px;width:min(300px,calc(100vw - 105px))}.strategy-map-first .national-map-tools,.strategy-map-first.panel-open .national-map-tools{right:8px;left:8px;bottom:8px;max-width:none;padding:4px}.strategy-map-first .national-map-tools>div{display:flex;flex-wrap:wrap;gap:3px}.strategy-map-first .national-map-tools button{padding:6px;font-size:10px}.strategy-map-first .national-map-tools label{display:none}.map-reports{left:8px;bottom:100px;width:76px}.map-reports>summary{font-size:10px;padding:8px}.strategy-map-first>.encounter-callout{margin:0 8px 8px 96px;top:215px}.strategy-map-first .national-legend{display:none}}
 
 .national-world .army-label-bg{fill:#292e28ef;stroke:var(--army-color);stroke-width:1.5}.national-world .army-faction-band{fill:var(--army-color)}.national-world .army-map-name{font:12px var(--serif);fill:#fff0ce;stroke:none}.national-world .army-map-status{font:10px sans-serif;fill:#e4d4ac;stroke:none}.national-world .army-map-initial{font:24px var(--serif);fill:#fff0ce}.national-world .army-location-line{stroke:#edce8e;stroke-width:1;opacity:.8}.national-world .army-location-dot{fill:var(--army-color);stroke:#fff2c3;stroke-width:1}.national-world .strategy-army.selected .army-label-bg{stroke:#fff0ad;stroke-width:2;filter:drop-shadow(0 0 3px #eac269)}
 
@@ -152,6 +158,20 @@ body:has(.strategy-map-first){overflow:hidden}
 .city-command-grid button{min-height:44px;border:1px solid #bca67555;border-radius:3px;background:#d9c9970e;color:#efdfbb;font:17px var(--serif);cursor:pointer}
 .city-command-menu button:focus-visible{outline:2px solid #f0d795;outline-offset:2px}
 .city-command-menu>.city-command-back{margin:10px 0 0;min-height:36px;text-align:center;font-size:13px}
+/* One selection card for cities, prefectures and armies; appearance is shared. */
+.map-object-menu.map-selection-card{box-sizing:border-box;width:280px;max-width:calc(100vw - 24px);max-height:calc(100dvh - 24px);left:clamp(12px,var(--menu-x),max(12px,calc(100vw - 292px)));top:clamp(12px,var(--menu-y),max(12px,calc(100dvh - 360px)))}
+.map-object-menu.map-selection-card:is([data-map-object-kind="city"],[data-map-object-kind="army"]){width:360px;left:clamp(12px,var(--menu-x),max(12px,calc(100vw - 372px)));top:clamp(12px,var(--menu-y),max(12px,calc(100dvh - 380px)))}
+.map-selection-card header h3{min-width:0;overflow-wrap:anywhere}
+.map-selection-card .map-object-stats{grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--ui-space-2);margin:var(--ui-space-3) 0}
+.map-selection-card:is([data-map-object-kind="city"],[data-map-object-kind="army"]) .map-object-stats{grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(132px,1.4fr)}
+.map-selection-card:is([data-map-object-kind="city"],[data-map-object-kind="army"]) header{margin-bottom:var(--ui-space-2);padding-bottom:var(--ui-space-2)}
+.map-selection-card:is([data-map-object-kind="city"],[data-map-object-kind="army"]) .map-object-stats dd{white-space:nowrap}
+.map-selection-card .map-object-stats dd{overflow-wrap:anywhere}
+.map-selection-card .map-object-meta{margin:var(--ui-space-2) 0}
+.map-selection-card .map-node-armies{display:grid;gap:var(--ui-space-2);margin:var(--ui-space-3) 0}
+.map-selection-card .map-node-armies p{display:grid;gap:var(--ui-space-1);margin:0}
+.army-supply-route{pointer-events:none}
+.army-supply-route .strategy-supply-path{stroke-width:3;stroke-dasharray:8 5;vector-effect:non-scaling-stroke}
 /* Owned cities: idle officers are highlighted; other cities stay selectable. */
 .faction-navigation .self-city-navigation{background:#4b4e48;color:#bcc3b9}.faction-navigation .self-city-navigation b{color:#a3ada1}.faction-navigation .self-city-navigation.has-idle{background:#9e79362e;color:#ffe6a3;box-shadow:inset 0 -2px #ddb76b}.faction-navigation .self-city-navigation.has-idle b{color:#e6c883}
 .strategy-page.strategy-map-first.directory-open .map-quick-directory{z-index:9;display:flex;flex-direction:column;gap:8px;overflow:auto}.map-quick-directory>header,.map-quick-directory>nav,.map-quick-directory>label,.map-quick-directory>.button,.map-quick-staff,.map-quick-actions,.city-work-filter,.city-work-key{flex-shrink:0}.map-quick-directory>nav{margin:0}.map-quick-directory>nav button{padding:7px;font-size:12px}.map-quick-directory>label{display:grid;gap:4px;font-size:11px}.map-quick-directory .city-directory-list{flex:1;min-height:80px;align-content:start;overflow:auto;scrollbar-width:thin;gap:6px}
@@ -162,7 +182,7 @@ body:has(.strategy-map-first){overflow:hidden}
 @media(max-width:700px){.faction-navigation button{padding:8px 6px;font-size:11px}.faction-navigation .self-city-navigation b{font-size:9px}.self-city-navigation .city-total-count{display:none}.map-quick-directory .city-directory-item{padding:8px 10px}.map-quick-directory .city-directory-item b{font-size:16px}.map-quick-directory .city-work-status{font-size:11px}.map-quick-directory .city-work-key{font-size:10px}}
 
 @media(max-width:700px){.strategy-map-first.directory-open .map-information{display:none}}
-.diplomatic-goals,.diplomatic-directions,.diplomatic-terms{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.diplomatic-goals{align-items:end}.diplomatic-direction,.diplomatic-proposal{padding:14px;border:1px solid #8b73543b;background:#ead6b61a;min-width:0}.diplomatic-direction select{max-width:100%;width:100%}.diplomatic-proposal{margin:12px 0}.diplomatic-proposal.needs-approval{border-color:#b58a3f;background:#c0933020}.diplomatic-proposal header{display:flex;align-items:center;justify-content:space-between;gap:10px}.diplomatic-terms{grid-template-columns:repeat(2,minmax(0,1fr))}.diplomatic-terms li{margin-bottom:8px;overflow-wrap:anywhere}.diplomatic-terms small{display:block;color:#786650}.diplomatic-decisions{display:flex;gap:8px;flex-wrap:wrap}.diplomacy-panel details{margin:14px 0}.diplomacy-panel p{overflow-wrap:anywhere}.diplomacy-panel .strategy-field{min-width:0}@media(max-width:700px){.diplomatic-goals,.diplomatic-directions,.diplomatic-terms{grid-template-columns:minmax(0,1fr)}.diplomatic-proposal header{align-items:flex-start;flex-direction:column}.diplomatic-direction .button{padding:7px 10px}}
+.diplomatic-goals,.diplomatic-directions,.diplomatic-terms{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.diplomatic-goals{align-items:end}.diplomatic-direction,.diplomatic-proposal{padding:14px;border:1px solid #8b73543b;background:#ead6b61a;min-width:0}.diplomatic-direction select{max-width:100%;width:100%}.diplomatic-proposal{margin:12px 0}.diplomatic-proposal.needs-approval{border-color:#b58a3f;background:#c0933020}.diplomatic-proposal header{display:flex;align-items:center;justify-content:space-between;gap:10px}.diplomatic-terms{grid-template-columns:repeat(2,minmax(0,1fr))}.diplomatic-terms li{margin-bottom:8px;overflow-wrap:anywhere}.diplomatic-terms small{display:block;color:inherit;font-size:.85rem;line-height:1.5}.diplomatic-decisions{display:flex;gap:8px;flex-wrap:wrap}.diplomacy-panel details{margin:14px 0}.diplomacy-panel p{overflow-wrap:anywhere}.diplomacy-panel .strategy-field{min-width:0}@media(max-width:700px){.diplomatic-goals,.diplomatic-directions,.diplomatic-terms{grid-template-columns:minmax(0,1fr)}.diplomatic-proposal header{align-items:flex-start;flex-direction:column}.diplomatic-direction .button{padding:7px 10px}}
 .diplomatic-budgets{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.diplomatic-budgets input{max-width:100%;width:100%;box-sizing:border-box}.diplomacy-panel .personnel-table{min-width:480px}.diplomatic-proposal ul{padding-left:20px}.diplomatic-terms section{min-width:0}.diplomatic-proposal h3{margin:0}.diplomatic-proposal small{overflow-wrap:anywhere}@media(max-width:700px){.diplomatic-budgets{grid-template-columns:minmax(0,1fr)}}
 .war-fog{pointer-events:none}.fog-city .map-city-scene{filter:saturate(.35)}
 .city-location-model .town-foundation{filter:saturate(.12) brightness(.8);opacity:.76}
@@ -289,7 +309,7 @@ body:has(.strategy-map-first){overflow:hidden}
 .transport-fields{display:grid;grid-template-columns:1fr;gap:10px}.transport-fields .strategy-field{gap:5px;margin:0}.transport-fields small{font-size:12px;color:#bfb79d}
 .command-map+aside .transport-cargo{margin:0;padding:0;border:0}.transport-cargo>.strategy-field{margin:12px 0}.transport-cargo .route-itinerary{margin:14px 0}
 .diplomatic-offer-summary{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}.diplomatic-offer-summary p{margin:0;font-size:14px;line-height:1.6}.diplomatic-offer-summary b{display:block;margin-bottom:4px;color:#c7b883;font-size:13px}
-.diplomacy-panel .diplomatic-goals{margin:18px 0}.diplomacy-panel .diplomatic-proposal{padding:12px}.diplomatic-proposal .diplomatic-decisions{margin-top:12px}.diplomatic-proposal header h3{font-size:18px}.diplomatic-proposal header>b{font-size:13px;white-space:nowrap}
+.diplomacy-panel .diplomatic-goals{margin:18px 0}.diplomatic-goals [hidden]{display:none!important}.diplomacy-panel .diplomatic-proposal{padding:12px}.diplomatic-proposal .diplomatic-decisions{margin-top:12px}.diplomatic-proposal header h3{font-size:18px}.diplomatic-proposal header>b{font-size:13px;white-space:nowrap}
 .diplomacy-panel .diplomatic-staff,.diplomacy-panel .diplomatic-budget-settings{padding:10px 0;border-top:1px solid #9b895743}
 .diplomacy-panel .diplomatic-staff>summary,.diplomacy-panel .diplomatic-budget-settings>summary{cursor:pointer}
 @media(max-width:700px){.decision-changes,.diplomatic-offer-summary{grid-template-columns:1fr}.decision-facts{grid-template-columns:repeat(2,minmax(0,1fr))}.decision-changes{gap:10px}.decision-changes>section{padding:10px}.command-decree{padding:16px;line-height:1.5}.diplomatic-proposal header{gap:5px}}
@@ -363,6 +383,12 @@ body:has(.strategy-map-first){overflow:hidden}
 .expedition-selection .combat-comparison{max-height:46vh;overflow:auto}.expedition-selection table{min-width:760px}.expedition-selection .personnel-table th{position:sticky;top:0;z-index:1;background:#e8ddc3;color:#382f23}
 .expedition-selection .personnel-table tr.selected{background:#d3b46533}.expedition-selection .personnel-table td:nth-child(2){min-width:100px}.expedition-selection .personnel-table td:nth-child(7),.expedition-selection .personnel-table td:nth-child(8){min-width:110px;white-space:normal}
 .picker-relevant-traits{min-width:140px;white-space:normal}.picker-relevant-traits button{margin:2px}
+.picker-aptitudes{min-width:128px;white-space:nowrap}
+.army-appointment{display:grid;grid-template-columns:minmax(0,1fr);gap:var(--ui-space-2);min-width:0}
+.army-appointment h4{margin:0}
+.army-appointment>label{display:grid;gap:var(--ui-space-1);min-width:0}
+.army-appointment select{width:100%;min-width:0;max-width:100%}
+.army-appointment>button{justify-self:start}
 .expedition-selection .personal-bonds h4{display:none}.expedition-selection .personal-bonds{display:flex;flex-wrap:wrap;gap:4px;margin:0;padding:0;border:0;background:none}.expedition-selection .personal-bonds button{font-size:12px}
 .command-flow .expedition-selection .personnel-table .ability-link{display:inline-flex;align-items:center;font-size:13px;line-height:1.4;margin:2px;padding:4px 7px;border:1px solid #a38c6055;white-space:nowrap}
 .expedition-selection .bond-panel:has(.bond-list>.muted:only-child){display:none}
@@ -387,3 +413,87 @@ body:has(.strategy-map-first){overflow:hidden}
 .command-flow .personnel-table :is(td,th){font-size:13px}.command-flow .personnel-table small{font-size:12px}
 @media(pointer:coarse){:is(.command-flow,.map-command-screen,.task-personnel,.domestic-proposals) :is(button,select,summary,input:not([type="checkbox"]):not([type="radio"]):not([type="range"])){min-height:44px}}
 @media(max-height:600px) and (orientation:landscape){.selection-lineup{padding:7px 10px;margin-bottom:6px;font-size:13px}.command-sidebar-scroll{padding:10px}.command-sidebar-summary{padding:8px 10px}.expedition-selection .combat-comparison{max-height:calc(100dvh - 216px)}}
+@media(max-height:600px) and (orientation:landscape){
+ .modal:has(.task-personnel) .modal-body{padding-block:var(--ui-space-2)}
+ .command-flow:has(>.task-personnel)>p{margin-block:var(--ui-space-1)}
+ .task-personnel{display:grid;grid-template-columns:minmax(0,1fr) max-content;gap:var(--ui-space-2)}
+ .task-personnel-heading{grid-column:2;grid-row:1;align-self:end;margin:0}
+ .task-personnel-heading>div{display:none}
+ .task-personnel-tools{grid-column:1;grid-row:1;display:flex;align-items:end;gap:var(--ui-space-2);margin:0}
+ .task-personnel-tools label{flex:1;min-width:0}
+ .task-personnel-tools input{width:100%}
+ .task-personnel .task-selected{grid-column:1/-1;margin:0;padding:var(--ui-space-1) var(--ui-space-2)}
+ .task-personnel:has(input[type="radio"]) .task-selected{display:none}
+ .task-personnel-layout{grid-column:1/-1}
+ .task-candidate-list{min-height:140px;max-height:max(140px,calc(100dvh - 250px))}
+ #overlay-root .task-candidate-list .personnel-table th{padding-block:var(--ui-space-2)}
+}
+
+/* Utility windows use compact headings; the content carries the hierarchy. */
+:is(.modal-header,.detail-source-header){padding:14px 20px;gap:12px}
+:is(.modal-header,.detail-source-header) h2{margin:0;font-size:20px;line-height:1.4;letter-spacing:1px}
+:is(.modal-header,.detail-source-header) .eyebrow{font-size:12px;letter-spacing:.5px;margin-bottom:4px}
+:is(.modal,.detail-source-panel) .modal-body h3{font-size:16px;line-height:1.5;letter-spacing:.5px}
+.directory-tabs{display:flex;gap:4px;border-bottom:1px solid #ae95614d;margin-bottom:16px;overflow-x:auto}
+.directory-tabs button{flex-shrink:0;border:0;border-bottom:2px solid transparent;padding:10px 16px;background:transparent;color:#bfb79d;font:14px var(--sans);cursor:pointer;min-height:40px}
+.directory-tabs button[aria-pressed="true"]{border-bottom-color:#ddbf7b;color:#f2dfad;background:#bca16a12}
+.directory-tabs button:focus-visible{outline:2px solid #ddbf7b;outline-offset:-3px}
+.directory-toolbar{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:12px}
+.directory-toolbar .strategy-field{flex:1;max-width:420px;margin:0;font-size:13px;gap:6px}
+.directory-toolbar input{min-height:36px;font-size:14px}
+.directory-toolbar .personnel-count{margin:0 0 10px;white-space:nowrap;font-size:13px}
+.officer-directory .personnel-table-wrap{max-height:calc(100dvh - 280px);min-height:100px}
+.officer-directory .personnel-table :is(th,td){padding:10px 14px;font-size:14px}
+.officer-directory .personnel-table :is(th,td):first-child{position:sticky;left:0;background:#2b2a22;z-index:1;min-width:90px}
+.officer-directory .personnel-table th:first-child{z-index:2;background:#3e3e2f}
+.officer-directory .personnel-table th{font-weight:500}
+.officer-directory .personnel-name{font:inherit;color:#e8cc92;min-height:28px}
+.officer-directory .personnel-table small{font-size:12px;line-height:1.5}
+.officer-directory td:has(.unit-trait-name,.ability-link){white-space:normal;min-width:140px}
+.officer-directory :is(.unit-trait-name,.ability-link){display:inline-block;margin:2px 8px 2px 0;font-size:13px;line-height:1.6}
+.officer-directory .talent-panel{margin:14px 0 0;font-size:13px}
+.officer-directory{display:flex;flex:1;flex-direction:column;min-height:0;min-width:0}
+:is(.modal,.detail-source-panel):has(> :is(.modal-body,.detail-source-body) > .officer-directory){height:min(760px,calc(100dvh - 48px))}
+:is(.modal-body,.detail-source-body):has(> .officer-directory){display:flex;flex:1;min-height:0;overflow:hidden}
+.officer-directory>.personnel-table-wrap{flex:1;min-height:0;max-height:none;overflow:auto;overscroll-behavior:contain}
+.officer-directory>:is(.directory-tabs,.directory-toolbar,.talent-panel){flex-shrink:0}
+.officer-directory>.talent-panel{max-height:35%;overflow:auto}
+.finance-detail>.city-budget{min-width:0}
+#overlay-root .finance-detail .city-budget .personnel-table :is(th,td):first-child{min-width:0}
+.domestic-proposals.domestic-proposals-empty{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--ui-space-2);padding:var(--ui-space-2) 0}
+.domestic-proposals.domestic-proposals-empty>:is(p,.approval-policy){flex-basis:auto;margin:0;padding:0;border:0}
+.detail-replaces-source .detail-inspection.modal-backdrop{justify-content:center;align-items:center;padding:24px;pointer-events:auto;background:#071114b8;backdrop-filter:blur(7px)}
+.detail-replaces-source .detail-inspection.modal-backdrop .modal{width:min(1040px,100%);max-width:100%;max-height:calc(100dvh - 48px);border-radius:0}
+.detail-replaces-source .detail-inspection .info-dossier.info-single-object{grid-template-columns:150px minmax(0,1fr);gap:24px}
+.detail-replaces-source .detail-inspection .info-identity .info-portrait[data-art-shape]{width:120px;height:180px;min-height:0;margin:0;aspect-ratio:auto}
+.detail-replaces-source .info-dossier-content .info-tabs .button{font-size:14px;letter-spacing:.5px;min-height:36px;padding:8px 14px}
+.detail-replaces-source .info-fields dd{font-size:14px}
+@media(max-width:700px){
+ :is(.modal-header,.detail-source-header){padding:12px 16px}
+ :is(.modal-header,.detail-source-header) h2{font-size:18px}
+ .directory-tabs{gap:0}.directory-tabs button{padding:9px 12px}
+ .officer-directory .personnel-table :is(th,td){padding:9px 10px;font-size:13px}
+ .directory-toolbar{gap:10px}.directory-toolbar .strategy-field{min-width:0}
+ .detail-replaces-source .detail-inspection.modal-backdrop{padding:8px}
+ .detail-replaces-source .detail-inspection.modal-backdrop .modal{max-height:calc(100dvh - 16px)}
+ .detail-replaces-source .detail-inspection .info-dossier.info-single-object{grid-template-columns:minmax(0,1fr);gap:12px}
+ .detail-replaces-source .detail-inspection .info-identity{justify-content:flex-start;padding:8px}
+ .detail-replaces-source .detail-inspection .info-identity .info-portrait[data-art-shape]{width:60px;height:80px}
+}
+@media(max-height:600px) and (orientation:landscape){
+ :is(.modal-header,.detail-source-header){padding:8px 14px}
+ :is(.modal-header,.detail-source-header) h2{font-size:18px}
+ :is(.modal,.detail-source-panel):has(.officer-directory) :is(.modal-body,.detail-source-body){padding:10px 16px}
+ .directory-tabs{margin-bottom:8px}.directory-tabs button{padding:7px 12px;min-height:36px}
+ .directory-toolbar{margin-bottom:8px}.directory-toolbar .strategy-field{display:flex;flex-direction:row;align-items:center;gap:10px;max-width:500px;white-space:nowrap}
+ .directory-toolbar input{width:auto;min-width:0;flex:1;min-height:34px}.directory-toolbar .personnel-count{margin-bottom:8px}
+ .officer-directory .personnel-table-wrap{max-height:calc(100dvh - 176px)}
+ :is(.modal,.detail-source-panel):has(> :is(.modal-body,.detail-source-body) > .officer-directory){height:calc(100dvh - 16px)}
+ .officer-directory>.personnel-table-wrap{max-height:none}
+ .officer-directory .personnel-table :is(th,td){padding:6px 10px;font-size:13px}
+ .detail-replaces-source .detail-inspection.modal-backdrop{padding:8px}
+ .detail-replaces-source .detail-inspection.modal-backdrop .modal{max-height:calc(100dvh - 16px)}
+}
+
+/* Route picking must not open a scout dossier over the destination city. */
+.map-command-screen :is([data-command-scout],[data-command-army],[data-command-transport],[data-command-battle]),.map-command-screen :is([data-command-scout],[data-command-army],[data-command-transport],[data-command-battle]) *{pointer-events:none!important}

@@ -5,7 +5,6 @@ import t5 from './supply-rules.mjs';
 import t6 from './domestic-decision-rules.mjs';
 import t8 from './talent-rules.mjs';
 import t9 from './events.mjs';
-import t10 from './officer-fate-rules.mjs';
 import t11 from './relations-cooperation.mjs';
 import t12 from './progression-learning.mjs';
 import t13 from './formation-deployment.mjs';
@@ -13,4 +12,4 @@ import t13 from './formation-deployment.mjs';
 import t16 from './ai-parameters.mjs';
 
 
-export const PENDING_DESIGN_TABLES = [t1,t4,t5,t6,t8,t9,t10,t11,t12,t13,t16];
+export const PENDING_DESIGN_TABLES = [t1,t4,t5,t6,t8,t9,t11,t12,t13,t16];

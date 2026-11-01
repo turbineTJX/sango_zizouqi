@@ -4,11 +4,11 @@ import {ECONOMY_RULES} from '../data/design/economy-rules.mjs';
 import {directWorkTrial} from '../scripts/economy-balance-lib.mjs';
 import {VALIDATION_SEEDS,collectWorkSamples,scanValues,summarizeWork,impliedValues,tradeQuoteRange,formationProbes,reserveHoldingProbe,workValue} from '../scripts/economy-valuation-lib.mjs';
 
-test('resource price fitting uses raw net flows and fresh seeds keep routine calendar returns within 10%',()=>{
+test('resource price fitting measures the deliberate military production premium',()=>{
  const samples=collectWorkSamples(VALIDATION_SEEDS.slice(0,8),['fair','cultivate','recruit']),ranked=scanValues(samples);
  assert.equal(ranked.length,17738);
- for(const row of summarizeWork(samples,ECONOMY_RULES.value))assert.ok(row.coreSpread<.1);
- for(const row of impliedValues(samples)){assert.ok(Math.abs(row.grain-ECONOMY_RULES.value.grain)<.01);assert.ok(Math.abs(row.manpower-ECONOMY_RULES.value.manpower)<.02);}
+ for(const row of summarizeWork(samples,ECONOMY_RULES.value)){const value=key=>row.commands.find(c=>c.key===key).perCalendarDay;assert.ok(Math.abs(value('fair')/value('cultivate')-1)<.1);assert.ok(value('recruit')>value('fair'));}
+ for(const row of impliedValues(samples)){assert.ok(Math.abs(row.grain-ECONOMY_RULES.value.grain)<.01);assert.ok(row.manpower<ECONOMY_RULES.value.manpower);}
  assert.ok(summarizeWork(samples,{gold:1,grain:.25,manpower:.8}).some(r=>r.coreSpread>.15));
 });
 test('short medical work has an early result, but no second ordinary action before the next turn',()=>{

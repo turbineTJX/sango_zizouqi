@@ -1,3 +1,4 @@
+import {isAITurnStart} from './ai-turn.mjs';
 import {BANDIT_RULES as R} from './data/design/bandits.mjs';
 import {banditCamps,banditCamp,banditRandom,knownBanditCamps} from './bandit-state.mjs';
 import {mapNode} from './map-node-data.mjs';
@@ -59,6 +60,7 @@ export function deliverBanditLoot(s){
 // It proposes the same expedition command used by the player; no gifts or
 // special battle outcome, and never reallocates an existing offensive plan.
 export function planBanditExpedition(s,faction){
+ if(!isAITurnStart(s))return;
  const view=intelligenceWorld(s,faction),known=knownBanditCamps(view,faction).filter(c=>c.clearedDay===null);
  if(!known.length||s.armies.some(a=>a.faction===faction&&a.banditTarget))return null;
  const d=s.campaign.domestic,candidates=[];

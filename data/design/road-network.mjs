@@ -1,6 +1,10 @@
+import {HISTORICAL_ROAD_PLAN} from './historical-road-plan.mjs';
+import {ROAD_CROSSING_DESIGN} from './road-crossings.mjs';
 // 城外横向小路：中心据点、两条相邻官道的另一端。仅连接已存在的陆路。
 // 不跨接关隘、港口或水路；府节点采用逐个校定的区域位置。
 export const ROAD_NETWORK_DESIGN = {
+  crossings: ROAD_CROSSING_DESIGN,
+  historical: HISTORICAL_ROAD_PLAN,
   trailCost: 1.5,
   // 地名沿用当前路网；方位按用户提供古地图与附近城池校定。
   nodeNames: {
@@ -29,28 +33,13 @@ export const ROAD_NETWORK_DESIGN = {
     'atlas-qiao:xuchang':[731.1,433.3],
     'town-29:wan':[675.6,502.6], 'town-20:town-21':[445.4,420.1],
     'town-18:town-20':[491.9,421.5], 'town-23:town-24':[925.2,518.6],
-    'town-24:town-25':[961.3,552.6], 'town-32:town-34':[688.8,748.8],
-    'town-32:town-33':[654.8,687.8], 'town-33:town-35':[601.4,745.3],
-    'town-34:town-35':[615.3,783.4],
+    'town-24:town-25':[961.3,552.6], 'town-32:town-34':[690,722],
+    'town-32:town-33':[654.8,687.8], 'town-33:town-35':[658,735],
+    'town-34:town-35':[678,788],
+    ...HISTORICAL_ROAD_PLAN.prefecturePositions,
   },
-  // 按区域补齐转向通道；每个府至少连接另一府，避免只增加途中停靠。
-  bypasses: [
-    ['town-2', 'town-3', 'town-4'],
-    ['town-4', 'town-5', 'ye'],
-    ['ye', 'town-4', 'town-5'], // 巨鹿—曲梁：邺东侧南北通道
-    ['town-9', 'town-8', 'town-10'], // 剧—萧：黄河南岸通道，不跨接两岸的府
-    ['town-10', 'town-9', 'atlas-pengcheng'], // 萧—夏丘：淮河北岸小沛东侧通道
-    ['town-10', 'town-12', 'chenliu'], // 任城—考城：小沛西侧通道
-    ['town-12', 'chenliu', 'town-10'], // 匡亭—任城：濮阳南侧通道
-    ['xuchang', 'chenliu', 'runan'],
-    ['xuchang', 'atlas-qiao', 'chenliu'],
-    ['xuchang', 'atlas-qiao', 'runan'],
-    ['wan', 'xuchang', 'town-29'],
-    ['town-20', 'town-21', 'town-18'],
-    ['town-24', 'town-23', 'town-25'],
-    ['town-32', 'town-34', 'town-33'],
-    ['town-35', 'town-33', 'town-34'], // 烝阳—泠道：零陵东侧通道
-  ],
+  // 仅保留已核对区域通道的三条横向连接。
+  bypasses: HISTORICAL_ROAD_PLAN.retainedBypasses,
   // The atlas rebuild applies these edits after city additions, so inherited
   // city links cannot silently reopen a mountain pass or river crossing.
   geography: {

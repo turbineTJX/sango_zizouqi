@@ -19,6 +19,7 @@ setDomesticAutoApprove(s,true);beginDomesticTurn(s);setDomesticAutoApprove(s,fal
 validateCampaign(JSON.parse(serializeCampaign(s)));
 const server=spawn(process.execPath,['server.mjs'],{env:{...process.env,PORT:port,SANGO_ART:'off'},stdio:'pipe',windowsHide:true});
 let browser,page;
+async function chooseOfficer(id,checked){const input=page.locator(`[data-personnel-choice="${id}"]`);if(await input.isChecked()!==checked)await input.click();assert.equal(await page.locator(`[data-personnel-choice="${id}"]`).isChecked(),checked);}
 try{
  await new Promise((ok,no)=>{server.stdout.once('data',ok);server.once('error',no);server.once('exit',code=>no(Error('server '+code)));});
  await mkdir(out,{recursive:true});browser=await chromium.launch({channel:process.env.BROWSER_CHANNEL||'msedge',headless:true});
@@ -40,15 +41,15 @@ try{
  const expected=officerRecommendation(s,cityPersonnel(s,c.id).find(o=>o.unit.id===ids[0]).unit,{task:'domestic',city:c.id,direction:'commerce'}).traits;
  for(const trait of expected)assert.equal(await page.locator(`.task-candidate-list th [data-id="${trait.id}"]`).count(),1);
  const columns=await page.locator('.task-candidate-list th [data-kind="trait"]').count();assert.ok(columns>=expected.length);assert.equal(await page.locator('.task-related-traits').count(),0);
- await page.locator(`[data-personnel-choice="${ids[2]}"]`).check();
+ await chooseOfficer(ids[2],true);
  assert.match(await page.locator('.task-personnel-count').innerText(),/3\/3/);assert.doesNotMatch(await page.locator('.task-candidate-list').innerText(),/人数已达上限|请减少人选|含待执行委任/);
  assert.equal(await page.locator('[data-personnel-choice]:enabled:not(:checked)').count(),0);
  await page.screenshot({path:out+'/picker-full-desktop.png'});
  for(const width of [390,320]){await page.setViewportSize({width,height:844});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+2),false);assert.ok(await page.locator('.task-personnel-count').isVisible());}
  await page.screenshot({path:out+'/picker-full-mobile.png'});
- await page.locator(`[data-personnel-choice="${ids[2]}"]`).uncheck();assert.match(await page.locator('.task-personnel-count').innerText(),/2\/3/);assert.ok(await page.locator('[data-personnel-choice]:enabled:not(:checked)').count()>0);
- await page.locator(`[data-personnel-choice="${ids[2]}"]`).check();await page.locator('[data-action="campaign-command-cancel"]').click();await detail().waitFor();assert.deepEqual(await saved(),initial);
- await detail().locator('.empty').click();await page.locator(`[data-personnel-choice="${ids[2]}"]`).check();await page.locator('[data-action="campaign-pick-confirm"]').click();await detail().waitFor();
+ await chooseOfficer(ids[2],false);assert.match(await page.locator('.task-personnel-count').innerText(),/2\/3/);assert.ok(await page.locator('[data-personnel-choice]:enabled:not(:checked)').count()>0);
+ await chooseOfficer(ids[2],true);await page.locator('[data-action="campaign-command-cancel"]').click();await detail().waitFor();assert.deepEqual(await saved(),initial);
+ await detail().locator('.empty').click();await chooseOfficer(ids[2],true);await page.locator('[data-action="campaign-pick-confirm"]').click();await detail().waitFor();
  assert.match(await detail().locator('.task-personnel-count').innerText(),/3\/3/);assert.equal(await detail().locator('.empty').count(),0);
  const full=await saved();await actor().locator('[data-action="domestic-dismiss"]').click();await page.locator('[data-action="campaign-command-return"]').click();await detail().waitFor();assert.deepEqual(await saved(),full);
  await actor().locator('[data-action="domestic-dismiss"]').click();await page.locator('[data-action="campaign-order-choice"][data-choice="now"]').click();await detail().waitFor();
@@ -62,7 +63,8 @@ try{
  city.domestic.techs=['taxation','cultivation','militaryRegistry','efficientConstruction','militarySupply','militaryHouseholds','siegeEngineering','baier','tigerCavalry'];expandDomesticStaffing(city);
  validateCampaign(JSON.parse(serializeCampaign(developed)));
  await importSaveFixture(page,serializeCampaign(developed));await openCity(city.id);
- assert.match(await page.locator('[data-domestic-capacity]').innerText(),/每方向上限 10 人/);assert.equal(await page.locator('.domestic-workbench .domestic-direction .duty-badge').filter({hasText:'0 / 10 人'}).count(),6);
+ assert.equal(await page.locator('[data-domestic-capacity]').count(),0);assert.equal(await page.locator('.domestic-workbench .domestic-direction .duty-badge').filter({hasText:'0 / 10 人'}).count(),6);
+ assert.doesNotMatch(await page.locator('.domestic-workbench').innerText(),/每方向上限|扩容规则|收支预算|人才 · 魅力|农业 · 政治/);
  await page.setViewportSize({width:1440,height:1000});await page.screenshot({path:out+'/expanded-desktop.png'});
  await commerce().locator('[data-action="domestic-direction-open"]').click();await detail().waitFor();assert.equal(await detail().locator('[data-domestic-slot]').count(),10);assert.equal(await detail().locator('.empty').count(),10);
  await page.setViewportSize({width:390,height:844});await page.screenshot({path:out+'/expanded-mobile.png'});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+2),false);

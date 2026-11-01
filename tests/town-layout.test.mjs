@@ -26,13 +26,14 @@ test('compact and interior models keep every facility at the same coordinates an
   assert.ok(interior.includes(`href="${TOWN_TERRAINS[model.layout.region]}"`));assert.ok(!interior.includes('town-frame'));
  }
 });
-test('city footprints leave countryside between atlas neighbors, including Xuchang and Qiao',()=>{
+test('settlement footprints leave countryside between cities, ports, gates and prefectures',()=>{
  const s=newCampaign(1,'guandu-200'),bounds=c=>{
   const k=townLayout(c).mapScale;
   return {left:c.x+TOWN_FRAME.x*k,right:c.x+(TOWN_FRAME.x+TOWN_FRAME.width)*k,top:c.y+TOWN_FRAME.y*k,bottom:c.y+(TOWN_FRAME.y+TOWN_FRAME.height)*k};
  };
- for(let i=0;i<s.cities.length;i++)for(const b of s.cities.slice(i+1)){
-  const a=s.cities[i],x=bounds(a),y=bounds(b);
+ const places=[...s.cities,...s.junctions];
+ for(let i=0;i<places.length;i++)for(const b of places.slice(i+1)){
+  const a=places[i],x=bounds(a),y=bounds(b);
   assert.ok(x.right<y.left||y.right<x.left||x.bottom<y.top||y.bottom<x.top,a.name+' / '+b.name+' overlap');
  }
  const a=bounds(s.cities.find(c=>c.id==='xuchang')),b=bounds(s.cities.find(c=>c.id==='atlas-qiao'));

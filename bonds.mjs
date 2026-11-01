@@ -5,7 +5,7 @@ import {BOND_DESIGNS} from './data/design/bonds.mjs';
 import {BOND_ASSIGNMENTS} from './data/design/bond-assignments.mjs';
 import {troopFamily} from './troop-training.mjs';
 import {TREASURE_RULES} from './data/design/treasures.mjs';
-import {treasureBondBonus,grantTreasureEntries} from './treasure-battle.mjs';
+import {treasureBondBonuses,grantTreasureEntries} from './treasure-battle.mjs';
 import {setStatus} from './tactics.mjs';
 export const bondCaps=u=>BOND_ASSIGNMENTS[u.id]||{bondGuard:1};
 const hash=s=>{let n=2166136261;for(const c of String(s))n=Math.imul(n^c.charCodeAt(0),16777619);return n>>>0;};
@@ -44,7 +44,7 @@ export function sideBondDetails(b,side){
  const sums={},holders={},bonuses={};
  for(const u of b?.sides?.[side]?.units||[])if(bondOnField(u)){
   const levels=bondLevels(u);for(const [id,n] of Object.entries(levels)){sums[id]=(sums[id]||0)+n;holders[id]=(holders[id]||0)+1;}
-  const bonus=treasureBondBonus(u,levels);if(bonus)bonuses[bonus.id]=1;
+  for(const bonus of treasureBondBonuses(u,levels))bonuses[bonus.id]=1;
  }
  return Object.fromEntries(Object.entries(sums).map(([id,n])=>{const extra=bonuses[id]||0,points=n+extra,d=BOND_DESIGNS[id],tier=d.thresholds.filter((threshold,i)=>points>=threshold&&(d.grade==='advanced'||holders[id]>=TREASURE_RULES.minimumHolders[i])).length;return [id,{points,tier,holders:holders[id],treasurePoints:extra}];}));
 }

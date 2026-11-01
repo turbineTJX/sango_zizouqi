@@ -8,8 +8,10 @@ import {PERFORMANCE_BUDGETS} from './performance-budgets.mjs';
 
 const {chromium}=createRequire(import.meta.url)(process.env.PLAYWRIGHT_MODULE||'playwright');
 const baseline=process.argv.includes('--baseline'),out='outputs/map-performance-ui',port='4319';
-const sourceSignature=()=>createHash('sha256').update(['art-strategic-map.mjs','map-camera-preview.mjs','strategic-dom.mjs','city-scene.mjs','town-layout.mjs','town-art.mjs','road-network-view.mjs','national-map-view.mjs','metropolitan-map.mjs','city-scene.css','strategic-workspace.css'].map(path=>readFileSync(path,'utf8')).join('\n')).digest('hex');
+const sourceSignature=()=>createHash('sha256').update(['art-strategic-map.mjs','map-label-layout.mjs','map-overview-art.mjs','map-overview-layout.mjs','map-detail-level.mjs','map-camera-preview.mjs','strategic-dom.mjs','city-scene.mjs','town-layout.mjs','town-art.mjs','road-network-view.mjs','national-map-view.mjs','national-geography.mjs','strategic-relief.mjs','ancient-atlas-terrain.mjs','metropolitan-map.mjs','city-scene.css','strategic-workspace.css'].map(path=>readFileSync(path,'utf8')).join('\n')).digest('hex');
 const signature=sourceSignature();
+const roadSignature=()=>createHash('sha256').update(['road-geometry.mjs','map-landscape.mjs','strategic-movement.mjs','strategic-army-markers.mjs'].map(path=>readFileSync(path,'utf8')).join('\n')).digest('hex');
+const roadSourceSignature=roadSignature();
 mkdirSync(out,{recursive:true});
 const save=serializeCampaign(newCampaign(81,'guandu-200'));
 const server=spawn(process.execPath,['server.mjs'],{env:{...process.env,PORT:port,SANGO_ART:'off'},stdio:'pipe',windowsHide:true});
@@ -37,7 +39,9 @@ try{
   const mutations=[];const observer=new MutationObserver(records=>mutations.push(...records));observer.observe(svg,{attributes:true,subtree:true,childList:true});
   const initialView=view(),start=performance.now();for(let i=0;i<12;i++)wheel(-100);
   const eventMs=performance.now()-start;
-  await frames();
+  // Inspect the scheduled movement frame. A second frame can arrive after
+  // the 180ms idle restoration on a busy host, which is a separate operation.
+  await new Promise(resolve=>requestAnimationFrame(resolve));
   const burstView=view(),burstUpdates=mutations.filter(r=>r.type==='attributes'&&r.target===svg&&r.attributeName==='viewBox').length;
   mutations.length=0;
   const times=[],frameTimes=[];let last=performance.now(),running=true;
@@ -51,10 +55,11 @@ try{
   return {eventMs,burstUpdates,burstView,initialView,eventP95:percentile(times,.95),eventMax:Math.max(...times),frameP95:percentile(frameTimes.filter(t=>t>0),.95),frameMax:Math.max(...frameTimes),sceneCount:svg.querySelectorAll('[data-city-scene]>.city-scene').length,animationCount:svg.querySelectorAll('[data-camera-animation]').length,finalView,nodeCount:svg.querySelectorAll('*').length};
  });
  const metricsAfter=(await cdp.send('Performance.getMetrics')).metrics;
- result.sourceSignature=signature;assert.equal(sourceSignature(),signature,'render sources stayed unchanged during measurement');
+ result.sourceSignature=signature;result.roadSourceSignature=roadSourceSignature;assert.equal(sourceSignature(),signature,'render sources stayed unchanged during measurement');assert.equal(roadSignature(),roadSourceSignature,'road and landscape sources stayed unchanged during measurement');
  result.cpu=Object.fromEntries(metricsAfter.filter(m=>['ScriptDuration','LayoutDuration','RecalcStyleDuration','TaskDuration'].includes(m.name)).map(m=>[m.name,m.value-metricsBefore.find(b=>b.name===m.name).value]));
  assert.equal(await page.evaluate(async ()=>await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2')),saved);
  assert.deepEqual(errors,[]);
+ writeFileSync(`${out}/measurement.json`,JSON.stringify(result,null,2));
  if(!baseline){
   assert.ok(result.frameP95<=PERFORMANCE_BUDGETS.desktop.mapFrameP95Ms,'desktop camera frame budget exceeded: '+result.frameP95);
   assert.ok(Math.abs(result.burstView.height-result.initialView.height*.88**12)<.001,'coalescing retains every wheel zoom step');
@@ -64,8 +69,8 @@ try{
   await page.waitForFunction(()=>[...document.querySelectorAll('.ancient-atlas-terrain>g>image')].every(el=>el.getAttribute('href').startsWith('data:image/svg+xml')));
   result.terrainPixelError=await main.evaluate(async svg=>{
    const {nationalTerrain}=await import('/national-map-view.mjs'),terrain=svg.querySelector('.ancient-atlas-terrain');
-   const opacity=svg.querySelector('.terrain-relief').style.opacity,provinces=svg.querySelector('.atlas-province-labels').style.opacity;
-   const style=`<style>.terrain-relief,.terrain-landscape{opacity:${opacity}!important}.atlas-province-labels{opacity:${provinces}!important}</style>`;
+   const opacity=svg.querySelector('.terrain-relief').style.opacity,landscape=svg.querySelector('.terrain-landscape').style.opacity,provinces=svg.querySelector('.atlas-province-labels').style.opacity;
+   const style=`<style>.terrain-relief{opacity:${opacity}!important}.terrain-landscape{opacity:${landscape}!important}.atlas-province-labels{opacity:${provinces}!important}</style>`;
    const pixels=async markup=>{const img=new Image();img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 1024 1024">'+style+markup+'</svg>');await img.decode();const canvas=document.createElement('canvas');canvas.width=canvas.height=512;const ctx=canvas.getContext('2d');ctx.drawImage(img,0,0);return ctx.getImageData(0,0,512,512).data;};
    const a=await pixels(nationalTerrain('summer')),b=await pixels(new XMLSerializer().serializeToString(terrain));
    return a.reduce((sum,value,i)=>sum+Math.abs(value-b[i]),0)/a.length;

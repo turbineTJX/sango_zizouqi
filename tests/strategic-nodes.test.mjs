@@ -30,7 +30,7 @@ for(const kind of ['port','gate']){
   consolidateCityArmies(s);assert.ok(s.armies.includes(a));assert.deepEqual(n,before);restore(s);
   const html=strategicView(s,{city:n.id,strategyTab:'node',mapPanelOpen:true});
   const panel=html.slice(html.indexOf('<aside class="strategy-panel">'));
-  assert.ok(panel.includes(n.name));assert.match(panel,/驻守军团/);assert.doesNotMatch(panel,/data-action="city-domestic"|data-task="domestic"|预备兵|NaN|undefined/);
+  assert.ok(panel.includes(n.name));assert.match(panel,/<h3>驻军<\/h3>/);assert.doesNotMatch(panel,/data-action="city-domestic"|data-task="domestic"|预备兵|NaN|undefined|野外战场|水陆战场|高地战场|驻守军团|都市圈/);
   assert.match(renderJunctions(s,n.id),new RegExp(`data-junction="${n.id}"`));
   const p=newCommand(s,'march',a.location,{armyId:a.id});p.destination=n.id;
   assert.doesNotMatch(commandMarkup(s,{officerPick:p},'').body,/NaN|undefined/);

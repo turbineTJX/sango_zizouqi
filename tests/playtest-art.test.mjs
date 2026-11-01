@@ -27,7 +27,7 @@ test('exported artwork works in another checkout after the original is removed',
  await serveLocalArt('/local-art/files/'+f.id,res,pack);assert.equal(res.code,200);assert.deepEqual(res.body,f.content);
  assert.equal(pack.sources[f.id].source,'strategy/portraits');
 });
-test('local imports keep priority and the artwork switch disables portable resources',async t=>{
+test('local imports keep priority and server configuration can omit exported resources',async t=>{
  const f=await fixture(t);await exportPlaytestArt(f.author,join(f.checkout,'art/playtest'));
  await mkdir(join(f.checkout,'.local/art'),{recursive:true});
  await writeFile(join(f.checkout,'.local/art/manifest.json'),JSON.stringify({public:{version:1,id:'override'},files:{}}));

@@ -66,7 +66,7 @@ try{
  await page.locator('#battle-board').waitFor();await page.waitForTimeout(400);
  await page.screenshot({path:out+'/formation.png'});
  // Identity flags below the unit must remain clickable outside its hitbox.
- await page.locator('[data-unit="jia"] .unit-map-caption b').click();
+ const portrait=page.locator('[data-unit="jia"] .map-portrait-row'),r=await portrait.boundingBox();await page.mouse.move(r.x+r.width/2,r.y+r.height/2);await portrait.click();
  assert.equal(await page.locator('#inspect-unit').inputValue(),'jia');
  await page.locator('.modal .close-button').click();
  await page.clock.install({time:new Date('2026-10-27T01:00:00Z')});await page.clock.pauseAt(new Date('2026-10-27T01:01:00Z'));await page.locator('[data-action="pause"]').click();

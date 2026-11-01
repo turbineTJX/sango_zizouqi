@@ -1,6 +1,7 @@
+import {BOND_DESIGNS} from './bonds.mjs';
 // One physical instance per world; both modes read this authoritative catalogue.
-export const TREASURE_RULES=Object.freeze({version:2,discoveryChance:.02,eyeChance:.04,captureChance:.05,plunderChance:.10,discoveryInterval:30,bondBonus:1,bondCap:3,totalBondCap:6,minimumHolders:[1,3,6],plunderDamage:.10});
-const bond=(name,bondId)=>({name,kind:'bond',bondId,bonus:1,category:'book',description:'已获得的对应羁绊贡献增加1点，单项最多3点；第二档至少3名、最高档至少6名真实在场持有者。'});
+export const TREASURE_RULES=Object.freeze({version:4,discoveryChance:.02,eyeChance:.04,captureChance:.05,plunderChance:.10,discoveryInterval:30,bondBonus:1,bondCap:3,totalBondCap:6,minimumHolders:[1,3,6],plunderDamage:.10});
+const bond=(name,bondId)=>({name,kind:'bond',bondId,bonus:1,category:'book',description:'已获得的'+BOND_DESIGNS[bondId].name+'羁绊贡献增加1点，单项最多3点、个人合计最多6点；第二档至少3名、最高档至少6名真实在场持有者。'});
 const entry=(name,status,steps,description,category='weapon',budget={})=>({name,kind:'entry',status,steps,category,description:'本队每场首次实际上场时'+description+'；每场一次。',...budget});
 export const TREASURE_DESIGNS=Object.freeze({
  redFirmament:{...bond('赤霄剑','bondPower'),category:'weapon'},
@@ -26,10 +27,56 @@ export const TREASURE_DESIGNS=Object.freeze({
  yellowLightning:entry('爪黄飞电','haste',6,'获得疾行，移动力增加1，持续6回合','horse'),
  medicineBook:entry('青囊书','regrowth',6,'获得休整，每回合救治初始兵力1%、最多100名已有伤兵，6回合累计最多6%且不超过600','medicine',{fraction:.01,cap:100,totalFraction:.06,totalCap:600}),
  mengde:entry('孟德新书','nexus',4,'获得阵枢，谋略威力及军纪提高20%，持续4回合','book'),
- peaceBook:entry('太平要术','resolve',6,'获得坚定，免疫七种控制，持续6回合；不驱散、不获得魔免','book')
+ peaceBook:entry('太平要术','resolve',6,'获得坚定，免疫七种控制，持续6回合；不驱散、不获得魔免','book'),
+ sevenStarBlade:entry('七星宝刀','resolve',6,'获得坚定，免疫七种控制，持续6回合；不驱散已有异常','weapon'),
+ ganjiang:{...bond('干将','bondHaste'),category:'weapon'},
+ moye:{...bond('莫邪','bondMuster'),category:'weapon'},
+ hundredSteel:entry('百辟刀','valor',5,'获得奋战，攻击提高25%，持续5回合','weapon'),
+ wuHook:entry('吴钩','attackHaste',5,'获得速攻，普攻间隔缩短20%，持续5回合','weapon'),
+ ringPommel:entry('环首刀','valor',3,'获得奋战，攻击提高25%，持续3回合','weapon'),
+ serratedBlade:entry('锯齿刀','valor',4,'获得奋战，攻击提高25%，持续4回合','weapon'),
+ twinIronHalberds:{...bond('双铁戟','bondBulwark'),category:'weapon'},
+ ironSerpent:{...bond('铁脊蛇矛','bondAntiHorse'),category:'weapon'},
+ threePointBlade:{...bond('三尖刀','bondSkirmish'),category:'weapon'},
+ phoenixBeak:entry('凤嘴刀','valor',5,'获得奋战，攻击提高25%，持续5回合','weapon'),
+ eyebrowBlade:entry('眉尖刀','attackHaste',4,'获得速攻，普攻间隔缩短20%，持续4回合','weapon'),
+ goldenLance:entry('金马槊','phase',4,'获得穿阵，暂时无视敌方拦截，持续4回合；保留占位、水陆与定身限制','weapon'),
+ liGuangBow:{...bond('李广弓','bondVolley'),category:'weapon'},
+ luBuBow:entry('吕布之弓','longRange',8,'获得远射，远程普攻最大射程增加1，持续8回合；不改变最小射程或战法范围','weapon'),
+ dongHuBow:entry('东胡飞弓','longRange',4,'获得远射，远程普攻最大射程增加1，持续4回合；不改变最小射程或战法范围','weapon'),
+ tanBow:entry('檀弓','longRange',3,'获得远射，远程普攻最大射程增加1，持续3回合；不改变最小射程或战法范围','weapon'),
+ meteorHammer:entry('流星锤','valor',4,'获得奋战，攻击提高25%，持续4回合','weapon'),
+ whiteFeatherFan:entry('白羽扇','nexus',6,'获得阵枢，谋略威力及军纪提高20%，持续6回合','weapon'),
+ whiteDragon:entry('白龙','haste',7,'获得疾行，移动力增加1，持续7回合','horse'),
+ dayuan:entry('大宛马','haste',6,'获得疾行，移动力增加1，持续6回合','horse'),
+ guoxia:entry('果下马','resolve',5,'获得坚定，免疫七种控制，持续5回合；不驱散已有异常','horse'),
+ whiteHorse:entry('白马','haste',4,'获得疾行，移动力增加1，持续4回合','horse'),
+ liangzhou:entry('凉州马','camp',6,'获得营垒，防御提高25%，持续6回合','horse'),
+ fourWheels:entry('四轮车','bulwark',6,'获得坚阵，防御提高30%、军纪提高20%，移动力减半，持续6回合','horse'),
+ wuzi:{...bond('吴子','bondRaid'),category:'book'},
+ simaArt:{...bond('司马法','bondSpread'),category:'book'},
+ sunBin:{...bond('孙膑兵法','bondSwift'),category:'book'},
+ twentyFour:{...bond('兵法二十四篇','bondTigerFormation'),category:'book'},
+ hanFeizi:entry('韩非子','nexus',6,'获得阵枢，谋略威力及军纪提高20%，持续6回合','book'),
+ guanzi:entry('管子','camp',6,'获得营垒，防御提高25%，持续6回合','book'),
+ shangJun:entry('商君书','resolve',6,'获得坚定，免疫七种控制，持续6回合；不驱散已有异常','book'),
+ warStates:entry('战国策','nexus',5,'获得阵枢，谋略威力及军纪提高20%，持续5回合','book'),
+ coldDamage:entry('伤寒杂病论','regrowth',6,'获得休整，每回合救治初始兵力1%、最多100名已有伤兵，6回合累计最多6%且不超过600','medicine',{fraction:.01,cap:100,totalFraction:.06,totalCap:600}),
+ clearPeace:entry('太平清领道','resolve',6,'获得坚定，免疫七种控制，持续6回合；不驱散已有异常','medicine'),
+ dunjia:entry('遁甲天书','phase',4,'获得穿阵，暂时无视敌方拦截，持续4回合；保留占位、水陆与定身限制','book'),
+ westernShuMap:entry('西蜀地形图','phase',3,'获得穿阵，暂时无视敌方拦截，持续3回合；保留占位、水陆与定身限制','book'),
+ southernMap:{...bond('平蛮指掌图','bondDragonFormation'),category:'book'},
+ mirrorArmor:entry('镜铠','shield',8,'获得护盾，额度为初始兵力4%、最多400，持续8回合','armor',{fraction:.04,cap:400}),
+ goldenArmor:entry('黄金铠','camp',8,'获得营垒，防御提高25%，持续8回合','armor'),
+ silverArmor:entry('白银铠','bulwark',6,'获得坚阵，防御提高30%、军纪提高20%，移动力减半，持续6回合','armor'),
+ linkedArmor:entry('连环铠','shield',6,'获得护盾，额度为初始兵力4%、最多400，持续6回合','armor',{fraction:.04,cap:400}),
+ dragonScaleArmor:entry('龙鳞铠','bulwark',8,'获得坚阵，防御提高30%、军纪提高20%，移动力减半，持续8回合','armor'),
+ phoenixRobe:entry('凤凰羽衣','regrowth',6,'获得休整，每回合救治初始兵力1%、最多100名已有伤兵，6回合累计最多6%且不超过600','armor',{fraction:.01,cap:100,totalFraction:.06,totalCap:600}),
+ imperialSeal:entry('玉玺','resolve',8,'获得坚定，免疫七种控制，持续8回合；不驱散已有异常','book'),
+ bronzeBird:entry('铜雀','nexus',6,'获得阵枢，谋略威力及军纪提高20%，持续6回合','book')
 });
 export const TREASURE_IDS=Object.freeze(Object.keys(TREASURE_DESIGNS));
-export const treasureDesign=id=>TREASURE_DESIGNS[id]||null;
+export const treasureDesign=(id,context)=>context?.treasureDesigns?.[id]||TREASURE_DESIGNS[id]||null;
 export const validTreasureId=id=>id===null||id===undefined||Object.hasOwn(TREASURE_DESIGNS,id);
 export const EYE_ACTIONS=Object.freeze(['fair','merchants','build_farm','store','inspect','repair','patrol','build_drill','explore','craftsmen','hire','persuade']);
 export const TREASURE_HIDE_REGIONS=Object.freeze({weapon:['关中','中原'],book:['中原','荆州','江东','巴蜀'],armor:['中原','关中'],horse:['关中','中原','荆州'],medicine:['中原','荆州','江东','巴蜀']});

@@ -13,6 +13,7 @@ self.onmessage=async({data})=>{
    self.postMessage({id,archive});return;
   }
   const start=performance.now();
+  const {activateOfficerLibrary}=await import('./officer-catalog.mjs');activateOfficerLibrary(state.officerLibrary);
   const result=operation==='begin'?engine.beginExecution(state):engine.advanceCampaignDay(state);
   self.postMessage({id,state,result,computeMs:performance.now()-start});
  }catch(error){self.postMessage({id,error:error?.message||String(error)});}

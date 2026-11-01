@@ -53,7 +53,7 @@ export function assessStrategicOpposition(s,{faction,target,approachDays,siegeDa
  const reinforcementPower=rows.reduce((n,r)=>n+r.power,0);
  const contest=Object.entries(contenders).map(([faction,rows])=>({faction,rows,power:rows.reduce((n,r)=>n+r.power,0)})).sort((a,b)=>b.power-a.power||a.faction.localeCompare(b.faction))[0];
  const contestingPower=contest?.power||0,wallPower=local.walls||((reinforcementPower+contestingPower)>0?gateDurability(c).hp/6:0);
- const intel=cityIntelligence(s,target.id,faction),age=intel.day===null?rules.maxStaleMargin:Math.min(rules.maxStaleMargin,Math.max(0,s.campaign.day-intel.day)*rules.staleMarginPerDay);
+ const intel=cityIntelligence(s,target.id,faction),age=intel.day===null?rules.maxStaleMargin:Math.min(rules.maxStaleMargin,Math.max(0,s.campaign.day-intel.day-PLANNING.recovery.freshIntelligenceDays)*rules.staleMarginPerDay);
  const base=local.field+local.emergencyPower+wallPower+reinforcementPower+contestingPower;
  return {...local,walls:wallPower,reinforcementPower,contestingPower,reinforcements:rows,contenders:contest?.rows||[],window,staleMargin:age,total:base*(1+age)};
 }

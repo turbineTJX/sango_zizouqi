@@ -1,0 +1,24 @@
+{
+  "tool": "built-in image_gen",
+  "useCase": "historical-scene",
+  "target": "town.foundations.gate",
+  "prompt": "Use case: historical-scene. Asset type: production transparent foundation sprite for the Sango Han-era strategy game's map. Edit target: reference image 1, the existing gate foundation. Supporting style reference: image 2, the actual game map. Replace the rocky diorama with a coherent, readable Han-era fortified pass architecture that belongs on the map. Keep a wide 3:2 canvas, elevated orthographic isometric view, approximately 35 degrees downward, the same general architectural viewpoint and diffuse upper-left daylight as the map's buildings. Subject: one continuous, low, weathered grey-beige rammed-earth/stone defensive wall across the back-middle of the footprint, one clearly readable central arched gateway and a modest dark grey tiled timber gatehouse above it, two small square end towers and very short retaining wall ends. Gate and wall form one strong, calm silhouette visible when reduced to 24-40 pixels wide. Carefully painted architectural surfaces, restrained warm grey and olive-tan palette, medium broad detail, clear roof eaves and wall planes, quiet soft shading, no sparkling microtexture. The gatehouse must dominate the silhouette, no gigantic palace. Remove ALL surrounding mountains, cliffs, boulders, rock piles, raised earthen plinth, floating island, square ground tile, wide dusty courtyard, roads, flags, tents, carts, people, or extra service buildings. The natural mountain pass and roads already exist in the map and must not be baked into the sprite. Completely transparent outside the actual architecture with real clean alpha; transparent around and beneath wall ends, only a very narrow low-contrast contact shadow at the wall feet. Leave the lower middle and left/right foreground mostly transparent for separately composited real facilities. Fully contain the architecture in frame with modest transparent padding; no cropped wall. This is finished painterly historical strategy-game environment art, not a photograph, not a glossy 3D collectible, not a flat icon, not low-poly geometry. No text, no UI, no border, no watermark. Return only the single finished transparent sprite.",
+  "references": [
+    {
+      "path": "assets/town/han-space-gate.webp",
+      "role": "edit target"
+    },
+    {
+      "path": "outputs/map-landscape-review/after-desktop-region.png",
+      "role": "supporting map style reference"
+    }
+  ],
+  "output": "assets/town/han-space-gate-v2.webp",
+  "transparency": "Generated real alpha preserved in lossless WebP; no retouching or compositing.",
+  "review": "Architecture only; surrounding cliff/rock diorama removed. Wide orthographic view and supply-site foreground retained.",
+  "outputSha256": "24eec2ea8653f22d0961af585954ccd3ffce0090d2b9b06f704594da0d0b18d2",
+  "referenceGateSha256": "22d08837121b272fbb07062e76a57d2d13fb9fae019f4516d818b136a8a23e05",
+  "width": 1536,
+  "height": 1024,
+  "mode": "built-in edit"
+}

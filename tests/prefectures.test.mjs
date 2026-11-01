@@ -25,7 +25,7 @@ const prefectureId='junction:atlas-qiao:xuchang';
 test('cities and named prefecture regions form the same metropolis used by roads and construction',()=>{
  const s=newCampaign(81,'guandu-200'),c=mapNode(s,'xuchang'),n=mapNode(s,prefectureId),before=serializeCampaign(s);
  assert.equal(n.name,'鄢陵');assert.equal(nodeKindName(n),'府');assert.equal(metropolitanCenter(s,n).id,c.id);
- assert.ok(metropolitanMembers(s,c).includes(n));assert.equal(metropolitanMapGroups(s).find(g=>g.center.id===c.id).counts.prefecture,3);
+ assert.ok(metropolitanMembers(s,c).includes(n));assert.equal(metropolitanMapGroups(s).find(g=>g.center.id===c.id).counts.prefecture,metropolitanMembers(s,c).filter(n=>n.kind==='junction'||n.citySize==='small').length);
  const regions=metropolitanRegions(s);assert.equal(regions.length,s.cities.length+s.junctions.filter(n=>n.kind==='junction').length);
  for(const r of regions){assert.ok(r.polygon.length>=3);assert.equal(r.centerId,metropolitanCenter(s,mapNode(s,r.id)).id);assert.ok(r.polygon.every(p=>p.every(x=>Number.isFinite(x)&&x>=-1e-7&&x<=1024+1e-7)));}
  assert.ok(metropolitanBoundary(regions.filter(r=>r.centerId===c.id)).length>0);

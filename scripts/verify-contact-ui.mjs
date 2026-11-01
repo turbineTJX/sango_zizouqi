@@ -50,8 +50,8 @@ try{
  await mobile.setViewportSize({width:844,height:390});await mobile.waitForTimeout(250);
  const stageBox=await mobile.locator('.arena-stage').boundingBox();assert.ok(stageBox.height>=130,'landscape retains map height: '+stageBox.height);
  await mobile.screenshot({path:out+'/mobile-landscape.png'});
- await dense.evaluate(()=>localStorage.setItem('sango-art-mode','builtin'));await dense.reload();await dense.locator('.unit-nameplate').first().waitFor();
- await dense.screenshot({path:out+'/builtin-contact.png'});
+ for(const pattern of ['**/assets/**','**/local-art/**'])await dense.route(pattern,route=>route.fulfill({status:404,body:'Not found'}));await dense.reload();await dense.locator('.unit-nameplate').first().waitFor();
+ await dense.screenshot({path:out+'/missing-art-contact.png'});
  assert.deepEqual(errors,[]);await writeFile(out+'/ui-result.json',JSON.stringify({overlap,mobileTouch:true,deployment:true,errors},null,2));
  console.log('PASS: faction rosters, dense contact, deployment, desktop details, mobile tap/bottom sheet and builtin fallback');
 }finally{await browser?.close();server.kill();}

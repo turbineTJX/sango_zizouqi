@@ -49,7 +49,8 @@ test('turn receipt uses actual capped credits and treasury delta, persists and c
 test('routine persuasion progress and unsuccessful contacts remain recorded without interrupting; real warnings and signed offers still interrupt',()=>{
  for(const phase of ['complete','failure'])assert.equal(importantActivityNode({category:'domestic',phase,key:'hire',result:{actual:12}}),false);
  assert.equal(importantActivityNode({category:'domestic',phase:'complete',key:'hire',result:{actual:12,leveled:true}}),true);
- for(const phase of ['signed','offer-paused','leave-warning'])assert.equal(importantActivityNode({category:'talent',phase,result:{}}),true);
+ for(const phase of ['signed','offer-paused','loyalty-low'])assert.equal(importantActivityNode({category:'talent',phase,result:{}}),true);
+ assert.equal(importantActivityNode({category:'talent',phase:'loyalty-restored',result:{}}),false);
  assert.equal(importantActivityNode({category:'domestic',phase:'failure',key:'build_commerce',result:{}}),true);
 });
 test('daily research completion creates an important technology card and one harvest gain; partial progress stays quiet',()=>{

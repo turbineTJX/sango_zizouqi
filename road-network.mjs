@@ -6,6 +6,8 @@ import {NATIONAL_ROAD_DESIGNS} from './data/design/roads.mjs';
 import {ROAD_DISTANCE_DESIGNS} from './data/design/road-distances.mjs';
 import {factionsHostile} from './diplomacy-relations.mjs';
 import {withRoadMetricQueries,inheritRoadMetricQueries} from './road-metrics.mjs';
+import {splitRoadCrossings} from './road-crossings.mjs';
+import {UNPLACED_ROAD_LINKS} from './data/design/road-link-policy.mjs';
 
 export const edgeKey=(a,b)=>typeof a==='string'&&typeof b==='string'?(a<b?a+':'+b:b+':'+a):[a,b].sort().join(':');
 export const roadSegment=(s,a,b)=>s.roadSegments?.[edgeKey(a,b)];
@@ -60,7 +62,7 @@ export const junctionBlocked=(s,id,faction)=>isJunction(s,id)&&s.armies.some(a=>
 
 // Nodes have no independent economy; metropolitan construction is saved by cities.
 // The neutral label is solely for shared map labels; they never enter cities[].
-export function buildRoadNetwork(cities,cityRoads,{requireLengths=true}={}){
+export function buildRoadNetwork(cities,cityRoads,{requireLengths=true,includeCrossings=true}={}){
   const roads=structuredClone(cityRoads),junctions=[],roadSegments={};
   const byId=id=>cities.find(c=>c.id===id),created=new Map();
   const junction=(a,b)=>{
@@ -85,6 +87,18 @@ export function buildRoadNetwork(cities,cityRoads,{requireLengths=true}={}){
     const key=edgeKey(a,b),distance=ROAD_DISTANCE_DESIGNS[key];
     if(!Number.isFinite(distance)||distance<=0){if(requireLengths)throw new Error(`道路缺少行程长度：${key}`);continue;}
     roadSegments[key]={...roadSegments[key],distance,...(DESIGN.geography.terrain[key]?{terrain:DESIGN.geography.terrain[key]}:{})};
+  }
+  if(includeCrossings){
+    splitRoadCrossings(roads,junctions,roadSegments,cities);
+    const restored=new Set(DESIGN.historical.restore.map(e=>edgeKey(...e)));
+    const closed=new Set([...UNPLACED_ROAD_LINKS,...DESIGN.historical.remove].map(e=>edgeKey(...e)).filter(key=>!restored.has(key)));
+    roads.splice(0,roads.length,...roads.filter(e=>!closed.has(edgeKey(...e))));
+    for(const key of closed)delete roadSegments[key];
+    for(const link of DESIGN.historical.reconnect){
+      const key=edgeKey(link.from,link.to);
+      if(!roads.some(e=>edgeKey(...e)===key))roads.push([link.from,link.to]);
+      roadSegments[key]={distance:link.distance,terrain:link.terrain};
+    }
   }
   return {roads,junctions,roadSegments};
 }

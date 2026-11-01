@@ -1,3 +1,4 @@
+import {runCampaignDay} from './time-control-ui-helpers.mjs';
 // Measure real UI handlers in an isolated browser profile. Timing wrappers are
 // served through test routes; production modules and user saves are not edited.
 import {spawn} from 'node:child_process';
@@ -121,7 +122,7 @@ try{
   await map.page.locator('.turn-seal').click();await map.page.waitForFunction(()=>!__uiAudit.snapshot().computing,{},{timeout:180000});
  });
  await close();if(!(await map.page.evaluate(()=>__uiAudit.snapshot().paused)))await map.page.locator('.turn-seal').click();
- await measure(map,'day-and-commit',async()=>{await map.page.locator('.turn-day').click();await map.page.waitForFunction(()=>!__uiAudit.snapshot().computing,{},{timeout:180000});});
+ await measure(map,'play-to-day-commit',async()=>{await runCampaignDay(map.page);await map.page.waitForFunction(()=>!__uiAudit.snapshot().computing,{},{timeout:180000});});
  await close();
  const naturalPath=process.argv.find(a=>a.startsWith('--save='))?.slice(7)||'.local/save-storage-verification-1793076105410/campaign.json';
  try{

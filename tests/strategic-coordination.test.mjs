@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {planningFront} from './helpers/strategic-planning.mjs';
 import {makeOfficer} from '../engine.mjs';
-import {offensiveFacts,evaluateOffensive,planStrategicAI,validateStrategicAI,strategicColumnTravelDays,strategicTravelDays} from '../strategic-ai.mjs';
+import {offensiveFacts,evaluateOffensive,planStrategicAI,validateStrategicAI,strategicDepartureError,strategicColumnTravelDays,strategicTravelDays} from '../strategic-ai.mjs';
 import {serializeCampaign,launchExpedition,beginExecution,advanceCampaignDay} from '../strategic-campaign.mjs';
 import {requestFactionOrder} from '../strategic-orders.mjs';
 import {assignDomestic,beginDomesticTurn,assignmentFor} from '../domestic.mjs';
@@ -10,6 +10,7 @@ import {forecastRouteSupply,forecastCoordinatedSupply,withRouteSupplyQueries} fr
 import {cityForce} from '../city-units.mjs';
 import {initializeVision,updateVision} from '../strategic-vision.mjs';
 import {advancePersonnel} from '../personnel-movement.mjs';
+import {gateDurability} from '../building-durability.mjs';
 
 function waitingFront(){
  const f=planningFront(),{s,home,rear}=f;home.grain=2500;rear.grain=20000;
@@ -19,7 +20,7 @@ function waitingFront(){
  planStrategicAI(s);const p=s.campaign.ai.plans.find(p=>p.faction==='yuan');assert.ok(p);assert.equal(p.phase,'prepare');
  return {...f,p,courier};
 }
-const next=s=>{s.campaign.day++;s.turn=Math.floor((s.campaign.day-1)/10)+1;planStrategicAI(s);};
+const next=s=>{s.campaign.day=(Math.floor((s.campaign.day-1)/10)+1)*10+1;s.turn=Math.floor((s.campaign.day-1)/10)+1;s.campaign.phase='planning';updateVision(s);planStrategicAI(s);};
 
 test('central assembly budgets replenishment at its real return depot before reserving distant troops',()=>{
  const {s,home,rear,target}=planningFront();rear.units=home.units.splice(3,2);rear.units.forEach(u=>u.homeCity=rear.id);rear.gold=500000;rear.manpower=500000;
@@ -74,19 +75,21 @@ test('coordinated mixed land and water timing matches real ship speeds and daily
 test('a recoverable staffing gap retains its original objective and resumes only after real replacement and delivery',()=>{
  const {s,home,p,courier}=waitingFront(),ids=[...p.officerIds];
  assert.equal(assignDomestic(s,home.id,'agriculture',ids[0],{scheduled:true,faction:'yuan'}),null);next(s);
- assert.equal(p.phase,'prepare');assert.match(p.reason,/农业负责人/);assert.ok(p.repairUntil>s.campaign.day);assert.deepEqual(p.officerIds,ids);
- const backup=home.units.find(u=>!ids.includes(u.id));assert.ok(backup);assert.equal(assignDomestic(s,home.id,'agriculture',backup.id,{scheduled:true,faction:'yuan'}),null);
+ assert.equal(p.phase,'prepare');assert.match(p.reason,/农业负责人/);assert.ok(p.repairSince>=p.createdDay&&p.repairSince<=s.campaign.day);assert.deepEqual(p.officerIds,ids);
+ let backup=home.units.find(u=>!ids.includes(u.id));
+ if(!backup){backup={...makeOfficer('person-637',3000,0,3),homeCity:home.id};s.campaign.domestic.people=s.campaign.domestic.people.filter(o=>o.id!==backup.id);home.units.push(backup);}
+ assert.equal(assignDomestic(s,home.id,'agriculture',backup.id,{scheduled:true,faction:'yuan'}),null);
  const moving=s.campaign.idle.find(o=>o.unit.id===courier.id);for(let i=0;i<10&&moving.destination;i++)advancePersonnel(s,moving);
- next(s);assert.equal(p.phase,'attack',p.reason);assert.equal(p.repairUntil,null);assert.deepEqual(p.officerIds,ids);validateStrategicAI(s);
+ next(s);assert.equal(p.phase,'attack',p.reason);assert.equal(p.repairSince,null);assert.deepEqual(p.officerIds,ids);validateStrategicAI(s);
 });
 
-test('a persistent preparation gap expires without extending the original deadline or creating troops',()=>{
+test('preparation reevaluates actual staffing and funding after its estimate without a timeout',()=>{
  const {s,home,p}=waitingFront(),deadline=p.deadline,ids=[...p.officerIds];
- assert.equal(assignDomestic(s,home.id,'agriculture',ids[0],{scheduled:true,faction:'yuan'}),null);next(s);const until=p.repairUntil;
- assert.ok(until!==null&&until<=deadline&&until<=s.campaign.day+20);const saved=serializeCampaign(s),resumed=JSON.parse(saved);
- s.campaign.day=until;resumed.campaign.day=until;s.turn=resumed.turn=Math.floor((until-1)/10)+1;
- for(const world of [s,resumed])planStrategicAI(world);
- assert.equal(p.phase,'cancelled');assert.equal(p.deadline,deadline);assert.equal(serializeCampaign(resumed),serializeCampaign(s));
+ assert.equal(assignDomestic(s,home.id,'agriculture',ids[0],{scheduled:true,faction:'yuan'}),null);next(s);const since=p.repairSince;
+ assert.ok(since>=p.createdDay&&since<=s.campaign.day);const resumed=JSON.parse(serializeCampaign(s));
+ const day=(Math.floor(deadline/10)+3)*10+1;
+ for(const world of [s,resumed]){world.campaign.day=day;world.turn=Math.floor((day-1)/10)+1;planStrategicAI(world);}
+ assert.notEqual(p.phase,'cancelled');assert.equal(p.repairSince,since);assert.equal(p.deadline,deadline);assert.equal(serializeCampaign(resumed),serializeCampaign(s));
  assert.ok(ids.every(id=>home.units.some(u=>u.id===id)));validateStrategicAI(s);
 });
 
@@ -99,6 +102,7 @@ test('active plan guard repairs can reference a real source depot without borrow
 
 test('a marginal military gap can add real available troops to the same objective only at the next turn review',()=>{
  const {s,home,rear,target,p,courier}=waitingFront(),moving=s.campaign.idle.find(o=>o.unit.id===courier.id),ids=[...p.officerIds],deadline=p.deadline;
+ gateDurability(home).hp=gateDurability(home).maxHp;
  // Controlled repair precondition: these are already present real units in a
  // friendly depot. The AI must move them normally; they are not forecast men.
  rear.units=['person-637','person-626'].map((id,i)=>({...makeOfficer(id,3000,i,3),homeCity:rear.id}));
@@ -109,11 +113,11 @@ test('a marginal military gap can add real available troops to the same objectiv
   if(assessment.reason==='预计攻守优势不足'&&assessment.advantage>=assessment.requiredAdvantage-.2)break;
  }
  assert.equal(assessment.reason,'预计攻守优势不足');assert.ok(assessment.advantage>=assessment.requiredAdvantage-.2);
- next(s);assert.notEqual(p.phase,'cancelled');assert.ok(p.repairUntil!==null);assert.deepEqual(p.officerIds,ids,'daily execution cannot select additional troops');
- const men=()=>s.cities.flatMap(c=>c.units).concat(s.armies.flatMap(a=>a.units)).reduce((n,u)=>n+u.troops+u.wounded,0),before=men();
+ s.campaign.day=2;updateVision(s);planStrategicAI(s);assert.equal(p.phase,'prepare');assert.deepEqual(p.officerIds,ids,'daily execution cannot select additional troops');
+ const men=()=>s.cities.flatMap(c=>c.units).concat(s.armies.flatMap(a=>a.units),s.campaign.idle.map(o=>o.unit)).reduce((n,u)=>n+u.troops+u.wounded,0),before=men();
  s.campaign.day=11;s.turn=2;updateVision(s);planStrategicAI(s);
- assert.equal(p.target,target.id);assert.equal(p.deadline,deadline);assert.ok(p.officerIds.length>ids.length,JSON.stringify({reason:p.reason,phase:p.phase,ids:p.officerIds,repairUntil:p.repairUntil,military:p.military}));
- assert.equal(men(),before);assert.equal(p.phase,'assemble',p.reason);assert.ok(s.armies.some(a=>a.homeCity===rear.id&&a.target===home.id));validateStrategicAI(s);
+ assert.equal(p.target,target.id);assert.equal(p.deadline,deadline);assert.ok(p.officerIds.length>ids.length,JSON.stringify({reason:p.reason,phase:p.phase,ids:p.officerIds,repairSince:p.repairSince,military:p.military}));
+ assert.equal(men(),before);assert.ok(['assemble','attack'].includes(p.phase),p.reason);const added=p.officerIds.filter(id=>!ids.includes(id));assert.ok(added.every(id=>s.armies.some(a=>a.units.some(u=>u.id===id))||s.campaign.domestic.orders.some(q=>q.officerIds.includes(id))));validateStrategicAI(s);
 });
 
 test('an imminent real home threat still cancels a preparing attack instead of waiting for promised guards',()=>{
@@ -135,6 +139,13 @@ test('an unrelated distant city threat does not recall an offensive that cannot 
   travel:{from:target.id,to:rear.id,road:'main',progress:2999.9},supply:9000,supplyCapacity:9000};delete a.cityForce;s.armies.push(a);
  initializeVision(s);next(s);
  assert.equal(p.phase,'attack',p.reason);assert.ok(s.armies.some(a=>a.faction==='yuan'&&a.target===target.id));
- assert.ok(s.campaign.ai.decisions.some(d=>d.target===rear.id&&d.reason.includes('守备仍有缺口')),'the threatened city still receives a real defense assessment');
+ assert.ok(s.campaign.ai.decisions.some(d=>d.target===rear.id&&d.kind==='hold'),'the threatened city still receives a real defense assessment');
  validateStrategicAI(s);
+});
+
+
+test('staffing cannot remove the last real guard by counting committed attackers as future defenders',()=>{
+ const {s,home,rear,p}=waitingFront(),guards=home.units.filter(u=>!p.officerIds.includes(u.id));assert.ok(guards.length);
+ const error=strategicDepartureError(s,{kind:'transfer',faction:'yuan',cityId:home.id,target:rear.id,officerIds:guards.map(u=>u.id),cargo:{gold:0,grain:0,manpower:0}});
+ assert.match(error,/守备/);assert.ok(guards.every(u=>home.units.includes(u)));
 });

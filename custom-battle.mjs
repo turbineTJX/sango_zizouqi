@@ -1,3 +1,4 @@
+import {equippedTreasureIds,validTreasureLoadout,treasureSlot,treasureInSlot,setTreasureEquipment} from './treasure-equipment.mjs';
 import {validTreasureId} from './data/design/treasures.mjs';
 import {validEquipment,emptyEquipment} from './troop-equipment.mjs';
 import {battleDays} from './player-time.mjs';
@@ -52,11 +53,11 @@ export function validateCustomBattle(draft){
    if(u.formation!==undefined&&!['front','middle','back','left','right'].includes(u.formation))throw Error('部队位置无效');
    if(u.retreatAt!==undefined&&!validRetreatAt(u.retreatAt))throw Error('撤离设置无效');
    if(u.first!==undefined&&typeof u.first!=='boolean')throw Error('首发设置无效');
-   if(!validTreasureId(u.treasureId))throw Error('宝物无效');
+   if(!validTreasureLoadout(u))throw Error('宝物无效');
    if(u.equipment!==undefined&&!validEquipment(u.equipment))throw Error('携带装备无效');
   }
   if(main&&entries.every(u=>u.first===false))throw Error('至少需要一支首发部队');
-  return entries.map(({id,type,troops,level,formation,first,retreatAt,equipment,treasureId})=>({id,type,troops,level,...(treasureId?{treasureId}:{}),equipment:structuredClone(equipment||emptyEquipment()),...(retreatAt!==undefined?{retreatAt}:{}),...(formation!==undefined?{formation}:{}),...(first!==undefined?{first}:{})}));
+  return entries.map(({id,type,troops,level,formation,first,retreatAt,equipment,treasureId,treasureIds})=>({id,type,troops,level,treasureIds:[...equippedTreasureIds({treasureId,treasureIds})],equipment:structuredClone(equipment||emptyEquipment()),...(retreatAt!==undefined?{retreatAt}:{}),...(formation!==undefined?{formation}:{}),...(first!==undefined?{first}:{})}));
  }
  function roles(value,units){
   if(value&&Object.keys(value).some(key=>!['leader','advisor'].includes(key)))throw Error('只支持军团长和军师');
@@ -86,7 +87,7 @@ export function validateCustomBattle(draft){
   if(a.tactic!==undefined&&!Object.hasOwn(TACTICS,a.tactic))throw Error('援军策略无效');
   return {side:a.side,...arrival,name:a.name.trim(),team:entries,roles:roles(appointments,entries),...(a.tactic?{tactic:a.tactic}:{})};
  });
- const treasures=customParticipants(result).map(u=>u.treasureId).filter(Boolean);
+ const treasures=customParticipants(result).flatMap(equippedTreasureIds);
  if(new Set(treasures).size!==treasures.length)throw Error('同一宝物不能重复加入双方或援军');
  const ids=customParticipants(result).map(u=>u.id);
  if(new Set(ids).size!==ids.length)throw Error('同一武将不能重复加入军团或双方，请更换重复武将');

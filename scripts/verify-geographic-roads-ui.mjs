@@ -20,7 +20,7 @@ try{
   const ferries=[['atlas-jincheng-port','atlas-jincheng-east-port'],['atlas-huai-port','atlas-huainan-port'],['atlas-jiangzhou-port','atlas-nanjin-port']];
   return {roads:doc.querySelectorAll('[data-road-from]').length,ports:s.junctions.filter(n=>n.kind==='port').length,water:ferries.map(([a,b])=>pair(a,b)?.getAttribute('class')),closed:[['luoyang','xuchang'],['atlas-guangling','atlas-jingkou'],['town-18','town-37']].map(([a,b])=>({drawn:!!pair(a,b),blocked:roadCost(s,a,b)===Infinity})),options:[...document.querySelectorAll('#national-city-search option')].map(e=>e.value)};
  });
- assert.equal(report.roads,249);assert.equal(report.ports,41);assert.ok(report.water.every(x=>x.includes('road-water')));assert.ok(report.closed.every(x=>!x.drawn&&x.blocked));
+ assert.equal(report.roads,223);assert.equal(report.ports,41);assert.ok(report.water.every(x=>x.includes('road-water')));assert.ok(report.closed.every(x=>!x.drawn&&x.blocked));assert.ok(!report.options.some(id=>id.startsWith('junction:crossing-')));
  for(const id of ['atlas-jincheng-port','atlas-jincheng-east-port','atlas-huai-port','atlas-huainan-port','atlas-jiangzhou-port','atlas-nanjin-port'])assert.ok(report.options.includes(id));
  await page.screenshot({path:out+'/national-desktop.png',fullPage:true});
  await page.locator('.map-search summary').click();await page.locator('#national-city-search').selectOption('town-44');await page.screenshot({path:out+'/hulao-desktop.png',fullPage:true});

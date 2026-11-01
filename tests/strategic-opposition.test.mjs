@@ -78,7 +78,7 @@ test('opposition estimates cannot read hidden city resources officers secret ord
  s.campaign.idle.push({faction:'cao',location:target.id,unit:makeOfficer('person-72',0,0,3)});
  s.seed+=777;s.campaign.ai.factions.cao={strategy:{goal:{kind:'capture',targetCity:f.home.id}}};
  assert.deepEqual(offensiveFacts(s,proposal(f)),initial);
- s.campaign.day=11;s.turn=2;const older=offensiveFacts(s,proposal(f));
+ s.campaign.day=41;s.turn=5;const older=offensiveFacts(s,proposal(f));
  assert.ok(older.facts.opposition.staleMargin>initial.facts.opposition.staleMargin);
  assert.ok(older.facts.defense>initial.facts.defense);
 });
@@ -92,10 +92,11 @@ test('militarily inadequate small variants do not prevent assembling an actually
  assert.ok(evidence.emergencyMen>0);assert.ok(evidence.estimatedLosses>0);
 });
 
-test('a launched operation rechecks newly observed timely relief before contact and really returns',()=>{
+test('a launched operation rechecks overwhelming newly observed relief at the next turn and really returns',()=>{
  const f=front(),{s,target}=f;target.units=[];planStrategicAI(s);
  const p=s.campaign.ai.plans.find(p=>p.faction==='yuan');assert.equal(p.phase,'attack');
- relief(f,{troops:6000});s.campaign.day++;s.campaign.ai.lastPlanDay=0;updateVision(s);planStrategicAI(s);
+ const enemy=relief(f,{troops:6000});enemy.units.push(...['cao','dun','chu'].map((id,i)=>({...makeOfficer(id,6000,i+1,3),homeCity:f.rear.id})));
+ s.campaign.day=2;updateVision(s);planStrategicAI(s);assert.equal(p.phase,'attack','new intelligence cannot trigger a mid-turn strategic decision');s.campaign.day=11;s.turn=2;updateVision(s);planStrategicAI(s);
  assert.equal(p.phase,'cancelled');assert.match(p.reason,/增援.*优势不足/);
  const armies=s.armies.filter(a=>a.faction==='yuan');assert.ok(armies.every(a=>a.target===p.staging||!a.route.length));
 });

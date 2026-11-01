@@ -1,3 +1,4 @@
+import {playBattleTicks,resumePlayerTime} from './time-control-ui-helpers.mjs';
 // Run with PLAYWRIGHT_MODULE pointing to an installed Playwright package if needed.
 import {createRequire} from 'node:module';
 import {mkdir,writeFile} from 'node:fs/promises';
@@ -25,24 +26,23 @@ try{
   assert.ok(page.url().endsWith('#historical-battle'));
   assert.equal(await page.locator('#battle-terrain').isDisabled(),true);
   await action('loadout').click();await page.locator('#loadout-unit').waitFor();await action('close').first().click();
-  // Start via the real deployment button, pause, then use the existing debug stepping UI.
+  // Start and pause with the normal playback controls.
   await action('pause').click();await action('pause').click();
   await page.locator('[data-panel="tools"]').click();
-  await page.locator('[data-action="step-scenario"][data-steps="10"]').click();
+  await playBattleTicks(page,'sango-historical-battle-v1');
   const before=JSON.parse((await snapshot())['sango-historical-battle-v1']);
-  assert.equal(before.battle.tick,10);
+  assert.ok(before.battle.tick>=10);
   await page.reload();await page.locator('#battle-board').waitFor();
   assert.match(await action('pause').innerText(),/继续战斗/);
-  assert.equal(JSON.parse((await snapshot())['sango-historical-battle-v1']).battle.tick,10);
+  assert.equal(JSON.parse((await snapshot())['sango-historical-battle-v1']).battle.tick,before.battle.tick);
   await action('lobby').first().click();await page.locator('.lobby-resume').waitFor();
   await page.keyboard.press('Space');await page.keyboard.press('Escape');
   assert.equal(await page.locator('#battle-board').count(),0);
   await action('settings').click();await action('close').first().click();
   await action('continue-history').click();await page.locator('#battle-board').waitFor();
   await page.locator('[data-panel="tools"]').click();
-  for(let i=0;i<40&&await page.locator('[data-action="step-scenario"][data-steps="10"]').count();i++){
-    await page.locator('[data-action="step-scenario"][data-steps="10"]').click();
-  }
+  assert.equal(await page.locator('[data-action="step-scenario"]').count(),0);
+  await resumePlayerTime(page);
   await page.locator('.report-table').waitFor();
   assert.ok(!(await page.locator('.modal-body').innerText()).includes('府库 +300'));
   await page.screenshot({path:`${output}/report.png`,fullPage:true});

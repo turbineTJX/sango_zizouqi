@@ -1,6 +1,6 @@
 // Authoritative design data. Runtime imports this table.
 export const MOVEMENT_RULES = {
-  "scouting": {"speed":105,"minimumDays":10,"baseMaximumDays":20,"intellectExtension":40,"randomSpread":20},
+  "scouting": {"speed":105,"minimumDays":30,"baseMaximumDays":50,"intellectExtension":50,"randomSpread":20},
   "vision": {"city":22,"army":20,"armyIntellectPerPoint":0.12,"scout":36,"unknownDefense":6000,"unknownGateHp":15000},
   "distance": {
     "minimum": 30,
@@ -73,6 +73,6 @@ export const MOVEMENT_RULES = {
   },
   "personnel": {
     "light": 70,
-    "transport": 100
+    "transport": {"armySpeedFactor":1.5,"troop":"spear","ship":"ship","leadership":80,"morale":80}
   }
 };

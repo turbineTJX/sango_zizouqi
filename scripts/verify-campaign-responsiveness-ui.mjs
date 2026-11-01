@@ -1,3 +1,4 @@
+import {runCampaignDay} from './time-control-ui-helpers.mjs';
 import assert from 'node:assert/strict';
 import {spawn} from 'node:child_process';
 import {mkdir,writeFile} from 'node:fs/promises';
@@ -13,7 +14,7 @@ try{
  browser=await chromium.launch({channel:'msedge',headless:true});const page=await browser.newPage({viewport:{width:1440,height:1000},serviceWorkers:'block'}),errors=[];
  page.on('pageerror',e=>errors.push(e.message));
  await page.addInitScript(raw=>{localStorage.setItem('sango-sovereign-v2',raw);localStorage.setItem('sango-page-guides-v1',JSON.stringify({version:1,enabled:false,seen:[]}));},raw);
- await page.goto(`http://127.0.0.1:${port}/#strategy`);await page.locator('.national-world').waitFor();
+ await page.goto(`http://127.0.0.1:${port}/#strategy`);await page.locator('.national-world').waitFor();assert.equal(await page.locator('[data-action="campaign-day"],.turn-day').count(),0);
  await page.waitForFunction(()=>document.querySelector('.national-world')?.dataset.cameraPreviewReady==='true');
  const saved=()=>page.evaluate(async()=>await(await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2'));
  const before=await saved();
@@ -37,7 +38,7 @@ try{
  const direct=validateCampaign(JSON.parse(raw));assert.equal(beginExecution(direct),null);
  assert.equal(await saved(),serializeCampaign(direct),'background begin uses the common execution handler');
  await page.evaluate(()=>{globalThis.mapIdentity={svg:document.querySelector('.national-world'),terrain:document.querySelector('.ancient-atlas-terrain'),image:document.querySelector('.ancient-atlas-terrain image')};});
- await page.locator('.turn-day').click();await page.waitForFunction(()=>document.querySelector('.world-turn')?.getAttribute('aria-busy')==='false',{},{timeout:120000});
+ await runCampaignDay(page);await page.waitForFunction(()=>document.querySelector('.world-turn')?.getAttribute('aria-busy')==='false',{},{timeout:120000});
  advanceCampaignDay(direct);assert.equal(await saved(),serializeCampaign(direct),'the completed daily state equals the foreground engine');
  assert.ok(await page.evaluate(()=>mapIdentity.svg===document.querySelector('.national-world')&&mapIdentity.terrain===document.querySelector('.ancient-atlas-terrain')&&mapIdentity.image===document.querySelector('.ancient-atlas-terrain image')),'daily refresh must retain the SVG, terrain and decoded image nodes');
  const patchChecks=await page.evaluate(async()=>{

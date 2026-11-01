@@ -16,7 +16,7 @@ export function creditWorkMerit(s,a,c,project,progress,cooperation=null){
   const o=residentOfficer(s,id);if(!o||o.faction!==c.owner)continue;
   const credit=m.credits[id]??={exact:0,paid:0};credit.exact+=m.budget*delta/m.required*fraction;
   const amount=Math.floor(credit.exact+1e-8)-credit.paid;if(amount<=0)continue;credit.paid+=amount;
-  settleOfficerMerit(s,o.unit,{sourceId:`work-progress:${a.action.id}:${next}`,amount,faction:c.owner,cityId:c.id,category:'domestic',reason:'完成实际工程进度'});
+  settleOfficerMerit(s,o.unit,{sourceId:`work-progress:${a.action.id}:${next}`,amount,faction:c.owner,cityId:c.id,category:'domestic',reason:project===c.domestic.research?'研制技术':'推进工程'});
  }
 }
 export function ordinaryWorkMerit(def,x,{actual,factor,productive,netCost,scale=1}){

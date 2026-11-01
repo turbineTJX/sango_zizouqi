@@ -1,4 +1,5 @@
 import {cityRoads} from './road-network.mjs';
+import {isAITurnStart} from './ai-turn.mjs';
 import {mapNode} from './map-node-data.mjs';
 import {roadCost} from './road-metrics.mjs';
 import {cityIntelligence,cityVisible,directPointVisible,visionEnabled} from './strategic-vision.mjs';
@@ -26,12 +27,14 @@ function priority(s,faction,target,frontier,planned){
  const i=cityIntelligence(s,target,faction);
  if(directPointVisible(s,mapNode(s,target),faction)||i.owner===faction||!factionsHostile(s,faction,i.owner)&&(!planned||diplomaticProtection(s,faction,i.owner)||diplomaticProtection(s,i.owner,faction)))return 0;
  if(!frontier&&!planned)return 0;
+ if(i.data&&!planned)return 0; // Exploration ends once a useful report exists; known borders do not demand permanent staff.
  const age=i.day===null?RULES.unknownPriority:Math.min(RULES.maximumAgePriority,(s.campaign.day-i.day)*RULES.agePriorityPerDay);
  return (planned?RULES.planPriority:RULES.frontierPriority)+age;
 }
 
-// Called daily, using the same current and last observations as the player's map.
+// Choose at the turn boundary from the same lawful observations as the player.
 export function planStrategicScouting(s,faction,{prospectiveTarget=null}={}){
+ if(!isAITurnStart(s))return;
  if(!visionEnabled(s)||!s.campaign.scouting)return;
  const homes=s.cities.filter(c=>c.owner===faction),frontier=new Set(homes.flatMap(c=>adjacent(s,c.id)));
  const planned=new Set(offensivePlans(s).filter(p=>p.faction===faction).map(p=>p.target));
@@ -39,7 +42,8 @@ export function planStrategicScouting(s,faction,{prospectiveTarget=null}={}){
  const goal=s.campaign.ai?.factions[faction]?.strategy?.goal;if(goal?.kind==='capture'&&!['complete','cancelled'].includes(goal.status))planned.add(goal.targetCity);
  const score=id=>priority(s,faction,id,frontier.has(id),planned.has(id));
  for(const t of [...scoutAssignments(s)].filter(t=>t.faction===faction)){
-  if(!score(t.targetCity)||mapNode(s,t.homeCity)?.owner!==faction)recallScout(s,t.officerId,{faction});
+  const target=mapNode(s,t.targetCity),direct=directPointVisible(s,target,faction);
+  if(mapNode(s,t.homeCity)?.owner!==faction||direct||!score(t.targetCity)&&t.phase==='watch')recallScout(s,t.officerId,{faction});
  }
  for(const c of homes){
   const tasks=scoutAssignments(s).filter(t=>t.faction===faction&&t.homeCity===c.id).sort((a,b)=>score(a.targetCity)-score(b.targetCity)||b.id.localeCompare(a.id));
@@ -51,7 +55,6 @@ export function planStrategicScouting(s,faction,{prospectiveTarget=null}={}){
   if(!officer&&!scoutAssignments(s).some(t=>t.faction===faction&&t.homeCity===c.id&&t.phase==='watch'&&t.contacts.some(c=>c.report)))continue;
   for(const target of new Set([...adjacent(s,c.id),...planned])){
    const value=score(target);if(!value||cityVisible(s,target,faction))continue;
-   const report=cityIntelligence(s,target,faction);if(!planned.has(target)&&report.day!==null&&s.campaign.day-report.day<RULES.refreshDays)continue;
    const path=scoutRoute(s,c.id,target);if(!path?.length)continue;
    let from=c.id,distance=0;for(const to of path){distance+=roadCost(s,from,to);from=to;}
    choices.push({c,target,officer,value,distance});
@@ -62,11 +65,11 @@ export function planStrategicScouting(s,faction,{prospectiveTarget=null}={}){
   let tasks=scoutAssignments(s).filter(t=>t.faction===faction);
   if(tasks.some(t=>t.targetCity===x.target))continue;
   if(tasks.length>=RULES.maxAssignments){
-   // Cover unknown and stale borders too, after obtaining useful intelligence.
+   // Reuse completed exploration staff for more valuable objectives.
    const hasOfficer=!!availableScout(s,x.c,faction);
    const replace=tasks.filter(t=>{
     const contact=t.contacts.find(c=>c.id===t.targetCity&&c.kind==='city'&&c.report);
-    return t.phase==='watch'&&contact&&(planned.has(x.target)||s.campaign.day-contact.firstDay>=RULES.minimumObservationDays)&&score(t.targetCity)+RULES.replacementPriorityGap<=x.value&&(hasOfficer||t.homeCity===x.c.id);
+    return t.phase==='watch'&&contact&&(planned.has(x.target)||contact.firstDay!==s.campaign.day)&&score(t.targetCity)+RULES.replacementPriorityGap<=x.value&&(hasOfficer||t.homeCity===x.c.id);
    })
     .sort((a,b)=>score(a.targetCity)-score(b.targetCity)||a.id.localeCompare(b.id))[0];
    if(!replace)continue;
@@ -84,5 +87,5 @@ export function planStrategicScouting(s,faction,{prospectiveTarget=null}={}){
 export function waitingForStrategicScout(s,faction,target){
  if(!visionEnabled(s)||cityVisible(s,target,faction))return false;
  const i=cityIntelligence(s,target,faction);
- return (i.day===null||s.campaign.day-i.day>=RULES.refreshDays)&&scoutAssignments(s).some(t=>t.faction===faction&&t.targetCity===target&&!t.paused);
+ return !i.data&&scoutAssignments(s).some(t=>t.faction===faction&&t.targetCity===target&&!t.paused);
 }

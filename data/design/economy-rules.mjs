@@ -20,12 +20,12 @@ export const ECONOMY_RULES = {
       "perCommerce": 100
     },
     "grain": {
-      "base": 300,
-      "perFarm": 770
+      "base": 500,
+      "perFarm": 1200
     },
     "manpower": {
-      "base": 100,
-      "perBarracks": 294
+      "base": 150,
+      "perBarracks": 450
     },
     "governorPoliticsDivisor": 250
   },
@@ -56,6 +56,8 @@ export const ECONOMY_RULES = {
   },
   "recruitment": {
     "reserveCost": 0,
+    "workAbilityDivisor": 75,
+    "workCapacityMultiplier": 2,
     "reserveTargetBase": 10000,
     "reserveTargetTroopShare": 0.35
   },
@@ -73,6 +75,8 @@ export const ECONOMY_RULES = {
     "recruitReserveDays": 10,
     "economicWorkersPerDirection": 3,
     "cityTroopTarget": 4500,
+    "rearUnitTarget": 1,
+    "rearTroopTarget": 1000,
     "offensive": {
       "maxWoundedShare": 0.2,
       "homeFoodDays": 10,

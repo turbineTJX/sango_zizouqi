@@ -134,7 +134,7 @@ test('defeated leaders are replaced only after actual death or escape settlement
   for(let seed=1;seed<10000;seed++){const roll=fateRoll({...s,seed},key);if(kind==='DEAD'?roll<.02:roll>=.35){s.seed=seed;break;}}
   const leader=b.sides[0].units.find(u=>u.id===old);defeat(leader);advanceCampaignStep(s);assert.equal(a.leader,old);assert.equal(r.settled,false);
   b.sides[1].units.forEach(defeat);advanceCampaignStep(s);assert.equal(r.settled,true);assert.equal(a.leader,null);assert.equal(confirmPostbattleAppointments(s,a.id,recommendArmyAppointments(a)),null);assert.notEqual(a.leader,old);assert.ok(a.units.some(u=>u.id===a.leader&&u.troops>0));
-  assert.ok(s.campaign.personnelEvents.some(e=>e.id===key&&e.type===kind));if(kind==='ESCAPED')assert.ok(a.units.some(u=>u.id===old&&u.troops===0));
+  assert.ok(s.campaign.personnelEvents.some(e=>e.id===key&&e.type===kind));if(kind==='ESCAPED'){assert.ok(!a.units.some(u=>u.id===old));assert.ok(s.campaign.idle.some(o=>o.unit.id===old&&o.returningHome)||s.cities.some(c=>c.units.some(u=>u.id===old)));}
   validateCampaign(JSON.parse(serializeCampaign(s)));
  }
 });
