@@ -1,9 +1,9 @@
 {
-  "date": "2026-10-31",
+  "date": "2026-11-01",
   "workflows": 111,
   "chapters": 14,
-  "screenshots": 198,
-  "referenceHash": "ba8a9af1295e8f39ef75aaa131057f83b334e5db851361b5367461244b1f2c9b",
+  "screenshots": 200,
+  "referenceHash": "9d1c3d718b366aff42d95693e44e682542883614a0c072e01c2d405176df7fe5",
   "items": [
     {
       "id": "action-85",
@@ -19,7 +19,8 @@
       "name": "全 AI 观察",
       "screenshots": [
         "scenarios",
-        "faction"
+        "observer-faction",
+        "observer-map"
       ]
     },
     {

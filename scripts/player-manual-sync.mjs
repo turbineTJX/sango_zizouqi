@@ -132,7 +132,8 @@ export function formatManualStatus(status){
 
 export async function renderManual(state,{check=false}={}){
  const {content,status}=state,{chapters,captures,used,reference,actions}=content;
- const payload={date:'2026-10-31',chapters,captures:Object.fromEntries(used.map(id=>[id,captures[id]])),maintenance:status};
+ const date=reference.match(/^更新日期：(\d{4}-\d{2}-\d{2})/m)?.[1]||'2026-10-31';
+ const payload={date,chapters,captures:Object.fromEntries(used.map(id=>[id,captures[id]])),maintenance:status};
  const template=await readFile(resolve(state.root,'docs/manual/template.html'),'utf8');
  assert.equal(template.split('/*__MANUAL_DATA__*/').length,2,'Expected one manual data placeholder');
  const html=template.replace('/*__MANUAL_DATA__*/',JSON.stringify(payload).replace(/</g,'\\u003c'));

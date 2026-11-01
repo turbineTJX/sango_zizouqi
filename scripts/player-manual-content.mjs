@@ -29,7 +29,7 @@ const mapping=`
 调整侦察路线|scout-route
 查看报告|scout-contacts scout-report
 停止侦察|scout-running
-新增城内部队|troop-list troop-officer troop-officer-landscape troop-edit troop-configured troop-review|城市 → 军事 → 编制 → 新增并选择主将 → 设置兵力和装备 → 确认该队 → 核阅下令
+新增城内部队|troop-list troop-officer troop-officer-landscape troop-edit troop-configured troop-review|城市 → 军事 → 编制 → 新增并选择主将 → 设置兵种、兵力和装备 → 确认该队 → 核阅下令
 调整城内部队|troop-list troop-edit troop-review|编制列表 → 修改目标队 → 调整兵种、兵力、装备 → 确认该队 → 核阅下令|现役表示当前兵力，拟编及预计费用表示本次草稿；返回保留输入，取消不扣费。
 解散城内部队|troop-list troop-disband troop-disband-review|编制列表 → 解散目标队 → 核对待解散与返还兵员 → 下令
 从现有部队出征|expedition-select expedition-roles expedition-route expedition-review expedition-landscape||核对拟携粮、每日耗粮、无补给续航、预计行程和可用守军；守军不含伤兵、预备兵和主将外出留城兵。沿途补给仍依真实粮道和城仓；可解除的旧工作经提示确认后立即中止，外出人员须先返城。
@@ -56,7 +56,7 @@ const mapping=`
 设置外交目标|diplomacy
 设置外交底线|diplomacy-budget
 委任使臣|diplomacy-cities diplomacy-officers diplomacy-appoint|外交 → 负责人 → 对应方向 → 城市表 → 本城武将表 → 委任|表中比较对应能力、任职、事务与特性；有内政冲突时选择立即或完成后执行。
-解除使臣或取消待任|diplomat-assigned|外交 → 负责人或待任列表 → 召回或取消待任
+解除使臣或取消待任|diplomat-assigned|外交 → 展开负责人并召回使臣，或在返城后安排中取消安排
 批准外交方案|diplomacy-proposal diplomacy-terms diplomacy-approved
 交涉或否决方案|diplomacy-proposal
 查看履约|diplomacy-approved diplomacy-terms
@@ -84,14 +84,14 @@ const mapping=`
 暂停与变速|battlefield stratagem-result|点击播放或暂停图标 → 点击速度按钮切换倍速|主动暂停、查看部队详情时所有战场同步暂停；继续后同步推进。确认切换视图并加载完成会自动继续，玩家同时只指挥一场。
 施放全军型军略|stratagem-army stratagem-army-result|军略（暂停） → 查看充能与次数 → 点击可用军略 → 自动继续战斗|成功后短暂标记作用对象。
 施放范围军略|stratagem-list stratagem-area stratagem-landscape stratagem-result|军略（暂停） → 选择可用项 → 点战场落点 → 按需旋转 → 核对目标头像与姓名 → 施放 → 自动继续战斗|取消或 Esc 保持暂停，不消耗充能。
-全军撤退|stratagem-army|军略 → 军令 → 全军撤退|部队沿战场出口撤离，不会立即返城。
+全军撤退|stratagem-army|军略（暂停） → 军令栏的全军撤退|部队沿战场出口撤离，不会立即返城。
 援军抵达军议|reinforcement reinforcement-roles|援军到达并暂停 → 调整本军任命 → 后备顺序和入场位置 → 撤离设置 → 继续作战
 查看或接管其他战线|battle-navigation battle-navigation-confirm battle-navigation-loading|战斗顶部切换视图 → 选其他战场或大地图 → 核对战斗将继续的提示 → 确认切换并继续 → 加载完成自动继续|玩家同时只指挥一场；原场交 AI 继续作战，返回大地图也继续后台战斗。取消保留原场与播放状态；待部署、军议等仍须完成确认，读档不自动开播。
 核阅战果|battle-report standalone-report
 战后补任|postbattle-roles
 开始普通模式|lobby scenarios faction
-全 AI 观察|scenarios faction|首页 → 普通模式 → 全 AI 观察 → 选择剧本和观察势力 → 开始
-开始历史战役|custom custom-review|战役模式 → 选择历史模板 → 核对双方及援军 → 核阅 → 开战
+全 AI 观察|scenarios observer-faction observer-map|首页 → 普通模式 → 选择剧本 → 选择观察势力 → 点击玩家执掌切换为全 AI 观战 → 开始观战|局中使用“切换视角”按钮改变观察势力，军政与战斗由 AI 安排。
+开始历史战役|custom custom-review|战役模式 → 选择历史模板并载入 → 核对双方及援军 → 核阅 → 开战
 编辑自定义战役|custom-editor custom-army custom-reinforcements custom-review|自定义战役 → 选择地图与场景 → 编辑双方军团 → 设置援军 → 核阅开战
 编辑单支战役军团|custom-army custom-select custom-roles custom-army-review|该军编制 → 新增或调整部队 → 选择已编队伍 → 任命军团长、军师 → 核阅确认
 新建或修改地图|map-editor map-preview map-library|地图编辑器 → 选择用途分类 → 新图或载入 → 绘制地形与道路 → 预览 → 保存或用于战役
