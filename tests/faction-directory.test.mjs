@@ -57,9 +57,9 @@ test('every scenario starts resident rulers in the actual governor office withou
 
 
 test('unit directory separates stationed soldiers from an absent commander',()=>{
- const s=newCampaign(203,'guandu-200'),home=s.cities.find(c=>c.id==='town-11'),u=home.units[0];
+ const s=newCampaign(203,'guandu-200'),home=s.cities.find(c=>c.owner==='cao'&&c.units.length),u=home.units[0];
  u.mission={homeCity:home.id,faction:home.owner,targetCity:'town-26',location:'town-26',route:[],progress:0,phase:'work'};
  const before=JSON.stringify(s),row=factionDirectoryRows(s,'unit').find(r=>r.id===u.id);
- assert.equal(row.place,'寿春');assert.match(row.army,/主将外出/);assert.equal(row.troops,u.troops);
+ assert.equal(row.place,home.name);assert.match(row.army,/主将外出/);assert.equal(row.troops,u.troops);
  assert.equal(JSON.stringify(s),before);
 });

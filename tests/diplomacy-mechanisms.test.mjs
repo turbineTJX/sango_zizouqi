@@ -15,6 +15,7 @@ import {diplomacyMarkup} from '../diplomacy-view.mjs';
 import {interruptionMarkup} from '../strategic-order-view.mjs';
 import {equipCityUnit} from '../strategic-campaign.mjs';
 import {canEquip} from '../troop-equipment.mjs';
+import {troopCapacity} from '../troop-capacity.mjs';
 const fresh=()=>{const s=newCampaign(281,'guandu-200');fundCities(s,9000);for(const pair of Object.keys(s.campaign.diplomacy.wars))s.campaign.diplomacy.relations[pair]=90;return s;};
 const leg=(kind,from,to,extra={})=>({kind,from,to,...extra});
 const peaceTerms=duration=>[leg('peace','cao','sunce',{duration}),leg('nonaggression','cao','sunce',{duration}),leg('nonaggression','sunce','cao',{duration})];
@@ -43,8 +44,13 @@ test('a new local domestic appointment replaces a waiting diplomatic appointment
 });
 
 test('expiry of an actual garrison permission sends the same army physically home',()=>{
- const s=fresh(),pair=s.roads.map(([a,b])=>[s.cities.find(c=>c.id===a),s.cities.find(c=>c.id===b)]).find(([a,b])=>a?.owner==='cao'&&a.units.length>1&&b?.owner==='sunce'),[home,foreign]=pair;
- const selected=home.units.filter(u=>!u.mission&&u.troops>0).slice(0,1),travelDays=strategicTravelDays(s,{units:selected,leader:selected[0].id,morale:80,hunger:0},[foreign.id],home.id),permissionDays=travelDays+20;
+ const s=fresh();for(const c of s.cities.filter(c=>c.owner==='cao'&&canEquip(c,'ship')))for(const u of c.units.filter(u=>u.troops>0))assert.equal(equipCityUnit(s,c.id,u.id,{...u.equipment,ship:'ship'}),null);
+ // Border cities need not share a single edge in the junction road graph.
+ const choices=[];for(const home of s.cities.filter(c=>c.owner==='cao'&&c.units.length>1))for(const foreign of s.cities.filter(c=>c.owner==='sunce')){
+  const selected=home.units.filter(u=>!u.mission&&u.troops>0&&u.id!==factionLord(s,'cao')).slice(0,1),path=diplomaticRoute(s,home.id,foreign.id,'cao','sunce','military');if(!selected.length||!path)continue;
+  const travelDays=strategicTravelDays(s,{units:selected,leader:selected[0].id,morale:80,hunger:0},path,home.id);if(Number.isFinite(travelDays))choices.push({home,foreign,selected,travelDays});
+ }
+ choices.sort((a,b)=>a.travelDays-b.travelDays);assert.ok(choices.length);const {home,foreign,selected,travelDays}=choices[0],permissionDays=travelDays+20;
  assert.ok(Number.isFinite(travelDays));
  const {p}=proposeDiplomatic(s,{clauses:[...peaceTerms(permissionDays+travelDays+10),leg('militaryPass','sunce','cao',{duration:permissionDays}),leg('station','sunce','cao',{cityId:foreign.id,duration:permissionDays})]});approveAndSign(s,p);diplomaticDay(s);
  const a=fieldFromCity(s,home.id,{ids:home.units.filter(u=>!u.mission&&u.troops>0).filter(u=>selected.includes(u)).map(u=>u.id)}),ids=a.units.map(u=>u.id);assert.equal(orderCampaignArmy(s,a.id,foreign.id,'auto',{scheduled:true}),null);untilDiplomatic(s,()=>a.location===foreign.id&&!a.travel,travelDays+10);assert.equal(foreign.owner,'sunce');const right=p.clauses.find(c=>c.kind==='station');untilDiplomatic(s,()=>s.campaign.day===right.untilDay+1,permissionDays);diplomaticDay(s);
@@ -90,7 +96,10 @@ test('a loan creates a real future debt, keeps unpaid balance and debits actual 
 
 test('peace stops an actual live battle while preserving casualties and physical retreat',()=>{
  const s=fresh(),{p,o}=proposeDiplomatic(s,{clauses:peaceTerms(30)});untilDiplomatic(s,()=>p.status==='pending');
- const c=s.cities.find(c=>c.id===o.location),ids=c.units.filter(u=>!u.mission&&u.troops>0).slice(0,2).map(u=>u.id),a=fieldFromCity(s,c.id,{ids,target:p.sites.sunce});
+ // The counterparty now approves at the next planning phase. Stage contact
+ // there so this checks ceasefire, not survival throughout a negotiation.
+ untilDiplomatic(s,()=>s.campaign.phase==='planning');
+ const eligible=u=>!u.mission&&u.troops>0&&u.id!==factionLord(s,'cao');const c=s.cities.filter(c=>c.owner==='cao').sort((a,b)=>b.units.filter(eligible).length-a.units.filter(eligible).length)[0],ids=c.units.filter(eligible).slice(0,6).map(u=>u.id),a=fieldFromCity(s,c.id,{ids,target:p.sites.sunce});
  // This fixture checks ceasefire during combat, not the preceding journey.
  // Approach the final road so contact occurs before the signed peace takes effect.
  a.location=a.route.at(-2)||a.location;a.route=[a.route.at(-1)];approachDestination(s,a);assert.equal(approveDiplomaticProposal(s,p.id,p.version),null);
@@ -143,7 +152,7 @@ test('real allied aid keeps its faction and joins the recipient battle on the co
  }
  choices.sort((a,b)=>a.days-b.days);const x=choices[0];assert.ok(x);
  const raidDays=x.enemy.days,permissionDays=Math.min(360,x.days*2+raidDays+80);
- const {p}=proposeDiplomatic(s,{goal:'aid',clauses:[...peaceTerms(permissionDays),leg('militaryPass','cao','sunce',{route:x.path,duration:permissionDays,officerIds:[x.unit.id],troopCap:x.unit.troops}),leg('station','cao','sunce',{cityId:x.target.id,duration:permissionDays,officerIds:[x.unit.id],troopCap:x.unit.troops}),leg('deploy','sunce','cao',{cityId:x.source.id,targetId:x.target.id,enemy:'yuan',officerIds:[x.unit.id],troops:x.unit.troops,days:x.days,route:x.path,task:'defend',deadline:s.campaign.day+x.days+90,duration:Math.min(360,raidDays+60)}),leg('gold','cao','sunce',{amount:1500,milestone:'arrival',aid:true})]});approveAndSign(s,p);const task=p.clauses.find(c=>c.kind==='deploy');untilDiplomatic(s,()=>task.status==='active',x.days+60);const helper=s.armies.find(a=>a.id===task.armyId);assert.equal(helper.faction,'sunce');assert.equal(helper.location,x.target.id);
+ const {p}=proposeDiplomatic(s,{goal:'aid',clauses:[...peaceTerms(permissionDays),leg('militaryPass','cao','sunce',{route:x.path,duration:permissionDays,officerIds:[x.unit.id],troopCap:troopCapacity(x.unit)}),leg('station','cao','sunce',{cityId:x.target.id,duration:permissionDays,officerIds:[x.unit.id],troopCap:troopCapacity(x.unit)}),leg('deploy','sunce','cao',{cityId:x.source.id,targetId:x.target.id,enemy:'yuan',officerIds:[x.unit.id],troops:x.unit.troops,days:x.days,route:x.path,task:'defend',deadline:s.campaign.day+x.days+90,duration:Math.min(360,raidDays+60)}),leg('gold','cao','sunce',{amount:1500,milestone:'arrival',aid:true})]});approveAndSign(s,p);const task=p.clauses.find(c=>c.kind==='deploy');untilDiplomatic(s,()=>task.status==='active',x.days+60);const helper=s.armies.find(a=>a.id===task.armyId);assert.equal(helper.faction,'sunce');assert.equal(helper.location,x.target.id);
 // Relief has completed its actual journey. Stage the hostile column on the final
  // road to test joint battle membership, not conquest of intermediate cities.
  const raid=fieldFromCity(s,x.enemy.c.id,{ids:x.enemy.c.units.filter(u=>!u.mission&&u.troops>0).slice(0,2).map(u=>u.id),target:x.target.id});raid.route=[...x.enemy.path];raid.location=raid.route.at(-2)||raid.location;raid.route=[raid.route.at(-1)];approachDestination(s,raid);untilDiplomatic(s,()=>s.campaign.battles.some(r=>r.armyIds.includes(raid.id)&&r.armyIds.includes(helper.id)),raidDays+30);const battle=s.campaign.battles.find(r=>r.armyIds.includes(raid.id)&&r.armyIds.includes(helper.id));assert.ok(battle.battle.sides[0].units.some(u=>u.armyId===helper.id));assert.equal(battle.armies.find(a=>a.id===helper.id).faction,'sunce');validateCampaign(JSON.parse(serializeCampaign(s)));

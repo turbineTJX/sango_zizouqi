@@ -9,9 +9,11 @@ import {makeOfficer} from '../engine.mjs';
 import {cityForce} from '../city-units.mjs';
 import {forecastRouteSupply,withRouteSupplyQueries} from '../strategic-route-supply.mjs';
 import {intelligenceWorld,updateVision} from '../strategic-vision.mjs';
-import {observeStrategicThreat,strategicPower,planStrategicAI,manageStrategicEconomy,strategicCapabilities} from '../strategic-ai.mjs';
+import {observeStrategicThreat,strategicPower,planStrategicAI,manageStrategicEconomy} from '../strategic-ai.mjs';
 import {diplomaticCandidates,assignDiplomat,prepareDiplomaticProposal,advanceDiplomacy,approveDiplomaticProposal,validateDiplomacy} from '../diplomacy.mjs';
 import {advancePersonnel} from '../personnel-movement.mjs';
+import {gateDurability} from '../building-durability.mjs';
+import {DIPLOMACY_RELATION_ACTIONS} from '../data/design/diplomacy-rules.mjs';
 
 test('returned real soldiers survive reserve production limits and current save continuation',()=>{
  const s=newCampaign(719,'guandu-200','cao',{allAI:true}),c=s.cities.find(c=>c.owner==='cao'&&c.units.length),u=c.units[0];
@@ -57,7 +59,8 @@ test('returned reserve overflow does not block diplomacy without a net incoming 
 });
 
 test('deferred payment funds only its unescrowed balance while reciprocal cargo is still travelling',()=>{
- const {s,home,target}=planningFront();target.grain=1000;s.roadSegments[[home.id,target.id].sort().join(':')].distance=2000;updateVision(s);
+ const {s,home,target}=planningFront();target.grain=1000;s.roadSegments[[home.id,target.id].sort().join(':')].distance=2000;
+ s.campaign.diplomacy.relations['cao:yuan']=Math.max(DIPLOMACY_RELATION_ACTIONS.funding.minimum,DIPLOMACY_RELATION_ACTIONS.buyGrain.minimum);updateVision(s);
  const totalGold=()=>s.cities.reduce((n,c)=>n+c.gold,0)+[...s.campaign.diplomacy.proposals,...s.campaign.diplomacy.contracts].flatMap(p=>p.escrow).filter(e=>e.kind==='gold').reduce((n,e)=>n+e.amount,0);
  const initialGold=totalGold();assert.ok(assignDiplomat(s,'dun','commerce',{faction:'cao',choice:'now'}).applied);
  const a=s.campaign.diplomacy.assignments.find(a=>a.officerId==='dun'),pass=['envoyPass','tradePass'].flatMap(kind=>[{kind,from:'cao',to:'yuan',duration:180},{kind,from:'yuan',to:'cao',duration:180}]);
@@ -111,12 +114,11 @@ test('preparing a capture sends real troop transfers without counting their futu
  assert.equal(o.destination,null);assert.equal(home.units.reduce((n,u)=>n+u.troops,0),before+count);
 });
 
-test('front cities prepare actual siege equipment before an attack plan exists',()=>{
+test('front cities avoid siege equipment when its march cost exceeds the observed gate benefit',()=>{
  const {s,home,target}=planningFront();home.gold=100000;home.domestic.techs.push('siegeEngineering');
- const before=strategicCapabilities(s,cityForce(home)).siege;
+ assert.equal(gateDurability(target).hp,0);
  manageStrategicEconomy(s);
- assert.ok(home.units.some(u=>u.equipment.siege));assert.ok(home.gold<100000);
- assert.ok(strategicCapabilities(s,cityForce(home)).siege>before);assert.equal(s.campaign.ai.plans.length,0);
+ assert.ok(home.units.every(u=>!u.equipment.siege));assert.equal(s.campaign.ai.plans.length,0);
 });
 
 test('candidate ordering measures the whole junction route before truncating targets',()=>{

@@ -1,6 +1,7 @@
 import {buildingSiteName} from './metropolitan-areas.mjs';
 import {TECHS,TECHNOLOGY_BRANCHES,TECHNOLOGY_AFFINITIES,cityTechnologyProfile,technologyAllowed,technologyRequirements,technologyConditionText,knowsTechnology,localTechnologies,cityVisionRadius} from './city-technology.mjs';
 import {researchDailyRate,besieged} from './domestic.mjs';
+import {technologyResearchStaff} from './technology-research-staff.mjs';
 import {TROOP_DESIGNS} from './data/design/troops.mjs';
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const pct=n=>Number(n.toFixed(1));
@@ -9,7 +10,7 @@ export function technologyMarkup(s,c){
  const active=c.domestic.research,assignment=s.campaign.domestic.assignments.find(a=>a.cityId===c.id&&a.action?.targetId===active?.type&&a.direction==='technology'),rate=assignment?researchDailyRate(s,c,assignment):0;
  const halted=active&&(besieged(s,c.id)||assignment?.action.paused),days=active&&rate>0?Math.ceil((100-active.progress)/rate):null;
  const card=id=>{
-  const t=TECHS[id],known=knowsTechnology(c,id),allowed=technologyAllowed(c,id),researching=active?.type===id,reasons=known||researching?[]:technologyRequirements(c,id),state=known?'complete':researching?'researching':!allowed?'foreign':reasons.length?'locked':'ready';
+  const t=TECHS[id],known=knowsTechnology(c,id),allowed=technologyAllowed(c,id),researching=active?.type===id,reasons=known||researching?[]:technologyRequirements(c,id,{researchers:technologyResearchStaff(s,c)}),state=known?'complete':researching?'researching':!allowed?'foreign':reasons.length?'locked':'ready';
   return `<article class="technology-node is-${state}" data-technology="${id}" data-technology-state="${state}"><div class="technology-node-title"><b>${esc(t.name)}</b><span>${known?'已掌握':researching?'研究中':!allowed?'本城无资质':reasons.length?'条件未满足':'可研究'}</span></div>${t.prerequisites.length?`<small class="technology-parent">↳ ${t.prerequisites.map(p=>esc(TECHS[p].name)).join('、')}</small>`:''}<small>${t.cost}金 · 基准${t.days}天</small><details><summary>详情</summary><p>${esc(t.description)}</p><p>${esc(technologyConditionText(id,c))}</p>${reasons.length?`<p class="technology-missing">当前缺少：${esc(reasons.join('、'))}</p>`:''}</details></article>`;
  };
  const local=localTechnologies(c),others=Object.keys(TECHS).filter(id=>!technologyAllowed(c,id));

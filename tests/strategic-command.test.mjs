@@ -124,7 +124,7 @@ test('readiness reports the actual missing role and selection limit without chan
 
 test('transport readiness identifies the missing resource before spending it',()=>{
  const s=newCampaign(203,'guandu-200'),p=newCommand(s,'transfer','luoyang'),c=s.cities.find(c=>c.id===p.city);
- p.selected=['person-195'];p.step='target';p.destination='chenliu';p.cargo.grain=c.grain+7;
+ p.selected=[campaignOfficers(s).find(r=>r.location===c.id&&!r.unit.mission&&!pickerReason(s,r,p)).unit.id];p.step='target';p.destination='chenliu';p.cargo.grain=c.grain+7;
  const before=serializeCampaign(s);assert.equal(commandReadinessError(s,p),'粮还差 7');assert.equal(commandCanAdvance(s,p),false);assert.equal(serializeCampaign(s),before);
  p.cargo.grain=0;assert.equal(commandCanAdvance(s,p),true);
 });

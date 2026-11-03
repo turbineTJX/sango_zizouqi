@@ -4,7 +4,7 @@ export const RULE_SOURCES=Object.freeze({
  'building-effects':['data/design/buildings.mjs','data/design/economy-rules.mjs','strategic-campaign.mjs','building-rules.mjs'],
  'supply-rules':['strategic-campaign.mjs','army-supply.mjs','data/design/economy-rules.mjs','data/design/road-network.mjs','data/design/historical-road-plan.mjs','data/design/road-crossings.mjs','data/design/road-link-policy.mjs','data/design/road-distances.mjs','road-network.mjs','road-crossings.mjs','road-metrics.mjs'],
  'domestic-decision-rules':['data/design/domestic-actions.mjs','domestic.mjs','domestic-staffing.mjs'],
- 'talent-rules':['talent-core.mjs','talent-lifecycle.mjs','city-personnel.mjs','data/design/talent-loyalty.mjs'],
+ 'talent-rules':['talent-core.mjs','talent-lifecycle.mjs','domestic.mjs','data/design/domestic-actions.mjs','city-personnel.mjs','data/design/talent-loyalty.mjs'],
  events:['domestic.mjs','data/design/domestic-incidents.mjs','activity-retention.mjs'],
  'relations-cooperation':['relationships.mjs','domestic-cooperation.mjs'],
  'progression-learning':['data/design/progression.mjs','tactic-learning.mjs','data/design/assignments.mjs'],

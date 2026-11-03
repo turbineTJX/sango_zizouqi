@@ -11,6 +11,7 @@ import {BOND_ASSIGNMENTS} from '../data/design/bond-assignments.mjs';
 import {sideBonds} from '../bonds.mjs';
 import {fieldFromCity,peacefulCities} from './helpers/field-campaign.mjs';
 import {movementPoints} from '../strategic-movement.mjs';
+import {remainingPersonnelDays} from '../personnel-movement.mjs';
 import {setRelationshipType} from '../relationships.mjs';
 const restore=s=>validateCampaign(JSON.parse(serializeCampaign(s)));
 function setup(ids,seed=71){
@@ -58,8 +59,16 @@ test('referral finds a real relationship candidate without recruiting or relocat
 });
 test('continuous convoys reload each batch from real source stock and cannot duplicate troops',()=>{
  const {s,c,units}=setup(['person-195']);units[0].troops=0;const destination=s.cities.find(v=>v.id==='chenliu');destination.granary=5;initializeBuildingDurability(destination);destination.grain=0;
- assert.equal(transferOfficer(s,units[0].id,destination.id,{cargo:{grain:500,manpower:0},cycles:2}),null);let o=s.campaign.idle.find(o=>o.unit.id===units[0].id);assert.equal(o.convoyCycle.remaining,2);const copy=restore(s);days(s,10);days(copy,10);assert.equal(serializeCampaign(s),serializeCampaign(copy));
- o=s.campaign.idle.find(o=>o.unit.id===units[0].id);assert.ok(!o.convoyCycle||o.convoyCycle.remaining<2);assert.equal(s.cities.flatMap(c=>c.units).filter(u=>u.id===units[0].id).length,0);restore(s);
+ const stock=c.grain;assert.equal(transferOfficer(s,units[0].id,destination.id,{cargo:{grain:500,manpower:0},cycles:2}),null);let o=s.campaign.idle.find(o=>o.unit.id===units[0].id);assert.equal(c.grain,stock-500);assert.equal(o.convoyCycle.remaining,2);const copy=restore(s);
+ // Complete the actual outward, return and second outward legs, rather than
+ // assuming the expanded national road network fits inside ten days.
+ for(const expectedLeg of ['return','out',null]){
+  const travel=remainingPersonnelDays(s,o);days(s,travel);days(copy,travel);assert.equal(serializeCampaign(s),serializeCampaign(copy));
+  o=s.campaign.idle.find(o=>o.unit.id===units[0].id);assert.equal(o.convoyCycle?.leg??null,expectedLeg);
+  if(expectedLeg==='out'){assert.equal(o.convoyCycle.remaining,1);assert.equal(o.cargo.grain,500);}
+  assert.equal(s.cities.flatMap(c=>c.units).filter(u=>u.id===units[0].id).length,0);restore(s);
+ }
+ assert.equal(o.location,destination.id);assert.equal(o.destination,null);
 });
 test('healing remainder reaches only real new wounded and never creates soldiers',()=>{
  let verified=false;

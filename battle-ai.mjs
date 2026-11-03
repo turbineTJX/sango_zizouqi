@@ -1,5 +1,5 @@
 import {combatType,combatFamily} from './troop-equipment.mjs';
-import {isAreaStratagem,chooseStratagemPoint} from './stratagem-area.mjs';
+import {isAreaStratagem,chooseStratagemPoint,stratagemNeedsCleanse} from './stratagem-area.mjs';
 import {isTargetable} from './engagement.mjs';
 import {needsRemedy} from './battle-status-rules.mjs';
 import {hasTrait} from './officer-traits.mjs';
@@ -127,7 +127,7 @@ export function planEnemyArmy(b,side=1){
 
 // Fixed trigger order, independent of troop strength, expected benefit or RNG.
 // Each effect has a simple yes/no trigger; same-effect commands retain list order.
-export const COMMAND_TRIGGER_ORDER=Object.freeze(['cleanse','heal','forceReserve','tacticRefresh','invincible','magicImmunity','stun','eightFormation','firestorm','ambush','rapidAdvance','shield','blockade','catastrophe']);
+export const COMMAND_TRIGGER_ORDER=Object.freeze(['cleanse','heal','forceReserve','tacticRefresh','invincible','magicImmunity','moraleFortification','selflessGuard','holdForRelief','focusedPlanning','allOutAttack','opportunisticAssault','stun','eightFormation','firestorm','ambush','rapidAdvance','shield','blockade','catastrophe']);
 export function chooseEnemyCommand(b,available,definitions,side=1){
   const own=b.sides[side],foe=b.sides[1-side],resource=side===0?b:b.enemyCommand;
   const active=s=>s.units.filter(u=>u.status==='active'&&u.hp>0&&!hasStatus(b,u,'stasis'));
@@ -143,6 +143,7 @@ export function chooseEnemyCommand(b,available,definitions,side=1){
     invincible:()=>true,
     stun:()=>enemies.length>0,
     shield:()=>true,
+    allOutAttack:()=>true,holdForRelief:()=>true,focusedPlanning:()=>true,opportunisticAssault:()=>true,moraleFortification:()=>true,selflessGuard:()=>true,
     ambush:()=>allies.some(u=>!hasStatus(b,u,'stealth')),
     eightFormation:()=>enemies.length>0,
     firestorm:()=>enemies.some(u=>!hasStatus(b,u,'burn')),
@@ -150,7 +151,7 @@ export function chooseEnemyCommand(b,available,definitions,side=1){
     magicImmunity:()=>allies.some(u=>!hasStatus(b,u,'magicImmune')),
     blockade:()=>reserve(foe),
     heal:injured,
-    cleanse:()=>true,
+    cleanse:()=>allies.some(u=>stratagemNeedsCleanse(b,u)),
   };
   for(const effect of COMMAND_TRIGGER_ORDER){
     for(const key of available){

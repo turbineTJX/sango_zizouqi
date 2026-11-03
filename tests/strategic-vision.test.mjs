@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {newCampaign,beginExecution,advanceCampaignDay,serializeCampaign,validateCampaign} from './helpers/auto-domestic-campaign.mjs';
+import {newCampaign,beginExecution,advanceCampaignDay,serializeCampaign,validateCampaign,disbandCityUnits} from './helpers/auto-domestic-campaign.mjs';
 import {scoutSelection,scoutingMarkup,scoutingReportMarkup} from '../scouting-view.mjs';
 import {mapTargetCandidates} from '../map-target-picker.mjs';
 import {residentOfficer} from '../city-personnel.mjs';
@@ -159,6 +159,7 @@ test('scouting a port road endpoint clamps floating point progress and retains a
 
 test('a civilian scouting officer has real employment and persists its employment recovery',()=>{
  const s=newCampaign(203,'guandu-200'),home='town-8',id='person-409',o=scoutCandidates(s,home).find(o=>o.unit.id===id);
+ assert.equal(disbandCityUnits(s,home,[id]),null); // This case specifically exercises a civilian after real demobilization.
  assert.equal(o.unit.troops,0);assert.equal(dispatchScout(s,home,id,scoutTargets(s,home)[0].id),null);
  const r=s.campaign.talent.records[id];Object.assign(r,{graceUntilDay:1,idleDays:180,idleTurns:18,workedDays:0});s.campaign.domestic.loyalty[id]=80;
  const resumed=validateCampaign(JSON.parse(serializeCampaign(s)));

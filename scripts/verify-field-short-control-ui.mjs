@@ -1,0 +1,68 @@
+import assert from 'node:assert/strict';
+import {spawn} from 'node:child_process';
+import {mkdir,readFile,writeFile} from 'node:fs/promises';
+import {resolve} from 'node:path';
+import {chromium} from 'playwright';
+import {OFFICER_CATALOG} from '../officer-catalog.mjs';
+import {validateSave} from '../engine.mjs';
+
+const args=Object.fromEntries(process.argv.slice(2).map(s=>s.replace(/^--/,'').split('=')));
+assert.ok(args.save,'Provide the unmodified playtest starting save with --save=...');
+const file=resolve(args.save),sample=validateSave(JSON.parse(await readFile(file,'utf8')));
+assert.equal(sample.battle.deploymentLocked,false);
+const out=resolve(args.out||'.local/field-short-control-ui'),port=String(args.port||4396);
+await mkdir(out,{recursive:true});
+const server=spawn(process.execPath,['server.mjs'],{env:{...process.env,PORT:port},stdio:'pipe',windowsHide:true});
+let browser,page;
+const errors=[];
+try{
+ await new Promise((ok,no)=>{server.stdout.once('data',ok);server.once('error',no);server.once('exit',c=>no(Error('server '+c)));});
+ browser=await chromium.launch({channel:'msedge',headless:true});
+ page=await browser.newPage({viewport:{width:1440,height:1000},serviceWorkers:'block'});
+ page.setDefaultTimeout(12000);page.on('pageerror',e=>errors.push(e.message));
+ await page.addInitScript(()=>localStorage.setItem('sango-page-guides-v1',JSON.stringify({version:1,enabled:false,seen:[]})));
+ await page.goto('http://127.0.0.1:'+port);
+ await page.locator('[data-action="settings"]').first().click();
+ await page.locator('#import-file').setInputFiles(file);
+ await page.locator('#battle-board').waitFor();
+ if(await page.locator('[data-action="close"]').filter({visible:true}).count())await page.locator('[data-action="close"]').filter({visible:true}).last().click();
+ const read=()=>page.evaluate(async()=>JSON.parse(await(await import('/save-storage.mjs')).readSavedGame('sango-historical-battle-v1')));
+ const waitForTick=async tick=>{const end=Date.now()+60000;while(Date.now()<end){if((await read()).battle.tick>=tick)return;await new Promise(ok=>setTimeout(ok,150));}assert.fail('Automatic battle did not reach tick '+tick);};
+ assert.deepEqual((await read()).battle,sample.battle,'Import must preserve the original battle');
+ await page.getByRole('button',{name:/^军议$/}).click();
+ await page.locator('.battle-council').waitFor();
+ await page.screenshot({path:out+'/council-desktop.png',fullPage:true});
+ await page.setViewportSize({width:844,height:390});
+ assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));
+ await page.screenshot({path:out+'/council-mobile.png',fullPage:true});
+ await page.setViewportSize({width:1440,height:1000});
+ const id=name=>OFFICER_CATALOG.find(o=>o.name===name).id;
+ // Inspect the actual carried tactic, using the same unit details as a player.
+ await page.locator('[data-unit="'+id('法正')+'"]').first().click();
+ await page.locator('#inspect-unit').waitFor();
+ const stun=page.locator('[data-action="tactic-detail"][data-skill="ward"]').filter({visible:true}).first();
+ assert.match(await stun.innerText(),/眩晕/);await stun.click();
+ assert.match(await page.locator('#overlay-root').innerText(),/眩晕/);
+ assert.match(await page.locator('#overlay-root').innerText(),/2\s*格/);
+ await page.screenshot({path:out+'/stun-detail.png',fullPage:true});
+ await page.locator('[data-action="close"]').filter({visible:true}).last().click();
+ if(await page.locator('[data-action="close"]').filter({visible:true}).count())await page.locator('[data-action="close"]').filter({visible:true}).last().click();
+ await page.locator('[data-unit="'+id('关羽')+'"]').first().click();
+ await page.locator('[data-action="tactic-detail"][data-skill="unique-person-99"]').filter({visible:true}).first().click();
+ assert.match(await page.locator('#overlay-root').innerText(),/眩晕/);
+ await page.screenshot({path:out+'/guan-detail.png',fullPage:true});
+ await page.locator('[data-action="close"]').filter({visible:true}).last().click();
+ if(await page.locator('[data-action="close"]').filter({visible:true}).count())await page.locator('[data-action="close"]').filter({visible:true}).last().click();
+ await page.locator('[data-action="pause"]').filter({visible:true}).first().click();
+ await waitForTick(12);
+ await page.locator('[data-action="pause"]').filter({visible:true}).first().click();
+ await waitForTick(12);
+ const progressed=await read();assert.equal(progressed.battle.deploymentLocked,true);assert.ok(progressed.battle.tick>=12,JSON.stringify({tick:progressed.battle.tick}));
+ await page.screenshot({path:out+'/battle-desktop.png',fullPage:true});
+ await page.reload();await page.locator('#battle-board').waitFor();
+ assert.deepEqual((await read()).battle,progressed.battle,'Reload must continue the same paused battle');
+ assert.deepEqual(errors,[]);
+ await writeFile(out+'/result.json',JSON.stringify({passed:true,save:file,rulesVersion:sample.rulesVersion,tick:progressed.battle.tick,errors,checks:['real file import','council desktop/mobile','ordinary stun detail','Guan setup detail','normal automatic combat','reload persistence']},null,2));
+ console.log('PASS playable save import, council, tactic details, automatic battle and reload.');
+}catch(error){if(page&&!page.isClosed())await page.screenshot({path:out+'/failure.png',fullPage:true});throw error;}
+finally{await browser?.close();server.kill();}

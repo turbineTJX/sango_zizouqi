@@ -496,4 +496,4 @@ body:has(.strategy-map-first){overflow:hidden}
 }
 
 /* Route picking must not open a scout dossier over the destination city. */
-.map-command-screen :is([data-command-scout],[data-command-army],[data-command-transport],[data-command-battle]),.map-command-screen :is([data-command-scout],[data-command-army],[data-command-transport],[data-command-battle]) *{pointer-events:none!important}
+.map-command-screen :is([data-command-scout],[data-command-army],[data-command-transport],[data-command-battle],[data-command-bandit]),.map-command-screen :is([data-command-scout],[data-command-army],[data-command-transport],[data-command-battle],[data-command-bandit]) *{pointer-events:none!important}

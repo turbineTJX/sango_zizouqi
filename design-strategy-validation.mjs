@@ -129,7 +129,7 @@ export function validateStrategyDesigns(t){
    const row=offensive.styles[name];if(fields(row,['minimumValue','economicWeight','militaryWeight','ratio','reserve','patience'],path+'.styles.'+name)){check(num(row.minimumValue),path+'.styles.'+name+'.minimumValue','须为非负数');for(const key of ['economicWeight','militaryWeight'])check(num(row[key],.1,3),path+'.styles.'+name+'.'+key,'倾向权重须为0.1至3');check(num(row.ratio,1,3)&&num(row.reserve,0,1)&&Number.isSafeInteger(row.patience)&&row.patience>0,path+'.styles.'+name,'优势、守备或计划期限无效');}
   }
  }
- const modes={build:'progress',research:'quantity',cash:'quantity',grain:'quantity',effect:'quantity',discount:'quantity',recruit:'quantity',heal:'quantity',repair:'quantity',prepare:'quantity',trade:'chance',rescue:'chance',explore:'chance',hire:'chance',persuade:'chance',reassure:'chance'};
+ const modes={build:'progress',research:'quantity',cash:'quantity',grain:'quantity',effect:'quantity',discount:'quantity',recruit:'quantity',heal:'quantity',repair:'quantity',prepare:'quantity',trade:'chance',rescue:'chance',explore:'chance',hire:'chance',persuade:'chance',disaffect:'chance',reassure:'chance'};
  for(const id of Object.keys(t.directions))check(['leadership','force','intellect','politics','charm'].includes(t.directionStats?.[id]),'directionStats.'+id,'方向须指定唯一主属性');
  check(new Set(Object.values(t.directionStats||{})).size===5,'directionStats','六方向须覆盖五种属性');
  const buildingIds=['commerce','farm','granary','workshop','barracks','clinic','drill','walls','hall','arrowTower','musicStage','aidCamp'];

@@ -33,7 +33,7 @@ export function mapObjectMenu(s,menu){
  if(!army)return cityCommandMenu(s,object,menu);
  const own=(army?object.faction:object.owner)===playerFaction(s),enabled=own&&isPlanning(s)&&(!army||!armyBattle(s,object.id));
  const action=(key,label,extra='',disabled=false)=>`<button data-action="${key}" ${extra} ${disabled?'disabled':''}>${label}</button>`;
- const commands=own?action('campaign-order','调动',`data-army="${esc(object.id)}"`,!enabled)+(marchModes(object).length>1?action('march-mode-open','行军方式',`data-army="${esc(object.id)}"`,!enabled):'')+mapObjectActions(s,menu.kind,object.id):'';
+ const commands=own?action('campaign-order-hold','驻守',`data-army="${esc(object.id)}"`,!enabled)+action('campaign-order','变更目的地',`data-army="${esc(object.id)}"`,!enabled)+(marchModes(object).length>1?action('march-mode-open','行军方式',`data-army="${esc(object.id)}"`,!enabled):'')+mapObjectActions(s,menu.kind,object.id):'';
  const location=object.travel?`${mapNode(s,object.travel.from)?.name||''} → ${mapNode(s,object.travel.to)?.name||''}`:mapNode(s,object.location)?.name||'';
  const counts=armyInfoCounts(s,object),supply=armySupplyInfo(s,object);
  const body=`<p class="map-object-meta">${esc(FACTIONS[object.faction]?.name)} · ${esc(location)}</p>${stats([['现役兵',fmt(counts.soldiers)],['伤兵',fmt(counts.wounded)],['部队数',`${counts.unitCount} 队`],['士气',`${fmt(object.morale||0)} / 100`],['每日耗粮',fmt(dailyConsumption(s,object))],['携粮',`${fmt(object.supply||0)} / ${fmt(object.supplyCapacity||0)}`]])}${supply?`<p class="map-object-meta" data-army-supply-status>粮道 · ${esc(supply.label)}${object.hunger>0?' · 缺粮':''}</p>`:''}`;

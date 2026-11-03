@@ -95,7 +95,7 @@ test('full Valor rejects low-source harmful effects but preserves all beneficial
 test('full Valor blocks actual hostile tactics and their secondary effects without refunding casts',()=>{
  for(const skill of ['ward','thrust']){
   const x=scene(full,0,'spear'),caster=x.enemies[1];Object.assign(caster,{x:5,y:3,intent:60});primeTactic(caster,skill);
-  stepBattle(x.b);assert.equal(caster.tacticCasts[skill],1);assert.equal(damageTo(x),0);assert.equal(hasStatus(x.b,x.u,'taunt'),false);
+  stepBattle(x.b);assert.equal(caster.tacticCasts[skill],1);assert.equal(damageTo(x),0);assert.equal(hasStatus(x.b,x.u,'taunt'),false);assert.equal(hasStatus(x.b,x.u,'stun'),false);
  }
  const x=scene(),caster=x.enemies[3];Object.assign(caster,{x:6,y:3,intent:60});primeTactic(caster,'undermine');stepBattle(x.b);
  assert.equal(caster.tacticCasts.undermine,1);assert.equal(x.u.intent,90);assert.equal(hasStatus(x.b,x.u,'weaken'),false);assert.equal(hasStatus(x.b,x.u,'intentSuppression'),false);

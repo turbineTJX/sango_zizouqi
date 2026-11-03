@@ -20,7 +20,7 @@ test('formation can be placed on empty ground, consumes once, and replaces all o
  assert.equal(b.sides[0].fortifyUntil,undefined);assert.deepEqual(b.sides[0].units.map(u=>u.tacticRestored),old.map(u=>u.tacticRestored));
  assert.deepEqual(b.sides[0].units.map(u=>u.skillReady),old.map(u=>u.skillReady));assert.ok(b.sides[0].units.every(u=>!u.statuses.resolve));
  const preview=areaPreview(b,s,{point:{x:0,y:0}});assert.deepEqual(preview.targetIds,[]);assert.doesNotMatch(preview.controls,/data-area-action="confirm" disabled/);
- assert.match(stratagemZonesMarkup(b),/八阵奇门/);
+ assert.match(stratagemZonesMarkup(b),/奇阵困敌/);
  for(let i=0;i<8;i++)stepBattle(b);b.commandProgress=COMMAND_RESOURCE.capacity;
  assert.match(issueCommand(b,key,{x:0,y:0}),/次数|冷却/);assert.equal(b.commandProgress,COMMAND_RESOURCE.capacity);assert.equal(chooseEnemyCommand(b,[key],STRATAGEMS,0),null);
 });

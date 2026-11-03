@@ -50,7 +50,9 @@ test('real sieges build temporary defense from city units and resume determinist
  // Shared movement, economy, recruitment, diplomacy and combat still run.
  const advanceSiege=world=>{world.campaign.ai.lastPlanDay=world.campaign.day;advance(world);};
  assert.equal(launchExpedition(s,order(s,'chenliu','ye')),null);
- approachDestination(s,s.armies.at(-1));
+ // The national route now includes real junctions. This siege mechanism fixture
+ // starts on its final legal road; journey coverage uses the full itinerary.
+ const attacker=s.armies.at(-1);attacker.location=attacker.route.at(-2)||attacker.location;attacker.route=[attacker.route.at(-1)];approachDestination(s,attacker);
  for(let n=0;n<20&&!r;n++){advanceSiege(s);r=activeBattles(s).find(r=>r.armies.some(a=>a.defense));}
  assert.ok(r);const guard=s.armies.find(a=>a.defense&&r.armyIds.includes(a.id));assert.ok(guard);
  assert.ok(town(s,guard.location).units.every(u=>u.mission||u.troops===0),'only absent or zero-strength units remain outside the temporary defense');

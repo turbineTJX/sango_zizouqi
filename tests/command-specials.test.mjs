@@ -40,7 +40,7 @@ test('魔免阻止全部异常与八阵；只让物理普攻伤害通过，到�
  for(const spec of [{skill:true},{intellectual:true},{secondary:true},{skill:true,intellectual:true}])assert.ok(commandBlocksDamage(b,u,spec));
  assert.equal(commandBlocksDamage(b,u,{}),false);
  b.tick=u.statuses.magicImmune.until;assert.equal(commandBlocksDamage(b,u,{skill:true}),false);assert.notEqual(setStatus(b,u,'slow',3),false);assert.ok(hasStatus(b,u,'slow'));
- assert.deepEqual([0,50,100,150,300].map(n=>commandProtectionDuration(n)),[4,6,8,10,12]);
+ assert.deepEqual([0,50,100,150,300].map(n=>commandProtectionDuration(n)),[6,8,10,12,16]);
 });
 test('真实交战中魔免部队仍遭普攻，战法与持续伤害不扣兵，确定性续战一致',()=>{
  let basic=0,blocked=0;

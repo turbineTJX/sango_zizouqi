@@ -8,6 +8,7 @@ import {initializeVision,updateVision,armyVisible} from '../strategic-vision.mjs
 import {fieldFromCity} from './helpers/field-campaign.mjs';
 import {evaluateDiplomaticProposal,diplomaticCandidates,lordCity,assignDiplomat,prepareDiplomaticProposal} from '../diplomacy.mjs';
 import {gateDurability} from '../building-durability.mjs';
+import {DIPLOMACY_RELATION_ACTIONS} from '../data/design/diplomacy-rules.mjs';
 import {makeOfficer} from '../engine.mjs';
 import {strategicCityBudget} from '../strategic-ai.mjs';
 import {advancePersonnel} from '../personnel-movement.mjs';
@@ -154,6 +155,7 @@ test('fresh observations wait for the next turn before cancelling an unsafe exis
 
 test('departure checks use the known foreign offer and defer hidden obligations to the actual meeting',()=>{
  const {s,home,target}=planningFront();assert.ok(assignDiplomat(s,'ju','commerce',{faction:'yuan'}).applied);
+ s.campaign.diplomacy.relations['cao:yuan']=DIPLOMACY_RELATION_ACTIONS.funding.minimum;
  const a=s.campaign.diplomacy.assignments.find(a=>a.officerId==='ju');
  const candidate={goal:'funding',other:'cao',targetCity:target.id,path:[target.id],score:35,reason:'请求接洽',clauses:[{kind:'gold',from:'cao',to:'yuan',amount:500}]};
  target.x=500;updateVision(s);const copy=structuredClone(s);

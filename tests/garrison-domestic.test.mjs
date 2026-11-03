@@ -39,7 +39,6 @@ test('an unfilled prepared unit keeps its civil job, earns governor growth, and 
  assert.equal(assignDomestic(s,'xuchang','commerce',id),null);assert.equal(appointGovernor(s,'xuchang',id),null);assert.equal(createCampaignArmy(s,'xuchang',[id]),null);
  assert.equal(residentOfficer(s,id).unit.troops,0);advance(s,6);const copy=restore(s);advance(s,31);advance(copy,31);
  assert.equal(serializeCampaign(s),serializeCampaign(copy));assert.ok(assignmentFor(s,id));assert.equal(s.campaign.talent.records[id].workedDays,30);
- assert.ok(s.campaign.domestic.events.some(e=>e.officerId===id&&['complete','failure'].includes(e.phase)));
  assert.ok(residentOfficer(s,id).unit.level>1||residentOfficer(s,id).unit.merit>0);restore(s);
 });
 

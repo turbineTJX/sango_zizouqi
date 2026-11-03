@@ -12,6 +12,36 @@ import {activePlans} from '../strategic-intent.mjs';
 
 const battleAt=(s,id)=>s.campaign.battles.some(b=>!b.settled&&b.kind==='siege'&&b.cityId===id);
 const fighting=(s,id)=>s.campaign.battles.some(b=>!b.settled&&b.armyIds.includes(id));
+const SORTIE_RATIO=1.15;
+const guardArmies=(s,q)=>s.armies.filter(a=>a.faction===q.faction&&!a.disbanded&&a.task!=='回城补给'&&a.units.some(u=>u.troops>0&&q.officerIds.includes(u.id))&&(a.target===q.target||!a.travel&&a.location===q.target));
+const guardOrders=(s,q)=>s.campaign.domestic.orders.filter(o=>o.faction===q.faction&&o.kind==='expedition'&&o.target===q.target&&o.officerIds.some(id=>q.officerIds.includes(id)));
+
+function committedGuardPower(s,q){
+ let power=guardArmies(s,q).reduce((n,a)=>n+strategicPower(s,a),0);
+ for(const o of guardOrders(s,q)){
+  const c=s.cities.find(c=>c.id===o.cityId&&c.owner===q.faction),units=c?.units.filter(u=>o.officerIds.includes(u.id));
+  if(units?.length)power+=strategicPower(s,plannedCombatForce(s,c,units));
+ }
+ return power;
+}
+
+// A committed road sortie also protects its actual home city. Retain that
+// visible defense objective even when no convoy uses the road. Commitments
+// alone never create a threat or keep a vanished enemy alive in the plan.
+export function macroDefenseGuardObjectives(s,faction){
+ const objectives=new Map();
+ for(const q of s.campaign.ai.supports.filter(q=>q.faction===faction&&q.kind==='guard')){
+  const armies=guardArmies(s,q),homes=new Set([...armies.map(a=>a.homeCity),...guardOrders(s,q).map(o=>o.cityId)]);
+  for(const home of homes){
+   const c=s.cities.find(c=>c.id===home&&c.owner===faction);if(!c)continue;
+   const threats=macroDefenseThreats(s,c).filter(r=>r.point===q.target);if(!threats.length)continue;
+   const stationed=armies.filter(a=>!a.travel&&a.location===q.target&&!fighting(s,a.id)).reduce((n,a)=>n+strategicPower(s,a),0);
+   const power=Math.max(0,threats.reduce((n,r)=>n+r.power,0)*SORTIE_RATIO-stationed);
+   if(!objectives.has(q.target)||power>objectives.get(q.target).power)objectives.set(q.target,{kind:'guard',target:q.target,battleId:null,power,days:SUPPORT.maxTravelDays,priority:100,reason:'可见敌军仍威胁原城，延续实际道路迎击任务'});
+  }
+ }
+ return [...objectives.values()];
+}
 // Public roads and the visible current leg only. Never inspect a hostile target
 // or its remaining route, and never forecast a battle or a city's fall date.
 export function macroDefenseThreats(s,c,{prospectiveFaction=null}={}){
@@ -80,10 +110,11 @@ export function reviewMacroDefense(s,faction,{availableUnits,commandUnits,cancel
    }
   }
   const point=rows[0].point;
-  if(!battleAt(s,c.id)&&point&&rows.every(r=>r.point===point)&&field>=enemy*1.15){
+  if(!battleAt(s,c.id)&&point&&rows.every(r=>r.point===point)&&field>=enemy*SORTIE_RATIO){
    const units=availableUnits(s,c,{defenseTarget:point}).slice(0,10);
    const mission=s.campaign.ai.supports.find(q=>q.faction===faction&&q.kind==='guard'&&q.target===point);
-   if((mission||s.campaign.ai.supports.filter(q=>q.faction===faction&&q.kind!=='city-relief').length<SUPPORT.maxMissions)&&units.length&&strategicPower(s,plannedCombatForce(s,c,units))>=enemy*1.15&&commandUnits(s,c,units,point,'guard','本旬本城实力足以迎击，出击道路上的可见敌军')){
+   if(mission&&committedGuardPower(s,mission)>=enemy*SORTIE_RATIO)continue;
+   if((mission||s.campaign.ai.supports.filter(q=>q.faction===faction&&q.kind!=='city-relief').length<SUPPORT.maxMissions)&&units.length&&strategicPower(s,plannedCombatForce(s,c,units))>=enemy*SORTIE_RATIO&&commandUnits(s,c,units,point,'guard','本旬本城实力足以迎击，出击道路上的可见敌军')){
     const ids=units.map(u=>u.id),army=s.armies.find(a=>a.faction===faction&&a.units.some(u=>ids.includes(u.id)));if(army)army.task='出击';
     if(mission)mission.officerIds.push(...ids);else s.campaign.ai.supports.push({id:s.campaign.ai.nextSupportId++,faction,kind:'guard',target:point,battleId:null,officerIds:ids,createdDay:s.campaign.day,lastNeededDay:s.campaign.day,deadline:s.campaign.day+SUPPORT.missionDays});
     continue;

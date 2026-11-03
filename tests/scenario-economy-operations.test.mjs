@@ -6,14 +6,14 @@ import {advanceDiplomacy,validateDiplomacy,diplomaticAIPlan,diplomaticOfficerCan
 import {assignDomestic} from '../domestic.mjs';
 import {prepareEnemyDomestic} from '../talent-lifecycle.mjs';
 import {cityPersonnel} from '../city-personnel.mjs';
-import {cityNeedsAgriculture} from '../economy.mjs';
+import {cityNeedsAgriculture,cityRecurringIncome} from '../economy.mjs';
 import {localBuildingLimit} from '../metropolitan-areas.mjs';
 
 test('a small AI roster assigns a farmer before filling optional departments',()=>{
  const s=newCampaign(417,'all-heroes-251'),c=s.cities.find(c=>c.id==='wan'),other=s.cities.find(x=>x.owner==='cao');
  const retained=new Set(['person-61','person-204','person-416']);
  for(const o of s.campaign.idle.filter(o=>o.location===c.id&&!retained.has(o.unit.id))){o.location=other.id;o.faction=other.owner;}
- c.units.forEach(u=>u.troops=4500);c.governor='person-416';
+ c.units.forEach(u=>u.troops=4500);c.governor='person-416';c.farm=0;assert.ok(cityNeedsAgriculture(s,c));
  assert.equal(cityPersonnel(s,c.id).length,3);prepareEnemyDomestic(s);
  assert.ok(s.campaign.domestic.assignments.some(a=>a.cityId===c.id&&a.direction==='agriculture'));
 });
@@ -34,10 +34,11 @@ test('AI diplomacy leaves the last necessary resident farmer at work while expli
  c.governor=null;c.farm=localBuildingLimit(s,c,'farm');assert.ok(!cityNeedsAgriculture(s,c));assert.ok(diplomaticAIPlan(s,'yuan').some(p=>p.officerId===q.officerId));
 });
 test('food staffing forecasts domestic full-capacity replenishment beyond the strategic 4500 target',()=>{
- const s=newCampaign(417,'coalition-190'),c=s.cities.find(c=>c.id==='town-21');c.farm=3;
+ const s=newCampaign(417,'coalition-190'),c=s.cities.find(c=>c.id==='town-21');c.farm=2;
  // Six ordinary 4500-person units fit these fields, but the actual officers'
  // legal full-capacity units do not. Existing money and grain remain plentiful.
- assert.ok(c.grain>10000);assert.ok(cityNeedsAgriculture(s,c));
+ assert.ok(c.grain>10000);assert.ok(cityRecurringIncome(s,c).grain>=6*4500/100*10);assert.ok(cityNeedsAgriculture(s,c));
+ c.farm=3;assert.ok(!cityNeedsAgriculture(s,c),'the current stronger fields can sustain full-capacity replenishment');
 });
 
 function agricultureFixture(){

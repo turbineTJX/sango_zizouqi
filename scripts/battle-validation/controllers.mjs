@@ -2,12 +2,16 @@ import assert from 'node:assert/strict';
 import {registerHooks} from 'node:module';
 import {resolve} from 'node:path';
 import {pathToFileURL} from 'node:url';
+import {realpath} from 'node:fs/promises';
 
 // Laboratory-only controller routing. One engine/data graph is shared by both
 // sides; no source rewriting or separate combat resolver is used.
 export async function installPolicyRouter({baselineRoot,candidateRoot}){
-  const base=pathToFileURL(resolve(baselineRoot)+'/').href;
-  const candidate=pathToFileURL(resolve(candidateRoot)+'/').href;
+  // Node resolves file imports through junctions/symlinks before hooks see
+  // them. Match that same physical root so a linked workspace cannot bypass
+  // side routing or load a candidate's private engine dependency.
+  const base=pathToFileURL(await realpath(resolve(baselineRoot))+'/').href;
+  const candidate=pathToFileURL(await realpath(resolve(candidateRoot))+'/').href;
   const routerURL='sango-battle:controllers';
   const baselinePolicy=base+'battle-ai.mjs?controller=baseline';
   const candidatePolicy=candidate+'battle-ai.mjs?controller=candidate';

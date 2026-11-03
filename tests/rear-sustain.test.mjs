@@ -12,6 +12,7 @@ function scene(id='cleave',side=0){
  Object.assign(u,{x:4,y:3,intent:100});Object.assign(front,{x:5,y:3});Object.assign(rear,{x:8,y:3});
  u.skillReady[id]=0;return {state,b,u,front,rear};
 }
+function resolveCast(b,u){stepBattle(b);while(u.tacticAim&&!b.result)stepBattle(b);}
 test('rear priority respects range, fallback, stasis and melee interception',()=>{
  const {b,u,front,rear}=scene();u.type='crossbow';front.x=6;
  for(const id of ['repeat','bombard','unique-person-186']){
@@ -24,16 +25,16 @@ test('rear priority respects range, fallback, stasis and melee interception',()=
 });
 for(const side of [0,1])test('actual fixed halberd cast heals real wounds and grants bounded shield on either side '+side,()=>{
  const {state,b,u}=scene('cleave',side);u.hp-=1000;u.battleDamage=1000;
- const before=u.hp;stepBattle(b);
+ const before=u.hp;resolveCast(b,u);
  assert.equal(u.tacticCasts.cleave,1);const damage=b.effects.filter(e=>e.from===u.id&&e.damage>0&&!e.ongoing).reduce((n,e)=>n+e.damage,0);
  assert.ok(damage>0);assert.equal(u.hp-before,Math.min(350,Math.floor(Math.min(u.maxHp*.08,damage*.3))));
  assert.equal(shieldAmount(b,u),Math.min(Math.floor(u.maxHp*.08),Math.floor(damage*.25)));
  const copy=validateSave(structuredClone(state));for(let i=0;i<8;i++){stepBattle(b);stepBattle(copy.battle);}assert.deepEqual(b,copy.battle);
 });
 test('absorbed damage gives no recovery or shield; no wounded soldiers means no healing',()=>{
- const x=scene();setStatus(x.b,x.front,'shield',8,{amount:x.front.maxHp,source:'test'});stepBattle(x.b);
+ const x=scene();setStatus(x.b,x.front,'shield',8,{amount:x.front.maxHp,source:'test'});resolveCast(x.b,x.u);
  assert.equal(x.u.tacticCasts.cleave,1);assert.equal(shieldAmount(x.b,x.u),0);assert.equal(x.u.healed||0,0);
- const y=scene();stepBattle(y.b);assert.equal(y.u.healed||0,0);assert.ok(shieldAmount(y.b,y.u)>0);
+ const y=scene();resolveCast(y.b,y.u);assert.equal(y.u.healed||0,0);assert.ok(shieldAmount(y.b,y.u)>0);
 });
 test('Zhao Yun uses fixed special at two cells without sustain, adjacent hits gain sustain',()=>{
  for(const gap of [1,2]){const {b,u,front}=scene('unique-person-396');front.x=u.x+gap;u.hp-=1000;u.battleDamage=1000;stepBattle(b);assert.equal(u.tacticCasts['unique-person-396'],1);assert.equal(shieldAmount(b,u)>0,gap===1);assert.equal((u.healed||0)>0,gap===1);}

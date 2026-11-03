@@ -118,7 +118,7 @@ export function intelligenceLabel(s,id){const i=cityIntelligence(s,id);if(i.visi
 export function armyObservation(s,a){
  const data=clone(a),battle=s.campaign.battles.find(r=>!r.settled&&r.armyIds.includes(a.id));
  if(battle)for(const u of data.units){const live=battle.battle.sides.flatMap(side=>side.units).find(x=>x.id===u.id&&x.armyId===a.id);if(live)u.troops=live.hp;}
- return {...data,route:[],target:null,supplyLine:null,task:a.travel?'行军中':'驻扎'};
+ return {...data,route:[],target:null,supplyLine:null,task:a.travel&&a.route.length?'行军中':'驻扎'};
 }
 export function armyIntelligence(s,id,faction=playerFaction(s)){
  const base=s[origin]||s,a=base.armies.find(a=>a.id===id),live=a&&(a.faction===faction||pointVisible(base,visionPosition(base,a),faction));
@@ -185,6 +185,9 @@ export function intelligenceWorld(s,faction=playerFaction(s)){
  const armies=s.armies.filter(a=>armyVisible(s,a,faction,sources)).map(a=>a.faction===faction?a:armyObservation(s,a));
  const idle=s.campaign.idle.filter(o=>o.faction===faction||!o.unit.mission&&!o.destination&&!o.retreating&&visibleCities.has(o.location));
  const ownIds=new Set([...s.cities.filter(c=>c.owner===faction).flatMap(c=>c.units),...s.armies.filter(a=>a.faction===faction).flatMap(a=>a.units),...s.campaign.idle.filter(o=>o.faction===faction).map(o=>o.unit)].map(u=>u.id));
+ // Officer details are live sight, never a dated personnel report. Hidden city
+ // snapshots may retain aggregate garrison facts, but cannot reveal loyalty.
+ const knownLoyaltyIds=new Set([...ownIds,...s.cities.filter(c=>visibleCities.has(c.id)).flatMap(c=>c.units.filter(u=>!u.mission)).map(u=>u.id),...idle.map(o=>o.unit.id),...armies.flatMap(a=>a.units).map(u=>u.id),...s.campaign.domestic.people.filter(p=>p.status==='CAPTIVE'&&p.fate?.captor===faction).map(p=>p.id)]);
  const activity=s.campaign.activity;
  // Most strategy queries only inspect cities and armies. Defer the potentially
  // large factual list until requested, retaining this projection's boundary.
@@ -195,7 +198,7 @@ export function intelligenceWorld(s,faction=playerFaction(s)){
   set nodes(value){projectedNodes=value;}}:activity;
  const campaign={...s.campaign,bandits:s.campaign.bandits?{version:s.campaign.bandits.version,camps:knownBanditCamps(s,faction),observations:{[faction]:s.campaign.bandits.observations[faction]||{}}}:undefined,playerFaction:faction,idle,scouting:{...s.campaign.scouting,tasks:scoutAssignments(s).filter(t=>t.faction===faction)},battles:observedBattles(s,faction,sources),archive:(s.campaign.archive||[]).filter(r=>record?.battles.includes(r.id)),
   personnelEvents:s.campaign.personnelEvents.filter(e=>ownIds.has(e.officerId)),ai:s.campaign.ai?{...s.campaign.ai,factions:{},plans:[],supports:[],decisions:[]}:undefined,
-  domestic:{...s.campaign.domestic,loyalty:Object.fromEntries(Object.entries(s.campaign.domestic.loyalty).filter(([id])=>ownIds.has(id))),priorities:{[faction]:s.campaign.domestic.priorities[faction]},orders:s.campaign.domestic.orders.filter(q=>q.faction===faction),assignments:s.campaign.domestic.assignments.filter(a=>ownIds.has(a.officerId)),people:s.campaign.domestic.people.filter(p=>p.fate&&(p.fate.originalFaction===faction||p.fate.captor===faction))},
+  domestic:{...s.campaign.domestic,loyalty:Object.fromEntries(Object.entries(s.campaign.domestic.loyalty).filter(([id])=>knownLoyaltyIds.has(id))),priorities:{[faction]:s.campaign.domestic.priorities[faction]},orders:s.campaign.domestic.orders.filter(q=>q.faction===faction),assignments:s.campaign.domestic.assignments.filter(a=>ownIds.has(a.officerId)),people:s.campaign.domestic.people.filter(p=>p.fate&&(p.fate.originalFaction===faction||p.fate.captor===faction))},
   activity:projectedActivity};
  const result={...s,cities,armies,campaign,logs:record?.chronicle||[]};result[perspective]=faction;result[origin]=s;inheritRoadQueries(s,result);scope?.views.set(faction,result);return result;
 }

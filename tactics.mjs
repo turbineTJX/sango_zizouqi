@@ -115,10 +115,10 @@ export function setStatus(b,u,key,duration,extra={}) {
   if(mergeTreasureStatus(b,u,key,{until:b.tick+duration+1,...extra}))return;
   if(key==='ward'&&hasStatus(b,u,'ward')&&u.statuses.ward.percent>extra.percent)return;
   const prior=hasStatus(b,u,key)?u.statuses[key]:null;
-  const magnitude=v=>['powerDown','armorBreak','weaken'].includes(key)?(v.fraction??.2*(v.potency??1)):(v.percent??v.amount??v.fraction??v.potency??1);
+  const magnitude=v=>['powerDown','armorBreak','weaken','valor','nexus'].includes(key)?(v.fraction??(key==='valor'?.25:.2)*(v.potency??1)):(v.percent??v.amount??v.fraction??v.potency??1);
   const next={until:b.tick+duration+1,...extra};
   if(prior&&magnitude(prior)>magnitude(next))return;
-  u.statuses[key]={...next,until:Math.max(prior?.until||0,next.until)};
+  u.statuses[key]={...next,until:extra.commandRole?next.until:Math.max(prior?.until||0,next.until)};
 }
 export function openCell(b,x,y,actor=null) {
   return x>=0 && x<14 && y>=0 && y<8 && !blockedTerrain(b,x,y) && (!actor||canOccupy(b,actor,x,y)) && !b.sides.flatMap(s=>s.units).some(u=>u.status==='active' && u.hp>0 && u.x===x && u.y===y);

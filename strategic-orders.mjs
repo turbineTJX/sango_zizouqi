@@ -12,12 +12,13 @@ import {missionOfficer,missionUnits,recallOfficerMission,missionStatus} from './
 import {residentOfficer} from './city-personnel.mjs';
 import {isTransport} from './personnel-movement.mjs';
 import {DIRECTIONS,TECHS,assignmentFor,assignDomestic,dismissDomestic,actionName,cancelOrdersFor,removeDomesticOrder,recordDomesticOrder} from './domestic.mjs';
-import {appointGovernor,prepareDepartureUnits,expeditionError,launchExpedition,isPlanning,armyBattle,findCampaignRoute,orderCampaignArmy,transferOfficer} from './strategic-campaign.mjs';
+import {appointGovernor,prepareDepartureUnits,expeditionError,launchExpedition,isPlanning,armyBattle,findCampaignRoute,orderCampaignArmy,holdCampaignArmy,transferOfficer} from './strategic-campaign.mjs';
 import {OFFICER_BY_ID} from './officer-catalog.mjs';
 import {requestDiplomaticInterruption,clearDiplomaticAppointments} from './diplomacy.mjs';
 const town=mapNode;
 const requestedCarry=(s,q)=>armySupplyCapacity(q.officerIds.flatMap(id=>{const u=town(s,q.cityId).units.find(u=>u.id===id);return u?[{...u,troops:q.troops?.[id]??u.troops}]:[];}));
 export function strategicOrderLabel(s,q){
+ if(q.kind==='hold')return '就地驻守';
  if(q.kind==='scout')return `侦察${town(s,q.target)?.name||'目标据点'}`;
  if(q.kind==='expedition')return `编组出征${town(s,q.target)?.name||'目标据点'}`;
  if(q.kind==='march')return `${q.reverse?'原路折返，前往':'前往'}${town(s,q.target)?.name||'目标据点'}`;
@@ -127,6 +128,12 @@ export function requestStrategicOrder(s,command,choice=null){
 // Controller identity is explicit; never swap the player's faction or treasury.
 export function requestFactionOrder(s,faction,command,choice='after',scheduled=true){
  if(!scheduled&&!isPlanning(s))return {error:'须在筹划阶段下令'};
+ if(command.kind==='hold'){
+  const error=holdCampaignArmy(s,command.armyId,{scheduled,faction});if(error)return {error};
+  const a=s.armies.find(a=>a.id===command.armyId);
+  cancelOrdersFor(s,a.units.map(u=>u.id),'收到驻守命令');
+  return {applied:true};
+ }
  if(command.kind==='assign'){const error=domesticAssignmentError(s,command.cityId,command.direction,command.officerIds||[]);if(error)return {error};}
  const diplomatic=requestDiplomaticInterruption(s,faction,command,choice);if(diplomatic)return diplomatic;
  if(command.kind==='expedition'&&command.formation){

@@ -37,8 +37,9 @@ test('damaged facilities use the same construction progress, pay less and retain
  assert.equal(c.workshop,1);assert.deepEqual(buildingDurability(c,'workshop'),{hp:1000,maxHp:1000});restore(s);
 });
 test('interruption preserves paid work, durability and the saved construction site',()=>{
- const {s,c,u}=fixture();beginExecution(s);days(s,4);const a=structuredClone(buildingDurability(c,'workshop'));cancelDomestic(s,u.id);const money=c.gold;assert.deepEqual(buildingDurability(c,'workshop'),a);restore(s);
- s.campaign.phase='planning';assert.equal(assignDomestic(s,c.id,'technology',u.id),null);beginExecution(s);assert.equal(c.gold,money);assert.deepEqual(buildingDurability(c,'workshop'),a);assert.equal(c.project.siteId,c.id);days(s,1);assert.ok(buildingDurability(c,'workshop').hp>a.hp);
+ const {s,c,u}=fixture();beginExecution(s);days(s,4);const a=structuredClone(buildingDurability(c,'workshop'));cancelDomestic(s,u.id);assert.deepEqual(buildingDurability(c,'workshop'),a);restore(s);
+ while(s.campaign.phase!=='planning')days(s,1);
+ const money=c.gold;assert.equal(assignDomestic(s,c.id,'technology',u.id),null);beginExecution(s);assert.equal(c.gold,money);assert.deepEqual(buildingDurability(c,'workshop'),a);assert.equal(c.project.siteId,c.id);days(s,1);assert.ok(buildingDurability(c,'workshop').hp>a.hp);
 });
 test('expansion raises maximum durability without instantly supplying the new durability',()=>{
  const {s,c}=fixture({level:1});beginExecution(s);assert.deepEqual(buildingDurability(c,'workshop'),{hp:1000,maxHp:2000});days(s,2);assert.equal(buildingDurability(c,'workshop').hp,1100);assert.equal(c.workshop,1);restore(s);

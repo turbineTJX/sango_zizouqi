@@ -1,6 +1,9 @@
 {
-  "rulesVersion": 138,
+  "rulesVersion": 142,
   "files": [
+    "docs/军略组合与代价.md",
+    "docs/短控联动试玩.md",
+    "docs/战法分层与状态覆盖草案.md",
     "docs/武将编辑器.md",
     "docs/界面设计规范.md",
     "docs/AI自主迭代与验证规则.md",
@@ -108,7 +111,6 @@
     "docs/design-tables/羁绊成长一览表.md",
     "docs/羁绊特性与成长-规则76.md",
     "docs/design-tables/内政命令特性一览表.md",
-    "docs/羁绊门槛与混搭-2026-10-05.md",
     "docs/玩家布阵与羁绊强度-下邳.md",
     "docs/武将多场景美术流程.md",
     "docs/城市钱粮与预算.md",
@@ -123,8 +125,8 @@
     "docs/design-tables/固定贼寨与随机贼将一览表.md"
   ],
   "runtimeVersions": {
-    "rules": 138,
-    "campaign": 71,
+    "rules": 142,
+    "campaign": 72,
     "ai": 20,
     "strategy": 14,
     "domestic": 27

@@ -68,7 +68,7 @@ import {initializeDiplomacy,advanceDiplomacy,planDiplomaticAI,validateDiplomacy,
 import {factionsHostile,diplomaticProtection,diplomaticPassage,diplomaticAssignment} from './diplomacy-relations.mjs';
 
 // A day consists of a fixed number of real combat steps, never wall-clock time.
-export const CAMPAIGN = Object.freeze({version:71, ...CAMPAIGN_TIME, maxUnits:10, maxArmies:200, supplyRange:180});
+export const CAMPAIGN = Object.freeze({version:72, ...CAMPAIGN_TIME, maxUnits:10, maxArmies:200, supplyRange:180});
 import {gateDurability,buildingWorkMode,buildingWorkQuote,beginBuildingWork,buildingDurability,restoreBuilding,campaignBattleBuildings,writeBattleBuildingDamage,validateBattleBuildingSources} from './building-durability.mjs';
 import {updateCityBudgetAlerts,validateCityBudget} from './city-budget.mjs';
 import {initializeCityResources,syncResourceTotals,settleCityCaptureResources} from './city-resources.mjs';
@@ -288,8 +288,19 @@ function readCampaignRoute(s,from,to,faction,policy){
       const d=dist.get(current)+roadCost(s,current,next,policy);if(d<(dist.get(next)??Infinity)){dist.set(next,d);paths.set(next,[...paths.get(current),next]);queue.push({id:next,cost:d});}}
   }return null;
 }
+export function holdCampaignArmy(s,id,{scheduled=false,faction=playerFaction(s)}={}){
+  const a=army(s,id);
+  if(!scheduled&&!isPlanning(s)||s.finished||!a||a.disbanded||a.faction!==faction)return '只能在战略筹划阶段下达军令';
+  if(a.diplomaticTask||a.diplomaticWithdrawal)return '军团正在履行外交任务';
+  if(armyBattle(s,id))return '军团正在交战';
+  if(!armyTroops(a))return '请先征募兵员';
+  // Keep the physical road position, including the original port on a waterway.
+  // Empty routes already stop movement and retain normal supply and encounters.
+  a.route=[];a.target=null;a.task='驻守';a.stationary=true;
+  reconcileDomestic(s);return null;
+}
 export function orderCampaignArmy(s,id,target,policy='auto',{scheduled=false,faction=playerFaction(s),reverse=false,path}={}){
-  const a=army(s,id);if(!scheduled&&!isPlanning(s)||s.finished||!a||a.faction!==faction||!city(s,target))return '只能在战略筹划阶段下达军令';
+  const a=army(s,id);if(!scheduled&&!isPlanning(s)||s.finished||!a||a.disbanded||a.faction!==faction||!city(s,target))return '只能在战略筹划阶段下达军令';
   if(a.diplomaticTask&&!scheduled)return '军团正在履行已批准的外交任务，须先批准调整或结束合作';
   if(armyBattle(s,id))return '军团正在交战，请在战场下达撤退或派遣其他军团支援';
   if(diplomaticProtection(s,faction,city(s,target)?.owner)&&!diplomaticPassage(s,faction,target))return '存在外交保护条约，须先批准解约或借道';

@@ -23,10 +23,11 @@ test('unchanged troop fields do not enroll extra units or erase the destination 
 });
 
 test('transport preview uses actual carrier speed and relay handoff days without changing the campaign',()=>{
- for(const relay of [null,'xuchang'])for(const grain of [0,47]){
-  const s=newCampaign(203,'guandu-200'),p=newCommand(s,'transfer','luoyang');
-  p.selected=['person-195'];p.destination='chenliu';p.step='target';p.cargo.grain=grain;p.relay=grain?relay:null;
-  const unit=s.cities.find(c=>c.id===p.city).units.find(u=>u.id===p.selected[0]),route=commandRoute(s,p);
+ for(const relay of [null,'luoyang'])for(const grain of [0,47]){
+  const s=newCampaign(203,'guandu-200'),p=newCommand(s,'transfer','xuchang');
+  const carrierAtHome=s.campaign.idle.find(o=>o.unit.id==='person-195'&&o.location===p.city);assert.ok(carrierAtHome);
+  p.selected=[carrierAtHome.unit.id];p.destination='chenliu';p.step='target';p.cargo.grain=grain;p.relay=grain?relay:null;
+  const unit=carrierAtHome.unit,route=commandRoute(s,p);
   const before=serializeCampaign(s),days=personnelRouteDays(s,{unit,location:p.city,destination:p.destination,cargo:p.cargo},route.route,{relay:p.relay});
   assert.match(commandMarkup(s,{officerPick:p,personnel:{}},'').body,new RegExp('预计 '+days+' 天抵达'));
   assert.equal(serializeCampaign(s),before);

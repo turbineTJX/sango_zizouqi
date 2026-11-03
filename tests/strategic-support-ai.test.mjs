@@ -130,7 +130,11 @@ test('AI grain convoys actually hand off at an intermediate receiving node even 
  const {s,source,front,rear,enemy,node,client,foe}=scene();front.grain=5000;rear.grain=5000;enemy.owner='yuan';enemy.domestic.owner='yuan';enemy.x=800;foe.location=enemy.id;
  const id=Object.keys(OFFICER_BY_ID).find(id=>hasStrategicTrait({id},'receiveGrain')&&!source.units.some(u=>u.id===id));s.campaign.domestic.people=s.campaign.domestic.people.filter(p=>p.id!==id);client.units=[{...makeOfficer(id,3000,0,3),homeCity:front.id}];client.leader=id;client.advisor=id;client.location=node.id;client.supply=100;initializeVision(s);const o=worker(s,source,'relayCargo');
  const total=source.grain+front.grain+client.supply;planStrategicAI(s);assert.ok(o.destination);assert.ok(o.journey.route.includes(node.id));assert.equal(client.supply,100);const loaded=o.cargo.grain;
- advancePersonnel(s,o);assert.equal(client.supply,100+loaded);assert.equal(source.grain+front.grain+client.supply,total);assert.equal(o.destination,null);
+ advancePersonnel(s,o);assert.equal(client.supply,100+loaded);assert.equal(o.cargo.grain,0);assert.equal(source.grain+front.grain+client.supply,total);
+ // A handoff empties the cargo; the carrier still completes its real route.
+ const days=Math.ceil(o.remainingDays)+1;
+ for(let i=0;i<days&&o.destination;i++)advancePersonnel(s,o);
+ assert.equal(o.destination,null);assert.equal(client.supply,100+loaded);assert.equal(source.grain+front.grain+client.supply,total);
 });
 
 test('a water corridor guard buys legal ships with city gold before actual departure',()=>{

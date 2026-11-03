@@ -17,6 +17,7 @@ export function freezeAiProbe(b){
 export function stratagemAiFixture(key,side=1,seed=11231,positive=true){
  const s=STRATAGEMS[key],holder=s.roster.find(id=>officerStratagems(id).length===1)||s.roster[0],entry=id=>({id,type:'spear',troops:4000,level:10,retreatAt:null});
  let ids=[holder,...['chu','dun','yuanxia','he','gao','yan','liao','jin','person-17'].filter(id=>id!==holder)].slice(0,10);
+ if(s.combination)ids=ids.slice(0,6);
  if(!positive&&s.effect==='forceReserve')ids=ids.slice(0,6);
  let foes=['shao','wen','person-70','person-186','person-516','person-243','person-439','person-433','person-255','person-637'].filter(id=>!ids.includes(id));
  if(!positive&&s.effect==='blockade')foes=foes.slice(0,6);
@@ -25,9 +26,14 @@ export function stratagemAiFixture(key,side=1,seed=11231,positive=true){
  assert.equal(lockDeployment(b),null);
  if(!(positive&&s.effect==='tacticRefresh'))freezeAiProbe(b);
  const own=activeUnits(b,side),enemy=activeUnits(b,1-side);
+ if(s.combination){
+  for(const index of [0,1])activeUnits(b,index).forEach((u,n)=>{u.x=index?6:5;u.y=n;});
+  if(positive&&s.combination.intentCost){for(const u of own)u.cooldown=0;for(const u of enemy)setStatus(b,u,'ward',10000,{percent:80});}
+ }
  if(positive&&s.effect==='heal'){own[0].hp-=1000;own[0].battleDamage+=1000;}
  if(positive&&s.effect==='cleanse')assert.notEqual(setStatus(b,own[0],'slow',10000,{sourceId:enemy[0].id,sourceName:enemy[0].name}),false);
  if(!positive){
+  if(s.combination)for(const u of own)if(s.scope.anchor!=='provider'||u.id!==holder)setStatus(b,u,'stasis',10000);
   if(s.effect==='shield')for(const u of own)setStatus(b,u,'shield',10000,{amount:u.maxHp,source:'ai-condition-probe',label:'护盾'});
   if(['invincible','magicImmunity','ambush','rapidAdvance'].includes(s.effect))for(const u of own)setStatus(b,u,'stasis',10000);
   if(s.effect==='stun')for(const u of enemy)setStatus(b,u,'resolve',10000);
@@ -41,6 +47,21 @@ export function assertAiEffect(state,key,side){
  const targetSide=s.side===1?foe:own,targets=targetSide.units.filter(u=>u.status==='active'&&u.hp>0&&(!record.target||stratagemAreaContains(s,record.target,u)));
  const status={shield:'shield',cleanse:'resolve',invincible:'commandInvincible',ambush:'stealth',stun:'stun',magicImmunity:'magicImmune',rapidAdvance:'rapidAdvance'}[s.effect];
  let evidence;
+ if(s.combination){
+  const e=own.stratagemEvents.find(e=>e.key===key&&e.castTick===b.tick);assert.ok(e?.units.length);
+  for(const row of e.units){
+   const u=own.units.find(u=>u.id===row.id);assert.ok(stratagemAreaContains(s,record.target,u));
+   for(const part of record.source.combination.benefits){
+    if(part.status==='shield')assert.ok(u.statuses.shield.layers.some(l=>l.sourceCommand===key));
+    else assert.equal(u.statuses[part.status].sourceCommand,key);
+   }
+   assert.equal(row.intentAfter,row.intentBefore-row.cost);assert.equal(row.cost,s.combination.intentCost||0);
+  }
+  const penaltyTargets=s.combination.penaltyTarget==='provider'?[own.units.find(u=>u.id===record.source.id)]:e.units.map(r=>own.units.find(u=>u.id===r.id));
+  for(const u of penaltyTargets)for(const part of record.source.combination.penalties)assert.equal(u.statuses[part.status].sourceCommand,key);
+  if(s.scope.anchor==='provider'){assert.ok(e.units.every(u=>u.id!==record.source.id));assert.deepEqual(record.target,{...e.providerPosition,rotation:0});}
+  evidence={affected:e.units.length,costPaid:e.units.reduce((n,u)=>n+u.cost,0),duration:record.source.duration};
+ }
  if(status){
   // Opening formations and other legal sources may already provide the same
   // status. Check this command's provenance when testing its target boundary.

@@ -7,8 +7,10 @@ import {chooseStratagemPoint,stratagemAreaTargets,stratagemAreaContains} from '.
 import {areaPreview} from '../stratagem-area-view.mjs';
 import {setStatus,hasStatus,shieldAmount,unitTactics,readyTactic} from '../tactics.mjs';
 import {holdsLine} from '../engagement.mjs';
+import {stratagemAiFixture,militaryResource} from './helpers/stratagem-ai.mjs';
 
 function scene(key,side=0,seed=10801){
+ if(STRATAGEMS[key].combination){const state=stratagemAiFixture(key,side,seed);while(militaryResource(state.battle,side).commandProgress<COMMAND_RESOURCE.capacity)stepBattle(state.battle,{aiSides:[]});return state;}
  const design=STRATAGEMS[key],holder=design.roster[0],entry=id=>({id,type:'spear',troops:4000,level:10});
  const own=[holder,...['chu','dun','yuanxia','he','gao','yan'].filter(id=>id!==holder)].map(entry),enemy=['shao','wen','person-17','person-70','person-186','person-516','person-243','person-439'].filter(id=>!own.some(u=>u.id===id)).slice(0,7).map(entry);
  const state=createScenario('custom-battle',seed,20,null,{seed,terrain:'land',ownTeam:side?enemy:own,enemyTeam:side?own:enemy,ownTeamRoles:{leader:side?enemy[0].id:holder,advisor:side?enemy[0].id:holder},enemyTeamRoles:{leader:side?holder:enemy[0].id,advisor:side?holder:enemy[0].id}});

@@ -1,0 +1,74 @@
+import {isAITurnStart} from '../ai-turn.mjs';
+import {ECONOMY_RULES} from '../data/design/economy-rules.mjs';
+import {cityNeedsAgriculture,cityNeedsCommerce} from '../economy.mjs';
+import {plannedOfficer,domesticIntentWeight} from '../strategic-intent.mjs';
+import {diplomaticAssignment} from '../diplomacy-relations.mjs';
+import {domesticStaffing,domesticAssignmentError} from '../domestic-staffing.mjs';
+import {assignDomestic,assignmentFor,setDomesticPriority,domesticWorkBudget} from '../domestic.mjs';
+import {appointGovernor} from '../strategic-campaign.mjs';
+import {DIRECTIONS} from '../domestic-designs.mjs';
+import {isAIControlled} from '../player-faction.mjs';
+import {rankOfficerCandidates} from '../officer-recommendation.mjs';
+import {withCitySupplyQueries} from '../city-logistics.mjs';
+import {cityPersonnel} from '../city-personnel.mjs';
+import {staffingOfficer} from '../strategic-staffing.mjs';
+import {appendActivityNode} from '../activity-nodes.mjs';
+import {cityFoodRelief} from './food-relief.mjs';
+import {technologyStaffTarget,technologyResearchStaff} from '../technology-research-staff.mjs';
+
+export function prepareEnemyDomestic(s){
+ if(!isAITurnStart(s))return;
+ if(!s.campaign.scenarioId)return;
+ for(const faction of [...new Set(s.cities.filter(c=>isAIControlled(s,c.owner)).map(c=>c.owner))]){
+  const cities=s.cities.filter(c=>c.owner===faction),first=[cities.some(c=>cityNeedsAgriculture(s,c))?'agriculture':null,cities.some(c=>cityNeedsCommerce(s,c))?'commerce':null].filter(Boolean);
+  setDomesticPriority(s,[...first,...Object.keys(DIRECTIONS).filter(d=>!first.includes(d))],{faction,scheduled:true});
+ }
+ for(const c of s.cities.filter(c=>isAIControlled(s,c.owner))){
+  if(s.campaign.battles.some(b=>!b.settled&&b.kind==='siege'&&b.cityId===c.id))continue;
+  if(!c.governor){const best=rankOfficerCandidates(s,cityPersonnel(s,c.id).map(o=>o.unit).filter(u=>!u.mission&&!u.scouting&&!diplomaticAssignment(s,u.id)&&!plannedOfficer(s,u.id)&&!staffingOfficer(s,u.id)&&!s.campaign.domestic.orders.some(q=>q.officerIds.includes(u.id))),{task:'governor',city:c.id}).find(x=>x.recommendation.available);if(best)appointGovernor(s,c.id,best.unit.id,{scheduled:true,faction:c.owner});}
+  // Reuse a waiting optional worker when the city has lost its sole producer.
+  // Paid active work continues; this is a real appointment, never free income.
+  const priorities=[cityNeedsAgriculture(s,c)?'agriculture':null,cityNeedsCommerce(s,c)?'commerce':null].filter(Boolean);
+  const food=cityFoodRelief(s,c);
+  for(const direction of priorities){
+   const resident=cityPersonnel(s,c.id).map(o=>o.unit).filter(u=>!u.mission&&!u.scouting&&!diplomaticAssignment(s,u.id)&&!plannedOfficer(s,u.id)&&!s.campaign.domestic.orders.some(q=>q.officerIds.includes(u.id)));
+   if(resident.some(u=>assignmentFor(s,u.id)?.direction===direction))continue;
+   const eligible=resident.filter(u=>!assignmentFor(s,u.id)?.action&&!priorities.includes(assignmentFor(s,u.id)?.direction)&&(!staffingOfficer(s,u.id)||direction==='agriculture'&&food.urgent)),free=eligible.filter(u=>!assignmentFor(s,u.id));
+   const best=rankOfficerCandidates(s,free.length?free:eligible,{task:'domestic',city:c.id,direction}).find(x=>x.recommendation.available);
+   if(best){
+    const promise=s.campaign.ai.staffing.find(p=>p.officerId===best.unit.id);
+    if(!assignDomestic(s,c.id,direction,best.unit.id,{scheduled:true,faction:c.owner})&&promise&&direction!==promise.direction){
+     s.campaign.ai.staffing=s.campaign.ai.staffing.filter(p=>p!==promise);
+     appendActivityNode(s,{sourceId:`staffing-food-emergency:${best.unit.id}:${promise.createdDay}:${s.campaign.day}`,category:'personnel',phase:'staffing-released',faction:c.owner,cityId:c.id,officerId:best.unit.id,
+      text:`${c.name}实际口粮告急，${best.unit.name}解除调任${DIRECTIONS[promise.direction]}承诺，改任农业救急。`,
+      result:{reason:'staffing-food-emergency',formerDirection:promise.direction,nextDirection:direction,grain:c.grain,dailyFood:food.use}});
+    }
+   }
+  }
+  const assigned=new Set(s.campaign.domestic.assignments.map(a=>a.officerId));
+  let units=cityPersonnel(s,c.id).map(o=>o.unit).filter(u=>!u.scouting&&!assigned.has(u.id)&&!diplomaticAssignment(s,u.id)&&!plannedOfficer(s,u.id)&&!staffingOfficer(s,u.id)&&!u.mission&&!s.campaign.domestic.orders.some(q=>q.officerIds.includes(u.id)));
+  const directions=Object.keys(DIRECTIONS).filter(direction=>!s.campaign.domestic.assignments.some(a=>a.cityId===c.id&&a.direction===direction));
+  // Secure food staffing before optional jobs when planned soldiers outconsume
+  // recurring fields. Existing appointments and active work remain intact.
+  const foodPriority=cityNeedsAgriculture(s,c),cashPriority=cityNeedsCommerce(s,c),pairs=withCitySupplyQueries(s,()=>directions.flatMap(direction=>rankOfficerCandidates(s,units,{task:'domestic',city:c.id,direction}).filter(x=>x.recommendation.available).map(x=>({...x,direction,priority:x.recommendation.score*domesticIntentWeight(s,c.id,direction)}))).sort((a,b)=>(foodPriority?Number(b.direction==='agriculture')-Number(a.direction==='agriculture'):0)||(cashPriority?Number(b.direction==='commerce')-Number(a.direction==='commerce'):0)||b.priority-a.priority||a.unit.id.localeCompare(b.unit.id)||a.direction.localeCompare(b.direction)));
+  const filled=new Set();for(const x of pairs){if(assigned.has(x.unit.id)||filled.has(x.direction))continue;assigned.add(x.unit.id);filled.add(x.direction);assignDomestic(s,c.id,x.direction,x.unit.id,{scheduled:true,faction:c.owner});}
+  // Additional civil officers perform real autonomous work, using the same
+  // recommendation scores and costs as player appointments. Never reassign work.
+  for(let slot=1;slot<ECONOMY_RULES.ai.economicWorkersPerDirection;slot++)for(const direction of ['agriculture','commerce','military']){
+   if(s.campaign.domestic.assignments.filter(a=>a.cityId===c.id&&a.direction===direction).length>slot||!domesticStaffing(s,c.id,direction).remaining)continue;
+   const best=rankOfficerCandidates(s,units.filter(u=>!assigned.has(u.id)),{task:'domestic',city:c.id,direction}).find(x=>x.recommendation.available);
+   if(best&&!assignDomestic(s,c.id,direction,best.unit.id,{scheduled:true,faction:c.owner}))assigned.add(best.unit.id);
+  }
+  const researchTarget=technologyStaffTarget(c,domesticWorkBudget(s,c).gold);
+  while(s.campaign.domestic.assignments.filter(a=>a.cityId===c.id&&a.direction==='technology').length<researchTarget&&domesticStaffing(s,c.id,'technology').remaining){
+   const ranked=rankOfficerCandidates(s,units.filter(u=>!assigned.has(u.id)),{task:'domestic',city:c.id,direction:'technology'});
+   const team=ranked.filter(x=>!domesticAssignmentError(s,c.id,'technology',[x.unit.id]));
+   // Forming a missing team is a lawful appointment even when its first member
+   // alone cannot yet start research. Require the whole team before committing.
+   const forming=researchTarget>1&&technologyResearchStaff(s,c)===0&&team.length>=researchTarget&&domesticStaffing(s,c.id,'technology').remaining>=researchTarget;
+   const best=ranked.find(x=>x.recommendation.available)||(forming?team[0]:null);
+   if(!best||assignDomestic(s,c.id,'technology',best.unit.id,{scheduled:true,faction:c.owner}))break;
+   assigned.add(best.unit.id);
+  }
+ }
+}

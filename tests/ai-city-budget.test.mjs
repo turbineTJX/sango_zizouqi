@@ -60,10 +60,11 @@ test('road capacity shortages remain visible even with a full city warehouse',()
  assert.ok(f.cities[source.id].grain<=240*20);assert.equal(source.grain,12000);
 });
 test('AI reserves food for externally supplied armies before recruiting local soldiers',()=>{
- const {s,source,rear,front}=scene();rear.grain=0;source.grain=4000;
+ const {s,source,rear,front}=scene();rear.grain=0;source.grain=4000;source.units[0].troops=500;
  for(const id of ['yan','wen','he','ju'])field(s,source,front,id,6000,900);
- assert.equal(cityDailyFood(s,source),250);assert.ok(cityFoodReserve(s,source,20)>4000);
+ assert.ok(cityFoodReserve(s,source,20)>4000);
  const plain=structuredClone(s);plain.armies=[];plain.campaign.ai.lastEconomyTurn=0;
+ assert.ok(cityDailyFood(s,source)>cityDailyFood(plain,town(plain,source.id)));
  const before={gold:source.gold,men:source.units[0].troops};manageStrategicEconomy(s);
  assert.equal(source.gold,before.gold);assert.equal(source.units[0].troops,before.men);
  manageStrategicEconomy(plain);assert.ok(town(plain,source.id).units[0].troops>before.men);
@@ -149,7 +150,7 @@ test('a quiet AI city operates for twelve real economic cycles without exhaustin
  assert.ok(source.units.some(u=>u.troops>=2500),'sustainability is not obtained by removing the entire army');
  assert.ok(s.campaign.domestic.events.some(e=>e.phase==='complete'));assert.ok(source.farm>1||source.commerce>1,'real production infrastructure improves');
 });
-test('a real AI siege can order physical withdrawal before a cut grain line causes hunger',()=>{
+test('a strategic review leaves an engaged siege under shared battle control after its grain line is cut',()=>{
  const {s,source,rear,front}=scene();rear.grain=0;front.owner='cao';front.domestic.owner='cao';gateDurability(front).hp=15000;
  front.units=[{...makeOfficer('cao',3000,0,3),homeCity:front.id}];initializeVision(s);
  assert.equal(launchExpedition(s,{cityId:source.id,officerIds:['shao'],leader:'shao',advisor:'shao',target:front.id,policy:'auto'},{faction:'yuan'}),null);
@@ -159,7 +160,7 @@ test('a real AI siege can order physical withdrawal before a cut grain line caus
  const a=s.armies.find(a=>a.faction==='yuan');assert.ok(a);a.supply=dailyConsumption(s,a);a.hunger=0;
  const blocker={...cityForce(front),id:'a'+s.nextId++,units:[{...makeOfficer('dun',3000,0,3),homeCity:front.id}],location:front.id,faction:'cao',travel:{from:front.id,to:source.id,road:'main',progress:roadLength(s,front.id,source.id)/2},route:[source.id],supply:900,supplyCapacity:900};delete blocker.cityForce;s.armies.push(blocker);initializeVision(s);
  assert.equal(supplyConnection(s,a),null);const before={supply:a.supply,men:a.units[0].troops};s.campaign.day=(Math.floor((s.campaign.day-1)/10)+1)*10+1;s.turn=Math.floor((s.campaign.day-1)/10)+1;s.campaign.phase='planning';planStrategicAI(s);
- assert.equal(a.hunger,0);assert.equal(battle.battle.sides[battle.attackSide].retreat,true);
+ assert.equal(a.hunger,0);assert.equal(battle.battle.sides[battle.attackSide].retreat,false);
  assert.equal(a.supply,before.supply);assert.equal(a.units[0].troops,before.men);
  assert.equal(a.location,front.id);assert.ok(s.armies.includes(a),'the order does not teleport or delete the army');
 });

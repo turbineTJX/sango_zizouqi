@@ -8,11 +8,12 @@ import {metropolitanCenter,metropolitanMembers,availableConstructionSites,choose
 import {citySceneState,citySceneMarkup,cityBuildingInfo} from '../city-scene.mjs';
 import {cityStaffStatus} from '../domestic-feedback.mjs';
 import {mapNode} from '../road-network.mjs';
+import {cityPersonnel} from '../city-personnel.mjs';
 
 function fixture(seed=13){
- const s=newCampaign(seed,'guandu-200','yuan'),c=mapNode(s,'jinyang');
+ const s=newCampaign(seed,'guandu-200','yuan'),c=mapNode(s,'ye');
  fundCities(s,50000);for(const city of s.cities)if(city.owner!=='yuan')for(const unit of city.units)unit.troops=0;
- const u=cityStaffStatus(s,c).idle[0].unit;
+ const u=cityPersonnel(s,c.id)[0].unit;setBuildingLevel(c,'workshop',0);
  for(const [key,def] of Object.entries(ACTIONS))if(def.direction==='technology'&&key!=='build_workshop')c.domestic.cooldowns[key]=1000;
  assert.equal(assignDomestic(s,c.id,'technology',u.id),null);
  beginDomesticTurn(s);return {s,c,u,a:assignmentFor(s,u.id)};
@@ -22,7 +23,7 @@ let externalBase;
 function externalFixture(){
  if(!externalBase)for(let seed=1;seed<30;seed++){const f=fixture(seed);if(f.a.action.siteId!==f.c.id){externalBase={state:structuredClone(f.s),officerId:f.u.id};break;}}
  if(!externalBase)throw Error('Expected a real external project');
- const s=structuredClone(externalBase.state),c=mapNode(s,'jinyang'),a=assignmentFor(s,externalBase.officerId),u=cityStaffStatus(s,c).idle.find(o=>o.unit.id===a.officerId)?.unit||c.units.find(u=>u.id===a.officerId)||s.campaign.idle.find(o=>o.unit.id===a.officerId).unit;
+ const s=structuredClone(externalBase.state),a=assignmentFor(s,externalBase.officerId),c=mapNode(s,a.cityId),u=cityPersonnel(s,c.id).find(o=>o.unit.id===a.officerId).unit;
  return {s,c,a,u};
 }
 
@@ -59,10 +60,11 @@ test('real remote construction animates only its saved site, completes there and
  assert.ok(s.campaign.domestic.events.some(e=>e.phase==='complete'&&e.result.siteId===site.id));
 });
 test('an interrupted remote project resumes on the same site without payment or completion on inspection',()=>{
- const {s,c,u,a}=externalFixture(),siteId=a.action.siteId;finishDomesticDay(s);const remaining=a.action.remaining,cash=s.gold;
+ const {s,c,u,a}=externalFixture(),siteId=a.action.siteId;finishDomesticDay(s);const remaining=a.action.remaining;
  cancelDomestic(s,u.id);const before=serializeCampaign(s),scene=citySceneState(s,mapNode(s,siteId));
  assert.equal(scene.project.paused,true);assert.equal(serializeCampaign(s),before);
- assert.equal(assignDomestic(s,c.id,'technology',u.id),null);beginDomesticTurn(s);
+ do{daily(s);}while(s.campaign.phase!=='planning');
+ const cash=s.gold;assert.equal(assignDomestic(s,c.id,'technology',u.id),null);beginDomesticTurn(s);
  assert.equal(assignmentFor(s,u.id).action.siteId,siteId);assert.equal(assignmentFor(s,u.id).action.remaining,remaining);assert.equal(s.gold,cash);
 });
 test('hostile towns and blocked roads pause construction until the actual site becomes usable again',()=>{
@@ -71,7 +73,7 @@ test('hostile towns and blocked roads pause construction until the actual site b
  const realOfficer=s.cities.find(n=>n.owner==='cao').units[0];enemy.units=[{...realOfficer,troops:1000}];s.armies.push(enemy);
  assert.equal(constructionSiteAvailable(s,c,siteId),false);finishDomesticDay(s);assert.equal(a.action.remaining,remaining);assert.equal(a.action.paused,true);
  assert.equal(citySceneState(s,mapNode(s,siteId)).project.paused,true);s.armies.pop();s.campaign.day++;finishDomesticDay(s);assert.equal(a.action.paused,false);assert.equal(a.action.remaining,remaining-1);
- const small=metropolitanMembers(s,c).find(n=>n.citySize==='small');small.owner='cao';assert.equal(constructionSiteAvailable(s,c,small.id),false);
+ const other=mapNode(s,'jinyang'),small=metropolitanMembers(s,other).find(n=>n.citySize==='small');assert.ok(small);small.owner='cao';assert.equal(constructionSiteAvailable(s,other,small.id),false);
 });
 test('capturing a small city transfers its completed local facilities instead of moving them to the major city',()=>{
  const s=newCampaign(81,'guandu-200','yuan'),c=mapNode(s,'jinyang'),small=metropolitanMembers(s,c).find(n=>n.citySize==='small');

@@ -134,26 +134,26 @@
   "personnel": {
     "title": "人才名册查看所在、任职和事务",
     "file": "images/player-actions/personnel.webp",
-    "group": "civic",
+    "group": "personnel",
     "sample": "官渡剧本演示开局",
     "viewport": {
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:17:14.996Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-02T09:59:08.293Z",
+    "sourceHash": "7ab8325eca09625de582b4f87e6c43cdc375107bf86426c02af0224b538ccb3e"
   },
   "officer": {
     "title": "完整窗口查看个人资料，返回保留名册",
     "file": "images/player-actions/officer.webp",
-    "group": "civic",
+    "group": "personnel",
     "sample": "官渡剧本演示开局",
     "viewport": {
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:17:20.714Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-02T09:59:16.164Z",
+    "sourceHash": "7ab8325eca09625de582b4f87e6c43cdc375107bf86426c02af0224b538ccb3e"
   },
   "city-directory": {
     "title": "自辖城市与空闲人员",
@@ -540,28 +540,28 @@
     "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
   },
   "march-route": {
-    "title": "军团调动与返城选路",
+    "title": "从当前路段位置变更目的地",
     "file": "images/player-actions/march-route.webp",
-    "group": "army",
-    "sample": "已动员军团的整军演示存档",
+    "group": "armyOrders",
+    "sample": "筹划阶段中途行军的己方军团，点选后驻守或变更目的地",
     "viewport": {
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:36:01.405Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-02T06:09:34.982Z",
+    "sourceHash": "b499c5292165197ba79998c1faff2f1f604337230fbb6308d963089a68dd1f5a"
   },
   "march-review": {
-    "title": "行军命令最终核阅",
+    "title": "变更目的地最终核阅",
     "file": "images/player-actions/march-review.webp",
-    "group": "army",
-    "sample": "已动员军团的整军演示存档",
+    "group": "armyOrders",
+    "sample": "筹划阶段中途行军的己方军团，点选后驻守或变更目的地",
     "viewport": {
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:36:06.982Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-02T06:09:40.113Z",
+    "sourceHash": "b499c5292165197ba79998c1faff2f1f604337230fbb6308d963089a68dd1f5a"
   },
   "diplomacy": {
     "title": "外交待处理与目标方针",
@@ -968,8 +968,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:30:08.753Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-02T10:17:15.805Z",
+    "sourceHash": "7ab8325eca09625de582b4f87e6c43cdc375107bf86426c02af0224b538ccb3e"
   },
   "council": {
     "title": "军议设置与底部后备席",
@@ -980,8 +980,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:30:09.417Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-02T10:17:16.651Z",
+    "sourceHash": "7ab8325eca09625de582b4f87e6c43cdc375107bf86426c02af0224b538ccb3e"
   },
   "battle-appointments": {
     "title": "按实际军团任命指挥",
@@ -992,8 +992,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:30:09.810Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-02T10:17:17.154Z",
+    "sourceHash": "7ab8325eca09625de582b4f87e6c43cdc375107bf86426c02af0224b538ccb3e"
   },
   "retreat-settings": {
     "title": "单队和批量自动撤离人数",
@@ -1004,8 +1004,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:30:10.330Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-02T10:17:17.809Z",
+    "sourceHash": "7ab8325eca09625de582b4f87e6c43cdc375107bf86426c02af0224b538ccb3e"
   },
   "battle-intent": {
     "title": "开战前意图与重置阵型",
@@ -1016,8 +1016,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:30:10.776Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-02T10:17:18.370Z",
+    "sourceHash": "7ab8325eca09625de582b4f87e6c43cdc375107bf86426c02af0224b538ccb3e"
   },
   "reserve-position": {
     "title": "为真实后备选择入场位置",
@@ -1028,8 +1028,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:30:11.330Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-02T10:17:19.139Z",
+    "sourceHash": "7ab8325eca09625de582b4f87e6c43cdc375107bf86426c02af0224b538ccb3e"
   },
   "battle-unit": {
     "title": "部队实际属性与战法",
@@ -1040,8 +1040,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:30:11.812Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-02T10:17:19.746Z",
+    "sourceHash": "7ab8325eca09625de582b4f87e6c43cdc375107bf86426c02af0224b538ccb3e"
   },
   "deployment-preview": {
     "title": "站位修改先预览再确认",
@@ -1052,8 +1052,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:30:12.323Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-02T10:17:20.395Z",
+    "sourceHash": "7ab8325eca09625de582b4f87e6c43cdc375107bf86426c02af0224b538ccb3e"
   },
   "stratagem-list": {
     "title": "可用军略的来源充能与次数",
@@ -1064,8 +1064,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:30:13.999Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-02T10:17:22.778Z",
+    "sourceHash": "7ab8325eca09625de582b4f87e6c43cdc375107bf86426c02af0224b538ccb3e"
   },
   "stratagem-area": {
     "title": "军略范围落点旋转与实际目标",
@@ -1076,8 +1076,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:30:14.500Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-02T10:17:23.467Z",
+    "sourceHash": "7ab8325eca09625de582b4f87e6c43cdc375107bf86426c02af0224b538ccb3e"
   },
   "stratagem-landscape": {
     "title": "横屏范围军略与施放按钮",
@@ -1088,8 +1088,8 @@
       "width": 844,
       "height": 390
     },
-    "capturedAt": "2026-11-01T07:30:14.980Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-02T10:17:24.083Z",
+    "sourceHash": "7ab8325eca09625de582b4f87e6c43cdc375107bf86426c02af0224b538ccb3e"
   },
   "stratagem-result": {
     "title": "确认后执行军略并扣除资源",
@@ -1100,8 +1100,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:30:16.102Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-02T10:17:25.968Z",
+    "sourceHash": "7ab8325eca09625de582b4f87e6c43cdc375107bf86426c02af0224b538ccb3e"
   },
   "reinforcement": {
     "title": "援军已抵达进入军议",
@@ -1112,8 +1112,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:30:17.593Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-02T10:17:27.992Z",
+    "sourceHash": "7ab8325eca09625de582b4f87e6c43cdc375107bf86426c02af0224b538ccb3e"
   },
   "reinforcement-roles": {
     "title": "援军与原军各自的合法指挥人选",
@@ -1124,8 +1124,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:30:17.989Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-02T10:17:28.489Z",
+    "sourceHash": "7ab8325eca09625de582b4f87e6c43cdc375107bf86426c02af0224b538ccb3e"
   },
   "captive": {
     "title": "己方被俘武将与赎金",
@@ -1308,28 +1308,28 @@
     "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
   },
   "talent": {
-    "title": "人才工作与人员动态",
+    "title": "任职栏下方查看人才接洽",
     "file": "images/player-actions/talent.webp",
-    "group": "extras",
+    "group": "personnel",
     "sample": "官渡剧本演示开局",
     "viewport": {
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:36:34.967Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-02T09:59:17.115Z",
+    "sourceHash": "7ab8325eca09625de582b4f87e6c43cdc375107bf86426c02af0224b538ccb3e"
   },
   "army-menu": {
-    "title": "军团管理与行军方式入口",
+    "title": "军团管理中的驻守与变更目的地",
     "file": "images/player-actions/army-menu.webp",
-    "group": "extras",
-    "sample": "实际军团长持有急行特性的演示",
+    "group": "armyOrders",
+    "sample": "筹划阶段中途行军的己方军团，点选后驻守或变更目的地",
     "viewport": {
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:36:50.143Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-02T06:10:15.331Z",
+    "sourceHash": "b499c5292165197ba79998c1faff2f1f604337230fbb6308d963089a68dd1f5a"
   },
   "prisoner": {
     "title": "关押敌方武将与释放入口",
@@ -1508,8 +1508,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:37:55.647Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-02T10:08:53.463Z",
+    "sourceHash": "7ab8325eca09625de582b4f87e6c43cdc375107bf86426c02af0224b538ccb3e"
   },
   "governor-assigned": {
     "title": "现任太守与解除任命",
@@ -1520,8 +1520,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:38:19.266Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-02T10:09:21.777Z",
+    "sourceHash": "7ab8325eca09625de582b4f87e6c43cdc375107bf86426c02af0224b538ccb3e"
   },
   "diplomat-assigned": {
     "title": "已委任使臣与召回入口",
@@ -1532,8 +1532,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:38:30.613Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-02T10:09:34.642Z",
+    "sourceHash": "7ab8325eca09625de582b4f87e6c43cdc375107bf86426c02af0224b538ccb3e"
   },
   "stratagem-army": {
     "title": "无需选点的全军军略与基础撤退军令",
@@ -1544,8 +1544,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:38:32.545Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-02T10:09:36.825Z",
+    "sourceHash": "7ab8325eca09625de582b4f87e6c43cdc375107bf86426c02af0224b538ccb3e"
   },
   "stratagem-army-result": {
     "title": "全军型军略点击后直接生效",
@@ -1556,8 +1556,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:38:33.025Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-02T10:09:37.395Z",
+    "sourceHash": "7ab8325eca09625de582b4f87e6c43cdc375107bf86426c02af0224b538ccb3e"
   },
   "custom-select": {
     "title": "从编好的部队中选队",
@@ -1568,8 +1568,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:38:34.497Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-02T10:09:39.037Z",
+    "sourceHash": "7ab8325eca09625de582b4f87e6c43cdc375107bf86426c02af0224b538ccb3e"
   },
   "custom-roles": {
     "title": "独立战役军团任命",
@@ -1580,8 +1580,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:38:34.873Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-02T10:09:39.452Z",
+    "sourceHash": "7ab8325eca09625de582b4f87e6c43cdc375107bf86426c02af0224b538ccb3e"
   },
   "custom-army-review": {
     "title": "单军编组核阅确认",
@@ -1592,8 +1592,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:38:35.261Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-02T10:09:39.874Z",
+    "sourceHash": "7ab8325eca09625de582b4f87e6c43cdc375107bf86426c02af0224b538ccb3e"
   },
   "troop-disband": {
     "title": "待解散部队与实际返还兵员",
@@ -1670,62 +1670,62 @@
   "personnel-abilities": {
     "title": "能力分栏比较五项能力、等级与忠诚",
     "file": "images/player-actions/personnel-abilities.webp",
-    "group": "civic",
+    "group": "personnel",
     "sample": "官渡剧本演示开局",
     "viewport": {
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:17:18.106Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-02T09:59:12.479Z",
+    "sourceHash": "7ab8325eca09625de582b4f87e6c43cdc375107bf86426c02af0224b538ccb3e"
   },
   "personnel-tactics": {
     "title": "战法独立分栏，查看当前兵种战法与专属战法",
     "file": "images/player-actions/personnel-tactics.webp",
-    "group": "civic",
+    "group": "personnel",
     "sample": "官渡剧本演示开局",
     "viewport": {
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:17:19.752Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-02T09:59:14.852Z",
+    "sourceHash": "7ab8325eca09625de582b4f87e6c43cdc375107bf86426c02af0224b538ccb3e"
   },
   "personnel-stratagems": {
     "title": "军略独立分栏，查看各武将持有的军略",
     "file": "images/player-actions/personnel-stratagems.webp",
-    "group": "civic",
+    "group": "personnel",
     "sample": "官渡剧本演示开局",
     "viewport": {
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:17:20.171Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-02T09:59:15.356Z",
+    "sourceHash": "7ab8325eca09625de582b4f87e6c43cdc375107bf86426c02af0224b538ccb3e"
   },
   "personnel-aptitudes": {
     "title": "四系兵种适性，按真实等级比较与排序",
     "file": "images/player-actions/personnel-aptitudes.webp",
-    "group": "civic",
+    "group": "personnel",
     "sample": "官渡剧本演示开局",
     "viewport": {
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:17:18.822Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-02T09:59:13.558Z",
+    "sourceHash": "7ab8325eca09625de582b4f87e6c43cdc375107bf86426c02af0224b538ccb3e"
   },
   "personnel-bonds": {
     "title": "羁绊独立分栏，显示当前等级并可查看效果",
     "file": "images/player-actions/personnel-bonds.webp",
-    "group": "civic",
+    "group": "personnel",
     "sample": "官渡剧本演示开局",
     "viewport": {
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:17:19.355Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-02T09:59:14.345Z",
+    "sourceHash": "7ab8325eca09625de582b4f87e6c43cdc375107bf86426c02af0224b538ccb3e"
   },
   "battle-officer-aptitudes": {
     "title": "战场所属武将的四系适性",
@@ -2004,16 +2004,16 @@
     "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
   },
   "army-card": {
-    "title": "军团兵员、携粮与当前粮道",
+    "title": "军团驻守、变更目的地与兵员粮草",
     "file": "images/player-actions/army-card.webp",
-    "group": "armyStats",
-    "sample": "演示存档中仅洛阳有存粮，沿当前有效道路向尉氏军团供粮",
+    "group": "armyOrders",
+    "sample": "筹划阶段中途行军的己方军团，点选后驻守或变更目的地",
     "viewport": {
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:19:48.233Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-02T06:09:23.408Z",
+    "sourceHash": "b499c5292165197ba79998c1faff2f1f604337230fbb6308d963089a68dd1f5a"
   },
   "city-detail": {
     "title": "城市详情中的兵员与城防数量",
@@ -2554,5 +2554,125 @@
     },
     "capturedAt": "2026-11-01T07:40:47.189Z",
     "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+  },
+  "army-card-landscape": {
+    "title": "手机横屏军团驻守与变更目的地",
+    "file": "images/player-actions/army-card-landscape.webp",
+    "group": "armyOrders",
+    "sample": "筹划阶段中途行军的己方军团，点选后驻守或变更目的地",
+    "viewport": {
+      "width": 844,
+      "height": 390
+    },
+    "capturedAt": "2026-11-02T06:09:24.633Z",
+    "sourceHash": "b499c5292165197ba79998c1faff2f1f604337230fbb6308d963089a68dd1f5a"
+  },
+  "army-hold-landscape": {
+    "title": "手机横屏驻守确认",
+    "file": "images/player-actions/army-hold-landscape.webp",
+    "group": "armyOrders",
+    "sample": "筹划阶段中途行军的己方军团，点选后驻守或变更目的地",
+    "viewport": {
+      "width": 844,
+      "height": 390
+    },
+    "capturedAt": "2026-11-02T06:09:25.727Z",
+    "sourceHash": "b499c5292165197ba79998c1faff2f1f604337230fbb6308d963089a68dd1f5a"
+  },
+  "army-hold": {
+    "title": "就地驻守确认与粮草消耗",
+    "file": "images/player-actions/army-hold.webp",
+    "group": "armyOrders",
+    "sample": "筹划阶段中途行军的己方军团，点选后驻守或变更目的地",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-11-02T06:09:45.339Z",
+    "sourceHash": "b499c5292165197ba79998c1faff2f1f604337230fbb6308d963089a68dd1f5a"
+  },
+  "officer-current-sight": {
+    "title": "当前视野内实时查看敌方武将能力与忠诚",
+    "file": "images/player-actions/officer-current-sight.webp",
+    "group": "talent-subversion",
+    "sample": "实时视野与俘虏机制演示输入，不是自然局验收",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "capturedAt": "2026-11-02T06:36:47.871Z",
+    "sourceHash": "8c7107fe772259d9bc3684ac470f425120ad14d93f25092b204291eacd295ca3"
+  },
+  "captive-current-loyalty": {
+    "title": "我方关押的俘虏可查看当前能力与忠诚",
+    "file": "images/player-actions/captive-current-loyalty.webp",
+    "group": "talent-subversion",
+    "sample": "实时视野与俘虏机制演示输入，不是自然局验收",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "capturedAt": "2026-11-02T06:36:47.958Z",
+    "sourceHash": "8c7107fe772259d9bc3684ac470f425120ad14d93f25092b204291eacd295ca3"
+  },
+  "officer-lost-sight": {
+    "title": "失去视野后人物详情退出当前名册",
+    "file": "images/player-actions/officer-lost-sight.webp",
+    "group": "talent-subversion",
+    "sample": "实时视野与俘虏机制演示输入，不是自然局验收",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "capturedAt": "2026-11-02T06:36:48.037Z",
+    "sourceHash": "8c7107fe772259d9bc3684ac470f425120ad14d93f25092b204291eacd295ca3"
+  },
+  "stratagem-combination": {
+    "title": "励军固阵选区、每队实际战意消耗与保护效果",
+    "file": "images/player-actions/stratagem-combination.webp",
+    "group": "stratagemCombinations",
+    "sample": "正式规则、自然充能的组合军略机制演示",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "capturedAt": "2026-11-03T01:29:39.833Z",
+    "sourceHash": "fb88e96076b7a9b707c4ed50a17f0a71c0e515118858742913e134e833f837e9"
+  },
+  "stratagem-provider-cost": {
+    "title": "舍己护军固定施放者范围与本队疲弱代价",
+    "file": "images/player-actions/stratagem-provider-cost.webp",
+    "group": "stratagemCombinations",
+    "sample": "正式规则、自然充能的组合军略机制演示",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "capturedAt": "2026-11-03T01:29:39.986Z",
+    "sourceHash": "fb88e96076b7a9b707c4ed50a17f0a71c0e515118858742913e134e833f837e9"
+  },
+  "technology-details": {
+    "title": "进阶科技的效果、复合设施及真实人员条件",
+    "file": "images/player-actions/technology-details.webp",
+    "group": "technology",
+    "sample": "已委任一名技术负责人，查看进阶科技真实设施与人员条件的隔离演示",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-11-03T08:40:46.113Z",
+    "sourceHash": "7ab8325eca09625de582b4f87e6c43cdc375107bf86426c02af0224b538ccb3e"
+  },
+  "technology-details-mobile": {
+    "title": "手机查看进阶科技效果与缺少条件",
+    "file": "images/player-actions/technology-details-mobile.webp",
+    "group": "technology",
+    "sample": "已委任一名技术负责人，查看进阶科技真实设施与人员条件的隔离演示",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "capturedAt": "2026-11-03T08:40:46.546Z",
+    "sourceHash": "7ab8325eca09625de582b4f87e6c43cdc375107bf86426c02af0224b538ccb3e"
   }
 }

@@ -9,7 +9,7 @@ import {setStatus} from '../tactics.mjs';
 import {allLearnedTacticIds} from '../tactic-learning.mjs';
 import {newCampaign,commissionProject,beginExecution,advanceCampaignDay,advanceCampaignStep,activeBattles,chooseEncounter,serializeCampaign,validateCampaign} from './helpers/auto-domestic-campaign.mjs';
 import {assignDomestic,ACTIONS,actionCandidates,assignmentFor,cancelDomestic} from '../domestic.mjs';
-import {canResearch} from '../city-technology.mjs';
+import {canResearch,TECHS} from '../city-technology.mjs';
 import {buildingDurability,completeTechnologyBuilding,campaignBattleBuildings,writeBattleBuildingDamage} from '../building-durability.mjs';
 import {citySceneState,citySceneMarkup,cityBuildingInfo} from '../city-scene.mjs';
 import {constructionSites} from '../metropolitan-areas.mjs';
@@ -41,8 +41,8 @@ test('new facilities require local research and the common automatic constructio
   const d=BUILDING_DESIGNS[kind],key='build_'+kind;
   const before=serializeCampaign(s);assert.match(commissionProject(s,c.id,kind),/先研究/);assert.equal(serializeCampaign(s),before);
   assert.equal(assignDomestic(s,c.id,d.direction,u.id),null);let a=assignmentFor(s,u.id);assert.ok(!actionCandidates(s,a).some(p=>p.key===key));
-  c.domestic.techs=['watchtower'];completeTechnologyBuilding(c,'watchtower');setBuildingLevel(c,{arrowTower:'workshop',musicStage:'drill',aidCamp:'clinic'}[kind],1);c.order=80;
-  assert.ok(canResearch(c,d.technology));technology(c,kind);assert.ok(actionCandidates(s,a).some(p=>p.key===key));cancelDomestic(s,u.id);
+  c.domestic.techs=['watchtower'];completeTechnologyBuilding(c,'watchtower');for(const [key,level]of Object.entries(TECHS[d.technology].buildings))setBuildingLevel(c,key,level);c.order=80;
+  assert.ok(canResearch(c,d.technology,{researchers:2}));technology(c,kind);assert.ok(actionCandidates(s,a).some(p=>p.key===key));cancelDomestic(s,u.id);
  }
  restore(s);
 });

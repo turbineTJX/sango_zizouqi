@@ -212,9 +212,9 @@ export function validateDesignTables(tables=DESIGN_TABLES){
   check(s.scaling===scaledEffect,'stratagems.'+id+'.scaling','军略属性须改变实际主要效果');
   check(['support','offense','control'].includes(s.group),'stratagems.'+id+'.group','军略表现组无效');
   check(r&&['army','reserve','battlefield','circle','rectangle','unit'].includes(r.shape),path,'必须明确施放范围');
-  if(r?.shape==='circle')check(numeric(r.radius,.1,10)&&Object.keys(r).every(k=>['shape','radius'].includes(k)),path,'圆形半径或字段无效');
+  if(r?.shape==='circle')check(numeric(r.radius,.1,10)&&Object.keys(r).every(k=>['shape','radius','anchor'].includes(k))&&(r.anchor===undefined||s.effect==='selflessGuard'&&r.anchor==='provider'),path,'圆形半径或字段无效');
   if(r?.shape==='rectangle')check(numeric(r.width,.1,14)&&numeric(r.height,.1,8)&&Object.keys(r).every(k=>['shape','width','height'].includes(k)),path,'矩形尺寸或字段无效');
-  if(['circle','rectangle'].includes(r?.shape))check(['shield','heal','cleanse','invincible','ambush','stun','magicImmunity','rapidAdvance','firestorm','eightFormation'].includes(s.effect||id),path,'该效果尚未支持选区');
+  if(['circle','rectangle'].includes(r?.shape))check(['shield','heal','cleanse','invincible','ambush','stun','magicImmunity','rapidAdvance','firestorm','eightFormation','allOutAttack','holdForRelief','focusedPlanning','opportunisticAssault','moraleFortification','selflessGuard'].includes(s.effect||id),path,'该效果尚未支持选区');
   if(r?.shape==='unit')check(s.effect==='rapidAdvance'&&s.side===0&&Object.keys(r).length===1,path,'单队军略无效');
   if(s.effect==='magicImmunity'){const d=s.disciplineDuration;check(s.side===0&&(r?.shape==='circle'&&!d&&s.duration>0||r?.shape==='army'&&d&&Object.keys(d).length===3&&Number.isInteger(d.base)&&d.base>0&&numeric(d.per,1)&&Number.isInteger(d.max)&&d.max>=d.base),'stratagems.'+id,'军纪时长参数无效');}
   else check(s.disciplineDuration===undefined,'stratagems.'+id,'未接入军纪时长');
@@ -224,8 +224,20 @@ export function validateDesignTables(tables=DESIGN_TABLES){
    check(z&&Object.keys(z).every(k=>['statusSteps','chanceScale','minChance','maxChance','statuses'].includes(k))&&Number.isInteger(z.statusSteps)&&z.statusSteps>0&&numeric(z.chanceScale,1)&&numeric(z.minChance,0,1)&&numeric(z.maxChance,z.minChance,1)&&Array.isArray(z.statuses)&&z.statuses.length>0&&new Set(z.statuses).size===z.statuses.length&&z.statuses.every(k=>['confuse','seal','disrupted','slow','weaken','armorBreak'].includes(k)),'stratagems.'+id+'.zone','八阵异常与概率参数无效');
   }else check(s.zone===undefined,'stratagems.'+id+'.zone','该效果未接入持续区域');
   check(DESIGN_EFFECTS.stratagems.includes(s.effect||id),'stratagems.'+id+'.effect','引擎尚未支持此效果');check(numeric(s.duration),'stratagems.'+id+'.duration','持续时间无效');
-  const maxDuration=scaledEffect==='duration'?Math.round(s.duration*(attr?.max||2)):scaledEffect==='disciplineDuration'?Math.round(s.disciplineDuration.max*(attr?.max||2)):scaledEffect==='resolve'?Math.round(s.resolve*(attr?.max||2)):s.duration;
-  check(Number.isInteger(s.cooldown)&&s.cooldown>=32&&s.cooldown>maxDuration,'stratagems.'+id+'.cooldown','军略须有独立长冷却');
+  const combination=['allOutAttack','holdForRelief','focusedPlanning','opportunisticAssault','moraleFortification','selflessGuard'].includes(s.effect);
+  if(combination){
+   const c=s.combination,validPart=(e,benefit)=>{
+    if(!e||!Object.keys(e).every(k=>['status','steps','fraction','percent'].includes(k))||!Number.isSafeInteger(e.steps)||e.steps<1||e.steps>24)return false;
+    if(!(benefit?['shield','valor','nexus','attackHaste','resolve','ward']:['armorBreak','slow','attackSlow','seal','weaken']).includes(e.status))return false;
+    return ['resolve','seal'].includes(e.status)?e.fraction===undefined&&e.percent===undefined:e.status==='ward'?Number.isSafeInteger(e.percent)&&e.percent>0&&e.percent<=80&&e.fraction===undefined:numeric(e.fraction,.01,e.status==='shield'?1:.8)&&e.percent===undefined;
+   };
+   check(s.side===0&&r?.shape==='circle'&&r.radius===2&&!s.field&&c&&Object.keys(c).every(k=>['benefits','penalties','intentCost','penaltyTarget'].includes(k))&&Array.isArray(c.benefits)&&c.benefits.length>0&&c.benefits.length<=3&&Array.isArray(c.penalties)&&c.penalties.length<=2&&c.benefits.every(e=>validPart(e,true))&&c.penalties.every(e=>validPart(e,false))&&new Set([...c.benefits,...c.penalties].map(e=>e.status)).size===c.benefits.length+c.penalties.length,'stratagems.'+id+'.combination','组合军略状态、范围或参数无效');
+   check(s.effect==='moraleFortification'?Number.isSafeInteger(c?.intentCost)&&c.intentCost>0&&c.intentCost<=100&&c.penalties.length===0:c?.intentCost===undefined,'stratagems.'+id+'.combination','组合军略战意消耗无效');
+   check(s.effect==='selflessGuard'?r?.anchor==='provider'&&c?.penaltyTarget==='provider'&&c.penalties.length>0:r?.anchor===undefined&&c?.penaltyTarget===undefined,'stratagems.'+id+'.combination','组合军略施放者代价或锚点无效');
+   check(c&&s.duration===Math.max(...[...(c.benefits||[]),...(c.penalties||[])].map(e=>e.steps))&&s.cooldown>s.duration,'stratagems.'+id+'.duration','组合军略基准时长或冷却无效');
+  }else check(s.combination===undefined,'stratagems.'+id+'.combination','该效果未接入组合军略');
+  const maxDuration=combination?Math.min(s.cooldown-1,Math.round(s.duration*(attr?.max||2))):scaledEffect==='duration'?Math.round(s.duration*(attr?.max||2)):scaledEffect==='disciplineDuration'?Math.round(s.disciplineDuration.max*(attr?.max||2)):scaledEffect==='resolve'?Math.round(s.resolve*(attr?.max||2)):s.duration;
+  check(Number.isInteger(s.cooldown)&&s.cooldown>0&&s.cooldown>maxDuration,'stratagems.'+id+'.cooldown','军略须有独立冷却且长于最高属性持续时间');
   check(Array.isArray(s.roster)&&s.roster.length>0&&new Set(s.roster).size===s.roster.length&&s.roster.every(id=>exists(tables.officers,id)),'stratagems.'+id+'.roster','军略须有明确人物名单');
   check([0,1,2].includes(s.side),'stratagems.'+id+'.side','军略目标阵营无效');
   if(s.effect==='forceReserve')check(r?.shape==='reserve'&&s.side===0&&s.baseCount===2&&s.maxUses===1&&s.duration===0,'stratagems.'+id,'奇兵出场规则无效');

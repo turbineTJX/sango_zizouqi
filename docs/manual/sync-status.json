@@ -53,9 +53,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:44:01.907Z",
-      "note": "已核对普通/全AI开局、历史模板和自定义双方军团/援军、单军选队任命核阅、地图分类绘制预览及导入导出删除入口；实际编辑保存地图并预览、运行编组取景，检查新截图。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "setup"
       ]
@@ -110,9 +110,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:44:01.907Z",
-      "note": "已核对普通/全AI开局、历史模板和自定义双方军团/援军、单军选队任命核阅、地图分类绘制预览及导入导出删除入口；实际编辑保存地图并预览、运行编组取景，检查新截图。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "observer",
         "setup"
@@ -168,9 +168,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:44:01.907Z",
-      "note": "已核对普通/全AI开局、历史模板和自定义双方军团/援军、单军选队任命核阅、地图分类绘制预览及导入导出删除入口；实际编辑保存地图并预览、运行编组取景，检查新截图。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "setup"
       ]
@@ -225,9 +225,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:44:01.907Z",
-      "note": "已核对普通/全AI开局、历史模板和自定义双方军团/援军、单军选队任命核阅、地图分类绘制预览及导入导出删除入口；实际编辑保存地图并预览、运行编组取景，检查新截图。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "configuration",
         "setup"
@@ -283,9 +283,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:44:01.907Z",
-      "note": "已核对普通/全AI开局、历史模板和自定义双方军团/援军、单军选队任命核阅、地图分类绘制预览及导入导出删除入口；实际编辑保存地图并预览、运行编组取景，检查新截图。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "refinements",
         "setup"
@@ -328,9 +328,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:44:01.907Z",
-      "note": "已核对普通/全AI开局、历史模板和自定义双方军团/援军、单军选队任命核阅、地图分类绘制预览及导入导出删除入口；实际编辑保存地图并预览、运行编组取景，检查新截图。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "setup"
       ]
@@ -390,9 +390,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:44:06.513Z",
-      "note": "已实际打开宝物/武将编辑器修改配置并保存，创建自建武将、五项能力与适性及人物资料；对照处理器核对新局快照、导入确认、未保存返回和恢复默认边界，检查桌面/横屏新截图。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "officerEditor"
       ]
@@ -459,9 +459,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:44:06.513Z",
-      "note": "已实际打开宝物/武将编辑器修改配置并保存，创建自建武将、五项能力与适性及人物资料；对照处理器核对新局快照、导入确认、未保存返回和恢复默认边界，检查桌面/横屏新截图。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "treasure-editor"
       ]
@@ -503,9 +503,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:44:01.907Z",
-      "note": "已核对普通/全AI开局、历史模板和自定义双方军团/援军、单军选队任命核阅、地图分类绘制预览及导入导出删除入口；实际编辑保存地图并预览、运行编组取景，检查新截图。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "setup"
       ]
@@ -560,9 +560,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:44:04.260Z",
-      "note": "已运行普通剧本概要、人物归属/日期/任职、城池设施科技、建立自定义势力和初始外交至真实开局重载；另验导入同编号另存、非法导入、删除不影响现局，检查桌面/横屏新截图。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "scenario-editor",
         "scenario-opening"
@@ -618,9 +618,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:44:04.260Z",
-      "note": "已运行普通剧本概要、人物归属/日期/任职、城池设施科技、建立自定义势力和初始外交至真实开局重载；另验导入同编号另存、非法导入、删除不影响现局，检查桌面/横屏新截图。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "scenario-editor"
       ]
@@ -675,9 +675,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:59.453Z",
-      "note": "已核对实际战斗结算、战果与重试入口、战后缺职暂停补任；真实完成只读回放的拖动/键盘定位、播放暂停、倍速、重置与关闭，并比较世界存档字节不变，检查战报和回放新截图。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "reports"
       ]
@@ -741,9 +741,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:13.296Z",
-      "note": "已对照城市点选卡、自辖城市筛选、军团卡与详情、天下情报、建筑入口和地图确认页；核对兵员、当前粮道、旧情报日期及取消保留草稿，相关截图已重拍检查。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "cityStats",
         "nodes"
@@ -808,9 +808,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:13.296Z",
-      "note": "已对照城市点选卡、自辖城市筛选、军团卡与详情、天下情报、建筑入口和地图确认页；核对兵员、当前粮道、旧情报日期及取消保留草稿，相关截图已重拍检查。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "civic"
       ]
@@ -874,12 +874,12 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:13.296Z",
-      "note": "已对照城市点选卡、自辖城市筛选、军团卡与详情、天下情报、建筑入口和地图确认页；核对兵员、当前粮道、旧情报日期及取消保留草稿，相关截图已重拍检查。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
+        "armyOrders",
         "armyStats",
-        "extras",
         "postbattle"
       ]
     },
@@ -946,13 +946,14 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:15.629Z",
-      "note": "已核对人才名册任职、能力、四系适性、特性、羁绊、战法、军略及人物返回名册、日志入口；部队简报与所属武将适性截图按当前画面重拍检查。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "battle",
-        "civic",
-        "officerInspection"
+        "officerInspection",
+        "personnel",
+        "talent-subversion"
       ]
     },
     {
@@ -1024,12 +1025,13 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:13.296Z",
-      "note": "已对照城市点选卡、自辖城市筛选、军团卡与详情、天下情报、建筑入口和地图确认页；核对兵员、当前粮道、旧情报日期及取消保留草稿，相关截图已重拍检查。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "configuration",
-        "extras"
+        "extras",
+        "talent-subversion"
       ]
     },
     {
@@ -1091,9 +1093,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:13.296Z",
-      "note": "已对照城市点选卡、自辖城市筛选、军团卡与详情、天下情报、建筑入口和地图确认页；核对兵员、当前粮道、旧情报日期及取消保留草稿，相关截图已重拍检查。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "extras",
         "nodes"
@@ -1158,9 +1160,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:13.296Z",
-      "note": "已对照城市点选卡、自辖城市筛选、军团卡与详情、天下情报、建筑入口和地图确认页；核对兵员、当前粮道、旧情报日期及取消保留草稿，相关截图已重拍检查。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "formation",
         "logistics"
@@ -1177,10 +1179,12 @@
         "内政人事"
       ],
       "sources": [
+        "ai-policy/domestic-staffing.mjs",
         "app.js",
         "art-strategic-map.mjs",
         "city-governance.mjs",
         "city-personnel.mjs",
+        "city-technology.mjs",
         "classical.css",
         "data/design/domestic-actions.mjs",
         "data/design/domestic-decision-rules.mjs",
@@ -1188,6 +1192,7 @@
         "data/design/road-crossings.mjs",
         "data/design/road-link-policy.mjs",
         "data/design/road-network.mjs",
+        "data/design/technologies.mjs",
         "domestic-direction-view.mjs",
         "domestic-feedback.mjs",
         "domestic-governance-view.mjs",
@@ -1214,6 +1219,9 @@
         "strategic-workspace.css",
         "strategic.css",
         "styles.css",
+        "technology-design-validation.mjs",
+        "technology-research-staff.mjs",
+        "technology-view.mjs",
         "town-layout.mjs",
         "ui-fonts/font-face.css",
         "ui-fonts/noto-serif-sc.woff2",
@@ -1224,12 +1232,13 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:17.970Z",
-      "note": "已核对六方向岗位、选人直接确认、现任解除和在办事务冲突入口；改任使用普通冲突页的立即执行或办完执行，待任占槽与返回草稿说明保持当前规则。",
+      "reviewedAt": "2026-11-03T08:48:09.000Z",
+      "note": "核对科技正式表、真实驻城人数与共同开办入口；补充城市科技详情路径及本轮收益、前置条件。新增并目视检查 technology-details.webp、technology-details-mobile.webp；verify-city-technology-ui 通过桌面、390px手机、键盘及存档只读检查。",
       "screenshots": "recaptured",
       "captureGroups": [
         "appointments",
-        "civic"
+        "civic",
+        "technology"
       ]
     },
     {
@@ -1243,10 +1252,12 @@
         "内政人事"
       ],
       "sources": [
+        "ai-policy/domestic-staffing.mjs",
         "app.js",
         "art-strategic-map.mjs",
         "city-governance.mjs",
         "city-personnel.mjs",
+        "city-technology.mjs",
         "classical.css",
         "data/design/domestic-actions.mjs",
         "data/design/domestic-decision-rules.mjs",
@@ -1254,6 +1265,7 @@
         "data/design/road-crossings.mjs",
         "data/design/road-link-policy.mjs",
         "data/design/road-network.mjs",
+        "data/design/technologies.mjs",
         "domestic-direction-view.mjs",
         "domestic-feedback.mjs",
         "domestic-governance-view.mjs",
@@ -1280,6 +1292,9 @@
         "strategic-workspace.css",
         "strategic.css",
         "styles.css",
+        "technology-design-validation.mjs",
+        "technology-research-staff.mjs",
+        "technology-view.mjs",
         "town-layout.mjs",
         "ui-fonts/font-face.css",
         "ui-fonts/noto-serif-sc.woff2",
@@ -1290,9 +1305,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:17.970Z",
-      "note": "已核对六方向岗位、选人直接确认、现任解除和在办事务冲突入口；改任使用普通冲突页的立即执行或办完执行，待任占槽与返回草稿说明保持当前规则。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:09.775Z",
+      "note": "逐项核对本轮源码差异：新增科技开办人数、复合设施、AI真实研究班底及收益和费用校验；上述改任、解除、太守、优先级、统一委任、审批与人才操作的页面和点击路径未改变。共同委任、审批、推荐、旬初时机回归通过。已目视检查12项实际关联操作共23张流程图，既有图片与步骤仍对应；联系图位于 .local/technology-rebalance-20261103/manual-contact.png。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "civic",
         "timing"
@@ -1309,10 +1324,12 @@
         "内政人事"
       ],
       "sources": [
+        "ai-policy/domestic-staffing.mjs",
         "app.js",
         "art-strategic-map.mjs",
         "city-governance.mjs",
         "city-personnel.mjs",
+        "city-technology.mjs",
         "classical.css",
         "data/design/domestic-actions.mjs",
         "data/design/domestic-decision-rules.mjs",
@@ -1320,6 +1337,7 @@
         "data/design/road-crossings.mjs",
         "data/design/road-link-policy.mjs",
         "data/design/road-network.mjs",
+        "data/design/technologies.mjs",
         "domestic-direction-view.mjs",
         "domestic-feedback.mjs",
         "domestic-governance-view.mjs",
@@ -1346,6 +1364,9 @@
         "strategic-workspace.css",
         "strategic.css",
         "styles.css",
+        "technology-design-validation.mjs",
+        "technology-research-staff.mjs",
+        "technology-view.mjs",
         "town-layout.mjs",
         "ui-fonts/font-face.css",
         "ui-fonts/noto-serif-sc.woff2",
@@ -1356,9 +1377,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:17.970Z",
-      "note": "已核对六方向岗位、选人直接确认、现任解除和在办事务冲突入口；改任使用普通冲突页的立即执行或办完执行，待任占槽与返回草稿说明保持当前规则。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:09.775Z",
+      "note": "逐项核对本轮源码差异：新增科技开办人数、复合设施、AI真实研究班底及收益和费用校验；上述改任、解除、太守、优先级、统一委任、审批与人才操作的页面和点击路径未改变。共同委任、审批、推荐、旬初时机回归通过。已目视检查12项实际关联操作共23张流程图，既有图片与步骤仍对应；联系图位于 .local/technology-rebalance-20261103/manual-contact.png。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "refinements",
         "timing"
@@ -1375,10 +1396,12 @@
         "内政人事"
       ],
       "sources": [
+        "ai-policy/domestic-staffing.mjs",
         "app.js",
         "art-strategic-map.mjs",
         "city-governance.mjs",
         "city-personnel.mjs",
+        "city-technology.mjs",
         "classical.css",
         "data/design/domestic-actions.mjs",
         "data/design/domestic-decision-rules.mjs",
@@ -1386,6 +1409,7 @@
         "data/design/road-crossings.mjs",
         "data/design/road-link-policy.mjs",
         "data/design/road-network.mjs",
+        "data/design/technologies.mjs",
         "domestic-direction-view.mjs",
         "domestic-feedback.mjs",
         "domestic-governance-view.mjs",
@@ -1412,6 +1436,9 @@
         "strategic-workspace.css",
         "strategic.css",
         "styles.css",
+        "technology-design-validation.mjs",
+        "technology-research-staff.mjs",
+        "technology-view.mjs",
         "town-layout.mjs",
         "ui-fonts/font-face.css",
         "ui-fonts/noto-serif-sc.woff2",
@@ -1422,9 +1449,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:20.402Z",
-      "note": "已通过实际选人任命、单独开启太守审批、管理页解除流程，并比较保存状态确认任命不自动委托、解除同步收回委托；检查重拍的入口与结果截图。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:09.775Z",
+      "note": "逐项核对本轮源码差异：新增科技开办人数、复合设施、AI真实研究班底及收益和费用校验；上述改任、解除、太守、优先级、统一委任、审批与人才操作的页面和点击路径未改变。共同委任、审批、推荐、旬初时机回归通过。已目视检查12项实际关联操作共23张流程图，既有图片与步骤仍对应；联系图位于 .local/technology-rebalance-20261103/manual-contact.png。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "governor",
         "refinements"
@@ -1441,10 +1468,12 @@
         "内政人事"
       ],
       "sources": [
+        "ai-policy/domestic-staffing.mjs",
         "app.js",
         "art-strategic-map.mjs",
         "city-governance.mjs",
         "city-personnel.mjs",
+        "city-technology.mjs",
         "classical.css",
         "data/design/domestic-actions.mjs",
         "data/design/domestic-decision-rules.mjs",
@@ -1452,6 +1481,7 @@
         "data/design/road-crossings.mjs",
         "data/design/road-link-policy.mjs",
         "data/design/road-network.mjs",
+        "data/design/technologies.mjs",
         "domestic-direction-view.mjs",
         "domestic-feedback.mjs",
         "domestic-governance-view.mjs",
@@ -1478,6 +1508,9 @@
         "strategic-workspace.css",
         "strategic.css",
         "styles.css",
+        "technology-design-validation.mjs",
+        "technology-research-staff.mjs",
+        "technology-view.mjs",
         "town-layout.mjs",
         "ui-fonts/font-face.css",
         "ui-fonts/noto-serif-sc.woff2",
@@ -1488,9 +1521,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:20.402Z",
-      "note": "已通过实际选人任命、单独开启太守审批、管理页解除流程，并比较保存状态确认任命不自动委托、解除同步收回委托；检查重拍的入口与结果截图。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:09.775Z",
+      "note": "逐项核对本轮源码差异：新增科技开办人数、复合设施、AI真实研究班底及收益和费用校验；上述改任、解除、太守、优先级、统一委任、审批与人才操作的页面和点击路径未改变。共同委任、审批、推荐、旬初时机回归通过。已目视检查12项实际关联操作共23张流程图，既有图片与步骤仍对应；联系图位于 .local/technology-rebalance-20261103/manual-contact.png。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "governor",
         "refinements"
@@ -1508,11 +1541,13 @@
         "策略簿册布局"
       ],
       "sources": [
+        "ai-policy/domestic-staffing.mjs",
         "app.js",
         "aptitude-display.mjs",
         "art-strategic-map.mjs",
         "city-governance.mjs",
         "city-personnel.mjs",
+        "city-technology.mjs",
         "classical.css",
         "data/design/domestic-actions.mjs",
         "data/design/domestic-decision-rules.mjs",
@@ -1520,6 +1555,7 @@
         "data/design/road-crossings.mjs",
         "data/design/road-link-policy.mjs",
         "data/design/road-network.mjs",
+        "data/design/technologies.mjs",
         "domestic-direction-view.mjs",
         "domestic-feedback.mjs",
         "domestic-governance-view.mjs",
@@ -1548,6 +1584,9 @@
         "strategic-workspace.css",
         "strategic.css",
         "styles.css",
+        "technology-design-validation.mjs",
+        "technology-research-staff.mjs",
+        "technology-view.mjs",
         "town-layout.mjs",
         "ui-fonts/font-face.css",
         "ui-fonts/noto-serif-sc.woff2",
@@ -1558,9 +1597,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:22.801Z",
-      "note": "已核对内政优先级上下移、统一委任及旬初进行后提出提案的处理器；实际打开预算冲突、保存预算并批准本页，核对单项/筛选批量同意和暂缓的生效范围，检查重拍画面。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:09.775Z",
+      "note": "逐项核对本轮源码差异：新增科技开办人数、复合设施、AI真实研究班底及收益和费用校验；上述改任、解除、太守、优先级、统一委任、审批与人才操作的页面和点击路径未改变。共同委任、审批、推荐、旬初时机回归通过。已目视检查12项实际关联操作共23张流程图，既有图片与步骤仍对应；联系图位于 .local/technology-rebalance-20261103/manual-contact.png。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "affairs"
       ]
@@ -1577,11 +1616,13 @@
         "策略簿册布局"
       ],
       "sources": [
+        "ai-policy/domestic-staffing.mjs",
         "app.js",
         "aptitude-display.mjs",
         "art-strategic-map.mjs",
         "city-governance.mjs",
         "city-personnel.mjs",
+        "city-technology.mjs",
         "classical.css",
         "data/design/domestic-actions.mjs",
         "data/design/domestic-decision-rules.mjs",
@@ -1589,6 +1630,7 @@
         "data/design/road-crossings.mjs",
         "data/design/road-link-policy.mjs",
         "data/design/road-network.mjs",
+        "data/design/technologies.mjs",
         "domestic-direction-view.mjs",
         "domestic-feedback.mjs",
         "domestic-governance-view.mjs",
@@ -1617,6 +1659,9 @@
         "strategic-workspace.css",
         "strategic.css",
         "styles.css",
+        "technology-design-validation.mjs",
+        "technology-research-staff.mjs",
+        "technology-view.mjs",
         "town-layout.mjs",
         "ui-fonts/font-face.css",
         "ui-fonts/noto-serif-sc.woff2",
@@ -1627,9 +1672,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:22.801Z",
-      "note": "已核对内政优先级上下移、统一委任及旬初进行后提出提案的处理器；实际打开预算冲突、保存预算并批准本页，核对单项/筛选批量同意和暂缓的生效范围，检查重拍画面。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:09.775Z",
+      "note": "逐项核对本轮源码差异：新增科技开办人数、复合设施、AI真实研究班底及收益和费用校验；上述改任、解除、太守、优先级、统一委任、审批与人才操作的页面和点击路径未改变。共同委任、审批、推荐、旬初时机回归通过。已目视检查12项实际关联操作共23张流程图，既有图片与步骤仍对应；联系图位于 .local/technology-rebalance-20261103/manual-contact.png。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "affairs"
       ]
@@ -1645,10 +1690,12 @@
         "内政人事"
       ],
       "sources": [
+        "ai-policy/domestic-staffing.mjs",
         "app.js",
         "art-strategic-map.mjs",
         "city-governance.mjs",
         "city-personnel.mjs",
+        "city-technology.mjs",
         "classical.css",
         "data/design/domestic-actions.mjs",
         "data/design/domestic-decision-rules.mjs",
@@ -1656,6 +1703,7 @@
         "data/design/road-crossings.mjs",
         "data/design/road-link-policy.mjs",
         "data/design/road-network.mjs",
+        "data/design/technologies.mjs",
         "domestic-direction-view.mjs",
         "domestic-feedback.mjs",
         "domestic-governance-view.mjs",
@@ -1682,6 +1730,9 @@
         "strategic-workspace.css",
         "strategic.css",
         "styles.css",
+        "technology-design-validation.mjs",
+        "technology-research-staff.mjs",
+        "technology-view.mjs",
         "town-layout.mjs",
         "ui-fonts/font-face.css",
         "ui-fonts/noto-serif-sc.woff2",
@@ -1692,9 +1743,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:22.801Z",
-      "note": "已核对内政优先级上下移、统一委任及旬初进行后提出提案的处理器；实际打开预算冲突、保存预算并批准本页，核对单项/筛选批量同意和暂缓的生效范围，检查重拍画面。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:09.775Z",
+      "note": "逐项核对本轮源码差异：新增科技开办人数、复合设施、AI真实研究班底及收益和费用校验；上述改任、解除、太守、优先级、统一委任、审批与人才操作的页面和点击路径未改变。共同委任、审批、推荐、旬初时机回归通过。已目视检查12项实际关联操作共23张流程图，既有图片与步骤仍对应；联系图位于 .local/technology-rebalance-20261103/manual-contact.png。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "proposals"
       ]
@@ -1710,10 +1761,12 @@
         "内政人事"
       ],
       "sources": [
+        "ai-policy/domestic-staffing.mjs",
         "app.js",
         "art-strategic-map.mjs",
         "city-governance.mjs",
         "city-personnel.mjs",
+        "city-technology.mjs",
         "classical.css",
         "data/design/domestic-actions.mjs",
         "data/design/domestic-decision-rules.mjs",
@@ -1721,6 +1774,7 @@
         "data/design/road-crossings.mjs",
         "data/design/road-link-policy.mjs",
         "data/design/road-network.mjs",
+        "data/design/technologies.mjs",
         "domestic-direction-view.mjs",
         "domestic-feedback.mjs",
         "domestic-governance-view.mjs",
@@ -1747,6 +1801,9 @@
         "strategic-workspace.css",
         "strategic.css",
         "styles.css",
+        "technology-design-validation.mjs",
+        "technology-research-staff.mjs",
+        "technology-view.mjs",
         "town-layout.mjs",
         "ui-fonts/font-face.css",
         "ui-fonts/noto-serif-sc.woff2",
@@ -1757,9 +1814,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:22.801Z",
-      "note": "已核对内政优先级上下移、统一委任及旬初进行后提出提案的处理器；实际打开预算冲突、保存预算并批准本页，核对单项/筛选批量同意和暂缓的生效范围，检查重拍画面。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:09.775Z",
+      "note": "逐项核对本轮源码差异：新增科技开办人数、复合设施、AI真实研究班底及收益和费用校验；上述改任、解除、太守、优先级、统一委任、审批与人才操作的页面和点击路径未改变。共同委任、审批、推荐、旬初时机回归通过。已目视检查12项实际关联操作共23张流程图，既有图片与步骤仍对应；联系图位于 .local/technology-rebalance-20261103/manual-contact.png。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "proposals"
       ]
@@ -1775,10 +1832,12 @@
         "内政人事"
       ],
       "sources": [
+        "ai-policy/domestic-staffing.mjs",
         "app.js",
         "art-strategic-map.mjs",
         "city-governance.mjs",
         "city-personnel.mjs",
+        "city-technology.mjs",
         "classical.css",
         "data/design/domestic-actions.mjs",
         "data/design/domestic-decision-rules.mjs",
@@ -1786,6 +1845,7 @@
         "data/design/road-crossings.mjs",
         "data/design/road-link-policy.mjs",
         "data/design/road-network.mjs",
+        "data/design/technologies.mjs",
         "domestic-direction-view.mjs",
         "domestic-feedback.mjs",
         "domestic-governance-view.mjs",
@@ -1812,6 +1872,9 @@
         "strategic-workspace.css",
         "strategic.css",
         "styles.css",
+        "technology-design-validation.mjs",
+        "technology-research-staff.mjs",
+        "technology-view.mjs",
         "town-layout.mjs",
         "ui-fonts/font-face.css",
         "ui-fonts/noto-serif-sc.woff2",
@@ -1822,9 +1885,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:22.801Z",
-      "note": "已核对内政优先级上下移、统一委任及旬初进行后提出提案的处理器；实际打开预算冲突、保存预算并批准本页，核对单项/筛选批量同意和暂缓的生效范围，检查重拍画面。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:09.775Z",
+      "note": "逐项核对本轮源码差异：新增科技开办人数、复合设施、AI真实研究班底及收益和费用校验；上述改任、解除、太守、优先级、统一委任、审批与人才操作的页面和点击路径未改变。共同委任、审批、推荐、旬初时机回归通过。已目视检查12项实际关联操作共23张流程图，既有图片与步骤仍对应；联系图位于 .local/technology-rebalance-20261103/manual-contact.png。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "proposals"
       ]
@@ -1840,10 +1903,12 @@
         "内政人事"
       ],
       "sources": [
+        "ai-policy/domestic-staffing.mjs",
         "app.js",
         "art-strategic-map.mjs",
         "city-governance.mjs",
         "city-personnel.mjs",
+        "city-technology.mjs",
         "classical.css",
         "data/design/domestic-actions.mjs",
         "data/design/domestic-decision-rules.mjs",
@@ -1851,6 +1916,7 @@
         "data/design/road-crossings.mjs",
         "data/design/road-link-policy.mjs",
         "data/design/road-network.mjs",
+        "data/design/technologies.mjs",
         "domestic-direction-view.mjs",
         "domestic-feedback.mjs",
         "domestic-governance-view.mjs",
@@ -1877,6 +1943,9 @@
         "strategic-workspace.css",
         "strategic.css",
         "styles.css",
+        "technology-design-validation.mjs",
+        "technology-research-staff.mjs",
+        "technology-view.mjs",
         "town-layout.mjs",
         "ui-fonts/font-face.css",
         "ui-fonts/noto-serif-sc.woff2",
@@ -1887,9 +1956,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:20.402Z",
-      "note": "已通过实际选人任命、单独开启太守审批、管理页解除流程，并比较保存状态确认任命不自动委托、解除同步收回委托；检查重拍的入口与结果截图。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:09.775Z",
+      "note": "逐项核对本轮源码差异：新增科技开办人数、复合设施、AI真实研究班底及收益和费用校验；上述改任、解除、太守、优先级、统一委任、审批与人才操作的页面和点击路径未改变。共同委任、审批、推荐、旬初时机回归通过。已目视检查12项实际关联操作共23张流程图，既有图片与步骤仍对应；联系图位于 .local/technology-rebalance-20261103/manual-contact.png。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "governor"
       ]
@@ -1945,9 +2014,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:25.122Z",
-      "note": "已在实际预算页验证修改未保存不改变存档、非法小数保存失败、整数保存后统一生效；检查原值、未保存和已保存三张新截图。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "civic"
       ]
@@ -2013,9 +2082,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:27.414Z",
-      "note": "已通过低忠诚提醒直达人才方向、选择魅力负责人、确认及名册忠诚查看流程；比较存档确认任命不提前安抚，提醒无离职倒计时，检查五张重拍截图。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:09.775Z",
+      "note": "逐项核对本轮源码差异：新增科技开办人数、复合设施、AI真实研究班底及收益和费用校验；上述改任、解除、太守、优先级、统一委任、审批与人才操作的页面和点击路径未改变。共同委任、审批、推荐、旬初时机回归通过。已目视检查12项实际关联操作共23张流程图，既有图片与步骤仍对应；联系图位于 .local/technology-rebalance-20261103/manual-contact.png。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "loyalty"
       ]
@@ -2072,9 +2141,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:29.722Z",
-      "note": "已核对侦察城市表、人员表、终点与拖动路线、派遣/停止及带日期报告；补齐在办人员冲突重拍入口，验证返回不改原事务、立即执行才解除并建立侦察任务，检查桌面与横屏截图。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "logistics",
         "scouting"
@@ -2132,9 +2201,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:29.722Z",
-      "note": "已核对侦察城市表、人员表、终点与拖动路线、派遣/停止及带日期报告；补齐在办人员冲突重拍入口，验证返回不改原事务、立即执行才解除并建立侦察任务，检查桌面与横屏截图。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "logistics"
       ]
@@ -2191,9 +2260,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:29.722Z",
-      "note": "已核对侦察城市表、人员表、终点与拖动路线、派遣/停止及带日期报告；补齐在办人员冲突重拍入口，验证返回不改原事务、立即执行才解除并建立侦察任务，检查桌面与横屏截图。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "extras"
       ]
@@ -2250,9 +2319,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:29.722Z",
-      "note": "已核对侦察城市表、人员表、终点与拖动路线、派遣/停止及带日期报告；补齐在办人员冲突重拍入口，验证返回不改原事务、立即执行才解除并建立侦察任务，检查桌面与横屏截图。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "logistics"
       ]
@@ -2313,9 +2382,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:31.988Z",
-      "note": "已核对单队选将与配置、确认后回编制列表、解散返还、出征选队移除及临时编制入口、任命与地图路线核阅；重拍贼寨来源城及同一出征流程，按真实抵达说明增援护路。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "formation"
       ]
@@ -2376,9 +2445,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:31.988Z",
-      "note": "已核对单队选将与配置、确认后回编制列表、解散返还、出征选队移除及临时编制入口、任命与地图路线核阅；重拍贼寨来源城及同一出征流程，按真实抵达说明增援护路。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "formation"
       ]
@@ -2439,9 +2508,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:31.988Z",
-      "note": "已核对单队选将与配置、确认后回编制列表、解散返还、出征选队移除及临时编制入口、任命与地图路线核阅；重拍贼寨来源城及同一出征流程，按真实抵达说明增援护路。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "disband",
         "formation"
@@ -2503,9 +2572,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:31.988Z",
-      "note": "已核对单队选将与配置、确认后回编制列表、解散返还、出征选队移除及临时编制入口、任命与地图路线核阅；重拍贼寨来源城及同一出征流程，按真实抵达说明增援护路。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "formation"
       ]
@@ -2566,9 +2635,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:31.988Z",
-      "note": "已核对单队选将与配置、确认后回编制列表、解散返还、出征选队移除及临时编制入口、任命与地图路线核阅；重拍贼寨来源城及同一出征流程，按真实抵达说明增援护路。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "formation"
       ]
@@ -2629,9 +2698,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:31.988Z",
-      "note": "已核对单队选将与配置、确认后回编制列表、解散返还、出征选队移除及临时编制入口、任命与地图路线核阅；重拍贼寨来源城及同一出征流程，按真实抵达说明增援护路。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "formation"
       ]
@@ -2697,9 +2766,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:31.988Z",
-      "note": "已核对单队选将与配置、确认后回编制列表、解散返还、出征选队移除及临时编制入口、任命与地图路线核阅；重拍贼寨来源城及同一出征流程，按真实抵达说明增援护路。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "formation",
         "proposals"
@@ -2761,11 +2830,11 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:31.988Z",
-      "note": "已核对单队选将与配置、确认后回编制列表、解散返还、出征选队移除及临时编制入口、任命与地图路线核阅；重拍贼寨来源城及同一出征流程，按真实抵达说明增援护路。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
-        "army",
+        "armyOrders",
         "formation"
       ]
     },
@@ -2827,12 +2896,76 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:34.358Z",
-      "note": "已核对军团管理与行军方式、调动终点及重置路线处理器、整军配置/任命/核阅、拆分后合并及征募整补；运行相应实际界面流程并检查新截图，未把核阅当作提前扣费。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
-        "army",
-        "extras"
+        "armyOrders"
+      ]
+    },
+    {
+      "id": "action-112",
+      "name": "就地驻守",
+      "pending": false,
+      "reasons": [],
+      "changes": [],
+      "groups": [
+        "战略页面与地图选路",
+        "军团行军与整军"
+      ],
+      "sources": [
+        "app.js",
+        "army-appointments-view.mjs",
+        "army-appointments.mjs",
+        "army-details.mjs",
+        "army-inspection.mjs",
+        "army-management.mjs",
+        "army-setup-view.mjs",
+        "army-supply.mjs",
+        "army-trait-rules.mjs",
+        "art-strategic-map.mjs",
+        "classical.css",
+        "data/design/historical-road-plan.mjs",
+        "data/design/movement-rules.mjs",
+        "data/design/road-crossings.mjs",
+        "data/design/road-link-policy.mjs",
+        "data/design/road-network.mjs",
+        "index.html",
+        "map-overview-layout.mjs",
+        "map-route-editor.mjs",
+        "map-target-picker.mjs",
+        "military-flow.mjs",
+        "modal-scroll.mjs",
+        "page-guide-targets.mjs",
+        "page-guide-view.mjs",
+        "page-guides.css",
+        "page-guides.mjs",
+        "prefecture-village.mjs",
+        "road-crossings.mjs",
+        "road-geometry.mjs",
+        "road-network-view.mjs",
+        "road-network.mjs",
+        "strategic-context.mjs",
+        "strategic-dom.mjs",
+        "strategic-movement.mjs",
+        "strategic-workspace.css",
+        "strategic.css",
+        "styles.css",
+        "town-layout.mjs",
+        "ui-fonts/font-face.css",
+        "ui-fonts/noto-serif-sc.woff2",
+        "ui-icons.mjs",
+        "ui-materials/cloud-jade-frame.png",
+        "ui-materials/ink-grain.svg",
+        "ui-materials/ink-silk-panel.png",
+        "ui-theme.css",
+        "ui-tokens.css"
+      ],
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
+      "captureGroups": [
+        "armyOrders"
       ]
     },
     {
@@ -2893,11 +3026,11 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:34.358Z",
-      "note": "已核对军团管理与行军方式、调动终点及重置路线处理器、整军配置/任命/核阅、拆分后合并及征募整补；运行相应实际界面流程并检查新截图，未把核阅当作提前扣费。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
-        "army"
+        "armyOrders"
       ]
     },
     {
@@ -2958,11 +3091,11 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:34.358Z",
-      "note": "已核对军团管理与行军方式、调动终点及重置路线处理器、整军配置/任命/核阅、拆分后合并及征募整补；运行相应实际界面流程并检查新截图，未把核阅当作提前扣费。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
-        "army"
+        "armyOrders"
       ]
     },
     {
@@ -3023,10 +3156,11 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:34.358Z",
-      "note": "已核对军团管理与行军方式、调动终点及重置路线处理器、整军配置/任命/核阅、拆分后合并及征募整补；运行相应实际界面流程并检查新截图，未把核阅当作提前扣费。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
+        "armyOrders",
         "extras"
       ]
     },
@@ -3088,9 +3222,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:34.358Z",
-      "note": "已核对军团管理与行军方式、调动终点及重置路线处理器、整军配置/任命/核阅、拆分后合并及征募整补；运行相应实际界面流程并检查新截图，未把核阅当作提前扣费。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "army"
       ]
@@ -3153,9 +3287,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:34.358Z",
-      "note": "已核对军团管理与行军方式、调动终点及重置路线处理器、整军配置/任命/核阅、拆分后合并及征募整补；运行相应实际界面流程并检查新截图，未把核阅当作提前扣费。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "army"
       ]
@@ -3218,9 +3352,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:34.358Z",
-      "note": "已核对军团管理与行军方式、调动终点及重置路线处理器、整军配置/任命/核阅、拆分后合并及征募整补；运行相应实际界面流程并检查新截图，未把核阅当作提前扣费。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "army"
       ]
@@ -3283,9 +3417,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:34.358Z",
-      "note": "已核对军团管理与行军方式、调动终点及重置路线处理器、整军配置/任命/核阅、拆分后合并及征募整补；运行相应实际界面流程并检查新截图，未把核阅当作提前扣费。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "army"
       ]
@@ -3344,9 +3478,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:36.832Z",
-      "note": "已按本剧本实际人员驻地重拍空身调任、携物资运输、接力及循环批次；通过公共调任处理器真实推进一天核对运输队位置与物资详情，检查桌面/横屏，清除旧驻城和固定带兵数的演示假设。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "transportMovement"
       ]
@@ -3405,9 +3539,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:36.832Z",
-      "note": "已按本剧本实际人员驻地重拍空身调任、携物资运输、接力及循环批次；通过公共调任处理器真实推进一天核对运输队位置与物资详情，检查桌面/横屏，清除旧驻城和固定带兵数的演示假设。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "logistics",
         "transportMovement"
@@ -3467,9 +3601,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:36.832Z",
-      "note": "已按本剧本实际人员驻地重拍空身调任、携物资运输、接力及循环批次；通过公共调任处理器真实推进一天核对运输队位置与物资详情，检查桌面/横屏，清除旧驻城和固定带兵数的演示假设。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "logistics"
       ]
@@ -3528,9 +3662,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:36.832Z",
-      "note": "已按本剧本实际人员驻地重拍空身调任、携物资运输、接力及循环批次；通过公共调任处理器真实推进一天核对运输队位置与物资详情，检查桌面/横屏，清除旧驻城和固定带兵数的演示假设。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "extras"
       ]
@@ -3586,9 +3720,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:39.287Z",
-      "note": "已对照共同军令处理器及实际冲突页的返回、立即执行、办完执行和待任取消入口；核对立即中止、原事务办完后接续及只取消后续命令的边界，检查冲突和等待新截图。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "timing"
       ]
@@ -3644,9 +3778,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:39.287Z",
-      "note": "已对照共同军令处理器及实际冲突页的返回、立即执行、办完执行和待任取消入口；核对立即中止、原事务办完后接续及只取消后续命令的边界，检查冲突和等待新截图。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "timing"
       ]
@@ -3702,9 +3836,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:39.287Z",
-      "note": "已对照共同军令处理器及实际冲突页的返回、立即执行、办完执行和待任取消入口；核对立即中止、原事务办完后接续及只取消后续命令的边界，检查冲突和等待新截图。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "timing"
       ]
@@ -3760,9 +3894,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:39.287Z",
-      "note": "已对照共同军令处理器及实际冲突页的返回、立即执行、办完执行和待任取消入口；核对立即中止、原事务办完后接续及只取消后续命令的边界，检查冲突和等待新截图。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "timing"
       ]
@@ -3823,9 +3957,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:41.796Z",
-      "note": "已核对外交主界面目标确认、经费与留存保存、城市/使臣表、负责人召回及返城后安排取消；实际谈判至待批并批准，展开条款与进度和交换俘虏名单，修正目标与履约入口名称并检查新截图。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "diplomacy"
       ]
@@ -3886,9 +4020,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:41.796Z",
-      "note": "已核对外交主界面目标确认、经费与留存保存、城市/使臣表、负责人召回及返城后安排取消；实际谈判至待批并批准，展开条款与进度和交换俘虏名单，修正目标与履约入口名称并检查新截图。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "diplomacy"
       ]
@@ -3949,9 +4083,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:41.796Z",
-      "note": "已核对外交主界面目标确认、经费与留存保存、城市/使臣表、负责人召回及返城后安排取消；实际谈判至待批并批准，展开条款与进度和交换俘虏名单，修正目标与履约入口名称并检查新截图。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "diplomacy"
       ]
@@ -4012,9 +4146,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:41.796Z",
-      "note": "已核对外交主界面目标确认、经费与留存保存、城市/使臣表、负责人召回及返城后安排取消；实际谈判至待批并批准，展开条款与进度和交换俘虏名单，修正目标与履约入口名称并检查新截图。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "refinements"
       ]
@@ -4075,9 +4209,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:41.796Z",
-      "note": "已核对外交主界面目标确认、经费与留存保存、城市/使臣表、负责人召回及返城后安排取消；实际谈判至待批并批准，展开条款与进度和交换俘虏名单，修正目标与履约入口名称并检查新截图。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "diplomacy"
       ]
@@ -4138,9 +4272,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:41.796Z",
-      "note": "已核对外交主界面目标确认、经费与留存保存、城市/使臣表、负责人召回及返城后安排取消；实际谈判至待批并批准，展开条款与进度和交换俘虏名单，修正目标与履约入口名称并检查新截图。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "diplomacy"
       ]
@@ -4201,9 +4335,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:41.796Z",
-      "note": "已核对外交主界面目标确认、经费与留存保存、城市/使臣表、负责人召回及返城后安排取消；实际谈判至待批并批准，展开条款与进度和交换俘虏名单，修正目标与履约入口名称并检查新截图。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "diplomacy"
       ]
@@ -4264,9 +4398,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:44.334Z",
-      "note": "已通过真实被俘状态与释放/赎回确认页面；比较存档验证取消不放人不扣款、确认才执行及返回更新名册，检查对象、确认后果和结果新截图。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "captive"
       ]
@@ -4327,9 +4461,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:44.334Z",
-      "note": "已通过真实被俘状态与释放/赎回确认页面；比较存档验证取消不放人不扣款、确认才执行及返回更新名册，检查对象、确认后果和结果新截图。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "captive"
       ]
@@ -4390,9 +4524,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:41.796Z",
-      "note": "已核对外交主界面目标确认、经费与留存保存、城市/使臣表、负责人召回及返城后安排取消；实际谈判至待批并批准，展开条款与进度和交换俘虏名单，修正目标与履约入口名称并检查新截图。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "diplomacyRelations"
       ]
@@ -4448,9 +4582,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:46.846Z",
-      "note": "已核对三类宝物、势力国库、接收武将表、同类替换、实际授予与收回、人物三栏装备及锁定筛选处理器；检查授予前后与收回新截图。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "diplomacy",
         "treasures"
@@ -4507,9 +4641,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:46.846Z",
-      "note": "已核对三类宝物、势力国库、接收武将表、同类替换、实际授予与收回、人物三栏装备及锁定筛选处理器；检查授予前后与收回新截图。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "diplomacy",
         "treasures"
@@ -4566,9 +4700,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:46.846Z",
-      "note": "已核对三类宝物、势力国库、接收武将表、同类替换、实际授予与收回、人物三栏装备及锁定筛选处理器；检查授予前后与收回新截图。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "treasures"
       ]
@@ -4624,9 +4758,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:46.846Z",
-      "note": "已核对三类宝物、势力国库、接收武将表、同类替换、实际授予与收回、人物三栏装备及锁定筛选处理器；检查授予前后与收回新截图。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "diplomacy"
       ]
@@ -4672,9 +4806,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:49.341Z",
-      "note": "已通过真实接敌的守城准备流程，验证无兵时自动/手动编制、确认前取消不失城、确认放弃后交接以及普通模式撤离节点入口，检查重拍准备、确认和结果画面。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "defense"
       ]
@@ -4720,9 +4854,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:49.341Z",
-      "note": "已通过真实接敌的守城准备流程，验证无兵时自动/手动编制、确认前取消不失城、确认放弃后交接以及普通模式撤离节点入口，检查重拍准备、确认和结果画面。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "defense",
         "formation"
@@ -4769,9 +4903,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:49.341Z",
-      "note": "已通过真实接敌的守城准备流程，验证无兵时自动/手动编制、确认前取消不失城、确认放弃后交接以及普通模式撤离节点入口，检查重拍准备、确认和结果画面。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "defense"
       ]
@@ -4817,9 +4951,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:49.341Z",
-      "note": "已通过真实接敌的守城准备流程，验证无兵时自动/手动编制、确认前取消不失城、确认放弃后交接以及普通模式撤离节点入口，检查重拍准备、确认和结果画面。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "defense"
       ]
@@ -4865,9 +4999,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:51.846Z",
-      "note": "已核对战前/援军军议的合法任命、首发/后备顺序、站位预览确认取消、后备入场位置、意图、重置及撤离人数入口；运行军议和部署取景，按实际开战/到达边界检查新截图。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "battle"
       ]
@@ -4913,9 +5047,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:51.846Z",
-      "note": "已核对战前/援军军议的合法任命、首发/后备顺序、站位预览确认取消、后备入场位置、意图、重置及撤离人数入口；运行军议和部署取景，按实际开战/到达边界检查新截图。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "battle"
       ]
@@ -4961,9 +5095,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:51.846Z",
-      "note": "已核对战前/援军军议的合法任命、首发/后备顺序、站位预览确认取消、后备入场位置、意图、重置及撤离人数入口；运行军议和部署取景，按实际开战/到达边界检查新截图。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "battle"
       ]
@@ -5009,9 +5143,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:51.846Z",
-      "note": "已核对战前/援军军议的合法任命、首发/后备顺序、站位预览确认取消、后备入场位置、意图、重置及撤离人数入口；运行军议和部署取景，按实际开战/到达边界检查新截图。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "battle"
       ]
@@ -5057,9 +5191,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:51.846Z",
-      "note": "已核对战前/援军军议的合法任命、首发/后备顺序、站位预览确认取消、后备入场位置、意图、重置及撤离人数入口；运行军议和部署取景，按实际开战/到达边界检查新截图。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "battle"
       ]
@@ -5105,9 +5239,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:51.846Z",
-      "note": "已核对战前/援军军议的合法任命、首发/后备顺序、站位预览确认取消、后备入场位置、意图、重置及撤离人数入口；运行军议和部署取景，按实际开战/到达边界检查新截图。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "battle"
       ]
@@ -5153,9 +5287,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:49.341Z",
-      "note": "已通过真实接敌的守城准备流程，验证无兵时自动/手动编制、确认前取消不失城、确认放弃后交接以及普通模式撤离节点入口，检查重拍准备、确认和结果画面。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "defense"
       ]
@@ -5201,9 +5335,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:51.846Z",
-      "note": "已核对战前/援军军议的合法任命、首发/后备顺序、站位预览确认取消、后备入场位置、意图、重置及撤离人数入口；运行军议和部署取景，按实际开战/到达边界检查新截图。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "battle"
       ]
@@ -5249,9 +5383,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:51.846Z",
-      "note": "已核对战前/援军军议的合法任命、首发/后备顺序、站位预览确认取消、后备入场位置、意图、重置及撤离人数入口；运行军议和部署取景，按实际开战/到达边界检查新截图。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "battle"
       ]
@@ -5305,9 +5439,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:54.303Z",
-      "note": "已核对部队简报状态来源、首次四阶段战场入门及主动指引、暂停变速、全军和范围军略；实际选择落点、取消及确认施放，修正撤退为军略窗口军令栏的按钮，检查桌面/横屏重拍画面。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "battle",
         "battleHelp"
@@ -5362,9 +5496,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:54.303Z",
-      "note": "已核对部队简报状态来源、首次四阶段战场入门及主动指引、暂停变速、全军和范围军略；实际选择落点、取消及确认施放，修正撤退为军略窗口军令栏的按钮，检查桌面/横屏重拍画面。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "battleHelp"
       ]
@@ -5418,9 +5552,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:54.303Z",
-      "note": "已核对部队简报状态来源、首次四阶段战场入门及主动指引、暂停变速、全军和范围军略；实际选择落点、取消及确认施放，修正撤退为军略窗口军令栏的按钮，检查桌面/横屏重拍画面。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "battle"
       ]
@@ -5481,9 +5615,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:54.303Z",
-      "note": "已核对部队简报状态来源、首次四阶段战场入门及主动指引、暂停变速、全军和范围军略；实际选择落点、取消及确认施放，修正撤退为军略窗口军令栏的按钮，检查桌面/横屏重拍画面。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "refinements"
       ]
@@ -5544,11 +5678,12 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:54.303Z",
-      "note": "已核对部队简报状态来源、首次四阶段战场入门及主动指引、暂停变速、全军和范围军略；实际选择落点、取消及确认施放，修正撤退为军略窗口军令栏的按钮，检查桌面/横屏重拍画面。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
-        "battle"
+        "battle",
+        "stratagemCombinations"
       ]
     },
     {
@@ -5607,9 +5742,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:54.303Z",
-      "note": "已核对部队简报状态来源、首次四阶段战场入门及主动指引、暂停变速、全军和范围军略；实际选择落点、取消及确认施放，修正撤退为军略窗口军令栏的按钮，检查桌面/横屏重拍画面。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "refinements"
       ]
@@ -5663,9 +5798,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:51.846Z",
-      "note": "已核对战前/援军军议的合法任命、首发/后备顺序、站位预览确认取消、后备入场位置、意图、重置及撤离人数入口；运行军议和部署取景，按实际开战/到达边界检查新截图。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "battle"
       ]
@@ -5719,9 +5854,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:56.818Z",
-      "note": "已在双战场夹具实际验证切换前确认、取消/关闭/Esc保持原场、加载完成后继续、地图往返、同步暂停及读档暂停，检查切换选择、确认和加载三张新截图。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "navigation"
       ]
@@ -5775,9 +5910,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:59.453Z",
-      "note": "已核对实际战斗结算、战果与重试入口、战后缺职暂停补任；真实完成只读回放的拖动/键盘定位、播放暂停、倍速、重置与关闭，并比较世界存档字节不变，检查战报和回放新截图。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "postbattle",
         "reports"
@@ -5832,9 +5967,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:59.453Z",
-      "note": "已核对实际战斗结算、战果与重试入口、战后缺职暂停补任；真实完成只读回放的拖动/键盘定位、播放暂停、倍速、重置与关闭，并比较世界存档字节不变，检查战报和回放新截图。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "postbattle"
       ]
@@ -5899,9 +6034,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:44:08.788Z",
-      "note": "已核对进行/筹划及待办暂停边界、奏报只读确认与旬收获自动结算；运行真实内政日结报告和明确标注控制最终归属的结局取景，检查新截图，不把演示当自然局证据。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "nodes",
         "reports"
@@ -5967,9 +6102,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:44:08.788Z",
-      "note": "已核对进行/筹划及待办暂停边界、奏报只读确认与旬收获自动结算；运行真实内政日结报告和明确标注控制最终归属的结局取景，检查新截图，不把演示当自然局证据。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "reports"
       ]
@@ -6034,9 +6169,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:44:08.788Z",
-      "note": "已核对进行/筹划及待办暂停边界、奏报只读确认与旬收获自动结算；运行真实内政日结报告和明确标注控制最终归属的结局取景，检查新截图，不把演示当自然局证据。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "reports"
       ]
@@ -6101,11 +6236,12 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:15.629Z",
-      "note": "已核对人才名册任职、能力、四系适性、特性、羁绊、战法、军略及人物返回名册、日志入口；部队简报与所属武将适性截图按当前画面重拍检查。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
-        "civic"
+        "civic",
+        "personnel"
       ]
     },
     {
@@ -6168,9 +6304,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:43:59.453Z",
-      "note": "已核对实际战斗结算、战果与重试入口、战后缺职暂停补任；真实完成只读回放的拖动/键盘定位、播放暂停、倍速、重置与关闭，并比较世界存档字节不变，检查战报和回放新截图。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "postbattle",
         "replay"
@@ -6236,9 +6372,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:44:08.788Z",
-      "note": "已核对进行/筹划及待办暂停边界、奏报只读确认与旬收获自动结算；运行真实内政日结报告和明确标注控制最终归属的结局取景，检查新截图，不把演示当自然局证据。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "system"
       ]
@@ -6278,9 +6414,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:44:11.061Z",
-      "note": "已实际创建命名手动档、核阅覆盖/删除后取消、导出并重新导入合法文件；对照读取和偏好处理器核对暂停、持久化成功与即时设置边界，检查存档和设置新截图。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "system"
       ]
@@ -6320,9 +6456,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:44:11.061Z",
-      "note": "已实际创建命名手动档、核阅覆盖/删除后取消、导出并重新导入合法文件；对照读取和偏好处理器核对暂停、持久化成功与即时设置边界，检查存档和设置新截图。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "system"
       ]
@@ -6362,9 +6498,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:44:11.061Z",
-      "note": "已实际创建命名手动档、核阅覆盖/删除后取消、导出并重新导入合法文件；对照读取和偏好处理器核对暂停、持久化成功与即时设置边界，检查存档和设置新截图。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "system"
       ]
@@ -6404,9 +6540,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:44:11.061Z",
-      "note": "已实际创建命名手动档、核阅覆盖/删除后取消、导出并重新导入合法文件；对照读取和偏好处理器核对暂停、持久化成功与即时设置边界，检查存档和设置新截图。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "system"
       ]
@@ -6446,9 +6582,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:44:11.061Z",
-      "note": "已实际创建命名手动档、核阅覆盖/删除后取消、导出并重新导入合法文件；对照读取和偏好处理器核对暂停、持久化成功与即时设置边界，检查存档和设置新截图。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "system"
       ]
@@ -6488,9 +6624,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:44:11.061Z",
-      "note": "已实际创建命名手动档、核阅覆盖/删除后取消、导出并重新导入合法文件；对照读取和偏好处理器核对暂停、持久化成功与即时设置边界，检查存档和设置新截图。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "system"
       ]
@@ -6535,9 +6671,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:44:13.296Z",
-      "note": "已核对F1/页面指引、全部指引和电脑版操作手册入口，验证离线手册返回原设置/指引页、搜索切图放大及关闭；对照偏好处理器核对默认手动、重置不改开关，检查对应新截图。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "desktop",
         "system"
@@ -6578,9 +6714,9 @@
         "ui-theme.css",
         "ui-tokens.css"
       ],
-      "reviewedAt": "2026-11-01T07:44:13.296Z",
-      "note": "已核对F1/页面指引、全部指引和电脑版操作手册入口，验证离线手册返回原设置/指引页、搜索切图放大及关闭；对照偏好处理器核对默认手动、重置不改开关，检查对应新截图。",
-      "screenshots": "recaptured",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged",
       "captureGroups": [
         "system"
       ]

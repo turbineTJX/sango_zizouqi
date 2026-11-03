@@ -29,28 +29,34 @@ for(const faction of ['cao','yuan'])test(`${faction} persuasion decisions ignore
  const f=fixture(faction),{s,home,target,city,rival}=f;
  assert.equal(cityVisible(s,city.id,faction),false);
  assert.equal(talentCandidates(s,home,'persuade').some(p=>p.id===target.unit.id),false);
- observe(f);const before=serializeCampaign(s),candidates=talentCandidates(s,home,'persuade');
- assert.ok(candidates.some(p=>p.id===target.unit.id),'a visible person is an invitation, not a disclosure of private loyalty');
+ const unseen=structuredClone(s);unseen.campaign.domestic.loyalty[target.unit.id]=1;
+ assert.deepEqual(talentCandidates(unseen,unseen.cities.find(c=>c.id===home.id),'persuade'),talentCandidates(s,home,'persuade'));
+ observe(f);assert.equal(persuasionEligibility(s,target.unit.id,faction,home.id).reason,'loyal','current sight reveals that subversion is needed first');
+ s.campaign.domestic.loyalty[target.unit.id]=65;
+ const before=serializeCampaign(s),candidates=talentCandidates(s,home,'persuade');
+ assert.ok(candidates.some(p=>p.id===target.unit.id),'current sight reveals the actual low loyalty');
  assert.equal(serializeCampaign(s),before,'browsing candidates is read-only');
- const changed=structuredClone(s);changed.campaign.domestic.loyalty[target.unit.id]=1;changed.campaign.talent.demands[rival].demand+=100;
+ const changed=structuredClone(s);changed.campaign.talent.demands[rival].demand+=100;
  changed.campaign.talent.records[target.unit.id].defeatHistory.push({defeatingFactionId:faction,formerLordId:factionLord(s,rival)});
  assert.deepEqual(talentCandidates(changed,changed.cities.find(c=>c.id===home.id),'persuade'),candidates);
  const actor=cityPersonnel(s,home.id)[0].unit;
  assert.equal(actionChance(s,home,actor,ACTIONS.persuade,target),actionChance(changed,changed.cities.find(c=>c.id===home.id),actor,ACTIONS.persuade,target));
- const visible=intelligenceWorld(s,faction);assert.equal(visible.campaign.domestic.loyalty[target.unit.id],undefined);
+ const visible=intelligenceWorld(s,faction);assert.equal(visible.campaign.domestic.loyalty[target.unit.id],65);
  s.campaign.vision.factions[faction].scouted=[];updateVision(s);
  assert.notEqual(s.campaign.vision.factions[faction].cities[city.id].day,null,'old city reports remain');
+ assert.equal(intelligenceWorld(s,faction).campaign.domestic.loyalty[target.unit.id],undefined,'loyalty is live sight, not an archived report');
  assert.equal(persuasionEligibility(s,target.unit.id,faction,home.id).reason,'unknown','old sightings do not disclose present personnel');
 });
 
 test('an actual paid persuasion journey rejects a loyal target, saves its response and waits before retrying',()=>{
- const f=fixture(),{s,home,target}=f;observe(f);
+ const f=fixture(),{s,home,target}=f;observe(f);s.campaign.domestic.loyalty[target.unit.id]=65;
  const actor=s.campaign.idle.find(o=>o.faction==='cao'&&o.location===home.id);
  for(const [key,def]of Object.entries(ACTIONS))if(def.direction==='talent'&&key!=='persuade')home.domestic.cooldowns[key]=100000;
  assert.equal(assignDomestic(s,home.id,'talent',actor.unit.id),null);
  assert.ok(actionCandidates(s,assignmentFor(s,actor.unit.id)).some(p=>p.targetId===target.unit.id));
- assert.equal(talentEligibility(s,target.unit.id,'cao',home.id,'persuade').reason,'loyal');
+ assert.equal(persuasionEligibility(s,target.unit.id,'cao',home.id).ok,true);
  assert.equal(beginExecution(s),null);const project=s.campaign.talent.projects[talentKey(target.unit.id,'cao')];assert.ok(project);assert.ok(project.spent>0);assert.ok(actor.unit.mission,'the invitation uses a real journey');
+ s.campaign.domestic.loyalty[target.unit.id]=99; // Actual acceptance is rechecked after departure.
  const copy=validateCampaign(JSON.parse(serializeCampaign(s)));
  for(let i=0;i<60&&project.nextAttemptDay===0;i++){
   for(const state of [s,copy]){if(state.campaign.phase==='planning')beginExecution(state);advanceCampaignDay(state);}

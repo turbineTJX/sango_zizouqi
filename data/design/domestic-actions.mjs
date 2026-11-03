@@ -396,6 +396,17 @@ export const DOMESTIC_ACTION_DESIGNS = {
     "cooperation": "chance",
     "risk": 0.25
   },
+  "disaffect": {
+    "name": "离间周边武将",
+    "direction": "talent",
+    "cost": 240,
+    "days": 10,
+    "kind": "disaffect",
+    "value": 12,
+    "stat": "charm",
+    "cooperation": "chance",
+    "risk": 0.25
+  },
   "reassure": {
     "name": "安抚本城人才",
     "direction": "talent",

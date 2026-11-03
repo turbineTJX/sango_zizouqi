@@ -478,21 +478,41 @@ export const TACTIC_DESIGNS = {
     "tradeoff": "需靠近前线；控制受军纪和控制保护限制"
   },
   "ward": {
+    "name": "眩晕",
+    "threshold": 25,
+    "cooldown": 30,
+    "effect": "status",
+    "statusKey": "stun",
+    "mode": "attack",
+    "steps": 2,
+    "visual": "shockwave",
+    "description": "对2格内一队敌军尝试眩晕2回合（基准）：停止移动、普攻、反击、战法及拦截，打断待结算战法；成功率与时长沿共同谋略威力、军纪、魔免、坚定及受控保护结算，不造成直接伤害",
+    "category": "intellect",
+    "range": 2,
+    "learningTier": "low",
+    "tempoRole": "基础铺垫",
+    "intentCost": 0,
+    "maxUses": 2,
+    "id": "ward",
+    "role": "近距短控",
+    "tradeoff": "必须靠近敌军，短时控制可被抵挡；需要队友利用窗口，不附带伤害或减伤"
+  },
+  "taunt": {
     "name": "挑衅",
     "threshold": 25,
     "cooldown": 30,
     "effect": "taunt",
     "visual": "banner",
-    "description": "嘲讽 5 格内一队敌军 4回合：优先攻击或合法接近自身，可吸引弓弩；受坚定保护、可镇静，不越过有效 ZOC；不附带减伤",
+    "description": "嘲讽5格内一队敌军4回合：优先攻击或合法接近自身，可吸引弓弩；受坚定保护、可镇静，不越过有效ZOC；不附带减伤",
     "category": "intellect",
     "range": 5,
     "learningTier": "low",
     "tempoRole": "基础铺垫",
     "intentCost": 0,
     "maxUses": 2,
-    "id": "ward",
+    "id": "taunt",
     "role": "远距引战",
-    "tradeoff": "只影响一队，吸引火力但不减伤；需队友护盾或方阵承伤"
+    "tradeoff": "白毦护卫分支保留远距牵制；吸引火力但不减伤，需队友保护"
   },
   "cleanse": {
     "name": "镇静",
@@ -926,7 +946,8 @@ export const TACTIC_DESIGNS = {
       "statuses": [
         "armorBreak",
         "confuse",
-        "slow"
+        "slow",
+        "stun"
       ],
       "scale": 0.9
     },
@@ -939,7 +960,7 @@ export const TACTIC_DESIGNS = {
     "effect": "famous",
     "special": true,
     "visual": "slash",
-    "description": "攻击1格内一队敌军，造成武技伤害；目标兵力低于40%时提高伤害，施放前已有破甲、混乱或迟滞时另提高伤害；命中后施加破甲5回合，防御降低20%；本次新状态不触发增伤",
+    "description": "攻击1格内一队敌军，造成武技伤害；目标兵力低于40%时提高伤害，施放前已有破甲、混乱、迟滞或眩晕时另提高伤害；命中后施加破甲5回合，防御降低20%；本次新状态不触发增伤，多项铺垫不重复叠加",
     "learningTier": "special",
     "tempoRole": "决胜专属",
     "intentCost": 0,

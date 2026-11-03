@@ -66,7 +66,10 @@ test('lord judgment bounds enemy estimate error without rerolls or changing actu
 
 test('a winnable attack is refused when casualty replacement is unaffordable',()=>{
  const setup=scene(),{s,home}=setup;assert.ok(assess(setup).accepted);
- home.manpower=0;const result=assess(setup);assert.ok(result.estimatedLosses>0);assert.equal(result.accepted,false);assert.match(result.reason,/预备兵/);
+ home.manpower=0;const replenishable=assess(setup);assert.ok(replenishable.estimatedLosses>0);assert.equal(replenishable.recovery.feasible,true);
+ // Current recruitment can cover an empty reserve before the actual return.
+ // Remove that production capacity to exercise an unaffordable replacement.
+ home.barracks=0;const result=assess(setup);assert.equal(result.accepted,false);assert.match(result.reason,/预备兵/);
  home.manpower=20000;home.gold=500;assert.match(assess(setup).reason,/补兵金/);
 });
 

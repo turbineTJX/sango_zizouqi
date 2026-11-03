@@ -90,6 +90,7 @@ export const DESIGN_FIELDS={
   ],
   "stratagems": [
     "ai",
+    "combination",
     "roster",
     "cooldown",
     "scope",
@@ -225,6 +226,7 @@ export const DESIGN_EFFECTS={
     "wildfire"
   ],
   "stratagems": [
+    "allOutAttack", "holdForRelief", "focusedPlanning", "opportunisticAssault", "moraleFortification", "selflessGuard",
     "forceReserve",
     "tacticRefresh",
     "catastrophe",

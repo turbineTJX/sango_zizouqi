@@ -9,7 +9,8 @@ import {resourceRecipe} from '../scripts/resource-recipe.mjs';
 
 for(const type of ['spear','cavalry','siege']){
  test(`${type} march forecasts match actual arrival and deterministic continuation`,()=>{
-  const s=newCampaign(217,'guandu-200','force-7'),home=s.cities.find(c=>c.id==='town-29');
+  const s=newCampaign(217,'guandu-200','force-7'),home=s.cities.find(c=>c.id==='town-30');
+  assert.ok(home.units.length,'journey starts at the faction’s actual opening garrison');
   const a=fieldFromCity(s,home.id,{ids:[home.units[0].id]});
   resourceRecipe(a.units[0],type);initializeTacticLearning(a.units[0],s.seed);
   a.morale=80;a.hunger=0;

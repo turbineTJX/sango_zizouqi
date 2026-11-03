@@ -141,6 +141,8 @@
     "test:tactic-learning": "node --test tests/tactic-learning.test.mjs",
     "audit:tactic-learning": "node scripts/audit-tactic-learning.mjs",
     "verify:tactic-learning-ui": "node scripts/verify-tactic-learning-ui.mjs",
+    "test:talent-subversion": "node --test tests/talent-subversion.test.mjs tests/talent-intelligence.test.mjs",
+    "verify:talent-subversion-ui": "node scripts/verify-talent-subversion-ui.mjs",
     "test:talent": "node --test tests/talent.test.mjs tests/domestic.test.mjs tests/domestic-cooperation.test.mjs",
     "audit:talent": "node scripts/audit-talent.mjs 360 --peaceful",
     "verify:talent-ui": "node scripts/verify-talent-ui.mjs",
@@ -228,14 +230,14 @@
     "verify:city-technology-ui": "node scripts/verify-city-technology-ui.mjs",
     "test:building-durability": "node --test tests/building-durability.test.mjs tests/city-scene.test.mjs tests/domestic.test.mjs tests/domestic-cooperation.test.mjs tests/reward-reports.test.mjs tests/strategic-campaign.test.mjs tests/strategic-vision.test.mjs",
     "verify:building-durability-ui": "node scripts/verify-building-durability-ui.mjs",
-    "test:stratagems": "node --test tests/stratagem-ai.test.mjs tests/stratagem-extreme.test.mjs tests/stratagem-impact.test.mjs tests/stratagems.test.mjs tests/stratagem-pools.test.mjs tests/stratagem-area.test.mjs tests/stratagem-placement-ai.test.mjs tests/command-specials.test.mjs tests/eight-formation.test.mjs tests/proactive-command-ai.test.mjs tests/cleanse-ai.test.mjs tests/engine-command-phase.test.mjs tests/battle-ai.test.mjs tests/battle-signals.test.mjs tests/bond-valor.test.mjs tests/trait-mechanics.test.mjs tests/ai-logic.test.mjs tests/ai-target-command.test.mjs tests/attributes.test.mjs tests/balance.test.mjs tests/engine.test.mjs tests/engine-foundations.test.mjs tests/loadouts.test.mjs tests/scenarios.test.mjs tests/officer-catalog.test.mjs tests/siege-power.test.mjs tests/tactics.test.mjs tests/inspection.test.mjs tests/design-tables.test.mjs tests/stratagem-attributes.test.mjs",
+    "test:stratagems": "node --test tests/stratagem-combinations.test.mjs tests/stratagem-rebalance.test.mjs tests/stratagem-ai.test.mjs tests/stratagem-extreme.test.mjs tests/stratagem-impact.test.mjs tests/stratagems.test.mjs tests/stratagem-pools.test.mjs tests/stratagem-area.test.mjs tests/stratagem-placement-ai.test.mjs tests/command-specials.test.mjs tests/eight-formation.test.mjs tests/proactive-command-ai.test.mjs tests/cleanse-ai.test.mjs tests/engine-command-phase.test.mjs tests/battle-ai.test.mjs tests/battle-signals.test.mjs tests/bond-valor.test.mjs tests/trait-mechanics.test.mjs tests/ai-logic.test.mjs tests/ai-target-command.test.mjs tests/attributes.test.mjs tests/balance.test.mjs tests/engine.test.mjs tests/engine-foundations.test.mjs tests/loadouts.test.mjs tests/scenarios.test.mjs tests/officer-catalog.test.mjs tests/siege-power.test.mjs tests/tactics.test.mjs tests/inspection.test.mjs tests/design-tables.test.mjs tests/stratagem-attributes.test.mjs",
     "audit:stratagem-timing": "node scripts/audit-stratagem-timing.mjs",
     "verify:stratagems-ui": "node scripts/verify-stratagem-picker-ui.mjs && node scripts/verify-stratagem-area-ui.mjs && node scripts/verify-command-specials-ui.mjs && node scripts/verify-stratagem-impact-ui.mjs && node scripts/verify-stratagem-extreme-ui.mjs",
     "test:battle-buildings": "node --test tests/building-targeting.test.mjs tests/equipment-appearance.test.mjs tests/battle-buildings.test.mjs tests/building-durability.test.mjs tests/city-technology.test.mjs tests/city-scene.test.mjs",
     "verify:equipment-models-ui": "node scripts/verify-equipment-models-ui.mjs",
     "audit:building-targeting": "node scripts/audit-building-targeting.mjs",
     "verify:battle-buildings-ui": "node scripts/verify-battle-buildings-ui.mjs",
-    "test:stratagem-ai": "node --test tests/stratagem-ai.test.mjs tests/stratagem-placement-ai.test.mjs tests/proactive-command-ai.test.mjs tests/ai-target-command.test.mjs tests/cleanse-ai.test.mjs",
+    "test:stratagem-ai": "node --test tests/stratagem-combinations.test.mjs tests/stratagem-ai.test.mjs tests/stratagem-placement-ai.test.mjs tests/proactive-command-ai.test.mjs tests/ai-target-command.test.mjs tests/cleanse-ai.test.mjs",
     "audit:stratagem-ai": "node scripts/audit-stratagem-ai.mjs",
     "test:domestic-staffing": "node --test tests/domestic-staffing.test.mjs tests/domestic-orders.test.mjs tests/strategic-staffing.test.mjs tests/faction-affairs.test.mjs",
     "verify:domestic-staffing-ui": "node scripts/verify-domestic-staffing-ui.mjs",
@@ -287,7 +289,9 @@
     "docs:manual:watch": "node scripts/watch-player-manual.mjs",
     "docs:manual:review": "node scripts/review-player-manual.mjs",
     "test:manual": "node --test tests/player-manual-sync.test.mjs",
-    "verify:gate-art": "node scripts/verify-gate-art-ui.mjs"
+    "verify:gate-art": "node scripts/verify-gate-art-ui.mjs",
+    "test:stratagem-combinations": "node --test tests/stratagem-combinations.test.mjs",
+    "verify:stratagem-combinations-ui": "node scripts/verify-stratagem-combinations-ui.mjs"
   },
   "engines": {
     "node": ">=20"

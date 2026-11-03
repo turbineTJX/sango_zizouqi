@@ -3,7 +3,8 @@ import {isTargetable} from './engagement.mjs';
 import {CONTROL_STATUSES,STATUS_DEFINITIONS,statusOn} from './battle-status-rules.mjs';
 import {traitImmune} from './trait-mechanics.mjs';
 import {bondBlocksEffect} from './bonds.mjs';
-import {STRATAGEMS,availableBattleCommanders,selectStratagemSource} from './stratagems.mjs';
+import {STRATAGEMS,availableBattleCommanders,selectStratagemSource,battleStratagemProfile} from './stratagems.mjs';
+import {combinationHasEffect,combinationAiTarget} from './stratagem-combinations.mjs';
 import {unitAttributes} from './unit-stats.mjs';
 import {combatFamily} from './troop-equipment.mjs';
 
@@ -29,22 +30,26 @@ export function stratagemAreaContains(s,point,u){
 }
 export function stratagemScopeText(s){
  const r=s.scope;
+ if(r?.anchor==='provider')return `施放者本队周围${r.radius}格 · 其他友军`;
  if(r?.shape==='unit')return '单支友军';
  if(r?.shape==='circle')return `圆形半径${r.radius}格`;
  if(r?.shape==='rectangle')return `矩形${r.width}×${r.height}格，可旋转`;
  return r?.shape==='battlefield'?'全战场 · 不分敌我':r?.shape==='reserve'?'已抵达后备部队':'全军效果';
 }
 export function stratagemAreaTargets(b,s,point,side=0){
+ if(s.scope.anchor==='provider')point=providerStratagemPoint(b,s,side);
  if(!validStratagemPoint(point))return [];
- return b.sides[s.side===1?1-side:side].units.filter(u=>u.status==='active'&&u.hp>0&&!statusOn(b,u,'stasis')&&(s.side!==1||isTargetable(b,u))&&stratagemAreaContains(s,point,u));
+ return b.sides[s.side===1?1-side:side].units.filter(u=>u.status==='active'&&u.hp>0&&(!s.combination||!u.withdrawing)&&!statusOn(b,u,'stasis')&&(s.side!==1||isTargetable(b,u))&&stratagemAreaContains(s,point,u));
 }
-export function stratagemHasEffect(b,s,u){
+export const stratagemNeedsCleanse=(b,u)=>Object.keys(STATUS_DEFINITIONS).some(k=>k!=='hunger'&&['debuff','control','damage'].includes(STATUS_DEFINITIONS[k].tone)&&statusOn(b,u,k));
+export function stratagemHasEffect(b,s,u,profile=null){
+ if(s.combination){const key=Object.keys(STRATAGEMS).find(k=>STRATAGEMS[k].name===s.name);return combinationHasEffect(b,s,u,profile||battleStratagemProfile(b,key,u.side));}
  if(s.effect==='rapidAdvance')return !statusOn(b,u,'rapidAdvance');
  if(s.effect==='magicImmunity')return !statusOn(b,u,'magicImmune');
  if(s.effect==='invincible')return !statusOn(b,u,'commandInvincible');
  if(s.effect==='ambush')return !statusOn(b,u,'stealth');
  if(s.effect==='shield')return (u.statuses?.shield?.layers||[]).filter(l=>l.until>b.tick&&l.amount>0).reduce((n,l)=>n+l.amount,0)<u.maxHp;
- if(s.effect==='cleanse')return Object.keys(STATUS_DEFINITIONS).some(k=>k!=='hunger'&&['debuff','control','damage'].includes(STATUS_DEFINITIONS[k].tone)&&statusOn(b,u,k));
+ if(s.effect==='cleanse')return stratagemNeedsCleanse(b,u)||!statusOn(b,u,'resolve');
  if(s.side===1&&statusOn(b,u,'magicImmune'))return false;
  if(s.side===1){const key=Object.keys(STRATAGEMS).find(k=>STRATAGEMS[k].name===s.name),source=selectStratagemSource(availableBattleCommanders(b.sides[1-u.side],b.tick),key);if(source&&bondBlocksEffect(b,u,source))return false;}
  if(s.effect==='stun')return !statusOn(b,u,'stun')&&!statusOn(b,u,'resolve')&&!traitImmune(u,'stun');
@@ -60,17 +65,30 @@ export function zoneStatusChoices(b,s,u){
 // Useful unit count, never troop strength or damage prediction; ties keep stable order.
 export function chooseStratagemPoint(b,s,side){
  if(!isAreaStratagem(s))return null;
+ const key=Object.keys(STRATAGEMS).find(k=>STRATAGEMS[k].name===s.name),profile=s.combination?battleStratagemProfile(b,key,side):null;
+ if(s.combination&&!profile)return null;
  const units=b.sides[s.side===1?1-side:side].units;
- const useful=units.filter(u=>u.status==='active'&&u.hp>0&&insideHexGrid(u.x,u.y)&&!statusOn(b,u,'stasis')&&(s.side!==1||isTargetable(b,u))&&stratagemHasEffect(b,s,u)&&
+ const useful=units.filter(u=>u.status==='active'&&u.hp>0&&(!s.combination||!u.withdrawing)&&insideHexGrid(u.x,u.y)&&!statusOn(b,u,'stasis')&&(s.side!==1||isTargetable(b,u))&&stratagemHasEffect(b,s,u,profile)&&(!s.combination||combinationAiTarget(b,s,u))&&
    (s.effect!=='firestorm'||!((u.statuses?.burn?.until||0)>b.tick)));
  if(!useful.length)return null;
+ if(s.scope.anchor==='provider'){const point=providerStratagemPoint(b,s,side);return point&&useful.some(u=>stratagemAreaContains(s,point,u))?point:null;}
+ // Reactive selection must include an afflicted unit while also protecting
+ // healthy allies; manual placement may instead be wholly proactive.
+ const afflicted=s.effect==='cleanse'?useful.filter(u=>stratagemNeedsCleanse(b,u)):[];
  const centers=useful.map(u=>({x:u.x,y:u.y}));
  for(let y=0;y<HEX_GRID.rows;y++)for(let x=0;x<HEX_GRID.cols;x++)centers.push(sideCell({x,y},side));
  let best=null,count=0;
  for(const center of centers)for(const rotation of s.scope.shape==='rectangle'?[0,90]:[0]){
-   const point={...center,rotation},covered=useful.filter(u=>stratagemAreaContains(s,point,u)).length;
+   const point={...center,rotation};
+   if(afflicted.length&&!afflicted.some(u=>stratagemAreaContains(s,point,u)))continue;
+   const covered=useful.filter(u=>stratagemAreaContains(s,point,u)).length;
    if(covered>count){best=point;count=covered;}
  }
  return best;
+}
+export function providerStratagemPoint(b,s,side=0){
+ const key=Object.keys(STRATAGEMS).find(k=>STRATAGEMS[k].name===s.name),profile=battleStratagemProfile(b,key,side);
+ const u=profile&&b.sides[side].units.find(u=>u.id===profile.id&&u.status==='active');
+ return u?{x:u.x,y:u.y,rotation:0}:null;
 }
 

@@ -25,7 +25,7 @@ test('every town can place a regional tower on land, outside settlements, using 
  }
 });
 
-test('paid player and AI research builds a regional tower at its saved worksite and reloads deterministically',()=>{
+test('paid research by either faction builds a regional tower at its saved worksite and reloads deterministically',()=>{
  for(const faction of ['cao','yuan']){
   const {s,c}=fixture(faction),position=structuredClone(c.domestic.watchtowerPosition);
   assert.ok(position);assert.equal(c.domestic.research.spent,400);assert.equal(regionalWatchtower(c).phase,'construction');

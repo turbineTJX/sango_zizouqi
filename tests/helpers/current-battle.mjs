@@ -32,6 +32,7 @@ export function currentBattle(skill,type,{side=0,seed=91,requireS=false,enemyTyp
  const [u,ally]=b.sides[side].units,[target,rear]=b.sides[1-side].units;
  for(const v of b.sides.flatMap(s=>s.units)){v.cooldown=999;v.intent=0;v.skillReady=Object.fromEntries(unitTactics(v).map(t=>[t.id,999]));}
  Object.assign(u,{x:4,y:3});Object.assign(ally,{x:3,y:3});Object.assign(target,{x:5,y:3});Object.assign(rear,{x:7,y:3});
+ for(const [i,v]of b.sides[1-side].units.slice(2).entries())Object.assign(v,{x:9,y:i});
  if(slot==='siege'){Object.assign(u,{x:side?5:8,y:3});Object.assign(ally,{x:side?6:7,y:2});Object.assign(target,{x:side?3:10,y:3});Object.assign(rear,{x:side?3:10,y:1});if(TROOP_DESIGNS[type].range===4){u.x=side?4:9;target.x=side?2:11;rear.x=side?2:11;}if(TROOP_DESIGNS[type].range===1)Object.assign(u,{x:side?2:11,y:4});}
  if(slot==='siege')for(const v of [ally,target,rear])setStatus(b,v,'root',20);
  syncCombatForm(b,u,slot==='siege'?b.siege.gate:null);for(const v of [ally,target,rear])syncCombatForm(b,v);

@@ -69,7 +69,7 @@ test('city gold transfers leave the source now and reach the target along real r
  const {s,c,other}=setup(),o=s.campaign.idle.find(o=>o.location===c.id&&o.faction===c.owner),from=c.gold,to=other.gold;
  s.armies=[];assert.equal(transferOfficer(s,o.unit.id,other.id,{cargo:{gold:800,grain:0,manpower:0}}),null);
  assert.equal(c.gold,from-800);assert.equal(other.gold,to);assert.equal(o.cargo.gold,800);assert.equal(isTransport(o),true);
- for(let i=0;i<20&&o.destination;i++)advancePersonnel(s,o);
+ const days=Math.ceil(o.remainingDays)+1;for(let i=0;i<days&&o.destination;i++)advancePersonnel(s,o);
  assert.equal(o.destination,null);assert.equal(other.gold,to+800);assert.equal(c.gold,from-800);assert.equal(s.gold,from+to);
  assert.equal(serializeCampaign(validateCampaign(JSON.parse(serializeCampaign(s)))),serializeCampaign(s));
 });

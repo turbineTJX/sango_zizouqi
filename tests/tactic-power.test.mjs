@@ -41,7 +41,7 @@ test('control succeeds and fails through real casts, pays cooldown, and reports 
   const x=scene('ward',Math.imul(i,2654435761)>>>0),p=statusPower(x.u,TACTICS_BOOK.ward,x.b),r=unitAttributes(x.d,x.b).discipline;
   const intent=x.u.intent,events=cast(x),roll=events.find(e=>e.resolution)?.resolution;
   assert.ok(roll);assert.equal(roll.chance,effectChance(p,r));
-  assert.equal(hasStatus(x.b,x.d,'taunt'),roll.success);assert.equal(x.u.tacticCasts.ward,1);
+  assert.equal(hasStatus(x.b,x.d,'stun'),roll.success);assert.equal(x.u.tacticCasts.ward,1);
   assert.equal(x.u.skillReady.ward,x.b.tick+TACTICS_BOOK.ward.cooldown);assert.equal(x.u.intent,intent-TACTICS_BOOK.ward.intentCost);
   const row=events.find(e=>e.outcome).outcome.find(t=>t.id===x.d.id);
   assert.ok(row.changes.some(s=>s.includes(roll.success?'判定成功':'未成功')));

@@ -3,7 +3,7 @@ import {HISTORICAL_BATTLES,historicalBattleDraft,historicalBattleLibrary} from '
 import {BATTLE_MAPS} from '../data/design/battle-maps.mjs';
 import {generateBattle} from '../battle-generator.mjs';
 import {validateCustomBattle,swapCustomBattle,customParticipants,customBattleTotals,customSideEntries} from '../custom-battle.mjs';
-import {lockDeployment,stepBattle,validateSave} from '../engine.mjs';
+import {lockDeployment,stepBattle,validateSave,planBattleCouncilsAI} from '../engine.mjs';
 import {canOccupy,terrainAt} from '../battlefield.mjs';
 import {learnedTacticIds} from '../tactic-learning.mjs';
 import {officerQuality} from '../scripts/audit-historical-reinforcements.mjs';
@@ -41,7 +41,7 @@ test('historical templates use era-appropriate officers, distinct Zhang Nan iden
 test('historical maps fight and replay through the shared engine, including swapped siege sides',()=>{
  for(const h of HISTORICAL_BATTLES)for(const swapped of [false,true]){
   const original=historicalBattleDraft(h.id),d=swapped?swapCustomBattle(original):original;
-  const s=generateBattle(d),b=s.battle;lockDeployment(b);for(let n=0;n<12&&!b.result;n++)stepBattle(b,{aiSides:[0,1]});const copy=validateSave(structuredClone(s));
+  const s=generateBattle(d),b=s.battle;planBattleCouncilsAI(b,[0,1]);assert.equal(lockDeployment(b),null);for(let n=0;n<12&&!b.result;n++)stepBattle(b,{aiSides:[0,1]});const copy=validateSave(structuredClone(s));
   while(!b.result){stepBattle(b,{aiSides:[0,1]});stepBattle(copy.battle,{aiSides:[0,1]});}
   assert.deepEqual(b,copy.battle);validateSave(s);assert.ok(b.effects||b.result);
  }

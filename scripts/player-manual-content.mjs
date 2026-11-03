@@ -7,12 +7,12 @@ import {resolve} from 'node:path';
 const mapping=`
 打开城市命令|map city-menu city-detail|左键点己方城市 → 信息卡片 → 查看现役兵、预备兵、伤兵、城防耐久及金粮 → 选择委任、军事、人事等入口|城防耐久显示当前值／上限，伤兵为0也保留；完整详情使用同一兵员统计。城市、府和军团共用点选卡片，换选替换、空白或 Esc 收起。
 查找空闲人员|city-directory
-查找军团或战线|army-card army-detail army-units army-menu battle-history|地图点军团或本势力军团列表 → 信息卡片与当前粮道 → 详情、调动或管理；战线列表 → 选择战场|军团直接列出现役兵、伤兵、部队数、士气、每日耗粮和携粮／容量。己方军团点选后高亮当前接通的粮道，换选随之切换，断开不画旧路线；完整详情与管理页共用统计。
-查阅人物与部队|personnel personnel-abilities personnel-aptitudes personnel-bonds personnel-tactics personnel-stratagems officer battle-unit battle-officer-aptitudes
-查询敌情|intelligence-menu intelligence-directory scout-report|情报 → 类别 → 本势力或天下 → 查找或排序 → 查看对象|未知不表示零或中立；旧情报标观察日期。敌方势力数量只含已知据点和可见人员、军团，不能当作实时总量；返回恢复来源列表。
+查找军团或战线|army-card army-detail army-units army-menu battle-history|地图点军团或本势力军团列表 → 信息卡片与当前粮道 → 驻守、变更目的地、详情或管理；战线列表 → 选择战场|军团直接列出现役兵、伤兵、部队数、士气、每日耗粮和携粮／容量。己方军团点选后高亮当前接通的粮道，换选随之切换，断开不画旧路线；完整详情与管理页共用统计。
+查阅人物与部队|personnel personnel-abilities personnel-aptitudes personnel-bonds personnel-tactics personnel-stratagems officer officer-current-sight captive-current-loyalty battle-unit battle-officer-aptitudes
+查询敌情|intelligence-menu intelligence-directory officer-current-sight officer-lost-sight scout-report|情报 → 类别 → 本势力或天下 → 查找或排序 → 查看对象|未知不表示零或中立；旧据点情报标观察日期。当前视野可查城内武将详情与忠诚，失去视野立即隐藏，不加入人物侦察报告；我方关押或押送的俘虏可实时查看资料。敌方势力数量只含已知据点和可见人员、军团，不能当作实时总量；返回恢复来源列表。
 查看城内与建筑|city-interior building-detail node-panel|继续放大或双击城市，或府、港口、关卡 → 查看建筑 → 实际建筑、施工或人员头像 → 状态与负责人|地点卡显示地名、所属主城与驻军；所属主城名称可进入详情。
 地图选点|expedition-route transport-relay
-委任内政负责人|domestic domestic-landscape direction appointment appointment-selected
+委任内政负责人|domestic domestic-landscape direction appointment appointment-selected technology-details technology-details-mobile|筹划阶段 → 己方城市“委任” → 选择内政方向 → 比较本城人选 → 选择并确认；城市详情“管理” → 展开“城市科技” → 节点“详情”查看效果和前置|技术方向使用智力。进阶科技需要同城两名真实技术负责人、多种设施及治安；详情列出缺少条件。金粮兵基础科技增产20%，对应进阶累计50%；军需法减费25%，省工法建设减费20%。研究目标由负责人自动选择，同城同时一项；已付研究中断后保留进度，接续不重复收费。
 改任内政方向|direction appointment timing
 解除内政|direction-assigned timing
 任命或更换太守|governor-entry governor governor-assigned|筹划阶段 → 点击己方城市 → 人事 → 太守 → 比较政治、任职特性与当前事务 → 选择一名本城合法武将 → 确认|任命不会自动开启太守审批；更换人选会收回原审批委托。选人页可点“指引”或按 F1 查看操作。
@@ -24,8 +24,8 @@ const mapping=`
 同意本页提案|proposals proposals-approved
 委托太守审批|governor-delegation governor-delegated|先从城市人事任命太守 → 主界面内政 → 城市审批 → 找到本城 → 开启太守审批|任命与审批委托分开。再次关闭可收回委托；更换、解除、离城或易主后须重新委托。太守按本城实际资源代批或缓办，汇报收支及异常；未委托时保留人员事务、费用和耗时。
 修改城市保留预算|budget budget-draft budget-saved|城市详情 → 收支预算 → 修改保留金、粮 → 保存预算|重置恢复已保存值，关闭不提交。
-安排人才工作|loyalty-warning loyalty-talent loyalty-appointment loyalty-assigned loyalty-roster|从忠诚偏低提醒点击“人才事务”（也可从城市“委任”进入“人才”） → 选择负责人并确认 → 主界面内政查看办理情况、必要时处理资源冲突 → 人才名册“能力”页查看忠诚|人才方向使用魅力。安抚从本城合法目标中优先选择忠诚最低者，基础120金、10天、提高15点忠诚，实际效果受成败和特性影响。委任或同意不立即增加忠诚；实际脱离低忠诚状态后清除提醒。辞官与改仕没有倒计时或预告日期，发生后才通知；任职满30天不会直接消除低忠诚。
-派遣侦察|scout-source scout-cities scout-officers scout-route scout-running scout-landscape player-handoff|侦察 → 城市表 → 本城武将表 → 终点表或地图 → 预览路线 → 派遣|可选择在办内政、太守或原侦察负责人；确认冲突提示后立即解除可中止工作并派遣，取消保留原工作。
+安排人才工作|loyalty-warning loyalty-talent loyalty-appointment loyalty-assigned loyalty-roster|从忠诚偏低提醒点击“人才事务”（也可从城市“委任”进入“人才”） → 选择负责人并确认 → 主界面内政查看办理情况、必要时处理资源冲突 → 人才名册“能力”页查看忠诚|人才方向使用魅力。离间当前可见邻城的高忠诚非君主武将，须实际赴访，初值240金、当地办理10天、普通成果降低12点；本城同类事务结算后冷却30天，低忠诚后仍须另行劝说签约。安抚从本城合法目标中优先选择忠诚最低者，基础120金、10天、提高15点忠诚，实际效果受成败和特性影响。委任或同意不立即增加忠诚；实际脱离低忠诚状态后清除提醒。辞官与改仕没有倒计时或预告日期，发生后才通知；任职满30天不会直接消除低忠诚。
+派遣侦察|scout-source scout-cities scout-officers scout-route scout-running scout-landscape player-handoff|侦察 → 城市表 → 本城武将表 → 终点表或地图 → 预览路线 → 派遣|可选择在办内政、太守或原侦察负责人；确认冲突提示后立即解除可中止工作并派遣，取消保留原工作。沿途留下固定地点的临时视野，类似侦察守卫；斥候离开或停止后，覆盖区域到期前仍实时可见，有其它覆盖则继续可见。
 调整侦察路线|scout-route
 查看报告|scout-contacts scout-report
 停止侦察|scout-running
@@ -37,7 +37,7 @@ const mapping=`
 移除已选部队|expedition-select expedition-landscape|已选部队条 → 点目标队的“×”|只取消本次选择，不解散部队。
 讨伐贼寨|bandit bandit-expedition expedition-roles expedition-review|已发现贼寨 → 选择派出城 → 选队与任命 → 核阅路线 → 下令
 增援与护路|expedition-select expedition-route march-route|选来源城或军团 → 出征或调动 → 选实际战场或道路节点 → 核阅下令|部队实际抵达后才参加增援或驻守。
-下达调动或改令|army-menu march-route march-review
+下达调动或改令|army-card march-route march-review
 返城或驻守节点|march-route march-review
 重置行军路线|march-route
 切换行军方式|army-menu march-mode
@@ -83,7 +83,7 @@ const mapping=`
 查看战场与部队|battlefield battle-unit battle-buffs battle-buffs-landscape|点部队或头像 → 战况简报 → 状态 → 按需展开属性影响、完整属性或战法说明|状态直接显示名称、效果、来源与剩余回合或次数。返回战场、关闭或 Esc 保持暂停；普通战斗中点“继续战斗”才恢复。羁绊浮层可收起、切换敌我。
 暂停与变速|battlefield stratagem-result|点击播放或暂停图标 → 点击速度按钮切换倍速|主动暂停、查看部队详情时所有战场同步暂停；继续后同步推进。确认切换视图并加载完成会自动继续，玩家同时只指挥一场。
 施放全军型军略|stratagem-army stratagem-army-result|军略（暂停） → 查看充能与次数 → 点击可用军略 → 自动继续战斗|成功后短暂标记作用对象。
-施放范围军略|stratagem-list stratagem-area stratagem-landscape stratagem-result|军略（暂停） → 选择可用项 → 点战场落点 → 按需旋转 → 核对目标头像与姓名 → 施放 → 自动继续战斗|取消或 Esc 保持暂停，不消耗充能。
+施放范围军略|stratagem-list stratagem-area stratagem-landscape stratagem-result stratagem-combination stratagem-provider-cost|军略（暂停） → 选择可用项 → 选落点（舍己护军固定以施放者为中心） → 按需旋转 → 核对目标、实际效果与代价 → 施放 → 自动继续战斗|励军固阵每队真实消耗20战意，不足者不受益；舍己护军的施放者只承担疲弱、不领取保护。全部持续时间查看实际提供者效果。取消或 Esc 保持暂停，不消耗充能。
 全军撤退|stratagem-army|军略（暂停） → 军令栏的全军撤退|部队沿战场出口撤离，不会立即返城。
 援军抵达军议|reinforcement reinforcement-roles|援军到达并暂停 → 调整本军任命 → 后备顺序和入场位置 → 撤离设置 → 继续作战
 查看或接管其他战线|battle-navigation battle-navigation-confirm battle-navigation-loading|战斗顶部切换视图 → 选其他战场或大地图 → 核对战斗将继续的提示 → 确认切换并继续 → 加载完成自动继续|玩家同时只指挥一场；原场交 AI 继续作战，返回大地图也继续后台战斗。取消保留原场与播放状态；待部署、军议等仍须完成确认，读档不自动开播。
@@ -104,10 +104,10 @@ const mapping=`
 查看战史与回放|battle-replay battle-history battle-report|已结束战线 → 进入回放 → 播放或暂停 → 拖动时间条、调整回放速度 → 关闭返回当前局|实时大地图和战场共用一套时间。回放是独立只读记录，不回退世界或重算战果；新战斗逐步记录，旧战斗保留已有每日快照。
 查看整局结果|ending
 新建手动存档|settings save-create saves
-读取存档|saves
+读取存档|saves||仅支持当前规则存档；规则调整后的旧档需重新开局，不自动迁移。
 覆盖或删除手动档|saves save-overwrite save-delete
 导出当前进度|save-transfer
-导入文件|save-transfer|设置 → 导入 → 选择 JSON 文件 → 校验通过后载入
+导入文件|save-transfer|设置 → 导入 → 选择 JSON 文件 → 校验通过后载入|仅支持当前规则存档；不兼容文件提示失败，旧档需重新开局。
 调整声音与表现|settings
 查阅指引|guide desktop-manual-settings desktop-manual-catalogue||电脑版：设置或全部指引 → 操作手册；可搜索操作、切换及放大截图，返回游戏或 Esc 关闭。手机版使用原有页面指引。
 设置指引偏好|settings guide
@@ -116,6 +116,7 @@ const mapping=`
 交换与管理剧本|scenario-editor-overview scenario-editor-factions|剧本编辑器 → 导入剧本、导出剧本或目录删除 → 确认|导入完整校验后写入，重复编号另存副本；删除前确认，不影响已开局进度。
 编辑宝物配置|treasure-editor treasure-editor-landscape|首页或战役页 → 宝物编辑器 → 查找或分类 → 选择宝物 → 修改名称、效果与持续回合 → 保存配置|保存后用于新局；已有存档保留开局配置。导入后须保存，导出可备份；撤销、重做与恢复默认可回退，刷新恢复上次保存配置。
 编辑武将|officer-editor officer-editor-custom officer-editor-landscape|首页或战役页 → 武将编辑器 → 查找人物、新建或复制新建 → 修改五项能力、适性和人物资料 → 保存|保存用于新局；自建人物可在战役选用并进入普通模式人才池。未保存返回须选择保存、舍弃或取消；导入确认后覆盖同编号记录，已有存档保留开局资料。
+就地驻守|army-card army-hold army-card-landscape army-hold-landscape
 `.trim().split('\n').map(line=>line.split('|'));
 
 export async function loadManualContent(root){

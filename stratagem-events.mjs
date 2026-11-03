@@ -3,7 +3,7 @@ import {STRATAGEMS,stratagemProfile,commanderStratagems} from './stratagems.mjs'
 import {TACTIC_DESIGNS} from './data/design/tactics.mjs';
 import {allLearnedTacticIds} from './tactic-learning.mjs';
 import {tacticSlot,tacticUseLimit,tacticUsesLeft} from './tactic-tempo.mjs';
-import {stratagemAreaContains} from './stratagem-area.mjs';
+import {stratagemAreaContains,validStratagemPoint} from './stratagem-area.mjs';
 import {HEX_GRID} from './hex-grid.mjs';
 
 export const arrivedReserves=(b,side)=>b.sides[side].units.filter(u=>u.status==='reserve'&&u.hp>0&&(u.arrivalTick||0)<=b.tick&&u.arrivalConfirmed!==false);
@@ -26,13 +26,26 @@ const integer=(n,max=Number.MAX_SAFE_INTEGER)=>Number.isSafeInteger(n)&&n>=0&&n<
 const validMap=(m,ids)=>m&&typeof m==='object'&&!Array.isArray(m)&&Object.entries(m).every(([id,n])=>ids.includes(id)&&integer(n));
 export function validStratagemEvents(b,sideIndex){
  const side=b.sides[sideIndex],events=side.stratagemEvents;
- if(!Array.isArray(events)||events.length>3||new Set(events.map(e=>e.key)).size!==events.length)return false;
+ if(!Array.isArray(events)||events.length>1000||new Set(events.map(e=>e.key+':'+e.castTick)).size!==events.length)return false;
  for(const key of ['reinforce','refresh','storm'])if((side.stratagemUses[key]||0)!==events.filter(e=>e.key===key).length)return false;
  for(const e of events){
-  if(!['reinforce','refresh','storm'].includes(e.key)||!integer(e.castTick,b.tick)||!b.deploymentLocked)return false;
+  const design=STRATAGEMS[e.key];
+  if(!design||!['reinforce','refresh','storm'].includes(e.key)&&!design.combination||!integer(e.castTick,b.tick)||!b.deploymentLocked)return false;
   const c=commandProvidersAt(side,e.castTick).find(c=>c.id===e.source?.id&&c.role===e.source?.role&&commanderStratagems(c).includes(e.key));
   if(!c||!same(e.source,stratagemProfile(e.key,c)))return false;
   const caster=side.units.find(u=>u.id===c.id);if(!caster||(caster.arrivalTick||0)>e.castTick||caster.arrivalConfirmed===false)return false;
+  if(design.combination){
+   // Non-anchored commands may be provided by an arrived reserve commander.
+   // Only selfless guard requires the provider's actual battlefield position.
+   const reservePosition=design.scope.anchor!=='provider'&&e.providerPosition?.x===-1&&e.providerPosition?.y===-1;
+   if(!validStratagemPoint(e.point)||(!validStratagemPoint(e.providerPosition)&&!reservePosition)||!Array.isArray(e.units)||!e.units.length||e.units.length>side.units.length||new Set(e.units.map(r=>r.id)).size!==e.units.length)return false;
+   const previous=events.filter(v=>v.key===e.key&&v.castTick<e.castTick).at(-1);if(previous&&e.castTick-previous.castTick<design.cooldown)return false;
+   if(design.scope.anchor==='provider'&&(e.point.x!==e.providerPosition.x||e.point.y!==e.providerPosition.y||e.units.some(r=>r.id===caster.id)))return false;
+   for(const row of e.units){
+    if(!side.units.some(u=>u.id===row.id)||!stratagemAreaContains(design,e.point,row)||row.cost!==(design.combination.intentCost||0)||!Number.isFinite(row.intentBefore)||row.intentBefore<row.cost||row.intentBefore>100||row.intentAfter!==row.intentBefore-row.cost)return false;
+   }
+   continue;
+  }
   if(e.key==='reinforce'){
    if(!Array.isArray(e.units)||e.units.length<1||e.units.length>e.source.count||new Set(e.units).size!==e.units.length)return false;
    if(e.units.some(id=>{const u=side.units.find(u=>u.id===id);return !u||(u.arrivalTick||0)>e.castTick||u.arrivalConfirmed===false||!u.passiveState.reserveEntered;}))return false;

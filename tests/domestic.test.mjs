@@ -22,7 +22,7 @@ function selectOnly(s,key){const c=s.cities.find(c=>c.id==='xuchang');if(ACTIONS
 test('all six directions have independent work and a single stat; no city morale multiplier',()=>{
  const s=peaceful(),c=s.cities.find(c=>c.id==='xuchang');for(const dir of Object.keys(DIRECTIONS)){assert.ok(Object.values(BUILDINGS).some(b=>b.direction===dir));assert.ok(Object.values(ACTIONS).filter(a=>a.direction===dir).length>=2);}
  const before=cityIncome(s,c);c.order=0;assert.deepEqual(cityIncome(s,c),before);
- assert.deepEqual(Object.values(ACTIONS).filter(a=>a.direction==='talent'&&a.kind!=='build').map(a=>a.kind),['hire','persuade','reassure']);
+ assert.deepEqual(Object.values(ACTIONS).filter(a=>a.direction==='talent'&&a.kind!=='build').map(a=>a.kind),['hire','persuade','disaffect','reassure']);
 });
 test('assignments persist across turns, log starts and results, and reload deterministically',()=>{
  const s=peaceful(),c=s.cities.find(c=>c.id==='xuchang');addIdle(s,c.id,4);const officers=s.campaign.idle.filter(o=>o.location===c.id).slice(0,6);
@@ -53,8 +53,8 @@ test('new commands replace appointments and construction can be resumed without 
  const o=s.campaign.idle.find(o=>o.location===c.id&&o.unit.id!==a.officerId);assert.equal(assignDomestic(s,c.id,'technology',o.unit.id),null);beginExecution(s);assert.equal(s.gold,gold);assert.equal(assignmentFor(s,o.unit.id).action.remaining,left);restore(s);
 });
 test('research progresses for actual work days and directly unlocks the local troop',()=>{
- const s=peaceful(13),c=s.cities.find(c=>c.id==='xuchang');c.domestic.techs=['militaryRegistry','militaryHouseholds','militarySupply','taxation','cultivation','efficientConstruction','watchtower','tigerCavalry'];completeTechnologyBuilding(c,'watchtower');c.granary=1;
- selectOnly(s,'research');advance(s,5);assert.ok(c.domestic.research?.progress>0);assert.equal(c.domestic.techs.includes('baier'),false);advance(s,81);assert.ok(c.domestic.techs.includes('baier'));
+ const s=peaceful(13),c=s.cities.find(c=>c.id==='xuchang');c.domestic.techs=['militaryRegistry','militaryHouseholds','militarySupply','taxation','cultivation','efficientConstruction','watchtower','tigerCavalry'];completeTechnologyBuilding(c,'watchtower');c.order=80;for(const [key,level]of Object.entries(TECHS.baier.buildings))setBuildingLevel(c,key,level);
+ selectOnly(s,'research');assert.equal(assignDomestic(s,c.id,'technology',c.units[0].id),null);advance(s,5);assert.ok(c.domestic.research?.progress>0);assert.equal(c.domestic.techs.includes('baier'),false);advance(s,81);assert.ok(c.domestic.techs.includes('baier'));
  assert.equal(changeCityTroop(s,c.id,c.units[0].id,'baier'),null);assert.match(changeCityTroop(s,c.id,c.units[0].id,'ship'),/兵种/);restore(s);
 });
 

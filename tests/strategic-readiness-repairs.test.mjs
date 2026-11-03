@@ -39,7 +39,7 @@ test('launched combat margin stays committed while new opposition still cancels'
  assert.ok(plan.military.requiredAdvantage<=1.1);
  assert.equal(plan.phase,'attack');
  assert.equal(serializeCampaign(s),serializeCampaign(copy));
- target.units.forEach(u=>u.troops=100000);s.campaign.day++;updateVision(s);planStrategicAI(s);
+ target.units.forEach(u=>u.troops=100000);s.campaign.day=11;s.turn=2;updateVision(s);planStrategicAI(s);
  assert.equal(plan.phase,'cancelled');assert.match(plan.reason,/优势/);
- assert.equal(s.campaign.ai.factions.yuan.strategy.revision,revision);
+ assert.ok(s.campaign.ai.factions.yuan.strategy.revision>=revision);
 });

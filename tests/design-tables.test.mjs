@@ -68,7 +68,7 @@ test('editing design records drives real unit creation, learning, army attribute
  OFFICER_DESIGNS.cao.formation='middle';
  TRAIT_DESIGNS.fieldMedicine.tier='普通';
  TACTIC_DESIGNS.thrust.cooldown=77;
- STRATAGEM_DESIGNS.fortify.duration=33;
+ STRATAGEM_DESIGNS.fortify.duration=33;STRATAGEM_DESIGNS.fortify.cooldown=40;
  CITY_DESIGNS[0].name='设计验证据点';DEMO_CITY_DESIGNS[0].name='设计验证入门';
  OFFICER_ASSIGNMENTS.cao.traits=['fieldMedicine'];
  const e=await import('./engine.mjs'),{passiveAttributes}=await import('./passives.mjs'),{troopAptitude}=await import('./tactic-learning.mjs'),{nationalWorld}=await import('./national-scenarios.mjs');

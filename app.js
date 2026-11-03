@@ -2092,6 +2092,15 @@ function handleCampaignAction(action,el){
   if(action==='march-mode-select'){ui.marchChoice=el.dataset.mode;renderModal();return true;}
   if(action==='march-mode-confirm'){const error=setArmyMarchMode(state,ui.marchArmy,ui.marchChoice);if(error)toast(error,'error');else {ui.modal=null;save();}render();return true;}
   if(action==='domestic-direction-open'){const c=state.cities.find(c=>c.id===el.dataset.town);if(c?.owner!==playerFaction(state)||!DIRECTIONS[el.dataset.direction])return true;ui.city=c.id;ui.domesticDirection=el.dataset.direction;openModal('domestic-direction');return true;}
+  if(action==='campaign-order-hold'){
+   const a=state.armies.find(a=>a.id===(el.dataset.army||ui.army)&&!a.disbanded&&a.faction===playerFaction(state));
+   if(!a||!isPlanning(state)||armyBattle(state,a.id))return true;
+   if(el.dataset.confirmed!=='true'){
+    ui.pendingAction={action,data:{army:a.id},returnContext:detailContext(),returnSource:isObjectDetail(ui)?detailPanels.returnContext():null,title:'驻守',consequence:`${a.name}将就地驻守，取消原行军安排，继续消耗粮草。`};
+    openModal('campaign-confirmation');return true;
+   }
+   ui.army=a.id;ui.mapObject=null;submitStrategicOrder({kind:'hold',armyId:a.id});return true;
+  }
   if(action==='campaign-pick'||action==='campaign-order'){
    if(el.dataset.task==='domestic'&&el.dataset.direction&&ui.modal!=='domestic-direction'){ui.city=el.dataset.town;ui.domesticDirection=el.dataset.direction;openModal('domestic-direction');return true;}
    ui.commandReturn=['city-domestic','domestic-direction','assignment-picker'].includes(ui.modal)?ui.modal:null;ui.mapObject=null;

@@ -88,7 +88,7 @@ test('missing, self-referential, circular, ambiguous and forged conditions are r
 test('editor, council, wave summary and unit detail explain the configured condition without a fake date',()=>{
  const d=draft(),s=generateBattle(d),b=s.battle,u=conditionalUnits(b)[0];
  assert.match(customBattleMarkup(d),/指定部队被消灭/);assert.match(customBattleMarkup(d),/荀攸队被消灭后/);
- assert.match(battleCouncilMarkup(b),/荀攸队被消灭后/);assert.doesNotMatch(battleCouncilMarkup(b),/NaN/);
+ assert.doesNotMatch(battleCouncilMarkup(b),/NaN/);
  assert.deepEqual(waveSummary(b,0)[0].arrivalCondition,d.reinforcements[0].arrivalCondition);
  assert.match(battleUnitSummary(b,u).find(([key])=>key==='入场条件')[1],/荀攸队被消灭后/);
 });

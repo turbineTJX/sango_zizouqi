@@ -37,7 +37,9 @@ export const OFFICER_ASSIGNMENTS = {
       "laborDeal",
       "drillConstruction"
     ],
-    "stratagems": [],
+    "stratagems": [
+      "morale-bulwark"
+    ],
     "specialTactic": null
   },
   "person-8": {
@@ -107,7 +109,9 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-20": {
     "traits": [],
-    "stratagems": [],
+    "stratagems": [
+      "cleanse"
+    ],
     "specialTactic": null
   },
   "person-21": {
@@ -190,7 +194,9 @@ export const OFFICER_ASSIGNMENTS = {
       "marketYield",
       "reserveGrain"
     ],
-    "stratagems": [],
+    "stratagems": [
+      "heal"
+    ],
     "specialTactic": null
   },
   "person-36": {
@@ -269,7 +275,9 @@ export const OFFICER_ASSIGNMENTS = {
     "specialTactic": null
   },
   "person-51": {
-    "traits": ["treasureEye",],
+    "traits": [
+      "treasureEye"
+    ],
     "stratagems": [],
     "specialTactic": null
   },
@@ -374,7 +382,9 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-68": {
     "traits": [],
-    "stratagems": [],
+    "stratagems": [
+      "hold-relief"
+    ],
     "specialTactic": null
   },
   "person-69": {
@@ -384,7 +394,9 @@ export const OFFICER_ASSIGNMENTS = {
       "militaryConstruction",
       "patrolReadiness"
     ],
-    "stratagems": [],
+    "stratagems": [
+      "hold-relief"
+    ],
     "specialTactic": null
   },
   "person-70": {
@@ -509,7 +521,9 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-93": {
     "traits": [],
-    "stratagems": [],
+    "stratagems": [
+      "seize-opening"
+    ],
     "specialTactic": null
   },
   "person-94": {
@@ -554,7 +568,9 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-102": {
     "traits": [],
-    "stratagems": [],
+    "stratagems": [
+      "swift"
+    ],
     "specialTactic": null
   },
   "person-103": {
@@ -585,7 +601,9 @@ export const OFFICER_ASSIGNMENTS = {
       "harvestRescue",
       "storageRescue"
     ],
-    "stratagems": [],
+    "stratagems": [
+      "refresh"
+    ],
     "specialTactic": null
   },
   "person-108": {
@@ -600,7 +618,9 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-110": {
     "traits": [],
-    "stratagems": [],
+    "stratagems": [
+      "ambush"
+    ],
     "specialTactic": null
   },
   "person-111": {
@@ -634,7 +654,9 @@ export const OFFICER_ASSIGNMENTS = {
     "specialTactic": null
   },
   "person-117": {
-    "traits": ["treasurePlunder",],
+    "traits": [
+      "treasurePlunder"
+    ],
     "stratagems": [],
     "specialTactic": null
   },
@@ -685,7 +707,9 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-126": {
     "traits": [],
-    "stratagems": [],
+    "stratagems": [
+      "all-out"
+    ],
     "specialTactic": null
   },
   "person-127": {
@@ -794,7 +818,9 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-147": {
     "traits": [],
-    "stratagems": [],
+    "stratagems": [
+      "reinforce"
+    ],
     "specialTactic": null
   },
   "person-148": {
@@ -818,8 +844,12 @@ export const OFFICER_ASSIGNMENTS = {
     "specialTactic": null
   },
   "person-152": {
-    "traits": ["treasureEye",],
-    "stratagems": [],
+    "traits": [
+      "treasureEye"
+    ],
+    "stratagems": [
+      "cleanse"
+    ],
     "specialTactic": null
   },
   "person-153": {
@@ -834,7 +864,9 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-155": {
     "traits": [],
-    "stratagems": [],
+    "stratagems": [
+      "hold-relief"
+    ],
     "specialTactic": null
   },
   "person-156": {
@@ -874,7 +906,9 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-163": {
     "traits": [],
-    "stratagems": [],
+    "stratagems": [
+      "selfless-guard"
+    ],
     "specialTactic": null
   },
   "person-164": {
@@ -894,7 +928,9 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-167": {
     "traits": [],
-    "stratagems": [],
+    "stratagems": [
+      "ward"
+    ],
     "specialTactic": null
   },
   "person-168": {
@@ -913,7 +949,9 @@ export const OFFICER_ASSIGNMENTS = {
       "defenseDrill",
       "drillConstruction"
     ],
-    "stratagems": [],
+    "stratagems": [
+      "all-out"
+    ],
     "specialTactic": null
   },
   "person-171": {
@@ -963,12 +1001,16 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-180": {
     "traits": [],
-    "stratagems": [],
+    "stratagems": [
+      "fortify"
+    ],
     "specialTactic": null
   },
   "person-181": {
     "traits": [],
-    "stratagems": [],
+    "stratagems": [
+      "swift"
+    ],
     "specialTactic": null
   },
   "person-182": {
@@ -1013,7 +1055,9 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-190": {
     "traits": [],
-    "stratagems": [],
+    "stratagems": [
+      "zhou-redcliffs"
+    ],
     "specialTactic": null
   },
   "person-191": {
@@ -1092,7 +1136,9 @@ export const OFFICER_ASSIGNMENTS = {
     "specialTactic": null
   },
   "person-204": {
-    "traits": ["treasurePlunder",],
+    "traits": [
+      "treasurePlunder"
+    ],
     "stratagems": [],
     "specialTactic": null
   },
@@ -1220,7 +1266,9 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-228": {
     "traits": [],
-    "stratagems": [],
+    "stratagems": [
+      "focused-plan"
+    ],
     "specialTactic": null
   },
   "person-229": {
@@ -1278,7 +1326,9 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-239": {
     "traits": [],
-    "stratagems": [],
+    "stratagems": [
+      "ambush"
+    ],
     "specialTactic": null
   },
   "person-240": {
@@ -1292,7 +1342,9 @@ export const OFFICER_ASSIGNMENTS = {
     "specialTactic": null
   },
   "person-242": {
-    "traits": ["treasurePlunder",],
+    "traits": [
+      "treasurePlunder"
+    ],
     "stratagems": [],
     "specialTactic": null
   },
@@ -1322,7 +1374,9 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-247": {
     "traits": [],
-    "stratagems": [],
+    "stratagems": [
+      "hold-relief"
+    ],
     "specialTactic": null
   },
   "person-248": {
@@ -1453,7 +1507,9 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-269": {
     "traits": [],
-    "stratagems": [],
+    "stratagems": [
+      "focused-plan"
+    ],
     "specialTactic": null
   },
   "person-270": {
@@ -1492,7 +1548,9 @@ export const OFFICER_ASSIGNMENTS = {
     "specialTactic": null
   },
   "person-277": {
-    "traits": ["treasureEye",],
+    "traits": [
+      "treasureEye"
+    ],
     "stratagems": [],
     "specialTactic": null
   },
@@ -1530,7 +1588,9 @@ export const OFFICER_ASSIGNMENTS = {
       "talentPersuade",
       "hallConstruction"
     ],
-    "stratagems": [],
+    "stratagems": [
+      "focused-plan"
+    ],
     "specialTactic": null
   },
   "person-284": {
@@ -1560,7 +1620,9 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-289": {
     "traits": [],
-    "stratagems": [],
+    "stratagems": [
+      "fortify"
+    ],
     "specialTactic": null
   },
   "person-290": {
@@ -1604,7 +1666,9 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-295": {
     "traits": [],
-    "stratagems": [],
+    "stratagems": [
+      "seize-opening"
+    ],
     "specialTactic": null
   },
   "person-296": {
@@ -1819,7 +1883,9 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-337": {
     "traits": [],
-    "stratagems": [],
+    "stratagems": [
+      "selfless-guard"
+    ],
     "specialTactic": null
   },
   "person-338": {
@@ -2170,7 +2236,9 @@ export const OFFICER_ASSIGNMENTS = {
     "specialTactic": null
   },
   "person-402": {
-    "traits": ["treasureEye",],
+    "traits": [
+      "treasureEye"
+    ],
     "stratagems": [],
     "specialTactic": null
   },
@@ -2297,7 +2365,9 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-424": {
     "traits": [],
-    "stratagems": [],
+    "stratagems": [
+      "fortify"
+    ],
     "specialTactic": null
   },
   "person-425": {
@@ -2369,7 +2439,9 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-438": {
     "traits": [],
-    "stratagems": [],
+    "stratagems": [
+      "refresh"
+    ],
     "specialTactic": null
   },
   "person-439": {
@@ -2469,7 +2541,9 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-455": {
     "traits": [],
-    "stratagems": [],
+    "stratagems": [
+      "seize-opening"
+    ],
     "specialTactic": null
   },
   "person-456": {
@@ -2482,7 +2556,9 @@ export const OFFICER_ASSIGNMENTS = {
       "harvestRescue",
       "farmConstruction"
     ],
-    "stratagems": [],
+    "stratagems": [
+      "fortify"
+    ],
     "specialTactic": null
   },
   "person-457": {
@@ -2585,7 +2661,9 @@ export const OFFICER_ASSIGNMENTS = {
       "farmConstruction",
       "harvestRescue"
     ],
-    "stratagems": [],
+    "stratagems": [
+      "ambush"
+    ],
     "specialTactic": null
   },
   "tian": {
@@ -2605,7 +2683,9 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-478": {
     "traits": [],
-    "stratagems": [],
+    "stratagems": [
+      "ward"
+    ],
     "specialTactic": null
   },
   "person-479": {
@@ -2667,7 +2747,9 @@ export const OFFICER_ASSIGNMENTS = {
       "talentHire",
       "talentPersuade"
     ],
-    "stratagems": [],
+    "stratagems": [
+      "selfless-guard"
+    ],
     "specialTactic": null
   },
   "person-488": {
@@ -2677,7 +2759,9 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-489": {
     "traits": [],
-    "stratagems": [],
+    "stratagems": [
+      "all-out"
+    ],
     "specialTactic": null
   },
   "person-490": {
@@ -2832,7 +2916,9 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-518": {
     "traits": [],
-    "stratagems": [],
+    "stratagems": [
+      "swift"
+    ],
     "specialTactic": null
   },
   "person-519": {
@@ -2874,7 +2960,9 @@ export const OFFICER_ASSIGNMENTS = {
     "specialTactic": null
   },
   "person-525": {
-    "traits": ["treasurePlunder",],
+    "traits": [
+      "treasurePlunder"
+    ],
     "stratagems": [],
     "specialTactic": null
   },
@@ -3002,7 +3090,9 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-547": {
     "traits": [],
-    "stratagems": [],
+    "stratagems": [
+      "hold-relief"
+    ],
     "specialTactic": null
   },
   "person-548": {
@@ -3049,7 +3139,9 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-556": {
     "traits": [],
-    "stratagems": [],
+    "stratagems": [
+      "fortify"
+    ],
     "specialTactic": null
   },
   "person-557": {
@@ -3126,7 +3218,9 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-569": {
     "traits": [],
-    "stratagems": [],
+    "stratagems": [
+      "invincible"
+    ],
     "specialTactic": null
   },
   "person-570": {
@@ -3313,7 +3407,7 @@ export const OFFICER_ASSIGNMENTS = {
   "person-605": {
     "traits": [],
     "stratagems": [
-      "storm"
+      "zhou-redcliffs"
     ],
     "specialTactic": null
   },
@@ -3339,7 +3433,9 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-610": {
     "traits": [],
-    "stratagems": [],
+    "stratagems": [
+      "morale-bulwark"
+    ],
     "specialTactic": null
   },
   "person-611": {
@@ -3606,7 +3702,9 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-659": {
     "traits": [],
-    "stratagems": [],
+    "stratagems": [
+      "morale-bulwark"
+    ],
     "specialTactic": null
   },
   "person-660": {
@@ -3671,7 +3769,9 @@ export const OFFICER_ASSIGNMENTS = {
   },
   "person-670": {
     "traits": [],
-    "stratagems": [],
+    "stratagems": [
+      "cleanse"
+    ],
     "specialTactic": null
   },
   "person-671": {
@@ -4491,6 +4591,7 @@ export const OFFICER_ASSIGNMENTS = {
     "specialTactic": null
   }
 };
+
 export const TROOP_TACTIC_POOLS = {
   "spear": [
     "phalanx",
@@ -4605,7 +4706,7 @@ export const INTELLECT_TACTIC_POOLS = {
     "ward"
   ],
   "baier": [
-    "ward"
+    "taunt"
   ],
   "rattan": [
     "curse"

@@ -23,7 +23,8 @@ const stale=[/历史(?:实现|资料|说明|设计|验证记录|版本)[:：]/,/
 const files=[...actual,'README.md','技能设计表.md','AGENTS.md'];
 for(const p of files){
  const text=readFileSync(join(root,p),'utf8');
- if(['README.md','AGENTS.md'].includes(p))for(const m of text.matchAll(/当前(?:战斗)?规则(?:版本)?(?:为)?\s*(\d+)/g))if(Number(m[1])!==RULES_VERSION)errors.push('当前规则版本标注失效：'+p+' '+m[0]);
+ for(const m of text.matchAll(/当前(?:组合|战斗)?规则(?:版本)?(?:为)?\s*(\d+)/g))if(Number(m[1])!==RULES_VERSION)errors.push('当前规则版本标注失效：'+p+' '+m[0]);
+ for(const m of text.matchAll(/当前战略存档(?:版本)?\s*(\d+)/g))if(Number(m[1])!==versions.campaign)errors.push('当前战略存档标注失效：'+p+' '+m[0]);
  for(const pattern of stale)if(pattern.test(text))errors.push('发现失效条文：'+p+' '+pattern);
  for(const m of text.matchAll(/\[[^\]]*\]\(([^)]+)\)/g)){
   let target=m[1].split('#')[0];

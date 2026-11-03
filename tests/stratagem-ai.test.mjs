@@ -6,8 +6,8 @@ import {COMMAND_RESOURCE,stepBattle,battleStratagems,validateSave} from '../engi
 import {validateDesignTables,DESIGN_TABLES} from '../design-catalog.mjs';
 import {AI_TEST_SEEDS,stratagemAiFixture,runStratagemAiProbe,freezeAiProbe,militaryResource} from './helpers/stratagem-ai.mjs';
 
-test('all fifteen strategies explicitly configure an implemented simple AI condition',()=>{
- assert.equal(Object.keys(STRATAGEMS).length,15);for(const [key,s]of Object.entries(STRATAGEMS)){assert.ok(COMMAND_TRIGGER_ORDER.includes(s.ai),key);assert.equal(s.ai,s.effect);}
+test('all twenty-one strategies explicitly configure an implemented simple AI condition',()=>{
+ assert.equal(Object.keys(STRATAGEMS).length,21);for(const [key,s]of Object.entries(STRATAGEMS)){assert.ok(COMMAND_TRIGGER_ORDER.includes(s.ai),key);assert.equal(s.ai,s.effect);}
  for(const change of [d=>{delete d.stratagems.heal.ai;},d=>{d.stratagems.storm.ai='predict-best-value';},d=>{d.stratagems.refresh.ai='heal';}]){const d=structuredClone(DESIGN_TABLES);change(d);assert.ok(validateDesignTables(d).some(e=>e.includes('.ai')));}
 });
 for(const key of Object.keys(STRATAGEMS))for(const side of [0,1]){

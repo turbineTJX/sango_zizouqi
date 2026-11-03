@@ -24,7 +24,7 @@ export function armyDestinationLabel(s,a){
 }
 function armyStatus(s,a){
  const battle=armyBattle(s,a.id),waiting=s.campaign.domestic.orders.find(q=>q.kind==='march'&&q.armyId===a.id),rest=Math.max(0,a.cooldownDay-s.campaign.day);
- const result=[['位置',battle?.kind==='siege'?town(s,battle.cityId):a.travel?route(s,a.travel):town(s,a.location)],['动向',battle?battleLabel(battle):waiting?'待执行':rest?'战后休整':a.travel||a.route.length&&s.junctions?.some(n=>n.id===a.location)?'沿道路行军':a.route.length?'待出发':'驻扎待命']];
+ const result=[['位置',battle?.kind==='siege'?town(s,battle.cityId):a.travel?route(s,a.travel):town(s,a.location)],['动向',battle?battleLabel(battle):waiting?'待执行':rest?'战后休整':a.travel&&a.task==='行军中'||a.route.length&&(a.travel||s.junctions?.some(n=>n.id===a.location))?'沿道路行军':a.route.length?'待出发':'驻扎待命']];
  if(battle)result.push(['战场',battle.name],['交战时间',`${s.campaign.day-battle.startedDay+1} 天`]);
  if(a.travel&&!battle){const length=roadLength(s,a.travel.from,a.travel.to);result.push(['路段进度',`${Math.min(100,Math.max(0,Math.round(a.travel.progress/length*100)))}%`]);}
  if(a.route.length&&!battle&&!waiting){

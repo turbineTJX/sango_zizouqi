@@ -2,7 +2,7 @@ import {TECHNOLOGY_AFFINITIES,TECHNOLOGY_BRANCHES} from './data/design/technolog
 export function validateTechnologyDesigns(tables,check){
  const rows=tables.technologies.records,ids=new Set(rows.map(r=>r.id)),byId=Object.fromEntries(rows.map(r=>[r.id,r.parameters]));
  check(rows.length===23&&ids.size===23,'technologies','科技树须有23个独立节点');
- const keys=['branch','tier','requiredProgress','cost','days','prerequisites','buildings','anyBuildings','order','affinity','troopId','waterRequired','unlocks','income','militaryDiscount','constructionDiscount','visionRadius','description'];
+ const keys=['branch','tier','requiredProgress','cost','days','prerequisites','buildings','anyBuildings','order','researchers','affinity','troopId','waterRequired','unlocks','income','militaryDiscount','constructionDiscount','visionRadius','description'];
  const int=(n,min,max)=>Number.isSafeInteger(n)&&n>=min&&n<=max;
  for(const r of rows){
   const p=r.parameters,path='technologies.'+r.id;
@@ -11,9 +11,9 @@ export function validateTechnologyDesigns(tables,check){
   check(Array.isArray(p.prerequisites)&&new Set(p.prerequisites).size===p.prerequisites.length&&p.prerequisites.every(id=>ids.has(id)&&byId[id].tier<p.tier)&&(p.tier===1?p.prerequisites.length===0:p.prerequisites.length>0),path,'前置科技须引用更低层节点');
   check(p.buildings&&Object.entries(p.buildings).every(([key,n])=>tables.buildings[key]&&int(n,1,5))&&Array.isArray(p.anyBuildings)&&new Set(p.anyBuildings).size===p.anyBuildings.length&&p.anyBuildings.every(key=>tables.buildings[key]),path,'前置设施无效');
   check(p.branch!=='military'||!Object.hasOwn(p.buildings,'barracks')&&!p.anyBuildings.includes('barracks'),path,'军务科技不能以兵营等级解锁');
-  check(int(p.order,0,100)&&(p.affinity===null||TECHNOLOGY_AFFINITIES[p.affinity])&&(p.troopId===null||tables.troops[p.troopId]?.category==='troop')&&typeof p.waterRequired==='boolean',path,'城市或兵种条件无效');
+  check(int(p.order,0,100)&&int(p.researchers,1,3)&&(p.affinity===null||TECHNOLOGY_AFFINITIES[p.affinity])&&(p.troopId===null||tables.troops[p.troopId]?.category==='troop')&&typeof p.waterRequired==='boolean',path,'城市、研究人员或兵种条件无效');
   check(Array.isArray(p.unlocks)&&p.unlocks.every(id=>tables.troops[id]?.technology===r.id)&&(p.troopId===null||p.unlocks.includes(p.troopId)),path,'解锁引用与兵种设计不符');
-  check(p.income&&Object.entries(p.income).every(([key,n])=>['gold','grain','manpower'].includes(key)&&Number.isFinite(n)&&n>0&&n<=.25),path,'收入科技参数无效');
+  check(p.income&&Object.entries(p.income).every(([key,n])=>['gold','grain','manpower'].includes(key)&&Number.isFinite(n)&&n>0&&n<=.5),path,'收入科技参数无效');
   check([p.militaryDiscount,p.constructionDiscount].every(n=>Number.isFinite(n)&&n>=0&&n<=.5)&&int(p.visionRadius,0,50)&&typeof p.description==='string',path,'科技效果无效');
  }
  const cities=new Map([...tables.cities.filter(c=>c.kind==='city'),...tables.demoCities].map(c=>[c.id,c]));

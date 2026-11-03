@@ -184,7 +184,9 @@ test('destination loss reroutes at the actual position; no legal city leaves a v
 test('returning to a city and marching again cannot reenter the original ongoing battle',()=>{
  const {s,r,b}=campaignEncounter(),u=b.sides[0].units[0];lockDeployment(b);quiet(b);Object.assign(u,{x:0,y:0,retreatAt:u.hp});advanceCampaignStep(s);
  for(const v of b.sides.flatMap(x=>x.units))v.statuses.root={until:999};
- for(let i=0;i<240&&s.campaign.idle.some(o=>o.unit.id===u.id);i++){if(s.campaign.phase==='planning')beginExecution(s);advanceCampaignStep(s);}
+ const journey=s.campaign.idle.find(o=>o.unit.id===u.id);assert.ok(journey?.remainingDays>0);
+ const returnSteps=Math.ceil(journey.remainingDays+1)*24;
+ for(let i=0;i<returnSteps&&s.campaign.idle.some(o=>o.unit.id===u.id);i++){if(s.campaign.phase==='planning')beginExecution(s);advanceCampaignStep(s);}
  const home=s.cities.find(c=>c.units.some(v=>v.id===u.id));assert.ok(home);assert.equal(r.settled,false);
  const returning=fieldFromCity(s,home.id,{ids:[u.id],target:'guandu'});
  // Stage the next actual contact; this case checks the reentry guard, not a full new campaign journey.

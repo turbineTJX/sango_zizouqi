@@ -57,7 +57,8 @@ test('appointments display every direction trait across cities and searches, wit
    assert.doesNotMatch(html,/无适用特性|<th>相关特性<\/th>/);
   }
  }
- const html=campaignRosterMarkup(s,{personnel:{city:'xuchang'}},{task:'domestic',city:'xuchang',direction:'commerce',selected:[]});
+ const defs=Object.values(ACTIONS).filter(d=>d.direction==='commerce'),nonholder=campaignOfficers(s).find(r=>r.location==='xuchang'&&!domesticDirectionTraits(r.unit,defs).length);assert.ok(nonholder);
+ const html=campaignRosterMarkup(s,{personnel:{city:'xuchang',query:nonholder.unit.name}},{task:'domestic',city:'xuchang',direction:'commerce',selected:[]});
  const cells=[...html.matchAll(/<td class="task-trait-cell">(.*?)<\/td>/gs)];assert.ok(cells.length);
  assert.ok(cells.every(m=>m[1]===''));
  assert.equal(serializeCampaign(s),before);

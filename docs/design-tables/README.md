@@ -68,5 +68,5 @@
 
 全部允许字段见 [schema.mjs](../../data/design/schema.mjs)。新增内政、建筑、道路与移动字段的检查见 [design-strategy-validation.mjs](../../design-strategy-validation.mjs)。参数不适用时保持缺省，勿把未知字段写入文案后误认为已经实现。
 
-- [宝物一览表](宝物一览表.md)：24件宝物及获取概率，正式源 `data/design/treasures.mjs`；开局持有读取剧本源，眼力与夺宝读取特技和固定人物分配。
+- [宝物一览表](宝物一览表.md)：70件宝物及获取概率，正式源 `data/design/treasures.mjs`；开局持有读取剧本源，眼力与夺宝读取特技和固定人物分配。
 

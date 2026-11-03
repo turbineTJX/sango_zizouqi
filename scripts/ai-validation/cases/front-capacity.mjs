@@ -24,7 +24,8 @@ export async function exercise({source,save}){
   checks.noFreeMen=men(s)===before;checks.deterministic=serializeCampaign(s)===serializeCampaign(copy);
  }
  {
-  const {s,home}=fixture(20);manageStrategicEconomy(s);checks.earlyLimitPreserved=home.units.length<=6;
+  const {s,home}=fixture(20),before=men(s);manageStrategicEconomy(s);
+  checks.capacityDoesNotWaitForLateDate=home.units.length>6&&men(s)===before;
  }
  {
   const {s,home,target}=planningFront();s.turn=21;s.campaign.day=201;home.grain=60000;home.gold=30000;target.units.forEach(u=>u.troops=10000);

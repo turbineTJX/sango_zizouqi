@@ -10,7 +10,7 @@ export const PLAYER_AI_DECISIONS=Object.freeze({
  scouting:entry(['scouting'],[['scouting.mjs','dispatchScout'],['scouting.mjs','recallScout']],[['strategic-scouting-ai.mjs','planStrategicScouting']],'合法周边终点、实际负责人、共同每日行程与情报期限'),
  formation:entry(['troops'],[['strategic-campaign.mjs','prepareCityUnits'],['strategic-campaign.mjs','changeCityTroop'],['strategic-campaign.mjs','equipCityUnit'],['strategic-campaign.mjs','recruitLocalUnits'],['strategic-campaign.mjs','disbandCityUnits']],[['strategic-ai.mjs','manageStrategicEconomy'],['siege-defense.mjs','siegeDefensePlan']],'实际技术、编制费用、兵源与本城预算；守城自动编制共用方案'),
  expedition:entry(['bandits','expedition','commanders'],[['strategic-orders.mjs','requestFactionOrder'],['strategic-campaign.mjs','expeditionError'],['officer-recommendation.mjs','rankOfficerCandidates']],[['strategic-ai.mjs','planStrategicAI'],['bandits.mjs','planBanditExpedition']],'选真实部队与指挥，旬初选择目标，旬内只执行保存军令和共同资格校验'),
- routes:entry(['routes'],[['strategic-campaign.mjs','findCampaignRoute'],['strategic-campaign.mjs','orderCampaignArmy']],[['strategic-ai.mjs','planStrategicAI']],'公开道路与本方合法情报；实际移动才接敌'),
+ routes:entry(['routes'],[['strategic-campaign.mjs','findCampaignRoute'],['strategic-campaign.mjs','orderCampaignArmy'],['strategic-campaign.mjs','holdCampaignArmy']],[['strategic-ai.mjs','planStrategicAI']],'旬初按公开道路与本方合法情报改令或保留驻守；就地驻守保留路段位置与补给，实际移动才接敌'),
  transport:entry(['transport'],[['strategic-orders.mjs','requestFactionOrder'],['strategic-campaign.mjs','transferOfficer']],[['strategic-ai.mjs','safeStrategicTransportRoute'],['strategic-ai.mjs','planStrategicAI']],'本方库存、实际人员与已知道路威胁；真实装卸'),
  timing:entry(['interruption'],[['strategic-orders.mjs','requestFactionOrder']],[['strategic-ai.mjs','expeditionTiming']],'保留即刻与完成后执行；等待命令随存档保存'),
  diplomacy:entry(['diplomacy'],[['diplomacy.mjs','assignDiplomat'],['diplomacy.mjs','dismissDiplomat'],['diplomacy.mjs','setDiplomaticGoal'],['diplomacy.mjs','setDiplomaticBudget'],['diplomacy.mjs','approveDiplomaticProposal'],['diplomacy.mjs','decideDiplomaticProposal']],[['diplomacy.mjs','planDiplomaticAI'],['diplomacy.mjs','evaluateDiplomaticProposal']],'旬初按合法情报选择方向并批准完整方案，旬内谈判与执行，批准与实际签约分开'),
@@ -25,6 +25,7 @@ export const PLAYER_AI_DECISIONS=Object.freeze({
  captive:entry(['personnel'],[['officer-fates.mjs','releaseCaptive']],[['diplomacy.mjs','diplomaticCandidates'],['diplomacy.mjs','advanceDiplomacy']],'优先实际外交赎回和交换；未达成保留俘虏，失去关押条件按公共规则释放')
 });
 export const NON_DECISION_PAGES=Object.freeze({
+ officers:'编辑本机武将库与新局人物快照，不属于局内军政决策',
  'treasure-editor':'编辑宝物初始规则；保存后用于新局，双方共用开局快照',
  maps:'战场用途分类、逐格地形与初始地图规则编辑；开战后双方共用地图快照',
  ending:'只读整局事实回顾、存档导出与新局入口',modes:'选择游戏运行模式',scenarios:'选择开局剧本',factions:'选择玩家或观察势力',custom:'编辑双方的初始战役与规则输入',saves:'本机存档与显示设置',

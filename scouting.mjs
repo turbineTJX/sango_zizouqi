@@ -48,11 +48,14 @@ export function scoutDispatchError(s,cityId,officerId,target,{faction=playerFact
 function observedCity(c){return {...copy(c),units:copy(c.units.filter(u=>!u.mission))};}
 function illuminate(s,t){
  const record=s.campaign.vision.factions[t.faction],p=scoutingPosition(s,t),radius=MOVEMENT_RULES.vision.scout;
- let spot=record.scouted.find(v=>Math.hypot(v.x-p.x,v.y-p.y)<=radius/2);
+ // Trail sight stays at the actual place where it was established. Nearby
+ // samples may share its coverage, but must never drag or renew that ward.
+ let spot=record.scouted.find(v=>Math.hypot(v.x-p.x,v.y-p.y)<.000001);
+ if(!spot&&t.route.length&&record.scouted.some(v=>Math.hypot(v.x-p.x,v.y-p.y)<=radius/2))return;
  if(spot?.seenDay===s.campaign.day)return;
  const duration=randomDuration(s,scoutOperator(s,t).unit.intellect),proxy=scoutVisionProxy(s,t);
  if(!spot){spot={id:record.nextSightId++,...p,...proxy,officerId:t.officerId,seenDay:s.campaign.day,expiresDay:s.campaign.day+duration};record.scouted.push(spot);}
- else Object.assign(spot,{...p,...proxy,officerId:t.officerId,seenDay:s.campaign.day,expiresDay:Math.max(spot.expiresDay,s.campaign.day+duration)});
+ else Object.assign(spot,{officerId:t.officerId,seenDay:s.campaign.day,expiresDay:Math.max(spot.expiresDay,s.campaign.day+duration)});
 }
 function storeContact(s,t,kind,id,data){
  const key=kind+':'+id;let contact=t.contacts.find(c=>c.key===key),first=!contact;

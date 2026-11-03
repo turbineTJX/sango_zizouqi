@@ -6,7 +6,8 @@ import {spawn} from 'node:child_process';
 import {readFile,writeFile,mkdir} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import {chromium} from 'playwright';
-import {newCampaign,serializeCampaign,beginExecution,advanceCampaignDay,advanceCampaignStep,activeBattles,chooseEncounter,validateCampaign,transferOfficer,disbandCityUnits} from '../strategic-campaign.mjs';
+import {newCampaign,serializeCampaign,beginExecution,advanceCampaignDay,advanceCampaignStep,activeBattles,chooseEncounter,validateCampaign,transferOfficer,disbandCityUnits,orderCampaignArmy} from '../strategic-campaign.mjs';
+import {roadDistance} from '../strategic-movement.mjs';
 import {assignDomestic,cancelDomestic,ACTIONS,setDomesticAutoApprove} from '../domestic.mjs';
 import {resolveTalentResignations} from '../talent-lifecycle.mjs';
 import {scoutCandidates,scoutTargets,dispatchScout,advanceScouting} from '../scouting.mjs';
@@ -38,6 +39,11 @@ if(process.argv[2]==='navigation'){process.argv.push('--capture');await import('
 if(process.argv[2]==='replay'){process.argv.push('--capture');await import('./verify-campaign-replay-ui.mjs');process.exit(0);}
 if(process.argv[2]==='scenario-editor'){process.argv.push('--manual');await import('./verify-scenario-editor-ui.mjs');process.exit(0);}
 if(process.argv[2]==='scenario-opening'){process.argv.push('--manual');await import('./verify-scenario-opening-ui.mjs');process.exit(0);}
+if(process.argv[2]==='talent-subversion'){
+ const capturePort=String(process.env.ACTION_GUIDE_PORT||4383),server=spawn(process.execPath,['server.mjs'],{env:{...process.env,PORT:capturePort},windowsHide:true,stdio:'pipe'});
+ try{await new Promise((resolve,reject)=>{server.stdout.once('data',resolve);server.once('error',reject);});process.env.GAME_URL=`http://127.0.0.1:${capturePort}`;process.argv.push('--manual');await import('./verify-talent-subversion-ui.mjs');}
+ finally{server.kill();}process.exit(0);
+}
 const group=process.argv[2]||'civic',port=Number(process.env.ACTION_GUIDE_PORT)||4383,origin=`http://127.0.0.1:${port}`,out='docs/images/player-actions';
 await mkdir(out,{recursive:true});await mkdir('outputs/action-guide',{recursive:true});
 const manifestPath=`${out}/captures.json`,manifest=JSON.parse(await readFile(manifestPath,'utf8').catch(()=>'{}'));
@@ -46,6 +52,7 @@ if(group==='treasure-editor')files.push('treasure-editor.mjs','treasure-editor.c
 if(group==='officerEditor')files.push('officer-editor.mjs','officer-editor.css','officer-library.mjs','officer-library-data.mjs','officer-catalog.mjs','campaign-lobby.mjs');
 if(group==='treasures')files.push('treasures.mjs','treasure-view.mjs','treasure-art.mjs','treasure-equipment.mjs','treasure-appearance.mjs','treasure-battle.mjs','treasure-statuses.mjs','data/design/treasures.mjs');
 if(group==='loyalty')files.push('talent-core.mjs','talent-lifecycle.mjs','data/design/talent-loyalty.mjs','domestic.mjs','domestic-direction-view.mjs','reward-presentation.mjs','activity-nodes.mjs');
+if(group==='armyOrders')files.push('strategic-campaign.mjs','strategic-orders.mjs','strategic-vision.mjs','strategic-army-markers.mjs','map-target-picker.mjs');
 const hash=createHash('sha256');for(const f of [...files,'personnel-movement.mjs','strategic-retreat.mjs','data/design/movement-rules.mjs','data/design/traits.mjs','ui-tokens.css','ui-theme.css','ui-fonts/font-face.css','ui-fonts/noto-serif-sc.woff2','ui-materials/ink-grain.svg','ui-materials/cloud-jade-frame.png','ui-materials/ink-silk-panel.png'])hash.update(f).update(await readFile(f));const sourceHash=hash.digest('hex');
 const server=spawn(process.execPath,['server.mjs'],{env:{...process.env,PORT:String(port),SANGO_ART:'on'},windowsHide:true,stdio:'pipe'});
 let browser,page,context,sample='',errors=[];
@@ -84,6 +91,23 @@ async function info(kind,id,scope='self'){await click('campaign-info');if(scope!
 async function military(kind){await page.locator('.faction-navigation [data-action="map-quick-open"][data-kind="army"]').click();await page.locator('[data-action="map-quick-select"][data-kind="army"]').first().click();await page.locator('.map-selection-card [data-action="map-object-manage"]').click();await click('army');await page.locator(`[data-action="military-purpose"][data-kind="${kind}"]`).click();}
 
 const groups={
+ async armyOrders(){
+  const s=newCampaign(203,'guandu-200'),home=s.cities.find(c=>c.id==='xuchang'),army=fieldFromCity(s,home.id,{ids:home.units.filter(u=>!u.cityGuard&&u.id!==home.governor).slice(0,2).map(u=>u.id)});
+  assert.equal(orderCampaignArmy(s,army.id,'chenliu'),null);
+  army.travel={from:army.location,to:army.route[0],road:'main',progress:roadDistance(s,army.location,army.route[0])/3};recordOfficerActivities(s);updateVision(s);
+  await load(s,'筹划阶段中途行军的己方军团，点选后驻守或变更目的地');await city(army.location);await click('map-object-close');
+  const card=()=>page.locator(`[data-campaign-army="${army.id}"]`);
+  await card().press('Enter');const before=await save();await shot('army-card','军团驻守、变更目的地与兵员粮草');
+  await page.setViewportSize({width:844,height:390});await shot('army-card-landscape','手机横屏军团驻守与变更目的地');await click('campaign-order-hold');await shot('army-hold-landscape','手机横屏驻守确认');await page.keyboard.press('Escape');assert.deepEqual(await save(),before);
+  await page.setViewportSize({width:1440,height:900});await card().press('Enter');await click('campaign-order');await chooseCommandTarget(page,'chenliu');await shot('march-route','从当前路段位置变更目的地');await click('campaign-command-next');await shot('march-review','变更目的地最终核阅');await click('campaign-command-cancel');assert.deepEqual(await save(),before);
+  await card().press('Enter');await click('campaign-order-hold');await shot('army-hold','就地驻守确认与粮草消耗');await click('campaign-confirm-action');
+  await page.waitForFunction(async id=>{const raw=await(await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2');return JSON.parse(raw).armies.find(a=>a.id===id)?.route.length===0;},army.id);
+  const held=(await save()).armies.find(a=>a.id===army.id);assert.deepEqual(held.travel,army.travel);assert.equal(held.target,null);assert.equal(held.supply,army.supply);assert.deepEqual(held.units,army.units);
+  await page.reload();await card().waitFor();assert.equal(await card().getAttribute('data-army-state'),'stationed');await card().press('Enter');await click('campaign-order');await chooseCommandTarget(page,'chenliu');await click('campaign-command-next');await click('campaign-pick-confirm');
+  await page.waitForFunction(async id=>{const raw=await(await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2');return JSON.parse(raw).armies.find(a=>a.id===id)?.route.length>0;},army.id);
+  assert.deepEqual((await save()).armies.find(a=>a.id===army.id).travel,army.travel);
+  await card().press('Enter');await click('map-object-manage');await shot('army-menu','军团管理中的驻守与变更目的地');
+ },
  async 'treasure-editor'(){
   await load(null,'宝物初始配置编辑演示');await click('treasure-editor');
   await page.locator('[data-treasure-editor-action="select"][data-id="skyHalberd"]').click();
@@ -231,7 +255,10 @@ const groups={
   await page.locator('[data-action="officer-directory-tab"][data-tab="tactics"]').click();
   await shot('personnel-tactics','战法独立分栏，查看当前兵种战法与专属战法');
   await page.locator('[data-action="officer-directory-tab"][data-tab="stratagems"]').click();
+  await page.locator('#faction-directory-query').fill('程昱');
+  await page.locator('.personnel-table').getByText('整军肃阵',{exact:true}).waitFor();
   await shot('personnel-stratagems','军略独立分栏，查看各武将持有的军略');
+  await page.locator('#faction-directory-query').fill('');
   await page.locator('[data-action="officer-directory-tab"][data-tab="abilities"]').click();
   await page.locator('[data-action="faction-object"][data-kind="officer"]').filter({hasText:'曹操'}).click();
   await shot('officer','完整窗口查看个人资料，返回保留名册');
@@ -340,6 +367,17 @@ const groups={
   const pending=newCampaign(281,'guandu-200');fundCities(pending,9000);lordCity(pending,'cao').grain=2000;pending.grain=Math.floor(pending.cities.filter(c=>c.owner==='cao').reduce((n,c)=>n+c.grain,0));const {p}=proposeDiplomatic(pending,{goal:'buyGrain',direction:'commerce'});untilDiplomatic(pending,()=>p.status==='pending');await load(pending,'实际谈判至待批准的购粮演示存档');await click('faction-diplomacy');await shot('diplomacy-proposal','双方给予内容与批准交涉否决');await page.locator(`[data-diplomatic-proposal="${p.id}"] .diplomatic-clause-details summary`).click();await shot('diplomacy-terms','完整条款与实际履约条件');await page.locator('[data-diplomatic-proposal="'+p.id+'"] [data-action="diplomacy-approve"]').click();const signed=await save(),final=signed.campaign.diplomacy.proposals.find(q=>q.id===p.id);assert.equal(final.approvals.cao.version,final.version);
   untilDiplomatic(signed,()=>final.status!=='pending');assert.equal(final.status,'signed');await load(signed,'玩家批准后按共同外交日结实际签署与履约的演示，不提前交付物资');await click('faction-diplomacy');await page.locator('.diplomatic-contracts>summary').click();await page.locator(`[data-diplomatic-proposal="${p.id}"] .diplomatic-clause-details>summary`).click();await shot('diplomacy-approved','实际批准后签署与履约',`[data-diplomatic-proposal="${p.id}"]`);
   const t=newCampaign(7);for(const id of ['brightArmor','artOfWar'])Object.assign(treasureRecord(t,id),{state:'treasury',cityId:null,factionId:'cao',holderId:null});await load(t,'有两件真实登记宝物的演示存档');await click('treasure-open');await shot('treasures','势力国库与已授予宝物');await page.locator('[data-action="treasure-select"][data-id="brightArmor"]').click();const receiver=t.cities.find(c=>c.id==='chenliu').units[0].id;await chooseAssignment(page,'#treasure-recipient',receiver);await shot('treasure-grant','立即授予并装备');await click('treasure-confirm');await shot('treasure-equipped','已装备宝物与收回国库入口');
+ },
+ async technology(){
+  const s=newCampaign(1),c=s.cities.find(c=>c.id==='xuchang');fundCities(s,100000);c.domestic.techs=['militaryRegistry'];
+  const u=s.campaign.idle.find(o=>o.location===c.id).unit;assert.equal(assignDomestic(s,c.id,'technology',u.id),null);
+  await load(s,'已委任一名技术负责人，查看进阶科技真实设施与人员条件的隔离演示');
+  await page.locator('.faction-navigation [data-kind="city"]').click();await page.locator('.city-directory-item[data-id="xuchang"]').click();if(await a('map-object-close').isVisible())await click('map-object-close');await page.locator('[data-action="map-quick-manage"][data-id="xuchang"]').click();
+  await page.locator('[data-city-disclosure="xuchang:technology"]>summary').click();
+  const node=page.locator('[data-technology="militarySupply"]');await node.locator('summary').click();
+  assert.match(await node.innerText(),/本城技术负责人≥2人（当前1人）/);assert.match(await node.innerText(),/降低25%/);
+  await shot('technology-details','进阶科技的效果、复合设施及真实人员条件','[data-technology="militarySupply"]');
+  await page.setViewportSize({width:390,height:844});await shot('technology-details-mobile','手机查看进阶科技效果与缺少条件','[data-technology="militarySupply"]');
  },
  async proposals(){
   const s=newCampaign(7);fundCities(s,40000);const c=s.cities.find(c=>c.id==='xuchang'),people=s.campaign.idle.filter(o=>o.location===c.id);for(const [key,def]of Object.entries(ACTIONS))if(['technology','commerce'].includes(def.direction)&&!['research','build_commerce'].includes(key))c.domestic.cooldowns[key]=10000;assignDomestic(s,c.id,'technology',people[0].unit.id);assignDomestic(s,c.id,'commerce',people[1].unit.id);

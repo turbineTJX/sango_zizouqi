@@ -31,7 +31,7 @@ function originalTransport(s,from,to,faction){
  }return null;
 }
 const sameEdge=(t,a,b,road='main')=>t&&(t.road||'main')===road&&(t.from===a&&t.to===b||t.from===b&&t.to===a);
-function originalSupply(s,a){
+function originalOneWaySupply(s,a){
  const encounter=armyBattle(s,a.id),siegeEndpoint=!a.travel&&encounter?.kind==='siege'&&encounter.cityId===a.location&&campaignBattleSide(s,encounter,a)===encounter.attackSide?a.location:null;
  const blocked=(from,to,road)=>s.armies.some(e=>factionsHostile(s,e.faction,a.faction)&&liveSoldiers(s,e)>0&&sameEdge(e.travel,from,to,road));let best=null;
  for(const source of s.cities.filter(c=>c.owner===a.faction&&c.grain>0)){
@@ -46,6 +46,12 @@ function originalSupply(s,a){
  }
  if(a.travel){const t=a.travel;if(s.armies.some(e=>factionsHostile(s,e.faction,a.faction)&&sameEdge(e.travel,t.from,t.to,t.road||'main')&&liveSoldiers(s,e)>0&&((e.travel.from===t.from?e.travel.progress:roadLength(s,t.from,t.to)-e.travel.progress)<t.progress-.01)))return null;}
  return best;
+}
+// The current supply rule can reach a marching force from either endpoint.
+// Retain the independent unoptimized search for each physical approach.
+function originalSupply(s,a){
+ const approaches=[a];if(a.travel){const t=a.travel;approaches.push({...a,location:t.to,travel:{...t,from:t.to,to:t.from,progress:roadLength(s,t.from,t.to)-t.progress}});}
+ return approaches.map(x=>originalOneWaySupply(s,x)).filter(Boolean).sort((a,b)=>b.rate-a.rate||a.source.localeCompare(b.source)||a.distance-b.distance||a.path.join(':').localeCompare(b.path.join(':')))[0]||null;
 }
 
 test('optimized route queries retain costs, tie order, ownership and current road changes',()=>{
@@ -120,10 +126,13 @@ test('residence queries keep authoritative officers and exclude away missions an
 });
 
 test('supply searches preserve depot choice, capacity, marching interception and stock changes',()=>{
- const s=newCampaign(217,'guandu-200'),a=fieldFromCity(s,'xuchang'),enemy=fieldFromCity(s,'ye'),mid='junction:chenliu:xuchang';
+ const s=newCampaign(217,'guandu-200'),a=fieldFromCity(s,'xuchang'),enemy=fieldFromCity(s,'ye'),mid=findCampaignRoute(s,'xuchang','chenliu')[0];
  const check=()=>assert.deepEqual(supplyConnection(s,a),originalSupply(s,a));check();
  a.travel={from:'xuchang',to:mid,road:'main',progress:roadLength(s,'xuchang',mid)/2};check();
- enemy.location=mid;enemy.travel={from:mid,to:'xuchang',road:'main',progress:roadLength(s,'xuchang',mid)*.7};check();assert.equal(supplyConnection(s,a),null);
+ // Isolate the rear depot. It may still use a real alternate road to approach
+ // the force from the forward endpoint instead of crossing the interception.
+ for(const c of s.cities.filter(c=>c.owner===a.faction&&c.id!=='xuchang'))c.grain=0;
+ enemy.location=mid;enemy.travel={from:mid,to:'xuchang',road:'main',progress:roadLength(s,'xuchang',mid)*.7};check();const detour=supplyConnection(s,a);assert.ok(detour);assert.ok(detour.path.length>2,'supplies avoid the intercepted direct edge');
  enemy.travel=null;a.travel=null;a.location=mid;check();assert.equal(supplyConnection(s,a),null);
  enemy.location='ye';check();const first=supplyConnection(s,a);assert.ok(first);s.cities.find(c=>c.id===first.source).grain=0;check();
  for(const c of s.cities.filter(c=>c.owner===a.faction))c.grain=0;check();assert.equal(supplyConnection(s,a),null);

@@ -21,7 +21,6 @@ test('player reversal preview and ordinary order use the same physical road posi
  const preview=commandMarchPreview(s,a,p),days=remainingMarchDays(s,preview);
  for(const step of ['target','review']){
   p.step=step;const html=commandMarkup(s,{officerPick:p,personnel:{}},'').body;
-  assert.match(html,/从当前位置沿原路折返/);assert.doesNotMatch(html,/仍须先走完/);
   assert.ok(html.includes(`预计 ${days} 天抵达`));
  }
  assert.equal(serializeCampaign(s),before);

@@ -63,7 +63,7 @@
 | 侦察及停止 | 主攻与旧边境情报、合法负责人、真实路程 | dispatchScout、recallScout、共同侦察模拟 |
 | 部队编制、改编、装备、整补、解散 | manageStrategicEconomy、siegeDefensePlan | prepareCityUnits、changeCityTroop、equipCityUnit、recruitLocalUnits、disbandCityUnits |
 | 出征、指挥任命 | planStrategicAI：真实编组、共用指挥推荐 | requestFactionOrder、expeditionError、launchExpedition |
-| 地图选路、调动 | 在本方情报投影上选择实际道路 | findCampaignRoute、orderCampaignArmy |
+| 地图选路、调动、驻守 | 旬初按本方情报选择道路或保留驻守；途中驻守保留物理位置与补给，交战中禁止改令 | findCampaignRoute、orderCampaignArmy、holdCampaignArmy |
 | 调任、运输、中转、分批 | 真实人员、来源城预算与已知威胁 | requestFactionOrder、transferOfficer、人员移动与装卸 |
 | 立即执行、完成后执行、取消等待令 | expeditionTiming 与计划失效处理 | requestFactionOrder、removeDomesticOrder、共用等待令执行 |
 | 外交方向、预算、人员、批准或否决 | 默认自动方向与保存底线；使臣按合法情报拟案，AI 按共同估值决定批准 | assignDiplomat、setDiplomaticGoal、setDiplomaticBudget、approveDiplomaticProposal；签约另复核实际履约条件 |
@@ -88,7 +88,7 @@
 - 出征复核不再从目标敌方的视角查询威胁；边境收益、玩家路线预览与撤离节点使用本方情报。可见敌军详情与地图同样隐藏后续目标、路线和粮道。
 - 新军团管理 AI 仅对无作战、增援、外交或等待军令承诺的空闲军团重组。策略输入是不可变的独立测量值，无随机状态或敌方秘密计划。
 
-当前战略存档版本 55、内政版本 20。旧档直接提示重新开始，不补旧字段或添加迁移。
+当前战略存档版本72、内政版本27。旧档直接提示重新开始，不补旧字段或添加迁移。
 
 ## 验证与边界
 

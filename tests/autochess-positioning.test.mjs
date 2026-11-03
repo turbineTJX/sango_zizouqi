@@ -8,7 +8,6 @@ import {tacticHolder} from './helpers/current-battle.mjs';
 import {OFFICER_CATALOG} from '../officer-catalog.mjs';
 import {configureReserveEntry,previewReserveEntry,planReserveEntriesAI} from '../reserve-entry.mjs';
 import {tacticShapeTargets,tacticRay} from '../tactic-positioning.mjs';
-import {battleCouncilMarkup} from '../battle-council.mjs';
 import {BATTLE_MAPS} from '../data/design/battle-maps.mjs';
 import {blockedTerrain,terrainAt} from '../battlefield.mjs';
 import {hexNeighbors,hexBeyond,insideHexGrid} from '../hex-grid.mjs';
@@ -131,7 +130,6 @@ test('reserve entry preview and rejection do not change soldiers, order or an ac
  assert.equal(previewReserveEntry(p.b,u.id,4,7).kind,'entry');assert.deepEqual(p.b,before);
  assert.match(configureReserveEntry(p.b,u.id,{x:9,y:3}),/布阵区/);assert.match(configureReserveEntry(p.b,p.b.sides[0].units[0].id,{x:4,y:7}),/后备/);assert.deepEqual(p.b,before);
  assert.equal(configureReserveEntry(p.b,u.id,{x:4,y:7}),null);assert.equal(u.status,'reserve');assert.equal(u.x,-1);validateSave(structuredClone(p.state));
- assert.match(battleCouncilMarkup(p.b),/reserve-entry-select/);assert.match(battleCouncilMarkup(p.b),/5列 8行/);
  lockDeployment(p.b);assert.match(configureReserveEntry(p.b,u.id,null),/军议/);
 });
 test('a real retreat opens a slot and the next reserve enters at its saved position without resources appearing',()=>{

@@ -32,8 +32,8 @@ function fixture(key,id,seed=71){
  return {s,c,u,a,key,actionId:a.action.id};
 }
 function finish(f){const duration=f.a.action.remaining;for(let i=0;i<duration&&f.a.action?.id===f.actionId;i++){f.s.campaign.day++;finishDomesticDay(f.s);}return f.s.campaign.domestic.events.find(e=>e.actionId===f.actionId&&e.result.factor!==undefined);}
-test('50 work traits have real holders, matching command snapshots and no new commands',()=>{
- const pool=Object.entries(traits).filter(([,t])=>t.work);assert.equal(pool.length,50);assert.equal(Object.keys(ACTIONS).length,43);
+test('work traits have real holders and reference current command snapshots',()=>{
+ const pool=Object.entries(traits).filter(([,t])=>t.work);assert.equal(pool.length,50);
  for(const [id,t]of pool){assert.ok(holders(id).length);if(t.tier==='专属')assert.equal(holders(id).length,1);for(const key of t.work.actions){assert.ok(taskTraits({id:holders(id)[0]},ACTIONS[key]).includes(id));const other=Object.values(ACTIONS).find(d=>!t.work.actions.includes(d.id));assert.ok(!taskTraits({id:holders(id)[0]},other).includes(id));}assert.ok(traitExpansionMarkdown().includes(t.name));}
  const bad=structuredClone(DESIGN_TABLES);bad.traits.marketYield.work.actions=['new-command'];assert.ok(validateDesignTables(bad).some(e=>e.includes('未知或重复内政命令')));
 });

@@ -32,7 +32,7 @@ export const PAGE_GUIDE_TARGETS={
  interruption:[['.work-conflicts','.modal-body'],['[data-choice="now"]',action('diplomacy-assign-now')],['[data-choice="after"]',action('diplomacy-assign-after')]],
  diplomacy:['.diplomatic-goals','.diplomatic-staff>summary','.diplomatic-proposal','.diplomatic-contracts>summary'],
  intelligence:[['.info-tabs','.intelligence-tabs','.strategy-tabs'],['.personnel-table','.city-directory-list','.info-fields'],['.info-identity>.muted','.info-fields']],
- armies:[['.decision-changes','.unit-muster','.info-fields','.roster-overview'],actions('campaign-pick','campaign-order','military-purpose'),['.decision-facts','.supply-status','.info-fields']],
+ armies:[['.decision-changes','.unit-muster','.info-fields','.roster-overview'],actions('campaign-pick','campaign-order-hold','campaign-order','military-purpose'),['.decision-facts','.supply-status','.info-fields']],
  marchMode:['.button-row',['.modal-body>p','.modal-body p'],action('march-mode-confirm')],
  battles:[['.strategy-battle-card','.battle-table-wrap'],actions('campaign-focus','campaign-prepare'),actions('campaign-replay','campaign-history','campaign-archive')],
  encounter:[['.encounter-versus','.combat-comparison'],['.compiled-units','[data-action="campaign-defense-prepare"]'],['[name="encounter-control"]',action('start-battle')]],

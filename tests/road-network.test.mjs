@@ -82,7 +82,7 @@ test('convoys pass unoccupied junctions but lose cargo to an actual junction gar
   assert.equal(transferOfficer(s,u.id,'chenliu',{cargo:{grain:200,manpower:100}}),null);
   const o=s.campaign.idle.find(o=>o.unit.id===u.id);assert.ok(o.journey.route.some(id=>isJunction(s,id)));
   if(blocked){const e=fieldFromCity(s,'ye');e.location=mid('xuchang','chenliu');}
-  advancePersonnel(s,o);
+  const days=Math.ceil(o.remainingDays)+1;for(let i=0;i<days&&o.destination&&s.campaign.idle.includes(o);i++)advancePersonnel(s,o);
   assert.equal(s.campaign.personnelEvents.some(e=>e.type==='TRANSPORT_LOST'),blocked);
   if(!blocked){assert.equal(o.location,'chenliu');assert.equal(o.destination,null);}
  }

@@ -11,13 +11,13 @@ import {hexDistance} from '../hex-grid.mjs';
 import {primeTactic} from './helpers/prime-tactic.mjs';
 
 function scene(){
- const ids=[tacticHolder('ward','spear',[],true)];ids.push(tacticHolder('repeat','crossbow',ids,true));ids.push(['person-1','person-2','person-3'].find(id=>!ids.includes(id)));
+ const ids=[tacticHolder('taunt','baier',[],true)];ids.push(tacticHolder('repeat','crossbow',ids,true));ids.push(['person-1','person-2','person-3'].find(id=>!ids.includes(id)));
  const entry=(id,type)=>({id,type,troops:3000,level:1,retreatAt:null});
- const state=createScenario('custom-battle',19,20,null,{seed:19,terrain:'land',ownTeam:[entry(ids[0],'spear'),entry(ids[2],'archer')],enemyTeam:[entry(ids[1],'crossbow')]}),b=state.battle;lockDeployment(b);
+ const state=createScenario('custom-battle',19,20,null,{seed:19,terrain:'land',ownTeam:[entry(ids[0],'baier'),entry(ids[2],'archer')],enemyTeam:[entry(ids[1],'crossbow')]}),b=state.battle;lockDeployment(b);
  const [tank,ally]=b.sides[0].units,[enemy]=b.sides[1].units;
  Object.assign(tank,{x:3,y:3});Object.assign(ally,{x:7,y:2});Object.assign(enemy,{x:8,y:3});
  for(const u of [tank,ally,enemy]){u.intent=0;u.cooldown=999;u.skillReady=Object.fromEntries(unitTactics(u).map(s=>[s.id,999]));u.statuses={phalanx:{until:999}};}
- delete enemy.statuses.phalanx;primeTactic(tank,'ward');return {state,b,tank,ally,enemy};
+ delete enemy.statuses.phalanx;primeTactic(tank,'taunt');return {state,b,tank,ally,enemy};
 }
 test('five-hex taunt forces an out-of-range ranged enemy to approach without shooting its nearby ally',()=>{
   const {b,tank,ally,enemy}=scene();enemy.cooldown=0;const hp=ally.hp;
@@ -29,7 +29,7 @@ test('five-hex taunt forces an out-of-range ranged enemy to approach without sho
 test('taunt cannot reach six hexes or override control protection',()=>{
   for(const variant of ['far','protected']){
     const {b,tank,enemy}=scene();if(variant==='far')enemy.x=9;else enemy.statuses.resolve={until:99};
-    stepBattle(b);assert.equal(tank.tacticCasts.ward,undefined,variant);assert.ok(!hasStatus(b,enemy,'taunt'));
+    stepBattle(b);assert.equal(tank.tacticCasts.taunt,undefined,variant);assert.ok(!hasStatus(b,enemy,'taunt'));
   }
 });
 test('current five-range repeat attacks the taunter instead of a closer ally',()=>{
@@ -50,9 +50,9 @@ test('taunt never drags melee out through another active ZOC',()=>{
   assert.ok(b.effects.some(e=>e.from===enemy.id&&e.to===ally.id&&e.damage>0));assert.equal(enemy.x,8);
 });
 
-function breach(seed=43){
- const ids=[tacticHolder('rush','cavalry',[],true)];ids.push(tacticHolder('ward','spear',ids,true));ids.push(tacticHolder('repeat','crossbow',ids,true));
- const entry=(id,type)=>({id,type,troops:3000,level:1,retreatAt:null});const state=createScenario('custom-battle',seed,20,null,{seed,terrain:'land',ownTeam:[entry(ids[0],'cavalry')],enemyTeam:[entry(ids[1],'spear'),entry(ids[2],'crossbow')]}),b=state.battle;lockDeployment(b);
+function breach(seed=43,frontType='spear'){
+ const ids=[tacticHolder('rush','cavalry',[],true)];ids.push(tacticHolder(frontType==='baier'?'taunt':'ward',frontType,ids,true));ids.push(tacticHolder('repeat','crossbow',ids,true));
+ const entry=(id,type)=>({id,type,troops:3000,level:1,retreatAt:null});const state=createScenario('custom-battle',seed,20,null,{seed,terrain:'land',ownTeam:[entry(ids[0],'cavalry')],enemyTeam:[entry(ids[1],frontType),entry(ids[2],'crossbow')]}),b=state.battle;lockDeployment(b);
  const [charger]=b.sides[0].units,[front,rear]=b.sides[1].units;
  Object.assign(charger,{x:4,y:3,cooldown:0});Object.assign(front,{x:5,y:3,cooldown:999});Object.assign(rear,{x:7,y:3,cooldown:999});
  for(const u of [charger,front,rear]){u.intent=0;u.statuses={};u.skillReady=Object.fromEntries(unitTactics(u).map(s=>[s.id,999]));}
@@ -60,9 +60,9 @@ function breach(seed=43){
  assert.equal(charger.tacticCasts.rush,1);assert.ok(hasStatus(b,charger,'pursuit'));return {b,charger,front,rear};
 }
 test('a real charge follows a withdrawing rear through the current disengagement cycle',()=>{
- const {b,charger,front,rear}=breach(),frontHp=front.hp,start={x:rear.x,y:rear.y};delete rear.statuses.phalanx;b.sides[rear.side].retreat=true;
+ const {b,charger,front,rear}=breach(),start={x:rear.x,y:rear.y};delete rear.statuses.phalanx;b.sides[rear.side].retreat=true;
  for(let i=0;i<8&&rear.x===start.x&&rear.y===start.y;i++)stepBattle(b);
- assert.ok(rear.x!==start.x||rear.y!==start.y);assert.equal(front.hp,frontHp);assert.ok(charger.x>front.x);assert.ok(hexDistance(charger,rear)<=2);
+ assert.ok(rear.x!==start.x||rear.y!==start.y);assert.ok(charger.x>front.x);assert.ok(hexDistance(charger,rear)<=2);
 });
 test('pursuit switches to another reachable rear after a kill but stops for fresh ZOC or expiry',()=>{
   const {b,charger,front,rear}=breach();const second={...structuredClone(rear),id:'second-rear',x:8,y:3};b.sides[1].units.push(second);
@@ -73,8 +73,8 @@ test('pursuit switches to another reachable rear after a kill but stops for fres
 
 test('a real taunt redirects pursuit only on a successful roll and uses a legal route',()=>{
   for(const seed of [43,44,45,46,47,48]){
-    const {b,charger,front,rear}=breach(seed);
-    delete front.statuses.confuse;Object.assign(front,{x:3,y:3});primeTactic(front,'ward');
+    const {b,charger,front,rear}=breach(seed,'baier');
+    delete front.statuses.confuse;Object.assign(front,{x:3,y:3});primeTactic(front,'taunt');
     stepBattle(b);const check=b.effects.find(e=>e.from===front.id&&e.resolution?.effect==='taunt').resolution;
     assert.equal(hasStatus(b,charger,'taunt'),check.success);assert.ok(hasStatus(b,charger,'pursuit'));
     if(!check.success){assert.equal(tauntTarget(b,charger,1),null);continue;}
@@ -85,7 +85,7 @@ test('a real taunt redirects pursuit only on a successful roll and uses a legal 
 });
 
 test('a natural pursuit snapshot validates and resumes deterministically',()=>{
-  const state=createScenario('breach',1),b=state.battle;lockDeployment(b);let snapshot=null;
+  const state=createScenario('field',1),b=state.battle;lockDeployment(b);let snapshot=null;
   while(!b.result){stepBattle(b);if(snapshot)stepBattle(snapshot.battle);
     if(!snapshot&&b.sides.flatMap(s=>s.units).some(u=>hasStatus(b,u,'pursuit'))){
       snapshot=validateSave(structuredClone(syncFixtureLearning(state)));

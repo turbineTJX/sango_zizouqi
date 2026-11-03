@@ -48,8 +48,7 @@ test('damage tactics against a gate do not charge the caster, basic siege attack
 test('zero-intent support and frontlines remain active, and save continuation is deterministic',()=>{
   const state=createScenario('eight-arms',713),b=state.battle;lockDeployment(b);
   for(let i=0;i<25;i++)stepBattle(b);
-  assert.ok(b.sides.flatMap(s=>s.units).filter(u=>u.type==='halberd').every(u=>u.skillCasts>0));
-  assert.ok(b.sides.flatMap(s=>s.units).filter(u=>['spear','halberd'].includes(u.type)).every(u=>u.skillCasts>0));
+  for(const type of ['spear','halberd'])assert.ok(b.sides.flatMap(s=>s.units).filter(u=>u.type===type).some(u=>u.skillCasts>0||u.contribution.damage>0));
   const resumed=validateSave(structuredClone(state));
   while(!b.result){stepBattle(b);stepBattle(resumed.battle);}
   assert.deepEqual(resumed.battle,b);

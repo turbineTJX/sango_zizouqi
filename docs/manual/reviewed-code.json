@@ -1,16 +1,18 @@
 {
   "version": 1,
   "snapshots": {
-    "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e": {
+    "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1": {
       "ability-cues.mjs": "37cf456f617a9035b3600e6e8419871a332fcf76b451cb5b7a160a86561d4e0b",
       "ability-reference.mjs": "3f0fc5923b843aae3ccb9e775107e6dee473249fbc2d79b6ead1c1d7a9f87ba1",
       "activity-nodes.mjs": "044caff70f904b3e50fd46b921e0fa9970ec8349cc7d5e438768eb84d3b810bc",
       "activity-query-index.mjs": "ceb4cc4d428c5967e32083c6c82010543220f8ac8d451f8bda3fc33004a4706d",
       "activity-retention.mjs": "6b3811d2dcc82599b255dd8e187bb0c5ac6e3ddaa102a631e3be6c3931b8cca2",
-      "ai-policy/macro-defense.mjs": "c5e56174d5822784f274f53136d30f8c5d95553f541928e99412578a4435ad4f",
+      "ai-policy/domestic-staffing.mjs": "633e56512362fb71c82ee7a358d2bde44dde768d51e3ff72178f8c0e67dffb6c",
+      "ai-policy/food-relief.mjs": "4925a87c0d31645af49fde8b38b4dd59e3b0c808572faca737aa92d6328970f6",
+      "ai-policy/macro-defense.mjs": "cbbf660e4f2b42093376afd29785168bfc2c23422a9aeb1d71d4bc2f60cbcfab",
       "ai-turn.mjs": "04e90b8ab12018f8f4c8c375d8e674c5bafea21187af3eebd3a2c84a7ff681f5",
       "ancient-atlas-terrain.mjs": "50648abf733a7a1d87afe39bccb1ad8a8ecd70e655f24a8bf899587d6d1f72e9",
-      "app.js": "01886ae39ca87db76a2675066044bbf1e071ed54ff642ae32df261f96997cd52",
+      "app.js": "c087a3cddac3ad3081c9a7ff54beadc09b2f4f9df8b9a1f73d05c2d3cb139267",
       "aptitude-display.mjs": "eaed2fccd2e4527cf0c2af2b2c2099e3add2b810b8c5f04acc8315297b48f14f",
       "archive-reader.mjs": "0967418f32bc69fe4e91fa923f2a86e85e89e9f52940e23ca593e57c45ccceb6",
       "army-appointments-view.mjs": "c644b53239edb860be200d93d131da9149ce346712c17de4ac5f885a3b03350a",
@@ -41,7 +43,7 @@
       "bandit-view.mjs": "2c98193afc2b60f8da3a61fdb5f540302fc8a7b7349da5da16422a9dd19a546f",
       "bandits.mjs": "1db146c05eede51b889cdcacbb077f7c667c9477260762090b2e3bc6392bee67",
       "battle-aftermath.mjs": "79ab0938f0b43787dcc1480186533411b15c18691e06bf18c442613f15e9c4dd",
-      "battle-ai.mjs": "06514ed6c9a45508c7e35c1146a804ded0d571f8e9b5c24fd0c9f7b7f3a76076",
+      "battle-ai.mjs": "eee3b6290283ba575c82ff111c7b079effca03fad369298a3737a88c34093baf",
       "battle-appointments-view.mjs": "f3c0457e4a584728e2044cd9ec9985dfdc156a1d42f951e651fd7ce46e4cdec1",
       "battle-appointments.mjs": "5e3aeaaa3869ba8cec84e14fb54078922a20204af87188f2c27e97fc68bca034",
       "battle-bond-effects.mjs": "575c145e3aec246f76470829957e759cbdd45324b4e061f4dcf829192412bdd8",
@@ -95,8 +97,8 @@
       "campaign-ending-view.mjs": "4de18d7c4165eb8fa0396a06df5e37dd9ef80d3ff632a63bd109752e426fc0f5",
       "campaign-ending.css": "51418e41ca17a3d8cbb43b62af07f97b85ad93b788ac8ecc3cedab676d464d3d",
       "campaign-ending.mjs": "bf9c9ae854a8a6f74d00d6a12e5a924de2b208f5fc65aa4d8c8a40c661c48bbf",
-      "campaign-info-status.mjs": "1d3abcf8b69c669c1af04902bea619ffb2bddb3d17a89b49970e9ad5cf28976a",
-      "campaign-info.mjs": "769b272cd310cc1cb2799ccf5c2b1a217db551f21f4cfb0874607653b434c047",
+      "campaign-info-status.mjs": "d2fac1353aa04d91f11e7a5f61e1e7f9db833032c1b9bc37b3bded90147d4242",
+      "campaign-info.mjs": "26dc687080f0796b3a2b3953e9a754428c9e32fff218925a13542cb06fb54ef0",
       "campaign-lobby.css": "d556ffa3c9687358503b84ed262d34f747dc4c3abb22237089589376b6f06fe2",
       "campaign-lobby.mjs": "6bfdc6be041f047959123e9b710b35f106f8a7d682bceb88681b81bea7865f9c",
       "campaign-merit.mjs": "4e60c01c663e1aaf8bcac0918d23908f1139d2b259634f0f0225385f0734d6a3",
@@ -112,17 +114,17 @@
       "city-resources.mjs": "f5eb4173b8a488fabc5c9ef7c80a0f105e32127cd5f287d6fe1061959d0dca0d",
       "city-scene.css": "cb61a3a339e6db8b6e6f8266178c4e135f11653ec77136fe1c55e6ee9ed9f511",
       "city-scene.mjs": "f17071862a5981060ff52c7c529ff478308c8d4b7efdf6397a76c5ceb534683e",
-      "city-technology.mjs": "cfcf6413a58ea4b082100abd6142f084ec373bc5a9cef47e010e295c78f54448",
+      "city-technology.mjs": "cce50f7fa78f6b8cd4004941c16b009340850d11ad287bd947d9811282c741fc",
       "city-units.mjs": "95e41fde0a103bf91b8b347dab353356161c58a064a840361a0b398418fa19b1",
       "classical.css": "adcccdee4456bdb455d78973ab1878edbdf96517f3ebdcb5d6c414c17ae77ed4",
       "combat-comparison.mjs": "dcbba83dbafe558d702a14be1dd616457f3248d2bc2e31cd9a0d337b4d6e9dac",
-      "combat-rules.mjs": "2db6fa5bcfec99a63538c19ece9041a8c3ef8209973b0d244ac90eb44aeb9248",
+      "combat-rules.mjs": "106cb3e4135d2d2b957bba691703353cba92b79a0e2b3f4ea09a076650f53c49",
       "command-cue.mjs": "aa364828b2d2e4bb562efed22de397e86417db28585c11b9f7220788db3808d9",
       "command-protection.mjs": "62a3cd96402ae83cd9ad41e83781f986fe1f016060c02ae83dea3b43c848e66a",
       "custom-battle.mjs": "f9c42aca9f680a40d62e81438626ef5fdfd7f5204205321a6a0bd13dae4de39f",
       "data/design/ai-parameters.mjs": "1bc6027826d5f1cf43290ac991866f4f6df5c8f67884c2988e3a914235f83333",
       "data/design/ancient-atlas.mjs": "3c587388d0450d3d471ccf3cc383081180b11b8d7c3f663f1f494dd52fec096a",
-      "data/design/assignments.mjs": "83ba46179ce2b035292e96ad21f6c474f93bce3cfd0cc05b1ec6f712d8a45d42",
+      "data/design/assignments.mjs": "84e41b63214278c9f6d97737b2720a0ffa5077bcc2d73bc09f07e60f49d57969",
       "data/design/atlas-cities.mjs": "39936b148e9ae13ee78994e9e0048eac30ddb57e460ef880f8ec1bafb0d80d6b",
       "data/design/atlas-layout.mjs": "979a314d129ed71cab44226769514845a00736dd8db0a697e09490bfa6aec634",
       "data/design/bandits.mjs": "eb994fbea569a31dd5b8c5ff7460f7712e110b0ea5b368b2f5317f8ae1716da8",
@@ -139,7 +141,7 @@
       "data/design/cities.mjs": "c6f0b5b57ca60f4f37907b47b354d000a618eee2fe279d23e1b98fda071dd796",
       "data/design/city-technologies.mjs": "5d1cabf49ee6a4e0f9bf73bc6f5a062c9750d5c45629aa7acda94e92608e6317",
       "data/design/diplomacy-rules.mjs": "23644bb799a58259681bd9e9043ab0022bc85c32df39b523159801cc81410f33",
-      "data/design/domestic-actions.mjs": "5b762f7b35f511ba31104ea3e4b1b3eb636b49281aa92b1141202608fcc22eec",
+      "data/design/domestic-actions.mjs": "bdf997585509dd72b1bf415eb634311363e2c96904ae30a12c8428e382e01028",
       "data/design/domestic-decision-rules.mjs": "a6ca65f92d2a9b435882a42ce1e25fe0ba2e26cf9a2fe6c4ef411a4d731a9aae",
       "data/design/domestic-incidents.mjs": "d373e9c440ef423239bbaba3c7fa6c4478b4bfc4fb8896d5bfa3137b46cb1861",
       "data/design/economy-rules.mjs": "b76051ef6f984d30ab1ce55b282b09c77db5cc19a5dd6e3347e3bc5074965551",
@@ -152,7 +154,7 @@
       "data/design/metropolitan-areas.mjs": "fb0db7072d8e86d63b0209e506103c053610833023257745cf91d1d5801bec96",
       "data/design/movement-rules.mjs": "7714bde09e720a68ef49dc309cf2e43aafdfb3bccb0ca2d013a737590798d8a5",
       "data/design/national-scenarios.mjs": "5f951e293253cdff89bfb95a1cc590f3baa168612fbc725255f09a6cea8393e7",
-      "data/design/notes.mjs": "a985444bd1a183e5855c2e5d36b353679951782dca7523444b951cade4b952f1",
+      "data/design/notes.mjs": "4219912756c521624cba649c578d338a705a512593ae2821ed0d287877b40e9f",
       "data/design/officer-fate-rules.mjs": "81e093c39714dcdbffee28ba62f07981536a025e42fa6b6d453836cd1a063feb",
       "data/design/officers.mjs": "b6d89a25b2811aeb0c3180b00b9cb8b26de9c7620a5d6fbdae1e4235d23b4231",
       "data/design/pending-tables.mjs": "34d77aea965045becc2b5dd21e9d12a3e5b4a239f82863ce8ed10bb51268d5d7",
@@ -165,18 +167,18 @@
       "data/design/road-link-policy.mjs": "6d84f2a1d872f28979455bb3b2f88b506beeafb4f7c7871b92daafbe594e34f7",
       "data/design/road-network.mjs": "7934c16cec3f9c4c13913ef32f8f8ab8fe82276cdca0fc99230fe0dd0c79dc9d",
       "data/design/roads.mjs": "8d47f71ca3233532289b7fafa2f0fb0f1183a213ed72792cb8a1b00e47fd4834",
-      "data/design/rule-sources.mjs": "cd919d17f5c6b8b0a5b96b1cc2afc3fb53397b8d8a6ca9819361d76859187d37",
-      "data/design/schema.mjs": "c694e97a5f39f0be26ab159d8266d72a8feaffd8922e6c72c140ded43e663643",
+      "data/design/rule-sources.mjs": "2ce14e9d5119fac7c412b413601fbc0189c177f40c6088295f24c9b975b87976",
+      "data/design/schema.mjs": "b5e8f2c91832f3ea514f2fdcf87d63211149204d1323743c667760bfd269939d",
       "data/design/stratagem-attributes.mjs": "ec7059085459afab486ecad51252e29ee488c5696a8ec60d60488bc32bd83f44",
-      "data/design/stratagems.mjs": "4680440725eb7be2097a1f54ed9309d7f4b17534c626702200d204ea1bcc4b92",
+      "data/design/stratagems.mjs": "2bca6b4f079b55be0b7f6af786ff3be0de917b09b1ed133377518541c42018e7",
       "data/design/strategic-planning-rules.mjs": "f1fdca182b2f2dc8bb6686887fb6dd3fdc1eb94e1c9ecc8723962eb73082eb5d",
       "data/design/strategic-scouting-rules.mjs": "8b99335f018e8b75ab81775295f08b5c310f75ebba17b20a61192c66fdcd909a",
       "data/design/strategic-support-rules.mjs": "fb77ac41718f4f59f4f5fbf86c24a05cc3954c1027289569b6c0956fe549dea9",
       "data/design/supply-rules.mjs": "0a6329cb057ddbadd6433cb982389d48b8e2141846a679073957107856f09c13",
-      "data/design/tactics.mjs": "67c52443bf649c079a8a0fd26f2d1304e7298a831ad70f2a2bac91df911f17f5",
+      "data/design/tactics.mjs": "0e41b7294330cea70c7a383403f185361d0c5107a17613b443afb822f1ea880d",
       "data/design/talent-loyalty.mjs": "dcd929ebf8d06067972067e6d609da176b4710ec6d3f171a92b1551e6329b526",
       "data/design/talent-rules.mjs": "b88e85993b547f6587e114a83b1a4aa3592b26fd7f9ab67dab36eb542bde95f6",
-      "data/design/technologies.mjs": "8157be4287cbecf93b70d471b3f256d78670547efbfc8ac47832a16ab5839bf9",
+      "data/design/technologies.mjs": "543f418029bb3f60684c9656b8735132487fc9c5ccc3ad1bcd721de7f9d0ee3f",
       "data/design/traits.mjs": "77cd2f8af20e0bb85f963baeebdc1f9caa2896d9c41d0995434a034cb8fd2253",
       "data/design/treasures.mjs": "0d825842725ff1c0bc97010a0c7edfa5302eb55dd78bfad5af855cdbee060b32",
       "data/design/troops.mjs": "5cd932bbb6b1851d6e075c004c83e13d44788f9b50f40926b28b48fe25103d59",
@@ -187,8 +189,8 @@
       "data/officers.mjs": "485f205fd69daece6e29d0fcbb2023704498b015bd4e7bff9554994967ee7503",
       "decision-summary-view.mjs": "3ff9b961913210ad7cc657f49f3d8b0ca51d18d1b04bb9c127f84152a652eaad",
       "defense-line.mjs": "bb9a41df1aed0c2826d1c65eefb88b79965bbe49dc9f334c87367c28c96ceaed",
-      "design-catalog.mjs": "6efa0f919ad197fb69569603a561beb00c45df21850849fd644cf57fb2604400",
-      "design-strategy-validation.mjs": "3230491993e94f09468248ddec797c7ca1d4b7ac8ee9464e5e4a2e466fcbe42a",
+      "design-catalog.mjs": "3c5d42dbdc32524fbacac23be82a5efa852296871897cf4ce70ecc3b3f105f28",
+      "design-strategy-validation.mjs": "9b00cedec152d25b24e9c4eef9200351df9a68a642123bc9c58846aa6b1bd0d2",
       "detail-panels.mjs": "5c3201e99f14de54210d44a9429a60d7fab7f1dab557acb42ecd67ab29994013",
       "diplomacy-relations.mjs": "5b60926ef1601b90a04518b1c7e94c0c66e67e121bf42ae73cb335c4d09b299d",
       "diplomacy-view.mjs": "05b5554b3883c53b32c716a1bd39d82d09ca3d6da5d5bddd7e870d38359cecc8",
@@ -208,15 +210,15 @@
       "domestic-proposal-view.mjs": "d56007899bdf8dd6564f035d0cfad7dc08ae213369a43d004637fd3147ad7a11",
       "domestic-reference.mjs": "042025355e84d46511c06bf8504e6f8eaf1ed705abdb9859620abfb20e85f443",
       "domestic-staffing.mjs": "2d1919aaa8615b0b056c48ea4b1cb921f65c45caca5efce9e57c29da4dfed5f6",
-      "domestic.mjs": "982f72a6df170e6ba347d1212106004071a186becc5f844e668422aff7a1009c",
+      "domestic.mjs": "fcd272f98b4212c85bb0fd3fc8d727ad82161d9afac7a93e08ba787955524961",
       "economy.mjs": "c060d631f30c164d2baf89dd7a973bd4a31e0b0c20ccbff6e2ac5feb52e540c0",
       "engagement.mjs": "0c0e960569de3c1ace2ebd056c26452e04a819f29811717bcb0ed47dc11280bb",
-      "engine.mjs": "26585fe3cf829f86f8a72979fc9831ccd4d71d9d15fcab52102b6bee1f4d8d80",
+      "engine.mjs": "57a440733b894042eedae1bfe5ed16562f426c3b0633c8717ea4de0c48fcab57",
       "expanded-tactics.mjs": "599ca8e65700c87c90a10f7d9b8b2e100804a0266f32f14de64897b428cba6c3",
       "faction-affairs.mjs": "c2be3ec46dcf82427d94499e1db30ad5167be2e63deb855f22872f8b08e59ef2",
-      "faction-directory.mjs": "5e840a7313f74f2a131c47bf10a22c664be8a39dbe7fa95112816c3f563b09eb",
+      "faction-directory.mjs": "165ec0b9f978311d6c4846460e9718e0410cf08062c64ab1c9b1871d31274d46",
       "faction-registry.mjs": "bb46f4528ac40f480367b6049f1d7b82b25c1a684bba1c53c964d94fec1d52b6",
-      "famous-officers.mjs": "cf885881a7f5363b0cca30bcff25ef167b475db1a2f5e4df0cd22df6fda86e73",
+      "famous-officers.mjs": "d65e6bc1fd62a6ffaa9257c60a19b7e03ee73aaa91afb127b5e00d39d94898a3",
       "finance-view.mjs": "bcac45c29a493eb2f26e4aac8a17df243cb4855b7ecc726ca8b93f7bcf992da4",
       "game-audio.mjs": "f4c78cc92650921a1a81fdb9bacf252ceca4b18d338aa554f1667e6f11c2e5bf",
       "game-save-validation.mjs": "f913c9b86617b3ea31eba70f9c8f799e05449fdd1f01a592c68739358add603b",
@@ -238,11 +240,11 @@
       "map-landscape.mjs": "57f07df6c2c0154cf091a3ef9f20cf3f3645fbeff233e063b452b59420c06684",
       "map-metrics.mjs": "0c62079dca3b70df211629061eb92274a2db04dd36cb61bf15a8b23206bbea39",
       "map-node-data.mjs": "ccb1cdd58745213604e52b49f2a757798bcc1316685fc348fe3313b887a72aef",
-      "map-object-menu.mjs": "c0a2d399a9a8592ec44d47a75d1c5efe080535fe5c3a56a4ebd6176b64416775",
+      "map-object-menu.mjs": "492907c5c33157934658f64ef625527c0fed8b7b39d78861027165188e429fac",
       "map-overview-art.mjs": "fc4c12e0f5c95fa964da0e976a09a1e60ffe0359768711b83b75ff37a5f2210d",
       "map-overview-layout.mjs": "299ee1432ab57c36923f0ce30cf92e931e533749d92ee18a084c462434f93190",
       "map-route-editor.mjs": "3efc44e6039e3c3a32f3d28a43a8c40bbe9488750b2069ac937b72526dd0f783",
-      "map-target-picker.mjs": "2a7d0794601db3202ee9e8e8b178c6e8a8552e391136b6b99fa1b0b0468d769c",
+      "map-target-picker.mjs": "d870e2da1d7029169168305f083bb37cf2b4751440b6f021fd3297b2a45e9179",
       "metropolitan-areas.mjs": "0fd0ada217b6d5980e23f6c7a47b754f399dcc005c203875825e0e9b46cf0232",
       "metropolitan-map.mjs": "b5f201828fc163674144b51a19a1a7105c824a975d8c810a816167d18f294d5b",
       "metropolitan-region-data.mjs": "9a9b0fa2af5c19bdccac3648652322000da70e820edb4a85eda710386a0b78d6",
@@ -275,10 +277,10 @@
       "officer-voice-player.mjs": "84544e4d1308b06fc27e5b19832f46fcdfc7c9a74fe035e3abb03b299c909eb1",
       "packaging/desktop.mjs": "c4e1857935d0ca72619316c3e3993eeaf50c30c4ebee0571e85eab29a1d69b0e",
       "packaging/preload.cjs": "2bfc7eb8aa1aee206e800134acae73376f9f6a3636ace55ee45421e8ef356753",
-      "page-guide-targets.mjs": "4bf7731184f1470c5100f69c62372036219c89615ec5bc141f630d7d3992515e",
+      "page-guide-targets.mjs": "808c701edb28415446a45141cb5209cc475dac1a838ea5a151636f5816075343",
       "page-guide-view.mjs": "993f2d6a6e0e7f9689275941855e675d66d80146643181abecdbf95b2ed3b15b",
       "page-guides.css": "4e79d2f931dca7589b6e3cd9a0ee367f0d2de0bfda50d9dd684901736ce379f1",
-      "page-guides.mjs": "926b30ffb23b82a1262371f693fa4507ba8771bffd008b72552421e49d13c40a",
+      "page-guides.mjs": "298a9bf51d42ea8ce355e2330efc391421925f32ac42124749825e0b138c3774",
       "passives.mjs": "8f0c0ad0fe5e74e89c433cfa88cb36b04b589118e57380aeadb7114d1b4c55e6",
       "personnel-movement.mjs": "4d9479909063f393db0652d27dc30ea0e5b859224edb998cf70951ee36a76dc3",
       "planning-queries.mjs": "beb0f7c3f803ac79ba644b3791b1f5dc9538726a546f8531d54b8bd9b57f6d5c",
@@ -320,21 +322,22 @@
       "scene-loading.mjs": "5e7f42e02f0c1edca41787f3c5aa42b88dfc403908941a11fb0c7722c6eb15f9",
       "scouting-state.mjs": "37521dc90c40aca40420adc6eb275b7edf660d01eaa92a0ee127f57e49de6f10",
       "scouting-view.mjs": "ede6afd3b12c41ee2623468c27d57261e120dbd63a4751fa97fa6c5fc02897c3",
-      "scouting.mjs": "f2a2e4989dddce4e43fa3502eebf2ae1798622c343344066da569ae41428303f",
+      "scouting.mjs": "20069f677b5604cf6fd95d6ada43a2eceddf08c59c6c1350538b85088e9812fe",
       "scripts/build-desktop-manual.mjs": "2d8a10e220abb1901ed03da3cff8e6f71c56c80bfaa95db8e098cda721e35b49",
       "scripts/build-native.mjs": "9b32f85e15a6c3a5e88c00abe84fdf6533d54ba94dd54b9727af946ae1acf1ed",
       "siege-defense.mjs": "238c922572788b81bcc17e640a34b1483d3714efd45b09e053e4fb7573262a44",
       "status-display.mjs": "d18a636be374296407a165f63361b6702d8deb4109a7d5a2b5383847f9fd5e85",
-      "stratagem-area-view.mjs": "b7171680f0f2f3f1e25e59f9887c1cdb5d9548357572b8cff3f48686c40ffeb3",
-      "stratagem-area.mjs": "f44afdc863a1819aa8bedae3d4ae3dd17a537457e2021b355049ae593d1ea418",
-      "stratagem-events.mjs": "f4ac66df6b7af693540af1c08d7f7dc7687ac8f4458986bcc49f5214ad9dfcf2",
+      "stratagem-area-view.mjs": "a120fd9fcbd90e92dabe759d96cbdce2511fa8a07378f65d1ceb022a28544681",
+      "stratagem-area.mjs": "dcb082c2960cdecb6891943b8257c1d6c3c4a6646aef4ee243b62ec16ab4a2b2",
+      "stratagem-combinations.mjs": "19f5dae9e7bd845102f095ac73c49c56b26c1f77ced76a544ddcb19b3993e302",
+      "stratagem-events.mjs": "324d8e6e7d11f7e7546626d7ffd620c8bfa7f46c6dc276b9c31c99d1bfa0c106",
       "stratagem-zones.mjs": "a87e6a15ab8583145ab2849ffe2cb4dcb43fcbbbfff21a70eb79439cc0c34bd7",
-      "stratagems.mjs": "b25bcb4e87fa218f96d8470e69463c4e86ab9bf7ecfe000179e767e83f214ad3",
-      "strategic-ai.mjs": "5649a009296c9977e1bfffb3e7ba1f2a5bd9f8eea018ef06d8a5dc9edf7131e7",
+      "stratagems.mjs": "b12a7b4f689d7480eb2060ccb6afcc94930b49982bb7bfe204879273678052f4",
+      "strategic-ai.mjs": "49c424924c0821289a730d1f65655f41c7f5629c6132f26225e17d3594520a33",
       "strategic-algorithm-defaults.mjs": "d1944fcb031c5625000ca30ce419749b4b0c6b4ff582373478d6ec2aec39ad95",
       "strategic-algorithms.mjs": "ef3ecc572493e11b78c4a5d553f1bfbd20fe9ce45763dd2dcc84fd3a9b3cd623",
-      "strategic-army-markers.mjs": "8f5169aec1d6949bc82e16fb5f24fe47d89e682402f2701afc3287ae4c5e0aa0",
-      "strategic-campaign.mjs": "f832012ae2870f50029184f77cd2c7f171b549854f1e57952ae50838b5deb1d8",
+      "strategic-army-markers.mjs": "1293aebc96423483ced5a940daadc5528953b3b0c5400e403447197d6218816e",
+      "strategic-campaign.mjs": "cb9e70c521ec4eb108b57ca3c78d6d1eef1bbac22bc3ba9c8583ded42b10bfef",
       "strategic-combat-assessment.mjs": "3946be0f993889d6ce3416f708f89ed3db287f007f99cdc016ee428f900abf35",
       "strategic-command.mjs": "74b78f2f7eec9bfab90e4c547ce26f7c3629a140d789f56e67e965a6fcdf7a25",
       "strategic-concentration.mjs": "738b06d838802c70d14170808bf01576949ffb8c8975ef36389dc3cfad8fe74d",
@@ -349,7 +352,7 @@
       "strategic-movement.mjs": "7d25ab53f400ef4f3c3e7d048b45dc604bcab69ba4aa376e6b7fe0a7426617dc",
       "strategic-opposition.mjs": "cb9665032f15a747ea847af2b94c105213ba49f8e42c1433c63a940eaf470e71",
       "strategic-order-view.mjs": "83f2e1f0e4f5690481b4adab5796f7634c894d2cac6d7c230439dfda8e198fc9",
-      "strategic-orders.mjs": "5c3b4497d6d346c0080a7a3d6e98937400f44124312a526d21f2b197302966e8",
+      "strategic-orders.mjs": "6e82a53ef7442d824e5da3cf723cefc0fdbeadfb3f7ab89d9c2ef601acda828f",
       "strategic-personnel.mjs": "0d376c87a5a3bb8fffaaf71c125dba7fd0a85191711e8a328242ff83cdf810ca",
       "strategic-planner.mjs": "e7cfbc2868a7f5a09baaefde3c111371646721d557a7a84ec854d12213ec59d6",
       "strategic-policy.mjs": "f19580fb606c9f09b61d2f430ad3dd3fb1fda056759f9c36c4e7920545ac85c2",
@@ -361,16 +364,16 @@
       "strategic-route-supply.mjs": "09a240718481c58bba4c584fd233aa51a03ba1e6bbf17759f0b26fdada62e6cc",
       "strategic-scouting-ai.mjs": "26fc7bd5b398fd29c9df96148f41704483a88bdb84f0fdc21380f8b3f70b8871",
       "strategic-staffing.mjs": "b09716b347320dca89a1019819e1cab611c9f6fa61773253eb920c6dea657126",
-      "strategic-support-ai.mjs": "69c752d17f39af2c367434053a34bc3537aacabec1487ea20914a1a05db2713f",
+      "strategic-support-ai.mjs": "abc9dc75e769f4fe993769c48228be656f89ecc7fc3400f9264db0854d27c3ec",
       "strategic-temperament.mjs": "426f23363b57fba24b2ea995aa2babf00e81d2996ba64b11178c026df24a07bc",
       "strategic-tempo.mjs": "f502a3c4f94785aa9d1b8ed9a95e51e0ed88500fa99a02ddae7da9bdbc70a4d5",
       "strategic-territory.mjs": "23beb4be5b721bc89189d583ac2f55498ee441b24e38523fc65cb1b05c20394e",
       "strategic-traits.mjs": "c916fbbcf92848a626c27fc80df27437f8d855bef82254d9e2c5dfde10126662",
       "strategic-victory.mjs": "c6f4cc2287299ef9578d7ad3f2c17a89136f751f633568495a762bb1950bae60",
-      "strategic-view.mjs": "1c359977c85750ee13a837c3463df9f1523a3e66ce9959f3b55ff42b42a0bcca",
-      "strategic-vision.mjs": "e2108f9ed8330b80a12e4d09b9e6f52b15fe62f706e90b50851386687912d700",
-      "strategic-workspace.css": "6f061b025a777e3b3c79350fed7d3fda57919153ec83b57a5c6e447e7e55b270",
-      "strategic.css": "10dc0998d2ae8ab0d55ff20fe637e943c31b3e22183427ad99a4a0d15a641b5b",
+      "strategic-view.mjs": "d1353aaf8690e7c5d082a220ce82cd4a3d4eea3dfa9211e49a014951f42894c6",
+      "strategic-vision.mjs": "9ef36db212a7183a0576d192439d52bffa659a430f2b3117929e8f4b726f0d60",
+      "strategic-workspace.css": "0116faeb4cdf423a74bb2c30253638ff05ad8afb97a9aea6f747987e2fcea41c",
+      "strategic.css": "5e67877c68b8fb59da53da15bd9983bc856bb610e93d723221dea6c4701f1dc9",
       "styles.css": "daa830e3a06c689366de9cbd5046e754b270186b80e79ab62bbe73eda31fb32b",
       "sw.js": "93a339c178977bae2b2f15422e390b0405eda2021d350534fd0ba47a3a0592b4",
       "tactic-aim.mjs": "b4c9a2fc551c9b1224ae38209914db094250dd650d519693cdb7eb7cc0589522",
@@ -378,15 +381,16 @@
       "tactic-learning.mjs": "07695b6962c08274ae24b262b7959dd9266e610c8721723bd4951fe3a9f8bfcd",
       "tactic-outcomes.mjs": "d2ab3c9ca910843a23975ed501d8df9c21b52a61731c26d3fc327ad7cef4a1a5",
       "tactic-positioning.mjs": "9793e72584dfcd9a35b2fbf88bc9a2352ab0c7cac93a308c821f3671f4370ced",
-      "tactic-power.mjs": "04446be083335160dbb1e8436720c5f2a733a86893da9a7b296c8d16f03b6a7c",
+      "tactic-power.mjs": "5f47b16b34f9dbe6818e3f83695859431a5c711487e108bf60119ce475eb88c5",
       "tactic-tempo.mjs": "4a7ce49461e0bcb1d4e93ab2f8115485da89a9d9c5b0961d5c7ae160a00e8001",
-      "tactics.mjs": "4cb6ea6078a83ffbdb0557d9826052ed4bf3f2b0996d8aee42e7d59608e4c898",
-      "talent-core.mjs": "7a75937b0650eaac778e4482c7c1a0424942d875ba0524452e892201131da3f0",
-      "talent-lifecycle.mjs": "47197cf208cab50d0981dbfc8647669238f307bf345a00e7e132c7a6c70a4c57",
+      "tactics.mjs": "4881053b5be083ff8f240d2b0c3fb9a1a30a333729fa058ef48e94fc00229e07",
+      "talent-core.mjs": "6b84e7b2973508f646721d5aa279fd4fe25b284603e51cdcbeae9ffe3102239d",
+      "talent-lifecycle.mjs": "dca7c7c11b1e8ed434cee1a822686d9dd23cd9f8805eebc713222d0d977d1928",
       "talent-view.mjs": "18d1814b96f3d47848a782a8403d407bee2a1dd0986501881a7d5fb20ffbfb8d",
-      "technology-design-validation.mjs": "26272fc7409707ffb0b9130b3abaff900d7b6114e74adf1c36bdad85dee1a14f",
+      "technology-design-validation.mjs": "14f09e0a1b678ba98bbc89bc84e6a2325a278a8db4d30217bb4db990f3c402f3",
+      "technology-research-staff.mjs": "3bde8bb75cdca8a78cfa411e37fd8ff6f1d9cd90ee271369c6056ebdc9750622",
       "technology-tree.css": "95d7acc964b24394febdb6c0158526f8925bcf6f8957191164265f9846f53aa0",
-      "technology-view.mjs": "cec80ced7e688bb512b4640ecea85393905e0cca116929e6c2197f0403ae10b4",
+      "technology-view.mjs": "598f343b4a5e62665021b53ead5940737105c20f304c4a4136eac0efb28413b7",
       "terrain-rules.mjs": "07e99c14bfa632fc5e684c75a6fbb2e7130aaa717946a41767477306238e6e65",
       "town-art.mjs": "f1c7ef2c73022261fb95e1642384e5b5addf93766d5fddf0fe2bc27bc80ee605",
       "town-layout.mjs": "d21fcf804c683a593582c754ab7496122d3b5edecf32431c25dfce14b8fab0d3",
@@ -431,892 +435,900 @@
   },
   "actions": {
     "action-85": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "316952ef00e956c23f39223048abeda947dbed781b91df91a51e359aa7f8ca3e",
-      "reviewedAt": "2026-11-01T07:44:01.907Z",
-      "note": "已核对普通/全AI开局、历史模板和自定义双方军团/援军、单军选队任命核阅、地图分类绘制预览及导入导出删除入口；实际编辑保存地图并预览、运行编组取景，检查新截图。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-86": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "94d6bb98f0cb56a17ce1b04b9c95fd85876f5dfa5baf01ecc39ecd90f25751b4",
-      "reviewedAt": "2026-11-01T07:44:01.907Z",
-      "note": "已核对普通/全AI开局、历史模板和自定义双方军团/援军、单军选队任命核阅、地图分类绘制预览及导入导出删除入口；实际编辑保存地图并预览、运行编组取景，检查新截图。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-87": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "6425fb4b5bbe2982ba37227a3469241f107a43ec0e2fbbde5d735a8a8dda8840",
-      "reviewedAt": "2026-11-01T07:44:01.907Z",
-      "note": "已核对普通/全AI开局、历史模板和自定义双方军团/援军、单军选队任命核阅、地图分类绘制预览及导入导出删除入口；实际编辑保存地图并预览、运行编组取景，检查新截图。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-88": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "3c4852758dbfbde409f47f353a4a5981010aefcdb137f749e7003348ebf15282",
-      "reviewedAt": "2026-11-01T07:44:01.907Z",
-      "note": "已核对普通/全AI开局、历史模板和自定义双方军团/援军、单军选队任命核阅、地图分类绘制预览及导入导出删除入口；实际编辑保存地图并预览、运行编组取景，检查新截图。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-89": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
-      "contentHash": "86c835adb39c2165165e93372ad2fc1ea6ed2dd6f2ab94c8eddf0f39b23a7d59",
-      "reviewedAt": "2026-11-01T07:44:01.907Z",
-      "note": "已核对普通/全AI开局、历史模板和自定义双方军团/援军、单军选队任命核阅、地图分类绘制预览及导入导出删除入口；实际编辑保存地图并预览、运行编组取景，检查新截图。",
-      "screenshots": "recaptured"
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
+      "contentHash": "9d9a57bc9c92f39c3faa98ee383e491348d590afb59864d94ca94c8301d358ed",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-90": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "91b43bc04b600d3eb6c3b0002229d29d94407a1f0a4494e8c2744f6daf2dea9a",
-      "reviewedAt": "2026-11-01T07:44:01.907Z",
-      "note": "已核对普通/全AI开局、历史模板和自定义双方军团/援军、单军选队任命核阅、地图分类绘制预览及导入导出删除入口；实际编辑保存地图并预览、运行编组取景，检查新截图。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-91": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "1bf6602a53a2d0fffc74a3096ec53f7772fb8d398e01f4ab2424915646714129",
-      "reviewedAt": "2026-11-01T07:44:01.907Z",
-      "note": "已核对普通/全AI开局、历史模板和自定义双方军团/援军、单军选队任命核阅、地图分类绘制预览及导入导出删除入口；实际编辑保存地图并预览、运行编组取景，检查新截图。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-92": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "0f6e27f7036b0918048e6d6020a0873a4fb54a3830297918e279dd3c70411437",
-      "reviewedAt": "2026-11-01T07:43:59.453Z",
-      "note": "已核对实际战斗结算、战果与重试入口、战后缺职暂停补任；真实完成只读回放的拖动/键盘定位、播放暂停、倍速、重置与关闭，并比较世界存档字节不变，检查战报和回放新截图。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-1": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "877b3c55ece9d5f142c594bc274036d0026ef48216eb6843d326669cd748e6db",
-      "reviewedAt": "2026-11-01T07:43:13.296Z",
-      "note": "已对照城市点选卡、自辖城市筛选、军团卡与详情、天下情报、建筑入口和地图确认页；核对兵员、当前粮道、旧情报日期及取消保留草稿，相关截图已重拍检查。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-2": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "3bf6c97829f623571ec380322b26d535c380ddb4ee85a86ee66c1d0c17176a1c",
-      "reviewedAt": "2026-11-01T07:43:13.296Z",
-      "note": "已对照城市点选卡、自辖城市筛选、军团卡与详情、天下情报、建筑入口和地图确认页；核对兵员、当前粮道、旧情报日期及取消保留草稿，相关截图已重拍检查。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-3": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
-      "contentHash": "c113b2a508581b1c91411972c154467e15793992d65374f9c98fb6c4c993c47c",
-      "reviewedAt": "2026-11-01T07:43:13.296Z",
-      "note": "已对照城市点选卡、自辖城市筛选、军团卡与详情、天下情报、建筑入口和地图确认页；核对兵员、当前粮道、旧情报日期及取消保留草稿，相关截图已重拍检查。",
-      "screenshots": "recaptured"
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
+      "contentHash": "1ffd5c4abda24a31d3646cfcb1f05d7e1d096d511780fc98d01abc8fd72eb9c1",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-4": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
-      "contentHash": "52f6e0d66f4b00424b3e5493b9110a47f4e535d0533987bc10ae81e0f4f2f7d2",
-      "reviewedAt": "2026-11-01T07:43:15.629Z",
-      "note": "已核对人才名册任职、能力、四系适性、特性、羁绊、战法、军略及人物返回名册、日志入口；部队简报与所属武将适性截图按当前画面重拍检查。",
-      "screenshots": "recaptured"
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
+      "contentHash": "ef3806507187834bab8a00eba761d917644360be3a2fe5ce87a6702edd43f84a",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-5": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
-      "contentHash": "059df7be6698f14d9aa4512f08cb3588fbc013166de83483d7145f8554119207",
-      "reviewedAt": "2026-11-01T07:43:13.296Z",
-      "note": "已对照城市点选卡、自辖城市筛选、军团卡与详情、天下情报、建筑入口和地图确认页；核对兵员、当前粮道、旧情报日期及取消保留草稿，相关截图已重拍检查。",
-      "screenshots": "recaptured"
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
+      "contentHash": "a2de06d522fd0b47b2f2771a399f22512454b5113e630b0daed32b7c35c753a3",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-6": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "90e8a73116f5d0faf6742e7b3f511fad8782b09028b4bb1824bfdc9fe7778c60",
-      "reviewedAt": "2026-11-01T07:43:13.296Z",
-      "note": "已对照城市点选卡、自辖城市筛选、军团卡与详情、天下情报、建筑入口和地图确认页；核对兵员、当前粮道、旧情报日期及取消保留草稿，相关截图已重拍检查。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-7": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "ffd645b9f222dff109e4ec0837598746ba10644facd6114b2b8aaf8a0f50efe3",
-      "reviewedAt": "2026-11-01T07:43:13.296Z",
-      "note": "已对照城市点选卡、自辖城市筛选、军团卡与详情、天下情报、建筑入口和地图确认页；核对兵员、当前粮道、旧情报日期及取消保留草稿，相关截图已重拍检查。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-8": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
-      "contentHash": "9ca2cc54a17199407fb8eb0e11641f52dcbf3f14675f29ed4e0cbe1f0f0f6911",
-      "reviewedAt": "2026-11-01T07:43:17.970Z",
-      "note": "已核对六方向岗位、选人直接确认、现任解除和在办事务冲突入口；改任使用普通冲突页的立即执行或办完执行，待任占槽与返回草稿说明保持当前规则。",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
+      "contentHash": "0b62163d8e1221abaa96d401fecbd5695f7b569532e6bca1af369f589c173511",
+      "reviewedAt": "2026-11-03T08:48:09.000Z",
+      "note": "核对科技正式表、真实驻城人数与共同开办入口；补充城市科技详情路径及本轮收益、前置条件。新增并目视检查 technology-details.webp、technology-details-mobile.webp；verify-city-technology-ui 通过桌面、390px手机、键盘及存档只读检查。",
       "screenshots": "recaptured"
     },
     "action-9": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "cf3b6413f73f67e9e5350faeefb1db1408fb2e107241655817ccac6b94cbb0c8",
-      "reviewedAt": "2026-11-01T07:43:17.970Z",
-      "note": "已核对六方向岗位、选人直接确认、现任解除和在办事务冲突入口；改任使用普通冲突页的立即执行或办完执行，待任占槽与返回草稿说明保持当前规则。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:09.775Z",
+      "note": "逐项核对本轮源码差异：新增科技开办人数、复合设施、AI真实研究班底及收益和费用校验；上述改任、解除、太守、优先级、统一委任、审批与人才操作的页面和点击路径未改变。共同委任、审批、推荐、旬初时机回归通过。已目视检查12项实际关联操作共23张流程图，既有图片与步骤仍对应；联系图位于 .local/technology-rebalance-20261103/manual-contact.png。",
+      "screenshots": "unchanged"
     },
     "action-10": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
-      "contentHash": "405d16e977d05e747d9b1da3c05273784b6915b351cb2d13d94ec15557936ff4",
-      "reviewedAt": "2026-11-01T07:43:17.970Z",
-      "note": "已核对六方向岗位、选人直接确认、现任解除和在办事务冲突入口；改任使用普通冲突页的立即执行或办完执行，待任占槽与返回草稿说明保持当前规则。",
-      "screenshots": "recaptured"
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
+      "contentHash": "87f5562db3f503508bfafb09eafa0150162a2cdf31cfb6ea1a0e4f189216d1c6",
+      "reviewedAt": "2026-11-03T08:48:09.775Z",
+      "note": "逐项核对本轮源码差异：新增科技开办人数、复合设施、AI真实研究班底及收益和费用校验；上述改任、解除、太守、优先级、统一委任、审批与人才操作的页面和点击路径未改变。共同委任、审批、推荐、旬初时机回归通过。已目视检查12项实际关联操作共23张流程图，既有图片与步骤仍对应；联系图位于 .local/technology-rebalance-20261103/manual-contact.png。",
+      "screenshots": "unchanged"
     },
     "action-11": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
-      "contentHash": "049ac912ccbfad3b00735fb1c7effc8e87ab3f548ca728d7b1c5a45afe5eb396",
-      "reviewedAt": "2026-11-01T07:43:20.402Z",
-      "note": "已通过实际选人任命、单独开启太守审批、管理页解除流程，并比较保存状态确认任命不自动委托、解除同步收回委托；检查重拍的入口与结果截图。",
-      "screenshots": "recaptured"
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
+      "contentHash": "42530ff9a2bdad5dbf879673c70f0e1c2865e8189febffba2a9193f832e54888",
+      "reviewedAt": "2026-11-03T08:48:09.775Z",
+      "note": "逐项核对本轮源码差异：新增科技开办人数、复合设施、AI真实研究班底及收益和费用校验；上述改任、解除、太守、优先级、统一委任、审批与人才操作的页面和点击路径未改变。共同委任、审批、推荐、旬初时机回归通过。已目视检查12项实际关联操作共23张流程图，既有图片与步骤仍对应；联系图位于 .local/technology-rebalance-20261103/manual-contact.png。",
+      "screenshots": "unchanged"
     },
     "action-12": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
-      "contentHash": "86723f0263cb2df9c266b468aafaba753f13f136990bf57600dec9ef41b2bee6",
-      "reviewedAt": "2026-11-01T07:43:20.402Z",
-      "note": "已通过实际选人任命、单独开启太守审批、管理页解除流程，并比较保存状态确认任命不自动委托、解除同步收回委托；检查重拍的入口与结果截图。",
-      "screenshots": "recaptured"
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
+      "contentHash": "9dc3914ba79afbe1b8e5397212ebb5ee45b94aad9ed45ba5a57f0295432a76e0",
+      "reviewedAt": "2026-11-03T08:48:09.775Z",
+      "note": "逐项核对本轮源码差异：新增科技开办人数、复合设施、AI真实研究班底及收益和费用校验；上述改任、解除、太守、优先级、统一委任、审批与人才操作的页面和点击路径未改变。共同委任、审批、推荐、旬初时机回归通过。已目视检查12项实际关联操作共23张流程图，既有图片与步骤仍对应；联系图位于 .local/technology-rebalance-20261103/manual-contact.png。",
+      "screenshots": "unchanged"
     },
     "action-13": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "8033df482039abbadf445a4e6fdd9172a6c35034f9eeede14604639badc95314",
-      "reviewedAt": "2026-11-01T07:43:22.801Z",
-      "note": "已核对内政优先级上下移、统一委任及旬初进行后提出提案的处理器；实际打开预算冲突、保存预算并批准本页，核对单项/筛选批量同意和暂缓的生效范围，检查重拍画面。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:09.775Z",
+      "note": "逐项核对本轮源码差异：新增科技开办人数、复合设施、AI真实研究班底及收益和费用校验；上述改任、解除、太守、优先级、统一委任、审批与人才操作的页面和点击路径未改变。共同委任、审批、推荐、旬初时机回归通过。已目视检查12项实际关联操作共23张流程图，既有图片与步骤仍对应；联系图位于 .local/technology-rebalance-20261103/manual-contact.png。",
+      "screenshots": "unchanged"
     },
     "action-14": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "a90c381f411d188cb356a2ce984f14ebfb0d4346a1af1077d8bf424a13e91213",
-      "reviewedAt": "2026-11-01T07:43:22.801Z",
-      "note": "已核对内政优先级上下移、统一委任及旬初进行后提出提案的处理器；实际打开预算冲突、保存预算并批准本页，核对单项/筛选批量同意和暂缓的生效范围，检查重拍画面。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:09.775Z",
+      "note": "逐项核对本轮源码差异：新增科技开办人数、复合设施、AI真实研究班底及收益和费用校验；上述改任、解除、太守、优先级、统一委任、审批与人才操作的页面和点击路径未改变。共同委任、审批、推荐、旬初时机回归通过。已目视检查12项实际关联操作共23张流程图，既有图片与步骤仍对应；联系图位于 .local/technology-rebalance-20261103/manual-contact.png。",
+      "screenshots": "unchanged"
     },
     "action-15": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "c607df163a8d8a72c0db47d440cc8452425f33b5c49e521350da2116e4ffd7b7",
-      "reviewedAt": "2026-11-01T07:43:22.801Z",
-      "note": "已核对内政优先级上下移、统一委任及旬初进行后提出提案的处理器；实际打开预算冲突、保存预算并批准本页，核对单项/筛选批量同意和暂缓的生效范围，检查重拍画面。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:09.775Z",
+      "note": "逐项核对本轮源码差异：新增科技开办人数、复合设施、AI真实研究班底及收益和费用校验；上述改任、解除、太守、优先级、统一委任、审批与人才操作的页面和点击路径未改变。共同委任、审批、推荐、旬初时机回归通过。已目视检查12项实际关联操作共23张流程图，既有图片与步骤仍对应；联系图位于 .local/technology-rebalance-20261103/manual-contact.png。",
+      "screenshots": "unchanged"
     },
     "action-16": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "173a688389b3c81c7cb23daa193095863b5985afa3cc540a0a50e05c0dcec6ab",
-      "reviewedAt": "2026-11-01T07:43:22.801Z",
-      "note": "已核对内政优先级上下移、统一委任及旬初进行后提出提案的处理器；实际打开预算冲突、保存预算并批准本页，核对单项/筛选批量同意和暂缓的生效范围，检查重拍画面。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:09.775Z",
+      "note": "逐项核对本轮源码差异：新增科技开办人数、复合设施、AI真实研究班底及收益和费用校验；上述改任、解除、太守、优先级、统一委任、审批与人才操作的页面和点击路径未改变。共同委任、审批、推荐、旬初时机回归通过。已目视检查12项实际关联操作共23张流程图，既有图片与步骤仍对应；联系图位于 .local/technology-rebalance-20261103/manual-contact.png。",
+      "screenshots": "unchanged"
     },
     "action-17": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "6c80a08fbc47a9c1bc06e4eafd278ae439eaf5fca9713567b5c1be6854662741",
-      "reviewedAt": "2026-11-01T07:43:22.801Z",
-      "note": "已核对内政优先级上下移、统一委任及旬初进行后提出提案的处理器；实际打开预算冲突、保存预算并批准本页，核对单项/筛选批量同意和暂缓的生效范围，检查重拍画面。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:09.775Z",
+      "note": "逐项核对本轮源码差异：新增科技开办人数、复合设施、AI真实研究班底及收益和费用校验；上述改任、解除、太守、优先级、统一委任、审批与人才操作的页面和点击路径未改变。共同委任、审批、推荐、旬初时机回归通过。已目视检查12项实际关联操作共23张流程图，既有图片与步骤仍对应；联系图位于 .local/technology-rebalance-20261103/manual-contact.png。",
+      "screenshots": "unchanged"
     },
     "action-18": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "792a5e66ac6bc241f36ef04f300af423616eab25761d4e1367c482bd12952618",
-      "reviewedAt": "2026-11-01T07:43:20.402Z",
-      "note": "已通过实际选人任命、单独开启太守审批、管理页解除流程，并比较保存状态确认任命不自动委托、解除同步收回委托；检查重拍的入口与结果截图。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:09.775Z",
+      "note": "逐项核对本轮源码差异：新增科技开办人数、复合设施、AI真实研究班底及收益和费用校验；上述改任、解除、太守、优先级、统一委任、审批与人才操作的页面和点击路径未改变。共同委任、审批、推荐、旬初时机回归通过。已目视检查12项实际关联操作共23张流程图，既有图片与步骤仍对应；联系图位于 .local/technology-rebalance-20261103/manual-contact.png。",
+      "screenshots": "unchanged"
     },
     "action-19": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "5c13cf8e772c0c3ce8cda7e95849f25ac2bcd0c71c9cccf7788db568322080a9",
-      "reviewedAt": "2026-11-01T07:43:25.122Z",
-      "note": "已在实际预算页验证修改未保存不改变存档、非法小数保存失败、整数保存后统一生效；检查原值、未保存和已保存三张新截图。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-20": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
-      "contentHash": "554e12c26abbaf31019629e671a42893c5b162b3b58461f8e3112bb5fc0aeed3",
-      "reviewedAt": "2026-11-01T07:43:27.414Z",
-      "note": "已通过低忠诚提醒直达人才方向、选择魅力负责人、确认及名册忠诚查看流程；比较存档确认任命不提前安抚，提醒无离职倒计时，检查五张重拍截图。",
-      "screenshots": "recaptured"
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
+      "contentHash": "18c4f01686bbcd19bcfb5f63c0bb240f1f490b590fb3bbb40dbc916b3041aa9f",
+      "reviewedAt": "2026-11-03T08:48:09.775Z",
+      "note": "逐项核对本轮源码差异：新增科技开办人数、复合设施、AI真实研究班底及收益和费用校验；上述改任、解除、太守、优先级、统一委任、审批与人才操作的页面和点击路径未改变。共同委任、审批、推荐、旬初时机回归通过。已目视检查12项实际关联操作共23张流程图，既有图片与步骤仍对应；联系图位于 .local/technology-rebalance-20261103/manual-contact.png。",
+      "screenshots": "unchanged"
     },
     "action-21": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
-      "contentHash": "ae22ec510da24ec919c1a1191d65ea49af1861d2784f686a3ea5b1165bc0559e",
-      "reviewedAt": "2026-11-01T07:43:29.722Z",
-      "note": "已核对侦察城市表、人员表、终点与拖动路线、派遣/停止及带日期报告；补齐在办人员冲突重拍入口，验证返回不改原事务、立即执行才解除并建立侦察任务，检查桌面与横屏截图。",
-      "screenshots": "recaptured"
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
+      "contentHash": "11b82f41cc6a2c6140a0b50e732f31e486dad1c90002e94faac90485ddb4bf09",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-22": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "db16a6603e2ed331212edf6c0af39f40bda36ed2390b907f8199dbb277d5538a",
-      "reviewedAt": "2026-11-01T07:43:29.722Z",
-      "note": "已核对侦察城市表、人员表、终点与拖动路线、派遣/停止及带日期报告；补齐在办人员冲突重拍入口，验证返回不改原事务、立即执行才解除并建立侦察任务，检查桌面与横屏截图。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-23": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "098ad69ef78b9d7bb361e0ed5986106a5cb2a159b0b65be96f3aa8315ffb7966",
-      "reviewedAt": "2026-11-01T07:43:29.722Z",
-      "note": "已核对侦察城市表、人员表、终点与拖动路线、派遣/停止及带日期报告；补齐在办人员冲突重拍入口，验证返回不改原事务、立即执行才解除并建立侦察任务，检查桌面与横屏截图。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-24": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "823580815b140d27d9b6a96ae06dd294050ff9f88ae2e799b33e53a5872a3839",
-      "reviewedAt": "2026-11-01T07:43:29.722Z",
-      "note": "已核对侦察城市表、人员表、终点与拖动路线、派遣/停止及带日期报告；补齐在办人员冲突重拍入口，验证返回不改原事务、立即执行才解除并建立侦察任务，检查桌面与横屏截图。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-25": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "8f80560136731e24416dbd679b4e00e96b2aa3891732c6219ec323e16eb5b5a4",
-      "reviewedAt": "2026-11-01T07:43:31.988Z",
-      "note": "已核对单队选将与配置、确认后回编制列表、解散返还、出征选队移除及临时编制入口、任命与地图路线核阅；重拍贼寨来源城及同一出征流程，按真实抵达说明增援护路。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-26": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "9d74ff8a5f60d2941fe94e76f5295997bad1d87dda883f31b85ddfe90c5685be",
-      "reviewedAt": "2026-11-01T07:43:31.988Z",
-      "note": "已核对单队选将与配置、确认后回编制列表、解散返还、出征选队移除及临时编制入口、任命与地图路线核阅；重拍贼寨来源城及同一出征流程，按真实抵达说明增援护路。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-27": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "2b081f77e02c42142059cb1cec604a9b2ec4d8fdafc31007e4f246a2c63209b5",
-      "reviewedAt": "2026-11-01T07:43:31.988Z",
-      "note": "已核对单队选将与配置、确认后回编制列表、解散返还、出征选队移除及临时编制入口、任命与地图路线核阅；重拍贼寨来源城及同一出征流程，按真实抵达说明增援护路。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-28": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "3e1e4768804e49123ef4e52e8363adcf0672a5da4aceec1b9bc6226771b5f598",
-      "reviewedAt": "2026-11-01T07:43:31.988Z",
-      "note": "已核对单队选将与配置、确认后回编制列表、解散返还、出征选队移除及临时编制入口、任命与地图路线核阅；重拍贼寨来源城及同一出征流程，按真实抵达说明增援护路。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-29": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "bb6087dcfce73ca07d2c9aa8e76224ce1a77d6c3c712067b8dada1466c918547",
-      "reviewedAt": "2026-11-01T07:43:31.988Z",
-      "note": "已核对单队选将与配置、确认后回编制列表、解散返还、出征选队移除及临时编制入口、任命与地图路线核阅；重拍贼寨来源城及同一出征流程，按真实抵达说明增援护路。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-30": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "210842917083f9ffb2424627f14108c72a2c28a46ead758c11bf34388ac94d93",
-      "reviewedAt": "2026-11-01T07:43:31.988Z",
-      "note": "已核对单队选将与配置、确认后回编制列表、解散返还、出征选队移除及临时编制入口、任命与地图路线核阅；重拍贼寨来源城及同一出征流程，按真实抵达说明增援护路。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-31": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "6431ac2caf7cfbee89b431cfadf0c9253a2b9ff30d60ed189745fc0399abb6ec",
-      "reviewedAt": "2026-11-01T07:43:31.988Z",
-      "note": "已核对单队选将与配置、确认后回编制列表、解散返还、出征选队移除及临时编制入口、任命与地图路线核阅；重拍贼寨来源城及同一出征流程，按真实抵达说明增援护路。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-32": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
-      "contentHash": "410f14701ea37c5ab02dcc8e3e734b46509586be9d4152ba6f8b97b4691ab7b4",
-      "reviewedAt": "2026-11-01T07:43:31.988Z",
-      "note": "已核对单队选将与配置、确认后回编制列表、解散返还、出征选队移除及临时编制入口、任命与地图路线核阅；重拍贼寨来源城及同一出征流程，按真实抵达说明增援护路。",
-      "screenshots": "recaptured"
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
+      "contentHash": "a62e6acc7df9269bb4d460f9d63ee7bf69bc3dac8ebca44230b93a88c93e23af",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-33": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
-      "contentHash": "4f7f676512ed4b094bd88b4256e9b5983506085c983f546fd15326f9dfabca7e",
-      "reviewedAt": "2026-11-01T07:43:34.358Z",
-      "note": "已核对军团管理与行军方式、调动终点及重置路线处理器、整军配置/任命/核阅、拆分后合并及征募整补；运行相应实际界面流程并检查新截图，未把核阅当作提前扣费。",
-      "screenshots": "recaptured"
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
+      "contentHash": "feb9c141f450d9cddeabbb6120d7bccf75d7c321e046ec11828a6217954c8550",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-34": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
-      "contentHash": "5d2537590b03e05ef98464d64c4512e0635821772c49c193f33431d447d14f98",
-      "reviewedAt": "2026-11-01T07:43:34.358Z",
-      "note": "已核对军团管理与行军方式、调动终点及重置路线处理器、整军配置/任命/核阅、拆分后合并及征募整补；运行相应实际界面流程并检查新截图，未把核阅当作提前扣费。",
-      "screenshots": "recaptured"
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
+      "contentHash": "6fb2ba5f3e47c3049309871ebf465c6d47caba1bb32ca05d3126fa5f5558fc35",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-35": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
-      "contentHash": "78aa8e118b8d526e363c6bd66c70d77f74006217f78817fc67a0b244eea019c9",
-      "reviewedAt": "2026-11-01T07:43:34.358Z",
-      "note": "已核对军团管理与行军方式、调动终点及重置路线处理器、整军配置/任命/核阅、拆分后合并及征募整补；运行相应实际界面流程并检查新截图，未把核阅当作提前扣费。",
-      "screenshots": "recaptured"
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
+      "contentHash": "0800809458ad5ae380b97119abf6e8872cddca66e1b02959be639e377077db79",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-36": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
-      "contentHash": "2974d7ba4c301f63b73bb4dc36978b0204b327f76b7d7b52c46717384a19b777",
-      "reviewedAt": "2026-11-01T07:43:34.358Z",
-      "note": "已核对军团管理与行军方式、调动终点及重置路线处理器、整军配置/任命/核阅、拆分后合并及征募整补；运行相应实际界面流程并检查新截图，未把核阅当作提前扣费。",
-      "screenshots": "recaptured"
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
+      "contentHash": "0d2e7b86bdb99849f7aabf19ec3826ffa3a6d6d841088c024c1dfb9f8db0b042",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-37": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "e19dd67f80ba4267c0d4e736d50e3dc06f9e57bd73cc9e11167988660677476d",
-      "reviewedAt": "2026-11-01T07:43:34.358Z",
-      "note": "已核对军团管理与行军方式、调动终点及重置路线处理器、整军配置/任命/核阅、拆分后合并及征募整补；运行相应实际界面流程并检查新截图，未把核阅当作提前扣费。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-38": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "39e2224a31aadba92b66b2ba69af074316562eb02834460b96298d531855bd12",
-      "reviewedAt": "2026-11-01T07:43:34.358Z",
-      "note": "已核对军团管理与行军方式、调动终点及重置路线处理器、整军配置/任命/核阅、拆分后合并及征募整补；运行相应实际界面流程并检查新截图，未把核阅当作提前扣费。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-39": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "c2c6f98845daf1c72ece40f7c7b0f3bc84a28f1e19994b0ec4965b508df9318d",
-      "reviewedAt": "2026-11-01T07:43:34.358Z",
-      "note": "已核对军团管理与行军方式、调动终点及重置路线处理器、整军配置/任命/核阅、拆分后合并及征募整补；运行相应实际界面流程并检查新截图，未把核阅当作提前扣费。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-40": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "819fdbfbe187b66ce24c731b35134324ecacba333895af3f2fe1487d08667b1a",
-      "reviewedAt": "2026-11-01T07:43:34.358Z",
-      "note": "已核对军团管理与行军方式、调动终点及重置路线处理器、整军配置/任命/核阅、拆分后合并及征募整补；运行相应实际界面流程并检查新截图，未把核阅当作提前扣费。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-41": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "b2f7afbcd773eaaf869821389ffcabf248997d8dcc4340b6f122a3846cca3c4d",
-      "reviewedAt": "2026-11-01T07:43:36.832Z",
-      "note": "已按本剧本实际人员驻地重拍空身调任、携物资运输、接力及循环批次；通过公共调任处理器真实推进一天核对运输队位置与物资详情，检查桌面/横屏，清除旧驻城和固定带兵数的演示假设。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-42": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "fa755e03f43355d8162f9e0b2906ac5cdea40f0228e4f26263cd9915c7bb6b65",
-      "reviewedAt": "2026-11-01T07:43:36.832Z",
-      "note": "已按本剧本实际人员驻地重拍空身调任、携物资运输、接力及循环批次；通过公共调任处理器真实推进一天核对运输队位置与物资详情，检查桌面/横屏，清除旧驻城和固定带兵数的演示假设。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-43": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "a0f99bb4a27628bd4195fb8ecfb25bd2b3468e9510b2695f1ae250af7db8cb93",
-      "reviewedAt": "2026-11-01T07:43:36.832Z",
-      "note": "已按本剧本实际人员驻地重拍空身调任、携物资运输、接力及循环批次；通过公共调任处理器真实推进一天核对运输队位置与物资详情，检查桌面/横屏，清除旧驻城和固定带兵数的演示假设。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-44": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "c05b588571ee2776d5395eefcfb5205355b91fbe5edfae64ebb6c542642d1934",
-      "reviewedAt": "2026-11-01T07:43:36.832Z",
-      "note": "已按本剧本实际人员驻地重拍空身调任、携物资运输、接力及循环批次；通过公共调任处理器真实推进一天核对运输队位置与物资详情，检查桌面/横屏，清除旧驻城和固定带兵数的演示假设。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-45": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "45899da624a8100cd5087c70a708a0674d9bf1b337ebef377c9422e4ae1fe542",
-      "reviewedAt": "2026-11-01T07:43:39.287Z",
-      "note": "已对照共同军令处理器及实际冲突页的返回、立即执行、办完执行和待任取消入口；核对立即中止、原事务办完后接续及只取消后续命令的边界，检查冲突和等待新截图。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-46": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "2693e50d3fdb66aad4535aedf0bd1f5942da6da4563bf4d03c099b8d78d0002f",
-      "reviewedAt": "2026-11-01T07:43:39.287Z",
-      "note": "已对照共同军令处理器及实际冲突页的返回、立即执行、办完执行和待任取消入口；核对立即中止、原事务办完后接续及只取消后续命令的边界，检查冲突和等待新截图。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-47": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "7c2c557e0437174f269dd36a76a104b869bb5b37716475d89bfa5db0d7536f7a",
-      "reviewedAt": "2026-11-01T07:43:39.287Z",
-      "note": "已对照共同军令处理器及实际冲突页的返回、立即执行、办完执行和待任取消入口；核对立即中止、原事务办完后接续及只取消后续命令的边界，检查冲突和等待新截图。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-48": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "2c37a82d20e79d771f13f0a8a6480e4b2e839e691628f49103ff4098849681e2",
-      "reviewedAt": "2026-11-01T07:43:39.287Z",
-      "note": "已对照共同军令处理器及实际冲突页的返回、立即执行、办完执行和待任取消入口；核对立即中止、原事务办完后接续及只取消后续命令的边界，检查冲突和等待新截图。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-49": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "e5cfc4a3f927de8e6f817fe0dcfee4a9b8d722fabe96729442121bbcb5d1740e",
-      "reviewedAt": "2026-11-01T07:43:41.796Z",
-      "note": "已核对外交主界面目标确认、经费与留存保存、城市/使臣表、负责人召回及返城后安排取消；实际谈判至待批并批准，展开条款与进度和交换俘虏名单，修正目标与履约入口名称并检查新截图。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-50": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "fd8259e86b2d8a7a77117cfbe90c1aa6c897e510935d54803bea1c57f8b7192e",
-      "reviewedAt": "2026-11-01T07:43:41.796Z",
-      "note": "已核对外交主界面目标确认、经费与留存保存、城市/使臣表、负责人召回及返城后安排取消；实际谈判至待批并批准，展开条款与进度和交换俘虏名单，修正目标与履约入口名称并检查新截图。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-51": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "cf3b053b3025332f4f7373df34d7a9d80c19061eecc0e17244f439614d52bda7",
-      "reviewedAt": "2026-11-01T07:43:41.796Z",
-      "note": "已核对外交主界面目标确认、经费与留存保存、城市/使臣表、负责人召回及返城后安排取消；实际谈判至待批并批准，展开条款与进度和交换俘虏名单，修正目标与履约入口名称并检查新截图。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-52": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
-      "contentHash": "37ed082e4288c5ff640552a9a134e377bf15ea03dcee3998f0d306008cf8773b",
-      "reviewedAt": "2026-11-01T07:43:41.796Z",
-      "note": "已核对外交主界面目标确认、经费与留存保存、城市/使臣表、负责人召回及返城后安排取消；实际谈判至待批并批准，展开条款与进度和交换俘虏名单，修正目标与履约入口名称并检查新截图。",
-      "screenshots": "recaptured"
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
+      "contentHash": "cbe137d0dd863b209748deca01be5afb3219d79006b0b40902b6b496188e28b7",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-53": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "3a6e3deaea77259ff101c21e6815a7d907884a3306a1240a58c7e48e8984301e",
-      "reviewedAt": "2026-11-01T07:43:41.796Z",
-      "note": "已核对外交主界面目标确认、经费与留存保存、城市/使臣表、负责人召回及返城后安排取消；实际谈判至待批并批准，展开条款与进度和交换俘虏名单，修正目标与履约入口名称并检查新截图。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-54": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "4cecab2aa8116c706f66b90fe5eea4d1cb0fd5a923bde0a555884d7b8a2fbc35",
-      "reviewedAt": "2026-11-01T07:43:41.796Z",
-      "note": "已核对外交主界面目标确认、经费与留存保存、城市/使臣表、负责人召回及返城后安排取消；实际谈判至待批并批准，展开条款与进度和交换俘虏名单，修正目标与履约入口名称并检查新截图。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-55": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "f6d80ecef47389201686f23f1b4901c802aaa86fabbe14087fb3e09065931124",
-      "reviewedAt": "2026-11-01T07:43:41.796Z",
-      "note": "已核对外交主界面目标确认、经费与留存保存、城市/使臣表、负责人召回及返城后安排取消；实际谈判至待批并批准，展开条款与进度和交换俘虏名单，修正目标与履约入口名称并检查新截图。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-56": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "fba395779a5b19884cc699c915d448853b3de83857dbc27224762dcb7a5f6f8b",
-      "reviewedAt": "2026-11-01T07:43:44.334Z",
-      "note": "已通过真实被俘状态与释放/赎回确认页面；比较存档验证取消不放人不扣款、确认才执行及返回更新名册，检查对象、确认后果和结果新截图。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-57": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "d9296df15f32d9352f41609bfc03fd143063abca3a55673fa37e7ec97b6aa2ee",
-      "reviewedAt": "2026-11-01T07:43:44.334Z",
-      "note": "已通过真实被俘状态与释放/赎回确认页面；比较存档验证取消不放人不扣款、确认才执行及返回更新名册，检查对象、确认后果和结果新截图。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-58": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "0a03b12613d3fb32e1fdb2141da3509b6be32b8c0a6aa9598e5ce920caf13058",
-      "reviewedAt": "2026-11-01T07:43:41.796Z",
-      "note": "已核对外交主界面目标确认、经费与留存保存、城市/使臣表、负责人召回及返城后安排取消；实际谈判至待批并批准，展开条款与进度和交换俘虏名单，修正目标与履约入口名称并检查新截图。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-59": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "87f87980d6a147fd77e624b64c2953c777f3aa171950b968bb86ea82cbdde474",
-      "reviewedAt": "2026-11-01T07:43:46.846Z",
-      "note": "已核对三类宝物、势力国库、接收武将表、同类替换、实际授予与收回、人物三栏装备及锁定筛选处理器；检查授予前后与收回新截图。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-60": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "aabef59c76e1056f76e83d44db7f133e068c8d20ffb40915bb5874efcbccb087",
-      "reviewedAt": "2026-11-01T07:43:46.846Z",
-      "note": "已核对三类宝物、势力国库、接收武将表、同类替换、实际授予与收回、人物三栏装备及锁定筛选处理器；检查授予前后与收回新截图。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-61": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "b7efbedd173dedb9e6fe66847db9ef2996bd0d3caff30c27f281ff31bb475489",
-      "reviewedAt": "2026-11-01T07:43:46.846Z",
-      "note": "已核对三类宝物、势力国库、接收武将表、同类替换、实际授予与收回、人物三栏装备及锁定筛选处理器；检查授予前后与收回新截图。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-62": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "002fad45ade4f6534ab420fdbe69ffcbcb36d77ea1a9b6f8a44310699f421ebe",
-      "reviewedAt": "2026-11-01T07:43:46.846Z",
-      "note": "已核对三类宝物、势力国库、接收武将表、同类替换、实际授予与收回、人物三栏装备及锁定筛选处理器；检查授予前后与收回新截图。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-63": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "74d3b6778d1838feb1dd765e4775a467b0e732a82cfb063030530d9f3327e88e",
-      "reviewedAt": "2026-11-01T07:43:49.341Z",
-      "note": "已通过真实接敌的守城准备流程，验证无兵时自动/手动编制、确认前取消不失城、确认放弃后交接以及普通模式撤离节点入口，检查重拍准备、确认和结果画面。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-64": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "e0d226ad7b59facd4ea675ba110fbc87e6aa718b63da1a5264fe97e21ecfb4da",
-      "reviewedAt": "2026-11-01T07:43:49.341Z",
-      "note": "已通过真实接敌的守城准备流程，验证无兵时自动/手动编制、确认前取消不失城、确认放弃后交接以及普通模式撤离节点入口，检查重拍准备、确认和结果画面。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-65": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "a3ea7243d78165ee3786056d521fcd4d45ce1cd979883b1f0edbc631bdcc00d5",
-      "reviewedAt": "2026-11-01T07:43:49.341Z",
-      "note": "已通过真实接敌的守城准备流程，验证无兵时自动/手动编制、确认前取消不失城、确认放弃后交接以及普通模式撤离节点入口，检查重拍准备、确认和结果画面。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-66": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "f4431ebb8973978da2d2b6af4d376bbbbf2b4882575b71928da5e15b6d7a13a1",
-      "reviewedAt": "2026-11-01T07:43:49.341Z",
-      "note": "已通过真实接敌的守城准备流程，验证无兵时自动/手动编制、确认前取消不失城、确认放弃后交接以及普通模式撤离节点入口，检查重拍准备、确认和结果画面。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-67": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
-      "contentHash": "80fe5a27dc8ca7177f8b26ac85644eb2fb5220572757fd2a0b7f5da85ac2d927",
-      "reviewedAt": "2026-11-01T07:43:51.846Z",
-      "note": "已核对战前/援军军议的合法任命、首发/后备顺序、站位预览确认取消、后备入场位置、意图、重置及撤离人数入口；运行军议和部署取景，按实际开战/到达边界检查新截图。",
-      "screenshots": "recaptured"
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
+      "contentHash": "6c0e85d4d0407289ff939d533fca0d69a7987925ab4e67228a5cf788dea628ff",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-68": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
-      "contentHash": "7e97bf3f9da12bb6cf9a14e823dd4e5eef51205628ad8e74f40ec442e961f2da",
-      "reviewedAt": "2026-11-01T07:43:51.846Z",
-      "note": "已核对战前/援军军议的合法任命、首发/后备顺序、站位预览确认取消、后备入场位置、意图、重置及撤离人数入口；运行军议和部署取景，按实际开战/到达边界检查新截图。",
-      "screenshots": "recaptured"
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
+      "contentHash": "8662ce4228610df4d828678c48e7cc3cda7c25a14d62c7006300639e14732588",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-69": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
-      "contentHash": "7dc78fdc5b65637b45d65b9a02ba3ceb510a853761fae48be5292ed51fa422c7",
-      "reviewedAt": "2026-11-01T07:43:51.846Z",
-      "note": "已核对战前/援军军议的合法任命、首发/后备顺序、站位预览确认取消、后备入场位置、意图、重置及撤离人数入口；运行军议和部署取景，按实际开战/到达边界检查新截图。",
-      "screenshots": "recaptured"
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
+      "contentHash": "f0a4a59687350b409b12f6e0991be6179f06d9e0416d6399770824ee1815b926",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-70": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
-      "contentHash": "3b81480e53eac43cce8d8e4209d998bcc6ecc42bf01e33829ac3ba8eee3a408b",
-      "reviewedAt": "2026-11-01T07:43:51.846Z",
-      "note": "已核对战前/援军军议的合法任命、首发/后备顺序、站位预览确认取消、后备入场位置、意图、重置及撤离人数入口；运行军议和部署取景，按实际开战/到达边界检查新截图。",
-      "screenshots": "recaptured"
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
+      "contentHash": "48a2096cffff1bb34e36022e0b1ca93cd2801a4ab64ce6e6d1de3f9911e33fc3",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-71": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
-      "contentHash": "317d5f79f99658880523fbc62cd67b6f7aff4f7990f7112c2c2561799665d326",
-      "reviewedAt": "2026-11-01T07:43:51.846Z",
-      "note": "已核对战前/援军军议的合法任命、首发/后备顺序、站位预览确认取消、后备入场位置、意图、重置及撤离人数入口；运行军议和部署取景，按实际开战/到达边界检查新截图。",
-      "screenshots": "recaptured"
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
+      "contentHash": "054701768415eb5efb3baa95158c930f810b7c53cdb81909503928f9a8aac143",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-72": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
-      "contentHash": "718a812e19bd9dc6768e8a01a3edd52902a3fc14584b18ac5a3a9d854fb3b6b7",
-      "reviewedAt": "2026-11-01T07:43:51.846Z",
-      "note": "已核对战前/援军军议的合法任命、首发/后备顺序、站位预览确认取消、后备入场位置、意图、重置及撤离人数入口；运行军议和部署取景，按实际开战/到达边界检查新截图。",
-      "screenshots": "recaptured"
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
+      "contentHash": "06bbc43f1c006683d762d3420938214eddde392d69a96c59ae0a5205fcde01f1",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-73": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "9d08eb370d81779f85031f16c888f8016922bf43273ffc8fc5400871b2f65c9e",
-      "reviewedAt": "2026-11-01T07:43:49.341Z",
-      "note": "已通过真实接敌的守城准备流程，验证无兵时自动/手动编制、确认前取消不失城、确认放弃后交接以及普通模式撤离节点入口，检查重拍准备、确认和结果画面。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-74": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
-      "contentHash": "0b6f8693fac16288338f4b67e435c6853e24e3a75d5de199bf124157c9f05e12",
-      "reviewedAt": "2026-11-01T07:43:51.846Z",
-      "note": "已核对战前/援军军议的合法任命、首发/后备顺序、站位预览确认取消、后备入场位置、意图、重置及撤离人数入口；运行军议和部署取景，按实际开战/到达边界检查新截图。",
-      "screenshots": "recaptured"
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
+      "contentHash": "e566954e2111620ba18d85ed5e15315997b1e05c89b16f8265f00e215d835b5e",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-75": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
-      "contentHash": "27d764a6c78fc206071d524868c1ba86758e2155dbfdee89a59aa039fdf7829c",
-      "reviewedAt": "2026-11-01T07:43:51.846Z",
-      "note": "已核对战前/援军军议的合法任命、首发/后备顺序、站位预览确认取消、后备入场位置、意图、重置及撤离人数入口；运行军议和部署取景，按实际开战/到达边界检查新截图。",
-      "screenshots": "recaptured"
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
+      "contentHash": "ef0e1d21784d3a9c1059178dc42918e4550b5e1a2a14696631d271f2a4da7e87",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-76": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
-      "contentHash": "0c6386625f4d4b9697d66daa61b4e17bcc3cbd1e33c76557874fa0b30bb8ca39",
-      "reviewedAt": "2026-11-01T07:43:54.303Z",
-      "note": "已核对部队简报状态来源、首次四阶段战场入门及主动指引、暂停变速、全军和范围军略；实际选择落点、取消及确认施放，修正撤退为军略窗口军令栏的按钮，检查桌面/横屏重拍画面。",
-      "screenshots": "recaptured"
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
+      "contentHash": "84be3c0bf5ba019ce8d6bda06f6976e80fddc388652c0e2aa5cae465c1706df3",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-77": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
-      "contentHash": "6212a0a945933a44d32a8e9757151fc46a486a3550bb3c637b3b85611892c6ea",
-      "reviewedAt": "2026-11-01T07:43:54.303Z",
-      "note": "已核对部队简报状态来源、首次四阶段战场入门及主动指引、暂停变速、全军和范围军略；实际选择落点、取消及确认施放，修正撤退为军略窗口军令栏的按钮，检查桌面/横屏重拍画面。",
-      "screenshots": "recaptured"
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
+      "contentHash": "9a649b570b6f6ae2f88d1c138fe5f60ba748241a0002e75c1a92a07103c65858",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-78": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
-      "contentHash": "75485433aa9cac0e7d7bce750d5d52e3ca4a719185f21c73b0602d00532888b9",
-      "reviewedAt": "2026-11-01T07:43:54.303Z",
-      "note": "已核对部队简报状态来源、首次四阶段战场入门及主动指引、暂停变速、全军和范围军略；实际选择落点、取消及确认施放，修正撤退为军略窗口军令栏的按钮，检查桌面/横屏重拍画面。",
-      "screenshots": "recaptured"
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
+      "contentHash": "4305cb3f8983cd3a6c6ef3c490113df18fd17e5662c1842ba01a021791a950ad",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-79": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
-      "contentHash": "0e5bc0acb532346618c5a7873520df8aa6e1f3e3df3919d6ad6e818be2810a45",
-      "reviewedAt": "2026-11-01T07:43:54.303Z",
-      "note": "已核对部队简报状态来源、首次四阶段战场入门及主动指引、暂停变速、全军和范围军略；实际选择落点、取消及确认施放，修正撤退为军略窗口军令栏的按钮，检查桌面/横屏重拍画面。",
-      "screenshots": "recaptured"
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
+      "contentHash": "89cde6ef34dc82dcac9d10caba36e6d52cd8650dd160d0565f9dcec8fd1b3ed1",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-80": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
-      "contentHash": "d4e967b50a3e655c3f83ad552c677ded72461d75572750666935fea0168b780f",
-      "reviewedAt": "2026-11-01T07:43:54.303Z",
-      "note": "已核对部队简报状态来源、首次四阶段战场入门及主动指引、暂停变速、全军和范围军略；实际选择落点、取消及确认施放，修正撤退为军略窗口军令栏的按钮，检查桌面/横屏重拍画面。",
-      "screenshots": "recaptured"
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
+      "contentHash": "5a26225555aae6919160886aa5043a7292c2dcedca6c095e035debfb20902933",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-81": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
-      "contentHash": "a8a89ecf863259ce5d22fc1a84ecaf317ff86a7d2b2191524009a8d5fcdabe7a",
-      "reviewedAt": "2026-11-01T07:43:51.846Z",
-      "note": "已核对战前/援军军议的合法任命、首发/后备顺序、站位预览确认取消、后备入场位置、意图、重置及撤离人数入口；运行军议和部署取景，按实际开战/到达边界检查新截图。",
-      "screenshots": "recaptured"
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
+      "contentHash": "b79a72f6c8e2ea0dd455d54e256b963858f785d70e8857cf3742583125e52ac5",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-82": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "84676db5453b48609791380ed399a03959bd05d66781a2e88d7a96b03eee1b3c",
-      "reviewedAt": "2026-11-01T07:43:56.818Z",
-      "note": "已在双战场夹具实际验证切换前确认、取消/关闭/Esc保持原场、加载完成后继续、地图往返、同步暂停及读档暂停，检查切换选择、确认和加载三张新截图。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-83": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "bcca17000a0b8db120b24908adf975040a7120a6ea496cbea141513ebf20d4ac",
-      "reviewedAt": "2026-11-01T07:43:59.453Z",
-      "note": "已核对实际战斗结算、战果与重试入口、战后缺职暂停补任；真实完成只读回放的拖动/键盘定位、播放暂停、倍速、重置与关闭，并比较世界存档字节不变，检查战报和回放新截图。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-84": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "c4b0b06cfd16a46cc953b92eaa6c5587296d72396a452acc25cd5a141ce33c0d",
-      "reviewedAt": "2026-11-01T07:43:59.453Z",
-      "note": "已核对实际战斗结算、战果与重试入口、战后缺职暂停补任；真实完成只读回放的拖动/键盘定位、播放暂停、倍速、重置与关闭，并比较世界存档字节不变，检查战报和回放新截图。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-93": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "8ed345a06470a984ca64336f3e93af26e2032c73f2090904ef02f2fae090fd43",
-      "reviewedAt": "2026-11-01T07:44:08.788Z",
-      "note": "已核对进行/筹划及待办暂停边界、奏报只读确认与旬收获自动结算；运行真实内政日结报告和明确标注控制最终归属的结局取景，检查新截图，不把演示当自然局证据。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-94": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "101d657e4096a4889927accdad0d73bc1286981cbf25021d78641d1d8477b30f",
-      "reviewedAt": "2026-11-01T07:44:08.788Z",
-      "note": "已核对进行/筹划及待办暂停边界、奏报只读确认与旬收获自动结算；运行真实内政日结报告和明确标注控制最终归属的结局取景，检查新截图，不把演示当自然局证据。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-95": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "e8f36ad8f5af65109eece4ebc64e9ec235d559318bd1d627daf61d564a8faeb6",
-      "reviewedAt": "2026-11-01T07:44:08.788Z",
-      "note": "已核对进行/筹划及待办暂停边界、奏报只读确认与旬收获自动结算；运行真实内政日结报告和明确标注控制最终归属的结局取景，检查新截图，不把演示当自然局证据。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-96": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
-      "contentHash": "4c6059fa68c79927b5420b973f9693df7254939fd0115aef0b3a410822ee657d",
-      "reviewedAt": "2026-11-01T07:43:15.629Z",
-      "note": "已核对人才名册任职、能力、四系适性、特性、羁绊、战法、军略及人物返回名册、日志入口；部队简报与所属武将适性截图按当前画面重拍检查。",
-      "screenshots": "recaptured"
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
+      "contentHash": "56380eb7b4e4dfe0d0ff4d0e148cc19341aadb8d718569865d280efb3f9e5431",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-97": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "fdfb3a786bf5a0da846279a2479d6da5949edb96de7e1e466f324432f4a40b50",
-      "reviewedAt": "2026-11-01T07:43:59.453Z",
-      "note": "已核对实际战斗结算、战果与重试入口、战后缺职暂停补任；真实完成只读回放的拖动/键盘定位、播放暂停、倍速、重置与关闭，并比较世界存档字节不变，检查战报和回放新截图。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-98": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "afef1ed5b07992ad6a854f62701214819e4d8ad6197b551c017d119820e0c9b7",
-      "reviewedAt": "2026-11-01T07:44:08.788Z",
-      "note": "已核对进行/筹划及待办暂停边界、奏报只读确认与旬收获自动结算；运行真实内政日结报告和明确标注控制最终归属的结局取景，检查新截图，不把演示当自然局证据。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-99": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "ed80cadf4c8f1d02f13b3cff59f7d2d2e86752e74e8f764567d4139ff7a0a23d",
-      "reviewedAt": "2026-11-01T07:44:11.061Z",
-      "note": "已实际创建命名手动档、核阅覆盖/删除后取消、导出并重新导入合法文件；对照读取和偏好处理器核对暂停、持久化成功与即时设置边界，检查存档和设置新截图。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-100": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
-      "contentHash": "c2cb42a8efe3fea635ca165edd9041f1e2810a84266d83e904a48cdd1bfc0956",
-      "reviewedAt": "2026-11-01T07:44:11.061Z",
-      "note": "已实际创建命名手动档、核阅覆盖/删除后取消、导出并重新导入合法文件；对照读取和偏好处理器核对暂停、持久化成功与即时设置边界，检查存档和设置新截图。",
-      "screenshots": "recaptured"
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
+      "contentHash": "a9ffe513aa38d7c97ff56a0c19e7e03609f7ddfc6e7fcfba5bc8aa3b247cc46e",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-101": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "cd8a49fc79142079a7ad09933770369cdb9cb10f6f9ee8b97d4e5aae4de11b98",
-      "reviewedAt": "2026-11-01T07:44:11.061Z",
-      "note": "已实际创建命名手动档、核阅覆盖/删除后取消、导出并重新导入合法文件；对照读取和偏好处理器核对暂停、持久化成功与即时设置边界，检查存档和设置新截图。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-102": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "d85b78ace7cd12e3ccc8076a84da7dd38d1cb4e61f71a43bdf5c5c1d9c77f7fc",
-      "reviewedAt": "2026-11-01T07:44:11.061Z",
-      "note": "已实际创建命名手动档、核阅覆盖/删除后取消、导出并重新导入合法文件；对照读取和偏好处理器核对暂停、持久化成功与即时设置边界，检查存档和设置新截图。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-103": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
-      "contentHash": "f69f856758d220ddb4139fc4f4a45180392a1780d1cf82e02747964c492aef6d",
-      "reviewedAt": "2026-11-01T07:44:11.061Z",
-      "note": "已实际创建命名手动档、核阅覆盖/删除后取消、导出并重新导入合法文件；对照读取和偏好处理器核对暂停、持久化成功与即时设置边界，检查存档和设置新截图。",
-      "screenshots": "recaptured"
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
+      "contentHash": "70082e7e41c187733f9b3d7c7719f7c2af08ec66f77e5b2c1dd40e2f7af63ec6",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-104": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "fd76ccbd6ad3010e2344c3add52c3275853f8e0fa9a35beaa26ddaeea1e35d3d",
-      "reviewedAt": "2026-11-01T07:44:11.061Z",
-      "note": "已实际创建命名手动档、核阅覆盖/删除后取消、导出并重新导入合法文件；对照读取和偏好处理器核对暂停、持久化成功与即时设置边界，检查存档和设置新截图。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-105": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "83396a4e9f818734e8e768f585953ad5155bb67012d47c8da0e8cb7ad81cd89d",
-      "reviewedAt": "2026-11-01T07:44:13.296Z",
-      "note": "已核对F1/页面指引、全部指引和电脑版操作手册入口，验证离线手册返回原设置/指引页、搜索切图放大及关闭；对照偏好处理器核对默认手动、重置不改开关，检查对应新截图。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-106": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "0e997de993329ecba64461c2487f0e339f99bdc6bdb32de81efa7662244c18a9",
-      "reviewedAt": "2026-11-01T07:44:13.296Z",
-      "note": "已核对F1/页面指引、全部指引和电脑版操作手册入口，验证离线手册返回原设置/指引页、搜索切图放大及关闭；对照偏好处理器核对默认手动、重置不改开关，检查对应新截图。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-107": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "54df4037b5450bee43c64bd57b6f9e146ec5800b283d011124f2783835ae0a10",
-      "reviewedAt": "2026-11-01T07:43:54.303Z",
-      "note": "已核对部队简报状态来源、首次四阶段战场入门及主动指引、暂停变速、全军和范围军略；实际选择落点、取消及确认施放，修正撤退为军略窗口军令栏的按钮，检查桌面/横屏重拍画面。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-110": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "0422f2b8879704548cc8559d6453dd33523da6e6b65601c4843939e77ca5463c",
-      "reviewedAt": "2026-11-01T07:44:06.513Z",
-      "note": "已实际打开宝物/武将编辑器修改配置并保存，创建自建武将、五项能力与适性及人物资料；对照处理器核对新局快照、导入确认、未保存返回和恢复默认边界，检查桌面/横屏新截图。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-108": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "3f1faaa36b21bcf2e7a3b1002fc6026a2013ed11202373e4ef18f9e7057e34c7",
-      "reviewedAt": "2026-11-01T07:44:04.260Z",
-      "note": "已运行普通剧本概要、人物归属/日期/任职、城池设施科技、建立自定义势力和初始外交至真实开局重载；另验导入同编号另存、非法导入、删除不影响现局，检查桌面/横屏新截图。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-109": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "b5b4fba526f2f3692819df3f61f10fd4af05e5bbda0ac1483349ddf574e92e8b",
-      "reviewedAt": "2026-11-01T07:44:04.260Z",
-      "note": "已运行普通剧本概要、人物归属/日期/任职、城池设施科技、建立自定义势力和初始外交至真实开局重载；另验导入同编号另存、非法导入、删除不影响现局，检查桌面/横屏新截图。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     },
     "action-111": {
-      "revision": "06fe7549a76af7b1d6cfe948a43f0ed2e94db5e00c30e61facdfbe8e6a48197e",
-      "bindingHash": "9b331a83eaa0e48a907493ff78e080fce88edf9aebcc372b56f974fac60d970a",
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
       "contentHash": "c615e2e17bde7042f04c2472dca60fb5fb70e7c2bc1c825f3bfcffb9fe4763b8",
-      "reviewedAt": "2026-11-01T07:44:06.513Z",
-      "note": "已实际打开宝物/武将编辑器修改配置并保存，创建自建武将、五项能力与适性及人物资料；对照处理器核对新局快照、导入确认、未保存返回和恢复默认边界，检查桌面/横屏新截图。",
-      "screenshots": "recaptured"
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
+    },
+    "action-112": {
+      "revision": "b2facafa7c6dfe243e888d59df14a67ce148328816cb32d345f5a0da8bf8a9c1",
+      "bindingHash": "2b735ff1a7e1d1e85d6a9756753275a5fab5a769204d0a8fd4860a52fb642c7e",
+      "contentHash": "16adff13d77e7ba0eb12d6aa57c593d2b48c56b0e8014e288eab88c970b46644",
+      "reviewedAt": "2026-11-03T08:48:10.513Z",
+      "note": "逐项确认仅代码关联清单摘要变化：将科技、研究人数、AI技术任职与科技校验源码从未分类范围归入内政组。这些操作的实际关联源码摘要、步骤和截图摘要均未变化，本轮不改变其页面或操作流程，保留既有已核对截图。",
+      "screenshots": "unchanged"
     }
   }
 }

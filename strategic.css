@@ -57,7 +57,7 @@
 .map-target-screen .strategy-road{pointer-events:none}
 .map-target-screen :is(.map-city-gold,.map-city-grain,.map-city-soldiers,.map-staff-status){display:none}
 .map-target-screen .map-city-banner{height:20px}
-.command-map [data-command-army],.command-map [data-command-battle]{pointer-events:none}
+.command-map [data-command-army],.command-map [data-command-battle],.command-map [data-command-bandit],.command-map [data-command-bandit] *{pointer-events:none}
 .command-formation{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 .command-formation article{padding:16px;border:1px solid #ae95614d;background:#ffffff04}
 .command-formation label{display:flex;gap:12px;align-items:center;margin-top:12px}

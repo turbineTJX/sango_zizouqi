@@ -17,3 +17,9 @@ test('route selection neutralizes a real scout marker while preserving the city 
  assert.ok(html.includes(`data-command-city="${target.id}" data-map-target="selected"`));
  assert.equal(JSON.stringify(s),before);
 });
+
+test('route selection keeps bandit artwork from duplicating or covering the actual destination',()=>{
+ const html=targetMapMarkup('<g data-junction="node"></g><g class="bandit-map-marker" data-bandit-node="node" data-action="bandit-open"><rect/></g>',['node'],'node');
+ assert.equal([...html.matchAll(/data-command-city="node"/g)].length,1);
+ assert.match(html,/data-command-bandit="node"/);assert.doesNotMatch(html,/data-action="bandit-open"/);
+});

@@ -1,4 +1,5 @@
 import {macroDefenseThreats,musterMacroDefense,interceptedPower,reviewMacroDefense} from './ai-policy/macro-defense.mjs';
+import {cityFoodRelief,planCommitsCityResources} from './ai-policy/food-relief.mjs';
 import {activeConcentration,adoptConcentration,progressConcentrations,validateConcentrations} from './strategic-concentration.mjs';
 import {planBanditExpedition} from './bandits.mjs';
 import {isAITurnStart} from './ai-turn.mjs';
@@ -988,14 +989,8 @@ export function planStrategicPersonnel(s,faction){
 }
 function relieveCityFood(s,faction){
  for(const c of s.cities.filter(c=>c.owner===faction&&!besieged(s,c.id))){
-  const use=localFoodUse(c),toHarvest=10-(s.campaign.day-1)%10;
-  if(!use||c.grain>=use*ECONOMY_RULES.budget.criticalFoodDays||c.grain>=use*toHarvest)continue;
-  // Only actual incoming grain with a safe, timely route can postpone relief.
-  const inbound=s.campaign.idle.filter(o=>o.faction===faction&&o.destination===c.id&&o.cargo?.grain&&o.journey&&!o.journey.blocked).filter(o=>{
-   return personnelRouteDays(s,o,o.journey.route,{progress:o.journey.progress})<=Math.max(0,c.grain/use)&&safeStrategicTransportRoute(s,o.location,c.id,faction);
-  }).reduce((n,o)=>n+o.cargo.grain,0);
-  if(c.grain+inbound>=use*toHarvest)continue;
-  const p=activePlans(s).find(p=>p.faction===faction&&p.phase!=='consolidate');if(p)cancelPlan(s,p,'本城口粮告急，取消可选进攻并保留粮草');
+  const {urgent,toHarvest,inbound}=cityFoodRelief(s,c);if(!urgent)continue;
+  for(const p of activePlans(s).filter(p=>p.faction===faction&&p.phase!=='consolidate'&&planCommitsCityResources(s,p,c)))cancelPlan(s,p,`${c.name}口粮告急，释放实际占用本城的进攻人员及携粮承诺`);
   const candidates=[...c.units].filter(u=>!u.mission&&!busy(s,u.id)).sort((a,b)=>strategicPower(s,{...cityForce(c),units:[a]})-strategicPower(s,{...cityForce(c),units:[b]})||a.id.localeCompare(b.id));
   for(const u of candidates){
    if(c.grain+inbound>=localFoodUse(c)*toHarvest)break;

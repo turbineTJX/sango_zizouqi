@@ -13,8 +13,8 @@ import {banditMarkup,banditMapMarkup} from '../bandit-view.mjs';
 import {mapNode} from '../map-node-data.mjs';
 import {issueCommand} from '../engine.mjs';
 const restore=s=>validateCampaign(JSON.parse(serializeCampaign(s)));
-function fixture(){
- const s=newCampaign(521200,'guandu-200'),camp=s.campaign.bandits.camps.find(c=>c.nodeId==='junction:chenliu:xuchang'),city=s.cities.find(c=>c.id==='xuchang');return {s,camp,city};
+function fixture(nodeId='junction:chenliu:xuchang'){
+ const s=newCampaign(521200,'guandu-200'),camp=s.campaign.bandits.camps.find(c=>c.nodeId===nodeId),city=s.cities.find(c=>c.id==='xuchang');return {s,camp,city};
 }
 function tick(s,until,max=1600){for(let i=0;i<max&&!until();i++){if(s.campaign.phase==='planning')beginExecution(s);for(const r of s.campaign.battles.filter(r=>r.awaiting))chooseEncounter(s,r.id,false);advanceCampaignStep(s);}assert.ok(until(),'real campaign did not reach the expected state');}
 function contact(){const f=fixture(),{s,camp,city}=f,units=city.units.slice(0,3);assert.equal(launchExpedition(s,{cityId:city.id,officerIds:units.map(u=>u.id),leader:units[0].id,advisor:units[1].id,target:camp.nodeId,policy:'auto'}),null);const a=s.armies.at(-1);approachDestination(s,a);tick(s,()=>s.campaign.battles.some(r=>r.banditCampId===camp.id));return {...f,a,r:s.campaign.battles.find(r=>r.banditCampId===camp.id)};}
@@ -44,7 +44,10 @@ test('bandit spoils conserve real stock, follow the survivors and credit a city 
  const receipts=s.campaign.activity.nodes.filter(n=>n.phase==='bandit-delivery');assert.equal(receipts.reduce((n,x)=>n+x.result.gold,0)+(carrier.spoilsGold||0),loot.gold);assert.equal(receipts.reduce((n,x)=>n+x.result.grain,0)+(carrier.spoilsGrain||0),loot.grain);const before=s.gold;deliverBanditLoot(s);assert.equal(s.gold,before);restore(s);
 });
 test('bandit AI uses only observed camps and the same paid real expedition, retaining a garrison',()=>{
- const {s,camp,city}=fixture();assert.equal(planBanditExpedition(s,'cao'),null);observeBanditCamps(s,'cao',p=>p.id===camp.nodeId);const ids=city.units.map(u=>u.id),grain=city.grain,other=structuredClone(s);other.campaign.bandits.seed^=0x7fffffff;other.seed=77;for(const c of other.campaign.bandits.camps)if(c.id!==camp.id){c.gold=1;c.grain=1;c.units.forEach(u=>u.troops=1);}
+ // This nearby camp is reachable with the current actual carrying capacity.
+ // Keep the national roads, people, resources and generated camp unchanged.
+ const {s,camp,city}=fixture('junction:atlas-qiao:xuchang');
+ assert.equal(planBanditExpedition(s,'cao'),null);observeBanditCamps(s,'cao',p=>p.id===camp.nodeId);const ids=city.units.map(u=>u.id),grain=city.grain,other=structuredClone(s);other.campaign.bandits.seed^=0x7fffffff;other.seed=77;for(const c of other.campaign.bandits.camps)if(c.id!==camp.id){c.gold=1;c.grain=1;c.units.forEach(u=>u.troops=1);}
  const alternate=planBanditExpedition(other,'cao');
  const result=planBanditExpedition(s,'cao');assert.ok(result);assert.deepEqual(result,alternate);assert.deepEqual(s.armies.at(-1),other.armies.at(-1));const a=s.armies.find(a=>a.id===result.armyId),source=s.cities.find(c=>c.id===a.homeCity);assert.equal(a.banditTarget,camp.id);assert.ok(a.units.every(u=>ids.includes(u.id))||source.id!==city.id);assert.ok(source.units.some(u=>u.troops>0));if(source===city)assert.equal(city.grain+a.supply,grain);assert.equal(planBanditExpedition(s,'cao'),null);restore(s);
  const poor=fixture();observeBanditCamps(poor.s,'cao',p=>p.id===poor.camp.nodeId);for(const c of poor.s.cities)c.grain=0;assert.equal(planBanditExpedition(poor.s,'cao'),null);

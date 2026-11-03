@@ -1,4 +1,5 @@
 import {isAITurnStart} from './ai-turn.mjs';
+import {macroDefenseGuardObjectives} from './ai-policy/macro-defense.mjs';
 import {STRATEGIC_SUPPORT_RULES as R} from './data/design/strategic-support-rules.mjs';
 import {armySupplyCapacity} from './army-supply.mjs';
 import {intelligenceWorld,cityObservation} from './strategic-vision.mjs';
@@ -36,6 +37,7 @@ export function strategicSupportObjectives(s,faction){
  }
  const enemies=view.armies.filter(a=>!a.disbanded&&factionsHostile(s,a.faction,faction)&&a.units.some(u=>u.troops>0));
  if(!enemies.length)return [...objectives.values()].sort((a,b)=>b.priority-a.priority||b.power-a.power||key(a).localeCompare(key(b)));
+ for(const q of macroDefenseGuardObjectives(s,faction))add(q);
  const corridors=[];
  // Remove only already observed hostile occupants to identify the corridor
  // whose connection needs protecting; city ownership and range remain known.

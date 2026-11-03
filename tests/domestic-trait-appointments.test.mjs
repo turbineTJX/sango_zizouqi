@@ -82,10 +82,10 @@ test('ordinary technology appointments automatically arrange a real research hel
 test('research helper arrangement respects proposal approval and does not interrupt an existing action',()=>{
  for(const approve of [true,false]){
   const {s,c}=fixture(['person-290','person-420']);setDomesticAutoApprove(s,false);for(const id of ['person-420','person-290'])assignDomestic(s,c.id,'technology',id);
-  const gold=c.gold,lead=assignmentFor(s,'person-290'),helper=assignmentFor(s,'person-420');beginDomesticTurn(s);
+  const gold=c.gold,lead=assignmentFor(s,'person-290'),helper=assignmentFor(s,'person-420');c.budget.goldReserve=gold;beginExecution(s);
   assert.equal(ACTIONS[lead.proposal.pick.key].kind,'research');assert.equal(c.gold,gold);assert.equal(c.domestic.research,null);assert.equal(helper.action,null);assert.equal(helper.proposal,null);
   const save=serializeCampaign(s);assert.equal(serializeCampaign(validateCampaign(JSON.parse(save))),save);
-  assert.equal(decideDomesticProposal(s,lead.proposal.id,approve),null);assert.equal(helper.action,null);assert.equal(helper.proposal,null);
+  c.budget.goldReserve=0;assert.equal(decideDomesticProposal(s,lead.proposal.id,approve),null);assert.equal(helper.action,null);assert.equal(helper.proposal,null);
   if(approve){assert.ok(lead.action);assert.equal(c.gold,gold-lead.action.cost);lead.action.researchRoll=0;assert.ok(researchDailyRate(s,c,lead)>0);}else{assert.equal(c.gold,gold);assert.equal(c.domestic.research,null);assert.ok(actionCandidates(s,helper).length>0);}
  }
  const {s,c}=fixture(['person-420','person-290']);assignDomestic(s,c.id,'technology','person-420');beginDomesticTurn(s);const helper=assignmentFor(s,'person-420'),old=structuredClone(helper.action),gold=c.gold;

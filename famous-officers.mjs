@@ -59,7 +59,7 @@ export function famousTacticDescription(s){
  if(s.targets>1&&s.mode==='attack')parts.push(`目标周围 ${s.radius} 格，优先覆盖更多敌军`);
  if(s.scale)parts.push(`造成${s.category==='force'?'武技':'谋略'}伤害${s.hits?'，连续攻击 '+s.hits+' 次':''}`);
  if(s.execute)parts.push(`目标兵力低于 40% 时伤害提高`);
- if(s.exploit)parts.push(`施放前目标已有${s.exploit.statuses.map(key=>({armorBreak:'破甲',slow:'迟滞',confuse:'混乱',burn:'灼烧',curse:'衰咒'})[key]).join('／')}时，伤害提高；本次新施加的状态不触发`);
+ if(s.exploit)parts.push(`施放前目标已有${s.exploit.statuses.map(key=>({armorBreak:'破甲',slow:'迟滞',confuse:'混乱',stun:'眩晕',burn:'灼烧',curse:'衰咒'})[key]).join('／')}时，伤害提高；本次新施加的状态不触发`);
  if(s.highIntent)parts.push(`施放前目标战意至少 ${s.highIntent.threshold} 时，提高伤害并削减 ${s.highIntent.drain||0} 战意`);
  if(s.excludeSelf)parts.push('只支援其他友军，不作用于自身');
  if(s.debuff)parts.push(`${({armorBreak:'防御 −20%',weaken:'攻击 −20%',slow:'移动减慢',seal:'封技',shaken:'普攻间隔 +25%、谋略威力 −15%'})[s.debuff]} ${s.steps} 日`);

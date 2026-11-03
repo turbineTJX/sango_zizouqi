@@ -8,6 +8,23 @@ import {strategicCityBudget,manageStrategicEconomy} from '../strategic-ai.mjs';
 import {manageTreasuresAI,treasureRecord,treasureOfficerRows,grantTreasure} from '../treasures.mjs';
 import {updateCaptives,resolveOfficerLoss,fateRoll,officerLossResult} from '../officer-fates.mjs';
 import {servingPeople,factionLord} from '../talent-core.mjs';
+import {technologyResearchStaff} from '../technology-research-staff.mjs';
+import {setBuildingLevel} from './building-fixtures.mjs';
+import {assignmentFor,ACTIONS} from '../domestic.mjs';
+import {beginExecution,validateCampaign} from '../strategic-campaign.mjs';
+import {completeTechnologyBuilding} from '../building-durability.mjs';
+
+test('AI fills a second real technology post for a developed advanced project only at turn start',()=>{
+ const s=newCampaign(343,'guandu-200','cao',{allAI:true}),c=s.cities.find(c=>c.id==='xuchang');
+ c.gold=10000;c.order=75;c.domestic.techs=['taxation','cultivation','militaryRegistry','efficientConstruction','watchtower'];completeTechnologyBuilding(c,'watchtower',s);
+ for(const [key,level]of Object.entries({commerce:2,workshop:3,granary:2,drill:0,farm:1,clinic:0}))setBuildingLevel(c,key,level);
+ for(const [key,def]of Object.entries(ACTIONS))if(def.direction==='technology'&&key!=='research')c.domestic.cooldowns[key]=1000;
+ const gold=c.gold;prepareEnemyDomestic(s);assert.equal(technologyResearchStaff(s,c),2);assert.equal(c.gold,gold);
+ const technical=s.campaign.domestic.assignments.filter(a=>a.cityId===c.id&&a.direction==='technology');assert.equal(technical.length,2);assert.notEqual(technical[0].officerId,technical[1].officerId);
+ s.campaign.ai.lastPlanDay=s.campaign.day;assert.equal(beginExecution(s),null);
+ assert.equal(technical.filter(a=>assignmentFor(s,a.officerId).action?.targetId==='militarySupply').length,1);validateCampaign(JSON.parse(serializeCampaign(s)));
+ const before=serializeCampaign(s);prepareEnemyDomestic(s);assert.equal(serializeCampaign(s),before);
+});
 
 test('AI governor selection uses the shared ranking and excludes queued local officers',()=>{
  const s=newCampaign(343,'guandu-200','cao',{allAI:true}),c=s.cities.find(c=>c.id==='ye');c.governor=null;
@@ -27,10 +44,10 @@ test('AI budget policy preserves saved city floors and reads forecasts without c
 test('AI treasure policy retains an existing lawful equipment choice and never rerolls resources',()=>{
  const s=newCampaign(343,'guandu-200','cao',{allAI:true}),c=s.cities.find(c=>c.id==='ye'),u=c.units[0];
  const item=treasureRecord(s,'brightArmor');for(const o of treasureOfficerRows(s))if(o.unit.treasureId===item.id)delete o.unit.treasureId;
- Object.assign(item,{state:'city',cityId:c.id,holderId:null});
+ Object.assign(item,{state:'treasury',factionId:c.owner,cityId:null,holderId:null});
  assert.equal(grantTreasure(s,item.id,u.id,{faction:'yuan',automatic:true,equip:true}),null);
  const seed=s.seed,resources=s.cities.map(c=>[c.gold,c.grain,c.manpower]),men=treasureOfficerRows(s).map(o=>[o.unit.id,o.unit.troops,o.unit.wounded]);
- manageTreasuresAI(s);assert.equal(item.holderId,u.id);assert.equal(u.treasureId,item.id);
+ manageTreasuresAI(s);assert.equal(item.holderId,u.id);assert.ok(u.treasureIds.includes(item.id));
  assert.equal(s.seed,seed);assert.deepEqual(s.cities.map(c=>[c.gold,c.grain,c.manpower]),resources);assert.deepEqual(treasureOfficerRows(s).map(o=>[o.unit.id,o.unit.troops,o.unit.wounded]),men);
 });
 test('AI captive policy holds a guarded prisoner until lawful release and spends no automatic ransom',()=>{

@@ -5,6 +5,7 @@ import {openingCityResources,cityCaptureResources,syncResourceTotals} from '../c
 import {cityBaseIncome,cityIncomeBreakdown} from '../economy.mjs';
 import {observedTargetStockValue} from '../strategic-ai.mjs';
 import {ECONOMY_RULES} from '../data/design/economy-rules.mjs';
+import {STRATEGIC_PLANNING_RULES} from '../data/design/strategic-planning-rules.mjs';
 import {siegeMobilizationFixture} from './helpers/siege-mobilization.mjs';
 import {transferOfficer} from '../strategic-campaign.mjs';
 import {siegeDefenseCandidates} from '../siege-defense.mjs';
@@ -63,5 +64,5 @@ test('fresh intelligence values only receivable stocks, without changing the rep
  assert.equal(observedTargetStockValue(intel,target,1),(1000+3000*.13)*.35/100);
  const neutral={...target,owner:'neutral',citySize:'small'};
  assert.equal(observedTargetStockValue(intel,neutral,1),(250+750*.13)*.35/100);
- assert.deepEqual(target,before);assert.equal(observedTargetStockValue({...intel,known:false},target,1),0);assert.equal(observedTargetStockValue(intel,target,5),0);
+ assert.deepEqual(target,before);assert.equal(observedTargetStockValue({...intel,known:false},target,1),0);assert.equal(observedTargetStockValue(intel,target,intel.observedDay+STRATEGIC_PLANNING_RULES.recovery.freshIntelligenceDays+1),0);
 });

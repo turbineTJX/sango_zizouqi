@@ -22,7 +22,7 @@ for(const [key,pair]of Object.entries(pairs))for(const side of [0,1])test(key+' 
  const observed=[];
  for(const caster of pair){
   const state=charged(pair,caster,side),b=state.battle,s=STRATAGEMS[key],recipient=b.sides[side].units.find(u=>u.id==='dun'),foe=b.sides[1-side].units[0];
-  if(s.effect==='heal'){recipient.hp=600;recipient.battleDamage=3400;assert.equal(battleWounded(recipient),1190);}
+  if(s.effect==='heal'){recipient.hp=100;recipient.battleDamage=3900;assert.equal(battleWounded(recipient),1365);}
   if(s.effect==='cleanse')setStatus(b,recipient,'burn',30,{amount:10,sourceId:foe.id});
   const point=s.effect==='stun'||s.effect==='firestorm'?{x:foe.x,y:foe.y}:s.scope.shape==='circle'?{x:recipient.x,y:recipient.y}:chooseStratagemPoint(b,s,side);
   if(point){const preview=areaPreview(b,s,{point,side});assert.ok(preview.controls.includes(stratagemEffectText(selectStratagemSource(b.sides[side].commanders,key))));}
@@ -45,11 +45,11 @@ for(const [key,pair]of Object.entries(pairs))for(const side of [0,1])test(key+' 
  assert.ok(observed[1]>observed[0],key+': '+observed);
  if(key!=='blockade')assert.ok(observed[1]/observed[0]>=1.2,'at least 20% real difference for distinct current holders: '+key);
 });
-test('all 15 primary effects respond to caster attributes; 20 points double the main effect, unrelated attributes do nothing',()=>{
+test('all primary effects respond to caster attributes; 20 points double the main effect, unrelated attributes do nothing',()=>{
  for(const [key,s]of Object.entries(STRATAGEMS)){
   const id=s.roster[0],profiles=[60,80,100].map(n=>stratagemProfile(key,{id,leadership:n,intellect:n}));
   const primary=p=>s.scaling==='strength'?p.strength:s.scaling==='count'?p.count:s.scaling==='resolve'?p.resolve:s.scaling==='disciplineDuration'?commandProtectionDuration(100,p.power):p.duration;
-  assert.deepEqual(profiles.map(primary),[primary(profiles[1])/2,primary(profiles[1]),primary(profiles[1])*2],key);
+  assert.deepEqual(profiles.map(primary),s.combination?[Math.round(s.duration*.5),s.duration,Math.min(s.cooldown-1,s.duration*2)]:[primary(profiles[1])/2,primary(profiles[1]),primary(profiles[1])*2],key);
   assert.equal(stratagemProfile(key,{id,leadership:120,intellect:120}).power,2);
   assert.equal(stratagemProfile(key,{id,leadership:0,intellect:0}).power,.5);
   assert.deepEqual(stratagemProfile(key,{id,force:1,politics:1,charm:1}),stratagemProfile(key,{id,force:100,politics:100,charm:100}));
@@ -59,9 +59,9 @@ test('same command selects the stronger actual advisor, while already cast effec
  const state=charged(pairs.ward,'person-520',0,'person-226'),b=state.battle,own=b.sides[0];
  const strong=own.units.find(u=>u.id==='person-226');
  const target=own.units.find(u=>u.id==='dun');assert.equal(issueCommand(b,'ward',{x:target.x,y:target.y}),null);
- assert.equal(b.lastCommand.source.id,'person-226');assert.equal(target.statuses.magicImmune.duration,15);
+ assert.equal(b.lastCommand.source.id,'person-226');assert.equal(target.statuses.magicImmune.duration,22);
  const until=target.statuses.magicImmune.until;strong.status='withdrawn';assert.equal(target.statuses.magicImmune.until,until);
- assert.equal(selectStratagemSource(availableBattleCommanders(own,b.tick),'ward').duration,4);validateSave(structuredClone(state));
+ assert.equal(selectStratagemSource(availableBattleCommanders(own,b.tick),'ward').duration,6);validateSave(structuredClone(state));
 });
 test('exclusive magic immunity snapshots target discipline and caster strength, and rejects forged duration',()=>{
  const state=charged(['cao','person-246'],'cao'),b=state.battle;

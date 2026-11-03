@@ -15,6 +15,8 @@ import {peacefulCities,invadeFromGuandu} from './helpers/field-campaign.mjs';
 import {fundCities} from './resource-fixtures.mjs';
 import {validateDesignTables,DESIGN_TABLES} from '../design-catalog.mjs';
 import {syncResourceTotals} from '../city-resources.mjs';
+import {technologyResearchStaff} from '../technology-research-staff.mjs';
+import {setBuildingLevel} from './building-fixtures.mjs';
 const restore=s=>validateCampaign(JSON.parse(serializeCampaign(s)));
 function fixture(seed=1){const s=peacefulCities(newCampaign(seed));fundCities(s,100000);const c=s.cities.find(c=>c.id==='xuchang'),u=s.campaign.idle.find(o=>o.location===c.id).unit;c.manpower=0;c.grain=20000;syncResourceTotals(s);for(const [k,d]of Object.entries(ACTIONS))if(d.direction==='technology'&&k!=='research')c.domestic.cooldowns[k]=1000;assert.equal(assignDomestic(s,c.id,'technology',u.id),null);return {s,c,u};}
 function days(s,n){for(let i=0;i<n;i++){if(s.campaign.phase==='planning')assert.equal(beginExecution(s),null);assert.ok(advanceCampaignDay(s).dayEnded);}}
@@ -27,10 +29,40 @@ test('all cities have fixed partial technology trees; buildings cannot create ne
 });
 
 test('military research uses governance and different basic facilities, never barracks level',()=>{
- const {c}=fixture();c.barracks=0;c.order=59;assert.ok(!canResearch(c,'militaryRegistry'));c.order=60;assert.ok(canResearch(c,'militaryRegistry'));c.domestic.techs=['militaryRegistry'];c.order=70;c.farm=1;c.commerce=1;c.workshop=0;
- assert.ok(canResearch(c,'militaryHouseholds'));assert.ok(canResearch(c,'militarySupply'));c.drill=0;assert.ok(!canResearch(c,'tigerCavalry'));c.drill=1;assert.ok(canResearch(c,'tigerCavalry'));c.granary=1;assert.ok(canResearch(c,'baier'));
+ const {c}=fixture(),team={researchers:2};c.barracks=0;c.order=59;assert.ok(!canResearch(c,'militaryRegistry'));c.order=60;assert.ok(canResearch(c,'militaryRegistry'));c.domestic.techs=['militaryRegistry'];c.order=80;c.farm=2;c.commerce=2;c.workshop=3;c.granary=2;c.drill=2;
+ assert.ok(canResearch(c,'militaryHouseholds',team));assert.ok(canResearch(c,'militarySupply',team));assert.ok(!canResearch(c,'tigerCavalry',team));c.drill=3;assert.ok(canResearch(c,'tigerCavalry',team));assert.ok(!canResearch(c,'baier',team));c.granary=3;c.clinic=1;assert.ok(canResearch(c,'baier',team));
  assert.ok(!canResearch(c,'crossbow'));assert.match(technologyRequirements(c,'crossbow').join(' '),/没有连弩兵资质/);
- const s=newCampaign(1,'guandu-200'),small=s.cities.find(c=>c.id==='chenliu');small.commerce=2;small.domestic.techs=['taxation'];assert.ok(canResearch(small,'tradeLaw'));
+ const s=newCampaign(1,'guandu-200'),small=s.cities.find(c=>c.id==='chenliu');small.commerce=2;small.granary=2;small.workshop=2;small.order=70;small.domestic.techs=['taxation'];assert.ok(canResearch(small,'tradeLaw',team));assert.ok(!canResearch(small,'tradeLaw'));
+});
+
+test('advanced research requires both developed facilities and two real local technology officers',()=>{
+ const {s,c,u}=fixture();c.domestic.techs=['taxation','cultivation','militaryRegistry','efficientConstruction','watchtower'];completeTechnologyBuilding(c,'watchtower');c.order=75;for(const [key,level]of Object.entries({commerce:2,workshop:3,granary:2}))setBuildingLevel(c,key,level);
+ const a=assignmentFor(s,u.id),helper=c.units.find(v=>v.id!==u.id);
+ assert.equal(technologyResearchStaff(s,c),1);
+ assert.ok(!actionCandidates(s,a).some(p=>p.targetId==='militarySupply'));
+ assert.match(technologyMarkup(s,c),/本城技术负责人≥2人（当前1人）/);
+ assert.equal(assignDomestic(s,c.id,'technology',helper.id),null);
+ assert.equal(technologyResearchStaff(s,c),2);
+ assert.ok(actionCandidates(s,a).some(p=>p.targetId==='militarySupply'));
+ helper.scouting={};assert.equal(technologyResearchStaff(s,c),1);assert.ok(!actionCandidates(s,a).some(p=>p.targetId==='militarySupply'));delete helper.scouting;
+ helper.mission={};assert.equal(technologyResearchStaff(s,c),1);delete helper.mission;
+ setBuildingLevel(c,'workshop',2);assert.ok(!actionCandidates(s,a).some(p=>p.targetId==='militarySupply'));setBuildingLevel(c,'workshop',3);
+ c.order=74;assert.ok(!actionCandidates(s,a).some(p=>p.targetId==='militarySupply'));c.order=75;
+ const before=serializeCampaign(s);actionCandidates(s,a);technologyMarkup(s,c);assert.equal(serializeCampaign(s),before);
+ cancelDomestic(s,helper.id);assert.equal(technologyResearchStaff(s,c),1);assert.ok(!actionCandidates(s,a).some(p=>p.targetId==='militarySupply'));restore(s);
+});
+
+test('a paid advanced project resumes with one officer after its opening staff and facilities change',()=>{
+ const {s,c,u}=fixture();c.domestic.techs=['taxation','cultivation','militaryRegistry','efficientConstruction','watchtower'];completeTechnologyBuilding(c,'watchtower');
+ c.order=75;for(const [key,level]of Object.entries({commerce:2,workshop:3,granary:2,drill:0,farm:1,clinic:0}))setBuildingLevel(c,key,level);
+ const helper=c.units.find(v=>v.id!==u.id);assert.equal(assignDomestic(s,c.id,'technology',helper.id),null);
+ const gold=c.gold;beginExecution(s);const lead=s.campaign.domestic.assignments.find(a=>a.cityId===c.id&&a.action?.targetId==='militarySupply');assert.ok(lead);lead.action.researchRoll=0;
+ assert.equal(c.gold,gold-600);days(s,2);const progress=c.domestic.research.progress;assert.ok(progress>0&&progress<100);
+ cancelDomestic(s,helper.id);cancelDomestic(s,u.id);c.order=0;setBuildingLevel(c,'workshop',0);days(s,8);const resumeGold=c.gold;
+ assert.equal(assignDomestic(s,c.id,'technology',u.id),null);
+ assert.ok(actionCandidates(s,assignmentFor(s,u.id)).some(p=>p.targetId==='militarySupply'&&p.cost===0));
+ beginExecution(s);assert.equal(c.gold,resumeGold);assert.equal(c.domestic.research.progress,progress);assignmentFor(s,u.id).action.researchRoll=0;
+ const copy=restore(s);days(s,2);days(copy,2);assert.equal(serializeCampaign(s),serializeCampaign(copy));assert.ok(c.domestic.research.progress>progress);
 });
 
 test('research spends city funds once, progresses on real days and reloads deterministically',()=>{
@@ -51,10 +83,10 @@ test('one city research project is exclusive and a second scientist can cooperat
  assert.equal(s.campaign.domestic.assignments.filter(a=>a.cityId===c.id&&a.action?.key==='research').length,1);days(s,1);assert.ok(Object.values(s.campaign.domestic.cooperation).some(r=>r.cityId===c.id&&r.direction==='technology'));restore(s);
 });
 
-test('tech income bonuses add to 25 percent and increase the actual shared production allowance',()=>{
+test('tech income bonuses add to 50 percent and increase the actual shared production allowance',()=>{
  const {s,c}=fixture();c.governor=null;const base=cityIncomeBreakdown(s,c).base,limit=cityWorkLimit(s,c,'manpower');c.domestic.techs=['militaryRegistry','militaryHouseholds'];
- assert.equal(cityIncomeBreakdown(s,c).base.manpower,Math.floor(base.manpower*1.25));assert.equal(limit,661);assert.equal(cityWorkLimit(s,c,'manpower'),827,'apply technology before the single final rounding');assert.equal(cityIncomeBreakdown(s,c).base.gold,base.gold);
- const other=s.cities.find(c=>c.id==='chenliu');other.governor=null;const money=cityIncomeBreakdown(s,other).base.gold;other.domestic.techs=['taxation','tradeLaw'];assert.equal(cityIncomeBreakdown(s,other).base.gold,Math.floor(money*1.25));restore(s);
+ assert.equal(cityIncomeBreakdown(s,c).base.manpower,Math.floor(base.manpower*1.5));assert.ok(cityWorkLimit(s,c,'manpower')>limit);assert.ok(Number.isSafeInteger(cityWorkLimit(s,c,'manpower')));assert.equal(cityIncomeBreakdown(s,c).base.gold,base.gold);
+ const other=s.cities.find(c=>c.id==='chenliu');other.governor=null;const money=cityIncomeBreakdown(s,other).base.gold;other.domestic.techs=['taxation','tradeLaw'];assert.equal(cityIncomeBreakdown(s,other).base.gold,Math.floor(money*1.5));restore(s);
 });
 
 test('technology increases completed real resource operations without a second harvest payout',()=>{
@@ -76,9 +108,9 @@ test('an actual siege pauses daily research without losing the project or its pa
 
 test('military and construction discounts affect paid city actions and preview calculations',()=>{
  const {s,c}=fixture();c.manpower=10000;const u=c.units[0];c.domestic.techs=['militaryRegistry','militarySupply'];const gold=c.gold,cost=trainingCost('baier',u.troops+u.wounded,c);c.domestic.techs.push('baier');
- assert.equal(changeCityTroop(s,c.id,u.id,'baier'),null);assert.equal(c.gold,gold-cost);assert.equal(cost,Math.ceil((u.troops+u.wounded)*400*.9/1000));
+ assert.equal(changeCityTroop(s,c.id,u.id,'baier'),null);assert.equal(c.gold,gold-cost);assert.equal(cost,Math.ceil((u.troops+u.wounded)*400*.75/1000));
  c.domestic.techs.push('efficientConstruction','siegeEngineering');const gear={siege:'tower',ship:null},fee=equipmentCost(gear,u.equipment,u.troops+u.wounded,c),before=c.gold;assert.equal(equipCityUnit(s,c.id,u.id,gear),null);assert.equal(c.gold,before-fee);
- assert.equal(buildCost(s,c,'commerce',u),450);u.troops=1000;const replenishGold=c.gold;assert.equal(recruitCityUnits(s,c.id,[u.id]),null);assert.equal(replenishGold-c.gold,trainingCost(u,u.troops-1000,c));restore(s);
+ assert.equal(buildCost(s,c,'commerce',u),400);u.troops=1000;const replenishGold=c.gold;assert.equal(recruitCityUnits(s,c.id,[u.id]),null);assert.equal(replenishGold-c.gold,trainingCost(u,u.troops-1000,c));restore(s);
 });
 
 test('umbrella gear technologies unlock their three local forms, with a real water condition',()=>{

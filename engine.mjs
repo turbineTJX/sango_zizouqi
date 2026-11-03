@@ -1,3 +1,6 @@
+import {battleStratagemProfile} from './stratagems.mjs';
+import {providerStratagemPoint} from './stratagem-area.mjs';
+import {applyCombination,validCombinationStatus,validCombinationShield} from './stratagem-combinations.mjs';
 import {equippedTreasureIds,validTreasureLoadout,treasureSlot,treasureInSlot,setTreasureEquipment} from './treasure-equipment.mjs';
 import {ECONOMY_RULES} from './data/design/economy-rules.mjs';
 import {validateBattleAppointments,commandProvidersAt,planBattleAppointmentsAI,planArrivalAppointmentsAI,appointBattleRoles} from './battle-appointments.mjs';
@@ -94,8 +97,8 @@ export function armyCommanders(army) {
 }
 export const armyStratagems = army => [...new Set(armyCommanders(army).flatMap(commanderStratagems))];
 export const battleCommanders = (b,side=0) => availableBattleCommanders(b.sides[side],b.tick);
-export const battleStratagemSource = (b,key,side=0) => selectStratagemSource(battleCommanders(b,side),key,bondStratagemStrength(b,side));
-export const battleStratagems = (b,side=0) => [...new Set(battleCommanders(b,side).flatMap(commanderStratagems))];
+export const battleStratagemSource = (b,key,side=0) => battleStratagemProfile(b,key,side);
+export const battleStratagems = (b,side=0) => [...new Set(battleCommanders(b,side).flatMap(commanderStratagems))].filter(key=>STRATAGEMS[key].scope.anchor!=='provider'||battleStratagemSource(b,key,side));
 export const commandIntellect = (b,side=0) => b.sides[side].retreat ? 0 : Math.round(activeUnits(b,side).filter(u=>!u.withdrawing).reduce((n,u)=>n+u.intellect*bondCommandMultiplier(b,u),0));
 // Shared effect entry point; fixed loadouts decide whether a battle can cast it.
 export function applyDecoyProtection(b,u,s,source={}){
@@ -504,8 +507,9 @@ export function issueCommand(b, command, targetId = null, side = 0, {ai=side===1
   if(STRATAGEMS[command]&&!profile)return '没有符合任职条件的军略提供者';
   const commandDesign=STRATAGEMS[command];
   const area=isAreaStratagem(commandDesign);
+  if(commandDesign?.scope.anchor==='provider')targetId=providerStratagemPoint(b,commandDesign,side);
   if(area&&!validStratagemPoint(targetId))return '请选择战场内的军略落点';
-  const targets=(area?stratagemAreaTargets(b,commandDesign,targetId,side):commandDesign?activeUnits(b,commandDesign.side===1?other:side).filter(u=>!hasStatus(b,u,'stasis')&&(commandDesign.side!==1||isTargetable(b,u))):[]).filter(u=>stratagemHasEffect(b,commandDesign,u)&&!(commandDesign.side===1&&bondBlocksEffect(b,u,profile)));
+  const targets=(area?stratagemAreaTargets(b,commandDesign,targetId,side):commandDesign?activeUnits(b,commandDesign.side===1?other:side).filter(u=>!hasStatus(b,u,'stasis')&&(commandDesign.side!==1||isTargetable(b,u))):[]).filter(u=>stratagemHasEffect(b,commandDesign,u,profile)&&!(commandDesign.side===1&&bondBlocksEffect(b,u,profile)));
   if(effect==='magicImmunity'&&!targets.length)return '在场部队均已受到魔免保护';
   if(area&&!commandDesign.zone&&!targets.length)return '范围内没有合法目标';
   if(area&&effect==='heal'&&!targets.some(u=>battleWounded(u)>0&&u.hp<u.maxHp))return '范围内暂无可救治的本场伤兵';
@@ -517,7 +521,11 @@ export function issueCommand(b, command, targetId = null, side = 0, {ai=side===1
   if(effect==='firestorm'&&(!activeUnits(b,side).length||!activeUnits(b,other).length))return '当前没有合法的火攻目标';
   if (STRATAGEMS[command]) {
     const strategy = STRATAGEMS[command],provider=b.sides[side].units.find(u=>u.id===profile.id);
-    if(strategy.zone){b.stratagemZones.push({key:command,side,point:{x:targetId.x,y:targetId.y,rotation:targetId.rotation||0},source:{...profile},castTick:b.tick,until:b.tick+profile.duration+1});}
+    if(strategy.combination){
+      applyCombination(b,command,strategy,profile,targets,provider,targetId);
+      for(const u of targets){if(u!==provider)recordContribution(provider,'support',1);combatEffect(b,provider,u,true,0,'impact',{name:strategy.name,visual:'banner'},{text:strategy.name,ongoing:true,...(provider.status!=='active'?{fromX:u.x,fromY:u.y}:{})});}
+    }
+    else if(strategy.zone){b.stratagemZones.push({key:command,side,point:{x:targetId.x,y:targetId.y,rotation:targetId.rotation||0},source:{...profile},castTick:b.tick,until:b.tick+profile.duration+1});}
     else if(['magicImmunity','rapidAdvance','invincible','ambush','shield','cleanse','stun'].includes(effect)){
       for(const u of targets){
         const protectionDiscipline=strategy.disciplineDuration?unitAttributes(u,b).discipline:null;
@@ -1059,7 +1067,7 @@ function finishTacticInner(b,u,s,target,impact=null) {
     setStatus(b,u,'attackOrb',Math.max(0,(b.maxTicks||240)-b.tick),{skillId:s.id,charges:ATTACK_ORBS[s.id].charges,potency:factor,sourceId:u.id,sourceName:u.name,sourceSkillName:s.name});
     combatEffect(b,u,u,true,0,'impact',s,{enchantment:true,text:s.name+' · 装填 '+ATTACK_ORBS[s.id].charges+' 次'});
    }else switch(s.effect) {
-    case 'status':{const targets=s.statusKey==='link'?activeUnits(b,1-u.side).filter(t=>isTargetable(b,t)&&distance(u,t)<=s.range).sort((a,c)=>Number(c===target)-Number(a===target)||a.id.localeCompare(c.id)).slice(0,s.targets):[target];for(const t of targets){status(t,s.statusKey,s.steps,{sourceId:u.id,...(s.statusKey==='link'?{group:u.id+':'+b.tick}:{} )});signal(t);}break;}
+    case 'status':{const targets=s.statusKey==='link'?activeUnits(b,1-u.side).filter(t=>isTargetable(b,t)&&distance(u,t)<=s.range).sort((a,c)=>Number(c===target)-Number(a===target)||a.id.localeCompare(c.id)).slice(0,s.targets):[target];for(const t of targets){if(s.statusKey==='stun'){control(t,s.steps,'stun');continue;}status(t,s.statusKey,s.steps,{sourceId:u.id,...(s.statusKey==='link'?{group:u.id+':'+b.tick}:{} )});signal(t);}break;}
     case 'remedy':remedy(b,target,s.remedy);signal(target);break;
     case 'cleave':(impact?.targets||tacticShapeTargets(b,u,s,target,activeUnits(b,1-u.side).filter(t=>isTargetable(b,t)),1)).forEach((t,i)=>{if(u.hp>0)hit(t,.95,i===0);});break;
     case 'bulwark':status(u,'bulwark',10);signal();break;
@@ -1744,7 +1752,10 @@ function validateSaveInCatalog(value, { strategic = false } = {}) {
           for(const field of ['sourceName','sourceSkillName','sourceNote'])if(status?.[field]!==undefined)require(text(status[field],100),'状态来源无效');
           if(status?.origins!==undefined)require(Array.isArray(status.origins)&&status.origins.length<=512&&status.origins.every(o=>o&&text(o.sourceSkillName,100)&&(o.sourceName===undefined||text(o.sourceName,100))),'叠层状态来源无效');
           require(Object.hasOwn(STATUS_DEFINITIONS,key) && status && number(status.until),'状态数据无效');
-          if(['magicImmune','rapidAdvance','commandInvincible'].includes(key)||status.sourceCommand){
+          if(status.sourceCommand&&STRATAGEMS[status.sourceCommand]?.combination){
+            const design=STRATAGEMS[status.sourceCommand],provider=commandProvidersAt(side,status.castTick).find(c=>c.id===status.sourceId&&commanderStratagems(c).includes(status.sourceCommand)),profile=provider&&stratagemProfile(status.sourceCommand,provider);
+            require(validCombinationStatus(b,u,key,status,design,profile),'组合军略状态来源、幅度或时长无效');
+          }else if(['magicImmune','rapidAdvance','commandInvincible'].includes(key)||status.sourceCommand){
             const strategy=STRATAGEMS[status.sourceCommand],provider=b.sides.flatMap(s=>commandProvidersAt(s,status.castTick)).find(c=>c.id===status.sourceId&&commanderStratagems(c).includes(status.sourceCommand)),p=provider&&stratagemProfile(status.sourceCommand,provider);
             const specialProtection=!!strategy?.disciplineDuration,postControl=key==='resolve'&&strategy?.effect==='stun';
             const duration=specialProtection&&p?commandProtectionDuration(status.protectionDiscipline,p.power):key==='resolve'?(postControl?p?.duration+3:p?.resolve):p?.duration;
@@ -1775,6 +1786,7 @@ function validateSaveInCatalog(value, { strategic = false } = {}) {
             for(const layer of status.layers.filter(l=>l.sourceTreasure||l.source.startsWith('treasure:'))){const d=treasureDesign(layer.sourceTreasure,u),e=u.treasureEntries?.[layer.sourceTreasure];require(d?.status==='shield'&&e?.id===layer.sourceTreasure&&layer.source==='treasure:'+e.id&&layer.sourceId===u.id&&layer.until===e.until&&layer.amount<=e.amount&&layer.label===d.name+' · 护盾'&&layer.bondGuardTier===undefined&&layer.sourceCommand===undefined,'宝物护盾来源或额度无效');}
             for(const layer of status.layers.filter(l=>l.sourceCommand||l.source.startsWith('command:'))){
               const design=STRATAGEMS[layer.sourceCommand],provider=commandProvidersAt(side,layer.castTick).find(c=>c.id===layer.sourceId&&commanderStratagems(c).includes(layer.sourceCommand)),p=provider&&stratagemProfile(layer.sourceCommand,provider);
+              if(design?.combination){require(validCombinationShield(b,u,layer,design,p),'组合军略护盾来源、额度或时长无效');continue;}
               require(design?.effect==='shield'&&p&&layer.source==='command:'+layer.sourceCommand&&layer.label===design.name&&Number.isInteger(layer.castTick)&&layer.castTick>=0&&layer.castTick<=b.tick&&layer.until===layer.castTick+p.duration+1&&layer.amount<=Math.round(u.maxHp*p.strength),'军略护盾来源或比例无效');
             }
           }

@@ -153,19 +153,19 @@ test('army destination retains known raid identity and falls back after retarget
 
 
 test('a city unit stays listed at home while its commander travels on a personal mission',()=>{
- const s=newCampaign(203,'guandu-200'),home=s.cities.find(c=>c.id==='town-11'),u=home.units[0];
+ const s=newCampaign(203,'guandu-200'),home=s.cities.find(c=>c.owner==='cao'&&c.units.length),destination=s.cities.find(c=>c.id==='chenliu'),u=home.units[0];
  // Snapshot at a legal talent-contact destination; troops remain in the home city array.
- u.mission={homeCity:home.id,faction:home.owner,targetCity:'town-26',location:'town-26',route:[],progress:0,phase:'work'};
+ u.mission={homeCity:home.id,faction:home.owner,targetCity:destination.id,location:destination.id,route:[],progress:0,phase:'work'};
  for(const phase of ['work','return']){
-  u.mission.phase=phase;u.mission.route=phase==='return'?['town-11']:[];
+  u.mission.phase=phase;u.mission.route=phase==='return'?[home.id]:[];
   const before=JSON.stringify(s),unit=campaignInfoDetail(s,'unit',u.id),officer=campaignInfoDetail(s,'officer',u.id);
   const overview=unit.sections.find(x=>x.id==='overview').html;
-  assert.match(overview,/<dt>所在<\/dt><dd>[^]*?data-id="town-11"/);
-  assert.doesNotMatch(overview,/data-id="town-26"/);
+  assert.ok(overview.includes('data-id="'+home.id+'"'));
+  assert.ok(!overview.includes('data-id="'+destination.id+'"'));
   assert.match(overview,/主将外出/);
   const status=unit.sections.find(x=>x.id==='status').html;
-  assert.match(status,/部队驻地[^]*?寿春/);assert.match(status,/主将位置[^]*?庐江/);
-  assert.match(officer.sections.find(x=>x.id==='overview').html,/data-id="town-26"/);
+  assert.match(status,new RegExp('部队驻地[^]*?'+home.name));assert.match(status,new RegExp('主将位置[^]*?'+destination.name));
+  assert.ok(officer.sections.find(x=>x.id==='overview').html.includes('data-id="'+destination.id+'"'));
   assert.equal(JSON.stringify(s),before);
  }
 });

@@ -75,6 +75,21 @@ export function persuasionTargets(s,faction){
  const sources=visionSources(s,faction);
  return s.campaign.idle.filter(o=>o.faction!==faction&&o.faction!=='neutral'&&cityVisible(s,o.location,faction,sources)&&!o.destination&&!o.retreating&&!o.unit.mission&&!o.unit.scouting);
 }
+// Subversion may also visit prepared city officers. It never targets a field
+// army, a traveller, a captive, or a person known only from an old report.
+export function disaffectionTargets(s,faction){
+ const sources=visionSources(s,faction);
+ return [...cityUnitRows(s),...s.campaign.idle].filter(o=>o.faction!==faction&&o.faction!=='neutral'&&s.cities.some(c=>c.id===o.location&&c.owner===o.faction)&&cityVisible(s,o.location,faction,sources)&&!o.destination&&!o.retreating&&!o.unit.mission&&!o.unit.scouting&&!isLord(s,o.unit.id,o.faction));
+}
+export function disaffectionCandidates(s,c){
+ const contactWorld={...s,armies:observedArmies(s,c.owner)};
+ return disaffectionTargets(s,c.owner).filter(o=>(s.campaign.domestic.loyalty[o.unit.id]??85)>=70&&nearby(s,c.id,o.location)&&localContact(contactWorld,c.id,o.location)&&!s.campaign.domestic.assignments.some(a=>s.cities.find(c=>c.id===a.cityId)?.owner===c.owner&&(a.action||a.proposal?.pick)?.targetId===o.unit.id&&['hire','persuade','disaffect'].includes((a.action||a.proposal?.pick)?.key)))
+  .map(o=>({...o,score:46+clamp((talentQuality(o.unit)-70)/2,0,15)})).sort((a,b)=>b.score-a.score||a.unit.id.localeCompare(b.unit.id));
+}
+export function disaffectionAvailable(s,c,x,actor){
+ const target=servingPeople(s).get(x.targetId),m=actor?.mission;
+ return !!target&&target.faction===x.targetFaction&&target.faction!==c.owner&&!target.army&&!target.destination&&!target.retreating&&!target.unit.mission&&!target.unit.scouting&&!isLord(s,target.unit.id,target.faction)&&target.location===(m?.targetCity||c.id)&&(!m||m.phase==='work'&&m.location===target.location)&&s.cities.some(t=>t.id===target.location&&t.owner===target.faction)&&!cityBesieged(s,target.location)&&(s.campaign.domestic.loyalty[x.targetId]??85)>=70;
+}
 export function talentContext(s,observer=null){
  const all=servingPeople(s),targets=observer?persuasionTargets(s,observer):null,visible=targets?new Set(targets.map(o=>o.unit.id)):null;
  const serving=observer?new Map([...all].filter(([id,o])=>o.faction===observer||visible.has(id))):all,rosters={};for(const o of serving.values())if(!observer||o.faction===observer)(rosters[o.faction]??=[]).push(o.unit);
@@ -104,12 +119,13 @@ export function loyaltyResignationChance(s,id,faction){
 }
 export const TALENT_REASONS=Object.freeze({ready:'愿意洽谈',unknown:'尚无有效位置情报',range:'不在可通行接洽范围',waiting:'暂不求仕',hardWait:'战后／辞官整理期',rejoin:'暂不接受原势力邀请',cooldown:'接洽冷却',unwilling:'暂不愿接受招揽',loyal:'忠诚稳定，不接受劝说',difference:'改仕意愿不足',invalid:'人物身份或归属已改变',lord:'在位君主不可劝说',full:'进度已满，等待签约复核',limit:'并行接洽名额已占用'});
 // A decision is an invitation based on visible people and the inviting faction's
-// own roster. Private loyalty and the rival's staffing never enter this preview.
+// own roster and current sight. Old reports never disclose present loyalty.
 export function persuasionEligibility(s,id,faction,cityId,context=talentContext(s,faction)){
  if(context.observer!==faction)context=talentContext(s,faction);
  const owned=context.serving.get(id),p=s.campaign.talent.projects[talentKey(id,faction)],w=willingness(s,id,faction,context),fail=reason=>({ok:false,reason,...w});
  if(s.cities.find(c=>c.id===cityId)?.owner!==faction)return fail('invalid');
  if(!owned||owned.faction===faction||!context.visibleTargets.has(id))return fail('unknown');
+ if((s.campaign.domestic.loyalty[id]??85)>=70)return fail('loyal');
  if(isLord(s,id,owned.faction))return fail('lord');
  if(s.cities.some(c=>c.id===owned.location&&c.governor===id))return fail('invalid');
  if(p?.state!=='CLOSED'&&p?.targetFaction&&p.targetFaction!==owned.faction)return fail('invalid');
