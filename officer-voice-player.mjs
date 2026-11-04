@@ -87,7 +87,7 @@ export class OfficerVoicePlayer{
   if(epoch!==this.epoch||!this.allowed()||this.now()-now>1800){this.finish(epoch);return false;}
   try{
    if(!this.Utterance||!this.speech)throw Error('No speech engine');
-   const profile=VOICE_PROFILES[line.profile]||VOICE_PROFILES.commander;
+   const profile=VOICE_PROFILES[line.profile]||VOICE_PROFILES['male-calm'];
    let voice=selectOfficerDeviceVoice(this.speech.getVoices(),profile);
    // Some engines initially expose only their default voice. Give the voice
    // inventory a short chance to finish, within this event's existing deadline.

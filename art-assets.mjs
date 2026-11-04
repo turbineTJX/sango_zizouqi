@@ -1,7 +1,7 @@
 // Presentation only. This module must never be imported by the simulation.
 import {OFFICER_ART_ASSET_KEYS,OFFICER_ART_SOURCE_KEYS,OFFICER_ART_SOURCE_FALLBACKS,OFFICER_ART_VIEWS,officerArtView,validArtCrop} from './officer-art-scenes.mjs';
 import {assetCatalog,applyAssetCatalog} from './asset-catalog.mjs';
-const builtin={version:1,id:'builtin',label:'默认图形',portraits:{},criticals:{},troops:{},models:{},effects:{},backgrounds:{}};
+const builtin={version:1,id:'builtin',label:'默认图形',portraits:{},generatedPortraits:{male:[],female:[]},criticals:{},troops:{},models:{},effects:{},backgrounds:{}};
 const MAX_CACHED_IMAGES=64;
 async function readArtJSON(url){
  for(let attempt=0;attempt<2;attempt++)try{
@@ -23,6 +23,7 @@ export function sanitizePack(raw){
  if(raw?.version!==1||raw.id==='builtin')return {...builtin};
  const pack={...builtin,id:'local-playtest',label:'本地试玩美术',animations:raw.animations||{}};
  for(const group of ['portraits','criticals','effects','backgrounds'])pack[group]=Object.fromEntries(Object.entries(raw[group]||{}).flatMap(([key,url])=>assetURL(url)?[[key,url]]:[]));
+ pack.generatedPortraits=Object.fromEntries(['male','female'].map(sex=>[sex,[...new Set((Array.isArray(raw.generatedPortraits?.[sex])?raw.generatedPortraits[sex]:[]).filter(url=>assetURL(url)))]]));
  pack.models=Object.fromEntries(Object.entries(raw.models||{}).filter(([,m])=>['obj','glb'].includes(m?.format)&&assetURL(m.url)).map(([key,m])=>[key,{...m,texture:assetURL(m.texture)}]));
  if(raw.worldMap?.width===1024&&raw.worldMap?.height===1024){
   const images=Object.fromEntries(Object.entries(raw.worldMap.images||{}).filter(([s,url])=>['spring','summer','autumn','winter'].includes(s)&&assetURL(url)));
@@ -38,7 +39,7 @@ export function sampleCurve(keys,time,axis='y'){
  const a=keys[next-1],b=keys[next],dt=b.time-a.time,t=(time-a.time)/dt;
  return (2*t**3-3*t*t+1)*a.value[axis]+(t**3-2*t*t+t)*dt*a.outSlope[axis]+(-2*t**3+3*t*t)*b.value[axis]+(t**3-t*t)*dt*b.inSlope[axis];
 }
-export const art={pack:{...builtin},_officers:{},hasOfficerArt:false,enabled:true,images:new Map(),imageListeners:new Map(),failed:new Set(),cropFrames:new Map(),cropObserver:null,
+export const art={pack:{...builtin},_officers:{},generatedOfficers:new Map(),hasOfficerArt:false,enabled:true,images:new Map(),imageListeners:new Map(),failed:new Set(),cropFrames:new Map(),cropObserver:null,
  get officers(){return this._officers;},
  set officers(value){this._officers=value;this.hasOfficerArt=Object.values(value).some(s=>s.portrait||s.detail||OFFICER_ART_SOURCE_KEYS.some(k=>s[k]));},
  async init({onChange=()=>{}}={}){
@@ -58,11 +59,16 @@ export const art={pack:{...builtin},_officers:{},hasOfficerArt:false,enabled:tru
   ]);
  },
  get active(){return this.enabled&&(this.pack.id!=='builtin'||this.hasOfficerArt);},
+ setGeneratedOfficers(units){
+  this.generatedOfficers=new Map(units.filter(u=>u.generatedOfficer&&/^bandit-person-\d+-\d+$/.test(u.id)&&Number.isSafeInteger(u.generatedOfficer.seed)&&u.generatedOfficer.seed>=0&&u.generatedOfficer.seed<=0xffffffff&&[0,1].includes(u.sex)).map(u=>[u.id,{seed:u.generatedOfficer.seed,sex:u.sex}]));
+ },
  resolvePortrait(id,scene='roster'){
   if(!this.active)return null;
   const scenes=Object.hasOwn(this.officers,id)?this.officers[id]:{},key=scene==='roster'?'portrait':scene,source=OFFICER_ART_VIEWS[scene]?.source||scene;
   const oldFace=(scene==='roster'||scene==='portrait')&&scenes.neutral?.derivedFrom&&scenes.portrait;
-  const candidates=[...(oldFace?[['portrait',oldFace]]:[]),[source,scenes[source]],['neutral',scenes.neutral],[key,scenes[key]],['portrait',scenes.portrait],['detail',scenes.detail],['legacy',{url:this.pack.portraits[id],fit:'cover',focus:'50% 24%',width:240,height:240}]];
+  const generated=this.generatedOfficers.get(id),pool=generated?this.pack.generatedPortraits?.[generated.sex===1?'female':'male']||[]:[];
+  let generic;for(let i=0;i<pool.length;i++){const url=pool[(generated.seed+i)%pool.length];if(!this.failed.has(url)){generic=url;break;}}
+  const candidates=[...(oldFace?[['portrait',oldFace]]:[]),[source,scenes[source]],['neutral',scenes.neutral],[key,scenes[key]],['portrait',scenes.portrait],['detail',scenes.detail],['legacy',{url:this.pack.portraits[id]||generic,fit:'cover',focus:'50% 24%',width:240,height:240}]];
   const found=candidates.find(([,entry])=>assetURL(entry?.url)&&!this.failed.has(entry.url));return found?{...found[1],scene:found[0],view:officerArtView(found[1],found[0],scene)}:null;
  },
  portraitURL(id,scene='roster'){return this.resolvePortrait(id,scene)?.url||null;},

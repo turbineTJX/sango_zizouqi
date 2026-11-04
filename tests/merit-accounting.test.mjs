@@ -63,7 +63,7 @@ test('split transport deliveries and reverse deliveries share one route budget',
  const run=parts=>{const s=newCampaign(46),o=s.campaign.idle[0],before=totalMerit(o.unit);parts.forEach((gold,i)=>transportMerit(s,o.unit,o.faction,i%2?'chenliu':'xuchang',i%2?'xuchang':'chenliu',{gold},{sourceId:'delivery-'+i}));return totalMerit(o.unit)-before;};
  assert.equal(run([3000]),60);assert.equal(run([1500,1500]),60);assert.equal(run([1000,1000,1000,1000]),60);
 });
-test('scouting rewards real intelligence and watch days, capped and persistent across redispatch',()=>{
+test('scouting rewards real intelligence, capped and persistent across redispatch',()=>{
  const s=newCampaign(203);for(const c of s.cities.filter(c=>c.owner!=='cao'))c.units.forEach(u=>u.troops=0);
  const c=s.cities.find(c=>c.owner==='cao'&&scoutCandidates(s,c.id).length),o=scoutCandidates(s,c.id)[0],target=scoutTargets(s,c.id).find(n=>n.owner!=='cao');assert.ok(target);
  const before=totalMerit(o.unit);assert.equal(dispatchScout(s,c.id,o.unit.id,target.id),null);advanceScouting(s);

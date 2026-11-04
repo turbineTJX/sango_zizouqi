@@ -4,7 +4,8 @@ export {pendingArmyAppointments,confirmPostbattleAppointments} from './postbattl
 import {initializeBandits,validateBandits,banditCamp} from './bandit-state.mjs';
 import {banditDefender,settleBanditBattle,deliverBanditLoot} from './bandits.mjs';
 import {initializeScouting,advanceScouting,validateScouting,reconcileScouting} from './scouting.mjs';
-import {initializeTreasures,finishTreasureTurn,treasureCaptureCandidates,settleBattleTreasures,manageTreasuresAI,validateTreasures} from './treasures.mjs';
+import {initializeTreasures,finishTreasureTurn,treasureCaptureCandidates,settleBattleTreasures,manageTreasuresAI,validateTreasures,treasureRecord} from './treasures.mjs';
+import {equippedTreasureIds,removeTreasureEquipment} from './treasure-equipment.mjs';
 import {canEquip,validEquipment,equipmentCost,emptyEquipment} from './troop-equipment.mjs';
 import {initializeVision,updateVision,validateVision,battleVisible} from './strategic-vision.mjs';
 import {initializeTacticLearning} from './tactic-learning.mjs';
@@ -31,6 +32,7 @@ import {trainingCost,trainingRate,affordableTraining} from './troop-training.mjs
 import {allocateUnitTroops} from './troop-allocation.mjs';
 import {siegeDefenseCandidates,siegeDefensePlan} from './siege-defense.mjs';
 import {playerFaction,isAIControlled,isPlayerControlled} from './player-faction.mjs';
+import {factionHasMainCity} from './city-classification.mjs';
 import {missionOfficer,validateOfficerMission} from './officer-missions.mjs';
 import {resolveOfficerLoss,removeOfficer,sendOfficerHome,roadEdgeForArmy,updateCaptives,displaceCityOfficers,cityCaptureContext} from './officer-fates.mjs';
 import {settleCapturedWounded,validWoundedCapture} from './battle-aftermath.mjs';
@@ -68,7 +70,7 @@ import {initializeDiplomacy,advanceDiplomacy,planDiplomaticAI,validateDiplomacy,
 import {factionsHostile,diplomaticProtection,diplomaticPassage,diplomaticAssignment} from './diplomacy-relations.mjs';
 
 // A day consists of a fixed number of real combat steps, never wall-clock time.
-export const CAMPAIGN = Object.freeze({version:72, ...CAMPAIGN_TIME, maxUnits:10, maxArmies:200, supplyRange:180});
+export const CAMPAIGN = Object.freeze({version:73, ...CAMPAIGN_TIME, maxUnits:10, maxArmies:200, supplyRange:180});
 import {gateDurability,buildingWorkMode,buildingWorkQuote,beginBuildingWork,buildingDurability,restoreBuilding,campaignBattleBuildings,writeBattleBuildingDamage,validateBattleBuildingSources} from './building-durability.mjs';
 import {updateCityBudgetAlerts,validateCityBudget} from './city-budget.mjs';
 import {initializeCityResources,syncResourceTotals,settleCityCaptureResources} from './city-resources.mjs';
@@ -746,7 +748,7 @@ function settleEncounter(s,r){
   if(r.kind==='siege'){
     const c=city(s,r.cityId);
     c.garrison=b.sides.flatMap(x=>x.units).filter(u=>u.armyId===`city:${c.id}`).reduce((n,u)=>n+u.hp,0);
-    if(b.result.winner===r.attackSide){const previous=c.owner,resources=settleCityCaptureResources(c);c.owner=r.armies[0].faction;recordOccupation(s,c,previous,r.id,r.armies,resources);noteTalentCityCapture(s,previous,c.owner,r.id);displaceCityOfficers(s,c.id,previous,r.id);c.garrison=0;c.governor=null;reconcileDomestic(s);refreshTalentDemand(s);}
+    if(b.result.winner===r.attackSide&&factionHasMainCity(s,r.armies[0].faction)){const previous=c.owner,resources=settleCityCaptureResources(c);c.owner=r.armies[0].faction;recordOccupation(s,c,previous,r.id,r.armies,resources);noteTalentCityCapture(s,previous,c.owner,r.id);displaceCityOfficers(s,c.id,previous,r.id);c.garrison=0;c.governor=null;reconcileDomestic(s);refreshTalentDemand(s);}
   }
   for(const id of r.armyIds){const a=army(s,id);if(!a||a.disbanded||a.banditCampId)continue;const side=campaignBattleSide(s,r,a);const lost=b.result.winner!==side&&(b.result.winner!==null||side===r.attackSide);if(!r.diplomaticCeasefire)a.morale=Math.max(25,Math.min(100,a.morale+(lost?-18:8)));returnArmy(s,a,r,lost);}
   r.settled=true;r.awaiting=false;r.endedDay=s.campaign.day;r.report={winner:b.result.winner,reason:b.result.reason,stats,growth,buildings:buildingChanges,woundedCapture};
@@ -867,7 +869,7 @@ export function advanceCampaignStep(s){
   updateVision(s);
   const focused=battleRecord(s,c.focusId);if(focused&&!battleVisible(s,focused)){delegateCurrent(s);c.resumeId=null;}
   if(s.campaign.allAI){const winner=s.cities[0]?.owner;if(winner&&winner!=='neutral'&&s.cities.every(c=>c.owner===winner))s.finished='victory';}
-  else if(s.cities.every(c=>c.owner===playerFaction(s)))s.finished='victory';else if(!s.cities.some(c=>c.owner===playerFaction(s)))s.finished='defeat';
+  else if(s.cities.every(c=>c.owner===playerFaction(s)))s.finished='victory';else if(!factionHasMainCity(s,playerFaction(s)))s.finished='defeat';
   if(boundary){c.phase='planning';c.resumeId=c.focusId;c.focusId=null;s.battle=null;c.lastNotice=c.allAI?`第 ${c.day} 天：新旬由 AI 自动安排，可暂停查看。`:`第 ${c.day} 天：新旬筹划。所有战场暂停，请处理内政与军令后点击进行。`;}
   return {dayEnded:true,planning:boundary&&!s.campaign.allAI,finished:s.finished};
 }
@@ -923,7 +925,22 @@ function validateCampaignInCatalog(value){
     fail(town.governor===null||cityGovernor(value,town)||missionOfficer(value,town.governor)?.location===town.id,'太守任命无效');
   }
   const battleIds=new Set(),engaged=new Set();
-  function checkBattle(r,b){const base=newGame();if(b.treasureDesigns)base.treasureDesigns=b.treasureDesigns;if(c.scenarioId){Object.assign(base,nationalWorld(c.scenarioId));base.campaign={scenarioId:c.scenarioId,playerFaction:c.playerFaction};}base.armies=copy(r.armies).map(a=>({...a,faction:b.sides.find(side=>side.units.some(u=>u.armyId===a.id))?.faction||a.faction,supply:Math.ceil(a.supply),route:[],target:null}));base.relationshipScores=copy(b.relationshipScores);base.relationshipTypes=copy(b.relationshipTypes);base.pendingAppointments=[];base.battle=copy(b);validateSave(base,{strategic:true});for(const u of b.sides.flatMap(x=>x.units))fail(u.supplyPenalty===undefined||[0,.1,.2,.35].includes(u.supplyPenalty),'缺粮效果无效');}
+  function checkBattle(r,b){
+   const base=newGame();if(b.treasureDesigns)base.treasureDesigns=b.treasureDesigns;
+   if(c.scenarioId){Object.assign(base,nationalWorld(c.scenarioId));base.campaign={scenarioId:c.scenarioId,playerFaction:c.playerFaction};}
+   const units=b.sides.flatMap(side=>side.units);
+   base.armies=copy(r.armies).map(a=>{
+    // An extinct faction's equipped originals are confiscated even while its
+    // other battle is still running. Older daily snapshots keep the old loadout.
+    if(c.talent.defeats[a.faction]&&!factionHasMainCity(value,a.faction))for(const source of a.units){
+     const live=units.find(u=>u.id===source.id&&u.armyId===a.id);
+     if(live)for(const id of equippedTreasureIds(source))if((b===r.battle||!equippedTreasureIds(live).includes(id))&&treasureRecord(value,id)?.factionId!==a.faction)removeTreasureEquipment(source,id);
+    }
+    return {...a,faction:b.sides.find(side=>side.units.some(u=>u.armyId===a.id))?.faction||a.faction,supply:Math.ceil(a.supply),route:[],target:null};
+   });
+   base.relationshipScores=copy(b.relationshipScores);base.relationshipTypes=copy(b.relationshipTypes);base.pendingAppointments=[];base.battle=copy(b);validateSave(base,{strategic:true});
+   for(const u of units)fail(u.supplyPenalty===undefined||[0,.1,.2,.35].includes(u.supplyPenalty),'缺粮效果无效');
+  }
   for(const r of c.battles){fail(r&&typeof r.id==='string'&&!battleIds.has(r.id)&&typeof r.name==='string'&&r.name.length<100&&['field','siege'].includes(r.kind)&&city(value,r.cityId)&&num(r.point?.x,1024)&&num(r.point?.y,1024));battleIds.add(r.id);
     if(r.banditCampId){const camp=banditCamp(value,r.banditCampId);fail(camp&&camp.nodeId===r.cityId&&r.kind==='field'&&r.armies.some(a=>a.banditCampId===camp.id&&a.faction==='neutral'),'贼寨战斗来源无效');if(r.settled)fail(r.report?.banditResolved===true&&(!r.report.banditLoot||camp.receipt?.battleId===r.id&&JSON.stringify(r.report.banditLoot)===JSON.stringify(camp.receipt)),'贼寨结算凭据无效');}
     fail(integer(r.startedDay,c.day)&&r.startedDay>=1&&typeof r.settled==='boolean'&&typeof r.awaiting==='boolean'&&['auto','manual'].includes(r.control)&&[0,1].includes(r.attackSide));

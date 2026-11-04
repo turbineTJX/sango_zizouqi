@@ -3,7 +3,7 @@ import {NATIONAL_MAP as MAP_SOURCE} from './data/national-map.mjs';
 import {CITY_DESIGNS} from './data/design/cities.mjs';
 import {NATIONAL_ROAD_DESIGNS} from './data/design/roads.mjs';
 import {ATLAS_CITY_ADDITIONS} from './data/design/atlas-cities.mjs';
-import {NATIONAL_SCENARIO_DESIGNS,EXTRA_FACTION_DESIGNS,ATLAS_SCENARIO_ANCHORS} from './data/design/national-scenarios.mjs';
+import {NATIONAL_SCENARIO_DESIGNS,EXTRA_FACTION_DESIGNS,ATLAS_SCENARIO_ANCHORS,BUILTIN_PERSONNEL_EXCLUSIONS} from './data/design/national-scenarios.mjs';
 import {REFERENCE_SCENARIO} from './data/design/reference-scenario.mjs';
 const NATIONAL_MAP={...MAP_SOURCE,cities:CITY_DESIGNS,roads:NATIONAL_ROAD_DESIGNS};
 export const NATIONAL_MAP_COUNTS=Object.fromEntries(['city','gate','port'].map(kind=>[kind,CITY_DESIGNS.filter(c=>c.kind===kind).length]));
@@ -11,6 +11,7 @@ import {OFFICER_CATALOG} from './officer-catalog.mjs';
 import {validateScenarioDocument,scenarioRuntimeId,scenarioPeople} from './scenario-document.mjs';
 import {attachFactionTable,registerRuntimeFaction} from './faction-registry.mjs';
 import {scenarioDateDay,scenarioStartDay} from './scenario-date.mjs';
+import {factionHasMainCity} from './city-classification.mjs';
 
 const referenceFaction=n=>n===1?'cao':n===8?'yuan':n?`force-${n}`:'neutral';
 const referencePeople=new Map(REFERENCE_SCENARIO.people.map(p=>[p.sourceId,p]));
@@ -24,7 +25,7 @@ const extraFactions=Object.fromEntries(Object.entries(EXTRA_FACTION_DESIGNS).map
 const sourceFactions=Object.fromEntries(REFERENCE_SCENARIO.forces.map(f=>{const id=referenceFaction(f.sourceId);return [id,{...NATIONAL_MAP.forces[id],name:f.name,short:f.name.slice(0,1),leaderSourceId:f.leaderSourceId}];}));
 export const NATIONAL_FACTIONS={...NATIONAL_MAP.forces,...sourceFactions,...extraFactions};
 attachFactionTable(NATIONAL_FACTIONS);
-export const NATIONAL_SCENARIOS=Object.freeze(NATIONAL_SCENARIO_DESIGNS.map(spec=>({...spec,factions:spec.factions|| (spec.layout==='reference'?REFERENCE_SCENARIO.forces.map(f=>referenceFaction(f.sourceId)):Object.keys(spec.cityGroups))})));
+export const NATIONAL_SCENARIOS=Object.freeze(NATIONAL_SCENARIO_DESIGNS.map(spec=>({...spec,officerExclusions:[...BUILTIN_PERSONNEL_EXCLUSIONS,...(spec.officerExclusions||[])],factions:spec.factions|| (spec.layout==='reference'?REFERENCE_SCENARIO.forces.map(f=>referenceFaction(f.sourceId)):Object.keys(spec.cityGroups))})));
 // Audit-only scenario inputs are registered explicitly by a headless harness.
 // They do not enter the game lobby, replace an original scenario, or change any
 // movement/economy/combat rule. Save validation uses the same registered map.
@@ -40,7 +41,7 @@ export function registerCampaignAuditScenario(input){
  const source=nationalWorld(spec.sourceScenario),cities=new Map(source.cities.map(c=>[c.id,c])),nodes=new Map(source.junctions.map(n=>[n.id,n]));
  check(new Set(world.cities.map(c=>c.id)).size===world.cities.length,'重复城市');
  for(const c of world.cities){const original=cities.get(c.id);check(original&&spec.factions.includes(c.owner)&&JSON.stringify({...c,owner:original.owner})===JSON.stringify(original),'城市必须保留原始公共地理');}
- check(spec.factions.every(f=>world.cities.some(c=>c.owner===f)),'势力缺少初始城市');
+ check(spec.factions.every(f=>factionHasMainCity(world,f)),'势力缺少初始主城');
  check(Array.isArray(world.junctions)&&world.junctions.every(n=>JSON.stringify(n)===JSON.stringify(nodes.get(n.id))),'节点');
  const ids=new Set([...world.cities,...world.junctions].map(n=>n.id)),edgeKey=e=>[...e].sort().join(':');
  check(Array.isArray(world.roads)&&world.roads.length&&world.roads.every(e=>e.length===2&&e.every(id=>ids.has(id))&&source.roads.some(x=>JSON.stringify(x)===JSON.stringify(e))),'道路不得新增或穿过范围外城市');
@@ -71,7 +72,7 @@ export function talentScenarioEntry(id,u,cities){
  const year=historical?availableYear(spec,u):null;
  const earliestTurn=year===null?null:Math.max(0,(year-spec.year)*36);
  const source=referencePeople.get(u.sourceId)?.citySourceId??u.profileSource?.BelongCity,city=cities.find(c=>c.sourceId===source&&c.kind==='city');
- return {autoEligible:(u.sourceKind==='common'||u.sourceKind==='custom')&&u.profileSource.description>0&&(!spec?.auditOnly||auditScenarios.get(id).talentIds.includes(u.id)),activityCityIds:city?[city.id]:[],earliestTurn,latestTurn:earliestTurn};
+ return {autoEligible:(u.sourceKind==='common'||u.sourceKind==='custom')&&u.profileSource.description>0&&!spec?.officerExclusions?.includes(u.sourceId)&&(!spec?.auditOnly||auditScenarios.get(id).talentIds.includes(u.id)),activityCityIds:city?[city.id]:[],earliestTurn,latestTurn:earliestTurn};
 }
 const key=n=>NATIONAL_MAP.cities.find(c=>c.sourceId===n).id;
 const guanduOwners={};
@@ -95,6 +96,7 @@ export function nationalWorld(id){
  const owners=scenarioCityOwners(nationalScenario(id)),allowed=nationalScenario(id).factions;
  for(const c of cities)if(['atlas-pengcheng','atlas-fuling','atlas-yuzhang','atlas-panyu','atlas-longbian','atlas-wuchang','atlas-zhongli','atlas-hefei','atlas-guangling','atlas-jingkou','atlas-houguan','atlas-xunyang','atlas-baling','atlas-linchuan'].includes(c.id))c.water=true;
  for(const c of cities){const parent=NATIONAL_MAP.portParents[c.id]||(gateParents[c.sourceId]?key(gateParents[c.sourceId]):null),owner=owners[c.id]||owners[parent];c.owner=allowed.includes(owner)?owner:'neutral';}
+ for(const faction of allowed)if(!factionHasMainCity({cities},faction))throw Error('剧本势力缺少开局主城：'+faction);
  const network=buildRoadNetwork(cities,NATIONAL_MAP.roads);
  for(const c of cities)if(c.kind==='city'&&NATIONAL_MAP.roads.some(e=>e.includes(c.id)&&cities.some(p=>p.kind==='port'&&p.id===e.find(id=>id!==c.id))))c.water=true;
  // Ports and passes are road nodes, never economic or officer residence cities.
@@ -112,9 +114,9 @@ const openingExpansion={
  'force-7':['伊籍','王粲','王威','韩嵩','桓阶','傅巽','苏飞','向朗','霍峻','潘濬']
 };
 export function scenarioOfficerEligible(spec,u){
- return ['common','custom'].includes(u.sourceKind)&&(spec.kind==='fictional'||(!u.birthYear||u.birthYear+16<=spec.year)&&(!u.deathYear||u.deathYear>=spec.year)&&(!scenarioDebutYear(u)||scenarioDebutYear(u)<=spec.year));
+ return ['common','custom'].includes(u.sourceKind)&&!spec.officerExclusions?.includes(u.sourceId)&&(spec.kind==='fictional'||(!u.birthYear||u.birthYear+16<=spec.year)&&(!u.deathYear||u.deathYear>=spec.year)&&(!scenarioDebutYear(u)||scenarioDebutYear(u)<=spec.year));
 }
-const canAppear=(spec,u,includeFuture)=>includeFuture?['common','custom'].includes(u.sourceKind)&&(spec.kind==='fictional'||!u.deathYear||availableYear(spec,u)<=u.deathYear):scenarioOfficerEligible(spec,u);
+const canAppear=(spec,u,includeFuture)=>includeFuture?['common','custom'].includes(u.sourceKind)&&!spec.officerExclusions?.includes(u.sourceId)&&(spec.kind==='fictional'||!u.deathYear||availableYear(spec,u)<=u.deathYear):scenarioOfficerEligible(spec,u);
 function referenceRoster(spec,cities,includeFuture){
  const bySource=new Map(OFFICER_CATALOG.filter(u=>u.sourceKind==='common').map(u=>[u.sourceId,u])),placed=new Map();
  const factions=new Set(spec.factions),mapping=new Map();
@@ -169,7 +171,9 @@ export function nationalPersonnel(id,cities){
   const excluded=(!p&&u.sourceKind!=='custom')||p?.state===0||!(u.profileSource?.description>0)||spec.officerExclusions?.includes(u.sourceId);
   const dead=spec.kind!=='fictional'?u.deathYear&&Math.max(spec.year,year)>u.deathYear:p?.state===9;
   const state=excluded?'excluded':dead?'dead':assignment?'serving':'free';
-  const cityId=assignment?.cityId||cities.find(c=>c.sourceId===p?.citySourceId)?.id||cities.find(c=>c.id===spec.capital)?.id||cities[0].id;
+  const declaredCity=assignment?.cityId||cities.find(c=>c.sourceId===p?.citySourceId)?.id;
+  if(!excluded&&!dead&&u.sourceKind==='common'&&!declaredCity)throw Error('剧本人物缺少声明驻地：'+u.name);
+  const cityId=declaredCity||cities.find(c=>c.id===spec.capital)?.id||cities[0].id;
   const debutDate={year,month:1,day:1};
   return {id:u.id,state,cityId,...(assignment?{faction:assignment.faction}:{}),...(!['dead','excluded'].includes(state)?{debutDate,...(state==='free'?{freeDate:{...debutDate}}:{})}:{})};
  });

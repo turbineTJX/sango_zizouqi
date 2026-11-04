@@ -1,12 +1,11 @@
 import {assignmentField} from './assignment-picker.mjs';
+import {mapTargetField} from './map-target-picker.mjs';
 import {campaignDate} from './national-scenarios.mjs';
 import {gateDurability} from './building-durability.mjs';
 import {mapNode} from './map-node-data.mjs';
-import {scoutCandidates,scoutTargets,scoutRoute,scoutAssignments,scoutingDurationRange} from './scouting.mjs';
+import {scoutCandidates,scoutTargets,scoutRoute,scoutAssignments,scoutingDurationRange,scoutJourney} from './scouting.mjs';
 import {scoutOperator,scoutStatus} from './scouting-state.mjs';
 import {validScoutRoute} from './scouting-state.mjs';
-import {roadCost} from './road-metrics.mjs';
-import {MOVEMENT_RULES} from './data/design/movement-rules.mjs';
 import {CAMPAIGN_TIME} from './combat-rules.mjs';
 import {NATIONAL_FACTIONS as FACTIONS} from './national-scenarios.mjs';
 import {TROOP_DESIGNS} from './data/design/troops.mjs';
@@ -22,9 +21,9 @@ export function scoutSelection(s,selection={}){
 }
 export function scoutingMarkup(s,selection={},mapMarkup=''){
  const {cities,city,candidates,officer,targets,target,route}=scoutSelection(s,selection),range=scoutingDurationRange(officer?.unit.intellect),days=CAMPAIGN_TIME.daysPerTurn,tasks=scoutAssignments(s).filter(t=>t.faction===playerFaction(s));
- const cost=route?.reduce((sum,id,i)=>sum+roadCost(s,i?route[i-1]:city.id,id),0),besieged=city&&s.campaign.battles.some(b=>!b.settled&&b.kind==='siege'&&b.cityId===city.id),allowed=s.campaign.phase==='planning'&&!s.finished&&!besieged&&officer&&route?.length;
- const fields=`<div class="scout-fields">${assignmentField('scout-city','派出城市',city?.name,{kind:'scout-city',selection:city?.id})}${assignmentField('scout-officer','执行人',officer?.unit.name,{kind:'scout-officer',disabled:!city,selection:officer?.unit.id})}${assignmentField('scout-target','终点',target?.name,{kind:'scout-target',disabled:!officer,selection:target?.id})}</div>${city&&!candidates.length?'<p role="status">本城暂无可执行侦察的武将</p>':''}`;
- const missions=tasks.map(t=>{const o=scoutOperator(s,t);return `<article><b>${esc(o?.unit.name)}</b><span>${esc(mapNode(s,t.homeCity).name)} → ${esc(mapNode(s,t.targetCity).name)}</span><small>${scoutStatus(t)}</small><button class="button secondary" data-action="scout-recall" data-officer="${esc(t.officerId)}">停止</button><details class="scout-contact-list"><summary>情报 ${t.contacts.length}</summary>${t.contacts.map(c=>`<p>${esc(c.name)} · ${campaignDate(s,{day:c.report.day})} <button class="personnel-name" data-action="scout-report" data-task="${t.id}" data-key="${esc(c.key)}">查看</button></p>`).join('')||'<p>暂无情报</p>'}</details></article>`;}).join('');
+ const trip=route&&scoutJourney(s,city.id,route),besieged=city&&s.campaign.battles.some(b=>!b.settled&&b.kind==='siege'&&b.cityId===city.id),allowed=s.campaign.phase==='planning'&&!s.finished&&!besieged&&officer&&trip&&city.gold>=trip.gold;
+ const fields=`<div class="scout-fields">${assignmentField('scout-city','派出城市',city?.name,{kind:'scout-city',selection:city?.id})}${assignmentField('scout-officer','执行人',officer?.unit.name,{kind:'scout-officer',disabled:!city,selection:officer?.unit.id})}<div>${assignmentField('scout-target','终点',target?.name,{kind:'scout-target',disabled:!officer,selection:target?.id})}${mapTargetField('scout-target','地图选点',{disabled:!officer})}</div></div>${city&&!candidates.length?'<p role="status">本城暂无可执行侦察的武将</p>':''}`;
+ const missions=tasks.map(t=>{const o=scoutOperator(s,t),remaining=scoutJourney(s,t.location,t.route,t.progress);return `<article><b>${esc(o?.unit.name)}</b><span>${esc(mapNode(s,t.homeCity).name)} → ${esc(mapNode(s,t.targetCity).name)}</span><small>${scoutStatus(t)} · 剩余 ${remaining?.days??0} 天 · 已付 ${t.paidGold} 金</small><button class="button secondary" data-action="scout-recall" data-officer="${esc(t.officerId)}">停止</button><details class="scout-contact-list"><summary>情报 ${t.contacts.length}</summary>${t.contacts.map(c=>`<p>${esc(c.name)} · ${campaignDate(s,{day:c.report.day})} <button class="personnel-name" data-action="scout-report" data-task="${t.id}" data-key="${esc(c.key)}">查看</button></p>`).join('')||'<p>暂无情报</p>'}</details></article>`;}).join('');
  const readiness=stateMessage();
  function stateMessage(){
   if(s.finished)return '本局已结束';
@@ -34,9 +33,10 @@ export function scoutingMarkup(s,selection={},mapMarkup=''){
   if(!officer)return candidates.length?'请选择执行人':'本城暂无可用武将';
   if(!target)return '请选择侦察终点';
   if(!route?.length)return '当前路线不可达';
-  return `${city.name} → ${target.name}`;
+  if(city.gold<trip.gold)return `本城金不足，需 ${trip.gold} 金`;
+  return `${city.name} → ${target.name} · ${trip.days} 天 · ${trip.gold} 金`;
  }
- return `<section class="scouting-workbench command-target-layout"><div class="command-map">${mapMarkup}</div><aside>${fields}${officer?`<dl class="scout-preview"><div><dt>视野持续</dt><dd class="scout-duration">${range.min/days}–${range.max/days} 回合（${range.min}–${range.max}天）</dd></div>${route?`<div><dt>预计抵达</dt><dd class="scout-route">${Math.ceil(cost/MOVEMENT_RULES.scouting.speed)} 天</dd></div>`:''}</dl>`:''}${route?'<div class="scout-route-tools"><small class="route-edit-hint">拖动中转点改线</small><button class="text-button" data-action="route-reset">重置路线</button></div>':''}${tasks.length?`<h3>侦察中 · ${tasks.length}</h3><div class="scout-missions">${missions}</div>`:''}</aside></section><footer class="map-command-footer"><span class="command-selection-status" id="scout-readiness" role="status">${esc(readiness)}</span><button class="button primary" data-action="scout-dispatch" aria-describedby="scout-readiness" data-city="${city?.id||''}" data-officer="${officer?.unit.id||''}" data-target="${target?.id||''}" ${allowed?'':'disabled'}>派遣</button></footer>`;
+ return `<section class="scouting-workbench command-target-layout"><div class="command-map">${mapMarkup}</div><aside>${fields}${officer?`<dl class="scout-preview">${trip?`<div><dt>预计用时</dt><dd class="scout-route">${trip.days} 天</dd></div><div><dt>费用</dt><dd class="scout-cost">${trip.gold} 金</dd></div><div><dt>本城金</dt><dd>${number(city.gold)}</dd></div>`:''}<div><dt>视野持续</dt><dd class="scout-duration">${range.min/days}–${range.max/days} 回合（${range.min}–${range.max}天）</dd></div></dl>`:''}${route?'<div class="scout-route-tools"><button class="text-button" data-action="route-reset">重置路线</button></div>':''}${tasks.length?`<h3>侦察中 · ${tasks.length}</h3><div class="scout-missions">${missions}</div>`:''}</aside></section><footer class="map-command-footer"><span class="command-selection-status" id="scout-readiness" role="status">${esc(readiness)}</span><button class="button primary" data-action="scout-dispatch" aria-describedby="scout-readiness" data-city="${city?.id||''}" data-officer="${officer?.unit.id||''}" data-target="${target?.id||''}" ${allowed?'':'disabled'}>派遣</button></footer>`;
 }
 export function scoutingReportMarkup(s,selection={}){
  const t=scoutAssignments(s).find(t=>t.id===selection.task&&t.faction===playerFaction(s)),c=t?.contacts.find(c=>c.key===selection.key);

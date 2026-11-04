@@ -268,7 +268,7 @@ export function validateStrategyDesigns(t){
   }
  }
  const m=t.movement;if(!fields(m,['distance','roadVariants','army','personnel','vision','scouting'],'movement'))return errors;
- if(fields(m.scouting,['speed','minimumDays','baseMaximumDays','intellectExtension','randomSpread'],'movement.scouting')){check(num(m.scouting.speed,Number.EPSILON),'movement.scouting.speed','斥候每日行程须大于0');for(const key of ['minimumDays','baseMaximumDays','intellectExtension','randomSpread'])check(Number.isSafeInteger(m.scouting[key])&&m.scouting[key]>=0,'movement.scouting.'+key,'须为非负整数');check(m.scouting.minimumDays>=1&&m.scouting.baseMaximumDays>=m.scouting.minimumDays,'movement.scouting','持续天数范围无效');}
+ if(fields(m.scouting,['speed','goldPerDay','minimumDays','baseMaximumDays','intellectExtension','randomSpread'],'movement.scouting')){check(num(m.scouting.speed,Number.EPSILON),'movement.scouting.speed','斥候每日行程须大于0');for(const key of ['goldPerDay','minimumDays','baseMaximumDays','intellectExtension','randomSpread'])check(Number.isSafeInteger(m.scouting[key])&&m.scouting[key]>=0,'movement.scouting.'+key,'须为非负整数');check(m.scouting.minimumDays>=1&&m.scouting.baseMaximumDays>=m.scouting.minimumDays,'movement.scouting','持续天数范围无效');}
  if(fields(m.vision,['city','army','armyIntellectPerPoint','scout','unknownDefense','unknownGateHp'],'movement.vision')){
   for(const key of ['city','army','scout','unknownDefense','unknownGateHp'])check(num(m.vision[key],Number.EPSILON),'movement.vision.'+key,'须大于0');
   check(num(m.vision.armyIntellectPerPoint,Number.EPSILON),'movement.vision.armyIntellectPerPoint','军团智力视野系数须大于0');

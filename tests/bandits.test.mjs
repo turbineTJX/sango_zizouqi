@@ -6,12 +6,13 @@ import {nationalOfficerAverage,banditIntelligence,knownBanditCamps,observeBandit
 import {planBanditExpedition,settleBanditBattle,deliverBanditLoot} from '../bandits.mjs';
 import {GENERATED_STATS} from '../generated-officers.mjs';
 import {BANDIT_RULES} from '../data/design/bandits.mjs';
-import {dispatchScout,scoutCandidates,advanceScouting} from '../scouting.mjs';
-import {intelligenceWorld,updateVision} from '../strategic-vision.mjs';
+import {dispatchScout,scoutCandidates,advanceScouting,recallScout} from '../scouting.mjs';
+import {intelligenceWorld,updateVision,visionSources} from '../strategic-vision.mjs';
 import {welcomeBanditTalent} from '../talent-lifecycle.mjs';
 import {banditMarkup,banditMapMarkup} from '../bandit-view.mjs';
 import {mapNode} from '../map-node-data.mjs';
 import {issueCommand} from '../engine.mjs';
+import {finishDomesticDay} from '../domestic.mjs';
 const restore=s=>validateCampaign(JSON.parse(serializeCampaign(s)));
 function fixture(nodeId='junction:chenliu:xuchang'){
  const s=newCampaign(521200,'guandu-200'),camp=s.campaign.bandits.camps.find(c=>c.nodeId===nodeId),city=s.cities.find(c=>c.id==='xuchang');return {s,camp,city};
@@ -28,11 +29,26 @@ test('bandit generals use a saved national mean, unique procedural identities an
 test('actual scouts discover camps once and each faction keeps its own dated report',()=>{
  const {s,camp,city}=fixture();assert.equal(banditIntelligence(s,camp.id,'cao'),null);assert.doesNotMatch(banditMapMarkup(s),new RegExp(camp.id));
  const officer=scoutCandidates(s,city.id)[0];assert.equal(dispatchScout(s,city.id,officer.unit.id,camp.nodeId),null);
- for(let day=0;day<12&&!banditIntelligence(s,camp.id,'cao');day++){advanceScouting(s);s.campaign.day++;}updateVision(s);
+ for(let day=0;day<12&&!banditIntelligence(s,camp.id,'cao');day++){advanceScouting(s);if(!banditIntelligence(s,camp.id,'cao')){finishDomesticDay(s);s.campaign.day++;s.campaign.phase='executing';}}updateVision(s);
  assert.ok(banditIntelligence(s,camp.id,'cao'));assert.equal(banditIntelligence(s,camp.id,'yuan'),null);assert.ok(s.campaign.scouting.tasks[0].contacts.some(c=>c.kind==='bandit'&&c.id===camp.id));
  assert.deepEqual(restore(s).campaign.scouting.tasks[0].contacts,s.campaign.scouting.tasks[0].contacts);
  assert.equal(intelligenceWorld(s,'yuan').campaign.bandits.camps.some(c=>c.id===camp.id),false);
  const report=structuredClone(banditIntelligence(s,camp.id,'cao'));s.campaign.scouting.tasks=[];officer.unit.scouting=null;s.campaign.day=Math.max(s.campaign.day,...s.campaign.vision.factions.cao.scouted.map(v=>v.expiresDay))+1;camp.units[0].troops--;updateVision(s);assert.deepEqual(banditIntelligence(s,camp.id,'cao'),report);
+});
+
+for(const day of [1,11])test(`day ${day} scouting orders wait for execution before revealing camps or drawing sight`,()=>{
+ const {s,camp,city}=fixture();while(s.campaign.day<day){finishDomesticDay(s);s.campaign.day++;s.turn=Math.floor((s.campaign.day-1)/10)+1;}updateVision(s);
+ // This camp can be seen from the dispatch point by a scout, but no army has found it.
+ assert.ok(Math.hypot(city.x-mapNode(s,camp.nodeId).x,city.y-mapNode(s,camp.nodeId).y)<=36);
+ const officer=scoutCandidates(s,city.id)[0],seed=s.campaign.scouting.seed,observations=structuredClone(s.campaign.bandits.observations);
+ assert.equal(dispatchScout(s,city.id,officer.unit.id,camp.nodeId),null);
+ const task=s.campaign.scouting.tasks[0];assert.equal(task.lastDay,0);assert.deepEqual(task.contacts,[]);
+ assert.deepEqual(s.campaign.bandits.observations,observations);assert.equal(s.campaign.scouting.seed,seed);
+ assert.equal(visionSources(s).some(v=>v.kind==='scout'),false);assert.equal(s.campaign.vision.factions.cao.scouted.length,0);
+ const saved=serializeCampaign(s),resumed=restore(s);updateVision(resumed);assert.equal(serializeCampaign(resumed),saved,'reload and visibility refresh cannot execute the order');
+ const cancelled=restore(s);assert.equal(recallScout(cancelled,officer.unit.id),null);assert.equal(banditIntelligence(cancelled,camp.id,'cao'),null);assert.equal(cancelled.campaign.vision.factions.cao.scouted.length,0);
+ for(const state of [s,resumed]){advanceScouting(state);assert.ok(banditIntelligence(state,camp.id,'cao'));assert.ok(state.campaign.scouting.tasks[0].contacts.some(c=>c.kind==='bandit'));}
+ assert.equal(serializeCampaign(s),serializeCampaign(resumed));
 });
 test('real bandit contact uses the common battlefield and deterministic save continuation',()=>{
  const {s,camp,r}=contact();assert.ok(r.battle.sides[1-r.attackSide].units.every(u=>u.generatedOfficer));assert.equal(r.battle.buildingSiteId,null);assert.ok(r.name.includes('贼寨'));assert.equal(camp.battleId,r.id);

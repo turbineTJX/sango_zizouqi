@@ -1,4 +1,4 @@
-const keys=['id','data-city','data-junction','data-metropolis-focus','data-campaign-army','data-campaign-battle','data-map-battle-anchor','data-map-building','data-model-building','data-vision-region'];
+const keys=['id','data-city','data-junction','data-metropolis-focus','data-campaign-army','data-scout-task','data-transport-officer','data-campaign-battle','data-map-battle-anchor','data-map-building','data-model-building','data-vision-region'];
 function key(node){
  if(node.nodeType!==1)return null;
  for(const name of keys)if(node.getAttribute(name))return node.tagName+':'+name+':'+node.getAttribute(name);

@@ -63,9 +63,9 @@ export const NATIONAL_MAP = {
       "y": 292.6,
       "kind": "city",
       "province": "冀州",
-      "subtitle": "冀州 · 小城",
+      "subtitle": "冀州 · 大城",
       "owner": "neutral",
-      "citySize": "small"
+      "citySize": "large"
     },
     {
       "id": "jinyang",
@@ -123,9 +123,9 @@ export const NATIONAL_MAP = {
       "y": 400,
       "kind": "city",
       "province": "青徐",
-      "subtitle": "青徐 · 小城",
+      "subtitle": "青徐 · 大城",
       "owner": "force-19",
-      "citySize": "small"
+      "citySize": "large"
     },
     {
       "id": "town-11",
@@ -159,9 +159,9 @@ export const NATIONAL_MAP = {
       "y": 409.7,
       "kind": "city",
       "province": "兖予",
-      "subtitle": "兖予 · 小城",
+      "subtitle": "兖予 · 大城",
       "owner": "force-18",
-      "citySize": "small"
+      "citySize": "large"
     },
     {
       "id": "xuchang",
@@ -183,9 +183,9 @@ export const NATIONAL_MAP = {
       "y": 483.9,
       "kind": "city",
       "province": "兖予",
-      "subtitle": "兖予 · 小城",
+      "subtitle": "兖予 · 大城",
       "owner": "force-20",
-      "citySize": "small"
+      "citySize": "large"
     },
     {
       "id": "luoyang",
@@ -291,9 +291,9 @@ export const NATIONAL_MAP = {
       "y": 524.8,
       "kind": "city",
       "province": "扬州",
-      "subtitle": "扬州 · 小城",
+      "subtitle": "扬州 · 大城",
       "owner": "force-24",
-      "citySize": "small"
+      "citySize": "large"
     },
     {
       "id": "town-25",
@@ -315,9 +315,9 @@ export const NATIONAL_MAP = {
       "y": 565.7,
       "kind": "city",
       "province": "扬州",
-      "subtitle": "扬州 · 小城",
+      "subtitle": "扬州 · 大城",
       "owner": "force-9",
-      "citySize": "small"
+      "citySize": "large"
     },
     {
       "id": "town-27",
@@ -351,9 +351,9 @@ export const NATIONAL_MAP = {
       "y": 507.5,
       "kind": "city",
       "province": "荆北",
-      "subtitle": "荆北 · 小城",
+      "subtitle": "荆北 · 大城",
       "owner": "neutral",
-      "citySize": "small"
+      "citySize": "large"
     },
     {
       "id": "town-30",
@@ -399,9 +399,9 @@ export const NATIONAL_MAP = {
       "y": 655.9,
       "kind": "city",
       "province": "荆南",
-      "subtitle": "荆南 · 小城",
+      "subtitle": "荆南 · 大城",
       "owner": "force-33",
-      "citySize": "small"
+      "citySize": "large"
     },
     {
       "id": "town-34",
@@ -411,9 +411,9 @@ export const NATIONAL_MAP = {
       "y": 747.4,
       "kind": "city",
       "province": "荆南",
-      "subtitle": "荆南 · 小城",
+      "subtitle": "荆南 · 大城",
       "owner": "force-34",
-      "citySize": "small"
+      "citySize": "large"
     },
     {
       "id": "town-35",
@@ -423,9 +423,9 @@ export const NATIONAL_MAP = {
       "y": 776.5,
       "kind": "city",
       "province": "荆南",
-      "subtitle": "荆南 · 小城",
+      "subtitle": "荆南 · 大城",
       "owner": "force-35",
-      "citySize": "small"
+      "citySize": "large"
     },
     {
       "id": "town-36",
@@ -495,9 +495,9 @@ export const NATIONAL_MAP = {
       "y": 816.7,
       "kind": "city",
       "province": "南中",
-      "subtitle": "南中 · 小城",
+      "subtitle": "南中 · 大城",
       "owner": "force-28",
-      "citySize": "small"
+      "citySize": "large"
     },
     {
       "id": "town-42",
@@ -507,9 +507,9 @@ export const NATIONAL_MAP = {
       "y": 850,
       "kind": "city",
       "province": "南中",
-      "subtitle": "南中 · 小城",
+      "subtitle": "南中 · 大城",
       "owner": "force-27",
-      "citySize": "small"
+      "citySize": "large"
     },
     {
       "id": "town-43",

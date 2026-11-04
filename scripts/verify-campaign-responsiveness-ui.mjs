@@ -36,10 +36,17 @@ try{
  await page.locator('.turn-seal').click();await page.waitForFunction(()=>document.querySelector('.world-turn')?.getAttribute('aria-busy')==='false',{},{timeout:120000});
  await page.locator('.turn-seal').click();
  const direct=validateCampaign(JSON.parse(raw));assert.equal(beginExecution(direct),null);
- assert.equal(await saved(),serializeCampaign(direct),'background begin uses the common execution handler');
+ // Continuous playback may finish another day before the pause click settles.
+ // Compare every committed field at the observed date, including those days.
+ const begun=await saved(),begunDay=JSON.parse(begun).campaign.day;
+ while(direct.campaign.day<begunDay)advanceCampaignDay(direct);
+ assert.equal(begun,serializeCampaign(direct),'background begin uses the common execution handler');
  await page.evaluate(()=>{globalThis.mapIdentity={svg:document.querySelector('.national-world'),terrain:document.querySelector('.ancient-atlas-terrain'),image:document.querySelector('.ancient-atlas-terrain image')};});
  await runCampaignDay(page);await page.waitForFunction(()=>document.querySelector('.world-turn')?.getAttribute('aria-busy')==='false',{},{timeout:120000});
- advanceCampaignDay(direct);assert.equal(await saved(),serializeCampaign(direct),'the completed daily state equals the foreground engine');
+ const completed=await saved(),completedDay=JSON.parse(completed).campaign.day;
+ assert.ok(completedDay>direct.campaign.day,'playback commits at least one complete day');
+ while(direct.campaign.day<completedDay)advanceCampaignDay(direct);
+ assert.equal(completed,serializeCampaign(direct),'the completed daily state equals the foreground engine');
  assert.ok(await page.evaluate(()=>mapIdentity.svg===document.querySelector('.national-world')&&mapIdentity.terrain===document.querySelector('.ancient-atlas-terrain')&&mapIdentity.image===document.querySelector('.ancient-atlas-terrain image')),'daily refresh must retain the SVG, terrain and decoded image nodes');
  const patchChecks=await page.evaluate(async()=>{
   const {patchStrategicDOM}=await import('/strategic-dom.mjs'),root=document.createElement('div');

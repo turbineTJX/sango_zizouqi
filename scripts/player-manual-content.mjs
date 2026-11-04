@@ -25,7 +25,7 @@ const mapping=`
 委托太守审批|governor-delegation governor-delegated|先从城市人事任命太守 → 主界面内政 → 城市审批 → 找到本城 → 开启太守审批|任命与审批委托分开。再次关闭可收回委托；更换、解除、离城或易主后须重新委托。太守按本城实际资源代批或缓办，汇报收支及异常；未委托时保留人员事务、费用和耗时。
 修改城市保留预算|budget budget-draft budget-saved|城市详情 → 收支预算 → 修改保留金、粮 → 保存预算|重置恢复已保存值，关闭不提交。
 安排人才工作|loyalty-warning loyalty-talent loyalty-appointment loyalty-assigned loyalty-roster|从忠诚偏低提醒点击“人才事务”（也可从城市“委任”进入“人才”） → 选择负责人并确认 → 主界面内政查看办理情况、必要时处理资源冲突 → 人才名册“能力”页查看忠诚|人才方向使用魅力。离间当前可见邻城的高忠诚非君主武将，须实际赴访，初值240金、当地办理10天、普通成果降低12点；本城同类事务结算后冷却30天，低忠诚后仍须另行劝说签约。安抚从本城合法目标中优先选择忠诚最低者，基础120金、10天、提高15点忠诚，实际效果受成败和特性影响。委任或同意不立即增加忠诚；实际脱离低忠诚状态后清除提醒。辞官与改仕没有倒计时或预告日期，发生后才通知；任职满30天不会直接消除低忠诚。
-派遣侦察|scout-source scout-cities scout-officers scout-route scout-running scout-landscape player-handoff|侦察 → 城市表 → 本城武将表 → 终点表或地图 → 预览路线 → 派遣|可选择在办内政、太守或原侦察负责人；确认冲突提示后立即解除可中止工作并派遣，取消保留原工作。沿途留下固定地点的临时视野，类似侦察守卫；斥候离开或停止后，覆盖区域到期前仍实时可见，有其它覆盖则继续可见。
+派遣侦察|scout-source scout-cities scout-officers scout-endpoint-map scout-route scout-running scout-completed scout-landscape player-handoff|侦察 → 城市表 → 本城武将表 → 终点表或地图选点 → 核对用时和费用 → 派遣|可选择在办内政、太守或原侦察负责人；确认冲突提示后立即解除可中止工作并派遣，取消保留原工作。派遣后先待出发，实际执行才开始扫描，取消或读档不会提前探出贼寨；斥候约为常规步军7倍速度，费用为预计天数×10金，确认时从派出城一次付清；余额不足不派遣，途中停止不退费。抵达后斥候消失并释放负责人，已留下的视野与据点情报保留。沿途留下固定地点的临时视野，类似侦察守卫；斥候离开或停止后，覆盖区域到期前仍实时可见，有其它覆盖则继续可见。
 调整侦察路线|scout-route
 查看报告|scout-contacts scout-report
 停止侦察|scout-running
@@ -35,7 +35,7 @@ const mapping=`
 从现有部队出征|expedition-select expedition-roles expedition-route expedition-review expedition-landscape||核对拟携粮、每日耗粮、无补给续航、预计行程和可用守军；守军不含伤兵、预备兵和主将外出留城兵。沿途补给仍依真实粮道和城仓；可解除的旧工作经提示确认后立即中止，外出人员须先返城。
 出征前临时编制|expedition-select troop-list troop-edit expedition-select|出征选队 → 编制 → 新增或调整部队 → 返回选队 → 任命并选路 → 下令
 移除已选部队|expedition-select expedition-landscape|已选部队条 → 点目标队的“×”|只取消本次选择，不解散部队。
-讨伐贼寨|bandit bandit-expedition expedition-roles expedition-review|已发现贼寨 → 选择派出城 → 选队与任命 → 核阅路线 → 下令
+讨伐贼寨|bandit bandit-expedition expedition-roles expedition-review|已发现贼寨 → 查看武将与通用头像 → 选择派出城 → 选队与任命 → 核阅路线 → 下令
 增援与护路|expedition-select expedition-route march-route|选来源城或军团 → 出征或调动 → 选实际战场或道路节点 → 核阅下令|部队实际抵达后才参加增援或驻守。
 下达调动或改令|army-card march-route march-review
 返城或驻守节点|march-route march-review
@@ -57,13 +57,13 @@ const mapping=`
 设置外交底线|diplomacy-budget
 委任使臣|diplomacy-cities diplomacy-officers diplomacy-appoint|外交 → 负责人 → 对应方向 → 城市表 → 本城武将表 → 委任|表中比较对应能力、任职、事务与特性；有内政冲突时选择立即或完成后执行。
 解除使臣或取消待任|diplomat-assigned|外交 → 展开负责人并召回使臣，或在返城后安排中取消安排
-批准外交方案|diplomacy-proposal diplomacy-terms diplomacy-approved
+批准外交方案|diplomacy-proposal diplomacy-terms diplomacy-approved|待处理方案 → 核对双方给予及期限 → 按需展开条款与进度 → 批准|“收支地点”只说明双方收付款来源；列出“移交城池”才代表交城。普通换城须双方各有至少两座主城，按城池价值、地理得失与补偿议价，交情只影响报价倍率，战时也可办理；减少战线可提出单方割地停战，交城后才生效停战。都城及最后原有主城不能交出。
 交涉或否决方案|diplomacy-proposal
 查看履约|diplomacy-approved diplomacy-terms
 释放本方所俘人员|prisoner release-confirm release-result
 赎回己方被俘人员|captive ransom-confirm ransom-result|被俘人物详情 → 赎回 → 核对姓名和赎金 → 确认|取消不扣费，获释后仍须沿路返城。
 通过外交交换俘虏|prisoner-exchange|外交 → 等待使臣提出交换方案 → 核对双方名单 → 批准 → 查看签署与交接
-授予宝物|treasures treasure-recipients treasure-grant treasure-equipped|宝物 → 授予 → 接收武将表 → 查看同类替换提示 → 确认授予并装备|可查找、排序并查看所在、任职与事务；内政和侦察负责人仍可合法接收。
+授予宝物|treasures treasure-recipients treasure-grant treasure-equipped|宝物 → 授予 → 接收武将表 → 查看同类替换提示 → 确认授予|可查找、排序并查看所在、任职与事务；内政和侦察负责人仍可合法接收。
 收回国库|treasure-equipped treasure-returned
 查看三类装备|treasure-slots
 查看效果与锁定|treasures treasure-equipped
@@ -86,7 +86,7 @@ const mapping=`
 施放范围军略|stratagem-list stratagem-area stratagem-landscape stratagem-result stratagem-combination stratagem-provider-cost|军略（暂停） → 选择可用项 → 选落点（舍己护军固定以施放者为中心） → 按需旋转 → 核对目标、实际效果与代价 → 施放 → 自动继续战斗|励军固阵每队真实消耗20战意，不足者不受益；舍己护军的施放者只承担疲弱、不领取保护。全部持续时间查看实际提供者效果。取消或 Esc 保持暂停，不消耗充能。
 全军撤退|stratagem-army|军略（暂停） → 军令栏的全军撤退|部队沿战场出口撤离，不会立即返城。
 援军抵达军议|reinforcement reinforcement-roles|援军到达并暂停 → 调整本军任命 → 后备顺序和入场位置 → 撤离设置 → 继续作战
-查看或接管其他战线|battle-navigation battle-navigation-confirm battle-navigation-loading|战斗顶部切换视图 → 选其他战场或大地图 → 核对战斗将继续的提示 → 确认切换并继续 → 加载完成自动继续|玩家同时只指挥一场；原场交 AI 继续作战，返回大地图也继续后台战斗。取消保留原场与播放状态；待部署、军议等仍须完成确认，读档不自动开播。
+查看或接管其他战线|battle-navigation battle-navigation-confirm battle-navigation-loading|战斗顶部切换视图 → 选其他战场或大地图 → 核对战斗将继续的提示 → 确认 → 加载完成自动继续|玩家同时只指挥一场；原场交 AI 继续作战，返回大地图也继续后台战斗。取消保留原场与播放状态；待部署、军议等仍须完成确认，读档不自动开播。
 核阅战果|battle-report standalone-report
 战后补任|postbattle-roles
 开始普通模式|lobby scenarios faction

@@ -99,7 +99,7 @@ test('authored scenarios support all-AI observation with deterministic continuat
 test('custom rulers and their names, colors and people are portable and isolated between campaign snapshots',t=>{
  t.after(()=>activateOfficerLibrary(emptyOfficerLibrary()));
  const d=createScenarioDocument(),person=newOfficerDocument('custom-'+'a'.repeat(32));person.name='新君主';d.officerLibrary.officers.push(person);
- const home=d.cities.find(c=>c.owner==='neutral'),id='user-force-test';home.owner=id;d.factions.push(id);d.forces.push({id,name:'新汉',color:'#445566',leaderId:person.id,capitalId:home.id});d.officers.push({id:person.id,state:'serving',faction:id,cityId:home.id,level:7,merit:12,loyalty:96,troops:1300,wounded:50});
+ const home=d.cities.find(c=>c.owner==='neutral'&&nationalWorld(d.sourceScenario).cities.find(t=>t.id===c.id).citySize==='large'),id='user-force-test';home.owner=id;d.factions.push(id);d.forces.push({id,name:'新汉',color:'#445566',leaderId:person.id,capitalId:home.id});d.officers.push({id:person.id,state:'serving',faction:id,cityId:home.id,level:7,merit:12,loyalty:96,troops:1300,wounded:50});
  const runtime=preflightScenario(d),s=newCampaign(11,runtime,id),f=s.campaign.playerFaction;
  assert.equal(factionLord(s,f),person.id);assert.equal(nationalScenario(runtime).factions.includes(f),true);assert.equal(s.cities.find(c=>c.id===home.id).owner,f);assert.equal(s.cities.find(c=>c.id===home.id).units.find(u=>u.id===person.id).troops,1300);
  const raw=serializeCampaign(s),edited=structuredClone(d);edited.forces.at(-1).name='后来改名';const next=registerCustomScenario(edited);assert.notEqual(nationalScenario(next).factionMap[id],f);assert.equal(factionLord(s,f),person.id);

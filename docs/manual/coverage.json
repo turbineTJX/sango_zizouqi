@@ -2,8 +2,8 @@
   "date": "2026-11-01",
   "workflows": 112,
   "chapters": 14,
-  "screenshots": 210,
-  "referenceHash": "9db1883ba8123d90b4e3723b13428fcc1fd1a3f0424d5dcf572fb6db016b4b88",
+  "screenshots": 212,
+  "referenceHash": "af0a8375ee24c98b39e390962d49a9d35ceeaf3519e6536a022f9d10163e0c30",
   "items": [
     {
       "id": "action-85",
@@ -303,8 +303,10 @@
         "scout-source",
         "scout-cities",
         "scout-officers",
+        "scout-endpoint-map",
         "scout-route",
         "scout-running",
+        "scout-completed",
         "scout-landscape",
         "player-handoff"
       ]

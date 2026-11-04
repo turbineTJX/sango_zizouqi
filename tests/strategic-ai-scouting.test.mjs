@@ -10,6 +10,7 @@ import {initializeVision,cityIntelligence,cityVisible,intelligenceWorld,updateVi
 import {planStrategicScouting,waitingForStrategicScout} from '../strategic-scouting-ai.mjs';
 import {advanceScouting,scoutAssignments,recallScout,scoutCandidates,dispatchScout,scoutRoute} from '../scouting.mjs';
 import {initializeStrategicAI,planStrategicAI,evaluateOffensive,observeStrategicThreat,expeditionTiming} from '../strategic-ai.mjs';
+import {cityGoldCommitment} from '../city-budget.mjs';
 
 // A real city/unit front with deliberately separated visibility circles.
 function front(){
@@ -29,7 +30,13 @@ function assessment({s,home,targets}){
 }
 const ownTasks=s=>scoutAssignments(s).filter(t=>t.faction==='yuan');
 const nextPlanning=s=>{s.campaign.day=(Math.floor((s.campaign.day-1)/10)+1)*10+1;s.turn=Math.floor((s.campaign.day-1)/10)+1;s.campaign.phase='planning';};
-function arrive(s){for(let days=0;ownTasks(s).some(t=>t.phase==='outbound')&&days<10;days++){s.campaign.day++;advanceScouting(s);validateVision(s);}assert.ok(ownTasks(s).every(t=>t.phase==='watch'));}
+function arrive(s){for(let days=0;ownTasks(s).some(t=>t.phase==='outbound')&&days<10;days++){s.campaign.day++;advanceScouting(s);validateVision(s);}assert.equal(ownTasks(s).length,0);}
+
+test('AI scouting pays the common route fee while protecting committed city funds and existing work',()=>{
+ const {s,home}=front(),gold=home.gold;planStrategicScouting(s,'yuan');assert.equal(ownTasks(s).length,2);assert.equal(home.gold+ownTasks(s).reduce((n,t)=>n+t.paidGold,0),gold);
+ const {s:poor,home:source}=front();assert.equal(assignDomestic(poor,source.id,'technology','ju',{faction:'yuan'}),null);const before=structuredClone(poor.campaign.domestic.assignments);
+ source.gold=cityGoldCommitment(poor,source).total+69;const balance=source.gold;planStrategicScouting(poor,'yuan');assert.equal(ownTasks(poor).length,0);assert.equal(source.gold,balance);assert.deepEqual(poor.campaign.domestic.assignments,before);
+});
 
 test('AI assigns at most two unique scout targets and uses eligible officers in intelligence order',()=>{
  const {s,home}=front(),candidates=scoutCandidates(s,home.id,'yuan'),before=home.units.reduce((n,u)=>n+u.troops,0);
@@ -53,9 +60,9 @@ test('a planned distant objective cannot make the AI scout through an intervenin
 });
 
 test('completed frontier scouting is reassigned to a more important main offensive',()=>{
- const {s,targets}=front();planStrategicScouting(s,'yuan');arrive(s);
- assert.ok(ownTasks(s).every(t=>t.phase==='watch'&&t.contacts.some(c=>c.report)));
- const oldTargets=ownTasks(s).map(t=>t.targetCity),newTarget=targets.find(c=>!oldTargets.includes(c.id));
+ const {s,targets}=front();planStrategicScouting(s,'yuan');const oldTargets=ownTasks(s).map(t=>t.targetCity);arrive(s);
+ assert.equal(ownTasks(s).length,0);assert.ok(s.campaign.personnelEvents.some(e=>e.type==='SCOUT_COMPLETE'));
+ const newTarget=targets.find(c=>!oldTargets.includes(c.id));
  s.campaign.ai.plans.push({faction:'yuan',phase:'prepare',target:newTarget.id,officerIds:[]});
  nextPlanning(s);planStrategicScouting(s,'yuan');assert.equal(ownTasks(s).length,1);assert.ok(ownTasks(s).some(t=>t.targetCity===newTarget.id));
 });
@@ -64,10 +71,10 @@ test('ordinary scouting covers a more useful unknown border at the next planning
  const {s,targets}=front();planStrategicScouting(s,'yuan');advanceScouting(s);
  const old=ownTasks(s).map(t=>t.id),next=targets.find(c=>!ownTasks(s).some(t=>t.targetCity===c.id));assert.ok(next);
  s.campaign.day=2;advanceScouting(s);planStrategicScouting(s,'yuan');assert.deepEqual(ownTasks(s).map(t=>t.id),old);
- s.campaign.day=3;advanceScouting(s);planStrategicScouting(s,'yuan');assert.deepEqual(ownTasks(s).map(t=>t.id),old);nextPlanning(s);planStrategicScouting(s,'yuan');
+ s.campaign.day=3;advanceScouting(s);planStrategicScouting(s,'yuan');assert.deepEqual(ownTasks(s).map(t=>t.id),old);arrive(s);nextPlanning(s);planStrategicScouting(s,'yuan');
  assert.equal(ownTasks(s).length,1);assert.ok(ownTasks(s).some(t=>t.targetCity===next.id));assert.equal(ownTasks(s).filter(t=>old.includes(t.id)).length,0);
  const saved=serializeCampaign(s);planStrategicScouting(s,'yuan');assert.equal(serializeCampaign(s),saved);
- advanceScouting(s);assert.equal(cityVisible(s,next.id,'yuan'),true);
+ arrive(s);assert.equal(cityVisible(s,next.id,'yuan'),true);
 });
 
 test('completed exploration releases staff and does not repeat a known border merely because its report is old',()=>{
@@ -75,7 +82,7 @@ test('completed exploration releases staff and does not repeat a known border me
  const next=targets.find(c=>!ownTasks(s).some(t=>t.targetCity===c.id));
  s.campaign.vision.factions.yuan.cities[next.id]={day:1,owner:next.owner,data:structuredClone(next)};
  s.campaign.day=3;advanceScouting(s);planStrategicScouting(s,'yuan');assert.ok(!ownTasks(s).some(t=>t.targetCity===next.id),'two-day-old report is still fresh');
- s.campaign.day=30;advanceScouting(s);planStrategicScouting(s,'yuan');assert.ok(!ownTasks(s).some(t=>t.targetCity===next.id));nextPlanning(s);planStrategicScouting(s,'yuan');assert.equal(ownTasks(s).length,0);
+ arrive(s);s.campaign.day=30;advanceScouting(s);planStrategicScouting(s,'yuan');assert.ok(!ownTasks(s).some(t=>t.targetCity===next.id));nextPlanning(s);planStrategicScouting(s,'yuan');assert.equal(ownTasks(s).length,0);
  assert.equal(waitingForStrategicScout(s,'yuan',next.id),false,'an existing report is assessed with its uncertainty rather than an age-triggered mandatory wait');
  advanceScouting(s);assert.equal(waitingForStrategicScout(s,'yuan',next.id),false);
 });
@@ -87,7 +94,7 @@ test('higher scouting priority can release waiting optional work while preservin
  planStrategicScouting(s,'yuan');assert.equal(ownTasks(s).length,2);assert.deepEqual(ownTasks(s).map(t=>t.officerId).sort(),['ju','tian']);
  assert.equal(assignmentFor(s,'ju'),undefined);assert.equal(assignmentFor(s,'tian'),undefined);assert.strictEqual(assignmentFor(s,'wen').action,paid);
  assert.equal(assignmentFor(s,'shao').direction,'agriculture');assert.equal(assignmentFor(s,'yan').direction,'commerce');assert.equal(home.governor,'shao');
- assert.deepEqual({gold:home.gold,grain:home.grain,manpower:home.manpower},before);
+ assert.deepEqual({gold:home.gold+ownTasks(s).reduce((n,t)=>n+t.paidGold,0),grain:home.grain,manpower:home.manpower},before);
 });
 
 test('AI never releases the only food and cash workers to obtain more scouting',()=>{
@@ -96,14 +103,14 @@ test('AI never releases the only food and cash workers to obtain more scouting',
  planStrategicScouting(s,'yuan');assert.equal(ownTasks(s).length,0);assert.equal(s.campaign.domestic.assignments.length,2);
 });
 
-test('player and AI scouts travel 105 road points per day and cover a 210-point route in two days',()=>{
- const {s,home}=front();for(const edge of s.roads)s.roadSegments[[...edge].sort().join(':')]={distance:210};
+test('player and AI scouts use the same slower road travel and arrive after multiple days',()=>{
+ const {s,home}=front();for(const edge of s.roads)s.roadSegments[[...edge].sort().join(':')]={distance:60};
  const player=JSON.parse(serializeCampaign(s));player.campaign.playerFaction='yuan';planStrategicScouting(s,'yuan');const ai=ownTasks(s)[0];
  assert.equal(dispatchScout(player,home.id,ai.officerId,ai.targetCity),null);const human=ownTasks(player)[0];
  for(const state of [s,player])advanceScouting(state);
- for(const task of [ai,human]){assert.equal(task.phase,'outbound');assert.ok(Math.abs(task.progress-105)<1e-9);}
- for(const state of [s,player]){state.campaign.day++;advanceScouting(state);validateVision(state);}
- for(const task of [ai,human]){assert.equal(task.phase,'watch');assert.equal(task.location,ai.targetCity);assert.equal(task.progress,0);}
+ for(const task of [ai,human]){assert.equal(task.phase,'outbound');assert.equal(task.progress,10);}
+ for(let day=2;day<=6;day++)for(const state of [s,player]){state.campaign.day++;advanceScouting(state);validateVision(state);if(day<6)assert.equal(ownTasks(state)[0].phase,'outbound');}
+ for(const task of [ai,human]){assert.equal(task.location,ai.targetCity);assert.equal(task.progress,0);}assert.equal(ownTasks(s).length,0);assert.equal(ownTasks(player).length,0);
  assert.ok(home.units.some(u=>u.id===ai.officerId));assert.equal(s.armies.length,0);assert.equal(player.armies.length,0);
 });
 
@@ -113,21 +120,17 @@ test('frequent scouting does not abandon an outbound scout to rotate toward anot
  s.campaign.ai.plans.push({faction:'yuan',phase:'prepare',target:next.id,officerIds:[]});s.campaign.day=4;planStrategicScouting(s,'yuan');assert.deepEqual(ownTasks(s).map(t=>t.id),old);
 });
 
-test('reassignment releases an officer in the departure city while retaining another active objective scout',()=>{
- const {s,home,targets}=front(),rear=targets[1],main=s.cities.find(c=>c!==home&&!targets.includes(c));
- home.units=home.units.filter(u=>['tian','he'].includes(u.id));home.governor='he';Object.assign(rear,{owner:'yuan',x:200,y:0});rear.domestic.owner='yuan';
- rear.units=['ju','wen'].map((id,i)=>({...makeOfficer(id,3000,i,3),homeCity:rear.id}));rear.governor='wen';Object.assign(main,{owner:'cao',x:300,y:0});main.domestic.owner='cao';
- s.roads.push([rear.id,targets[2].id],[rear.id,main.id]);
- for(const edge of s.roads)s.roadSegments[[...edge].sort().join(':')]={distance:70};initializeVision(s);
+test('completed scouts release staff while another outbound assignment retains its officer',()=>{
+ const {s,home,targets}=front();s.roadSegments[[home.id,targets[1].id].sort().join(':')]={distance:200};
  assert.equal(dispatchScout(s,home.id,'tian',targets[0].id,{faction:'yuan'}),null);
- assert.equal(dispatchScout(s,rear.id,'ju',targets[2].id,{faction:'yuan'}),null);arrive(s);
- const keep=ownTasks(s).find(t=>t.homeCity===home.id).id;
- s.campaign.ai.plans.push({faction:'yuan',phase:'prepare',target:main.id,officerIds:[]},{faction:'yuan',phase:'prepare',target:targets[0].id,officerIds:[]});nextPlanning(s);planStrategicScouting(s,'yuan');
- assert.equal(ownTasks(s).length,2);assert.ok(ownTasks(s).some(t=>t.id===keep));
- const replacement=ownTasks(s).find(t=>t.targetCity===main.id);assert.equal(replacement.homeCity,rear.id);assert.equal(replacement.officerId,'ju');
+ assert.equal(dispatchScout(s,home.id,'ju',targets[1].id,{faction:'yuan'}),null);
+ const keep=ownTasks(s).find(t=>t.officerId==='ju').id;
+ for(let day=1;day<=7;day++){s.campaign.day=day;advanceScouting(s);}
+ assert.equal(ownTasks(s).length,1);assert.equal(ownTasks(s)[0].id,keep);assert.equal(home.units.find(u=>u.id==='tian').scouting,undefined);
+ assert.equal(home.units.find(u=>u.id==='ju').scouting,keep);
 });
 
-test('scouts watch active offensive objectives and stop when friendly armies provide direct vision',()=>{
+test('outbound scouts stop when friendly armies provide direct vision',()=>{
  const {s,home}=front();planStrategicScouting(s,'yuan');advanceScouting(s);
  const t=ownTasks(s)[0],before=t.id,target=s.cities.find(c=>c.id===t.targetCity);
  s.campaign.ai.plans.push({faction:'yuan',phase:'prepare',target:target.id,officerIds:[]});
@@ -170,7 +173,7 @@ test('two-officer AI cities retain a domestic worker and release an overcommitte
 test('AI waits for its actual scout to observe the target and sees exactly the player projection',()=>{
  const {s,home,targets}=front();planStrategicScouting(s,'yuan');const t=ownTasks(s)[0],target=s.cities.find(c=>c.id===t.targetCity);
  assert.equal(waitingForStrategicScout(s,'yuan',target.id),true);assert.equal(cityIntelligence(s,target.id,'yuan').data,null);
- advanceScouting(s);assert.equal(waitingForStrategicScout(s,'yuan',target.id),false);assert.ok(cityVisible(s,target.id,'yuan'));
+ advanceScouting(s);assert.equal(waitingForStrategicScout(s,'yuan',target.id),true);assert.equal(cityVisible(s,target.id,'yuan'),false);arrive(s);assert.equal(waitingForStrategicScout(s,'yuan',target.id),false);assert.ok(cityVisible(s,target.id,'yuan'));
  assert.equal(cityIntelligence(s,target.id,'yuan').data.grain,intelligenceWorld(s,'yuan').cities.find(c=>c.id===target.id).grain);
  assert.ok(home.units.find(u=>u.id===t.officerId));assert.equal(t.location,target.id);
 });
@@ -184,8 +187,8 @@ test('unobserved city ownership, resources, defenders and hidden armies cannot c
 });
 
 test('expired vision preserves the last city report without silently following hidden changes',()=>{
- const setup=front(),{s,targets}=setup;planStrategicScouting(s,'yuan');advanceScouting(s);
- const t=ownTasks(s).find(t=>t.targetCity===targets[0].id);assert.ok(t);recallScout(s,t.officerId,{faction:'yuan'});
+ const setup=front(),{s,targets}=setup;planStrategicScouting(s,'yuan');arrive(s);
+ assert.equal(ownTasks(s).length,0);
  s.campaign.day=Math.max(...s.campaign.vision.factions.yuan.scouted.map(v=>v.expiresDay))+1;updateVision(s);
  assert.equal(cityVisible(s,targets[0].id,'yuan'),false);const before=assessment(setup),old=cityIntelligence(s,targets[0].id,'yuan').data.grain;
  targets[0].grain=0;targets[0].units.forEach(u=>u.troops*=20);gateDurability(targets[0]).hp=999999;updateVision(s);

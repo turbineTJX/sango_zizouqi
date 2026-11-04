@@ -11,6 +11,7 @@ import {cancelDomestic} from './domestic.mjs';
 import {factionFundingCity} from './city-resources.mjs';
 import {addCityGold,factionLord,servingPeople} from './talent-core.mjs';
 import {OFFICER_FATE_RULES} from './data/design/officer-fate-rules.mjs';
+import {factionHasMainCity} from './city-classification.mjs';
 const town=mapNode;
 export function personnelEvent(s,id,type,unit,text,context=null){
  if(s.campaign.personnelEvents.some(e=>e.id===id))return;
@@ -27,6 +28,7 @@ export function removeOfficer(s,id){
  s.campaign.domestic.people=s.campaign.domestic.people.filter(p=>p.id!==id);
 }
 export function officerReturnCity(s,unit,faction){
+ if(!factionHasMainCity(s,faction))return null;
  const cities=s.cities.filter(c=>c.owner===faction),owned=id=>cities.find(c=>c.id===id);
  const home=owned(unit.homeCity);if(home)return home;
  const lord=servingPeople(s).get(factionLord(s,faction));
@@ -52,7 +54,7 @@ export function sendOfficerHome(s,unit,faction,location,{edge=null,reason='返�
  if(best&&edge){const forward=best.end===edge.to,from=forward?edge.from:edge.to,to=best.end,progress=roadCost(s,from,to)*(forward?edge.fraction:1-edge.fraction);o.location=from;o.journey={route:[to,...best.route],progress,blocked:''};if(progress>=roadCost(s,from,to)){o.location=to;o.journey.route.shift();o.journey.progress=0;}o.remainingDays=Math.max(1,Math.ceil(best.cost/70));}
  s.campaign.idle.push(o);return o;
 }
-export function cityCaptureContext(s,faction){return s.cities.some(c=>c.owner===faction)?'siege':'elimination';}
+export function cityCaptureContext(s,faction){return factionHasMainCity(s,faction)?'siege':'elimination';}
 export function officerLossResult(roll,enemy,context='field'){
  const chance=OFFICER_FATE_RULES.captureChance[context];
  if(chance===undefined)throw Error('未知战后俘虏情境');

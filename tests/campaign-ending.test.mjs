@@ -26,5 +26,5 @@ test('territory counts include recapture and empty cities independently of actua
 test('all AI ending names the actual unifier instead of declaring victory for the selected observer',()=>{
  const s=state();s.finished='victory';s.campaign.allAI=true;s.campaign.activity.nodes.push(node('yuan',{faction:'yuan',category:'battle',phase:'settled',result:{battleId:'b',winner:'yuan',stats:{killed:1}}}));
  const r=campaignEnding(s);assert.equal(r.winner,'yuan');assert.equal(r.faction,'yuan');assert.equal(r.observer,true);assert.equal(r.casualty.killed,1);
- assert.match(campaignEndingMarkup(s,{}),/全 AI 观战结束/);s.finished=null;assert.equal(campaignEnding(s),null);
+ assert.ok(campaignEndingMarkup(s,{}).includes(r.title));s.finished=null;assert.equal(campaignEnding(s),null);
 });

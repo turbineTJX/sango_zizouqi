@@ -60,6 +60,9 @@ const reportEvent=n=>{
 // Loading, changing perspective and hidden-tab processing never replay reports.
 export class StrategicVoiceReader{
  constructor(){this.state=null;this.faction=null;this.sequence=null;this.pending=new Map();}
+ // Only a committed calculation continues the current world. Imports and loads
+ // still prime a new reader boundary and never replay earlier reports.
+ continueWithState(previous,next){if(this.state===previous)this.state=next;}
  read(s,{faction=s.campaign?.playerFaction||'cao',audible=true,reportIds=[]}={}){
   const ledger=s.campaign?.activity,sequence=ledger?.nextSequence;
   if(!ledger){this.state=null;this.sequence=null;this.pending.clear();return [];}

@@ -34,6 +34,15 @@ test('local imports keep priority and server configuration can omit exported res
  assert.equal((await loadLocalArt(f.checkout)).public.id,'override');
  assert.equal(await loadLocalArt(f.checkout,false),null);
 });
+
+test('generic portrait pools survive export and load without their original source',async t=>{
+ const f=await fixture(t);f.manifest.public.portraits={};f.manifest.public.generatedPortraits={male:['/local-art/files/'+f.id],female:[]};
+ await writeFile(join(f.author,'.local/art/manifest.json'),JSON.stringify(f.manifest));
+ const result=await exportPlaytestArt(f.author,join(f.checkout,'art/playtest'));assert.equal(result.files,1);
+ await unlink(f.original);const pack=await loadLocalArt(f.checkout);assert.deepEqual(pack.public.generatedPortraits,f.manifest.public.generatedPortraits);
+ const res={writeHead(code){this.code=code;},end(body){this.body=body;}};
+ await serveLocalArt(pack.public.generatedPortraits.male[0],res,pack);assert.equal(res.code,200);assert.deepEqual(res.body,f.content);
+});
 test('portable manifests reject file paths outside the exported directory',async t=>{
  const f=await fixture(t),out=join(f.checkout,'art/playtest');await exportPlaytestArt(f.author,out);
  const manifest=JSON.parse(await readFile(join(out,'manifest.json'),'utf8'));

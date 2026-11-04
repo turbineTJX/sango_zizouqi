@@ -280,6 +280,29 @@ body:has(.strategy-map-first){overflow:hidden}
 @keyframes map-step{0%,100%{transform:translateY(0)}50%{transform:translateY(-1.3px)}}
 @keyframes map-flag{from{transform:skewY(-3deg) scaleX(.9)}to{transform:skewY(4deg) scaleX(1)}}
 
+/* Scouts use a mounted figure and a compact identity, without a fake officer portrait. */
+.strategy-world .scout-map-marker .army-map-name{text-anchor:middle;font-size:11px}
+.strategy-world .scout-map-marker .scout-map-status{fill:#e4d7b9;font:9px sans-serif;text-anchor:middle;stroke:none;letter-spacing:0}
+.strategy-world .scout-company .scout-horse-body{fill:#997750;stroke:#352f27;stroke-width:1}
+.strategy-world .scout-company .scout-mane,.strategy-world .scout-company .scout-tail{fill:#40382b;stroke:#302b24}
+.strategy-world .scout-company .scout-eye{fill:#191e19;stroke:none}
+.strategy-world .scout-company .scout-leg path{fill:none;stroke:#574534;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.scout-leg{transform-box:fill-box;transform-origin:50% 0}
+.scout-leg-far{opacity:.7}
+.strategy-world .scout-company .scout-saddle{fill:var(--army-color);stroke:#e2c998;stroke-width:1}
+.strategy-world .scout-company .scout-cloak{fill:var(--army-color);stroke:#e6d5ad;stroke-width:.8}
+.strategy-world .scout-company .scout-rider-coat{fill:#bcb499;stroke:#393f32;stroke-width:1}
+.strategy-world .scout-company .scout-hood{fill:var(--army-color);stroke:#e5d5ad;stroke-width:.8}
+.strategy-world .scout-company .scout-rider-boot,.strategy-world .scout-company .scout-arm{fill:none;stroke:#363f34;stroke-width:3;stroke-linecap:round}
+.strategy-world .scout-company .scout-bow,.strategy-world .scout-company .scout-bridle{fill:none;stroke:#dfcca3;stroke-width:.9}
+.is-playing-march .scout-leg-near{animation:scout-stride .42s ease-in-out infinite alternate}
+.is-playing-march .scout-leg-far{animation:scout-stride .42s ease-in-out infinite alternate-reverse}
+.is-playing-march .scout-rider{animation:scout-ride .42s ease-in-out infinite}
+.is-playing-march .scout-cloak{animation:map-flag .6s ease-in-out infinite alternate;transform-origin:0 -32px}
+@keyframes scout-stride{from{transform:rotate(-17deg)}to{transform:rotate(17deg)}}
+@keyframes scout-ride{0%,100%{transform:translateY(0)}50%{transform:translateY(-1.8px)}}
+@media(prefers-reduced-motion:reduce){.is-playing-march :is(.scout-leg,.scout-rider,.scout-cloak){animation:none}}
+
 /* Encounters have a stable, readable identity at every camera distance. */
 .strategy-world .map-encounter .encounter-shadow{fill:#38271e66;stroke:none}
 .strategy-world .map-encounter .encounter-swords path{fill:#e7e5cf;stroke:#6b3725;stroke-width:1.3;stroke-linejoin:round}
@@ -496,4 +519,6 @@ body:has(.strategy-map-first){overflow:hidden}
 }
 
 /* Route picking must not open a scout dossier over the destination city. */
+.bandit-officer-heading{display:inline-flex;align-items:center;gap:10px;vertical-align:middle;max-width:calc(100% - 20px)}
+.bandit-officer-heading .workbench-portrait{flex:none}
 .map-command-screen :is([data-command-scout],[data-command-army],[data-command-transport],[data-command-battle],[data-command-bandit]),.map-command-screen :is([data-command-scout],[data-command-army],[data-command-transport],[data-command-battle],[data-command-bandit]) *{pointer-events:none!important}

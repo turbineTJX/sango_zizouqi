@@ -55,7 +55,7 @@ export function visionSources(s,faction=playerFaction(s)){
   if(tower?.radius)sources.push({...tower,kind:'watchtower',object:{location:c.id}});
  }
  for(const a of s.armies)if(a.faction===faction&&!a.disbanded&&a.units.some(u=>u.troops>0))sources.push({...visionPosition(s,a),radius:armyVisionRadius(a),kind:'army',object:a});
- for(const t of scoutAssignments(s))if(t.faction===faction&&!t.paused){const proxy=scoutVisionProxy(s,t);sources.push({...visionPosition(s,proxy),radius:rules.scout,kind:'scout',object:proxy});}
+ for(const t of scoutAssignments(s))if(t.faction===faction&&!t.paused&&t.lastDay>0){const proxy=scoutVisionProxy(s,t);sources.push({...visionPosition(s,proxy),radius:rules.scout,kind:'scout',object:proxy});}
  for(const v of s.campaign.vision?.factions[faction]?.scouted||[])if(v.expiresDay>s.campaign.day)sources.push({...v,radius:rules.scout,kind:'scout',object:{location:v.location,travel:v.travel}});
  scope?.sources.set(faction,sources);return sources;
 }

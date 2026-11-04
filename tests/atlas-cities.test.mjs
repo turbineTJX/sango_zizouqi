@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {CITY_DESIGNS} from '../data/design/cities.mjs';
 import {NATIONAL_ROAD_DESIGNS} from '../data/design/roads.mjs';
-import {ATLAS_CITY_ADDITIONS,ATLAS_SAME_CITY_NAMES,ATLAS_GATE_ADDITIONS,ATLAS_LARGE_CITY_IDS,ATLAS_CIRCLE_CITY_IDS} from '../data/design/atlas-cities.mjs';
+import {ATLAS_CITY_ADDITIONS,ATLAS_SAME_CITY_NAMES,ATLAS_GATE_ADDITIONS,ATLAS_LARGE_CITY_IDS,ATLAS_CIRCLE_CITY_IDS,SCENARIO_MAIN_CITY_IDS} from '../data/design/atlas-cities.mjs';
 import {applyAtlasLayout} from '../data/design/atlas-layout.mjs';
 import {nationalWorld,NATIONAL_MAP_COUNTS} from '../national-scenarios.mjs';
 import {newCampaign,findCampaignRoute,transferOfficer,appointGovernor,assignDomestic,serializeCampaign,validateCampaign,orderCampaignArmy,beginExecution,advanceCampaignDay,activeBattles,cityIncome} from './helpers/auto-domestic-campaign.mjs';
@@ -19,14 +19,15 @@ test('reference cities extend the real city roster and same-city labels keep one
   for(const entry of ATLAS_CITY_ADDITIONS){const c=s.cities.find(c=>c.id===entry.id);assert.ok(c);assert.ok(c.domestic&&c.grain>=0&&c.manpower>=0);assert.ok(findCampaignRoute(s,'xuchang',c.id));assert.ok(!s.junctions.some(n=>n.id===entry.id));}
   for(const gate of ATLAS_GATE_ADDITIONS){assert.ok(world.junctions.some(n=>n.id===gate.id));assert.ok(!world.cities.some(n=>n.id===gate.id));}
  }
- assert.match(nationalLobby(null),/76 座城市/);assert.match(nationalLobby(null),/42 大城 · 34 小城 · 12 关隘 · 41 港口/);
+ assert.match(nationalLobby(null),/76 座城市/);assert.match(nationalLobby(null),/54 大城 · 22 小城 · 12 关隘 · 41 港口/);
 });
-test('the atlas legend classifies squares as large cities and circles as small cities, including Jingxing',()=>{
+test('opening main cities override the atlas legend, while other circles including Jingxing stay small',()=>{
  const s=newCampaign(217,'guandu-200');
- assert.equal(s.cities.filter(c=>c.citySize==='large').length,42);
- assert.equal(s.cities.filter(c=>c.citySize==='small').length,34);
+ assert.equal(s.cities.filter(c=>c.citySize==='large').length,54);
+ assert.equal(s.cities.filter(c=>c.citySize==='small').length,22);
  for(const id of ATLAS_LARGE_CITY_IDS)assert.equal(s.cities.find(c=>c.id===id)?.citySize,'large');
- for(const id of ATLAS_CIRCLE_CITY_IDS)assert.equal(s.cities.find(c=>c.id===id)?.citySize,'small');
+ for(const id of SCENARIO_MAIN_CITY_IDS)assert.equal(s.cities.find(c=>c.id===id)?.citySize,'large');
+ for(const id of ATLAS_CIRCLE_CITY_IDS.filter(id=>!SCENARIO_MAIN_CITY_IDS.includes(id)))assert.equal(s.cities.find(c=>c.id===id)?.citySize,'small');
  const jingxing=s.cities.find(c=>c.id==='atlas-jingxing');assert.equal(jingxing.name,'井陉');assert.ok(jingxing.domestic&&jingxing.units&&jingxing.grain>0);assert.ok(!s.junctions.some(n=>n.id===jingxing.id));
  jingxing.citySize='large';assert.throws(()=>validateCampaign(s),/地图数据不匹配/);
 });

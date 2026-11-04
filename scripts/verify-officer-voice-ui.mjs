@@ -6,6 +6,7 @@ import {newCampaign,serializeCampaign,beginExecution,advanceCampaignDay} from '.
 import {assignDomestic,ACTIONS,decideDomesticProposal} from '../domestic.mjs';
 import {cityStaffStatus,pendingDomesticAlerts,acknowledgeDomesticAlerts} from '../domestic-feedback.mjs';
 import {importSaveFixture} from './save-fixture-ui-helpers.mjs';
+import {allOfficerVoiceLines} from '../officer-voice-lines.mjs';
 
 const host=await audioBrowser(4316),out=fileURLToPath(new URL('../.local/officer-voice-ui/',import.meta.url)),errors=[];
 await mkdir(out,{recursive:true});
@@ -26,6 +27,30 @@ try{
  assert.equal(await page.locator('[data-audio-volume="voice"]').inputValue(),'85');
  await page.locator('[data-action="audio-voice-preview"]').click();await page.waitForFunction(()=>heardExpectedVoice());
  assert.ok(await page.locator('#officer-voice').isVisible());assert.match(await page.locator('#officer-voice').innerText(),/曹操/);await page.screenshot({path:out+'settings-desktop.png'});
+ const personalityVoices=await page.evaluate(async()=>{
+  const {officerVoiceLine,VOICE_PROFILES}=await import('./officer-voice-lines.mjs'),rows=[];
+  for(const sex of [0,1])for(const personality of [1,2,3,4]){
+   const officer={id:'custom-voice-probe',name:'声线试听',sex,personality};
+   for(const sovereign of [false,true]){
+    const line=officerVoiceLine(officer,'acknowledge',{sovereign});
+    const ok=await liveAudio.playOfficer(line,{preview:true});
+    rows.push({sex,personality,sovereign,profile:line.profile,gender:VOICE_PROFILES[line.profile].gender,recorded:ok&&!!liveAudio.officerVoice.current?.source});
+   }
+  }
+  liveAudio.stopOfficerSpeech();return rows;
+ });
+ assert.equal(new Set(personalityVoices.map(row=>row.profile)).size,8);
+ for(const row of personalityVoices){assert.equal(row.gender,row.sex===1?'female':'male');assert.equal(row.recorded,true);}
+ const characterVoices=await page.evaluate(async()=>{
+  const {OFFICER_CHARACTER_VOICES}=await import('./officer-character-voices.mjs'),{OFFICER_BY_ID}=await import('./officer-catalog.mjs'),{officerVoiceLine}=await import('./officer-voice-lines.mjs'),rows=[];
+  for(const id of Object.keys(OFFICER_CHARACTER_VOICES))for(const [event,sovereign] of [['start',false],['acknowledge',false],['complete',false],['acknowledge',true],['complete',true]]){
+   const line=officerVoiceLine(OFFICER_BY_ID[id],event,{sovereign}),ok=await liveAudio.playOfficer(line,{preview:true});
+   rows.push({officerId:id,event,sovereign,id:line.id,character:line.character,recorded:ok&&!!liveAudio.officerVoice.current?.source});
+  }
+  liveAudio.stopOfficerSpeech();return rows;
+ });
+ assert.equal(new Set(characterVoices.map(row=>row.character)).size,12);
+ for(const row of characterVoices){assert.equal(row.character,row.officerId);assert.equal(row.recorded,true);}
  const prefs=await page.evaluate(()=>({...liveAudio.preferences}));
  await page.locator('[data-audio-volume="voice"]').evaluate(el=>{el.value='0';el.dispatchEvent(new Event('input',{bubbles:true}));});
  assert.equal(await page.evaluate(()=>liveAudio.officerVoice.current),null);assert.equal(await page.locator('#officer-voice').isVisible(),false);assert.equal(await page.evaluate(()=>liveAudio.preferences.music),prefs.music);assert.equal(await page.evaluate(()=>liveAudio.play('confirm')),true);
@@ -43,7 +68,7 @@ try{
  const cached=await page.evaluate(async()=>{
   await navigator.serviceWorker.ready;if(!navigator.serviceWorker.controller)await new Promise(ok=>navigator.serviceWorker.addEventListener('controllerchange',ok,{once:true}));
   await liveAudio.officerVoice.warmLibrary();const entries=Object.values(liveAudio.officerVoice.library);return {count:entries.length,all:(await Promise.all(entries.map(e=>caches.match(e.url)))).every(Boolean)};
- });assert.ok(cached.count===0||cached.count===97);assert.equal(cached.all,true);
+ });assert.ok(cached.count===0||cached.count===allOfficerVoiceLines().length);assert.equal(cached.all,true);
  await page.context().setOffline(true);
  const offline=await page.evaluate(async()=>{const {officerVoiceLine}=await import('./officer-voice-lines.mjs'),{OFFICER_BY_ID}=await import('./officer-catalog.mjs');liveAudio.officerVoice.buffers.clear();return liveAudio.playOfficer({...officerVoiceLine(OFFICER_BY_ID.cao,'start',{signature:true}),priority:10},{preview:true});});assert.equal(offline,true);assert.equal(await page.evaluate(()=>!!(liveAudio.officerVoice.current.source||!Object.keys(liveAudio.officerVoice.library).length&&liveAudio.officerVoice.current.utterance)),true);
  const lifecycle=await page.evaluate(async()=>{await liveAudio.setHidden(true);const hidden=liveAudio.officerVoice.current===null&&!liveAudio.voiceSpeaking;await liveAudio.setHidden(false);return {hidden,replayed:liveAudio.officerVoice.current!==null};});assert.deepEqual(lifecycle,{hidden:true,replayed:false});await page.context().setOffline(false);
@@ -52,8 +77,13 @@ try{
  const s=newCampaign(1,'guandu-200','cao'),city=s.cities.find(c=>c.id==='xuchang'),officer=cityStaffStatus(s,city).idle[0].unit;
  const key=Object.keys(ACTIONS).find(k=>ACTIONS[k].kind==='build'&&ACTIONS[k].direction==='commerce');
  for(const [k,def]of Object.entries(ACTIONS))if(def.direction==='commerce'&&k!==key)city.domestic.cooldowns[k]=1000;
+ // Current approval is triggered by a budget conflict. Reserve existing funds
+ // while proposing, then release the reserve so the player may approve/pay.
+ const reserve=city.budget.goldReserve;city.budget.goldReserve=city.gold;
  assert.equal(assignDomestic(s,city.id,'commerce',officer.id),null);beginExecution(s);
  const assignment=s.campaign.domestic.assignments.find(a=>a.officerId===officer.id);assert.ok(assignment.proposal);
+ city.budget.goldReserve=reserve;
+ acknowledgeDomesticAlerts(s,pendingDomesticAlerts(s).map(n=>n.id));
  const context=await host.browser.newContext({viewport:{width:1440,height:1000},serviceWorkers:'block'}),map=await context.newPage();
  await map.addInitScript(guide);await map.addInitScript(raw=>{if(!localStorage.getItem('voice-fixture-seeded')){localStorage.setItem('sango-sovereign-v2',raw);localStorage.setItem('voice-fixture-seeded','1');}},serializeCampaign(s));
  await map.goto(host.url+'/#strategy');await map.locator('.domestic-proposal').first().waitFor();await instrument(map);
@@ -79,7 +109,7 @@ try{
  assert.equal(await map.evaluate(()=>spoken.length),afterClose,'browsing settings does not replay or invent speech');await map.locator('.modal [data-action="close"]').click();
  await map.reload();await map.locator('.national-world').waitFor();await instrument(map);await map.locator('[data-action="settings"]').click();await map.waitForTimeout(300);assert.equal(await map.evaluate(()=>spoken.length),0,'loading existing reports must not replay speech');
  assert.deepEqual(errors,[]);
- const result={passed:true,battle:await page.evaluate(()=>spoken),strategic:strategicSamples,strategicAcknowledgement:true,realConstructionReport:true,voicePlayback:cached.count?'recordings':'device',offline:cached,lifecycle,mobile:true,volumePersisted:true,errors};await writeFile(out+'result.json',JSON.stringify(result,null,2)+'\n');console.log(JSON.stringify(result));
+ const result={passed:true,battle:await page.evaluate(()=>spoken),strategic:strategicSamples,personalityVoices,characterVoices,strategicAcknowledgement:true,realConstructionReport:true,voicePlayback:cached.count?'recordings':'device',offline:cached,lifecycle,mobile:true,volumePersisted:true,errors};await writeFile(out+'result.json',JSON.stringify(result,null,2)+'\n');console.log(JSON.stringify(result));
 }catch(error){
  const pages=host.browser.contexts().flatMap(c=>c.pages());
  for(const [i,p]of pages.entries()){await p.screenshot({path:out+'failure-'+i+'.png'}).catch(()=>{});console.error(await p.evaluate(()=>({url:location.href,spoken:window.spoken,current:window.liveAudio?.officerVoice.current?.line,active:window.liveAudio?.active,muted:window.liveAudio?.preferences.muted,body:document.body.innerText.slice(-500)})).catch(()=>null));}

@@ -10,8 +10,8 @@ export function diplomaticRelationsMarkup(s){
  const rows=Object.keys(s.campaign.diplomacy.policies).filter(f=>f!==own&&s.cities.some(c=>c.owner===f)).map(f=>{
   const state=factionsAllied(s,own,f)?'同盟':factionsHostile(s,own,f)?'交战':'和平';
   const cells=actions.map(([key,def])=>{
-   const unlocked=diplomaticActionUnlocked(s,own,f,key),label=unlocked?`${def.name}已解锁`:`${def.name}需交情${def.minimum}`;
-   return `<td class="diplomatic-action-cell ${unlocked?'unlocked':'locked'}" data-diplomatic-action="${key}" data-unlocked="${unlocked}" title="${label}"><span role="img" aria-label="${label}">${unlocked?'✓':def.minimum}</span></td>`;
+   const unlocked=diplomaticActionUnlocked(s,own,f,key),label=key==='border'?'换城按城池价值、地理得失与补偿议价，交情影响报价倍率':unlocked?`${def.name}已解锁`:`${def.name}需交情${def.minimum}`;
+   return `<td class="diplomatic-action-cell ${unlocked?'unlocked':'locked'}" data-diplomatic-action="${key}" data-unlocked="${unlocked}" title="${label}"><span role="img" aria-label="${label}">${key==='border'?'议价':unlocked?'✓':def.minimum}</span></td>`;
   }).join('');
   return `<tr data-diplomatic-faction="${esc(f)}"><th scope="row">${esc(FACTIONS[f].name)}</th><td>${state}</td><td data-diplomatic-relation>${diplomaticRelation(s,own,f)}</td><td data-diplomatic-multiplier>${diplomaticTradeMultiplier(s,own,f).toFixed(1)}×</td>${cells}</tr>`;
  }).join('');

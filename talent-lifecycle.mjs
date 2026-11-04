@@ -1,9 +1,11 @@
 import {isAITurnStart} from './ai-turn.mjs';
+import {factionHasMainCity} from './city-classification.mjs';
 import {conquerTreasures,followTreasureOfficerFaction} from './treasures.mjs';
 import {workProfile,workQuantity} from './work-traits.mjs';
 import {ACTIONS} from './domestic-designs.mjs';
 import {mapNode,mapNodes,isJunction} from './road-network.mjs';
 import {appendActivityNode} from './activity-nodes.mjs';
+import {activityByDay} from './activity-query-index.mjs';
 import {retainFactionMerit,meritChangeText,PROGRESSION} from './progression.mjs';
 import {settleOfficerMerit,settleMeritCapacity} from './campaign-merit.mjs';
 import {ECONOMY_RULES} from './data/design/economy-rules.mjs';
@@ -24,7 +26,7 @@ import {roadCost} from './strategic-movement.mjs';
 import {cityPersonnel} from './city-personnel.mjs';
 import {OFFICER_BY_ID,OFFICER_CATALOG} from './officer-catalog.mjs';
 import {passiveList} from './passives.mjs';
-import {makeOfficer,newGame,validateSave,log} from './engine.mjs';
+import {makeOfficer,newGame,validateSave,log,FACTIONS} from './engine.mjs';
 import {nationalScenario,nationalWorld,nationalPersonnel,talentScenarioEntry} from './national-scenarios.mjs';
 import {relationshipInfo,changeRelationshipScore} from './relationships.mjs';
 import {TALENT_RULES,clamp,talentTurn,talentKey,talentQuality,righteousness,relation,servingPeople,factionLord,isLord,loyaltyWarningThreshold,loyaltyResignationChance,nearby,localContact,legalRoad,cityBesieged,refreshTalentDemand,talentContext,willingness,projectNeed,progressFor,talentEligibility,persuasionEligibility,persuasionTargets,TALENT_REASONS} from './talent-core.mjs';
@@ -217,20 +219,24 @@ function freeOfficer(s,o,{hardDays=60,defeat=null}={}){
  (t.knowledge[o.faction]??={})[o.unit.id]={discovered:true,lastKnownCityId:o.location,lastSeenDay:day(s),locationConfirmed:true,lastReportedAttitude:'waiting'};
  report(s,defeat?'displaced':'resigned',o.unit.id,`${o.unit.name}${defeat?'因势力灭亡流离在野':'因忠诚低辞官'}，整理${hardDays}天后再考虑出仕。`,o.faction);
 }
-export function noteTalentCityCapture(s,oldFaction,newFaction,eventId){if(oldFaction==='neutral')return;conquerTreasures(s,oldFaction,newFaction,eventId);data(s).defeats[oldFaction]={oldFactionId:oldFaction,formerLordId:factionLord(s,oldFaction),defeatingFactionId:newFaction,defeatedTurn:talentTurn(s),eventId};}
+export function noteTalentCityCapture(s,oldFaction,newFaction,eventId){if(oldFaction==='neutral'||data(s).defeats[oldFaction]?.eventId===eventId)return;conquerTreasures(s,oldFaction,newFaction,eventId);data(s).defeats[oldFaction]={oldFactionId:oldFaction,formerLordId:factionLord(s,oldFaction),defeatingFactionId:newFaction,defeatedTurn:talentTurn(s),eventId};}
 export function processTalentDefeats(s,cancel){
  const t=data(s);
  for(const [f,h]of Object.entries(t.defeats)){
-  if(t.processedEvents.includes(h.eventId)||s.cities.some(c=>c.owner===f))continue;
+  if(t.processedEvents.includes(h.eventId)||factionHasMainCity(s,f))continue;
   const engaged=new Set(s.campaign.battles.filter(b=>!b.settled).flatMap(b=>b.armyIds)),armies=s.armies.filter(a=>a.faction===f&&!engaged.has(a.id)),ongoing=s.armies.some(a=>a.faction===f&&engaged.has(a.id));
   const units=new Map();for(const a of armies){for(const u of a.units)units.set(u.id,{unit:u,faction:f,location:a.location,destination:null,remainingDays:0});for(const o of a.returningOfficers||[])units.set(o.unit.id,o);}
+  const remnants=s.cities.filter(c=>c.owner===f);
+  for(const c of remnants){for(const unit of c.units)units.set(unit.id,{unit,faction:f,location:c.id,destination:null,remainingDays:0});c.units=[];c.owner='neutral';c.garrison=0;c.governor=null;}
+  if(remnants.length)log(s,`${FACTIONS[f].name}失去最后一座主城，势力覆灭；${remnants.map(c=>c.name).join('、')}转为中立。`,'war');
   s.armies=s.armies.filter(a=>a.faction!==f||engaged.has(a.id));for(const o of s.campaign.idle.filter(o=>o.faction===f))units.set(o.unit.id,o);
   s.pendingAppointments=s.pendingAppointments.filter(p=>s.armies.some(a=>a.id===p.armyId));
   for(const o of units.values()){cancel(s,o.unit.id,'势力灭亡');o.unit.troops=0;o.unit.wounded=0;delete o.unit.mission;delete o.unit.scouting;freeOfficer(s,o,{hardDays:(3+Math.floor(righteousness(o.unit.id)/20))*10,defeat:{...h}});}
   if(!ongoing)t.processedEvents.push(h.eventId);
  }
 }
-function hasDuty(s,o){
+function hasDuty(s,o,completedScouts){
+ if(completedScouts?.has(o.unit.id))return true;
  if(diplomaticAssignment(s,o.unit.id))return true;
  if(o.unit.mission||o.unit.scouting)return true;
  if(isLord(s,o.unit.id,o.faction))return true;
@@ -271,15 +277,18 @@ export function resolveTalentResignations(s,cancel){
 export function finishTalentDay(s,cancel,{deferResignations=false}={}){
  const t=data(s);if(t.lastDay===day(s))return;t.lastDay=day(s);
  processTalentDefeats(s,cancel);
+ // Completion releases the post immediately, while its actual last work day
+ // still counts as employment. This set never reserves the officer tomorrow.
+ const completedScouts=new Set(activityByDay(s.campaign.activity?.nodes||[],day(s)).filter(n=>n.phase==='SCOUT_COMPLETE').map(n=>n.officerId));
  for(const o of servingPeople(s).values()){
   if(o.faction==='neutral')continue;const r=record(s,o.unit.id);if(r.lastDutyDay===day(s))continue;r.lastDutyDay=day(s);
-  if(hasDuty(s,o)){r.workedDays++;if(r.workedDays>=30){r.idleDays=0;r.idleTurns=0;r.idlePenaltyStep=2;}}
+  if(hasDuty(s,o,completedScouts)){r.workedDays++;if(r.workedDays>=30){r.idleDays=0;r.idleTurns=0;r.idlePenaltyStep=2;}}
   else {r.workedDays=0;if(day(s)>=r.graceUntilDay)r.idleDays++;}
   r.idleTurns=Math.floor(r.idleDays/10);
   if(day(s)%10||isLord(s,o.unit.id,o.faction))continue;
   const high=righteousness(o.unit.id)>=80||relation(s,o.unit.id,factionLord(s,o.faction))>=80;let loyalty=s.campaign.domestic.loyalty[o.unit.id]??85;
   const penaltyStep=Math.floor(r.idleDays/30);
-  if(day(s)>=r.graceUntilDay&&!hasDuty(s,o)&&penaltyStep>r.idlePenaltyStep){loyalty=Math.max(0,loyalty-(high?2:5)*(penaltyStep-r.idlePenaltyStep));r.idlePenaltyStep=penaltyStep;}
+  if(day(s)>=r.graceUntilDay&&!hasDuty(s,o,completedScouts)&&penaltyStep>r.idlePenaltyStep){loyalty=Math.max(0,loyalty-(high?2:5)*(penaltyStep-r.idlePenaltyStep));r.idlePenaltyStep=penaltyStep;}
   if(r.workedDays>=30&&day(s)%30===0&&loyalty<95)loyalty++;
   s.campaign.domestic.loyalty[o.unit.id]=loyalty;
  }

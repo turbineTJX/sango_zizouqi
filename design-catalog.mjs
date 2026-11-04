@@ -73,7 +73,7 @@ export function validateDesignTables(tables=DESIGN_TABLES){
   check(diplomacy.relationActions&&Object.keys(diplomacy.relationActions).join(',')===Object.keys(DIPLOMACY_RELATION_ACTIONS).join(','),'diplomacy.relationActions','外交动作门槛未接入');
   for(const [key,a]of Object.entries(diplomacy.relationActions||{}))check(Object.keys(a).sort().join(',')==='minimum,name'&&typeof a.name==='string'&&Number.isSafeInteger(a.minimum)&&a.minimum>=0&&a.minimum<=100,'diplomacy.relationActions.'+key,'外交动作交情门槛无效');
   for(const group of ['rules','ai']){const source=group==='rules'?DIPLOMACY_RULES:DIPLOMACY_AI;check(Object.keys(diplomacy[group]).sort().join(',')===Object.keys(source).sort().join(','),'diplomacy.'+group,'未接入字段');for(const [key,n]of Object.entries(diplomacy[group]))check(numeric(n,0),'diplomacy.'+group+'.'+key,'参数须为非负有限数');}
-  check(diplomacy.cityExchange&&Object.keys(diplomacy.cityExchange).sort().join(',')==='minimumConnectionGain','diplomacy.cityExchange','换城门槛字段未接入');
+  check(diplomacy.cityExchange&&Object.keys(diplomacy.cityExchange).sort().join(',')==='minimumConnectionGain,minimumMainCities','diplomacy.cityExchange','换城门槛字段未接入');
   for(const [key,value]of Object.entries(diplomacy.cityExchange||{}))check(Number.isSafeInteger(value)&&value>0,'diplomacy.cityExchange.'+key,'换城门槛须为正整数');
   for(const [key,w]of Object.entries(diplomacy.work))check(Object.keys(w).sort().join(',')==='days,fee'&&Number.isSafeInteger(w.days)&&w.days>0&&Number.isSafeInteger(w.fee)&&w.fee>=0,'diplomacy.work.'+key,'工期或接洽费无效');
   check(Object.keys(diplomacy.actions).sort().join(',')===Object.keys(DIPLOMACY_ACTIONS).sort().join(','),'diplomacy.actions','原子动作须有对应履约处理器');

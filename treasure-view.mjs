@@ -23,7 +23,7 @@ export function treasuresMarkup(s,p={}){
  let form='';if(selected){
   form='<section class="treasure-grant"><h3>授予 '+esc(treasureDesign(selected.id,s).name)+'</h3><p>来源：'+esc(selected.state==='treasury'?'势力国库':at.officer?.unit.name)+'</p>'+assignmentField('treasure-recipient','接收武将',to?.unit.name,{kind:'treasure-officer',selection:to?.unit.id,disabled:!planning});
   if(previous)form+='<p class="treasure-replacement" role="status">将替换 '+esc(previous.name)+'，原宝物归还势力国库。</p>';
-  form+=(error?'<p role="status">'+esc(error)+'</p>':'')+'<button class="button primary" data-action="treasure-confirm" '+(!planning||!to||error?'disabled':'')+'>'+(previous?'确认替换并授予':'确认授予并装备')+'</button> <button class="button secondary" data-action="treasure-cancel">取消</button></section>';
+  form+=(error?'<p role="status">'+esc(error)+'</p>':'')+'<button class="button primary" data-action="treasure-confirm" '+(!planning||!to||error?'disabled':'')+'>'+(previous?'确认替换':'确认授予')+'</button> <button class="button secondary" data-action="treasure-cancel">取消</button></section>';
  }
  return '<div class="treasure-panel"><label>类别 <select data-treasure-category>'+Object.entries({all:'全部',...TREASURE_SLOTS}).map(([id,name])=>'<option value="'+id+'" '+((p.category||'all')===id?'selected':'')+'>'+name+'</option>').join('')+'</select></label><label>筛选 <select data-treasure-filter>'+Object.entries({all:'全部',treasury:'国库',person:'已授予',available:'可分配',locked:'随军锁定',captive:'随俘封存'}).map(([id,name])=>'<option value="'+id+'" '+((p.filter||'all')===id?'selected':'')+'>'+name+'</option>').join('')+'</select></label>'+(p.officerId?'<button class="text-button" data-action="treasure-open">查看全势力宝物</button>':'')+form+(items.length?table:'<p>当前没有可查看的宝物。</p>')+'</div>';
 }

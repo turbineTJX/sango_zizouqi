@@ -10,7 +10,7 @@ const {chromium}=createRequire(import.meta.url)(process.env.PLAYWRIGHT_MODULE||'
 const baseline=process.argv.includes('--baseline'),out='outputs/map-performance-ui',port='4319';
 const sourceSignature=()=>createHash('sha256').update(['art-strategic-map.mjs','map-label-layout.mjs','map-overview-art.mjs','map-overview-layout.mjs','map-detail-level.mjs','map-camera-preview.mjs','strategic-dom.mjs','city-scene.mjs','town-layout.mjs','town-art.mjs','road-network-view.mjs','national-map-view.mjs','national-geography.mjs','strategic-relief.mjs','ancient-atlas-terrain.mjs','metropolitan-map.mjs','city-scene.css','strategic-workspace.css'].map(path=>readFileSync(path,'utf8')).join('\n')).digest('hex');
 const signature=sourceSignature();
-const roadSignature=()=>createHash('sha256').update(['road-geometry.mjs','map-landscape.mjs','strategic-movement.mjs','strategic-army-markers.mjs'].map(path=>readFileSync(path,'utf8')).join('\n')).digest('hex');
+const roadSignature=()=>createHash('sha256').update(['road-geometry.mjs','map-landscape.mjs','strategic-movement.mjs','strategic-army-markers.mjs','strategic-scout-model.mjs','map-effect-cache.mjs'].map(path=>readFileSync(path,'utf8')).join('\n')).digest('hex');
 const roadSourceSignature=roadSignature();
 mkdirSync(out,{recursive:true});
 const save=serializeCampaign(newCampaign(81,'guandu-200'));

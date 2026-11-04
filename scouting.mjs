@@ -15,9 +15,11 @@ import {cityPersonnel,residentOfficer} from './city-personnel.mjs';
 import {plannedOfficer} from './strategic-intent.mjs';
 import {scoutAssignments,scoutAssignment,scoutOperator,scoutingPosition,scoutVisionProxy,scoutRoute,scoutingNeighborhood,validScoutRoute} from './scouting-state.mjs';
 import {activitySinceDay} from './activity-query-index.mjs';
-export {scoutAssignments,scoutAssignment,scoutRoute,scoutTargets} from './scouting-state.mjs';
+import {scoutJourney} from './scouting-state.mjs';
+import {addCityGold} from './city-resources.mjs';
+export {scoutAssignments,scoutAssignment,scoutRoute,scoutTargets,scoutJourney} from './scouting-state.mjs';
 const copy=x=>structuredClone(x);
-export function initializeScouting(s){s.campaign.scouting={version:1,seed:(s.seed^0x731ca4b9)>>>0,nextId:1,tasks:[]};}
+export function initializeScouting(s){s.campaign.scouting={version:2,seed:(s.seed^0x731ca4b9)>>>0,nextId:1,tasks:[]};}
 export function scoutingDurationRange(intellect){
  const r=MOVEMENT_RULES.scouting,days=CAMPAIGN_TIME.daysPerTurn,max=Math.max(r.minimumDays,Math.ceil((r.baseMaximumDays+Math.max(0,Math.min(100,intellect||0))/100*r.intellectExtension)/days)*days);
  return {min:Math.max(r.minimumDays,max-r.randomSpread),max};
@@ -43,7 +45,9 @@ export function scoutDispatchError(s,cityId,officerId,target,{faction=playerFact
  if(s.campaign.battles.some(r=>!r.settled&&r.kind==='siege'&&r.cityId===cityId))return '围城期间不能指派侦察';
  const reason=scoutOfficerReason(s,cityId,officerId,faction,{reassign});if(reason)return reason;
  const route=mapNode(s,target)&&(requestedRoute?(validScoutRoute(s,cityId,target,requestedRoute)?requestedRoute:null):scoutRoute(s,cityId,target));
- return route?.length?null:'请选择本城周边据点或相邻城市，斥候不能穿过其它城市继续侦察';
+ if(!route?.length)return '请选择本城周边据点或相邻城市，斥候不能穿过其它城市继续侦察';
+ const trip=scoutJourney(s,cityId,route);
+ return mapNode(s,cityId).gold<trip.gold?`本城金不足，侦察需${trip.gold}金`:null;
 }
 function observedCity(c){return {...copy(c),units:copy(c.units.filter(u=>!u.mission))};}
 function illuminate(s,t){
@@ -82,11 +86,13 @@ function scan(s,t){
 }
 export function dispatchScout(s,cityId,officerId,target,{faction=playerFaction(s),scheduled=false,route:requestedRoute}={}){
  const error=scoutDispatchError(s,cityId,officerId,target,{faction,scheduled,route:requestedRoute});if(error)return error;
- const o=residentOfficer(s,officerId),route=requestedRoute?[...requestedRoute]:scoutRoute(s,cityId,target);
- const t={id:'scout-'+s.campaign.scouting.nextId++,officerId,faction,homeCity:cityId,targetCity:target,location:cityId,route,progress:0,phase:'outbound',paused:false,lastDay:s.campaign.day-1,contacts:[]};
+ const o=residentOfficer(s,officerId),route=requestedRoute?[...requestedRoute]:scoutRoute(s,cityId,target),trip=scoutJourney(s,cityId,route);
+ // Zero means the order has not executed yet, including orders made after day 1.
+ const t={id:'scout-'+s.campaign.scouting.nextId++,officerId,faction,homeCity:cityId,targetCity:target,location:cityId,route,plannedDays:trip.days,paidGold:trip.gold,progress:0,phase:'outbound',paused:false,lastDay:0,contacts:[]};
+ addCityGold(s,mapNode(s,cityId),-trip.gold);
  o.unit.scouting=t.id;s.campaign.scouting.tasks.push(t);
- personnelEvent(s,`scout:${t.id}:out`,'SCOUT_OUT',o.unit,`${o.unit.name}留在${mapNode(s,cityId).name}负责侦察，派出斥候沿路前往${mapNode(s,target).name}。`);
- scan(s,t);recordOfficerActivities(s);updateVision(s);return null;
+ personnelEvent(s,`scout:${t.id}:out`,'SCOUT_OUT',o.unit,`${o.unit.name}留在${mapNode(s,cityId).name}负责侦察，派出斥候沿路前往${mapNode(s,target).name}，预计${trip.days}天，已付${trip.gold}金。`);
+ recordOfficerActivities(s);updateVision(s);return null;
 }
 export function recallScout(s,officerId,{faction=playerFaction(s)}={}){
  const t=scoutAssignment(s,officerId);if(!t||t.faction!==faction)return '该武将没有负责的侦察工作';
@@ -105,32 +111,33 @@ export function reconcileScouting(s){
 export function advanceScouting(s){
  reconcileScouting(s);
  for(const t of [...scoutAssignments(s)]){
-  if(t.lastDay===s.campaign.day)continue;t.lastDay=s.campaign.day;
+  if(t.lastDay===s.campaign.day)continue;
   const o=scoutOperator(s,t);
   if(!o||o.faction!==t.faction||o.location!==t.homeCity||o.destination||o.retreating||o.unit.mission||mapNode(s,t.homeCity).owner!==t.faction){recallScout(s,t.officerId,{faction:t.faction});continue;}
   t.paused=s.campaign.battles.some(r=>!r.settled&&r.kind==='siege'&&r.cityId===t.homeCity);if(t.paused)continue;
+  t.lastDay=s.campaign.day;
   scan(s,t);let budget=MOVEMENT_RULES.scouting.speed;
   while(t.route.length&&budget>0){const to=t.route[0],a=mapNode(s,t.location),b=mapNode(s,to),cost=roadCost(s,t.location,to),sample=cost*MOVEMENT_RULES.vision.scout/2/Math.max(1,Math.hypot(a.x-b.x,a.y-b.y));const used=Math.min(budget,sample,cost-t.progress);t.progress+=used;budget-=used;scan(s,t);
    if(t.progress>=cost){t.location=to;t.route.shift();t.progress=0;scan(s,t);}
   }
-  if(!t.route.length)t.phase='watch';
-  if(t.phase==='watch'){
-   const day=s.campaign.day,turn=Math.floor((day-1)/10),r=PROGRESSION.scouting,nodes=s.campaign.activity.nodes,recent=activitySinceDay(nodes,turn*10+1),key='watch:'+t.targetCity;
-   const duplicate=recent.some(n=>n.day===day&&n.result.scouting?.faction===t.faction&&n.result.scouting.key===key);
-   const used=recent.filter(n=>n.result.scouting?.faction===t.faction&&n.officerId===t.officerId&&n.result.scouting.turn===turn).reduce((n,x)=>n+x.result.growth.gained,0),amount=Math.min(r.watchPerDay,Math.max(0,r.maximumPerTurn-used));
-   if(!duplicate&&amount){settleOfficerMerit(s,o.unit,{sourceId:`scout-watch:${t.faction}:${t.targetCity}:${day}`,amount,faction:t.faction,cityId:t.homeCity,reason:`维持${mapNode(s,t.targetCity).name}驻察`});nodes.at(-1).result.scouting={faction:t.faction,key,turn};}
+  if(!t.route.length){
+   delete o.unit.scouting;s.campaign.scouting.tasks=s.campaign.scouting.tasks.filter(x=>x!==t);
+   personnelEvent(s,`scout:${t.id}:complete`,'SCOUT_COMPLETE',o.unit,`${mapNode(s,t.targetCity).name}侦察完成，斥候结束行动，${o.unit.name}恢复在城待命。`,{faction:t.faction,siteId:t.homeCity});
+   recordOfficerActivities(s);
   }
  }
  updateVision(s);
 }
 export function validateScouting(s){
  const v=s.campaign.scouting,fail=x=>{if(!x)throw Error('侦察工作存档无效');},integer=(x,min=0,max=Number.MAX_SAFE_INTEGER)=>Number.isSafeInteger(x)&&x>=min&&x<=max;
- fail(v?.version===1&&integer(v.seed,0,0xffffffff)&&integer(v.nextId,1)&&Array.isArray(v.tasks)&&v.tasks.length<=Object.keys(OFFICER_BY_ID).length);
+ if(v?.version!==2)throw Error('侦察工作存档版本不兼容，请重新开始');
+ fail(integer(v.seed,0,0xffffffff)&&integer(v.nextId,1)&&Array.isArray(v.tasks)&&v.tasks.length<=Object.keys(OFFICER_BY_ID).length);
  const ids=new Set(),officers=new Set();
- for(const t of v.tasks){const o=scoutOperator(s,t);fail(typeof t.id==='string'&&/^scout-\d+$/.test(t.id)&&Number(t.id.slice(6))<v.nextId&&!ids.has(t.id)&&!officers.has(t.officerId)&&Object.hasOwn(FACTIONS,t.faction)&&mapNode(s,t.homeCity)?.units&&mapNode(s,t.targetCity)&&mapNode(s,t.location)&&['outbound','watch'].includes(t.phase)&&typeof t.paused==='boolean'&&integer(t.lastDay,0,s.campaign.day)&&Array.isArray(t.route)&&t.route.length<=mapNodes(s).length&&Number.isFinite(t.progress)&&t.progress>=0&&o?.unit.scouting===t.id&&o.faction===t.faction&&o.location===t.homeCity&&!o.destination&&!o.retreating&&!o.unit.mission);
+ for(const t of v.tasks){const o=scoutOperator(s,t);fail(typeof t.id==='string'&&/^scout-\d+$/.test(t.id)&&Number(t.id.slice(6))<v.nextId&&!ids.has(t.id)&&!officers.has(t.officerId)&&Object.hasOwn(FACTIONS,t.faction)&&mapNode(s,t.homeCity)?.units&&mapNode(s,t.targetCity)&&mapNode(s,t.location)&&t.phase==='outbound'&&typeof t.paused==='boolean'&&integer(t.lastDay,0,s.campaign.day)&&Array.isArray(t.route)&&t.route.length<=mapNodes(s).length&&Number.isFinite(t.progress)&&t.progress>=0&&o?.unit.scouting===t.id&&o.faction===t.faction&&o.location===t.homeCity&&!o.destination&&!o.retreating&&!o.unit.mission);
   const nearby=scoutingNeighborhood(s,t.homeCity);fail(nearby.has(t.location)&&scoutRoute(s,t.homeCity,t.targetCity)?.length&&(t.location===t.homeCity||scoutRoute(s,t.homeCity,t.location)?.length));
   ids.add(t.id);officers.add(t.officerId);
-  fail(t.route.length?validScoutRoute(s,t.homeCity,t.targetCity,t.route,t.location)&&t.phase==='outbound'&&t.progress<roadCost(s,t.location,t.route[0]):t.progress===0&&t.phase==='watch'&&t.location===t.targetCity);
+  fail(integer(t.plannedDays,1)&&integer(t.paidGold,1)&&t.paidGold===t.plannedDays*MOVEMENT_RULES.scouting.goldPerDay);
+  fail(t.route.length>0&&validScoutRoute(s,t.homeCity,t.targetCity,t.route,t.location)&&t.phase==='outbound'&&t.progress<roadCost(s,t.location,t.route[0]));
   fail(!s.campaign.domestic.assignments.some(a=>a.officerId===t.officerId)&&!s.campaign.domestic.orders.some(q=>q.officerIds.includes(t.officerId))&&!s.campaign.diplomacy.assignments.some(a=>a.officerId===t.officerId)&&!s.cities.some(c=>c.governor===t.officerId));
   fail(Array.isArray(t.contacts)&&t.contacts.length<=mapNodes(s).length+200&&new Set(t.contacts.map(c=>c.key)).size===t.contacts.length);
   for(const c of t.contacts){fail(['city','node','army','bandit'].includes(c.kind)&&c.key===c.kind+':'+c.id&&typeof c.name==='string'&&integer(c.firstDay,1,s.campaign.day)&&(c.kind==='army'?typeof c.id==='string'&&/^a\d+$/.test(c.id):c.kind==='bandit'?!!banditCamp(s,c.id):!!mapNode(s,c.id))&&c.report);

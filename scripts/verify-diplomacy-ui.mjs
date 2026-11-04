@@ -24,11 +24,21 @@ try{
  await new Promise((resolve,reject)=>{server.stdout.once('data',resolve);server.once('error',reject);});browser=await chromium.launch({channel:'msedge',headless:true});const errors=[];
  const seeded=async(s,viewport={width:1440,height:1000},keepReport=false)=>{const page=await browser.newPage({viewport});page.on('pageerror',e=>errors.push(e.message));await page.addInitScript(({save,guideKey})=>{localStorage.setItem('sango-sovereign-v2',save);localStorage.setItem(guideKey,JSON.stringify({version:1,enabled:false,seen:[]}));},{save:serializeCampaign(s),guideKey:PAGE_GUIDE_STORAGE_KEY});await page.goto(`http://127.0.0.1:${port}/#strategy`);await page.locator('.national-world').waitFor();if(!keepReport&&await page.getByRole('heading',{name:'战略奏报',exact:true}).isVisible())await page.locator('.modal-header [data-action="close"]').click();if(!keepReport)assert.equal(await page.locator('#overlay-root .modal-backdrop').count(),0,await page.locator('#overlay-root').innerText());return page;};
  const page=await seeded(planning);await page.locator('[data-action="faction-diplomacy"]').click();await page.locator('.diplomacy-panel').waitFor();assert.equal(await page.locator('.diplomatic-direction').count(),3);
+ if(!process.argv.includes('--relations-only')){
+  const cession=newCampaign(281,'guandu-200');fundCities(cession,9000);
+  const {p:land}=proposeDiplomatic(cession,{goal:'peace',relation:0,clauses:[{kind:'city',from:'cao',to:'sunce',cityId:'atlas-zhongli'},{kind:'peace',from:'cao',to:'sunce',duration:30,after:[1]},{kind:'nonaggression',from:'cao',to:'sunce',duration:30,after:[1]},{kind:'nonaggression',from:'sunce',to:'cao',duration:30,after:[1]}]});untilDiplomatic(cession,()=>land.status==='pending');
+  const landPage=await seeded(cession);await landPage.locator('[data-action="faction-diplomacy"]').click();const landCard=landPage.locator(`[data-diplomatic-proposal="${land.id}"]`);
+  assert.match(await landCard.locator('header').innerText(),/割地停战/);assert.match(await landCard.locator('.diplomatic-offer-summary').innerText(),/移交城池[\s\S]*前置交付后生效/);assert.equal(await landCard.locator('[data-action="diplomacy-approve"]').isEnabled(),true);
+  const stored=await landPage.evaluate(async()=>await(await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2'));
+  await landCard.locator('.diplomatic-clause-details>summary').click();assert.equal(await landCard.locator('.diplomatic-settlement-site').count(),2);await landCard.scrollIntoViewIfNeeded();await landPage.screenshot({path:out+'/cession-desktop.png'});
+  await landPage.setViewportSize({width:390,height:844});assert.ok(await landPage.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));await landCard.scrollIntoViewIfNeeded();await landPage.screenshot({path:out+'/cession-mobile.png'});
+  assert.equal(await landPage.evaluate(async()=>await(await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2')),stored);await landPage.close();
+ }
  const matrix=page.locator('.diplomatic-relations-table'),sunce=matrix.locator('[data-diplomatic-faction="sunce"]'),yuan=matrix.locator('[data-diplomatic-faction="yuan"]');
  assert.equal(await matrix.locator('thead th').count(),20);
  assert.equal(await sunce.locator('[data-diplomatic-relation]').innerText(),'55');assert.equal(await sunce.locator('[data-diplomatic-multiplier]').innerText(),'1.2×');
- assert.equal(await sunce.locator('[data-diplomatic-action="border"]').innerText(),'80');assert.equal(await sunce.locator('[data-diplomatic-action="buyGrain"]').getAttribute('data-unlocked'),'true');
- assert.equal(await yuan.locator('[data-diplomatic-action="border"]').innerText(),'✓');
+ assert.equal(await sunce.locator('[data-diplomatic-action="border"]').innerText(),'议价');assert.equal(await sunce.locator('[data-diplomatic-action="buyGrain"]').getAttribute('data-unlocked'),'true');
+ assert.equal(await yuan.locator('[data-diplomatic-action="border"]').innerText(),'议价');
  await page.screenshot({path:out+'/relations-desktop.png'});await page.setViewportSize({width:390,height:844});
  assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));
  const scroll=page.locator('.diplomatic-relations .personnel-table-wrap');assert.ok(await scroll.evaluate(el=>el.scrollWidth>el.clientWidth));

@@ -19,7 +19,7 @@ import {militarySteps,newMilitaryFlow,previewMilitaryFlow,militarySelectionError
 export {militarySteps,newMilitaryFlow,previewMilitaryFlow};
 const button=(action,label,extra='')=>`<button class="button secondary" data-action="${action}" ${extra}>${label}</button>`;
 export function militaryFlowMarkup(s,p){
- const a=s.armies.find(a=>a.id===p.armyId);if(!a)return {title:'军团已离开',body:'请重新选择军团。',footer:button('military-cancel','返回')};
+ const a=s.armies.find(a=>a.id===p.armyId);if(!a)return {title:'军团',body:'已离开',footer:button('military-cancel','返回')};
  const names={purpose:'整军',adjust:'调整编制',split:'拆分军团',merge:'合并军团',recruit:'征募整补'},steps=militarySteps(p),i=steps.indexOf(p.step),selected=['split','recruit'].includes(p.kind)?a.units.filter(u=>p.selected.includes(u.id)):a.units,c=mapNode(s,a.location);
  let body=`<div class="command-flow"><p class="decision-context">${esc(a.name)} · ${esc(c.name)}</p>`;
  if(p.step==='purpose')body+=`<div class="command-choices">${(isJunction(s,a.location)?['adjust','split','merge']:['adjust','split','merge','recruit']).map(k=>button('military-purpose',names[k],`data-kind="${k}"`)).join('')}</div>`;
@@ -48,7 +48,7 @@ export function siegeDefenseOptionsMarkup(s,r){
 }
 export function encounterFlowMarkup(s,p){
  const pending=s.campaign.battles.filter(r=>r.awaiting&&!r.settled),r=pending.find(r=>r.id===p.id);
- if(!r)return {title:'战线已处理',body:'请选择其它战线。',footer:button('military-cancel','返回')};
+ if(!r)return {title:'战线',body:'已处理',footer:button('military-cancel','返回')};
  const c=mapNode(s,r.cityId),own=r.battle.sides[0],enemy=r.battle.sides[1],steps=['查看敌情','整备部队','确认指挥'];
  let body=`${pending.length>1?`<div class="command-choices">${pending.map(b=>button('encounter-select',b.name,`data-id="${b.id}" ${b.id===p.id?'disabled':''}`)).join('')}</div>`:''}<h3>${esc(r.name)}</h3><p class="decision-context">${esc(c.name)} · ${campaignDate(s)}${pending.length>1?' · 待处理 '+pending.length+' 处战线':''}</p>`;
  if(p.step===0)body+=`<div class="encounter-versus"><div><b>我军</b><strong>${own.units.reduce((n,u)=>n+u.hp,0)} 人</strong></div><span>对</span><div><b>敌军</b><strong>${enemy.units.reduce((n,u)=>n+u.hp,0)} 人</strong></div></div><p>${r.kind==='siege'?'攻守城战 · 城门耐久 '+Math.round(r.battle.siege.gate.hp):'野外遭遇'}</p><details><summary>敌军部队情报</summary>${enemy.units.map(u=>`<p>${esc(u.name)} · ${TROOPS[u.type]?.name||u.type} · ${Math.round(u.hp)} 人 ${button('military-detail','查看部队',`data-id="${u.id}" data-battle="${r.id}"`)}</p>`).join('')}</details>`;

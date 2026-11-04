@@ -11,6 +11,26 @@ import {discoverTalent,activateScheduledScenarioPeople} from '../talent-lifecycl
 import {newCampaign,launchExpedition,beginExecution,advanceCampaignDay,activeBattles,chooseEncounter,serializeCampaign,validateCampaign} from './helpers/auto-domestic-campaign.mjs';
 const added=NATIONAL_SCENARIOS.filter(s=>s.rosterDistribution==='reference');
 const restore=s=>validateCampaign(JSON.parse(serializeCampaign(s)));
+
+test('every built-in template excludes generic tribe actors without deleting public or named tribal officers',()=>{
+ const ids=Array.from({length:8},(_,i)=>'person-'+(722+i));
+ for(const spec of NATIONAL_SCENARIOS){
+  const world=nationalWorld(spec.id),doc=createScenarioDocument(spec.id),s=newCampaign(37,spec.id),roster=nationalRoster(spec.id,world.cities,{includeFuture:true});
+  assert.equal(doc.officers.length,832);
+  for(const id of ids){
+   assert.ok(OFFICER_BY_ID[id]);assert.equal(doc.officers.find(o=>o.id===id).state,'excluded');assert.ok(!roster.some(o=>o.id===id));
+   assert.equal(s.campaign.domestic.people.find(p=>p.id===id).status,'EXCLUDED');assert.equal(discoverTalent(s,id,s.campaign.playerFaction),false);
+  }
+  // A real named southern ruler remains a normal participant in the timeless roster.
+  if(spec.id==='all-heroes-251')assert.ok(roster.some(o=>OFFICER_BY_ID[o.id].name==='孟获'));
+  const resumed=restore(s);for(const id of ids)assert.equal(resumed.campaign.domestic.people.find(p=>p.id===id).status,'EXCLUDED');
+ }
+});
+
+test('a public free officer without a declared residence cannot silently fall back to the scenario capital',()=>{
+ const id='coalition-190',world=nationalWorld(id),personnel=nationalPersonnel(id,world.cities),free=personnel.find(o=>o.state==='free');assert.ok(free);
+ assert.throws(()=>nationalPersonnel(id,world.cities.filter(c=>c.id!==free.cityId)),/剧本人物缺少声明驻地/);
+});
 for(const spec of added){
  test(`${spec.name}: every selectable ruler owns a city and keeps unique real officers in their declared homes`,()=>{
   const w=nationalWorld(spec.id),roster=nationalRoster(spec.id,w.cities);assert.equal(w.cities.length,76);assert.equal(w.junctions.length,77);assert.equal(w.roads.length,223);

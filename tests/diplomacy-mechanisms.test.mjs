@@ -107,13 +107,28 @@ test('peace stops an actual live battle while preserving casualties and physical
  untilDiplomatic(s,()=>r.settled,10);assert.equal(r.report.reason,'停战退兵');assert.ok(r.battle.tick>=tick);assert.equal(s.cities.find(c=>c.id===r.cityId).owner,'sunce');assert.equal(r.report.winner,null);assert.ok(r.report.stats.some(x=>x.initial>0));assert.ok(!armyBattle(s,a.id));
 });
 
-test('peaceful city exchange waits for actual receivers and preserves stocks and construction',()=>{
+test('wartime city exchange waits for actual receivers, preserves stocks and construction, and does not end the war',()=>{
  const s=fresh(),first=s.cities.find(c=>c.id==='atlas-zhongli'),second=s.cities.find(c=>c.id==='atlas-linchuan'),grain=first.grain,techs=[...first.domestic.techs],levels=first.farm;
+ lordCity(s,'cao').gold=250000;
  assert.equal(commissionProject(s,first.id,'farm'),null);const paid=first.project;
  // This checks physical handover, not pricing. Pay real compensation for the
  // recipient's uncertainty about the remote city instead of giving it full intel.
- const {p}=proposeDiplomatic(s,{goal:'border',clauses:[...peaceTerms(60),leg('city','cao','sunce',{cityId:first.id}),leg('city','sunce','cao',{cityId:second.id}),leg('gold','cao','sunce',{amount:2000})]});approveAndSign(s,p);assert.equal(first.owner,'cao');assert.equal(second.owner,'sunce');
+ const {p}=proposeDiplomatic(s,{goal:'border',clauses:[leg('city','cao','sunce',{cityId:first.id}),leg('city','sunce','cao',{cityId:second.id}),leg('gold','cao','sunce',{amount:100000})]});approveAndSign(s,p);assert.equal(first.owner,'cao');assert.equal(second.owner,'sunce');
  untilDiplomatic(s,()=>p.clauses.filter(c=>c.kind==='city').every(c=>c.status==='done'));assert.equal(first.owner,'sunce');assert.equal(second.owner,'cao');assert.deepEqual(first.domestic.techs,techs);assert.ok(first.farm>=levels);assert.ok(first.project===paid||first.farm>levels);assert.ok(first.grain>0&&grain>0);assert.ok(p.receivers);assert.equal(s.campaign.activity.nodes.some(n=>n.category==='personnel'&&n.text.includes('和平交接')&&n.phase==='CAPTIVE'),false);
+ assert.ok(factionsHostile(s,'cao','sunce'));
+});
+
+test('wartime land for peace delivers the actual city before starting the full peace duration',()=>{
+ const s=fresh(),city=s.cities.find(c=>c.id==='atlas-zhongli'),stock={grain:city.grain,farm:city.farm},duration=30;
+ const {p}=proposeDiplomatic(s,{goal:'peace',relation:0,clauses:[leg('city','cao','sunce',{cityId:city.id}),...peaceTerms(duration).map(c=>({...c,after:[1]}))]});
+ assert.ok(factionsHostile(s,'cao','sunce'));untilDiplomatic(s,()=>p.status==='pending');
+ assert.equal(city.owner,'cao');assert.equal(p.approvals.cao,undefined);assert.ok(factionsHostile(s,'cao','sunce'));
+ approveAndSign(s,p);assert.equal(city.owner,'cao');assert.ok(factionsHostile(s,'cao','sunce'));
+ assert.ok(p.clauses.filter(c=>['peace','nonaggression'].includes(c.kind)).every(c=>c.status==='waiting'));
+ untilDiplomatic(s,()=>p.clauses.find(c=>c.kind==='city').status==='done');
+ assert.equal(city.owner,'sunce');assert.equal(factionsHostile(s,'cao','sunce'),false);assert.ok(city.grain>0&&stock.grain>0);assert.ok(city.farm>=stock.farm);
+ for(const c of p.clauses.filter(c=>['peace','nonaggression'].includes(c.kind))){assert.equal(c.status,'active');assert.equal(c.untilDay,p.fulfilledDay+duration-1);assert.ok(c.untilDay>p.signedDay+duration-1);}
+ validateCampaign(JSON.parse(serializeCampaign(s)));
 });
 
 test('an envoy is really recalled before an immediate replacement domestic order can execute',()=>{

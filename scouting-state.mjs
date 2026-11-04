@@ -1,5 +1,6 @@
 import {mapNode,mapNodes} from './map-node-data.mjs';
 import {roadCost,roadDistance} from './road-metrics.mjs';
+import {MOVEMENT_RULES} from './data/design/movement-rules.mjs';
 export const scoutAssignments=s=>s.campaign?.scouting?.tasks||[];
 export const scoutAssignment=(s,id)=>scoutAssignments(s).find(t=>t.officerId===id);
 export function scoutOperator(s,t){
@@ -16,7 +17,14 @@ export function scoutingPosition(s,t){
  const p=scoutVisionProxy(s,t);if(!p.travel){const n=mapNode(s,p.location);return {x:n.x,y:n.y};}
  const a=mapNode(s,p.travel.from),b=mapNode(s,p.travel.to),f=p.travel.progress/roadDistance(s,a.id,b.id);return {x:a.x+(b.x-a.x)*f,y:a.y+(b.y-a.y)*f};
 }
-export const scoutStatus=t=>t.paused?'侦察暂停':t.phase==='watch'?'斥候驻察':'斥候沿路侦察';
+export const scoutStatus=t=>t.paused?'侦察暂停':t.lastDay===0?'斥候待出发':'斥候沿路侦察';
+export function scoutJourney(s,from,route,progress=0){
+ if(!route?.length)return null;
+ const cost=route.reduce((sum,to,i)=>sum+roadCost(s,i?route[i-1]:from,to),0)-progress;
+ if(!Number.isFinite(cost)||cost<0)return null;
+ const days=Math.ceil(cost/MOVEMENT_RULES.scouting.speed);
+ return {days,gold:days*MOVEMENT_RULES.scouting.goldPerDay};
+}
 
 // Road-distance districts keep connected water/trail networks local as well.
 // Only this city and districts sharing a road boundary are in scouting range.

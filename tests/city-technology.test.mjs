@@ -32,7 +32,7 @@ test('military research uses governance and different basic facilities, never ba
  const {c}=fixture(),team={researchers:2};c.barracks=0;c.order=59;assert.ok(!canResearch(c,'militaryRegistry'));c.order=60;assert.ok(canResearch(c,'militaryRegistry'));c.domestic.techs=['militaryRegistry'];c.order=80;c.farm=2;c.commerce=2;c.workshop=3;c.granary=2;c.drill=2;
  assert.ok(canResearch(c,'militaryHouseholds',team));assert.ok(canResearch(c,'militarySupply',team));assert.ok(!canResearch(c,'tigerCavalry',team));c.drill=3;assert.ok(canResearch(c,'tigerCavalry',team));assert.ok(!canResearch(c,'baier',team));c.granary=3;c.clinic=1;assert.ok(canResearch(c,'baier',team));
  assert.ok(!canResearch(c,'crossbow'));assert.match(technologyRequirements(c,'crossbow').join(' '),/没有连弩兵资质/);
- const s=newCampaign(1,'guandu-200'),small=s.cities.find(c=>c.id==='chenliu');small.commerce=2;small.granary=2;small.workshop=2;small.order=70;small.domestic.techs=['taxation'];assert.ok(canResearch(small,'tradeLaw',team));assert.ok(!canResearch(small,'tradeLaw'));
+ const s=newCampaign(1,'guandu-200'),small=s.cities.find(c=>c.id==='atlas-donglai');small.commerce=2;small.granary=2;small.workshop=2;small.order=70;small.domestic.techs=['taxation'];assert.ok(canResearch(small,'tradeLaw',team));assert.ok(!canResearch(small,'tradeLaw'));
 });
 
 test('advanced research requires both developed facilities and two real local technology officers',()=>{

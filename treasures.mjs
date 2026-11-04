@@ -1,3 +1,4 @@
+import {factionHasMainCity} from './city-classification.mjs';
 import {equippedTreasureIds,validTreasureLoadout,treasureSlot,treasureInSlot,setTreasureEquipment,removeTreasureEquipment} from './treasure-equipment.mjs';
 import {TREASURE_DESIGNS,TREASURE_IDS,TREASURE_RULES,EYE_ACTIONS,TREASURE_HIDE_REGIONS,DISCOVERY_CATEGORIES,treasureDesign,validTreasureId} from './data/design/treasures.mjs';
 import {TREASURE_INITIAL_HOLDERS,NATIONAL_SCENARIO_DESIGNS} from './data/design/national-scenarios.mjs';
@@ -113,7 +114,7 @@ export function storeTreasure(s,id,{faction=playerFaction(s),automatic=false}={}
  const t=treasureRecord(s,id);moveItem(s,t,{state:'treasury',factionId:faction});return null;
 }
 export function conquerTreasures(s,oldFaction,newFaction,eventId){
- if(!state(s)||oldFaction==='neutral'||oldFaction===newFaction||s.cities.some(c=>c.owner===oldFaction))return [];
+ if(!state(s)||oldFaction==='neutral'||oldFaction===newFaction||factionHasMainCity(s,oldFaction))return [];
  const items=state(s).items.filter(t=>['treasury','person','captive'].includes(t.state)&&treasureLocation(s,t).faction===oldFaction),ids=new Set(items.map(t=>t.id));
  for(const r of s.campaign.battles.filter(r=>!r.settled&&!r.battle.result))for(const u of r.battle.sides.flatMap(side=>side.units))for(const id of [...equippedTreasureIds(u)].filter(id=>ids.has(id))){
   const e=u.treasureEntries?.[id];if(e){e.removed=true;refreshTreasureStatuses(r.battle,u);}

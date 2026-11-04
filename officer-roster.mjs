@@ -22,13 +22,13 @@ export function rosterMarkup({query='',sort='source',direction,kind='all',page=0
  <label>来源<select id="catalog-kind">${[['all','全部人物'],['common','武将库'],['custom','自建武将']].map(([v,n])=>`<option value="${v}" ${v===kind?'selected':''}>${n}</option>`).join('')}</select></label>
  <div class="field-sort-bar" aria-label="点击字段排序">${[['source','来源编号'],['name','姓名'],...stats].map(([k,n])=>sortButton('catalog',k,n,sort,direction||(sort==='source'?'asc':'desc'))).join('')}</div></div>
  ${picker?'':`<section class="catalog-selection"><b>试炼阵容 ${selected.length} / 6</b>
- <div>${selected.length?selected.map(id=>`<button class="button secondary" data-action="catalog-toggle" data-id="${id}" title="移出阵容">${esc(OFFICER_BY_ID[id]?.name)} ×</button>`).join(''):'尚未选将，在下方卡片加入。'}</div>
+ <div>${selected.length?selected.map(id=>`<button class="button secondary" data-action="catalog-toggle" data-id="${id}" title="移出阵容">${esc(OFFICER_BY_ID[id]?.name)} ×</button>`).join(''):'未选择'}</div>
  <button class="button primary" data-action="catalog-launch" ${selected.length?'':'disabled'}>开始</button>
  <button class="button secondary" data-action="catalog-clear" ${selected.length?'':'disabled'}>清空阵容</button></section>`}
  <p class="muted" role="status">共 ${matches.length} 人 · 第 ${page+1} / ${pages} 页</p>
  <div class="officer-grid">${rows.map(u=>`<article class="officer-card catalog-card"><div class="catalog-name"><button type="button" class="portrait catalog-art-portrait portrait-inspect" data-action="${picker?'custom-person-detail':'catalog-detail'}" data-id="${esc(u.id)}" aria-label="查看${esc(u.name)}资料" data-art-portrait="${esc(u.id)}"><span>${esc(u.name.slice(-1))}</span></button><h3>${esc(u.name)}<small>${u.courtesy?'字 '+esc(u.courtesy):'字未载'}</small></h3><span class="trait">${origin(u)} #${u.sourceId}</span></div>
- ${statMarkup(u)}<p class="muted">${FAMOUS_OFFICERS[u.id]?esc(FAMOUS_OFFICERS[u.id]?.role)+' · '+esc(TACTICS_BOOK[SPECIAL_TACTICS[u.id]]?.name):esc(commonRouteName(u))+' · 羁绊成长'}</p>
- <div class="catalog-card-actions"><button class="button secondary" data-action="${picker?'custom-person-detail':'catalog-detail'}" data-id="${u.id}">查看资料</button>${picker?`<button class="button secondary" data-action="custom-person-select" data-id="${u.id}" ${picker.used.includes(u.id)&&picker.current!==u.id?'disabled':''}>${picker.current===u.id?'当前':picker.used.includes(u.id)?'已选':'选用'}</button>`:`<button class="button ${selected.includes(u.id)?'primary':'secondary'}" data-action="catalog-toggle" data-id="${u.id}" ${!selected.includes(u.id)&&selected.length>=6?'disabled':''}>${selected.includes(u.id)?'移出试炼':'加入试炼'}</button>`}</div></article>`).join('')||'<p class="catalog-empty">没有匹配的武将，请更换搜索词。</p>'}</div>
+ ${statMarkup(u)}<p class="muted">${FAMOUS_OFFICERS[u.id]?esc(FAMOUS_OFFICERS[u.id]?.role)+' · '+esc(TACTICS_BOOK[SPECIAL_TACTICS[u.id]]?.name):esc(commonRouteName(u))}</p>
+ <div class="catalog-card-actions"><button class="button secondary" data-action="${picker?'custom-person-detail':'catalog-detail'}" data-id="${u.id}">查看资料</button>${picker?`<button class="button secondary" data-action="custom-person-select" data-id="${u.id}" ${picker.used.includes(u.id)&&picker.current!==u.id?'disabled':''}>${picker.current===u.id?'当前':picker.used.includes(u.id)?'已选':'选用'}</button>`:`<button class="button ${selected.includes(u.id)?'primary':'secondary'}" data-action="catalog-toggle" data-id="${u.id}" ${!selected.includes(u.id)&&selected.length>=6?'disabled':''}>${selected.includes(u.id)?'移出试炼':'加入试炼'}</button>`}</div></article>`).join('')||'<p class="catalog-empty">无匹配武将</p>'}</div>
  <nav class="catalog-pages" aria-label="武将名录分页"><button class="button secondary" data-action="catalog-page" data-page="${page-1}" ${page===0?'disabled':''}>上一页</button><span>${page+1} / ${pages}</span><button class="button secondary" data-action="catalog-page" data-page="${page+1}" ${page+1>=pages?'disabled':''}>下一页</button></nav>`;
 }
 const traitName=(names,value)=>value===null||value===undefined?'未载':value===0?'未设置':names[value]||('未知（'+value+'）');
@@ -46,7 +46,7 @@ export function officerProfileMarkup(u,scores={},types={}){
   const relation=relationshipInfo(u.id,id,scores,types);
   return person?`<button class="profile-relation-link" data-action="catalog-detail" data-id="${esc(id)}">${esc(person.name)}<small>${person.sourceKind==='custom'?'自建 ':''}#${person.sourceId} · 当前${relation.label} ${relation.score} · 连携 ${relation.chance}%</small></button>`:`<span>未收录（${esc(id)}）</span>`;
  };
- return `<section class="officer-profile"><h3 class="stats-section-title">人物资料</h3>
+ return `<section class="officer-profile">
  <dl class="catalog-facts">${facts.map(([label,value])=>`<div><dt>${label}</dt><dd>${esc(value)}</dd></div>`).join('')}</dl>
  <h3 class="stats-section-title">初始关系记录</h3><dl class="catalog-relations">${Object.entries(relationLabels).map(([key,label])=>{
   const value=u.relations?.[key],ids=Array.isArray(value)?value:value?[value]:[];

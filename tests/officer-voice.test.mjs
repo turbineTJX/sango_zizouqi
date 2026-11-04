@@ -15,18 +15,65 @@ import {lockDeployment,stepBattle} from '../engine.mjs';
 import {newCampaign,beginExecution,advanceCampaignDay} from '../strategic-campaign.mjs';
 import {appendActivityNode} from '../activity-nodes.mjs';
 import {ACTIONS} from '../domestic-designs.mjs';
+import {OFFICER_CHARACTER_VOICES} from '../officer-character-voices.mjs';
+import {officerQwenVoiceDirection} from '../scripts/officer-qwen-voice-direction.mjs';
+
+test('named voice packs cover every event and ruler role with a stable designed identity',()=>{
+ const all=allOfficerVoiceLines(),catalog=new Map(all.map(line=>[line.id,line])),designs=new Set();
+ assert.equal(Object.keys(OFFICER_CHARACTER_VOICES).length,12);
+ for(const [id,pack] of Object.entries(OFFICER_CHARACTER_VOICES)){
+  const officer=OFFICER_BY_ID[id];assert.equal(officer.name,pack.name);
+  for(const event of Object.keys(pack.lines)){
+   const line=officerVoiceLine(officer,event);assert.equal(line.character,id);assert.equal(catalog.get(line.id)?.text,line.text);
+   const {design,speaker}=officerQwenVoiceDirection(catalog.get(line.id));
+   assert.equal(speaker,'character:'+id);assert.ok(design.text&&design.instruct);
+   designs.add(design.instruct);
+   assert.deepEqual(design,officerQwenVoiceDirection(catalog.get('character-'+id+'-start')).design,'the same original identity is reused across contexts');
+  }
+  for(const event of Object.keys(pack.ruler)){
+   const line=officerVoiceLine(officer,event,{sovereign:true});assert.equal(line.character,id);assert.equal(catalog.get(line.id)?.text,pack.ruler[event]);assert.doesNotMatch(line.text,/主公|臣/);
+  }
+  for(const edited of [{...officer,sex:1-officer.sex},{...officer,personality:officer.personality===4?1:officer.personality+1},{...officer,id:'custom-copy'}]){
+   const line=officerVoiceLine(edited,'start',{signature:true});assert.equal(line.character,undefined);assert.ok(catalog.has(line.id));
+  }
+ }
+ assert.equal(designs.size,12);
+});
 
 test('all 832 officers have Mandarin dialogue and famous officers resolve by stable ID',()=>{
  const lines=allOfficerVoiceLines(),ids=new Set(lines.map(l=>l.id));assert.equal(ids.size,lines.length);
  for(const o of OFFICER_CATALOG){
   assert.ok(ids.has(officerVoiceLine(o,'start',{signature:true}).id));
   for(const event of ['tactic','order','retreat','victory','acknowledge','complete','recruit','scout'])assert.ok(ids.has(officerVoiceLine(o,event).id));
-  if(o.sex===1)assert.equal(officerVoiceProfile(o),'female');
+  if(o.sex===1)assert.equal(VOICE_PROFILES[officerVoiceProfile(o)].gender,'female');
  }
  assert.match(officerVoiceLine(OFFICER_BY_ID['person-433'],'start',{signature:true}).text,/张飞/);
  assert.notEqual(officerVoiceLine(OFFICER_BY_ID.cao,'start',{signature:true}).text,officerVoiceLine(OFFICER_BY_ID['person-290'],'start',{signature:true}).text);
  for(const event of ['acknowledge','complete','discovered','scout']){const line=officerVoiceLine(OFFICER_BY_ID.cao,event,{sovereign:true});assert.ok(ids.has(line.id));assert.doesNotMatch(line.text,/主公|臣/);}
  assert.equal(isVoiceRuler({campaign:{playerFaction:'cao'}},'cao'),true);assert.equal(isVoiceRuler({campaign:{playerFaction:'yuan'}},'cao'),false);
+});
+
+test('gender and all four recorded personalities select distinct dialogue independently of abilities',()=>{
+ const catalog=new Map(allOfficerVoiceLines().map(line=>[line.id,line]));
+ for(const sex of [0,1]){
+  const profiles=new Set(),texts=new Set();
+  for(const personality of [1,2,3,4]){
+   const officer={id:'custom-voice-probe',name:'试听',sex,personality,force:100,intellect:100};
+   const profile=officerVoiceProfile(officer),line=officerVoiceLine(officer,'acknowledge');
+   profiles.add(profile);texts.add(line.text);assert.equal(VOICE_PROFILES[profile].gender,sex===1?'female':'male');
+   assert.equal(officerVoiceProfile({...officer,force:0,intellect:0}),profile);
+   assert.equal(catalog.get(line.id)?.profile,profile);
+   for(const event of ['acknowledge','complete','discovered','scout']){
+    const ruler=officerVoiceLine(officer,event,{sovereign:true});
+    assert.equal(catalog.get(ruler.id)?.profile,profile,'female and differently tempered rulers have matching offline recordings');
+    assert.doesNotMatch(ruler.text,/主公|臣/);
+   }
+  }
+  assert.equal(profiles.size,4);assert.equal(texts.size,4);
+ }
+ const edited={...OFFICER_BY_ID.cao,sex:1,personality:4};
+ const line=officerVoiceLine(edited,'start',{signature:true});
+ assert.equal(line.profile,'female-rash');assert.equal(catalog.get(line.id)?.profile,'female-rash','an edited signature officer must not use the original male recording');
 });
 
 test('voice readers observe a complete real battle without changing game state, saves or random sequence',()=>{
@@ -70,6 +117,16 @@ test('strategic speech waits for a new important player report to be presented; 
  const hidden=add('voice-hidden');assert.deepEqual(r.read(s,{audible:false,reportIds:[hidden.id]}),[]);assert.deepEqual(r.read(s,{reportIds:[hidden.id]}),[]);
  const loaded=structuredClone(s);assert.deepEqual(r.read(loaded,{reportIds:loaded.campaign.activity.nodes.map(n=>n.id)}),[]);
  assert.deepEqual(r.read(s,{faction:'yuan'}),[]);
+});
+
+test('a committed worker day retains new report speech while imported snapshots stay silent',()=>{
+ const s=newCampaign(42),reader=new StrategicVoiceReader();reader.read(s);
+ const next=structuredClone(s),id=next.campaign.idle.find(o=>o.faction==='cao').unit.id;
+ const report=appendActivityNode(next,{sourceId:'worker-voice',category:'talent',phase:'signed',faction:'cao',officerId:id,cityId:'xuchang',text:'人才入仕'});
+ reader.continueWithState(s,next);
+ const lines=reader.read(next,{reportIds:[report.id]});assert.equal(lines.length,1);assert.equal(lines[0].reportId,report.id);
+ assert.deepEqual(reader.read(next,{reportIds:[report.id]}),[]);
+ const imported=structuredClone(next);assert.deepEqual(reader.read(imported,{reportIds:[report.id]}),[]);
 });
 
 test('report batches speak once and do not queue unseen, read or routine completion reports',()=>{
@@ -127,14 +184,16 @@ test('missing recordings fall back only to Mandarin and stop their utterance on 
 });
 
 test('device voices match the intended gender and role rather than falling back to the default woman',async()=>{
- const female={lang:'zh-CN',name:'Microsoft Huihui',localService:true},male={lang:'zh-CN',name:'Microsoft Kangkang',localService:true},warrior={lang:'zh-CN',name:'Microsoft Yunjian',localService:true},scholar={lang:'zh-CN',name:'Microsoft Yunxi',localService:true};
- const voices=[female,male,warrior,scholar];
- assert.equal(selectOfficerDeviceVoice(voices,VOICE_PROFILES.commander),male);
- assert.equal(selectOfficerDeviceVoice(voices,VOICE_PROFILES.warrior),warrior);
- assert.equal(selectOfficerDeviceVoice(voices,VOICE_PROFILES.scholar),scholar);
- assert.equal(selectOfficerDeviceVoice(voices,VOICE_PROFILES.female),female);
- assert.equal(selectOfficerDeviceVoice([{lang:'en-US',name:'Male'},female],VOICE_PROFILES.commander),null);
- assert.equal(selectOfficerDeviceVoice([{lang:'zh-CN',name:'Unknown Chinese'}],VOICE_PROFILES.commander),null);
+ const female={lang:'zh-CN',name:'Microsoft Huihui',localService:true},male={lang:'zh-CN',name:'Microsoft Kangkang',localService:true},commander={lang:'zh-CN',name:'Microsoft Yunyang Online (Natural)',localService:false},warrior={lang:'zh-CN',name:'Microsoft Yunjian',localService:true},scholar={lang:'zh-CN',name:'Microsoft Yunxi',localService:true},calmWoman={lang:'zh-CN',name:'Microsoft Xiaoxiao Online (Natural)'},boldWoman={lang:'zh-CN',name:'Microsoft Xiaoyi Online (Natural)'};
+ const voices=[female,male,commander,warrior,scholar,calmWoman,boldWoman];
+ assert.equal(selectOfficerDeviceVoice(voices,VOICE_PROFILES['male-bold']),commander,'a natural role-matched voice takes priority over the old local synthesizer');
+ assert.equal(selectOfficerDeviceVoice([female,male],VOICE_PROFILES['male-bold']),male,'older male voices remain a compatible fallback');
+ assert.equal(selectOfficerDeviceVoice(voices,VOICE_PROFILES['male-rash']),warrior);
+ assert.equal(selectOfficerDeviceVoice(voices,VOICE_PROFILES['male-calm']),scholar);
+ assert.equal(selectOfficerDeviceVoice(voices,VOICE_PROFILES['female-calm']),calmWoman);
+ assert.equal(selectOfficerDeviceVoice(voices,VOICE_PROFILES['female-bold']),boldWoman);
+ assert.equal(selectOfficerDeviceVoice([{lang:'en-US',name:'Male'},female],VOICE_PROFILES['male-bold']),null);
+ assert.equal(selectOfficerDeviceVoice([{lang:'zh-CN',name:'Unknown Chinese'}],VOICE_PROFILES['male-bold']),null);
  const spoken=[],speech={getVoices:()=>[female],speak:u=>{spoken.push(u);u.onstart();},cancel(){}};
  const f=playbackFixture({speech,Utterance:class{constructor(text){this.text=text;}}});
  assert.equal(await f.p.play(first),false);assert.equal(spoken.length,0,'a male officer stays silent when only a female voice exists');

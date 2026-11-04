@@ -19,7 +19,7 @@ if(args.snapshot){
  const target=resolve(out,'runtime-'+args.snapshot);await mkdir(target);
  const files=(await readdir(root)).filter(f=>f.endsWith('.mjs'));files.push('package.json','scripts/audit-war-fog-ai.mjs');
  async function walk(folder){for(const e of await readdir(join(root,folder),{withFileTypes:true})){const file=join(folder,e.name);if(e.isDirectory())await walk(file);else if(/\.(mjs|json)$/.test(file))files.push(file);}}
- await walk('data');const hashes={};
+ await walk('data');await walk('ai-policy');const hashes={};
  for(const f of files){const data=await readFile(join(root,f));hashes[f.replaceAll('\\','/')]=digest(data);await mkdir(dirname(join(target,f)),{recursive:true});await writeFile(join(target,f),data);}
  for(const [f,hash]of Object.entries(hashes))assert.equal(digest(await readFile(join(root,f))),hash,'Source changed while snapshotting '+f);
  await writeFile(join(target,'audit-source-manifest.json'),JSON.stringify({createdAt:new Date().toISOString(),root,hashes},null,2));
@@ -47,7 +47,7 @@ async function inspect(){
   counts.set(t.faction,(counts.get(t.faction)||0)+1);assert.ok(scoutRoute(s,t.homeCity,t.targetCity),'Illegal scouting endpoint '+t.id);
   const owner=scoutOperator(s,t);if(!owner||owner.location!==t.homeCity||owner.faction!==t.faction||owner.army)issues.push({day:s.campaign.day,type:'scout-operator-presence',task:t.id});
   if(!scouts.has(t.id)){const record={id:t.id,faction:t.faction,home:t.homeCity,target:t.targetCity,officer:t.officerId,startedDay:s.campaign.day,arrivedDay:null};scouts.set(t.id,record);m(t.faction).scoutStarts++;await emit({kind:'scout-start',...record});}
-  if(t.phase==='watch'&&scouts.get(t.id).arrivedDay===null){scouts.get(t.id).arrivedDay=s.campaign.day;m(t.faction).scoutArrivals++;await emit({kind:'scout-arrive',id:t.id,faction:t.faction,day:s.campaign.day});}
+
  }
  for(const [f,n]of counts){assert.ok(n<=STRATEGIC_SCOUTING_RULES.maxAssignments,'Too many scouting assignments for '+f);m(f).maxConcurrentScouts=Math.max(m(f).maxConcurrentScouts,n);}
  for(const a of s.armies.filter(a=>!a.disbanded&&!a.defense&&Object.hasOwn(s.campaign.ai.factions,a.faction))){
@@ -60,6 +60,7 @@ async function inspect(){
  for(const n of s.campaign.activity.nodes){if(seenNodes.has(n.id))continue;seenNodes.add(n.id);if(!Object.hasOwn(s.campaign.ai.factions,n.faction))continue;const row=m(n.faction);
   if(n.phase==='SCOUT_INTEL'){row.scoutReports++;if(/:city:/.test(n.sourceId))row.scoutCityReports++;}
   if(n.phase==='SCOUT_RECALL')row.scoutStops++;
+  if(n.phase==='SCOUT_COMPLETE'){const id=n.sourceId.match(/^personnel:scout:(scout-\d+):complete$/)?.[1],record=scouts.get(id);if(record)record.arrivedDay=n.day;row.scoutArrivals++;await emit({kind:'scout-arrive',id,faction:n.faction,day:n.day});}
   if(n.category==='domestic'){
    if(n.phase==='start')row.domesticStarted++;
    if(n.phase==='complete'){row.domesticCompleted++;if(ACTIONS[n.key]?.kind==='build')row.constructionCompleted++;if(['cash','grain','recruit'].includes(ACTIONS[n.key]?.kind))row.productionCompleted++;}
@@ -67,7 +68,7 @@ async function inspect(){
    if(n.phase==='failure')row.domesticFailed++;
    if(n.phase==='cancel')row.domesticInterrupted++;
   }
-  if(n.category==='domestic'&&['start','complete','failure','cancel'].includes(n.phase)||['SCOUT_OUT','SCOUT_INTEL','SCOUT_RECALL'].includes(n.phase))await emit({kind:'activity',id:n.id,day:n.day,faction:n.faction,phase:n.phase,key:n.key,city:n.cityId,officer:n.officerId,text:n.text,result:n.result});
+  if(n.category==='domestic'&&['start','complete','failure','cancel'].includes(n.phase)||['SCOUT_OUT','SCOUT_INTEL','SCOUT_RECALL','SCOUT_COMPLETE'].includes(n.phase))await emit({kind:'activity',id:n.id,day:n.day,faction:n.faction,phase:n.phase,key:n.key,city:n.cityId,officer:n.officerId,text:n.text,result:n.result});
  }
  for(const d of s.campaign.ai.decisions){const key=JSON.stringify(d);if(seenDecisions.has(key))continue;seenDecisions.add(key);if(d.kind==='hold')m(d.faction).holdReasons[d.reason]=(m(d.faction).holdReasons[d.reason]||0)+1;await emit({kind:'decision',...d});}
 }

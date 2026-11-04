@@ -1,75 +1,75 @@
 {
   "map": {
-    "title": "天下地图与进行按钮",
+    "title": "天下地图与势力命令",
     "file": "images/player-actions/map.webp",
-    "group": "nodes",
+    "group": "appointments",
     "sample": "官渡剧本演示开局",
     "viewport": {
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:18:36.726Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T15:58:11.135Z",
+    "sourceHash": "3ae9c4705f96ca091fae03ea058a52b39750f9f8e935f920550dff3b85910fdf"
   },
   "city-menu": {
-    "title": "城市现役、预备、伤兵与城防耐久",
+    "title": "城市委任、军事、人事与详情",
     "file": "images/player-actions/city-menu.webp",
-    "group": "cityStats",
+    "group": "appointments",
     "sample": "官渡剧本演示开局",
     "viewport": {
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:19:30.597Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T15:58:15.547Z",
+    "sourceHash": "3ae9c4705f96ca091fae03ea058a52b39750f9f8e935f920550dff3b85910fdf"
   },
   "domestic": {
     "title": "城市委任的六个方向与岗位",
     "file": "images/player-actions/domestic.webp",
-    "group": "civic",
+    "group": "appointments",
     "sample": "官渡剧本演示开局",
     "viewport": {
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:16:30.504Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T15:58:18.975Z",
+    "sourceHash": "3ae9c4705f96ca091fae03ea058a52b39750f9f8e935f920550dff3b85910fdf"
   },
   "direction": {
     "title": "方向岗位与当前负责人",
     "file": "images/player-actions/direction.webp",
-    "group": "civic",
+    "group": "appointments",
     "sample": "官渡剧本演示开局",
     "viewport": {
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:16:30.967Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T15:58:20.562Z",
+    "sourceHash": "3ae9c4705f96ca091fae03ea058a52b39750f9f8e935f920550dff3b85910fdf"
   },
   "appointment": {
     "title": "按能力与特性选择内政负责人",
     "file": "images/player-actions/appointment.webp",
-    "group": "civic",
+    "group": "appointments",
     "sample": "官渡剧本演示开局",
     "viewport": {
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:16:31.416Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T15:58:20.998Z",
+    "sourceHash": "3ae9c4705f96ca091fae03ea058a52b39750f9f8e935f920550dff3b85910fdf"
   },
   "appointment-selected": {
     "title": "选择后直接确认任命",
     "file": "images/player-actions/appointment-selected.webp",
-    "group": "civic",
+    "group": "appointments",
     "sample": "官渡剧本演示开局",
     "viewport": {
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:16:31.842Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T15:58:21.420Z",
+    "sourceHash": "3ae9c4705f96ca091fae03ea058a52b39750f9f8e935f920550dff3b85910fdf"
   },
   "governor": {
     "title": "比较本城人选并确认太守任命",
@@ -120,16 +120,16 @@
     "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
   },
   "affairs": {
-    "title": "筹划阶段调整委任优先级与统一委任",
+    "title": "全势力提案、统一委任与方向优先级",
     "file": "images/player-actions/affairs.webp",
-    "group": "affairs",
+    "group": "appointments",
     "sample": "官渡剧本演示开局",
     "viewport": {
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:39:50.506Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T15:58:23.364Z",
+    "sourceHash": "3ae9c4705f96ca091fae03ea058a52b39750f9f8e935f920550dff3b85910fdf"
   },
   "personnel": {
     "title": "人才名册查看所在、任职和事务",
@@ -156,16 +156,16 @@
     "sourceHash": "7ab8325eca09625de582b4f87e6c43cdc375107bf86426c02af0224b538ccb3e"
   },
   "city-directory": {
-    "title": "自辖城市与空闲人员",
+    "title": "自辖城市与委任入口",
     "file": "images/player-actions/city-directory.webp",
-    "group": "civic",
+    "group": "appointments",
     "sample": "官渡剧本演示开局",
     "viewport": {
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:17:30.766Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T15:58:32.032Z",
+    "sourceHash": "3ae9c4705f96ca091fae03ea058a52b39750f9f8e935f920550dff3b85910fdf"
   },
   "journal": {
     "title": "按类别查阅日志",
@@ -188,8 +188,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:33:06.379Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T16:01:32.041Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "scout-route": {
     "title": "侦察终点路线及视野期限",
@@ -200,8 +200,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:33:26.144Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T16:01:47.720Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "scout-landscape": {
     "title": "手机横屏侦察与固定派遣按钮",
@@ -212,8 +212,8 @@
       "width": 844,
       "height": 390
     },
-    "capturedAt": "2026-11-01T07:33:26.791Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T16:01:48.264Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "scout-running": {
     "title": "侦察任务与停止入口",
@@ -224,8 +224,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:33:29.976Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T16:01:50.862Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "transfer-person": {
     "title": "调任选择来源城执行人",
@@ -236,8 +236,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:33:45.066Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T16:02:05.634Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "transfer-empty": {
     "title": "人员调任终点与物资",
@@ -248,8 +248,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:33:51.001Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T16:02:08.810Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "transport": {
     "title": "运输物资与真实预计抵达",
@@ -260,8 +260,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:33:52.728Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T16:02:10.946Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "transport-options": {
     "title": "接力运输选项",
@@ -272,8 +272,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:33:53.551Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T16:02:11.373Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "transport-relay": {
     "title": "地图选择接力城后的预览",
@@ -284,8 +284,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:34:02.127Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T16:02:18.515Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "transport-review": {
     "title": "运输核阅与最终下令",
@@ -296,8 +296,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:34:06.000Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T16:02:25.553Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "transport-landscape": {
     "title": "横屏运输参数与常驻摘要",
@@ -308,8 +308,8 @@
       "width": 844,
       "height": 390
     },
-    "capturedAt": "2026-11-01T07:34:11.207Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T16:02:29.335Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "troop-list": {
     "title": "城内部队管理与新增解散",
@@ -320,8 +320,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:23:21.412Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T16:03:36.653Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "troop-officer": {
     "title": "单队编制内选择主将",
@@ -332,8 +332,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:23:23.984Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T16:03:40.280Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "troop-edit": {
     "title": "兵种兵力与装备配置",
@@ -344,8 +344,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:23:26.955Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T16:03:42.020Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "troop-configured": {
     "title": "单队确认后返回部队列表",
@@ -356,8 +356,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:23:27.455Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T16:03:42.481Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "troop-review": {
     "title": "城内编制最终核阅",
@@ -368,8 +368,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:23:27.900Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T16:03:42.912Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "expedition-select": {
     "title": "出征选队与已选移除",
@@ -380,8 +380,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:23:43.094Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T16:03:57.578Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "expedition-landscape": {
     "title": "横屏选队与对照",
@@ -392,8 +392,8 @@
       "width": 844,
       "height": 390
     },
-    "capturedAt": "2026-11-01T07:23:44.230Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T16:03:58.079Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "expedition-roles": {
     "title": "军团长与军师任命",
@@ -404,8 +404,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:23:45.385Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T16:03:59.314Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "expedition-route": {
     "title": "出征目标与路线预览",
@@ -416,8 +416,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:23:49.802Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T16:04:01.625Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "expedition-review": {
     "title": "出征最终费用与路线核阅",
@@ -428,8 +428,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:23:53.424Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T16:04:08.203Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "army-adjust": {
     "title": "调整军团编制",
@@ -440,8 +440,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:35:35.440Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T16:00:51.791Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "army-roles": {
     "title": "整军中的指挥任命",
@@ -452,8 +452,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:35:35.873Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T16:00:52.209Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "army-review": {
     "title": "整军前后变化与费用",
@@ -464,8 +464,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:35:36.311Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T16:00:52.615Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "army-split": {
     "title": "选择拆出的部队",
@@ -476,8 +476,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:35:41.005Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T16:00:55.172Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "army-split-review": {
     "title": "新旧两军核阅",
@@ -488,8 +488,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:35:41.575Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T16:00:55.652Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "army-merge": {
     "title": "选择同地合并军团",
@@ -500,8 +500,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:35:46.509Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T16:00:58.494Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "army-merge-review": {
     "title": "合并军团核阅",
@@ -512,8 +512,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:35:46.974Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T16:00:58.900Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "army-recruit": {
     "title": "选择需要补兵的队伍",
@@ -524,8 +524,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:35:52.441Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T16:01:01.516Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "army-recruit-review": {
     "title": "补兵结果与真实用度",
@@ -536,32 +536,32 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:35:52.915Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T16:01:01.927Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "march-route": {
-    "title": "从当前路段位置变更目的地",
+    "title": "军团调动与返城选路",
     "file": "images/player-actions/march-route.webp",
-    "group": "armyOrders",
-    "sample": "筹划阶段中途行军的己方军团，点选后驻守或变更目的地",
+    "group": "army",
+    "sample": "已动员军团的整军演示存档",
     "viewport": {
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-02T06:09:34.982Z",
-    "sourceHash": "b499c5292165197ba79998c1faff2f1f604337230fbb6308d963089a68dd1f5a"
+    "capturedAt": "2026-11-03T16:01:07.124Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "march-review": {
-    "title": "变更目的地最终核阅",
+    "title": "行军命令最终核阅",
     "file": "images/player-actions/march-review.webp",
-    "group": "armyOrders",
-    "sample": "筹划阶段中途行军的己方军团，点选后驻守或变更目的地",
+    "group": "army",
+    "sample": "已动员军团的整军演示存档",
     "viewport": {
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-02T06:09:40.113Z",
-    "sourceHash": "b499c5292165197ba79998c1faff2f1f604337230fbb6308d963089a68dd1f5a"
+    "capturedAt": "2026-11-03T16:01:10.735Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "diplomacy": {
     "title": "外交待处理与目标方针",
@@ -572,8 +572,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:38:47.940Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T15:59:03.799Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "diplomacy-appoint": {
     "title": "先选出发城市再选使臣",
@@ -584,8 +584,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:38:52.228Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T15:59:07.916Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "diplomacy-budget": {
     "title": "外交预算与保存",
@@ -596,8 +596,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:38:52.656Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T15:59:08.328Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "diplomacy-proposal": {
     "title": "双方给予内容与批准交涉否决",
@@ -608,8 +608,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:39:04.846Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T15:59:19.497Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "diplomacy-terms": {
     "title": "完整条款与实际履约条件",
@@ -620,8 +620,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:39:08.006Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T15:59:21.537Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "diplomacy-approved": {
     "title": "实际批准后签署与履约",
@@ -632,44 +632,44 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:39:24.855Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T15:59:35.631Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "treasures": {
-    "title": "势力国库与已授予宝物",
+    "title": "武器、坐骑、其它和势力国库",
     "file": "images/player-actions/treasures.webp",
-    "group": "diplomacy",
-    "sample": "有两件真实登记宝物的演示存档",
+    "group": "treasures",
+    "sample": "三分类装备与势力国库的隔离演示",
     "viewport": {
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:39:26.181Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T15:59:40.658Z",
+    "sourceHash": "09f06e35cda760f42b9ce9f19d14845a301395c2940df19250d7f0581e045e0b"
   },
   "treasure-grant": {
-    "title": "立即授予并装备",
+    "title": "授予后直接装备；仅替换同类",
     "file": "images/player-actions/treasure-grant.webp",
-    "group": "diplomacy",
-    "sample": "有两件真实登记宝物的演示存档",
+    "group": "treasures",
+    "sample": "三分类装备与势力国库的隔离演示",
     "viewport": {
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:39:26.641Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T15:59:41.446Z",
+    "sourceHash": "09f06e35cda760f42b9ce9f19d14845a301395c2940df19250d7f0581e045e0b"
   },
   "treasure-equipped": {
-    "title": "已装备宝物与收回国库入口",
+    "title": "装备与收回势力国库入口",
     "file": "images/player-actions/treasure-equipped.webp",
-    "group": "diplomacy",
-    "sample": "有两件真实登记宝物的演示存档",
+    "group": "treasures",
+    "sample": "三分类装备与势力国库的隔离演示",
     "viewport": {
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:39:27.018Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T15:59:41.819Z",
+    "sourceHash": "09f06e35cda760f42b9ce9f19d14845a301395c2940df19250d7f0581e045e0b"
   },
   "encounter": {
     "title": "遭遇敌情与真实日期",
@@ -828,28 +828,28 @@
     "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
   },
   "bandit": {
-    "title": "贼寨情报与选择派出城",
+    "title": "贼寨情报、随机武将通用头像与选择派出城",
     "file": "images/player-actions/bandit.webp",
-    "group": "proposals",
-    "sample": "已通过真实侦察发现贼寨的演示存档",
+    "group": "bandits",
+    "sample": "斥候实际执行后发现贼寨的隔离演示存档",
     "viewport": {
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:24:55.076Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T15:58:49.515Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "bandit-expedition": {
     "title": "讨伐沿用出征选队流程",
     "file": "images/player-actions/bandit-expedition.webp",
-    "group": "proposals",
-    "sample": "已通过真实侦察发现贼寨的演示存档",
+    "group": "bandits",
+    "sample": "斥候实际执行后发现贼寨的隔离演示存档",
     "viewport": {
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:24:55.559Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T15:58:52.795Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "lobby": {
     "title": "游戏主菜单",
@@ -860,8 +860,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:27:17.460Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T15:55:41.965Z",
+    "sourceHash": "3ae9c4705f96ca091fae03ea058a52b39750f9f8e935f920550dff3b85910fdf"
   },
   "scenarios": {
     "title": "普通模式剧本",
@@ -872,8 +872,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:27:17.861Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T15:55:42.352Z",
+    "sourceHash": "3ae9c4705f96ca091fae03ea058a52b39750f9f8e935f920550dff3b85910fdf"
   },
   "faction": {
     "title": "势力选择与开始",
@@ -884,8 +884,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:27:18.311Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T15:55:42.798Z",
+    "sourceHash": "3ae9c4705f96ca091fae03ea058a52b39750f9f8e935f920550dff3b85910fdf"
   },
   "custom": {
     "title": "历史模板与自定义战役",
@@ -896,8 +896,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:27:19.565Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T15:55:43.920Z",
+    "sourceHash": "3ae9c4705f96ca091fae03ea058a52b39750f9f8e935f920550dff3b85910fdf"
   },
   "custom-army": {
     "title": "自定义战役单军编制",
@@ -908,8 +908,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:27:20.268Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T15:55:44.599Z",
+    "sourceHash": "3ae9c4705f96ca091fae03ea058a52b39750f9f8e935f920550dff3b85910fdf"
   },
   "custom-review": {
     "title": "自定义战役开战前核阅",
@@ -920,8 +920,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:27:20.840Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T15:55:45.145Z",
+    "sourceHash": "3ae9c4705f96ca091fae03ea058a52b39750f9f8e935f920550dff3b85910fdf"
   },
   "map-editor": {
     "title": "地图分类地形绘制与工具",
@@ -932,8 +932,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:27:21.300Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T15:55:45.577Z",
+    "sourceHash": "3ae9c4705f96ca091fae03ea058a52b39750f9f8e935f920550dff3b85910fdf"
   },
   "map-library": {
     "title": "已保存地图与导入导出",
@@ -944,8 +944,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:27:21.752Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T15:55:46.018Z",
+    "sourceHash": "3ae9c4705f96ca091fae03ea058a52b39750f9f8e935f920550dff3b85910fdf"
   },
   "map-preview": {
     "title": "真实战场地图预览",
@@ -956,8 +956,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:27:22.180Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T15:55:46.427Z",
+    "sourceHash": "3ae9c4705f96ca091fae03ea058a52b39750f9f8e935f920550dff3b85910fdf"
   },
   "battlefield": {
     "title": "战前战场与双方部队",
@@ -1032,16 +1032,16 @@
     "sourceHash": "7ab8325eca09625de582b4f87e6c43cdc375107bf86426c02af0224b538ccb3e"
   },
   "battle-unit": {
-    "title": "部队实际属性与战法",
+    "title": "部队简报优先显示兵力、战意、护盾与战法，完整属性按需展开",
     "file": "images/player-actions/battle-unit.webp",
-    "group": "battle",
-    "sample": "独立战役八队布阵演示",
+    "group": "officerInspection",
+    "sample": "独立战役部队信息核阅",
     "viewport": {
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-02T10:17:19.746Z",
-    "sourceHash": "7ab8325eca09625de582b4f87e6c43cdc375107bf86426c02af0224b538ccb3e"
+    "capturedAt": "2026-11-03T16:01:14.444Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "deployment-preview": {
     "title": "站位修改先预览再确认",
@@ -1172,8 +1172,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:23:05.705Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T16:01:19.279Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "waiting": {
     "title": "完成后执行的等待安排",
@@ -1184,8 +1184,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:23:06.091Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T16:01:19.674Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "postbattle-roles": {
     "title": "战后军团缺职时暂停补任",
@@ -1196,8 +1196,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:31:15.431Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T16:00:10.832Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "battle-history": {
     "title": "战场战史与战报入口",
@@ -1208,8 +1208,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:31:15.961Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T16:00:11.328Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "battle-report": {
     "title": "实际伤亡、伤兵接收与任命变化",
@@ -1220,8 +1220,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:31:16.769Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T16:00:12.091Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "settings": {
     "title": "声音表现与存档设置",
@@ -1232,8 +1232,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:40:59.850Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T15:59:56.364Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "save-create": {
     "title": "命名并新建手动存档",
@@ -1244,8 +1244,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:41:02.861Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T15:59:59.537Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "saves": {
     "title": "自动档手动档与读取",
@@ -1256,8 +1256,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:41:04.107Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T16:00:00.251Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "save-overwrite": {
     "title": "覆盖指定存档前核对名称",
@@ -1268,8 +1268,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:41:04.523Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T16:00:00.646Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "save-delete": {
     "title": "删除存档前确认",
@@ -1280,8 +1280,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:41:05.269Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T16:00:01.355Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "city-interior": {
     "title": "近看城内建筑与施工",
@@ -1320,16 +1320,16 @@
     "sourceHash": "7ab8325eca09625de582b4f87e6c43cdc375107bf86426c02af0224b538ccb3e"
   },
   "army-menu": {
-    "title": "军团管理中的驻守与变更目的地",
+    "title": "军团管理中的兵员、携粮与供给",
     "file": "images/player-actions/army-menu.webp",
-    "group": "armyOrders",
-    "sample": "筹划阶段中途行军的己方军团，点选后驻守或变更目的地",
+    "group": "armyStats",
+    "sample": "演示存档中仅洛阳有存粮，沿当前有效道路向尉氏军团供粮",
     "viewport": {
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-02T06:10:15.331Z",
-    "sourceHash": "b499c5292165197ba79998c1faff2f1f604337230fbb6308d963089a68dd1f5a"
+    "capturedAt": "2026-11-03T16:00:35.126Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "prisoner": {
     "title": "关押敌方武将与释放入口",
@@ -1376,8 +1376,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:41:07.951Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T16:00:02.474Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "guide": {
     "title": "按需查看当前页面指引",
@@ -1388,8 +1388,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:41:12.566Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T16:00:05.378Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "ending": {
     "title": "整局结果与地图回看",
@@ -1400,8 +1400,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:41:14.661Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T16:00:07.185Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "march-mode": {
     "title": "行军方式速度代价与确认",
@@ -1460,8 +1460,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:37:39.136Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T16:05:21.159Z",
+    "sourceHash": "1f66883ddc3640e6a217fb0ebaf21943f84760a014b050564223b1e1fd200111"
   },
   "harvest": {
     "title": "旬收获与城仓净变化",
@@ -1472,8 +1472,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:37:39.633Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T16:05:21.636Z",
+    "sourceHash": "1f66883ddc3640e6a217fb0ebaf21943f84760a014b050564223b1e1fd200111"
   },
   "standalone-report": {
     "title": "独立战役结果与重试选项",
@@ -1484,8 +1484,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:37:40.991Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T16:05:22.819Z",
+    "sourceHash": "1f66883ddc3640e6a217fb0ebaf21943f84760a014b050564223b1e1fd200111"
   },
   "prisoner-exchange": {
     "title": "外交交换俘虏的双方名单与批准",
@@ -1628,8 +1628,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:27:37.490Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T16:03:16.581Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "intelligence-directory": {
     "title": "据点当前视野与带日期情报",
@@ -1640,8 +1640,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:27:37.971Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T16:03:19.765Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "custom-editor": {
     "title": "自定义战役的地图场景与军团入口",
@@ -1652,8 +1652,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:27:39.409Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T16:03:21.065Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "custom-reinforcements": {
     "title": "援军的阵营到达条件与军团编制",
@@ -1664,8 +1664,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:27:39.886Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T16:03:21.519Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "personnel-abilities": {
     "title": "能力分栏比较五项能力、等级与忠诚",
@@ -1736,8 +1736,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:18:25.618Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T16:01:14.892Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "desktop-manual-settings": {
     "title": "电脑版设置中的操作手册入口",
@@ -1772,8 +1772,8 @@
       "width": 844,
       "height": 390
     },
-    "capturedAt": "2026-11-01T07:31:39.729Z",
-    "sourceHash": "6e803c6207183dfb52769f028753e089c751d6aadfb2a3b30c85031e15aef0b2"
+    "capturedAt": "2026-11-03T16:05:17.809Z",
+    "sourceHash": "927d74fa66a39260189102d5ac5c5a8f0b98ee3554f9d91d9764002e7b5305e2"
   },
   "battle-navigation-confirm": {
     "title": "切换前确认目标与交还委托",
@@ -1784,8 +1784,8 @@
       "width": 844,
       "height": 390
     },
-    "capturedAt": "2026-11-01T07:31:39.766Z",
-    "sourceHash": "6e803c6207183dfb52769f028753e089c751d6aadfb2a3b30c85031e15aef0b2"
+    "capturedAt": "2026-11-03T16:05:17.845Z",
+    "sourceHash": "927d74fa66a39260189102d5ac5c5a8f0b98ee3554f9d91d9764002e7b5305e2"
   },
   "battle-navigation-loading": {
     "title": "等待实际部队画面加载",
@@ -1796,8 +1796,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:31:39.885Z",
-    "sourceHash": "6e803c6207183dfb52769f028753e089c751d6aadfb2a3b30c85031e15aef0b2"
+    "capturedAt": "2026-11-03T16:05:17.953Z",
+    "sourceHash": "927d74fa66a39260189102d5ac5c5a8f0b98ee3554f9d91d9764002e7b5305e2"
   },
   "battle-help-basics": {
     "title": "战场指引 · 入门",
@@ -1928,8 +1928,8 @@
       "width": 844,
       "height": 390
     },
-    "capturedAt": "2026-11-01T07:23:25.341Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T16:03:40.779Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "scout-cities": {
     "title": "侦察派出城市表",
@@ -1940,8 +1940,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:33:10.736Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T16:01:37.865Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "scout-officers": {
     "title": "侦察执行人表",
@@ -1952,8 +1952,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:33:17.770Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T16:01:42.260Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "diplomacy-cities": {
     "title": "外交派出城市表",
@@ -1964,8 +1964,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:38:51.192Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T15:59:07.007Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "diplomacy-officers": {
     "title": "外交执行人表",
@@ -1976,8 +1976,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:38:51.722Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T15:59:07.481Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "treasure-recipients": {
     "title": "宝物接收武将表",
@@ -1988,8 +1988,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:26:55.194Z",
-    "sourceHash": "89f5843350c1e961f0736fed257013ca8814e9921038aa22bb3ab7e3a355efef"
+    "capturedAt": "2026-11-03T15:59:41.061Z",
+    "sourceHash": "09f06e35cda760f42b9ce9f19d14845a301395c2940df19250d7f0581e045e0b"
   },
   "node-panel": {
     "title": "地点归属、驻军与建筑入口",
@@ -2004,16 +2004,16 @@
     "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
   },
   "army-card": {
-    "title": "军团驻守、变更目的地与兵员粮草",
+    "title": "军团兵员、携粮与当前粮道",
     "file": "images/player-actions/army-card.webp",
-    "group": "armyOrders",
-    "sample": "筹划阶段中途行军的己方军团，点选后驻守或变更目的地",
+    "group": "armyStats",
+    "sample": "演示存档中仅洛阳有存粮，沿当前有效道路向尉氏军团供粮",
     "viewport": {
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-02T06:09:23.408Z",
-    "sourceHash": "b499c5292165197ba79998c1faff2f1f604337230fbb6308d963089a68dd1f5a"
+    "capturedAt": "2026-11-03T16:00:27.727Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "city-detail": {
     "title": "城市详情中的兵员与城防数量",
@@ -2036,8 +2036,8 @@
       "width": 844,
       "height": 390
     },
-    "capturedAt": "2026-11-01T07:15:55.033Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T15:58:19.433Z",
+    "sourceHash": "3ae9c4705f96ca091fae03ea058a52b39750f9f8e935f920550dff3b85910fdf"
   },
   "army-detail": {
     "title": "军团完整情报与补给",
@@ -2048,8 +2048,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:19:50.709Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T16:00:30.671Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "army-units": {
     "title": "军团各队现役兵与伤兵",
@@ -2060,8 +2060,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:19:51.151Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T16:00:31.087Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "loyalty-warning": {
     "title": "忠诚偏低提醒及人才事务入口",
@@ -2312,8 +2312,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:26:56.351Z",
-    "sourceHash": "89f5843350c1e961f0736fed257013ca8814e9921038aa22bb3ab7e3a355efef"
+    "capturedAt": "2026-11-03T15:59:42.176Z",
+    "sourceHash": "09f06e35cda760f42b9ce9f19d14845a301395c2940df19250d7f0581e045e0b"
   },
   "treasure-slots": {
     "title": "武器坐骑其它三栏同时装备",
@@ -2324,8 +2324,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:26:57.240Z",
-    "sourceHash": "89f5843350c1e961f0736fed257013ca8814e9921038aa22bb3ab7e3a355efef"
+    "capturedAt": "2026-11-03T15:59:42.943Z",
+    "sourceHash": "09f06e35cda760f42b9ce9f19d14845a301395c2940df19250d7f0581e045e0b"
   },
   "scenario-editor-overview": {
     "title": "剧本编辑概要",
@@ -2336,8 +2336,8 @@
       "width": 1440,
       "height": 1000
     },
-    "capturedAt": "2026-11-01T07:28:42.681Z",
-    "sourceHash": "4cc096c24f291702057f72ea15cc12fbd9da960d1930513c2fbabdef85fd6f04"
+    "capturedAt": "2026-11-03T15:56:42.188Z",
+    "sourceHash": "48e61c1417eb4742613405c2301bd8ad73e9c5a2e3f1ed2efd8a9041857d81e8"
   },
   "scenario-editor-cities": {
     "title": "城池归属与开局资源",
@@ -2348,8 +2348,8 @@
       "width": 1440,
       "height": 1000
     },
-    "capturedAt": "2026-11-01T07:28:42.837Z",
-    "sourceHash": "4cc096c24f291702057f72ea15cc12fbd9da960d1930513c2fbabdef85fd6f04"
+    "capturedAt": "2026-11-03T15:56:42.355Z",
+    "sourceHash": "48e61c1417eb4742613405c2301bd8ad73e9c5a2e3f1ed2efd8a9041857d81e8"
   },
   "scenario-editor-officers": {
     "title": "武将驻地安排",
@@ -2360,8 +2360,8 @@
       "width": 1440,
       "height": 1000
     },
-    "capturedAt": "2026-11-01T07:28:42.956Z",
-    "sourceHash": "4cc096c24f291702057f72ea15cc12fbd9da960d1930513c2fbabdef85fd6f04"
+    "capturedAt": "2026-11-03T15:56:42.473Z",
+    "sourceHash": "48e61c1417eb4742613405c2301bd8ad73e9c5a2e3f1ed2efd8a9041857d81e8"
   },
   "scenario-editor-factions": {
     "title": "势力目录与增减",
@@ -2372,8 +2372,8 @@
       "width": 1440,
       "height": 1000
     },
-    "capturedAt": "2026-11-01T07:28:43.055Z",
-    "sourceHash": "4cc096c24f291702057f72ea15cc12fbd9da960d1930513c2fbabdef85fd6f04"
+    "capturedAt": "2026-11-03T15:56:42.583Z",
+    "sourceHash": "48e61c1417eb4742613405c2301bd8ad73e9c5a2e3f1ed2efd8a9041857d81e8"
   },
   "scenario-editor-landscape": {
     "title": "手机横屏武将表与排序",
@@ -2384,8 +2384,8 @@
       "width": 844,
       "height": 390
     },
-    "capturedAt": "2026-11-01T07:28:43.139Z",
-    "sourceHash": "4cc096c24f291702057f72ea15cc12fbd9da960d1930513c2fbabdef85fd6f04"
+    "capturedAt": "2026-11-03T15:56:42.672Z",
+    "sourceHash": "48e61c1417eb4742613405c2301bd8ad73e9c5a2e3f1ed2efd8a9041857d81e8"
   },
   "treasure-editor": {
     "title": "宝物名称效果与本机配置",
@@ -2396,8 +2396,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:39:30.324Z",
-    "sourceHash": "d99c7c4746649d7f8ddbebf47e3b10fad7d5711d9ad1fabe668c5c56d49383f9"
+    "capturedAt": "2026-11-03T15:55:56.751Z",
+    "sourceHash": "0b3258ce6761c5daf145b24512f9a6a842530e1d6b0670b688a3f2bb22ad9a02"
   },
   "treasure-editor-landscape": {
     "title": "宝物编辑器手机横屏",
@@ -2408,8 +2408,8 @@
       "width": 844,
       "height": 390
     },
-    "capturedAt": "2026-11-01T07:39:30.693Z",
-    "sourceHash": "d99c7c4746649d7f8ddbebf47e3b10fad7d5711d9ad1fabe668c5c56d49383f9"
+    "capturedAt": "2026-11-03T15:55:57.086Z",
+    "sourceHash": "0b3258ce6761c5daf145b24512f9a6a842530e1d6b0670b688a3f2bb22ad9a02"
   },
   "officer-editor": {
     "title": "武将查找、五项能力与人物资料",
@@ -2420,8 +2420,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:27:43.169Z",
-    "sourceHash": "70b14bb0b84e193b58033377a7827f8262df27089e81050c376086b9052c3e15"
+    "capturedAt": "2026-11-03T15:55:49.544Z",
+    "sourceHash": "793a80b418e90ad831cfcda26ca8c279cbc2a11245aaafe2ccebd424e7b12700"
   },
   "officer-editor-custom": {
     "title": "自建武将保存与导入导出",
@@ -2432,8 +2432,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:27:47.040Z",
-    "sourceHash": "70b14bb0b84e193b58033377a7827f8262df27089e81050c376086b9052c3e15"
+    "capturedAt": "2026-11-03T15:55:53.405Z",
+    "sourceHash": "793a80b418e90ad831cfcda26ca8c279cbc2a11245aaafe2ccebd424e7b12700"
   },
   "officer-editor-landscape": {
     "title": "武将编辑器手机横屏",
@@ -2444,8 +2444,8 @@
       "width": 844,
       "height": 390
     },
-    "capturedAt": "2026-11-01T07:27:47.417Z",
-    "sourceHash": "70b14bb0b84e193b58033377a7827f8262df27089e81050c376086b9052c3e15"
+    "capturedAt": "2026-11-03T15:55:53.768Z",
+    "sourceHash": "793a80b418e90ad831cfcda26ca8c279cbc2a11245aaafe2ccebd424e7b12700"
   },
   "scenario-city-development": {
     "title": "城池设施、科技与城防",
@@ -2456,8 +2456,8 @@
       "width": 1440,
       "height": 1000
     },
-    "capturedAt": "2026-11-01T07:29:10.911Z",
-    "sourceHash": "d388b3ca0f1ebd06d581b914ad2160655d0b596b3151fa0554d6d393ffeaf42b"
+    "capturedAt": "2026-11-03T16:08:07.956Z",
+    "sourceHash": "675e7607f947b72ba27985ec6368d526f0a207ee9da1ee10c56fba7949e7ff7b"
   },
   "scenario-person-appointment": {
     "title": "逐人等级、忠诚与任职",
@@ -2468,8 +2468,8 @@
       "width": 1440,
       "height": 1000
     },
-    "capturedAt": "2026-11-01T07:29:11.028Z",
-    "sourceHash": "d388b3ca0f1ebd06d581b914ad2160655d0b596b3151fa0554d6d393ffeaf42b"
+    "capturedAt": "2026-11-03T16:08:08.073Z",
+    "sourceHash": "675e7607f947b72ba27985ec6368d526f0a207ee9da1ee10c56fba7949e7ff7b"
   },
   "scenario-person-schedule": {
     "title": "武将登场与在野日期",
@@ -2480,8 +2480,8 @@
       "width": 1440,
       "height": 1000
     },
-    "capturedAt": "2026-11-01T07:29:11.141Z",
-    "sourceHash": "d388b3ca0f1ebd06d581b914ad2160655d0b596b3151fa0554d6d393ffeaf42b"
+    "capturedAt": "2026-11-03T16:08:08.169Z",
+    "sourceHash": "675e7607f947b72ba27985ec6368d526f0a207ee9da1ee10c56fba7949e7ff7b"
   },
   "scenario-custom-force": {
     "title": "以自建武将建立势力",
@@ -2492,8 +2492,8 @@
       "width": 1440,
       "height": 1000
     },
-    "capturedAt": "2026-11-01T07:29:11.260Z",
-    "sourceHash": "d388b3ca0f1ebd06d581b914ad2160655d0b596b3151fa0554d6d393ffeaf42b"
+    "capturedAt": "2026-11-03T16:08:08.276Z",
+    "sourceHash": "675e7607f947b72ba27985ec6368d526f0a207ee9da1ee10c56fba7949e7ff7b"
   },
   "scenario-initial-diplomacy": {
     "title": "初始同盟与期限",
@@ -2504,8 +2504,8 @@
       "width": 1440,
       "height": 1000
     },
-    "capturedAt": "2026-11-01T07:29:11.365Z",
-    "sourceHash": "d388b3ca0f1ebd06d581b914ad2160655d0b596b3151fa0554d6d393ffeaf42b"
+    "capturedAt": "2026-11-03T16:08:08.372Z",
+    "sourceHash": "675e7607f947b72ba27985ec6368d526f0a207ee9da1ee10c56fba7949e7ff7b"
   },
   "scenario-landscape-schedule": {
     "title": "手机横屏人物日期配置",
@@ -2516,8 +2516,8 @@
       "width": 844,
       "height": 390
     },
-    "capturedAt": "2026-11-01T07:29:11.435Z",
-    "sourceHash": "d388b3ca0f1ebd06d581b914ad2160655d0b596b3151fa0554d6d393ffeaf42b"
+    "capturedAt": "2026-11-03T16:08:08.440Z",
+    "sourceHash": "675e7607f947b72ba27985ec6368d526f0a207ee9da1ee10c56fba7949e7ff7b"
   },
   "player-handoff": {
     "title": "侦察与在办事务冲突：返回保留原工作，立即执行才中止",
@@ -2528,8 +2528,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:22:10.969Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T15:57:56.359Z",
+    "sourceHash": "3ae9c4705f96ca091fae03ea058a52b39750f9f8e935f920550dff3b85910fdf"
   },
   "observer-faction": {
     "title": "选定剧本后将玩家执掌切换为全 AI 观战",
@@ -2540,8 +2540,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:40:37.051Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T16:02:37.580Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "observer-map": {
     "title": "全 AI 观战中切换观察势力",
@@ -2552,8 +2552,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:40:47.189Z",
-    "sourceHash": "a9a2b221f7039a33887dfc09c4714b65797e377341f66544e049d9dcc74ed749"
+    "capturedAt": "2026-11-03T16:02:50.546Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "army-card-landscape": {
     "title": "手机横屏军团驻守与变更目的地",
@@ -2660,8 +2660,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-03T08:40:46.113Z",
-    "sourceHash": "7ab8325eca09625de582b4f87e6c43cdc375107bf86426c02af0224b538ccb3e"
+    "capturedAt": "2026-11-03T15:58:36.250Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
   },
   "technology-details-mobile": {
     "title": "手机查看进阶科技效果与缺少条件",
@@ -2672,7 +2672,31 @@
       "width": 390,
       "height": 844
     },
-    "capturedAt": "2026-11-03T08:40:46.546Z",
-    "sourceHash": "7ab8325eca09625de582b4f87e6c43cdc375107bf86426c02af0224b538ccb3e"
+    "capturedAt": "2026-11-03T15:58:36.636Z",
+    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
+  },
+  "scout-endpoint-map": {
+    "title": "在地图选择侦察终点并确认",
+    "file": "images/player-actions/scout-endpoint-map.webp",
+    "group": "scouting",
+    "sample": "在办内政人员转任侦察的隔离演示：返回保留原工作，立即执行后才解除",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-11-03T15:57:54.490Z",
+    "sourceHash": "3ae9c4705f96ca091fae03ea058a52b39750f9f8e935f920550dff3b85910fdf"
+  },
+  "scout-completed": {
+    "title": "抵达后斥候和任务消失，已留下的视野保留",
+    "file": "images/player-actions/scout-completed.webp",
+    "group": "scouting",
+    "sample": "已付费的侦察任务沿真实道路执行至抵达，任务结束并释放负责人，保留限时视野",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-11-03T15:57:59.336Z",
+    "sourceHash": "3ae9c4705f96ca091fae03ea058a52b39750f9f8e935f920550dff3b85910fdf"
   }
 }

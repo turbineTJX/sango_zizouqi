@@ -20,7 +20,7 @@ import {withPlanningQueries} from './planning-queries.mjs';
 const power=army=>assessCombatForce(army).power;
 export function victoryContext(s,faction,view=intelligenceWorld(s,faction)){
  return {faction,ownCities:view.cities.filter(c=>c.owner===faction).map(c=>({id:c.id})),
-  territory:{cities:view.cities.map(c=>({id:c.id,owner:c.owner,province:c.province||c.id})),edges:cityRoads(s).map(e=>[...e])},
+  territory:{cities:view.cities.map(c=>({id:c.id,owner:c.owner,province:c.province||c.id,citySize:c.citySize})),edges:cityRoads(s).map(e=>[...e])},
   hostile:Object.fromEntries([...new Set(view.cities.map(c=>c.owner))].filter(f=>f!==faction).map(f=>[f,factionsHostile(s,faction,f)]))};
 }
 export function observedHostileArmies(s,faction){

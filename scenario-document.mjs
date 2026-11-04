@@ -9,6 +9,7 @@ import {DOMESTIC_DIRECTIONS} from './data/design/domestic-actions.mjs';
 import {ECONOMY_RULES} from './data/design/economy-rules.mjs';
 import {MERIT_RULES} from './data/design/progression.mjs';
 import {troopCapacity} from './troop-capacity.mjs';
+import {isMainCity} from './city-classification.mjs';
 import {validScenarioDate,scenarioDateNumber,scenarioDateDay,scenarioStartDay} from './scenario-date.mjs';
 
 export const newScenarioId=()=> 'scenario:'+crypto.randomUUID();
@@ -66,7 +67,7 @@ export function scenarioDocumentErrors(d){
  for(const f of d.forces){
   const leader=d.officers.find(o=>o.id===f.leaderId&&o.faction===f.id&&o.state==='serving');
   if(!text(f.name,20)||!/^#[0-9a-f]{6}$/i.test(f.color))errors.push('势力名称或旗色无效');
-  if(!d.cities.some(c=>c.owner===f.id))errors.push(f.name+'没有城池');
+  if(!d.cities.some(c=>c.owner===f.id&&isMainCity(towns.find(t=>t.id===c.id))))errors.push(f.name+'没有主城，开局势力必须至少占有一座主城');
   if(!leader||leader.cityId!==f.capitalId||scenarioDateDay(d,leader.debutDate)>scenarioStartDay(d))errors.push('请将'+f.name+'君主安排在本城并于开局前登场');
   if(cities.get(f.capitalId)?.owner!==f.id)errors.push(f.name+'的本城归属不符');
  }

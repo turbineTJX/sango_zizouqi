@@ -11,9 +11,8 @@ export const ATLAS_SAME_CITY_NAMES = [
  {label:'白帝城',id:'town-36',name:'永安'},
  {label:'渤海',id:'town-4',name:'南皮'},
 ];
-// User-confirmed legend: squares are major cities, circles are small cities,
-// diamonds are passes. Retained scenario towns without a highlighted marker
-// are small cities as a game adaptation; they are not claimed to be circles.
+// Atlas legend only: squares are major cities, circles are small cities,
+// diamonds are passes. Opening seats below override the scan for gameplay.
 export const ATLAS_LARGE_CITY_IDS = Object.freeze([
  'atlas-dunhuang','atlas-zhangye','town-22','atlas-xiping','atlas-jincheng',
  'town-21','town-20','town-18','town-37','town-38','town-40','atlas-fuling',
@@ -30,7 +29,13 @@ export const ATLAS_CIRCLE_CITY_IDS = Object.freeze([
  'atlas-baling','atlas-linchuan','atlas-leling','atlas-donglai','atlas-lishi',
  'atlas-changzi','atlas-jingxing',
 ]);
-const largeCities=new Set(ATLAS_LARGE_CITY_IDS);
+// Fixed across scenarios: every opening faction must own a main city.
+// These twelve seats would otherwise leave a built-in faction with only small cities.
+export const SCENARIO_MAIN_CITY_IDS=Object.freeze([
+ 'chenliu','town-5','runan','town-10','town-24','town-29',
+ 'town-26','town-42','town-41','town-33','town-34','town-35',
+]);
+const largeCities=new Set([...ATLAS_LARGE_CITY_IDS,...SCENARIO_MAIN_CITY_IDS]);
 export const atlasCitySize=id=>largeCities.has(id)?'large':'small';
 export const ATLAS_POINT_REVISIONS = {
  'town-1':[1340,133], 'town-2':[1105,272], 'town-4':[1080,369],

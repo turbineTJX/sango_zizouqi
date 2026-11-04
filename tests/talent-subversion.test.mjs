@@ -87,12 +87,12 @@ for(const faction of ['cao','yuan'])test(`${faction} custody reveals current cap
 
 test('real scouting leaves fixed timed wards which keep live officer information after recall until their last coverage expires',()=>{
  const f=fixture(),{s,home,city,target}=f,actor=scoutCandidates(s,home.id)[0],record=s.campaign.vision.factions.cao;
- assert.equal(dispatchScout(s,home.id,actor.unit.id,city.id),null);const task=scoutAssignment(s,actor.unit.id),first={...record.scouted[0]};
- for(let i=0;i<40&&task.phase!=='watch';i++){
+ assert.equal(dispatchScout(s,home.id,actor.unit.id,city.id),null);assert.equal(record.scouted.length,0);s.campaign.phase='executing';advanceScouting(s);const task=scoutAssignment(s,actor.unit.id),first={...record.scouted[0]};
+ for(let i=0;i<40&&scoutAssignment(s,actor.unit.id);i++){
   advanceScouting(s);assert.deepEqual([record.scouted.find(v=>v.id===first.id).x,record.scouted.find(v=>v.id===first.id).y],[first.x,first.y]);
-  if(task.phase!=='watch'){finishDomesticDay(s);s.campaign.day++;s.turn=Math.floor((s.campaign.day-1)/10)+1;}
+  if(scoutAssignment(s,actor.unit.id)){finishDomesticDay(s);s.campaign.day++;s.turn=Math.floor((s.campaign.day-1)/10)+1;}
  }
- assert.equal(task.phase,'watch');assert.ok(record.scouted.length>1);assert.equal(recallScout(s,actor.unit.id),null);
+ assert.equal(scoutAssignment(s,actor.unit.id),undefined);assert.equal(actor.unit.scouting,undefined);assert.ok(record.scouted.length>1);
  const wards=JSON.stringify(record.scouted);s.campaign.domestic.loyalty[target.unit.id]=77;
  assert.equal(intelligenceWorld(s).campaign.domestic.loyalty[target.unit.id],77,'left-behind wards keep real-time information');
  assert.equal(JSON.stringify(record.scouted),wards,'reading cannot move or extend wards');

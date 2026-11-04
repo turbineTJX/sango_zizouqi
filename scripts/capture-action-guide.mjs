@@ -198,11 +198,15 @@ const groups={
  async scouting(){
   const {s,id}=busyFixture(),home='xuchang',target=scoutTargets(s,home)[0];
   assert.ok(target);await load(s,'在办内政人员转任侦察的隔离演示：返回保留原工作，立即执行后才解除');
-  await click('scout-open');await chooseAssignment(page,'#scout-city',home);await chooseAssignment(page,'#scout-officer',id);await chooseAssignment(page,'#scout-target',target.id);
+  await click('scout-open');await shot('scout-source','侦察先确定派出城市');await page.locator('#scout-city').click();await shot('scout-cities','侦察派出城市表');await click('assignment-picker-cancel');await chooseAssignment(page,'#scout-city',home);
+  await page.locator('#scout-officer').click();await shot('scout-officers','侦察执行人表');await click('assignment-picker-cancel');await chooseAssignment(page,'#scout-officer',id);
+  await page.locator('[data-action="map-target-open"][data-kind="scout-target"]').click();await page.locator(`[data-command-city="${target.id}"]`).press('Enter');await shot('scout-endpoint-map','在地图选择侦察终点并确认');await click('map-target-confirm');await shot('scout-route','侦察终点路线与预计抵达');await page.setViewportSize({width:844,height:390});await shot('scout-landscape','手机横屏地图选点与抵达预览');await page.setViewportSize({width:1440,height:900});
   const before=await save();await click('scout-dispatch');await page.locator('[data-action="campaign-order-choice"][data-choice="now"]').waitFor();
   assert.equal(await page.locator('[data-action="campaign-order-choice"][data-choice="after"]').count(),0);assert.deepEqual(await save(),before);await shot('player-handoff','侦察与在办事务冲突：返回保留原工作，立即执行才中止');
   await click('campaign-command-return');assert.deepEqual(await save(),before);await click('scout-dispatch');await page.locator('[data-action="campaign-order-choice"][data-choice="now"]').click();
-  const after=await save();assert.ok(after.campaign.scouting.tasks.some(t=>t.officerId===id));assert.ok(!after.campaign.domestic.assignments.some(a=>a.officerId===id));
+  const after=await save();assert.ok(after.campaign.scouting.tasks.some(t=>t.officerId===id));assert.ok(!after.campaign.domestic.assignments.some(a=>a.officerId===id));assert.equal(after.campaign.scouting.tasks.find(t=>t.officerId===id).lastDay,0);await shot('scout-running','侦察派遣后待出发，实际执行才开始观察');
+  for(let i=0;i<30&&after.campaign.scouting.tasks.some(t=>t.officerId===id);i++){if(after.campaign.phase==='planning')assert.equal(beginExecution(after),null);for(const battle of activeBattles(after).filter(r=>r.awaiting))chooseEncounter(after,battle.id,false);advanceCampaignDay(after);}
+  assert.equal(after.campaign.scouting.tasks.some(t=>t.officerId===id),false);await load(after,'已付费的侦察任务沿真实道路执行至抵达，任务结束并释放负责人，保留限时视野');await click('scout-open');await shot('scout-completed','抵达后斥候和任务消失，已留下的视野保留');
  },
  async affairs(){
   await load();await click('faction-domestic');const before=await save(),second=page.locator('.priority-row').nth(1),direction=await second.getAttribute('data-priority-direction');
@@ -379,11 +383,20 @@ const groups={
   await shot('technology-details','进阶科技的效果、复合设施及真实人员条件','[data-technology="militarySupply"]');
   await page.setViewportSize({width:390,height:844});await shot('technology-details-mobile','手机查看进阶科技效果与缺少条件','[data-technology="militarySupply"]');
  },
+ async bandits(){
+  const b=newCampaign(521200,'guandu-200'),camp=b.campaign.bandits.camps.find(c=>c.nodeId==='junction:chenliu:xuchang');
+  assert.equal(dispatchScout(b,'xuchang',scoutCandidates(b,'xuchang')[0].unit.id,camp.nodeId),null);advanceScouting(b);updateVision(b);
+  assert.ok(b.campaign.bandits.observations.cao?.[camp.id]);await load(b,'斥候实际执行后发现贼寨的隔离演示存档');
+  await page.locator(`[data-action="bandit-open"][data-camp="${camp.id}"]`).press('Enter');
+  await page.locator('.modal-body [data-art-portrait] img').evaluateAll(imgs=>Promise.all(imgs.map(img=>{img.loading='eager';return img.decode();})));
+  await shot('bandit','贼寨情报、随机武将通用头像与选择派出城');
+  await page.locator(`[data-bandit-target="${camp.nodeId}"][data-town="xuchang"]`).click();await shot('bandit-expedition','讨伐沿用出征选队流程');
+ },
  async proposals(){
   const s=newCampaign(7);fundCities(s,40000);const c=s.cities.find(c=>c.id==='xuchang'),people=s.campaign.idle.filter(o=>o.location===c.id);for(const [key,def]of Object.entries(ACTIONS))if(['technology','commerce'].includes(def.direction)&&!['research','build_commerce'].includes(key))c.domestic.cooldowns[key]=10000;assignDomestic(s,c.id,'technology',people[0].unit.id);assignDomestic(s,c.id,'commerce',people[1].unit.id);
   c.budget.goldReserve=c.gold;await load(s,'本城付费事务与明确保留预算冲突的机制演示');await click('campaign-begin');await page.locator('.domestic-alert-list,.domestic-proposal').first().waitFor();await dismiss();await page.locator('.domestic-proposal').first().waitFor();await shot('proposals','资源冲突、人员、费用与耗时');await page.setViewportSize({width:844,height:390});await shot('proposals-landscape','横屏资源冲突操作');await page.setViewportSize({width:1440,height:900});
   await page.locator('.domestic-proposal [data-action="campaign-info-detail"]').first().click();await page.locator('[data-city-budget-key="goldReserve"]').fill('0');await click('city-budget-save');await page.locator('#modal-panel-root [data-action="close"]').last().click();await page.locator('.domestic-proposal').first().waitFor();await click('domestic-proposal-approve-page');await shot('proposals-approved','调整预算后按原案开办');await click('close');await click('faction-domestic');await shot('affairs','人员事务费用时间与城市审批');await page.locator('[data-action="domestic-governor-approval"][data-city="xuchang"]').click();await shot('proposals-policy','按城委托太守审批');
-  const b=newCampaign(521200,'guandu-200'),camp=b.campaign.bandits.camps.find(c=>c.nodeId==='junction:chenliu:xuchang');assert.equal(dispatchScout(b,'xuchang',scoutCandidates(b,'xuchang')[0].unit.id,camp.nodeId),null);updateVision(b);await load(b,'已通过真实侦察发现贼寨的演示存档');await page.locator(`[data-action="bandit-open"][data-camp="${camp.id}"]`).press('Enter');await shot('bandit','贼寨情报与选择派出城');await page.locator(`[data-bandit-target="${camp.nodeId}"][data-town="xuchang"]`).click();await shot('bandit-expedition','讨伐沿用出征选队流程');
+  await groups.bandits();
  },
  async officerEditor(){
   await load(null,'武将编辑与自建人物的隔离演示');await click('officer-editor');

@@ -33,7 +33,8 @@ try{
  for(let i=0;i<3;i++){await page.locator('[data-action="journal"]').first().click();await page.locator('.modal-header [data-action="close"]').click();}
  assert.ok(await page.evaluate(()=>identity.svg===document.querySelector('.national-world')&&identity.terrain===document.querySelector('.ancient-atlas-terrain')&&identity.preview===document.querySelector('[data-camera-preview]')),'read-only close preserves the live map and its decoded texture');
  await page.locator('[data-action="faction-directory"][data-kind="officer"]').click();
- const query=page.locator('#faction-directory-query');await query.fill('曹');await page.waitForTimeout(180);
+ const query=page.locator('#faction-directory-query');await query.fill('曹');
+ await page.waitForFunction(()=>{const text=document.querySelector('.modal-body tbody')?.textContent;return text?.includes('曹操')&&!text.includes('夏侯惇');});
  const composing=await page.evaluate(async()=>{
   const input=document.querySelector('#faction-directory-query'),before=document.querySelector('.modal-body tbody').textContent;
   input.dispatchEvent(new CompositionEvent('compositionstart',{bubbles:true}));input.value='曹操';input.setSelectionRange(2,2);
@@ -67,7 +68,9 @@ try{
   const update=BattleArt.prototype.update;BattleArt.prototype.update=function(...args){globalThis.artUnderTest=this;return update.apply(this,args);};
   const draw=ModelLayer.prototype.draw;globalThis.modelDraws=0;ModelLayer.prototype.draw=function(...args){modelDraws++;return draw.apply(this,args);};
  });
- await importSaveFixture(page,battle);await page.waitForFunction(()=>globalThis.artUnderTest?.models?.objects.size===12&&artUnderTest.models.batches.batches.size>0);await page.waitForTimeout(700);
+ await importSaveFixture(page,battle);
+ const onboarding=page.getByRole('button',{name:'关闭全部新手指引',exact:true});if(await onboarding.isVisible())await onboarding.click();
+ await page.waitForFunction(()=>globalThis.artUnderTest?.models?.objects.size===12&&artUnderTest.models.batches.batches.size>0);await page.waitForTimeout(700);
  const before=await page.evaluate(()=>modelDraws);await page.waitForTimeout(700);assert.equal(await page.evaluate(()=>modelDraws),before,'paused models stop rendering after their invalidation frame');
  const batched=await page.evaluate(()=>({calls:artUnderTest.models.renderer.info.render.calls,triangles:artUnderTest.models.renderer.info.render.triangles}));
  const canvas=page.locator('.art-models');const a=await canvas.screenshot();await writeFile(out+'/batched.png',a);

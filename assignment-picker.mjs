@@ -1,6 +1,6 @@
 import {playerFaction} from './player-faction.mjs';
 import {campaignOfficers,officerWorkMarkup} from './strategic-roster.mjs';
-import {scoutCandidates,scoutOfficerReason,scoutTargets,scoutRoute,scoutingDurationRange} from './scouting.mjs';
+import {scoutCandidates,scoutOfficerReason,scoutTargets,scoutRoute,scoutingDurationRange,scoutJourney} from './scouting.mjs';
 import {diplomaticOfficerCandidates} from './diplomacy.mjs';
 import {DIPLOMACY_DIRECTIONS} from './data/design/diplomacy-rules.mjs';
 import {diplomaticAssignment} from './diplomacy-relations.mjs';
@@ -8,8 +8,6 @@ import {diplomaticTraits,diplomaticTraitProfile} from './diplomatic-traits.mjs';
 import {abilityButton} from './ability-reference.mjs';
 import {sortRows,sortHeader} from './list-sort.mjs';
 import {cityStaffStatus} from './domestic-feedback.mjs';
-import {roadCost} from './road-metrics.mjs';
-import {MOVEMENT_RULES} from './data/design/movement-rules.mjs';
 import {CAMPAIGN_TIME} from './combat-rules.mjs';
 import {treasureRecipient,grantTreasure} from './treasures.mjs';
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -17,7 +15,7 @@ export const assignmentField=(id,label,value,{kind,direction='',disabled=false,s
 export function assignmentCandidates(s,p){
  const own=playerFaction(s),roster=campaignOfficers(s);
  if(p.kind.endsWith('city'))return s.cities.filter(c=>c.owner===own).map(c=>({id:c.id,name:c.name,people:roster.filter(r=>r.location===c.id).length,idle:cityStaffStatus(s,c).idle.length,reason:''}));
- if(p.kind==='scout-target')return scoutCandidates(s,p.city,own,{reassign:true}).some(o=>o.unit.id===p.officer)?scoutTargets(s,p.city).map(n=>{let from=p.city,cost=0;for(const to of scoutRoute(s,p.city,n.id)||[]){cost+=roadCost(s,from,to);from=to;}return {id:n.id,name:n.name,kind:n.units?'城市':({port:'港口',gate:'关卡',junction:'路口'})[n.kind]||'据点',days:Math.ceil(cost/MOVEMENT_RULES.scouting.speed),reason:''};}):[];
+ if(p.kind==='scout-target')return scoutCandidates(s,p.city,own,{reassign:true}).some(o=>o.unit.id===p.officer)?scoutTargets(s,p.city).map(n=>{const trip=scoutJourney(s,p.city,scoutRoute(s,p.city,n.id));return {id:n.id,name:n.name,kind:n.units?'城市':({port:'港口',gate:'关卡',junction:'路口'})[n.kind]||'据点',days:trip.days,gold:trip.gold,reason:''};}):[];
  if(p.kind==='treasure-officer')return roster.map(r=>({...r,id:r.unit.id,name:r.unit.name,reason:!treasureRecipient(s,r.unit.id,own)?'随军锁定':grantTreasure(s,p.treasureId,r.unit.id,{checkOnly:true})||''}));
  const eligible=p.kind==='diplomacy-officer'?new Set(diplomaticOfficerCandidates(s,own,p.direction).map(o=>o.unit.id)):null;
  return roster.filter(r=>r.location===p.city).map(r=>{
@@ -28,7 +26,7 @@ export function assignmentCandidates(s,p){
 }
 export function assignmentPickerMarkup(s,p){
  const officer=p.kind.endsWith('officer'),treasure=p.kind==='treasure-officer',target=p.kind.endsWith('target'),stat=officer&&!treasure?(p.kind==='scout-officer'?'智力':({politics:'政治',charm:'魅力',intellect:'智力',leadership:'统率',force:'武力'})[DIPLOMACY_DIRECTIONS[p.direction].stat]):null;
- const columns=officer?[['name','武将'],...(stat?[['stat',stat]]:[]),...(p.kind==='scout-officer'?[['duration','视野持续']]:[]),['place','所在'],['duty','任职'],['work','事务'],...(p.kind==='diplomacy-officer'?[['traits','特性']]:[])]:target?[['name','终点'],['kind','类型'],['days','抵达天数']]:[['name','城市'],['people','武将'],['idle','空闲']];
+ const columns=officer?[['name','武将'],...(stat?[['stat',stat]]:[]),...(p.kind==='scout-officer'?[['duration','视野持续']]:[]),['place','所在'],['duty','任职'],['work','事务'],...(p.kind==='diplomacy-officer'?[['traits','特性']]:[])]:target?[['name','终点'],['kind','类型'],['days','用时（天）'],['gold','费用（金）']]:[['name','城市'],['people','武将'],['idle','空闲']];
  const all=assignmentCandidates(s,p),query=p.query?.trim(),sort=p.sort||(officer&&!treasure?'stat':'name'),direction=p.order||'desc';
  const rows=sortRows(all.filter(r=>!query||[r.name,r.unit?.courtesy].some(n=>n?.includes(query))),sort,direction,(r,k)=>r[k]).sort((a,b)=>Number(!!a.reason)-Number(!!b.reason));
  const selected=all.find(r=>r.id===p.selected&&!r.reason),title=treasure?'选择接收武将':officer?'选择执行人':target?'选择侦察终点':'选择派出城市';

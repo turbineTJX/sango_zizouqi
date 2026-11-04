@@ -1,6 +1,6 @@
 // Provenance only. Draft tables are not alternate executable configuration.
 export const RULE_SOURCES=Object.freeze({
- factions:['data/design/national-scenarios.mjs','data/design/reference-scenario.mjs','data/national-map.mjs','national-scenarios.mjs'],
+ factions:['data/design/national-scenarios.mjs','data/design/reference-scenario.mjs','data/national-map.mjs','data/design/cities.mjs','data/design/atlas-cities.mjs','city-classification.mjs','national-scenarios.mjs','talent-lifecycle.mjs'],
  'building-effects':['data/design/buildings.mjs','data/design/economy-rules.mjs','strategic-campaign.mjs','building-rules.mjs'],
  'supply-rules':['strategic-campaign.mjs','army-supply.mjs','data/design/economy-rules.mjs','data/design/road-network.mjs','data/design/historical-road-plan.mjs','data/design/road-crossings.mjs','data/design/road-link-policy.mjs','data/design/road-distances.mjs','road-network.mjs','road-crossings.mjs','road-metrics.mjs'],
  'domestic-decision-rules':['data/design/domestic-actions.mjs','domestic.mjs','domestic-staffing.mjs'],

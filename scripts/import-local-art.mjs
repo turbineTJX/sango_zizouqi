@@ -3,6 +3,7 @@ import {resolve,dirname,extname,basename} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {createHash} from 'node:crypto';
 import {OFFICER_CATALOG} from '../officer-catalog.mjs';
+import {infinityPortraitFiles,infinityGenericPortraitFiles} from './infinity-portraits.mjs';
 
 const root=resolve(dirname(fileURLToPath(import.meta.url)),'..');
 const args=process.argv.slice(2);
@@ -38,6 +39,13 @@ if(strategy){
  }
 }
 if(inf){
+ const original=await infinityPortraitFiles(config.infinity,resolve(out,'infinity-faces'),OFFICER_CATALOG);
+ for(const [id,file] of Object.entries(original.portraits))pack.portraits[id]=await asset(file,'infinity/portraits');
+ for(const id of original.missing)if(!pack.portraits[id])missing.push('portrait:'+id);
+ const generic=await infinityGenericPortraitFiles(config.infinity,resolve(out,'infinity-faces'));
+ pack.generatedPortraits={male:[],female:[]};
+ for(const [sex,entries]of Object.entries(generic.portraits))for(const {file}of entries)pack.generatedPortraits[sex].push(await asset(file,'infinity/generic-portraits'));
+ missing.push(...generic.missing.map(id=>'generic-portrait:'+id));
  // The supplied project contains one generic critical cut-in, not officer-specific art.
  pack.criticals={default:await asset(resolve(inf,'CriticalImage/default.png'),'infinity/critical-cut-in')};
  // National basemaps and map-space anchors only; never import scenario rules.

@@ -2,7 +2,6 @@
 export const STRATEGIC_SCOUTING_RULES = Object.freeze({
   maxAssignments: 2,
   minimumLocalWorkers: 1,
-  replacementPriorityGap: 40,
   frontierPriority: 80,
   planPriority: 200,
   unknownPriority: 80,

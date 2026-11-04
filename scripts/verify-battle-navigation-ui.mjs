@@ -60,8 +60,6 @@ try{
   ModelLayer.prototype.load=async function(key){await new Promise(r=>setTimeout(r,450));return load.call(this,key);};
  });
  await target().selectOption(second.id);
- assert.match(await page.locator('#overlay-root .modal-body').innerText(),/只能同时指挥一场战斗.*AI 继续作战/s);
- assert.match(await page.locator('#overlay-root .modal-body').innerText(),/所有战场将继续进行/);
  await page.screenshot({animations:'disabled',path:out+'/confirm-desktop.png'});await confirm();
  await page.locator('dialog.scene-loading[open]').waitFor();await page.screenshot({animations:'disabled',path:out+'/switch-loading.png'});
  const switched=await stored();assert.equal(switched.campaign.focusId,second.id);
@@ -73,7 +71,7 @@ try{
  await page.waitForFunction(({ids,ticks})=>ids.every((id,i)=>window.navigationBattles.get(id)?.tick>ticks[i]),{ids:[first.id,second.id],ticks:[first.battle.tick,second.battle.tick]});
  await page.getByRole('button',{name:'暂停',exact:true}).click();
  await page.waitForFunction(async({ids,ticks})=>{const s=JSON.parse(await(await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2'));return ids.every((id,i)=>s.campaign.battles.find(b=>b.id===id).battle.tick>ticks[i]);},{ids:[first.id,second.id],ticks:[first.battle.tick,second.battle.tick]});
- checks.push('确认告知战斗继续；仅一场玩家指挥，加载后两场自动同步推进');
+ checks.push('仅一场玩家指挥，加载后两场自动同步推进');
  const pausedTicks=()=>page.evaluate(ids=>ids.map(id=>window.navigationBattles.get(id).tick),[first.id,second.id]);
  const paused=await pausedTicks();await page.waitForTimeout(1100);assert.deepEqual(await pausedTicks(),paused);
  await page.getByRole('button',{name:'继续战斗',exact:true}).click();

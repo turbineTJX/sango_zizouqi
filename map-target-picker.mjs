@@ -1,7 +1,7 @@
 import {mapNode} from './road-network.mjs';
 import {playerFaction} from './player-faction.mjs';
 import {intelligenceWorld} from './strategic-vision.mjs';
-import {scoutCandidates,scoutTargets,scoutRoute} from './scouting.mjs';
+import {scoutCandidates,scoutTargets,scoutRoute,scoutJourney} from './scouting.mjs';
 import {retreatDestinations} from './strategic-retreat.mjs';
 import {FACTIONS} from './engine.mjs';
 
@@ -30,10 +30,10 @@ export function syncMapTargetAttributes(root){
 }
 export function mapTargetSummary(s,pick,candidate,context){
  if(!candidate)return '<p role="status">请选择目标</p>';
- let detail=pick.kind==='diplomacy'?FACTIONS[candidate.owner]?.name:'';
- if(pick.kind==='scout-target')detail=[context.scout.city,...(scoutRoute(s,context.scout.city,candidate.id)||[])].map(id=>mapNode(s,id)?.name).join(' → ');
+ let detail=pick.kind==='diplomacy'?FACTIONS[candidate.owner]?.name:'',trip=null;
+ if(pick.kind==='scout-target'){const route=scoutRoute(s,context.scout.city,candidate.id)||[];detail=[context.scout.city,...route].map(id=>mapNode(s,id)?.name).join(' → ');trip=scoutJourney(s,context.scout.city,route);}
  if(pick.kind==='retreat')detail=`道路距离 ${Number(candidate.cost.toFixed(1))} 点`;
- return `<div role="status"><h2>${esc(candidate.name)}</h2><p>${esc(detail)}</p></div>`;
+ return `<div role="status"><h2>${esc(candidate.name)}</h2><p>${esc(detail)}</p>${trip?`<p>预计用时 ${trip.days} 天 · 费用 ${trip.gold} 金</p>`:''}</div>`;
 }
 export function mapTargetSearchMarkup(s,kind,candidates,query=''){
  const matches=query.trim()?candidates.filter(n=>`${n.name} ${n.province||''} ${kind==='diplomacy'?FACTIONS[n.owner]?.name||'':''}`.includes(query.trim())).slice(0,12):[];

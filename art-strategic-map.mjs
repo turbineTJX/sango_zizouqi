@@ -1,4 +1,5 @@
 import {prepareMapCameraPreview} from './map-camera-preview.mjs';
+import {prepareMapEffects} from './map-effect-cache.mjs';
 import {forgetMarkup} from './strategic-dom.mjs';
 import {metropolisLabelPosition} from './map-label-layout.mjs';
 import {layoutOverviewSites,regionalSiteOpacity} from './map-overview-layout.mjs';
@@ -55,8 +56,8 @@ function prepareTerrain(svg){
   terrain.dataset.isolated='true';
  }
  const images=[...terrain.querySelectorAll('image')];
- // Keep one season of movement previews in memory. Full vector detail returns
- // when the gesture stops; panning and zooming reuse already decoded textures.
+ // Keep one season of screen-resolution textures in memory. At a wide view
+ // they already exceed the display resolution; retain vectors for close detail.
  if(previewSeason!==season){
   previewSeason=season;previewGeneration++;
   for(const entry of terrainLayers.values())for(const layer of entry.layers){if(layer.preview)URL.revokeObjectURL(layer.preview);delete layer.preview;delete layer.previewTask;delete layer.preload;}
@@ -117,6 +118,7 @@ export function attachStrategicMap(root,ui,onFailure){
  const svg=root.querySelector('.strategy-world-art');if(!svg)return;
  const national=svg.dataset.national==='true';
  const terrainPreview=national?prepareTerrain(svg):null;
+ const restoreEffects=national?prepareMapEffects(svg):null;
  let buildingCard=null;
  const closeBuilding=()=>{buildingCard?.remove();buildingCard=null;};
  const [x,y,width,height]=svg.getAttribute('viewBox').split(/\s+/).map(Number);
@@ -160,7 +162,7 @@ export function attachStrategicMap(root,ui,onFailure){
   return {node,x:+node.getAttribute('x'),y:+node.getAttribute('y'),anchorX:anchor?+anchor[1]:+node.getAttribute('x'),anchorY:anchor?+anchor[2]:+node.getAttribute('y'),transform};
  });
  const metropolises=[...svg.querySelectorAll('[data-metropolis-focus]')].sort((a,b)=>Number(b.classList.contains('selected'))-Number(a.classList.contains('selected'))).map(node=>({node,glyph:node.querySelector('[data-map-glyph]'),x:+node.dataset.x,y:+node.dataset.y,width:+node.querySelector('.metropolis-label').getAttribute('width'),hidden:false}));
- const markers=[...svg.querySelectorAll('[data-map-army-anchor]')].sort((a,b)=>Number(b.classList.contains('selected'))-Number(a.classList.contains('selected'))).map(node=>({x:+node.dataset.x,y:+node.dataset.y,glyph:node.querySelector('[data-map-army-glyph]'),card:node.querySelector('[data-map-army-card]'),line:node.querySelector('.army-location-line')}));
+ const markers=[...svg.querySelectorAll('[data-map-army-anchor]')].sort((a,b)=>Number(b.classList.contains('selected'))-Number(a.classList.contains('selected'))).map(node=>({x:+node.dataset.x,y:+node.dataset.y,glyph:node.querySelector('[data-map-army-glyph]'),card:node.querySelector('[data-map-army-card]'),height:+node.querySelector('[data-map-army-card]')?.dataset.cardHeight||ARMY_CARD.height,line:node.querySelector('.army-location-line')}));
  const encounters=[...svg.querySelectorAll('[data-map-battle-anchor]')].map(node=>({x:+node.dataset.x,y:+node.dataset.y,glyph:node.querySelector('[data-map-battle-glyph]')}));
  const bandits=[...svg.querySelectorAll('.bandit-map-marker')].map(node=>({x:+node.dataset.x,y:+node.dataset.y,glyph:node.querySelector('[data-map-glyph]'),line:node.querySelector('[data-bandit-location]')}));
  // Opacity is not inherited. Set it on each visual layer instead of changing
@@ -179,6 +181,13 @@ export function attachStrategicMap(root,ui,onFailure){
  const point=(surface,e)=>new DOMPoint(e.clientX,e.clientY).matrixTransform(surface.getScreenCTM().inverse());
  const apply=(manual=true,animate=false,continuous=false)=>{
   if(frame){cancelAnimationFrame(frame);frame=0;}
+  // The movement texture needs only camera arithmetic. Reading layout here
+  // would flush the whole restored vector scene on the first wheel event.
+  if(continuous&&national&&Math.min(view.width,view.height)>90&&cameraPreview?.ready()){
+   view=clampMapView(view);if(manual)ui.mapCameraManual=true;ui.strategicMapView={...view};
+   animation?.remove();animation=null;cameraPreview(view);
+   svg.classList.add('map-camera-moving');terrainPreview?.(true);return;
+  }
   // Read layout before changing styles, classes, viewBox or city geometry.
   const screenWidth=svg.clientWidth,screenHeight=svg.clientHeight;
   const labelLimit=Math.max(6,Math.min(28,Math.floor(screenWidth*screenHeight/26000)));
@@ -186,12 +195,12 @@ export function attachStrategicMap(root,ui,onFailure){
   const previous=animate?svg.viewBox.animVal:null,from=previous?{x:previous.x,y:previous.y,width:previous.width,height:previous.height}:null;
   if(!continuous)clearTimeout(previewTimer);
   svg.classList.toggle('map-camera-moving',continuous);
-  terrainPreview?.(continuous);
+  const terrainPixels=Math.min(screenWidth/view.width,screenHeight/view.height)*(globalThis.devicePixelRatio||1);
+  terrainPreview?.(continuous||terrainPixels<=2);
   animation?.remove();animation=null;
   if(national)view=clampMapView(view);else {view.x=clamp(view.x,0,1024-view.width);view.y=clamp(view.y,0,1024-view.height);}
   if(manual)ui.mapCameraManual=true;
   ui.strategicMapView={...view};
-  if(continuous&&Math.min(view.width,view.height)>90&&cameraPreview?.ready()){cameraPreview(view);return;}
   cameraPreview?.(false);
   svg.setAttribute('viewBox',`${view.x} ${view.y} ${view.width} ${view.height}`);svg.classList.toggle('map-detail',Math.min(view.width,view.height)<=420);svg.classList.toggle('map-overview',Math.min(view.width,view.height)>=720);
   const level=mapDetailLevel(view),blend=mapDetailBlend(view),distant=national?overviewSymbolBlend(view):0,overview=Math.min(view.width,view.height)>=720,close=national&&level==='interior';
@@ -290,15 +299,15 @@ export function attachStrategicMap(root,ui,onFailure){
   const placed=encounters.map(p=>({x:p.x-56*pixelScale,y:p.y-27*pixelScale,w:112*pixelScale,h:68*pixelScale}));
   for(const encounter of encounters)attr(encounter.glyph,'transform',`scale(${pixelScale})`);
   for(const marker of markers){
-   const mx=marker.x,my=marker.y,scale=pixelScale*.95;
-   const choices=[ARMY_CARD.top,ARMY_CARD.top-90,28,118,ARMY_CARD.top-180].flatMap(dy=>[0,-88,88,-112,112,-176,176].map(dx=>({dx,dy,x:mx+(dx-39)*scale,y:my+dy*scale,w:ARMY_CARD.width*scale,h:ARMY_CARD.height*scale}))).sort((a,b)=>Math.hypot(a.dx,a.dy-ARMY_CARD.top)-Math.hypot(b.dx,b.dy-ARMY_CARD.top));
+   const mx=marker.x,my=marker.y,scale=pixelScale*.95,scout=marker.height===30,cardTop=scout?16:ARMY_CARD.top;
+   const choices=(scout?[16,-85,55,-125]:[ARMY_CARD.top,ARMY_CARD.top-90,28,118,ARMY_CARD.top-180]).flatMap(dy=>(scout?[0,-88,88]:[0,-88,88,-112,112,-176,176]).map(dx=>({dx,dy,x:mx+(dx-39)*scale,y:my+dy*scale,w:ARMY_CARD.width*scale,h:marker.height*scale}))).sort((a,b)=>Math.hypot(a.dx,a.dy-cardTop)-Math.hypot(b.dx,b.dy-cardTop));
    const onScreen=r=>r.x>=view.x+4*pixelScale&&r.x+r.w<=view.x+view.width-4*pixelScale&&r.y>=view.y+4*pixelScale&&r.y+r.h<=view.y+view.height-4*pixelScale;
    const clear=r=>onScreen(r)&&![...placed,...uiBlocks].some(p=>overlaps(r,p));
    const choice=choices.find(r=>clear(r)&&![...metroLabels,...labels].some(p=>overlaps(r,p)))||choices.find(clear)||choices.find(onScreen)||choices[0];
    placed.push(choice);
    attr(marker.glyph,'transform',`scale(${scale})`);
    attr(marker.card,'transform',`translate(${choice.dx-39} ${choice.dy})`);
-   attr(marker.line,'x2',choice.dx);attr(marker.line,'y2',choice.dy+ARMY_CARD.height);
+   attr(marker.line,'x2',choice.dx);attr(marker.line,'y2',choice.dy+marker.height);
   }
   for(const {node,hidden} of metropolises)attr(node,'tabindex',level==='metropolis'&&!hidden?'0':'-1');
   // SVG animation keeps the saved/base view synchronized with the final camera.
@@ -436,6 +445,6 @@ export function attachStrategicMap(root,ui,onFailure){
  if(national)cameraPreview=prepareMapCameraPreview(svg);
  const sizeObserver=new ResizeObserver(()=>{if(!svg.isConnected)sizeObserver.disconnect();else {bounds=svg.getBoundingClientRect();if(!national)fitTheater();else if(commandMap)fitCommandViewport();apply(false);}});
  sizeObserver.observe(svg);
- mapControllers.set(root,()=>{bindings.abort();sizeObserver.disconnect();cancelAnimationFrame(frame);clearTimeout(previewTimer);animation?.remove();cameraPreview?.destroy();closeBuilding();});
+ mapControllers.set(root,()=>{bindings.abort();sizeObserver.disconnect();cancelAnimationFrame(frame);clearTimeout(previewTimer);animation?.remove();cameraPreview?.destroy();restoreEffects?.();closeBuilding();});
  if(matchMedia('(prefers-reduced-motion: reduce)').matches)svg.querySelectorAll('animateTransform').forEach(n=>n.remove());
 }

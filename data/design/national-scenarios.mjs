@@ -20,6 +20,9 @@ export const ATLAS_SCENARIO_ANCHORS = {
  'atlas-changzi':6,'atlas-jingxing':7,
 };
 const historicalNote='人物归属及登场年取自参考项目英雄集结，领地与势力关系按年代适配；未登场者到年再登场，已去世者不进入开局。';
+// Generic tribe actors belong to the reference game's encounters, not its
+// recruitable cast. Keep their catalogue records; exclude them in every template.
+export const BUILTIN_PERSONNEL_EXCLUSIONS=Object.freeze([722,723,724,725,726,727,728,729]);
 export const NATIONAL_SCENARIO_DESIGNS = [
  {id:'guandu-200',name:'官渡风云',year:200,era:'建安五年',kind:'historical',difficulty:'推荐入门',capital:'xuchang',description:'曹操立足许昌，袁绍雄踞河北。先守住黄河沿线，再向江东、荆襄与巴蜀推进。',hint:'曹操开局拥有多座城池与充足人才；先委任内政，再从许昌编军北上。',factions:['cao','yuan','force-7','sunce'],note:'四势力试玩：曹操、袁绍、刘表、孙策。人物身份与登场年参考来源，部分人事按官渡年代调整；其他地区为地方据点。',layout:'legacy-guandu',rosterDistribution:'reference'},
  {id:'heroes-251',name:'英雄集结',year:251,era:'群英并起',kind:'fictional',difficulty:'群雄混战',capital:'xuchang',description:'曹操居中原，袁绍据河北，刘备领巴蜀荆襄，孙策控江东。四方群英同世，争夺关津与天下。',hint:'四方均有腹地与前线，先守住关隘和粮道，再集中军团突破。',factions:['cao','yuan','force-2','sunce'],note:'四势力架空试玩；来源在职人物按区域归并，在野保持在野，不限制生卒年。',layout:'legacy-heroes',rosterDistribution:'reference'},

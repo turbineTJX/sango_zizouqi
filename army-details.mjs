@@ -40,5 +40,5 @@ export function armyDetailSections(a,{soldiers=a.units.reduce((n,u)=>n+(u.hp??u.
  ];
 }
 export function armyDetailsMarkup(a,options={}){
- return `<section class="army-details-preview"><h3>军团</h3>${armyDetailSections(a,options).map(s=>`<section><h4>${s.title}</h4>${s.html}</section>`).join('')}</section>`;
+ return `<section class="army-details-preview">${armyDetailSections(a,options).map(s=>`<section><h4>${s.title}</h4>${s.html}</section>`).join('')}</section>`;
 }

@@ -31,13 +31,13 @@ test('faction matrix shows all action columns, real relation and locks without c
  const row=html.match(/<tr data-diplomatic-faction="sunce">([\s\S]*?)<\/tr>/)[1];
  assert.match(row,/>55<\/td>/);assert.match(row,/>1\.2×<\/td>/);
  assert.match(row,/data-diplomatic-action="buyGrain" data-unlocked="true"/);
- assert.match(row,/data-diplomatic-action="border" data-unlocked="false"[^>]*title="换城需交情80"/);
+ assert.match(row,/data-diplomatic-action="border" data-unlocked="true"[^>]*title="换城按城池价值/);
  for(const [key,a]of Object.entries(DIPLOMACY_RELATION_ACTIONS)){assert.ok(html.includes(`<th scope="col">${a.name}</th>`));assert.ok(row.includes(`data-diplomatic-action="${key}"`));}
  assert.equal(serializeCampaign(s),before);
 });
 test('locked actions reject direct policy and exact-term proposal bypasses; peace and ransom remain open',()=>{
  const s=fixture(0),before=serializeCampaign(s);
- assert.equal(setDiplomaticGoal(s,'border','sunce'),'换城需交情80');
+ assert.equal(setDiplomaticGoal(s,'trade','sunce'),'通商需交情50');
  assert.equal(serializeCampaign(s),before);
  const base={factions:['cao','sunce'],goal:'auto'};
  assert.equal(diplomaticAccessError(s,{...base,clauses:[{kind:'peace'}]}),null);
