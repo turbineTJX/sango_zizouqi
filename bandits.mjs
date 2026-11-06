@@ -1,3 +1,4 @@
+import {runCoordinatedAction,runDecisionModule} from './ai-policy/action-runtime.mjs';
 import {isAITurnStart} from './ai-turn.mjs';
 import {BANDIT_RULES as R} from './data/design/bandits.mjs';
 import {banditCamps,banditCamp,banditRandom,knownBanditCamps} from './bandit-state.mjs';
@@ -16,6 +17,7 @@ import {grainCapacity} from './domestic.mjs';
 import {addCityGold} from './city-resources.mjs';
 import {appendActivityNode} from './activity-nodes.mjs';
 import {welcomeBanditTalent} from './talent-lifecycle.mjs';
+import {withPlanningQueries} from './planning-queries.mjs';
 
 export function banditDefender(s,nodeId){
  const camp=banditCamps(s).find(c=>c.nodeId===nodeId&&c.clearedDay===null&&!c.battleId);
@@ -59,16 +61,17 @@ export function deliverBanditLoot(s){
 // The AI reads dated camp observations and its own real people/budget only.
 // It proposes the same expedition command used by the player; no gifts or
 // special battle outcome, and never reallocates an existing offensive plan.
-export function planBanditExpedition(s,faction){
+function policy_planBanditExpedition(s,faction){
  if(!isAITurnStart(s))return;
  const view=intelligenceWorld(s,faction),known=knownBanditCamps(view,faction).filter(c=>c.clearedDay===null);
  if(!known.length||s.armies.some(a=>a.faction===faction&&a.banditTarget))return null;
- const d=s.campaign.domestic,candidates=[];
+ const d=s.campaign.domestic,candidates=withPlanningQueries(s,()=>{
+ const candidates=[];
  for(const c of s.cities.filter(c=>c.owner===faction)){
   if(s.campaign.battles.some(r=>!r.settled&&r.kind==='siege'&&r.cityId===c.id)||c.gold<cityReserve(s,c))continue;
-  const budget=strategicCityBudget(s,c);if(c.gold<budget.goldNeed)continue;
   const local=cityPersonnel(s,c.id),free=c.units.filter(u=>u.troops>0&&!u.mission&&!u.scouting&&c.governor!==u.id&&!plannedOfficer(s,u.id)&&!d.assignments.some(a=>a.officerId===u.id&&(a.action||['agriculture','commerce'].includes(a.direction)))&&!d.orders.some(q=>q.officerIds.includes(u.id))&&!s.campaign.diplomacy.assignments.some(a=>a.officerId===u.id)).sort((a,b)=>b.troops-a.troops||a.id.localeCompare(b.id));
   if(free.length<=R.aiReserveUnits||local.length<3)continue;
+  const budget=strategicCityBudget(s,c);if(c.gold<budget.goldNeed)continue;
   for(const camp of known){
    const route=findCampaignRoute(view,c.id,camp.nodeId,faction);if(!route)continue;
    for(let count=1;count<=Math.min(R.aiMaximumUnits,free.length-R.aiReserveUnits);count++){
@@ -79,7 +82,10 @@ export function planBanditExpedition(s,faction){
    }
   }
  }
- candidates.sort((a,b)=>a.days-b.days||a.camp.id.localeCompare(b.camp.id));
+ return candidates.sort((a,b)=>a.days-b.days||a.camp.id.localeCompare(b.camp.id));
+ });
  for(const p of candidates){if(strategicDepartureError(s,{...p.q,faction}))continue;const error=launchExpedition(s,p.q,{scheduled:true,faction});if(!error){const a=s.armies.at(-1);a.banditTarget=p.camp.id;return {armyId:a.id,campId:p.camp.id};}}
  return null;
 }
+
+export function planBanditExpedition(...args){return runDecisionModule('planBanditExpedition',args,()=>policy_planBanditExpedition(...args));}

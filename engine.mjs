@@ -1,3 +1,4 @@
+import {integerText} from './number-rules.mjs';
 import {battleStratagemProfile} from './stratagems.mjs';
 import {providerStratagemPoint} from './stratagem-area.mjs';
 import {applyCombination,validCombinationStatus,validCombinationShield} from './stratagem-combinations.mjs';
@@ -110,7 +111,7 @@ export function attackRange(b,u) {return unitAttributes(u,b).range;}
 export function battleWounded(u) {return Math.max(0,Math.floor(((u.battleDamage??u.initial-u.hp)-(u.battleDeserted||0))*.35)-(u.healed||0));}
 function takeCasualties(b,u,damage,source=null) {
   u.battleDamage ??= u.initial-u.hp;u.healed ??=0;
-  damage=Math.min(u.hp,damage);u.hp-=damage;u.battleDamage+=damage;recordTreasureDamage(b,source,u,damage);beginUnitRetreat(b,u);if(damage>0&&u.hp<=0){
+  damage=Math.min(u.hp,Math.max(0,Math.round(damage)));u.hp-=damage;u.battleDamage+=damage;recordTreasureDamage(b,source,u,damage);beginUnitRetreat(b,u);if(damage>0&&u.hp<=0){
     if(!u.isDecoy&&!u.intentRoutApplied){if(!pendingIntentRouts.has(b))pendingIntentRouts.set(b,new Set());pendingIntentRouts.get(b).add(u);}
     const rallySource=recordBondDefeat(b,u,source);if(rallySource)combatEffect(b,rallySource,rallySource,false,0,'impact',{name:'破军乘胜',visual:'banner'},{ongoing:true,text:'破军 · 乘胜'});
   }return damage;
@@ -1181,7 +1182,7 @@ function finishTacticInner(b,u,s,target,impact=null) {
       if(nearest&&routeTo(b,u,nearest,14)?.length)status(u,'haste',6);
       signal(u,'疾驰 · 无视拦截');break;
     }
-    case 'valor':status(u,'valor',8);status(u,'armorBreak',8,{potency:1});signal(u,`攻击 +${(25*factor).toFixed(1)}% · 防御 −20%`);break;
+    case 'valor':status(u,'valor',8);status(u,'armorBreak',8,{potency:1});signal(u,`攻击 +${integerText(25*factor)}% · 防御 −20%`);break;
     case 'scatter': {
       const targets=impact?.targets||areaTacticTargets(b,u,s,target,attackRange(b,u));
       targets.forEach((t,i)=>hit(t,.85,i===0));break;

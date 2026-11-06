@@ -31,12 +31,13 @@ try{
  await page.locator('[data-action="campaign-run"]').click();
  await page.getByRole('heading',{name:'战略奏报',exact:true}).waitFor({timeout:15000});
  assert.match(await page.locator('.domestic-alert-list').innerText(),/许昌/);
- const date=await page.locator('.sovereign-identity').innerText();assert.match(await page.locator('.modal-header').innerText(),/已暂停/);await page.waitForTimeout(3400);assert.equal(await page.locator('.sovereign-identity').innerText(),date);
+ const date=await page.locator('.sovereign-identity').innerText();await page.waitForTimeout(3400);assert.equal(await page.locator('.sovereign-identity').innerText(),date);
  await page.screenshot({path:'outputs/domestic-feedback/report-desktop.png',fullPage:true});
  const report=page.locator('[data-report-node]').first(),nodeId=await report.getAttribute('data-report-node'),saveBefore=await page.evaluate(async ()=>await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2')),data=JSON.parse(saveBefore),node=data.campaign.activity.nodes.find(n=>n.id===nodeId);
  assert.ok(node&&!node.read);assert.equal(await report.locator('.report-message p').textContent(),node.text);
- const pendingCount=await page.locator('[data-report-node]').count();await report.getByRole('button',{name:'查看事项 ↗'}).click();await page.locator('.activity-selected').waitFor();
- assert.equal(await page.locator('.activity-selected').getAttribute('data-activity-node'),nodeId);assert.equal(await page.locator('.activity-selected span').textContent(),node.text);assert.ok(await page.locator(`[data-activity-day="${node.day}"]`).count());
+ const pendingCount=await page.locator('[data-report-node]').count();await report.getByRole('button',{name:'查看事项 ↗'}).click();await page.locator('.activity-report-detail').waitFor();
+ assert.equal(await page.locator('.activity-report-detail').getAttribute('data-activity-node'),nodeId);assert.equal(await page.locator('.report-narrative').textContent(),node.text);assert.ok(await page.locator('.report-facts dd').count()>0);
+ await page.locator('.activity-report-detail [data-action="campaign-info-detail"]').click();await page.getByRole('heading',{name:'许昌',exact:true}).waitFor();await page.locator('.modal-header [data-action="close"]').last().click();await page.locator('.activity-report-detail').waitFor();
  assert.equal(await page.evaluate(async ()=>await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2')),saveBefore);await page.screenshot({path:'outputs/domestic-feedback/source-record.png',fullPage:true});
  await page.setViewportSize({width:390,height:844});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+2),false);await page.screenshot({path:'outputs/domestic-feedback/source-record-mobile.png',fullPage:true});
  await page.getByRole('button',{name:'返回奏报',exact:true}).click();await page.locator('[data-report-node]').first().waitFor();assert.equal(await page.locator('[data-report-node]').count(),pendingCount);
@@ -63,7 +64,7 @@ try{
  await page.locator('.modal-header [data-action="close"]').click();
  await page.getByRole('heading',{name:'战略奏报',exact:true}).waitFor();
  assert.equal(await page.evaluate(async ()=>await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2')),citySaved);
- await page.locator(`[data-report-node="${cityNode.id}"] [data-action="activity-alert-record"]`).click();await page.locator('.activity-selected').waitFor();assert.equal(await page.locator('.activity-selected span').textContent(),cityNode.text);assert.equal(await page.evaluate(async ()=>await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2')),citySaved);
+ await page.locator(`[data-report-node="${cityNode.id}"] [data-action="activity-alert-record"]`).click();await page.locator('.activity-report-detail').waitFor();assert.equal(await page.locator('.report-narrative').textContent(),cityNode.text);assert.ok((await page.locator('.report-facts').innerText()).includes('200'));assert.equal(await page.evaluate(async ()=>await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2')),citySaved);
  await page.screenshot({path:'outputs/domestic-feedback/city-source-record-mobile.png',fullPage:true,animations:'disabled'});await page.getByRole('button',{name:'返回奏报',exact:true}).click();await page.getByRole('button',{name:'确认',exact:true}).click();assert.match(await page.locator('[data-action="campaign-run"]').innerText(),/^暂停/);
  await page.waitForFunction(async day=>JSON.parse(await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2')).campaign.day>day,cityData.campaign.day,{timeout:15000});await page.reload();await page.locator('.national-world').waitFor();assert.equal(await page.locator(`[data-report-node="${cityNode.id}"]`).count(),0);
  assert.deepEqual(errors,[]);console.log('PASS real daily source nodes, exact report text, read-only source lookup and return, desktop/mobile, confirmation resumes time, reload does not replay');

@@ -1,3 +1,4 @@
+import {percentText} from './number-rules.mjs';
 import {hasStatus,setStatus,shieldAmount,unitTactics,tacticTarget,recoverableWounded} from './tactics.mjs';
 import {decoyTargets} from './battle-status-rules.mjs';
 import {battleBuildings,buildingTargetValue} from './building-rules.mjs';
@@ -10,7 +11,7 @@ import {hexDistance} from './hex-grid.mjs';
 import {STATUS_DEFINITIONS} from './data/design/battle-statuses.mjs';
 
 export function combinationText(p){
- const percent=n=>Number((n*100).toFixed(1))+'%';
+ const percent=percentText;
  const describe=e=>{
   const detail={shield:'兵力上限'+percent(e.fraction),valor:'攻击+'+percent(e.fraction),armorBreak:'防御−'+percent(e.fraction),slow:'移动减半',nexus:'谋略威力、军纪+'+percent(e.fraction),attackSlow:'普攻间隔+'+percent(e.fraction),attackHaste:'普攻间隔−'+percent(e.fraction),weaken:'攻击−'+percent(e.fraction),ward:'直接减伤'+e.percent+'%'}[e.status];
   return STATUS_DEFINITIONS[e.status].name+(detail?'（'+detail+'）':'')+' '+e.steps+'回合';

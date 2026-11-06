@@ -1,3 +1,4 @@
+import {integerText,remainingDaysText} from './number-rules.mjs';
 import {domesticAssignmentError} from './domestic-staffing.mjs';
 import {DOMESTIC_RECOMMENDATION_RULES} from './data/design/domestic-actions.mjs';
 import {strategicTraits} from './strategic-traits.mjs';
@@ -35,7 +36,7 @@ export function officerRecommendation(s,u,p){
  }else if(p.task==='governor'){
   traits=ids.filter(id=>PASSIVES[id]?.effects);score=u.politics+(traits.length?DOMESTIC_RECOMMENDATION_RULES.relatedTraitBonus:0);reasons=[`政治 ${u.politics}`,'计入太守任职特性'];
  }else if(p.task==='transfer'){
-  const transport=!!(u.troops||u.wounded||p.cargo?.gold||p.cargo?.grain||p.cargo?.manpower);traits=strategicTraits(u).filter(t=>t.scope==='transport').map(t=>t.id);score=personnelSpeed({unit:u,destination:p.destination||'candidate',cargo:p.cargo||{grain:0,manpower:0},relayDestination:p.relayDestination,convoyCycle:p.convoyCycle});reasons=[`${transport?'运输':'轻装'}日行 ${round(score)}`];
+  const transport=!!(u.troops||u.wounded||p.cargo?.gold||p.cargo?.grain||p.cargo?.manpower);traits=strategicTraits(u).filter(t=>t.scope==='transport').map(t=>t.id);score=personnelSpeed({unit:u,destination:p.destination||'candidate',cargo:p.cargo||{grain:0,manpower:0},relayDestination:p.relayDestination,convoyCycle:p.convoyCycle});reasons=[`${transport?'运输':'轻装'}日行 ${integerText(score)}`];
  }else if(p.role){
   const stat=p.role==='advisor'?'intellect':'leadership';score=u[stat];const roleMechanics=mechanicEntries(u).filter(e=>e.rule.roles?.includes(p.role));traits=[...new Set([...roleTraits(u,p.role),...roleMechanics.map(e=>e.id)])];score=armyRoleScore(u,p.role);reasons=[`${{intellect:'智力',force:'武力',leadership:'统率'}[stat]} ${u[stat]}`];if(traits.length)reasons.push('任职特性：'+traits.map(id=>PASSIVES[id].name).join('、'));const eligible=['leader','advisor'].includes(p.role)&&officerStratagems(u.id).length>0;traits=[...new Set([...traits,...(p.role==='leader'?strategicTraits(u).filter(t=>t.scope==='army').map(t=>t.id):[])])];if(eligible)reasons.push('提供军略：'+officerStratagems(u.id).map(id=>STRATAGEMS[id].name).join('、'));else reasons.push('未列入军略持有人名单');
  }else if(p.task==='recruit'){score=Math.max(0,troopCapacity(u)-u.troops-u.wounded);reasons=[`可补兵员 ${score} · 伤兵 ${u.wounded}`];
@@ -44,7 +45,7 @@ export function officerRecommendation(s,u,p){
  }
  const assignment=s.campaign?.domestic?.assignments.find(a=>a.officerId===u.id),same=p.task==='domestic'&&assignment?.direction===p.direction&&assignment?.cityId===c?.id;
  if(u.mission){if(p.task!=='domestic')score*=.65;reasons.push('外出任务中，须返城');}
- else if(assignment?.action&&!same&&['domestic','transfer','expedition'].includes(p.task)){if(p.task!=='domestic')score-=Math.min(15,assignment.action.remaining||0);reasons.push(`当前事务尚余 ${round(assignment.action.remaining)} 天`);}
+ else if(assignment?.action&&!same&&['domestic','transfer','expedition'].includes(p.task)){if(p.task!=='domestic')score-=Math.min(15,assignment.action.remaining||0);reasons.push(`当前事务尚余 ${remainingDaysText(assignment.action.remaining)} 天`);}
  return {availabilityPriority:p.task==='expedition'?(u.mission?2:assignment?.action?1:0):0,score:round(score),available,traits:traitInfo(traits),reasons};
 }
 export const compareRecommendations=(a,b)=>Number(b.recommendation.available)-Number(a.recommendation.available)||(a.recommendation.availabilityPriority||0)-(b.recommendation.availabilityPriority||0)||b.recommendation.score-a.recommendation.score||a.unit.id.localeCompare(b.unit.id);

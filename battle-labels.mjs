@@ -1,3 +1,4 @@
+import {integerText} from './number-rules.mjs';
 import {combatType,combatFamily} from './troop-equipment.mjs';
 import {TROOP_DESIGNS} from './data/design/troops.mjs';
 import {COMBAT} from './combat-rules.mjs';
@@ -5,7 +6,7 @@ import {observedUnitAction,placeBattleCaptions} from './battle-presentation.mjs'
 import {statusIcon} from './status-display.mjs';
 import {battleHealth,battleHealthText,battleHealthStyle} from './battle-health-view.mjs';
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const compact=value=>value>=10000?`${(value/10000).toFixed(1)}万`:Math.round(value).toLocaleString('zh-CN');
+const compact=integerText;
 export function battleMapStatusMarkup(statuses){
  const ordered=[...statuses].sort((a,b)=>(a.priority??99)-(b.priority??99));
  return ordered.slice(0,2).map(s=>`<span class="map-status ${esc(s.tone)}" title="${esc(s.name+' · '+s.time)}">${statusIcon(s.key)}</span>`).join('')+(ordered.length>2?`<span class="map-status-overflow">+${ordered.length-2}</span>`:'');

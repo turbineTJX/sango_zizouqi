@@ -1,4 +1,5 @@
 import {plannedGrain} from './strategic-intent.mjs';
+import {admitCityWounded} from './city-wounded.mjs';
 import {armyStrategicTrait,hasStrategicTrait} from './strategic-traits.mjs';
 import {redirectRetreat} from './strategic-retreat.mjs';
 import {rallyWithdrawn} from './army-rally.mjs';
@@ -112,6 +113,7 @@ export function advancePersonnel(s,o,traffic=[],dayFraction=1){
   const c=town(s,o.destination),grain=Math.min(o.cargo?.grain||0,Math.max(0,Math.floor(10000+c.granary*10000-c.grain)));
   if(o.meritTransport){const m=o.meritTransport,men=m.troopsCredited?0:o.unit.troops+o.unit.wounded,amounts={gold:o.cargo?.gold||0,grain,manpower:(o.cargo?.manpower||0)+men};transportMerit(s,o.unit,o.faction,m.source,c.id,amounts,{sourceId:`${m.id}:${s.campaign.day}:${o.cargo?.grain||0}`,relief:transportRelievesShortage(s,c,amounts),reason:'实际交付运输物资与部队'});m.troopsCredited=true;}
   addCityGold(s,c,o.cargo?.gold||0);c.grain+=grain;c.manpower+=o.cargo?.manpower||0;
+  admitCityWounded(c,[o.unit]);
   if(o.cargo){o.cargo.gold=0;o.cargo.grain-=grain;o.cargo.manpower=0;}
   s.grain=Math.floor(s.cities.filter(c=>c.owner===playerFaction(s)).reduce((n,c)=>n+c.grain,0));
   if(o.cargo?.grain>0){move.blocked='目的地粮仓不足，等待卸载';o.remainingDays=1;return false;}

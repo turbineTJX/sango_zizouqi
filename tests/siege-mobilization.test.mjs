@@ -17,6 +17,15 @@ import {newCommand,commandMarkup,changeCommandUnit,removeCommandUnit,prepareComm
 const reload=s=>validateCampaign(JSON.parse(serializeCampaign(s)));
 const pending=s=>activeBattles(s).find(r=>r.kind==='siege');
 
+test('a city wounded pool does not occupy officers troop capacity or prevent funded defense',()=>{
+ const {s,c,a}=siegeMobilizationFixture();c.wounded=20000;
+ assert.ok(siegeDefensePlan(s,c.id).men>0);
+ advanceCampaignStep(s);const r=activeBattles(s).find(r=>r.cityId===c.id);
+ assert.ok(r);assert.equal(c.owner,'yuan');assert.ok(s.armies.some(x=>x.defense&&x.units.some(u=>u.troops>0)));
+ assert.ok(c.wounded>0);assert.ok(s.armies.filter(x=>x.defense).every(x=>x.units.every(u=>u.wounded===0)));
+ reload(s);
+});
+
 test('AI mobilizes real reserves on arrival before empty occupation, without waiting for a new turn',()=>{
  const {s,c,a}=siegeMobilizationFixture();a.cooldownDay=4;
  for(let n=0;n<3;n++){s.campaign.ai.lastPlanDay=s.campaign.day;s.campaign.diplomacy.lastDay=s.campaign.day;advanceCampaignDay(s);}
@@ -100,14 +109,13 @@ test('player may relinquish an unmustered city without a ghost battle, casualtie
  assert.equal(s.armies.some(x=>x.defense),false);assert.ok(relinquishSiegeDefense(s,r.id));reload(s);
 });
 
-test('no officers, reserves, treasury, quota, or available wounded capacity still means direct empty occupation',()=>{
- for(const reason of ['officers','reserves','gold','quota','wounded']){
+test('no officers, reserves, treasury, or quota still means direct empty occupation',()=>{
+ for(const reason of ['officers','reserves','gold','quota']){
   const {s,c,a}=siegeMobilizationFixture();
   if(reason==='officers'){c.governor=null;for(const o of siegeDefenseCandidates(s,c.id))assert.equal(transferOfficer(s,o.unit.id,'jinyang',{scheduled:true,faction:c.owner}),null);}
   if(reason==='reserves')c.manpower=0;
   if(reason==='gold')c.gold=0;
   if(reason==='quota')c.drafted=2000+c.barracks*1000;
-  if(reason==='wounded')for(const o of s.campaign.idle.filter(o=>o.location===c.id&&o.faction===c.owner))o.unit.wounded=troopCapacity(o.unit);
   syncResourceTotals(s);assert.equal(siegeDefensePlan(s,c.id).officerIds.length,0,reason);advanceCampaignStep(s);
   assert.equal(c.owner,a.faction,reason);assert.equal(pending(s),undefined,reason);reload(s);
  }

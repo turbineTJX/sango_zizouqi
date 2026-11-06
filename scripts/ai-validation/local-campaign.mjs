@@ -36,7 +36,7 @@ async function observe(source,input,seed,out,{days,deadline,stallDays}){
   assert.equal(s.campaign.allAI,true);assert.equal(s.campaign.domestic.incidents.enabled,true);assert.equal(pendingDomesticProposals(s).length,0);
   for(const b of activeBattles(s)){assert.equal(b.control,'auto');assert.equal(b.awaiting,false);assert.equal(b.battle.deploymentLocked,true);}
   for(const c of s.cities){
-   for(const k of ['gold','grain','manpower'])assert.ok(Number.isSafeInteger(c[k])&&c[k]>=0);
+   for(const k of ['gold','grain','manpower','wounded'])assert.ok(Number.isSafeInteger(c[k])&&c[k]>=0);
    const old=owners.get(c.id);if(old!==c.owner){captures.push({day:s.campaign.day,city:c.id,name:c.name,from:old,to:c.owner});owners.set(c.id,c.owner);lastCaptureDay=s.campaign.day;}
    if(c.hunger)hunger.push({day:s.campaign.day,kind:'city',id:c.id,faction:c.owner});
   }

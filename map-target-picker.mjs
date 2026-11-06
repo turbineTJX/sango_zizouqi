@@ -1,3 +1,4 @@
+import {integerText} from './number-rules.mjs';
 import {mapNode} from './road-network.mjs';
 import {playerFaction} from './player-faction.mjs';
 import {intelligenceWorld} from './strategic-vision.mjs';
@@ -32,7 +33,7 @@ export function mapTargetSummary(s,pick,candidate,context){
  if(!candidate)return '<p role="status">请选择目标</p>';
  let detail=pick.kind==='diplomacy'?FACTIONS[candidate.owner]?.name:'',trip=null;
  if(pick.kind==='scout-target'){const route=scoutRoute(s,context.scout.city,candidate.id)||[];detail=[context.scout.city,...route].map(id=>mapNode(s,id)?.name).join(' → ');trip=scoutJourney(s,context.scout.city,route);}
- if(pick.kind==='retreat')detail=`道路距离 ${Number(candidate.cost.toFixed(1))} 点`;
+ if(pick.kind==='retreat')detail=`道路距离 ${integerText(candidate.cost)} 点`;
  return `<div role="status"><h2>${esc(candidate.name)}</h2><p>${esc(detail)}</p>${trip?`<p>预计用时 ${trip.days} 天 · 费用 ${trip.gold} 金</p>`:''}</div>`;
 }
 export function mapTargetSearchMarkup(s,kind,candidates,query=''){

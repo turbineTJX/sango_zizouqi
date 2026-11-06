@@ -1,3 +1,4 @@
+import {integerText} from './number-rules.mjs';
 import {ATTACK_ORBS} from './attack-orbs.mjs';
 import {hexCenter, HEX_GRID} from './hex-grid.mjs';
 import {outcomeLines} from './tactic-outcomes.mjs';
@@ -283,7 +284,7 @@ export class BattleEffects {
       const healthText=battleHealthText(health);
       for(const bar of [el.querySelector?.('.map-health-bar'),el.querySelector?.('.label-health')])if(bar?.setAttribute)for(const [key,value]of [['aria-valuenow',health.current],['aria-valuemax',health.maximum],['aria-valuetext',healthText],['title',healthText]])if(bar.getAttribute(key)!==String(value))bar.setAttribute(key,String(value));
       const troops=el.querySelector?.('.map-troops');if(troops&&troops.textContent!==Math.round(hp).toString())troops.textContent=Math.round(hp).toString();
-      const roster=el.querySelector?.('[data-roster-troops]');if(roster){const text=hp>=10000?(hp/10000).toFixed(1)+'万':Math.round(hp).toLocaleString('zh-CN');if(roster.textContent!==text)roster.textContent=text;}
+      const roster=el.querySelector?.('[data-roster-troops]');if(roster){const text=integerText(hp);if(roster.textContent!==text)roster.textContent=text;}
       const bar=el.querySelector?.('.label-health em');presentationStyle(bar,'width',health.currentPercent+'%');
       if(el.dataset.unit&&actual.hp===0)el.classList.toggle('playback-fallen',!playing||hp<=0);
     }

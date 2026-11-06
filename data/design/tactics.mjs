@@ -25,7 +25,7 @@ export const TACTIC_DESIGNS = {
     }
   },
   "bulwark": {
-    "name": "坚阵",
+    "name": "筑垒",
     "category": "force",
     "threshold": 20,
     "cooldown": 33,
@@ -42,7 +42,7 @@ export const TACTIC_DESIGNS = {
     "id": "bulwark"
   },
   "riposte": {
-    "name": "反击",
+    "name": "还击",
     "category": "force",
     "threshold": 55,
     "cooldown": 26,
@@ -95,7 +95,7 @@ export const TACTIC_DESIGNS = {
     "id": "blight"
   },
   "mirage": {
-    "name": "疑兵",
+    "name": "设疑",
     "category": "intellect",
     "threshold": 30,
     "cooldown": 35,
@@ -166,7 +166,7 @@ export const TACTIC_DESIGNS = {
     "id": "camp"
   },
   "regrowth": {
-    "name": "休整",
+    "name": "养伤",
     "category": "politics",
     "threshold": 55,
     "cooldown": 30,
@@ -236,7 +236,7 @@ export const TACTIC_DESIGNS = {
     "id": "ram"
   },
   "emplace": {
-    "name": "架设",
+    "name": "置械",
     "category": "force",
     "threshold": 20,
     "cooldown": 35,
@@ -287,7 +287,7 @@ export const TACTIC_DESIGNS = {
     "id": "tremor"
   },
   "nexus": {
-    "name": "阵枢",
+    "name": "运筹",
     "category": "intellect",
     "threshold": 25,
     "cooldown": 38,
@@ -338,7 +338,7 @@ export const TACTIC_DESIGNS = {
     "id": "broadside"
   },
   "anchor": {
-    "name": "抛锚",
+    "name": "泊守",
     "category": "force",
     "threshold": 20,
     "cooldown": 30,
@@ -478,7 +478,7 @@ export const TACTIC_DESIGNS = {
     "tradeoff": "需靠近前线；控制受军纪和控制保护限制"
   },
   "ward": {
-    "name": "眩晕",
+    "name": "震慑",
     "threshold": 25,
     "cooldown": 30,
     "effect": "status",
@@ -549,7 +549,7 @@ export const TACTIC_DESIGNS = {
     "tradeoff": "无伤害；无法拉动方阵或贴身敌人"
   },
   "harass": {
-    "name": "挫锐",
+    "name": "扰军",
     "threshold": 15,
     "cooldown": 28,
     "effect": "harass",
@@ -617,7 +617,7 @@ export const TACTIC_DESIGNS = {
     "tradeoff": "不造成伤害，也不阻止敌人普攻移动"
   },
   "screen": {
-    "name": "救护",
+    "name": "援护",
     "threshold": 25,
     "cooldown": 30,
     "effect": "screen",
@@ -703,7 +703,7 @@ export const TACTIC_DESIGNS = {
     "tradeoff": "敌军分散时只命中一队"
   },
   "phalanx": {
-    "name": "方阵",
+    "name": "列阵",
     "threshold": 25,
     "cooldown": 33,
     "effect": "phalanx",
@@ -767,7 +767,7 @@ export const TACTIC_DESIGNS = {
     "tradeoff": "需空闲路径；追击仍受新接战、嘲讽与封路限制"
   },
   "valor": {
-    "name": "奋战",
+    "name": "奋勇",
     "threshold": 20,
     "cooldown": 33,
     "effect": "valor",
@@ -818,7 +818,7 @@ export const TACTIC_DESIGNS = {
     "tradeoff": "需要安全空格，会离开原有支援阵位"
   },
   "pierce": {
-    "name": "破甲",
+    "name": "透甲",
     "threshold": 25,
     "cooldown": 28,
     "effect": "pierce",
@@ -923,7 +923,7 @@ export const TACTIC_DESIGNS = {
     "effect": "famous",
     "special": true,
     "visual": "banner",
-    "description": "为3格内最多2队有伤兵的友军施加休整6回合，每回合救治兵力上限1.2%的已有伤兵，并给予护盾；护盾基础为兵力上限4%，受战法威力影响，持续8回合；救治受威力、真实伤兵与疫伤限制",
+    "description": "为3格内最多2队有伤兵的友军施加休整6回合，每回合按每万兵力上限120人救治已有伤兵，并给予护盾；护盾基础为兵力上限4%，受战法威力影响，持续8回合；救治受威力、真实伤兵与疫伤限制",
     "learningTier": "special",
     "tempoRole": "持续专属",
     "intentCost": 0,
@@ -1184,7 +1184,7 @@ export const TACTIC_DESIGNS = {
     "id": "unique-person-246"
   },
   "unique-person-603": {
-    "name": "火烧连营",
+    "name": "烈火焚营",
     "category": "intellect",
     "threshold": 100,
     "cooldown": 32,
@@ -1319,7 +1319,7 @@ export const TACTIC_DESIGNS = {
   },
   "quickAttack": {
     "id": "quickAttack",
-    "name": "速攻",
+    "name": "催战",
     "effect": "status",
     "statusKey": "attackHaste",
     "mode": "support",
@@ -1339,7 +1339,7 @@ export const TACTIC_DESIGNS = {
   },
   "slowAttack": {
     "id": "slowAttack",
-    "name": "缓攻",
+    "name": "牵制",
     "effect": "status",
     "statusKey": "attackSlow",
     "mode": "attack",
@@ -1359,7 +1359,7 @@ export const TACTIC_DESIGNS = {
   },
   "extendRange": {
     "id": "extendRange",
-    "name": "远射",
+    "name": "引弦",
     "effect": "status",
     "statusKey": "longRange",
     "mode": "support",
@@ -1379,7 +1379,7 @@ export const TACTIC_DESIGNS = {
   },
   "cutRange": {
     "id": "cutRange",
-    "name": "短射",
+    "name": "压射",
     "effect": "status",
     "statusKey": "shortRange",
     "mode": "attack",
@@ -1399,7 +1399,7 @@ export const TACTIC_DESIGNS = {
   },
   "scout": {
     "id": "scout",
-    "name": "洞察",
+    "name": "察敌",
     "effect": "status",
     "statusKey": "insight",
     "mode": "support",
@@ -1419,7 +1419,7 @@ export const TACTIC_DESIGNS = {
   },
   "bodyguard": {
     "id": "bodyguard",
-    "name": "护卫",
+    "name": "掩护",
     "effect": "status",
     "statusKey": "guard",
     "mode": "support",
@@ -1440,7 +1440,7 @@ export const TACTIC_DESIGNS = {
   },
   "chain": {
     "id": "chain",
-    "name": "连环",
+    "name": "缚阵",
     "effect": "status",
     "statusKey": "link",
     "mode": "attack",
@@ -1500,7 +1500,7 @@ export const TACTIC_DESIGNS = {
     "tradeoff": "单项状态遵守射程、持续和共同保护规则"
   },
   "concealment": {
-    "name": "伏兵",
+    "name": "潜伏",
     "threshold": 0,
     "cooldown": 23,
     "effect": "openingAmbush",

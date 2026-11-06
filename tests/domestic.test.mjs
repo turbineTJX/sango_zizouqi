@@ -63,7 +63,7 @@ test('exploration discovers actual candidates and recruiting never duplicates a 
  cancelDomestic(s,a.officerId);const c=s.cities.find(c=>c.id==='xuchang');c.domestic.cooldowns={};selectOnly(s,'hire');advance(s,91);const ids=[...s.cities.flatMap(c=>c.units.map(u=>u.id)),...s.armies.flatMap(a=>a.units.map(u=>u.id)),...s.campaign.idle.map(o=>o.unit.id),...s.campaign.domestic.people.map(p=>p.id)];assert.equal(new Set(ids).size,ids.length);restore(s);
 });
 test('healing conserves personnel and does not require local troop technology',()=>{
- const s=peaceful(),c=s.cities.find(c=>c.id==='xuchang');setBuildingLevel(c,'clinic',2);c.domestic.techs=[];const u=c.units[0];u.troops-=1000;u.wounded+=1000;const total=u.troops+u.wounded,people=c.manpower;selectOnly(s,'heal');advance(s,6);assert.equal(u.troops+u.wounded,total);assert.ok(u.wounded<1000);assert.equal(c.manpower,people);restore(s);
+ const s=peaceful(),c=s.cities.find(c=>c.id==='xuchang');setBuildingLevel(c,'clinic',2);c.domestic.techs=[];const u=c.units[0];u.troops-=1000;u.wounded+=1000;const total=u.troops+u.wounded,people=c.manpower;selectOnly(s,'heal');advance(s,6);assert.equal(u.troops+u.wounded+c.wounded+c.manpower,total+people);assert.equal(u.wounded,0);assert.ok(c.manpower>people);restore(s);
 });
 test('siege opening bonuses apply once at deployment lock, only to first six defenders',()=>{
  const s=newCampaign(12),c=s.cities.find(c=>c.id==='guandu');c.kind='gate';setBuildingLevel(c,'drill',5);setBuildingLevel(c,'walls',3);c.domestic.preparation={intent:{amount:12,until:100,actionId:1},shield:{amount:.1,until:100,actionId:2}};

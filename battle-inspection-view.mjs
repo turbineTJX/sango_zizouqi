@@ -1,3 +1,4 @@
+import {integerText} from './number-rules.mjs';
 import {battleUnitSummary,battleTacticConditions} from './battle-info.mjs';
 import {battleHealth,battleHealthText,battleHealthStyle} from './battle-health-view.mjs';
 import {COMBAT} from './combat-rules.mjs';
@@ -24,7 +25,7 @@ export function battleInspectionStatusesMarkup(b,u){
  const statuses=inspectionStatuses(b,u);
  const duration=s=>s.state.charges!==undefined?s.time:Number.isFinite(s.state.until)?(s.remaining?`剩余 ${s.remaining} 战斗回合`:'即将结束'):s.time;
  return `<section class="battle-brief-effects" aria-label="状态"><h3>状态 <small>${statuses.length?`${statuses.length}项`:'无'}</small></h3>${statuses.length?`<div class="inspection-statuses">${statuses.map(s=>{
-  const amounts=statusAmounts(b,u,s),changes=statusAttributeChanges(b,u,s),number=n=>Number(n.toFixed(2)).toLocaleString('zh-CN');
-  return `<details open class="effect-tile tone-${esc(s.tone)}" data-status="${esc(s.key)}"><summary>${statusIcon(s.key)}<span><b>${esc(s.name)}</b><small>来源：${esc(s.sources.join(' / '))}</small></span><em>${esc(duration(s))}</em></summary><div class="effect-details"><p>${esc(s.description)}</p>${amounts.length?`<dl>${amounts.map(([name,value])=>`<div><dt>${esc(name)}</dt><dd>${esc(value)}</dd></div>`).join('')}</dl>`:''}${changes.length?`<details class="status-values"><summary>属性变化</summary><p class="muted">无此状态 → 生效后</p><dl>${changes.map(r=>`<div><dt>${esc(r.name)}</dt><dd>${number(r.before)} → ${number(r.after)}${esc(r.unit)}</dd></div>`).join('')}</dl></details>`:''}</div></details>`;
+  const amounts=statusAmounts(b,u,s),changes=statusAttributeChanges(b,u,s),number=integerText;
+  return `<details class="effect-tile tone-${esc(s.tone)}" data-status="${esc(s.key)}"><summary data-status-trigger>${statusIcon(s.key)}<span><b>${esc(s.name)}</b></span><em>${esc(duration(s))}</em></summary><div class="effect-details"><p>${esc(s.description)}</p><dl>${s.sources.map(source=>`<div><dt>来源</dt><dd>${esc(source)}</dd></div>`).join('')}${amounts.map(([name,value])=>`<div><dt>${esc(name)}</dt><dd>${esc(value)}</dd></div>`).join('')}</dl>${changes.length?`<details class="status-values"><summary>属性变化</summary><p class="muted">无此状态 → 生效后</p><dl>${changes.map(r=>`<div><dt>${esc(r.name)}</dt><dd>${number(r.before)} → ${number(r.after)}${esc(r.unit)}</dd></div>`).join('')}</dl></details>`:''}</div></details>`;
  }).join('')}</div>`:''}</section>`;
 }

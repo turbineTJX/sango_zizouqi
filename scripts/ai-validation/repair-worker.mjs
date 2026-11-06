@@ -36,7 +36,7 @@ if(task.kind==='reproduction'){
  const initial=validateCampaign(await readJSON(task.input.path)),reloaded=validateCampaign(JSON.parse(serializeCampaign(initial)));
  advanceCampaignDay(initial);advanceCampaignDay(reloaded);
  assert.equal(serializeCampaign(initial),serializeCampaign(reloaded),'Short-window save continuation differs');
- const troops=[...state.cities.flatMap(c=>c.units),...state.armies.filter(a=>!a.disbanded).flatMap(a=>a.units),...state.campaign.idle.map(o=>o.unit)].reduce((n,u)=>n+u.troops+u.wounded,0);
+ const troops=state.cities.reduce((n,c)=>n+(c.wounded||0),0)+[...state.cities.flatMap(c=>c.units),...state.armies.filter(a=>!a.disbanded).flatMap(a=>a.units),...state.campaign.idle.map(o=>o.unit)].reduce((n,u)=>n+u.troops+u.wounded,0);
  const retained=new Set(record.captures.filter(c=>c.from!=='neutral'&&state.cities.find(x=>x.id===c.city)?.owner===c.to).map(c=>c.city)).size;
  result={status:'passed',metrics:record.metrics,troops,retained,inputSha256:task.input.sha256,replayed:true};
 }else throw Error('Unknown repair task');

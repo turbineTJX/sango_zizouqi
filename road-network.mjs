@@ -44,7 +44,7 @@ export function cityRoads(s){
 export function adjacentCityPath(s,a,b){
  const scope=pathScope(s),key=a+':'+b;
  if(scope?.paths.has(key)){const path=scope.paths.get(key);return path?[...path]:null;}
-  if(!cityRoads(s).some(([x,y])=>x===a&&y===b||x===b&&y===a))return null;
+  if(!cityRoads(s).some(([x,y])=>x===a&&y===b||x===b&&y===a)){scope?.paths.set(key,null);return null;}
  let adj=scope?.adj;
  if(!adj){adj=new Map();for(const [x,y]of s.roads)if(!roadSegment(s,x,y)?.trail){if(!adj.has(x))adj.set(x,[]);if(!adj.has(y))adj.set(y,[]);adj.get(x).push(y);adj.get(y).push(x);}if(scope)scope.adj=adj;}
   const queue=[{id:a,path:[]}],seen=new Set([a]);

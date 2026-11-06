@@ -10,7 +10,7 @@ import {BOND_DESIGNS} from './data/design/bonds.mjs';
 import {BOND_ASSIGNMENTS,BOND_TRIPLE_OFFICERS} from './data/design/bond-assignments.mjs';
 import {TRAIT_EVENTS,TRAIT_EFFECTS} from './trait-mechanics.mjs';
 import {ROAD_NETWORK_DESIGN} from './data/design/road-network.mjs';
-import {STATUS_DEFINITIONS,REMEDIES} from './data/design/battle-statuses.mjs';
+import {STATUS_DEFINITIONS,ARMY_STATUS_DEFINITIONS,REMEDIES} from './data/design/battle-statuses.mjs';
 import {ECONOMY_RULES} from './data/design/economy-rules.mjs';
 import {STRATEGIC_SUPPORT_RULES} from './data/design/strategic-support-rules.mjs';
 import {STRATEGIC_PLANNING_RULES} from './data/design/strategic-planning-rules.mjs';
@@ -83,7 +83,15 @@ export function validateDesignTables(tables=DESIGN_TABLES){
  check(tables.domesticRecommendation&&Object.keys(tables.domesticRecommendation).join(',')==='relatedTraitBonus'&&tables.domesticRecommendation.relatedTraitBonus===50,'domesticRecommendation','有相关特性时统一按50点对应主属性计入推荐，多项不重复');
  check(staffing&&Object.keys(staffing).sort().join(',')===Object.keys(DOMESTIC_STAFFING_RULES).sort().join(',')&&Object.values(staffing).every(n=>Number.isSafeInteger(n)&&n>0)&&staffing.base===3&&staffing.maximum===10&&staffing.base+staffing.constructionBonusMaximum+staffing.technologyBonusMaximum===staffing.maximum,'domesticStaffing','岗位上限须从3扩容至10，门槛及加成须为正整数');
  const p=tables.progression;check(p&&p.costs?.length===9&&p.costs.every((n,i)=>Number.isSafeInteger(n)&&n>0&&(!i||n>p.costs[i-1]))&&numeric(p.battleDivisor,1),'progression','升级成本须逐级递增且兑换除数有效');
- check(new Set(Object.values(STATUS_DEFINITIONS).map(s=>s.name)).size===Object.keys(STATUS_DEFINITIONS).length,'statuses','状态名称不能重复');
+ const combatStatuses=[...Object.entries(STATUS_DEFINITIONS),...Object.entries(ARMY_STATUS_DEFINITIONS)];
+ check(new Set(combatStatuses.map(([,s])=>s.name)).size===combatStatuses.length,'statuses','状态名称不能重复');
+ const combatNames=new Map(combatStatuses.map(([id,s])=>[s.name,'statuses.'+id]));
+ for(const kind of ['tactics','stratagems'])for(const [id,record]of Object.entries(tables[kind]||{})){
+  if(typeof record?.name!=='string')continue;
+  const path=kind+'.'+id+'.name',previous=combatNames.get(record.name);
+  check(!previous,path,'战法、军略与状态名称不能重复：'+record.name+'（'+previous+'）');
+  if(!previous)combatNames.set(record.name,path);
+ }
  const ids=(list,table,path)=>{check(Array.isArray(list),path,'必须是ID数组');if(!Array.isArray(list))return;check(new Set(list).size===list.length,path,'重复ID');for(const id of list)check(exists(table,id),path,'未知引用 '+id);};
  for(const [name,rows] of Object.entries(tables)){
   if(!DESIGN_FIELDS[name]&&name!=='demoCities')continue;

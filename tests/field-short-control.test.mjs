@@ -6,10 +6,11 @@ import {lockDeployment,stepBattle,validateSave} from '../engine.mjs';
 import {OFFICER_CATALOG} from '../officer-catalog.mjs';
 import {tacticPools} from '../tactic-learning.mjs';
 import {TACTICS_BOOK,hasStatus,setStatus,unitTactics,tacticOpening} from '../tactics.mjs';
+import {STATUS_DEFINITIONS} from '../data/design/battle-statuses.mjs';
 
 test('field short control and guard taunt occupy the existing fixed intellect slot',()=>{
- assert.equal(TACTICS_BOOK.ward.name,'眩晕');assert.equal(TACTICS_BOOK.ward.range,2);assert.equal(TACTICS_BOOK.ward.maxUses,2);
- assert.deepEqual(TACTICS_BOOK.ward.power.checks,['stun']);assert.equal(TACTICS_BOOK.phalanx.name,'方阵');
+ assert.notEqual(TACTICS_BOOK.ward.name,STATUS_DEFINITIONS.stun.name);assert.equal(TACTICS_BOOK.ward.range,2);assert.equal(TACTICS_BOOK.ward.maxUses,2);
+ assert.deepEqual(TACTICS_BOOK.ward.power.checks,['stun']);assert.notEqual(TACTICS_BOOK.phalanx.name,STATUS_DEFINITIONS.phalanx.name);
  for(const type of ['spear','qingzhou'])assert.deepEqual(tacticPools(type).low,['phalanx','ward']);
  assert.deepEqual(tacticPools('baier').low,['phalanx','taunt']);assert.equal(TACTICS_BOOK.taunt.range,5);
  assert.equal(TACTICS_BOOK.tremor.name,'震军');assert.equal(TACTICS_BOOK.bombard.control,undefined);

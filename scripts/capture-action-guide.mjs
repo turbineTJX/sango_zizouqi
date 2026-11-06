@@ -53,6 +53,8 @@ if(group==='officerEditor')files.push('officer-editor.mjs','officer-editor.css',
 if(group==='treasures')files.push('treasures.mjs','treasure-view.mjs','treasure-art.mjs','treasure-equipment.mjs','treasure-appearance.mjs','treasure-battle.mjs','treasure-statuses.mjs','data/design/treasures.mjs');
 if(group==='loyalty')files.push('talent-core.mjs','talent-lifecycle.mjs','data/design/talent-loyalty.mjs','domestic.mjs','domestic-direction-view.mjs','reward-presentation.mjs','activity-nodes.mjs');
 if(group==='armyOrders')files.push('strategic-campaign.mjs','strategic-orders.mjs','strategic-vision.mjs','strategic-army-markers.mjs','map-target-picker.mjs');
+if(group==='reports')files.push('reward-presentation.mjs','reward-reports.css','activity-nodes.mjs');
+if(['battleHelp','officerInspection'].includes(group))files.push('status-inspection.mjs','data/design/tactics.mjs');
 const hash=createHash('sha256');for(const f of [...files,'personnel-movement.mjs','strategic-retreat.mjs','data/design/movement-rules.mjs','data/design/traits.mjs','ui-tokens.css','ui-theme.css','ui-fonts/font-face.css','ui-fonts/noto-serif-sc.woff2','ui-materials/ink-grain.svg','ui-materials/cloud-jade-frame.png','ui-materials/ink-silk-panel.png'])hash.update(f).update(await readFile(f));const sourceHash=hash.digest('hex');
 const server=spawn(process.execPath,['server.mjs'],{env:{...process.env,PORT:String(port),SANGO_ART:'on'},windowsHide:true,stdio:'pipe'});
 let browser,page,context,sample='',errors=[];
@@ -70,9 +72,9 @@ async function load(s=newCampaign(203,'guandu-200'),label='官渡剧本演示开
  return s;
 }
 async function portraitClick(side){const el=page.locator('.battle-unit.side-'+side+' .map-portrait-row').first(),r=await el.boundingBox();await page.mouse.move(r.x+r.width/2,r.y+r.height/2);await el.click();}
-async function shot(id,title,selector=null){
+async function shot(id,title,selector=null,{keepPointer=false}={}){
  if(selector)await page.locator(selector).first().scrollIntoViewIfNeeded();
- await page.evaluate(()=>document.fonts.ready);await page.mouse.move(2,2);await page.waitForTimeout(250);
+ await page.evaluate(()=>document.fonts.ready);if(!keepPointer)await page.mouse.move(2,2);await page.waitForTimeout(250);
  assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2),'horizontal page overflow: '+id);
  await page.screenshot({path:`${out}/${id}.webp`,type:'webp',quality:88,animations:'disabled',style:'#toast{visibility:hidden}',fullPage:['treasure-editor','officerEditor'].includes(group)});
  Object.assign(manifest,JSON.parse(await readFile(manifestPath,'utf8')));
@@ -235,7 +237,15 @@ const groups={
   for(const topic of ['basics','controls','tactics','statuses']){await page.locator(`[data-action="battle-help-topic"][data-topic="${topic}"]`).click();await shot('battle-help-'+topic,'战场指引 · '+({basics:'入门',controls:'操作',tactics:'用兵',statuses:'状态'})[topic]);}
   const s=generateBattle(d);lockDeployment(s.battle);const u=s.battle.sides[0].units[0];
   setStatus(s.battle,u,'valor',8,{sourceId:u.id,sourceName:u.name,sourceSkillName:'鼓舞演示'});setStatus(s.battle,u,'confuse',5,{sourceId:s.battle.sides[1].units[0].id,sourceName:s.battle.sides[1].units[0].name,sourceSkillName:'混乱演示'});
-  await load(s,'通过公共状态接口施加增益和异常，仅用于状态显示演示，不作为自然战斗或平衡证据',true);await portraitClick(0);await shot('battle-buffs','部队增益、减益、来源与剩余期限','.battle-brief-effects');await page.setViewportSize({width:844,height:390});await shot('battle-buffs-landscape','横屏查看部队状态','.battle-brief-effects');
+  await load(s,'通过公共状态接口施加增益和异常，仅用于状态显示演示，不作为自然战斗或平衡证据',true);await portraitClick(0);
+  await page.locator('.battle-brief-effects').scrollIntoViewIfNeeded();
+  await page.locator('.effect-tile[data-status="confuse"]>summary').hover();
+  assert.ok(await page.locator('.effect-tile[data-status="confuse"] .effect-details').isVisible());
+  await shot('battle-buffs','悬停状态名直接查看效果、来源与剩余期限',null,{keepPointer:true});
+  assert.ok(await page.locator('.effect-tile[data-status="confuse"] .effect-details').isVisible());
+  await page.mouse.move(4,4);await page.setViewportSize({width:844,height:390});
+  await page.locator('.effect-tile[data-status="confuse"]>summary').click();
+  await shot('battle-buffs-landscape','横屏点击状态名固定展开说明','.battle-brief-effects');
  },
  async information(){
   await load();await click('faction-domestic');await shot('affairs','全势力内政提案与方向优先级');
@@ -274,6 +284,8 @@ const groups={
   await load(generateBattle(d),'独立战役部队信息核阅',true);await portraitClick(0);
   await page.locator('.battle-inspection-more>summary').click();
   assert.ok((await page.locator('.unit-state-grid').innerText()).includes('兵种适性'));
+  assert.doesNotMatch(await page.locator('.attribute-grid').innerText(),/\d+\.\d+/);
+  await shot('battle-attributes','完整属性整数显示，移速与攻速采用整数百分比','.attribute-grid');
   await page.locator('.battle-inspection-more>summary').click();
   await shot('battle-unit','部队简报优先显示兵力、战意、护盾与战法，完整属性按需展开');
   await click('unit-officer');assert.equal(await page.locator('[data-aptitude-family]').count(),4);
@@ -294,7 +306,7 @@ const groups={
   await load(null,'独立战役单军编组操作演示');await click('campaign-lobby');await page.locator('[data-action="scenario-setup-open"][data-team="ownTeam"]').click();await click('scenario-setup-next');await shot('custom-select','从编好的部队中选队');await click('scenario-setup-next');await shot('custom-roles','独立战役军团任命');await click('scenario-setup-next');await shot('custom-army-review','单军编组核阅确认');
  },
  async reports(){
-  const {s}=busyFixture();await load(s,'实际内政逐日推进形成的旬报演示',false,true);await shot('reports','战略奏报与查看事项');await dismiss();await page.locator('.harvest-strip>summary').click();await shot('harvest','旬收获与城仓净变化','.harvest-strip');
+  const {s}=busyFixture();await load(s,'实际内政逐日推进形成的旬报演示',false,true);await shot('reports','战略奏报与查看事项');await page.locator('[data-action="activity-alert-record"]').first().click();await page.locator('.activity-report-detail').waitFor();await shot('report-detail','所选事项的前后变化、费用与办理结果');await page.getByRole('button',{name:'返回奏报',exact:true}).click();await dismiss();await page.locator('.harvest-strip>summary').click();await shot('harvest','旬收获与城仓净变化','.harvest-strip');
   const b=generateBattle(defaultCustomBattle());lockDeployment(b.battle);for(let i=0;i<3000&&!b.battle.result;i++)stepBattle(b.battle,{aiSides:[0,1]});assert.ok(b.battle.result);settleBattle(b);await load(b,'默认独立战役经共同战斗处理器完整结算的演示',true);await shot('standalone-report','独立战役结果与重试选项');
  },
  async prisonerExchange(){

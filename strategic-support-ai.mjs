@@ -1,3 +1,5 @@
+import {runCoordinatedAction,runDecisionModule} from './ai-policy/action-runtime.mjs';
+import {frontlineMissions,closeFrontlineMission,withFactionTask} from './ai-policy/faction-coordination.mjs';
 import {isAITurnStart} from './ai-turn.mjs';
 import {macroDefenseGuardObjectives} from './ai-policy/macro-defense.mjs';
 import {STRATEGIC_SUPPORT_RULES as R} from './data/design/strategic-support-rules.mjs';
@@ -102,7 +104,7 @@ function releasableSupportPlan(s,faction,q,availableUnits){
  }
  return null;
 }
-export function planStrategicSupport(s,faction,{availableUnits,commandUnits,retreatArmy,cancelPlan},released=false){
+function policy_planStrategicSupport(s,faction,{availableUnits,commandUnits,retreatArmy,cancelPlan},released=false){
  if(!isAITurnStart(s))return;
  const ai=s.campaign.ai,day=s.campaign.day,objectives=strategicSupportObjectives(s,faction),byKey=new Map(objectives.map(q=>[key(q),q]));
  // Other reinforcement orders may also be aimed at a city. Observe their
@@ -118,12 +120,25 @@ export function planStrategicSupport(s,faction,{availableUnits,commandUnits,retr
   if((!armies.length&&!waiting.length)||armies.length&&armies.every(a=>a.task==='回城补给'&&!inBattle(s,a))||lost||ended||unneeded){
    const reason=lost?'增援目标已失守，本旬结束增援并沿道路撤回':'增援或护路任务结束，沿真实道路回城';
    for(const o of waiting)removeDomesticOrder(s,o.id,reason);
-   for(const a of armies.filter(a=>!inBattle(s,a)))retreatArmy(s,a,reason);
+   for(const a of armies.filter(a=>!inBattle(s,a)))withFactionTask(s,q,()=>retreatArmy(s,a,reason));
    // Fighting troops finish through shared battle rules. Failed return orders
    // retain their commitment so the next turn may try a real route again.
    const keep=cityRelief&&lost?armies.filter(a=>inBattle(s,a)||a.task!=='回城补给'):[];
    q.officerIds=q.officerIds.filter(id=>keep.some(a=>a.units.some(u=>u.id===id)));
    if(!q.officerIds.length)ai.supports=ai.supports.filter(x=>x!==q);
+  }
+ }
+ // A rescue may preempt preparation only after a real feasible method is
+ // found. Releasing an unrelated mission is not counted as reinforcement.
+ if(!released)for(const q of objectives){
+  if(supportForcePlan(s,faction,q,availableUnits).need<=0)continue;
+  for(const m of frontlineMissions(s,faction)){
+   const preview={...s,campaign:{...s.campaign,ai:{...ai,coordination:{...ai.coordination,missions:ai.coordination.missions.filter(x=>x!==m)}}}};
+   const result=supportForcePlan(preview,faction,q,availableUnits);
+   if(result.need<=0&&result.groups.some(g=>g.units.some(u=>m.officerIds.includes(u.id)))){
+    closeFrontlineMission(s,m,'cancelled','可及时组成真实增援或护路军团，生存与粮路需求接管前线准备');
+    return planStrategicSupport(s,faction,{availableUnits,commandUnits,retreatArmy,cancelPlan},true);
+   }
   }
  }
  for(const q of objectives){
@@ -135,3 +150,5 @@ export function planStrategicSupport(s,faction,{availableUnits,commandUnits,retr
   if(ids.length){if(existing)existing.officerIds.push(...ids);else ai.supports.push({id:ai.nextSupportId++,faction,kind:q.kind,target:q.target,battleId:q.battleId,officerIds:ids,createdDay:day,lastNeededDay:day,deadline:day+R.missionDays});}
  }
 }
+
+export function planStrategicSupport(...args){return runDecisionModule('planStrategicSupport',args,()=>policy_planStrategicSupport(...args));}

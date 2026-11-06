@@ -127,7 +127,7 @@ export function armyIntelligence(s,id,faction=playerFaction(s)){
 function unknownCity(c,owner,scope=null){
  const key=c.id+':'+owner;if(scope?.unknown.has(key))return scope.unknown.get(key);
  const data={...c,owner,units:[],governor:null,project:null,domestic:null,buildings:null,payroll:null};
- for(const key of ['gold','grain','manpower',...Object.keys(BUILDING_DESIGNS),'order','hunger','garrison'])data[key]=null;
+ for(const key of ['gold','grain','manpower','wounded',...Object.keys(BUILDING_DESIGNS),'order','hunger','garrison'])data[key]=null;
  scope?.unknown.set(key,data);return data;
 }
 function projectedCity(s,c,faction,visible,scope){
@@ -225,7 +225,7 @@ export function validateVision(s){
   }
   fail(Object.hasOwn(FACTIONS,f)&&r&&r.cities&&Object.keys(r.cities).length===s.cities.length&&Array.isArray(r.battles)&&new Set(r.battles).size===r.battles.length&&r.battles.length<=1100&&r.battles.every(id=>s.campaign.battles.some(b=>b.id===id)||s.campaign.archive?.some(b=>b.id===id))&&Array.isArray(r.chronicle)&&r.chronicle.length<=300);
   for(const c of s.cities){const i=r.cities[c.id];fail(i&&(i.owner==='neutral'||Object.hasOwn(FACTIONS,i.owner))&&(i.day===null?i.data===null:Number.isSafeInteger(i.day)&&i.day>=1&&i.day<=s.campaign.day&&i.data?.id===c.id&&i.data.owner===i.owner));
-   if(i.data){const d=i.data;fail(d.x===c.x&&d.y===c.y&&Array.isArray(d.units)&&d.units.length<=Object.keys(OFFICER_BY_ID).length&&d.units.every(u=>Object.hasOwn(OFFICER_BY_ID,u.id)&&Number.isFinite(u.troops)&&u.troops>=0&&!u.mission));for(const k of ['gold','grain','manpower','walls','granary','farm','commerce','barracks'])fail(Number.isFinite(d[k])&&d[k]>=0);}
+   if(i.data){const d=i.data;fail(d.x===c.x&&d.y===c.y&&Number.isSafeInteger(d.wounded)&&d.wounded>=0&&Array.isArray(d.units)&&d.units.length<=Object.keys(OFFICER_BY_ID).length&&d.units.every(u=>Object.hasOwn(OFFICER_BY_ID,u.id)&&Number.isFinite(u.troops)&&u.troops>=0&&!u.mission));for(const k of ['gold','grain','manpower','walls','granary','farm','commerce','barracks'])fail(Number.isFinite(d[k])&&d[k]>=0);}
   }
   fail(Array.isArray(r.scouted)&&r.scouted.length<=10000&&Number.isSafeInteger(r.nextSightId)&&r.nextSightId>=1&&new Set(r.scouted.map(v=>v.id)).size===r.scouted.length);
   for(const sight of r.scouted)fail(Number.isSafeInteger(sight.id)&&sight.id>=1&&sight.id<r.nextSightId&&Object.hasOwn(OFFICER_BY_ID,sight.officerId)&&Number.isFinite(sight.x)&&Number.isFinite(sight.y)&&Number.isSafeInteger(sight.seenDay)&&sight.seenDay>=1&&sight.seenDay<=s.campaign.day&&Number.isSafeInteger(sight.expiresDay)&&sight.expiresDay>sight.seenDay&&sight.expiresDay<=s.campaign.day+MOVEMENT_RULES.scouting.baseMaximumDays+MOVEMENT_RULES.scouting.intellectExtension&&mapNode(s,sight.location)&&(!sight.travel||Number.isFinite(roadCost(s,sight.travel.from,sight.travel.to))&&sight.travel.from===sight.location&&Number.isFinite(sight.travel.progress)&&sight.travel.progress>=0&&sight.travel.progress<=roadDistance(s,sight.travel.from,sight.travel.to)));

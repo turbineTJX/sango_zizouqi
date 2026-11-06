@@ -20,7 +20,7 @@ test('real battles retain skill provenance through stacking, refresh, shields an
           assert.ok(Number.isFinite(row.delta));
           const copy=structuredClone(b),target=copy.sides[u.side].units.find(v=>v.id===u.id);
           delete target.statuses[status.key];
-          const scale=row.unit==='百分点'?100:1;
+          const scale=['百分点','%'].includes(row.unit)?100:row.unit==='毫秒'?700:1;
           assert.equal(row.before,unitAttributes(target,copy)[row.key]*scale);
           comparisons++;
         }

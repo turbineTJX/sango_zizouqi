@@ -1,8 +1,9 @@
+import {runCoordinatedAction,runDecisionModule} from './ai-policy/action-runtime.mjs';
 import {intelligenceWorld} from './strategic-vision.mjs';
 import {isAITurnStart} from './ai-turn.mjs';
 import {isAIControlled} from './player-faction.mjs';
 import {rankOfficerCandidates} from './officer-recommendation.mjs';
-import {activePlans} from './strategic-intent.mjs';
+import {plannedOfficer,activePlans} from './strategic-intent.mjs';
 import {marchModes,armyStrategicTrait} from './strategic-traits.mjs';
 import {remainingMarchDays,marchItinerary} from './strategic-movement.mjs';
 import {canEditArmy,armyBattle,setArmyMarchMode,CAMPAIGN} from './strategic-campaign.mjs';
@@ -17,7 +18,7 @@ export function armyManagementFacts(s,faction){
   ...(s.campaign.ai?.supports||[]).filter(p=>p.faction===faction&&!['complete','cancelled'].includes(p.phase)).flatMap(p=>p.officerIds||[])
  ]);
  const armies=view.armies.filter(a=>a.faction===faction&&!a.disbanded).map(a=>{
-  const units=a.units.filter(u=>u.troops>0),free=!a.diplomaticWithdrawal&&!a.diplomaticTask&&!a.units.some(u=>protectedIds.has(u.id));
+  const units=a.units.filter(u=>u.troops>0),free=!a.diplomaticWithdrawal&&!a.diplomaticTask&&!a.units.some(u=>protectedIds.has(u.id)||plannedOfficer(s,u.id));
   const roles=Object.fromEntries(['leader','advisor'].map(role=>[role,rankOfficerCandidates(view,units,{task:'role',role,city:a.location})[0]?.unit.id||null]));
   const mode=a.marchMode||'normal',from=a.travel?.to||a.location,path=a.travel?a.route.slice(a.route[0]===from?1:0):a.route;
   const journeyDays=force=>(path.length?marchItinerary(view,from,path,force,a.roadPolicy||'auto').days:0)+remainingMarchDays(view,force);
@@ -61,7 +62,7 @@ export function chooseArmyMarchMode(facts,a){
  if(a.mode==='normal'&&a.modes.includes('forced')&&a.restUntil<=facts.day&&a.supply<a.food*(a.days+2)&&a.forcedDays<a.days&&a.forcedDays<=a.forcedAvailableDays&&a.supply>=a.food*(a.forcedDays+2))return 'forced';
  return a.mode;
 }
-export function manageArmyManagementAI(s){
+function policy_manageArmyManagementAI(s){
  if(!isAITurnStart(s)||!s.campaign.ai)return;
  for(const faction of Object.keys(s.campaign.ai.factions).filter(f=>isAIControlled(s,f))){
   let facts=armyManagementFacts(s,faction),choice=chooseArmyManagement(facts);
@@ -75,3 +76,5 @@ export function manageArmyManagementAI(s){
   for(const a of facts.armies){const mode=chooseArmyMarchMode(facts,a);if(mode!==a.mode)setArmyMarchMode(s,a.id,mode,{faction,scheduled:true});}
  }
 }
+
+export function manageArmyManagementAI(...args){return runDecisionModule('manageArmyManagementAI',args,()=>policy_manageArmyManagementAI(...args));}

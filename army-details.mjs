@@ -1,3 +1,4 @@
+import {integerText} from './number-rules.mjs';
 import {supplyDuration} from './information-display.mjs';
 import {bondsMarkup} from './bond-display.mjs';
 import {abilityButton} from './ability-reference.mjs';
@@ -9,7 +10,7 @@ import {playerFaction} from './player-faction.mjs';
 import {mapNode} from './road-network.mjs';
 import {commanderStratagems,STRATAGEMS,selectStratagemSource,stratagemEffectText} from './stratagems.mjs';
 const esc=v=>String(v??'—').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const number=v=>Number.isFinite(v)?v.toLocaleString('zh-CN',{maximumFractionDigits:1}):'—';
+const number=integerText;
 const fields=items=>`<dl class="info-fields">${items.map(([label,value])=>`<div><dt>${label}</dt><dd>${value}</dd></div>`).join('')}</dl>`;
 // Read the same current troops and wound pool as campaign rations, without settling a battle.
 export function armyInfoCounts(s,a){
@@ -33,7 +34,7 @@ export function armyDetailSections(a,{soldiers=a.units.reduce((n,u)=>n+(u.hp??u.
  const commanders=armyCommanders(a),strategies=[...new Set(commanders.flatMap(commanderStratagems))];
  return [
   {id:'bonds',title:'羁绊',html:bondsMarkup(a.units,{army:a})},
-  {id:'command',title:'指挥',html:fields([['军团长',person(a.leader)],['军师',person(a.advisor)],['视野半径',armyVisionRadius(a).toLocaleString('zh-CN',{maximumFractionDigits:2})]])},
+  {id:'command',title:'指挥',html:fields([['军团长',person(a.leader)],['军师',person(a.advisor)],['视野半径',integerText(armyVisionRadius(a))]])},
   {id:'supply',title:'兵力与行军',html:fields([['现役兵',number(soldiers)],['伤兵',number(wounded)],['部队数',number(unitCount)+' 队'],['随军待整编',number(followers.length)+' 人'],['行动力',number(movementPoints(a))+' 点 / 日'],['士气',number(a.morale)+' / 100'],...(a.supply!==undefined?[['携粮',number(a.supply)+' / '+number(a.supplyCapacity)]]:[]),...(consumption!==undefined?[['每日耗粮',number(consumption)],...(a.supply!==undefined?[['无补给续航',supplyDuration(a.supply,consumption)]]:[])]:[]),...(spoilsGold||spoilsGrain?[['缴获物资（待入库）',number(spoilsGold)+' 金 · '+number(spoilsGrain)+' 粮']]:[]),...(supplyLabel!==undefined?[['粮道',esc(supplyLabel)]]:[])])},
   ...(followers.length?[{id:'followers',title:'随军待整编',html:'<p>'+followers.map(u=>esc(u.name)).join('、')+' · 待返城整补</p>'}]:[]),
   {id:'strategy',title:'军略',html:strategies.map(id=>{const source=selectStratagemSource(commanders,id);return abilityButton('stratagem',id,source.name+'「'+STRATAGEMS[id].name+'」',stratagemEffectText(source));}).join('')||'<p>暂无可用军略</p>'}

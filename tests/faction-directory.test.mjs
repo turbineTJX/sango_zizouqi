@@ -36,7 +36,7 @@ test('appointments distinguish free prepared officers from real work and keep vi
  assert.match(rows.find(r=>r.unit.id===busy.unit.id).duty,/商业负责人/);
  const html=factionDirectoryMarkup(s,'officer');
  assert.doesNotMatch(html,/data-sort-key="status"|驻城部队/);
- assert.match(html,/data-sort-key="duty"/);assert.match(html,/还需 2.5 天 · 暂停/);
+ assert.match(html,/data-sort-key="duty"/);assert.match(html,/还需 3 天 · 暂停/);
  assert.match(factionDirectoryMarkup(s,'officer',{query:'空闲'}),new RegExp('data-id="'+free.unit.id+'"'));
  assert.doesNotMatch(factionDirectoryMarkup(s,'officer',{query:'空闲'}),new RegExp('data-id="'+busy.unit.id+'"'));
  assert.equal(JSON.stringify(s),before);

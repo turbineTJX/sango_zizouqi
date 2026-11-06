@@ -1,3 +1,4 @@
+import {runCoordinatedAction,runDecisionModule} from './ai-policy/action-runtime.mjs';
 import {canEquip,validEquipment,equipmentCost} from './troop-equipment.mjs';
 import {addCityGold} from './talent-core.mjs';
 import {mapNode,isJunction} from './road-network.mjs';
@@ -23,7 +24,7 @@ export function militarySelectionError(s,p){
 export function previewMilitaryFlow(s,p,{faction=playerFaction(s),scheduled=false,...budget}={}){
  return executeMilitaryFlow(structuredClone(s),p,{faction,scheduled,...budget});
 }
-export function applyMilitaryFlow(s,p,options={}){
+function shared_applyMilitaryFlow(s,p,options={}){
  const preview=previewMilitaryFlow(s,p,options);if(preview.error)return preview;
  return executeMilitaryFlow(s,p,options);
 }
@@ -44,3 +45,5 @@ function executeMilitaryFlow(s,p,{faction=playerFaction(s),scheduled=false,...bu
  }
  return {state:next,army:target,gold:beforeGold-next.cities.filter(c=>c.owner===faction).reduce((n,c)=>n+c.gold,0),men:target.units.reduce((n,u)=>n+u.troops-(originalMen.get(u.id)||0),0),grain:beforeGrain-next.cities.reduce((n,c)=>n+c.grain,0)};
 }
+
+export function applyMilitaryFlow(...args){return runCoordinatedAction('applyMilitaryFlow',args,()=>shared_applyMilitaryFlow(...args));}

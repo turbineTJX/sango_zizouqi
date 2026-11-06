@@ -1,3 +1,4 @@
+import {remainingDaysText} from './number-rules.mjs';
 import {knownBanditCamps} from './bandit-state.mjs';
 import {administrationKnown,cityInformation} from './information-display.mjs';
 import {playerFaction} from './player-faction.mjs';
@@ -14,7 +15,7 @@ import {currentDomesticWork,strategicOrderLabel} from './strategic-orders.mjs';
 import {DIRECTIONS} from './domestic.mjs';
 import {DIPLOMACY_GOALS,DIPLOMACY_DIRECTIONS,DIPLOMACY_RULES} from './data/design/diplomacy-rules.mjs';
 import {diplomaticAssignment} from './diplomacy-relations.mjs';
-const days=v=>Number(v.toFixed(2))+' 天';
+const days=v=>remainingDaysText(v)+' 天';
 const town=(s,id)=>mapNode(s,id)?.name||'位置未确认';
 const route=(s,t)=>`${town(s,t.from)} → ${town(s,t.to)}（途中）`;
 const battleLabel=r=>r.awaiting?'遭遇敌军，等待指挥决定':isDeploying(r.battle)?'战前布阵':r.control==='manual'?'交战中 · 亲自指挥':'交战中 · 委托作战';

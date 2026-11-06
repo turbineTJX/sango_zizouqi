@@ -80,7 +80,7 @@ const mapping=`
 设置撤离目的地|retreat-node
 重置阵型|battle-intent
 开始战斗|battlefield council|完成任命与部署 → 用勾号确认或叉号取消站位预览 → 开战
-查看战场与部队|battlefield battle-unit battle-buffs battle-buffs-landscape|点部队或头像 → 战况简报 → 状态 → 按需展开属性影响、完整属性或战法说明|状态直接显示名称、效果、来源与剩余回合或次数。返回战场、关闭或 Esc 保持暂停；普通战斗中点“继续战斗”才恢复。羁绊浮层可收起、切换敌我。
+查看战场与部队|battlefield battle-unit battle-attributes battle-buffs battle-buffs-landscape|点部队或头像 → 战况简报 → 点击状态名或悬停查看效果 → 按需展开属性影响、完整属性或战法说明|状态名可直接点击、悬停或键盘聚焦查看效果、来源与剩余回合或次数，没有独立的“状态详情”入口。点击固定展开，再次点击或按 Esc 收起；手机轻点查看。数值显示整数；移速100%为每战斗回合1格，攻速100%为每秒1次普攻，普攻间隔显示整数毫秒。收起状态说明不关闭部队面板；返回战场或关闭面板保持暂停，普通战斗中点“继续战斗”才恢复。羁绊浮层可收起、切换敌我。
 暂停与变速|battlefield stratagem-result|点击播放或暂停图标 → 点击速度按钮切换倍速|主动暂停、查看部队详情时所有战场同步暂停；继续后同步推进。确认切换视图并加载完成会自动继续，玩家同时只指挥一场。
 施放全军型军略|stratagem-army stratagem-army-result|军略（暂停） → 查看充能与次数 → 点击可用军略 → 自动继续战斗|成功后短暂标记作用对象。
 施放范围军略|stratagem-list stratagem-area stratagem-landscape stratagem-result stratagem-combination stratagem-provider-cost|军略（暂停） → 选择可用项 → 选落点（舍己护军固定以施放者为中心） → 按需旋转 → 核对目标、实际效果与代价 → 施放 → 自动继续战斗|励军固阵每队真实消耗20战意，不足者不受益；舍己护军的施放者只承担疲弱、不领取保护。全部持续时间查看实际提供者效果。取消或 Esc 保持暂停，不消耗充能。
@@ -98,7 +98,7 @@ const mapping=`
 管理地图包|map-library
 重试战役|standalone-report
 进行|map harvest|筹划安排 → 进行 → 需要时暂停 → 处理待办 → 旬末回到筹划
-处理奏报|reports
+处理奏报|reports report-detail|核阅结果和关键数值 → 查看事项 → 核对前后变化、费用与办理结果 → 按需查看相关对象 → 返回奏报 → 确认|钱粮缺口为报事时预测；详情引用发生时记录，浏览和返回不重算、不结算、不标已读。
 查看旬收获|harvest
 查看当前动态与日志|journal officer
 查看战史与回放|battle-replay battle-history battle-report|已结束战线 → 进入回放 → 播放或暂停 → 拖动时间条、调整回放速度 → 关闭返回当前局|实时大地图和战场共用一套时间。回放是独立只读记录，不回退世界或重算战果；新战斗逐步记录，旧战斗保留已有每日快照。

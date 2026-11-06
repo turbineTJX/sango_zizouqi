@@ -1,3 +1,4 @@
+import {runCoordinatedAction,runDecisionModule} from './ai-policy/action-runtime.mjs';
 import {mapNode,mapNodes} from './map-node-data.mjs';
 import {observeBanditCamps,knownBanditCamps,banditCamp} from './bandit-state.mjs';
 import {roadCost} from './road-metrics.mjs';
@@ -84,7 +85,7 @@ function scan(s,t){
  observeBanditCamps(s,t.faction,near);
  for(const c of knownBanditCamps(s,t.faction))if(c.clearedDay===null&&near(mapNode(s,c.nodeId)))storeContact(s,t,'bandit',c.id,copy(c));
 }
-export function dispatchScout(s,cityId,officerId,target,{faction=playerFaction(s),scheduled=false,route:requestedRoute}={}){
+function shared_dispatchScout(s,cityId,officerId,target,{faction=playerFaction(s),scheduled=false,route:requestedRoute}={}){
  const error=scoutDispatchError(s,cityId,officerId,target,{faction,scheduled,route:requestedRoute});if(error)return error;
  const o=residentOfficer(s,officerId),route=requestedRoute?[...requestedRoute]:scoutRoute(s,cityId,target),trip=scoutJourney(s,cityId,route);
  // Zero means the order has not executed yet, including orders made after day 1.
@@ -94,7 +95,7 @@ export function dispatchScout(s,cityId,officerId,target,{faction=playerFaction(s
  personnelEvent(s,`scout:${t.id}:out`,'SCOUT_OUT',o.unit,`${o.unit.name}留在${mapNode(s,cityId).name}负责侦察，派出斥候沿路前往${mapNode(s,target).name}，预计${trip.days}天，已付${trip.gold}金。`);
  recordOfficerActivities(s);updateVision(s);return null;
 }
-export function recallScout(s,officerId,{faction=playerFaction(s)}={}){
+function shared_recallScout(s,officerId,{faction=playerFaction(s)}={}){
  const t=scoutAssignment(s,officerId);if(!t||t.faction!==faction)return '该武将没有负责的侦察工作';
  const o=scoutOperator(s,t),lost=s.campaign.domestic.people.find(p=>p.id===officerId)?.unit;if(o)delete o.unit.scouting;if(lost)delete lost.scouting;
  s.campaign.scouting.tasks=s.campaign.scouting.tasks.filter(x=>x!==t);
@@ -147,3 +148,7 @@ export function validateScouting(s){
  }
  for(const u of [...s.cities.flatMap(c=>c.units),...s.armies.flatMap(a=>a.units),...s.campaign.idle.map(o=>o.unit)])fail(!u.scouting||ids.has(u.scouting)&&officers.has(u.id));
 }
+
+export function dispatchScout(...args){return runCoordinatedAction('dispatchScout',args,()=>shared_dispatchScout(...args));}
+
+export function recallScout(...args){return runCoordinatedAction('recallScout',args,()=>shared_recallScout(...args));}

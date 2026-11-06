@@ -54,15 +54,15 @@ export function unitAttributes(u,b=null,{ignoreBonds=false}={}) {
  if(!on('rapidAdvance')&&on('haste'))move.push({label:'疾行（同类不叠加）',add:1});
  if(on('slow'))move.push({label:'迟滞',factor:1-statusFraction(u,'slow',.5)});
  if(on('phalanx')||on('root')||on('stun'))move.push({label:on('stun')?'眩晕':on('root')?'定身':'方阵',factor:0});
- stat('supportPower',80,politics*1.4+(u.intellect||0)*.6,'政治 × 1.4 ＋ 智力 × 0.6',supplyPenalty?[{label:'缺粮',factor:1-supplyPenalty}]:[]);
- stat('attack',t.attack,leadership*1.6,'统率 × 1.6',atk);
- stat('defense',t.defense,leadership*.65,'统率 × 0.65',def);
+ stat('supportPower',80,politics*1.4+(u.intellect||0)*.6,'政治 × 140% ＋ 智力 × 60%',supplyPenalty?[{label:'缺粮',factor:1-supplyPenalty}]:[]);
+ stat('attack',t.attack,leadership*1.6,'统率 × 160%',atk);
+ stat('defense',t.defense,leadership*.65,'统率 × 65%',def);
  if(t.range>1){const extra=Math.max(on('longRange')?statusValue(u,'longRange','amount'):0,on('emplaced')?1:0,on('anchored')?statusValue(u,'anchored','amount'):0)-(on('shortRange')?statusValue(u,'shortRange','amount'):0);range.length=0;if(extra)range.push({label:'射程状态（同类取最高）',add:Math.max((t.minRange||1)-t.range,extra)});}
  if(!u.formType&&u.equipment?.siege&&t.move>TROOPS[u.equipment.siege].move)move.push({label:'携带兵器',factor:TROOPS[u.equipment.siege].move/t.move});
- stat('move',t.move,0,'兵种决定',move);stat('range',t.range,0,'兵种决定',range);stat('siege',out.attack*t.siegeFactor,0,`${t.name}攻城系数 × ${t.siegeFactor}（已计入基础）`);
+ stat('move',t.move,0,'兵种决定',move);stat('range',t.range,0,'兵种决定',range);stat('siege',out.attack*t.siegeFactor,0,`${t.name}攻城系数 × ${Math.round(t.siegeFactor*100)}%（已计入基础）`);
  const intervalFactor=(on('attackSlow')?1+statusValue(u,'attackSlow','fraction'):1)*(1-Math.max(on('attackHaste')?statusValue(u,'attackHaste','fraction'):0,on('rapidAdvance')?statusValue(u,'rapidAdvance','attackFraction'):0));
- stat('attackSpeed',1000/(700*t.interval),0,'兵种攻击间隔 '+t.interval+' 日',[{label:'攻速状态',factor:1/intervalFactor}]);out.attackInterval=t.interval*intervalFactor/(passives.attackSpeed||[]).reduce((n,m)=>n*(m.factor??1),1);out.minRange=t.minRange||0;
- stat('discipline',t.discipline,politics*.8,'政治 × 0.8',discipline);
+ stat('attackSpeed',1000/(700*t.interval),0,'兵种攻击间隔 '+Math.round(t.interval*700)+' 毫秒',[{label:'攻速状态',factor:1/intervalFactor}]);out.attackInterval=t.interval*intervalFactor/(passives.attackSpeed||[]).reduce((n,m)=>n*(m.factor??1),1);out.minRange=t.minRange||0;
+ stat('discipline',t.discipline,politics*.8,'政治 × 80%',discipline);
  stat('martialPower',80,(u.force||0)*2,'武力 × 2',martial);
  stat('strategyPower',80,(u.intellect||0)*2,'智力 × 2',strategy);
  out.controlResistance=Math.min(.6,out.discipline/(out.discipline+150));

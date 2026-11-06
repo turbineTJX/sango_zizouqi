@@ -1,3 +1,4 @@
+import {roundResult} from './number-rules.mjs';
 import {equipmentText} from './bond-equipment.mjs';
 import {BOND_DESIGNS} from './data/design/bonds.mjs';
 import {BOND_ASSIGNMENTS} from './data/design/bond-assignments.mjs';
@@ -6,7 +7,7 @@ export const bondHolders=id=>Object.entries(BOND_ASSIGNMENTS).filter(([,a])=>a[i
 export const BOND_STAT_NAMES={attack:'攻击',defense:'防御',move:'移速',attackSpeed:'攻速',siege:'攻城威力',martialPower:'武技威力',strategyPower:'谋略威力',discipline:'军纪'};
 export const bondGradeLabel=d=>d.grade==='advanced'?'高级羁绊':'低级羁绊';
 export const bondRecipients=d=>d.special==='reserveEntry'?'锁定名额内后续首次补入的己方预备队，无需持有蓄锐':d.special==='openingFormation'?'阵位属性给对应格真实首发；全部真实首发按开场占位比例领取护盾，均无需本人持有':d.special==='formationTiles'?'天覆为唯一所选阵法时首次入场站在阵位的己方部队，持有者翻倍':d.special==='escort'?'护卫持有者相邻的其他友军':d.special==='songAttack'?d.range+'格内其他在场且非避战友军，无需持有战歌':'本方实际在场且已获得该羁绊的部队';
-const pct=n=>Number((n*100).toFixed(2));
+const pct=n=>roundResult(n*100);
 function bondEffectText(d,i){
  const top=i===d.thresholds.length-1;
  switch(d.special){

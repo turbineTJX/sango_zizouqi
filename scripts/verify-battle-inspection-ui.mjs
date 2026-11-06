@@ -21,6 +21,18 @@ try{
   const snapshot=()=>page.evaluate(()=>JSON.stringify(window.inspectionBattleSnapshot));
   await clickUnit('cao');assert.equal(await page.locator('#inspect-unit').inputValue(),'cao');const before=await snapshot();
   assert.equal(await page.locator('.battle-inspection-more').getAttribute('open'),null);assert.match(await page.locator('.battle-brief-effects').innerText(),/混乱/);
+  const status=page.locator('.effect-tile[data-status="confuse"]'),statusName=status.locator('summary[data-status-trigger]');
+  assert.equal(await status.getAttribute('open'),null,'status descriptions start folded behind the status name');
+  await statusName.hover();assert.ok(await status.locator('.effect-details').isVisible(),'hovering the status name shows its own description');
+  await page.mouse.move(4,4);assert.equal(await status.getAttribute('open'),null,'pointer exit closes an unpinned description');
+  await statusName.tap();assert.equal(await status.getAttribute('open'),'','touch pins the status description');
+  await page.mouse.move(4,4);assert.equal(await status.getAttribute('open'),'','a clicked description stays open');
+  await page.evaluate(()=>document.fonts.ready);await page.screenshot({path:`${out}/${name}-status.png`,animations:'disabled'});
+  await statusName.tap();assert.equal(await status.getAttribute('open'),null,'clicking the same status name closes it');
+  await page.locator('#inspect-unit').focus();await statusName.focus();assert.ok(await status.locator('.effect-details').isVisible(),'keyboard focus shows the same description');
+  await statusName.press('Escape');assert.equal(await status.getAttribute('open'),null);assert.equal(await page.locator('.battle-unit-inspection').count(),1,'Esc closes the status before the unit panel');
+  assert.doesNotMatch(await page.locator('.battle-brief-effects').innerText(),/状态详情/);
+  await page.locator('.modal-body').evaluate(el=>{el.scrollTop=0;});
   const geometry=await page.locator('.modal').evaluate(el=>{const r=el.getBoundingClientRect(),body=el.querySelector('.modal-body');return {width:r.width,screenWidth:innerWidth,bodyHeight:body.clientHeight,contentHeight:body.scrollHeight,inside:r.x>=0&&r.y>=0&&r.right<=innerWidth&&r.bottom<=innerHeight};});
   assert.ok(geometry.inside);assert.ok(await page.locator('.battle-brief-tactics').evaluate(el=>{const b=el.closest('.modal-body').getBoundingClientRect(),r=el.getBoundingClientRect();return r.top>=b.top&&r.bottom<=b.bottom;}),'core stats and tactic counts appear before the longer status explanations');if(name!=='desktop')assert.ok(geometry.width/viewport.width<.46,'the battle remains the larger area');
   await page.screenshot({path:`${out}/${name}.png`,animations:'disabled'});

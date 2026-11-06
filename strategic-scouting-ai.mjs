@@ -1,3 +1,4 @@
+import {runCoordinatedAction,runDecisionModule} from './ai-policy/action-runtime.mjs';
 import {cityRoads} from './road-network.mjs';
 import {isAITurnStart} from './ai-turn.mjs';
 import {mapNode} from './map-node-data.mjs';
@@ -34,12 +35,13 @@ function priority(s,faction,target,frontier,planned){
 }
 
 // Choose at the turn boundary from the same lawful observations as the player.
-export function planStrategicScouting(s,faction,{prospectiveTarget=null}={}){
+function policy_planStrategicScouting(s,faction,{prospectiveTarget=null,prospectiveTargets=[]}={}){
  if(!isAITurnStart(s))return;
  if(!visionEnabled(s)||!s.campaign.scouting)return;
  const homes=s.cities.filter(c=>c.owner===faction),frontier=new Set(homes.flatMap(c=>adjacent(s,c.id)));
  const planned=new Set(offensivePlans(s).filter(p=>p.faction===faction).map(p=>p.target));
  if(prospectiveTarget)planned.add(prospectiveTarget);
+ for(const target of prospectiveTargets)planned.add(target);
  const goal=s.campaign.ai?.factions[faction]?.strategy?.goal;if(goal?.kind==='capture'&&!['complete','cancelled'].includes(goal.status))planned.add(goal.targetCity);
  const score=id=>priority(s,faction,id,frontier.has(id),planned.has(id));
  for(const t of [...scoutAssignments(s)].filter(t=>t.faction===faction)){
@@ -80,5 +82,14 @@ export function planStrategicScouting(s,faction,{prospectiveTarget=null}={}){
 export function waitingForStrategicScout(s,faction,target){
  if(!visionEnabled(s)||cityVisible(s,target,faction))return false;
  const i=cityIntelligence(s,target,faction);
- return !i.data&&scoutAssignments(s).some(t=>t.faction===faction&&t.targetCity===target&&!t.paused);
+ if(i.data)return false;
+ if(scoutAssignments(s).some(t=>t.faction===faction&&t.targetCity===target&&!t.paused))return true;
+ // A full scout queue is not permission to attack a different unknown city.
+ // Wait only where a real local observer, lawful route and fee are available;
+ // the next boundary can dispatch it when an existing observation finishes.
+ return s.cities.some(c=>c.owner===faction&&!besieged(s,c.id)&&availableScout(s,c,faction)&&(()=>{
+  const path=scoutRoute(s,c.id,target);return path?.length&&c.gold-cityGoldCommitment(s,c).total>=scoutJourney(s,c.id,path).gold;
+ })());
 }
+
+export function planStrategicScouting(...args){return runDecisionModule('planStrategicScouting',args,()=>policy_planStrategicScouting(...args));}

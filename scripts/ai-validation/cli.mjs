@@ -41,18 +41,28 @@ async function withLock(path, action) {
   try { return await action(); } finally { await unlink(lock); }
 }
 
-export async function initialize({ root = PROJECT, out }) {
+export async function initialize({ root = PROJECT, out, continueBudget }) {
   const path = out ? resolve(out) : join(root, '.local/ai-iterations', new Date().toISOString().replaceAll(/[:.]/g, '-'));
   inside(join(root, '.local'), path);
   assert.ok(!await exists(path), 'Use a fresh session directory');
   await mkdir(path, { recursive: true });
+  // Re-freezing a newly registered repair must not create another eight-hour
+  // authorization or reset candidate/rejection limits within the same request.
+  const parent = continueBudget ? await readJSON(join(resolve(continueBudget),'session.json')) : null;
+  if(parent){
+   assert.equal(parent.format,'sango-ai-iteration');
+   assert.equal(parent.rulesHash,sha(JSON.stringify(parent.rules)),'Parent validation contract changed');
+   await verifySnapshot(parent.judge);
+   assert.ok(Date.now()<parent.round.deadline,'Original authorization budget exhausted');
+  }
   const baseline = await snapshot(root, join(path, 'baseline'));
   const startedAt = Date.now(), state = { format: 'sango-ai-iteration', version: 1, workspace: resolve(root),
     rulesHash: sha(JSON.stringify(RULES)), rules: RULES, judge: baseline, champion: baseline,
     round: { number: 1, startedAt, deadline: startedAt + RULES.budgetHours * 3600000, candidates: 0, rejections: 0 },
     candidates: [], corpus: [], adoptions: [] };
+  if(parent){state.round={...parent.round};state.budgetParent=resolve(continueBudget);}
   await writeJSON(join(path, 'session.json'), state);
-  return { session: path, baselineHash: baseline.hash, budgetHours: RULES.budgetHours };
+  return { session: path, baselineHash: baseline.hash, budgetHours: RULES.budgetHours, deadline:state.round.deadline };
 }
 
 async function propose(path, args) {
@@ -285,7 +295,7 @@ export async function main(argv) {
     'add-case --session=<directory> --file=<declarative battle case JSON>',
     'attest --session=<directory> --id=<name> --file=<source-bound evidence record JSON>',
   ], metrics: RULES.metrics };
-  if (command === 'init') return initialize({ out: args.out });
+  if (command === 'init') return initialize({ out: args.out, continueBudget:args['continue-budget'] });
   const path = sessionPath(args);
   if (command === 'unlock') {
     const lock = join(path, 'active.lock'), state = await readJSON(lock); let alive = true;

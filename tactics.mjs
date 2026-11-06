@@ -80,6 +80,7 @@ export function refreshShield(b,u,layers=shieldLayers(b,u)) {
   u.statuses ||= {};u.statuses.shield={until:Math.max(...layers.map(l=>l.until)),amount:layers.reduce((n,l)=>n+l.amount,0),layers};
 }
 export function absorbShield(b,u,damage,onBreak=null) {
+  damage=Math.max(0,Math.round(damage));
   const layers=shieldLayers(b,u).sort((a,c)=>a.until-c.until||a.source.localeCompare(c.source));
   for(const l of layers){const used=Math.min(l.amount,damage);l.amount-=used;damage-=used;if(used>0&&l.amount===0)onBreak?.(l);if(!damage)break;}
   refreshShield(b,u,layers.filter(l=>l.amount>0));return damage;
@@ -90,6 +91,12 @@ export function setStatus(b,u,key,duration,extra={}) {
   if(!STATUS_DEFINITIONS[key]||u.isDecoy||traitImmune(u,key))return false;
   if(NEGATIVE_STATUSES.includes(key)&&(hasStatus(b,u,'stasis')||key!=='hunger'&&hasStatus(b,u,'magicImmune')))return false;
   if(CONTROL_STATUSES.includes(key)&&hasStatus(b,u,'resolve'))return false;
+  // These are settled counts, unlike potency/fraction/movement rate parameters.
+  if(!Number.isFinite(duration)||duration<0)return false;
+  duration=Math.round(duration);
+  extra={...extra};
+  if(extra.amount!==undefined)extra.amount=Math.max(0,Math.round(extra.amount));
+  if(extra.percent!==undefined)extra.percent=Math.round(extra.percent);
   if(key==='decoy')return createDecoy(b,u,extra,duration);
   u.statuses ||= {};
   const provenance=previous=>{

@@ -213,7 +213,7 @@ export const STATUS_DEFINITIONS = {
     "icon": "sword",
     "tone": "buff",
     "priority": 29,
-    "description": "普攻改用 0.8 倍谋略威力，受军纪抵御"
+    "description": "普攻改用80%谋略威力，受军纪抵御"
   },
   "haste": {
     "name": "疾行",
@@ -384,4 +384,5 @@ export const REMEDIES = {
   ]
 };
 export const CONTROL_STATUSES = ['stun','confuse','root','disarm','seal','taunt','disrupted'];
-export default {schemaVersion:1,id:'battle-statuses',name:'战斗状态与效果一览表',integration:'integrated',records:Object.entries(STATUS_DEFINITIONS).map(([id,parameters])=>({id,name:parameters.name,parameters,source:'data/design/battle-statuses.mjs',todo:''}))};
+export const ARMY_STATUS_DEFINITIONS = {blockadeUntil:{name:'截断援路',description:'暂停敌方预备队入场'}};
+export default {schemaVersion:1,id:'battle-statuses',name:'战斗状态与效果一览表',integration:'integrated',records:[...Object.entries(STATUS_DEFINITIONS),...Object.entries(ARMY_STATUS_DEFINITIONS)].map(([id,parameters])=>({id,name:parameters.name,parameters,source:'data/design/battle-statuses.mjs',todo:''}))};

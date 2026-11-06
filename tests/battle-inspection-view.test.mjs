@@ -35,7 +35,7 @@ test('status brief exposes real effects, source, exact duration and optional mar
  const before=JSON.stringify(b),html=battleInspectionStatusesMarkup(b,u);
  assert.match(html,/2项/);assert.match(html,/剩余 8 战斗回合/);
  assert.match(html,/<b>混乱<\/b>/);assert.match(html,/测试武将「鼓舞」/);
- assert.match(html,/<details open class="effect-tile/);assert.match(html,/攻击提高/);assert.match(html,/属性变化/);
+ assert.match(html,/<details class="effect-tile/);assert.doesNotMatch(html,/<details open class="effect-tile|状态详情/);assert.match(html,/<summary data-status-trigger>/);assert.match(html,/攻击提高/);assert.match(html,/属性变化/);
  assert.equal(JSON.stringify(b),before);
  b.tick+=2;assert.match(battleInspectionStatusesMarkup(b,u),/剩余 6 战斗回合/);
 });

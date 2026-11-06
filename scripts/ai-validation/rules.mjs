@@ -5,7 +5,7 @@ const freeze = value => {
 };
 
 export const RULES = freeze({
-  version: 2,
+  version: 6,
   budgetHours: 8,
   maximumCandidatesPerRound: 8,
   consecutiveRejectionsBeforeStop: 3,
@@ -41,6 +41,10 @@ export const RULES = freeze({
     'strategic-scouting-ai.mjs', 'strategic-support-ai.mjs',
     'strategic-management-ai.mjs', 'strategic-staffing.mjs',
     'strategic-concentration.mjs', 'strategic-temperament.mjs',
+    // Protocol 3: coordination adapters only; common action admission,
+    // resolution and game rules remain fixed by the nonNegotiable contract.
+    'strategic-intent.mjs', 'strategic-orders.mjs',
+    'docs/势力AI统一规划与执行架构实现-20261105.md',
     'docs/AI架构与决策评价方法.md', 'docs/势力AI与跨旬作战计划.md', 'docs/AI互战行为与决策审计.md',
   ],
   editableNewDirectory: 'ai-policy/',

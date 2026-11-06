@@ -94,7 +94,7 @@ test('completed construction discounts report the saved amount and actual expiry
   for(let i=0;i<10&&!event;i++){advanceCampaignDay(s);event=s.campaign.domestic.events.find(e=>e.officerId===u.id&&['complete','failure'].includes(e.phase));}
   assert.ok(event);
   const saved=c.domestic.effects.find(e=>e.key==='discount:military');
-  if(saved){successes++;assert.ok(event.text.includes(`优惠${Number((saved.amount*100).toFixed(2))}%`));assert.ok(event.text.includes(campaignDate(s,{day:saved.untilTurn*10})));assert.match(event.text,/限开工抵扣一次/);assert.match(event.text,/逾期失效/);}
+  if(saved){successes++;assert.ok(event.text.includes(`优惠${Math.round(saved.amount*100)}%`));assert.ok(event.text.includes(campaignDate(s,{day:saved.untilTurn*10})));assert.match(event.text,/限开工抵扣一次/);assert.match(event.text,/逾期失效/);}
   else assert.match(event.text,/未达成合作/);
  }
  assert.ok(successes>0);

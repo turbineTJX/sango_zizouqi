@@ -105,10 +105,11 @@ test('cancelled plans respond to changed conditions without a fixed rest deadlin
  assert.equal(serializeCampaign(s),serializeCampaign(copy));assert.equal(s.campaign.ai.plans.length,2);
 });
 
-test('heavily wounded troops recover at home before a voluntary offensive',()=>{
+test('city pooled wounded stay for treatment while healthy troops can launch a funded offensive',()=>{
  const {s,home,target}=scene();target.units=[];home.units.forEach(u=>u.wounded=u.troops);
- planStrategicAI(s);assert.equal(s.campaign.ai.plans.length,0);assert.equal(home.units.length,6);
- home.units.forEach(u=>u.wounded=0);s.campaign.day=11;s.turn=2;planStrategicAI(s);
+ const wounds=home.units.reduce((n,u)=>n+u.wounded,0),reserves=home.manpower;
+ planStrategicAI(s);assert.equal(home.wounded,wounds);assert.equal(home.manpower,reserves);
+ assert.ok([...home.units,...s.armies.flatMap(a=>a.units)].every(u=>u.wounded===0));
  assert.equal(s.campaign.ai.plans[0]?.phase,'attack');
 });
 
@@ -178,10 +179,10 @@ test('superior defenses produce no attack plan or resource debit',()=>{
  const {s,target}=scene();target.units.forEach(u=>u.troops=7000);gateDurability(target).hp=27000;const before=grain(s);planStrategicAI(s);
  assert.equal(s.campaign.ai.plans.length,0);assert.equal(s.armies.length,0);assert.equal(grain(s),before);
 });
-test('a large city roster selects legal columns and leaves wounded units in the city',()=>{
+test('a large city roster selects legal columns and leaves all wounds in the city pool',()=>{
  const {s,home}=scene(),used=new Set(s.cities.flatMap(c=>c.units.map(u=>u.id)));
  home.units.push(...Object.keys(OFFICER_BY_ID).filter(id=>!used.has(id)).slice(0,16).map((id,i)=>({...makeOfficer(id,i<7?3000:0,i,3),homeCity:home.id,wounded:i<7?0:500})));
- const before=men(s);planStrategicAI(s);assert.ok(s.armies.length);assert.ok(s.armies.every(a=>a.units.length<=10&&a.units.every(u=>u.troops>0)));assert.equal(men(s),before);assert.equal(home.units.filter(u=>!u.troops).length,9);
+ const before=men(s);planStrategicAI(s);assert.ok(s.armies.length);assert.ok(s.armies.every(a=>a.units.length<=10&&a.units.every(u=>u.troops>0)));assert.equal(men(s)+home.wounded,before);assert.equal(home.wounded,4500);assert.ok(home.units.every(u=>u.wounded===0));
 });
 test('a serious incoming attack retains the home defense instead of expanding',()=>{
  const {s,home,target}=scene();incoming(s,home,target,6500);planStrategicAI(s);

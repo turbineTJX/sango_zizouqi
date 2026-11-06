@@ -1,3 +1,4 @@
+import {inheritConcentration} from './ai-policy/faction-coordination.mjs';
 import {OFFICER_BY_ID} from './officer-catalog.mjs';
 import {residentOfficer} from './city-personnel.mjs';
 import {removeDomesticOrder} from './domestic.mjs';
@@ -24,7 +25,7 @@ export function adoptConcentration(s,faction,candidate){
  if(!candidate?.concentration)return null;
  const day=s.campaign.day;
  const p={faction,staging:candidate.staging,target:candidate.targetCity,status:'active',createdDay:day,deadline:day+R.preparationTurns*10,lastProgressDay:day,finishedDay:null,
-  intendedIds:[...candidate.concentration.intendedIds],officerIds:[],arrivedIds:[],requirements:structuredClone(candidate.requirements),score:candidate.score,full:candidate.concentration.full,reason:candidate.reason};
+  intendedIds:[...candidate.concentration.intendedIds],officerIds:[],arrivedIds:[],requirements:structuredClone(candidate.requirements),score:candidate.score,full:candidate.concentration.full,reason:candidate.reason,...(candidate.concentration.purpose?{purpose:candidate.concentration.purpose}:{})};
  s.campaign.ai.concentrations=s.campaign.ai.concentrations.filter(q=>q.status==='active'||q.faction!==faction||q.createdDay!==day);
  s.campaign.ai.concentrations.push(p);return p;
 }
@@ -54,7 +55,7 @@ export function progressConcentrations(s,{power,unsafe,reviewFaction=null}){
   // checks the current force, home defense, intelligence and full supply cost.
   const allArrived=p.intendedIds.every(id=>p.officerIds.includes(id)&&p.arrivedIds.includes(id));
   // The saved date is a planning estimate, never an automatic exit condition.
-  if(reviewFaction===p.faction&&p.officerIds.length&&!travelling&&!waiting&&(allArrived||Math.ceil(power(c))>=p.requirements[0].defensePower)){closeConcentration(s,p,'complete','本步现役已实际到达，交由本旬重新评估出征');continue;}
+  if(reviewFaction===p.faction&&p.officerIds.length&&!travelling&&!waiting&&(allArrived||Math.ceil(power(c))>=p.requirements[0].defensePower)){inheritConcentration(s,p);closeConcentration(s,p,'complete','本步人员已实际到达，交接给前线准备任务');continue;}
   if(reviewFaction===p.faction&&!travelling&&!waiting&&!allArrived)closeConcentration(s,p,'cancelled','当前已无有效集结步骤，释放人员与预算后重评');
  }
 }
@@ -68,6 +69,7 @@ export function validateConcentrations(s,fail,claimed){
   fail(int(p.createdDay,day)&&p.createdDay>0&&p.deadline===p.createdDay+R.preparationTurns*10&&int(p.lastProgressDay,day)&&p.lastProgressDay>=p.createdDay);
   fail(p.status==='active'?p.finishedDay===null:int(p.finishedDay,day)&&p.finishedDay>=p.createdDay);
   fail(typeof p.full==='boolean'&&Number.isFinite(p.score)&&typeof p.reason==='string'&&p.reason.length<=120);
+  fail(p.purpose===undefined||p.purpose==='mobilize');
   fail(Array.isArray(p.officerIds)&&p.officerIds.length<=Object.keys(OFFICER_BY_ID).length&&new Set(p.officerIds).size===p.officerIds.length&&p.officerIds.every(id=>OFFICER_BY_ID[id]));
   fail(Array.isArray(p.intendedIds)&&p.intendedIds.length>0&&p.intendedIds.length<=Object.keys(OFFICER_BY_ID).length&&new Set(p.intendedIds).size===p.intendedIds.length&&p.intendedIds.every(id=>OFFICER_BY_ID[id])&&p.officerIds.every(id=>p.intendedIds.includes(id)));
   fail(p.full||p.intendedIds.length<=R.concentration.partialUnits);

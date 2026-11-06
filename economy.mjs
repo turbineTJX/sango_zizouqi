@@ -62,7 +62,7 @@ export function sustainableRecruitment(s,c){
 // Read live battle soldiers, and attribute an away unit to one surviving home city.
 // Temporary siege armies replace city units; they must never be billed twice.
 export function supportedSoldiers(s,c){
- const rows=c.units.map(u=>({troops:u.troops,wounded:u.wounded}));
+ const rows=[{troops:0,wounded:c.wounded||0},...c.units.map(u=>({troops:u.troops,wounded:u.wounded}))];
  for(const a of s.armies.filter(a=>!a.disbanded&&a.faction===c.owner)){
   const battle=s.campaign.battles.find(r=>!r.settled&&r.armyIds.includes(a.id));
   for(const u of a.units){
@@ -90,7 +90,7 @@ export const reserveRecruitmentTarget=(s,c)=>Math.min(ECONOMY_RULES.capacity.man
 // rather than assuming opening stocks or temporarily unfilled units last forever.
 // Temporary income effects cannot replace a resident food producer.
 export function cityNeedsAgriculture(s,c){
- const people=cityPersonnel(s,c.id),supplies=citySupplyBudgets(s);
+ const people=cityPersonnel(s,c.id),supplies=s.armies.some(a=>!a.disbanded&&a.faction===c.owner)?citySupplyBudgets(s):[];
  // Strategic recruiting initially aims at 4500, but domestic replenishment
  // legally fills the officer's true capacity. Forecast both actual paths.
  const gap=u=>Math.max(0,troopCapacity(u)-u.troops-u.wounded);
@@ -111,8 +111,8 @@ export function economicStaffingError(s,c,leavingIds){
  const leaving=new Set(leavingIds),jobs=s.campaign.domestic.assignments.filter(a=>a.cityId===c.id);
  if(!jobs.some(a=>leaving.has(a.officerId)&&['agriculture','commerce'].includes(a.direction)))return null;
  const people=cityPersonnel(s,c.id).filter(o=>!o.unit.mission&&!o.unit.scouting);
- for(const [direction,needed,label] of [['agriculture',cityNeedsAgriculture(s,c),'农业'],['commerce',cityNeedsCommerce(s,c),'商业']]){
-  if(!needed||!jobs.some(a=>a.direction===direction&&leaving.has(a.officerId)))continue;
+ for(const [direction,needsWorker,label] of [['agriculture',cityNeedsAgriculture,'农业'],['commerce',cityNeedsCommerce,'商业']]){
+  if(!jobs.some(a=>a.direction===direction&&leaving.has(a.officerId))||!needsWorker(s,c))continue;
   const staying=jobs.some(a=>a.direction===direction&&!leaving.has(a.officerId)&&!plannedOfficer(s,a.officerId)&&!s.campaign.domestic.orders.some(q=>q.officerIds.includes(a.officerId))&&!s.campaign.diplomacy?.assignments.some(q=>q.officerId===a.officerId&&!q.dismissed)&&people.some(o=>o.unit.id===a.officerId));
   if(!staying)return '钱粮预算紧张，保留本城最后一名'+label+'负责人';
  }

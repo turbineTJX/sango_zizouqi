@@ -115,6 +115,7 @@ async function campaign() {
       if (acc.owners[c.id] !== c.owner) { acc.captures.push({ day: s.campaign.day - 1, city: c.id, from: acc.owners[c.id], to: c.owner }); acc.owners[c.id] = c.owner; }
     }
     for (const a of armies) assert.ok(Number.isSafeInteger(a.supply) && a.supply >= 0);
+    for (const c of s.cities) assert.ok(Number.isSafeInteger(c.wounded) && c.wounded>=0);
     for (const holder of [...s.cities, ...armies]) for (const u of holder.units) assert.ok(Number.isSafeInteger(u.troops) && u.troops >= 0 && Number.isSafeInteger(u.wounded) && u.wounded >= 0);
     for (const p of s.campaign.ai.plans) acc.plans[p.id] = { phase: p.phase, createdDay: p.createdDay, deadline: p.deadline, target: p.target, faction: p.faction };
     for (const record of [...s.campaign.battles, ...s.campaign.archive]) {

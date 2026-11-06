@@ -1,6 +1,7 @@
 import {battleWounded} from './engine.mjs';
 import {troopCapacity} from './troop-capacity.mjs';
 import {OFFICER_FATE_RULES} from './data/design/officer-fate-rules.mjs';
+import {factionHasMainCity} from './city-classification.mjs';
 
 // Called after actual troop/wound writeback, before officer fates and army cleanup.
 // Historical battle wounds remain unchanged; this receipt records their transfer.
@@ -17,15 +18,17 @@ export function settleCapturedWounded(s,r){
   return unit?{battle:u,unit}:null;
  };
  const receivers=b.sides[winner].units.filter(u=>u.hp>0).map(actual).filter(Boolean).sort((a,b)=>a.unit.id.localeCompare(b.unit.id));
+ const pool=r.kind==='siege'&&receivers.length&&(winner!==r.attackSide||factionHasMainCity(s,b.sides[winner].faction))&&s.cities?.find(c=>c.id===r.cityId);
+ if(pool)receipt.poolCityId=pool.id;
  const donors=b.sides[1-winner].units.map(actual).filter(Boolean).sort((a,b)=>a.unit.id.localeCompare(b.unit.id));
  for(const donor of donors){
   const available=Math.min(battleWounded(donor.battle),donor.unit.wounded);
   receipt.available+=available;
   let remaining=Math.floor(available*receipt.rate);
   for(const receiver of receivers){
-   const amount=Math.min(remaining,Math.max(0,troopCapacity(receiver.unit)-receiver.unit.troops-receiver.unit.wounded));
+   const amount=pool?remaining:Math.min(remaining,Math.max(0,troopCapacity(receiver.unit)-receiver.unit.troops-receiver.unit.wounded));
    if(!amount)continue;
-   donor.unit.wounded-=amount;receiver.unit.wounded+=amount;remaining-=amount;receipt.received+=amount;
+   donor.unit.wounded-=amount;if(!pool)receiver.unit.wounded+=amount;remaining-=amount;receipt.received+=amount;
    receipt.transfers.push({from:donor.unit.id,to:receiver.unit.id,fromArmyId:donor.battle.armyId,toArmyId:receiver.battle.armyId,amount});
    if(!remaining)break;
   }
@@ -37,6 +40,7 @@ export function validWoundedCapture(r){
  const receipt=r.woundedCapture,b=r.battle,int=n=>Number.isSafeInteger(n)&&n>=0;
  if(!receipt||receipt.rate!==OFFICER_FATE_RULES.woundedCaptureRate||!int(receipt.available)||!int(receipt.received)||!Array.isArray(receipt.transfers))return false;
  const winner=b.result?.winner;
+ if(receipt.poolCityId!==undefined&&(r.kind!=='siege'||receipt.poolCityId!==r.cityId))return false;
  if(winner===null||winner===undefined||r.diplomaticCeasefire)return !receipt.available&&!receipt.received&&!receipt.transfers.length;
  const donors=new Map(b.sides[1-winner].units.map(u=>[u.id,u])),receivers=new Map(b.sides[winner].units.map(u=>[u.id,u])),used=new Map();
  let total=0;

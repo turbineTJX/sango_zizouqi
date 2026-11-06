@@ -1,5 +1,6 @@
 // Authoritative shared economy; players and AI use the same income and costs.
 export const ECONOMY_RULES = {
+  "wounded": {"treatmentPlaces": 6, "basePerPlace": 18, "perBarracks": 6, "perClinic": 6},
   // Opening headroom is local, so a large realm does not dilute every city.
   "opening": {
     "gold": {"large": 10000, "small": 5000},

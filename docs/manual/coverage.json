@@ -2,8 +2,8 @@
   "date": "2026-11-01",
   "workflows": 112,
   "chapters": 14,
-  "screenshots": 212,
-  "referenceHash": "af0a8375ee24c98b39e390962d49a9d35ceeaf3519e6536a022f9d10163e0c30",
+  "screenshots": 214,
+  "referenceHash": "c5d9b75992420c70d8b54f0a6725f09f6d8e00f3210345304cd9cf35d30d84f1",
   "items": [
     {
       "id": "action-85",
@@ -775,6 +775,7 @@
       "screenshots": [
         "battlefield",
         "battle-unit",
+        "battle-attributes",
         "battle-buffs",
         "battle-buffs-landscape"
       ]
@@ -871,7 +872,8 @@
       "id": "action-94",
       "name": "处理奏报",
       "screenshots": [
-        "reports"
+        "reports",
+        "report-detail"
       ]
     },
     {

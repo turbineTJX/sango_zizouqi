@@ -98,7 +98,7 @@ test('a funded large faction gathers actual troops and launches multiple columns
  for(const policy of Object.values(s.campaign.diplomacy.policies))policy.feeBudget=0;
  s.turn=61;s.campaign.day=601;
  initializeVision(s);initializeStrategicAI(s);planStrategicAI(s);
- const p=s.campaign.ai.plans.find(p=>p.faction==='yuan');assert.ok(p,'a feasible mature operation should exist');assert.equal(p.columnUnits,6);assert.ok(p.officerIds.length>6);
+ const p=s.campaign.ai.plans.find(p=>p.faction==='yuan');assert.ok(p,'a feasible mature operation should exist');assert.ok([6,10].includes(p.columnUnits));assert.ok(p.officerIds.length>6);
  assert.ok(p.origins.length>1);assert.equal(p.phase,'assemble');const selected=[...p.officerIds];
  assert.ok(p.columns?.length>1);assert.ok(new Set(p.columns.map(c=>c.departureDay)).size>1,'near columns wait at their own depots for the distant columns');
  const marching=armyManagementFacts(s,'yuan').armies.filter(a=>a.unitIds.some(id=>selected.includes(id)));assert.ok(marching.length);assert.ok(marching.every(a=>!a.modeEditable),'optional forced or light march must not silently change a saved joint contact schedule');
@@ -111,7 +111,7 @@ test('a funded large faction gathers actual troops and launches multiple columns
  const retained=grainFloors.map(r=>({...r,grain:r.grain-columns.filter(a=>a.homeCity===r.cityId&&!departedBefore.has(a.id)).reduce((n,a)=>n+a.supplyCapacity,0)}));
  assert.ok(retained.some(r=>r.grain>2500),'this fixture must need a sustained reserve beyond the home minimum');
  for(const r of retained)assert.ok(p.requirements.find(q=>q.cityId===r.cityId).grain>=r.grain,'actual loading releases the shipped grain and retains the sustained recovery reserve');
- assert.ok(columns.length>=2);assert.ok(columns.every(a=>a.units.length<=6&&(a.target===target.id||s.campaign.battles.some(b=>b.cityId===target.id&&b.armyIds.includes(a.id)))));
+ assert.ok(columns.length>=2);assert.ok(columns.every(a=>a.units.length>=6&&a.units.length<=10&&(a.target===target.id||s.campaign.battles.some(b=>b.cityId===target.id&&b.armyIds.includes(a.id)))));
  assert.ok(new Set(columns.map(a=>a.homeCity)).size>1,'joint armies retain distinct real replenishment bases');
  for(const a of columns)assert.ok(a.units.every(u=>p.origins.some(g=>g.cityId===a.homeCity&&g.officerIds.includes(u.id))));
  assert.equal(new Set(columns.flatMap(a=>a.units.map(u=>u.id))).size,selected.length);validateStrategicAI(s);

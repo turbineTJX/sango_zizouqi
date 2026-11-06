@@ -4,8 +4,9 @@ import {pendingDomesticOrder} from './domestic.mjs';
 import {STRATEGIC_PLANNING_RULES as R} from './data/design/strategic-planning-rules.mjs';
 import {strategicAlgorithmProfile} from './strategic-algorithms.mjs';
 import {emptyVictoryValue} from './strategic-victory.mjs';
-import {validRecoveryEvidence} from './strategic-recovery.mjs';
+import {validRecoveryEvidence} from './ai-policy/pool-recovery.mjs';
 import {validTemperament} from './strategic-temperament.mjs';
+import {validPurposeScore} from './ai-policy/action-purpose.mjs';
 import {OFFICER_BY_ID} from './officer-catalog.mjs';
 
 export function validMilitaryEvidence(v,day,city){
@@ -67,5 +68,5 @@ export function validateFactionStrategy(strategy,s,faction,fail){
  if(g)fail(victoryValue(g.victoryValue)&&military(g.military)&&g.requirements.every(r=>r.defensePower===undefined||integer(r.defensePower)&&r.defensePower>0&&g.kind==='capture'&&(g.planId===null?r.cityId===g.staging:s.campaign.ai.plans.some(p=>p.id===g.planId&&p.faction===faction&&p.requirements.some(x=>x.cityId===r.cityId&&x.defensePower===r.defensePower)))));
  const admission=a=>a&&Object.keys(a).length===6&&a.staging!==null&&city(a.staging)&&a.target!==null&&city(a.target)&&['guard','carry','ready','scout','budget','value','force'].includes(a.stage)&&typeof a.reason==='string'&&a.reason.length<=1000&&integer(a.unitCount)&&integer(a.troops);
  fail(Array.isArray(strategy.trace)&&strategy.trace.length<=R.traceLimit&&strategy.trace.every(t=>integer(t.day)&&t.day>0&&t.day<=s.campaign.day&&typeof t.reason==='string'&&typeof t.selected==='string'&&algorithms(t.algorithms)&&Array.isArray(t.candidates)&&t.candidates.length<=R.candidateLimit&&t.candidates.every(c=>candidateId(c.candidateId)&&['capture','defend','peace','recover','develop'].includes(c.kind)&&city(c.target)&&Number.isFinite(c.score)&&typeof c.ready==='boolean'&&typeof c.reason==='string'&&forecast(c.forecast))&&Array.isArray(t.admission)&&t.admission.length<=R.candidateLimit*(R.forceVariants+1)&&t.admission.every(admission)));
- fail(strategy.trace.every(t=>validTemperament(t.temperament,Math.floor((t.day-1)/10)+1,id=>!!OFFICER_BY_ID[id])&&victory(t.victory)&&t.candidates.every(c=>victoryValue(c.victoryValue)&&military(c.military))));
+ fail(strategy.trace.every(t=>validTemperament(t.temperament,Math.floor((t.day-1)/10)+1,id=>!!OFFICER_BY_ID[id])&&victory(t.victory)&&t.candidates.every(c=>victoryValue(c.victoryValue)&&military(c.military)&&(c.purpose==null||validPurposeScore(c.purpose)))));
 }

@@ -1,5 +1,6 @@
 import {playerFaction} from './player-faction.mjs';
 import {ECONOMY_RULES} from './data/design/economy-rules.mjs';
+import {OFFICER_FATE_RULES} from './data/design/officer-fate-rules.mjs';
 
 // City stores are authoritative. The HUD totals are only a projection.
 export const factionGold=(s,faction)=>s.cities.filter(c=>c.owner===faction).reduce((n,c)=>n+c.gold,0);
@@ -11,6 +12,7 @@ export function syncResourceTotals(s){
 export function initializeCityResources(s){
  for(const c of s.cities){
   Object.assign(c,openingCityResources(c));
+  c.wounded=0;
   c.budget={goldReserve:ECONOMY_RULES.budget.goldReserve,grainReserve:ECONOMY_RULES.budget.grainReserve,warning:'',warningSequence:0};
   c.payroll={arrears:0,lastTurn:0,lastDue:0,lastPaid:0};
  }
@@ -25,10 +27,11 @@ export function openingCityResources(c){
 export function cityCaptureResources(c){
  const keys=['gold','grain','manpower'],before=Object.fromEntries(keys.map(key=>[key,c[key]||0])),limit=c.owner==='neutral'?openingCityResources(c):null;
  const retained=Object.fromEntries(keys.map(key=>[key,Math.floor(Math.min(before[key],limit?.[key]??before[key])*ECONOMY_RULES.occupation[key+'Retention'])]));
- return {before,retained,lost:Object.fromEntries(keys.map(key=>[key,before[key]-retained[key]]))};
+ const wounds=c.wounded||0,kept=Math.floor(wounds*OFFICER_FATE_RULES.woundedCaptureRate);
+ return {before,retained,lost:Object.fromEntries(keys.map(key=>[key,before[key]-retained[key]])),wounded:{before:wounds,retained:kept,lost:wounds-kept}};
 }
 export function settleCityCaptureResources(c){
- const receipt=cityCaptureResources(c);Object.assign(c,receipt.retained);return receipt;
+ const receipt=cityCaptureResources(c);c.wounded=receipt.wounded.retained;Object.assign(c,receipt.retained);return receipt;
 }
 export function addCityGold(s,c,amount){
  if(!c||!s.cities.includes(c)||!Number.isSafeInteger(amount)||!Number.isSafeInteger(c.gold+amount)||c.gold+amount<0)throw new Error('本城金不足或金额无效');

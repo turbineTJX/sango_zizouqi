@@ -24,6 +24,15 @@ function topology(s){
  for(const [center,list] of members)list.sort((a,b)=>Number(b.id===center)-Number(a.id===center)||(nearest.get(a.id)?.distance||0)-(nearest.get(b.id)?.distance||0)||a.id.localeCompare(b.id));
  result={byId,adj,nearest,members,cityIds:new Set(s.cities.map(c=>c.id)),roads:s.roads,cities:s.cities,junctions:s.junctions};topologyCache.set(s,result);return result;
 }
+// Personnel previews change rosters, not public geography. Share the expensive
+// nearest-center calculation, but bind every member to this preview's own city
+// objects so ownership, construction and resource checks remain independent.
+export function inheritMetropolitanTopology(origin,view){
+ if(origin.roads!==view.roads||origin.roadSegments!==view.roadSegments||origin.junctions!==view.junctions||origin.cities.length!==view.cities.length||
+  origin.cities.some((c,i)=>{const v=view.cities[i];return c.id!==v.id||c.x!==v.x||c.y!==v.y||c.citySize!==v.citySize;}))return view;
+ const shared=topology(origin),byId=new Map(nodes(view).map(n=>[n.id,n])),members=new Map([...shared.members].map(([id,list])=>[id,list.map(n=>byId.get(n.id))]));
+ topologyCache.set(view,{...shared,byId,members,cities:view.cities});return view;
+}
 export function metropolitanCenter(s,node){
  const t=topology(s);return t.byId.get(t.nearest.get(node.id)?.center)||node;
 }

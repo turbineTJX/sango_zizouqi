@@ -1,3 +1,4 @@
+import {remainingDaysText} from './number-rules.mjs';
 import {governorApprover} from './city-governance.mjs';
 import {playerFaction} from './player-faction.mjs';
 import {OFFICER_BY_ID} from './officer-catalog.mjs';
@@ -22,7 +23,7 @@ export function domesticWorkMarkup(s,{cityId=null}={}){
   const target=pick?.targetId&&(TECHS[pick.targetId]?.name||OFFICER_BY_ID[pick.targetId]?.name);
   const work=pick?actionName(c,pick.key)+(target?' · '+target:''):a.waiting||'待命';
   const costs=pick?`${fmt(pick.cost)} 金${x?"（已付）":"（待支用）"}${def.kind==='heal'?' · 完成时支用 200 粮':''}${pick.key==='sell'?' · 成交时支用 '+fmt(pick.amount)+' 粮':''}${pick.recruitMode==='replenish'?' · 预留 '+fmt(pick.amount)+' 预备兵':''}`:'—';
-  const days=x?Number(x.remaining.toFixed(1))+' 天':p?fmt(p.days)+' 天':'—';
+  const days=x?remainingDaysText(x.remaining)+' 天':p?fmt(p.days)+' 天':'—';
   const status=x?(x.paused?'暂停':'办理中'):p?'待裁决':'待命';
   return `<tr data-domestic-work="${esc(a.officerId)}"><td>${esc(c.name)}</td><td><button class="personnel-name" data-action="campaign-person-detail" data-officer="${esc(a.officerId)}">${esc(OFFICER_BY_ID[a.officerId]?.name)}</button></td><td>${esc(DIRECTIONS[a.direction])}</td><td>${esc(work)}${site!==c.id?' · '+esc(buildingSiteName(s,site)):''}</td><td>${esc(costs)}${pick?.key==='sell'?` · 成交后扣 ${ACTIONS.sell.cost} 金手续费`:''}</td><td>${esc(days)}</td><td>${status}</td></tr>`;
  }));

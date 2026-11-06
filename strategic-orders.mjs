@@ -1,3 +1,5 @@
+import {coordinatedOrderError} from './ai-policy/faction-coordination.mjs';
+import {reconcileStaffingExecution} from './strategic-staffing.mjs';
 import {domesticAssignmentError} from './domestic-staffing.mjs';
 import {dispatchScout,scoutDispatchError,recallScout} from './scouting.mjs';
 import {validScoutRoute,scoutRoute} from './scouting-state.mjs';
@@ -127,6 +129,7 @@ export function requestStrategicOrder(s,command,choice=null){
 }
 // Controller identity is explicit; never swap the player's faction or treasury.
 export function requestFactionOrder(s,faction,command,choice='after',scheduled=true){
+ const coordinationError=coordinatedOrderError(s,faction,command);if(coordinationError)return {error:coordinationError};
  if(!scheduled&&!isPlanning(s))return {error:'须在筹划阶段下令'};
  if(command.kind==='hold'){
   const error=holdCampaignArmy(s,command.armyId,{scheduled,faction});if(error)return {error};
@@ -164,6 +167,7 @@ export function requestFactionOrder(s,faction,command,choice='after',scheduled=t
  return {queued:true};
 }
 export function resolveStrategicOrders(s,{timedOnly=false}={}){
+ reconcileStaffingExecution(s);
  for(const q of [...s.campaign.domestic.orders]){
   if((timedOnly&&q.notBeforeDay===undefined)||q.notBeforeDay>s.campaign.day)continue;
   let failed=false,waiting=false;
@@ -184,7 +188,8 @@ export function resolveStrategicOrders(s,{timedOnly=false}={}){
   if(!failure&&q.notBeforeDay!==undefined){
    // Update execution receipts only. The roster, route, appointments and date
    // were all chosen at the turn boundary, with no daily strategic selection.
-   const p=s.campaign.ai?.plans.find(p=>p.faction===q.faction&&p.columns&&p.officerIds.some(id=>q.officerIds.includes(id)));
+   const p=s.campaign.ai?.plans.find(p=>p.faction===q.faction&&!['complete','cancelled','consolidate'].includes(p.phase)&&p.target===q.target
+    &&p.columns?.some(c=>c.cityId===q.cityId&&c.officerIds.length===q.officerIds.length&&c.officerIds.every(id=>q.officerIds.includes(id))));
    if(p){const c=town(s,q.cityId),remaining=c.units.filter(u=>p.officerIds.includes(u.id));if(remaining.length)p.reserves[c.id]=armySupplyCapacity(remaining);else delete p.reserves[c.id];
     const r=p.requirements.find(r=>r.cityId===c.id);if(r)r.grain=Math.max(0,r.grain-carry);
     if(p.officerIds.every(id=>s.armies.some(a=>!a.disbanded&&a.faction===p.faction&&a.units.some(u=>u.id===id)))){p.phase='attack';p.updatedDay=s.campaign.day;p.reason='各军团已按旬初保存的日期实际出发';}

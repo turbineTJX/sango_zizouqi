@@ -1,6 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {STATUS_DISPLAY,statusIcon,statusRemaining,statusTimeLabel,visibleStatuses} from '../status-display.mjs';
+import {STATUS_DISPLAY,statusIcon,statusRemaining,statusTimeLabel,visibleStatuses,inspectionStatuses,statusSources} from '../status-display.mjs';
+import {createScenario} from './helpers/scenarios.mjs';
+import {STRATAGEMS} from '../stratagems.mjs';
 import {setStatus} from '../tactics.mjs';
 
 test('status timer matches exclusive expiration and distinguishes the final active step from expired state',()=>{
@@ -24,4 +26,22 @@ test('hard control and DOT take precedence over buffs; icons, stacks and hit cou
   assert.notEqual(statusIcon('confuse'),statusIcon('burn'));assert.notEqual(statusIcon('burn'),statusIcon('plague'));
   assert.ok(STATUS_DISPLAY.stealth&&STATUS_DISPLAY.decoy&&STATUS_DISPLAY.stun);
   assert.equal(STATUS_DISPLAY.stun.name,'眩晕');
+});
+
+test('army status names remain distinct from the supplying stratagem while preserving provenance',()=>{
+  const b=createScenario('field').battle,u=b.sides[0].units[0];
+  b.sides[0].blockadeUntil=b.tick+8;
+  b.sides[0].stratagemEffects={blockadeUntil:{key:'blockade',duration:8,cooldown:28,power:1,strength:0}};
+  const before=JSON.stringify(b),status=inspectionStatuses(b,u).find(s=>s.key==='blockadeUntil');
+  assert.equal(status.name,'截断援路');assert.notEqual(status.name,STRATAGEMS.blockade.name);
+  assert.ok(status.sources.some(source=>source.includes(STRATAGEMS.blockade.name)));
+  assert.equal(JSON.stringify(b),before);
+});
+
+test('an enhanced attack uses the formal status name and keeps its tactic name in the source',()=>{
+  const b={tick:0},u={statuses:{}};
+  setStatus(b,u,'attackOrb',6,{skillId:'fire',sourceSkillName:'火矢',charges:2});
+  const before=JSON.stringify(u),status=visibleStatuses(b,u).find(s=>s.key==='attackOrb');
+  assert.equal(status.name,'强化普攻');assert.deepEqual(statusSources(b,status),['「火矢」']);
+  assert.equal(JSON.stringify(u),before);
 });

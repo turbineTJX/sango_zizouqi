@@ -1,3 +1,4 @@
+import {completeDaysText} from './number-rules.mjs';
 import {cityIntelligence,intelligenceLabel,visionEnabled} from './strategic-vision.mjs';
 import {playerFaction} from './player-faction.mjs';
 import {isPlanning,armyBattle} from './strategic-campaign.mjs';
@@ -13,4 +14,4 @@ export function planningRestriction(s,{army=null}={}){
  if(army&&armyBattle(s,army.id))return '交战中';
  return isPlanning(s)?'':'执行中';
 }
-export const supplyDuration=(supply,consumption)=>consumption>0?`${Math.floor(supply/consumption*10)/10} 天`:'—';
+export const supplyDuration=(supply,consumption)=>consumption>0?`${completeDaysText(supply/consumption)} 天`:'—';

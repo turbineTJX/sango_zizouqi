@@ -1,3 +1,4 @@
+import {percentText} from './number-rules.mjs';
 import {stratagemScopeText} from './stratagem-area.mjs';
 import {OFFICER_BY_ID} from './officer-catalog.mjs';
 import {STRATAGEM_DESIGNS} from './data/design/stratagems.mjs';
@@ -37,14 +38,14 @@ export function selectStratagemSource(commanders,key,bondBonus=0){
 export function stratagemEffectSummary(p){
  if(!p)return '无可用提供者';
  if(p.combination)return combinationText(p);
- const s=STRATAGEMS[p.key],effect=s.effect||p.key,percent=n=>(n*100).toFixed(1).replace(/\.0$/,'')+'%';
+ const s=STRATAGEMS[p.key],effect=s.effect||p.key,percent=percentText;
  const text={shield:'护盾 '+percent(p.strength),heal:'救治上限 '+percent(p.strength),cleanse:'驱散异常 · 坚定 '+p.resolve+' 回合',forceReserve:'额外上阵 '+p.count+' 队',tacticRefresh:'恢复战法次数 · 冷却 −'+percent(p.strength),catastrophe:s.strikes+' 道雷火 · 敌我皆伤',blockade:'封锁敌军补位',firestorm:'灼烧 · 总火势 '+percent(p.strength),invincible:'无敌',ambush:'伏兵',stun:'眩晕',rapidAdvance:'神速',magicImmunity:'魔免',eightFormation:'异常阵地'}[effect];
  const duration=s.disciplineDuration?commandProtectionDuration(0,p.power)+'～'+commandProtectionDuration(Infinity,p.power):p.duration;
  return text+(duration?' · '+duration+' 回合':'');
 }
 export function stratagemEffectText(p){
  if(p?.combination)return p.name+'（统'+p.leadership+'／智'+p.intellect+'） · '+stratagemScopeText(STRATAGEMS[p.key])+' · '+combinationText(p)+' · 冷却 '+p.cooldown+' 回合';
- if(!p)return '无符合任职条件的提供者';const s=STRATAGEMS[p.key],e=s.effect||p.key,percent=n=>(n*100).toFixed(1).replace(/\.0$/,'')+'%';
+ if(!p)return '无符合任职条件的提供者';const s=STRATAGEMS[p.key],e=s.effect||p.key,percent=percentText;
  const cooldown=' · 冷却 '+p.cooldown+' 回合';
  const detail=({shield:'护盾 '+percent(p.strength)+' 兵力上限',heal:'各队救治上限 '+percent(p.strength)+'，仅本场伤兵',cleanse:'驱散全部战斗异常（保留缺粮），获得坚定 '+p.resolve+' 回合',forceReserve:'额外出场最多 '+p.count+' 支已抵达后备部队，突破人数限制',tacticRefresh:'刷新已抵达存活部队全部主动战法次数（含专属），剩余冷却缩短 '+percent(p.strength),catastrophe:'敌我皆受影响；全战场随机 '+s.strikes+' 道雷火，半径 '+s.strikeRadius+' 格；每次伤害 '+percent(p.strength*(s.randomDamage?.min||0))+'～'+percent(p.strength*(s.randomDamage?.max||0))+' 初始兵力',blockade:'阻止敌方预备队正常补位，可用奇兵突入突破',firestorm:'施加灼烧，总火势 '+percent(p.strength)+'，按全部合法在场敌军分摊',invincible:'军阵无敌，仍可行动',ambush:'伏兵，接敌首击使目标混乱',stun:'眩晕，停止行动并打断战法',rapidAdvance:'神速，移动力+1、攻击间隔缩短25%、无视ZOC',magicImmunity:'魔免，驱散战斗异常，仅承受物理普攻',eightFormation:'奇阵每场一次，按目标军纪判定异常（10%～60%），异常持续 '+s.zone?.statusSteps+' 回合'})[e];
  const duration=s.disciplineDuration?' · 按受益者军纪持续 '+commandProtectionDuration(0,p.power)+'～'+commandProtectionDuration(Infinity,p.power)+' 回合':p.duration?' · '+p.duration+' 回合':'';

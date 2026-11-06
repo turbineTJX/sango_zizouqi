@@ -9,6 +9,7 @@ import {diplomaticFeeReserve,diplomaticAssetReserve} from './diplomacy-relations
 import {cityPayroll} from './officer-salaries.mjs';
 import {cityVisible,observedArmies,visionSources} from './strategic-vision.mjs';
 import {TALENT_LOYALTY_RULES as LOYALTY} from './data/design/talent-loyalty.mjs';
+import {cachedRead} from './read-query-scope.mjs';
 
 export const TALENT_RULES=Object.freeze({version:3,standardSoldiers:6000,adultAge:16,seekDays:180,graceDays:90});
 export const clamp=(n,min,max)=>Math.max(min,Math.min(max,n));
@@ -47,11 +48,11 @@ export {addCityGold} from './city-resources.mjs';
 export const cityReserve=(s,c)=>{const p=cityPayroll(s,c);return c.budget.goldReserve+p.gold+p.arrears+diplomaticFeeReserve(s,c.owner,c.id)+diplomaticAssetReserve(s,c.owner,'gold',c.id)+(s.campaign.domestic?.orders||[]).filter(q=>q.kind==='transfer'&&q.cityId===c.id).reduce((n,q)=>n+(q.cargo?.gold||0),0);};
 export const factionReserve=(s,f)=>s.cities.filter(c=>c.owner===f).reduce((n,c)=>n+cityReserve(s,c),0);
 export const cityBesieged=(s,id)=>s.campaign.battles.some(b=>!b.settled&&b.kind==='siege'&&b.cityId===id);
-export const nearby=(s,a,b)=>a===b||cityRoads(s).some(([x,y])=>x===a&&y===b||x===b&&y===a);
+export const nearby=(s,a,b)=>cachedRead(s,'nearby',JSON.stringify([a,b]),()=>a===b||cityRoads(s).some(([x,y])=>x===a&&y===b||x===b&&y===a));
 export function legalRoad(s,a,b){
  return !cityBesieged(s,a)&&!cityBesieged(s,b)&&s.roads.some(([x,y])=>x===a&&y===b||x===b&&y===a)&&!s.armies.some(x=>x.travel&&x.units.some(u=>u.troops>0)&&[x.travel.from,x.travel.to].includes(a)&&[x.travel.from,x.travel.to].includes(b));
 }
-export const localContact=(s,a,b)=>!cityBesieged(s,a)&&!cityBesieged(s,b)&&(a===b||(()=>{let from=a;const path=adjacentCityPath(s,a,b);return !!path&&path.every(to=>{const ok=legalRoad(s,from,to);from=to;return ok;});})());
+export const localContact=(s,a,b)=>cachedRead(s,'local-contact',JSON.stringify([a,b]),()=>!cityBesieged(s,a)&&!cityBesieged(s,b)&&(a===b||(()=>{let from=a;const path=adjacentCityPath(s,a,b);return !!path&&path.every(to=>{const ok=legalRoad(s,from,to);from=to;return ok;});})()));
 export function refreshTalentDemand(s,force=false){
  const t=s.campaign.talent,month=Math.floor(talentTurn(s)/3);
  const signature=JSON.stringify([s.cities.map(c=>[c.id,c.owner,c.units.map(u=>u.id)]),s.armies.map(a=>[a.id,a.faction,a.units.map(u=>u.id)]),s.campaign.idle.map(o=>[o.unit.id,o.faction])]);
@@ -65,7 +66,7 @@ export function refreshTalentDemand(s,force=false){
    const battle=s.campaign.battles.find(r=>!r.settled&&r.armyIds.includes(a.id));
    for(const u of a.units){if(seen.has(u.id))continue;seen.add(u.id);const live=battle?.battle.sides.flatMap(x=>x.units).find(x=>x.armyId===a.id&&x.id===u.id);soldiers+=live?live.hp+u.wounded+battleWounded(live):u.troops+u.wounded;}
   }
-  for(const c of s.cities.filter(c=>c.owner===f))for(const u of c.units)if(!seen.has(u.id)){seen.add(u.id);soldiers+=u.troops+u.wounded;}
+  for(const c of s.cities.filter(c=>c.owner===f)){soldiers+=c.wounded||0;for(const u of c.units)if(!seen.has(u.id)){seen.add(u.id);soldiers+=u.troops+u.wounded;}}
   for(const o of s.campaign.idle.filter(o=>o.faction===f))if(!seen.has(o.unit.id)){seen.add(o.unit.id);soldiers+=o.unit.troops+o.unit.wounded;}
   const military=Math.ceil(soldiers/TALENT_RULES.standardSoldiers);
   t.demands[f]={cities,soldiers,demand:Math.max(1,4*cities+military+Math.ceil(.25*military))};

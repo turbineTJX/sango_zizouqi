@@ -115,8 +115,8 @@ test('parallel recruiting reserves different capacity and cooperation respects a
 });
 
 test('cooperative healing conserves existing people and grain storage clips extra harvest',()=>{
- const healing=example(['heal'],r=>r.success&&r.actual>0,f=>{const {s,c}=f;setBuildingLevel(c,'clinic',1);for(const u of c.units){const n=Math.min(1500,u.troops);u.troops-=n;u.wounded+=n;}const military=cityMilitary(s,c);f.initialPeople=military.troops+military.wounded;},6);
- const {s,c}=healing,military=cityMilitary(s,c);assert.equal(military.troops+military.wounded,healing.initialPeople);restore(s);
+ const healing=example(['heal'],r=>r.success&&r.actual>0,f=>{const {s,c}=f;setBuildingLevel(c,'clinic',1);for(const u of c.units){const n=Math.min(1500,u.troops);u.troops-=n;u.wounded+=n;}const military=cityMilitary(s,c);f.initialPeople=military.troops+military.wounded+c.manpower;},6);
+ const {s,c}=healing,military=cityMilitary(s,c);assert.equal(military.troops+military.wounded+c.manpower,healing.initialPeople);restore(s);
  let clipped=false;for(let seed=1;seed<=30&&!clipped;seed++){const f=setup(seed,['cultivate']);f.c.grain=1000;advance(f.s,10);f.c.grain=10000+f.c.granary*10000;f.s.grain=f.s.cities.filter(c=>c.owner==='cao').reduce((n,c)=>n+c.grain,0);advance(f.s,11);const r=f.s.campaign.domestic.cooperation[f.c.id+':'+f.dir];if(r?.success&&r.actual===0){assert.equal(r.relationGain,0);assert.ok(f.c.grain<=10000+f.c.granary*10000);restore(f.s);clipped=true;}}assert.ok(clipped);
 });
 

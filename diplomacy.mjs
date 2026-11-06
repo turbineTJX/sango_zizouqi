@@ -1,3 +1,4 @@
+import {runCoordinatedAction,runDecisionModule} from './ai-policy/action-runtime.mjs';
 import {isMainCity} from './city-classification.mjs';
 import {isAITurnStart} from './ai-turn.mjs';
 import {diplomaticActionUnlocked,diplomaticTradeMultiplier,diplomaticAccessError,isPeaceCession} from './diplomatic-access.mjs';
@@ -45,7 +46,7 @@ export function initializeDiplomacy(s){
   const a=spec.factionMap[row.a],b=spec.factionMap[row.b],pair=diplomaticPair(a,b);d.wars[pair]={active:row.state==='war',day:s.campaign.day};d.relations[pair]=row.relation;
   if(row.state==='war')continue;
   const sites={[a]:lordCity(s,a).id,[b]:lordCity(s,b).id},clauses=mutual(row.state,a,b,row.days).map((c,i)=>({...c,id:i+1,status:'active',effectiveDay:s.campaign.day,untilDay:s.campaign.day+row.days-1}));
-  const p={id:d.nextId++,version:1,initial:true,factions:[a,b],officerId:factionLord(s,a),direction:'negotiation',goal:'auto',sites,clauses,status:'signed',approvals:{},createdDay:s.campaign.day,expiresDay:s.campaign.day+row.days,workDays:0,progress:0,expenses:{},attempts:0,reason:'剧本初始外交',escrow:[],receivers:{},signedDay:s.campaign.day,deadline:s.campaign.day+row.days};
+  const p={id:d.nextId++,version:1,initial:true,factions:[a,b],officerId:factionLord(s,a),direction:'negotiation',goal:'auto',sites,clauses,status:'signed',approvals:{},createdDay:s.campaign.day,expiresDay:s.campaign.day+row.days,workDays:0,progress:0,expenses:{},attempts:0,reason:'剧本初始外交',escrow:[],receivers:{},signedDay:s.campaign.day,deadline:s.campaign.day+row.days,meritAwards:{effective:null,fulfilled:null}};
   p.signedTerms=terms({...p,clauses:p.clauses.map(({status,effectiveDay,untilDay,...c})=>c)});for(const f of p.factions)p.approvals[f]={version:1,day:s.campaign.day,controller:isPlayerControlled(s,f)?'player':'ai',terms:p.signedTerms};d.contracts.push(p);
  }
 }
@@ -71,12 +72,12 @@ function emit(s,p,phase,text,{faction=p.factions[0],cityId=p.sites?.[faction]||n
  if(siteId===undefined){const actor=officerId&&servingPeople(s).get(officerId);siteId=actor?.unit.mission?.location||actor?.location||cityId;}
  return appendActivityNode(s,{sourceId:`diplomacy:${p.id}:${phase}:${faction}:${p.version}:${result.clauseId||''}`,category:'diplomacy',phase,faction,cityId,siteId,officerId,officerIds:result.officerIds||[],text,result:{proposalId:p.id,version:p.version,...result}});
 }
-export function setDiplomaticGoal(s,goal,target=null,{faction=playerFaction(s),scheduled=false}={}){if(!GOALS[goal]||!s.campaign.diplomacy.policies[faction]||target&&(target===faction||!factions(s).includes(target)))return '外交目标无效';if(s.finished||!scheduled&&(s.campaign.allAI||s.campaign.phase!=='planning'))return '须在筹划阶段调整方向';if(target&&goal!=='auto'){const error=diplomaticAccessError(s,{factions:[faction,target],goal,clauses:[]});if(error)return error;}Object.assign(s.campaign.diplomacy.policies[faction],{goal,target});return null;}
+function shared_setDiplomaticGoal(s,goal,target=null,{faction=playerFaction(s),scheduled=false}={}){if(!GOALS[goal]||!s.campaign.diplomacy.policies[faction]||target&&(target===faction||!factions(s).includes(target)))return '外交目标无效';if(s.finished||!scheduled&&(s.campaign.allAI||s.campaign.phase!=='planning'))return '须在筹划阶段调整方向';if(target&&goal!=='auto'){const error=diplomaticAccessError(s,{factions:[faction,target],goal,clauses:[]});if(error)return error;}Object.assign(s.campaign.diplomacy.policies[faction],{goal,target});return null;}
 export function diplomaticOfficerCandidates(s,faction,direction){
  const def=DIRECTIONS[direction];if(!def)return [];
  return [...servingPeople(s).values()].filter(o=>o.faction===faction&&!o.army&&!o.destination&&!o.unit.mission&&!o.unit.scouting&&o.unit.id!==factionLord(s,faction)&&!s.cities.some(c=>c.governor===o.unit.id)&&!pendingDomesticOrder(s,o.unit.id)&&!plannedOfficer(s,o.unit.id)).map(o=>({...o,score:diplomaticRate(o.unit,direction)*50-(assignmentFor(s,o.unit.id)?.action?AI.activeWorkCost:assignmentFor(s,o.unit.id)?AI.occupationCost:0),work:assignmentFor(s,o.unit.id)})).sort((a,b)=>b.score-a.score||a.unit.id.localeCompare(b.unit.id));
 }
-export function assignDiplomat(s,officerId,direction,{faction=playerFaction(s),choice=null,scheduled=false}={}){
+function shared_assignDiplomat(s,officerId,direction,{faction=playerFaction(s),choice=null,scheduled=false}={}){
  if(choice!==null&&!['now','after'].includes(choice))return {error:'执行时机无效'};
  if(!scheduled&&s.campaign.phase!=='planning')return {error:'须在筹划阶段委任'};
  const o=diplomaticOfficerCandidates(s,faction,direction).find(o=>o.unit.id===officerId);if(!o)return {error:'请选择实际驻城、没有军团任务的武将'};
@@ -88,7 +89,7 @@ export function assignDiplomat(s,officerId,direction,{faction=playerFaction(s),c
  if(!a){a={id:d.nextId++,officerId,faction,direction,homeCity:o.location,projectId:null,waiting:'等待评估',nextDay:s.campaign.day,waitAction:wait,waitChoice:choice||'after'};d.assignments.push(a);}else Object.assign(a,{direction,waitAction:wait,nextDay:s.campaign.day});
  emit(s,{id:`appointment-${a.id}`,version:1,factions:[faction],sites:{[faction]:o.location},officerId},'appointment',`${o.unit.name}负责${DIRECTIONS[direction].name}${wait?'，完成当前事务后赴任':''}。`);recordOfficerActivities(s);return {applied:true};
 }
-export function dismissDiplomat(s,officerId,{faction=playerFaction(s),scheduled=false}={}){const a=diplomaticAssignment(s,officerId);if(s.finished||!a||a.faction!==faction||!scheduled&&(s.campaign.allAI||s.campaign.phase!=='planning'))return '当前不能解除外交委任';const u=servingPeople(s).get(officerId)?.unit;if(u?.mission){u.mission.cancelled=true;beginReturn(s,u);a.dismissed=true;}else s.campaign.diplomacy.assignments=s.campaign.diplomacy.assignments.filter(x=>x!==a);return null;}
+function shared_dismissDiplomat(s,officerId,{faction=playerFaction(s),scheduled=false}={}){const a=diplomaticAssignment(s,officerId);if(s.finished||!a||a.faction!==faction||!scheduled&&(s.campaign.allAI||s.campaign.phase!=='planning'))return '当前不能解除外交委任';const u=servingPeople(s).get(officerId)?.unit;if(u?.mission){u.mission.cancelled=true;beginReturn(s,u);a.dismissed=true;}else s.campaign.diplomacy.assignments=s.campaign.diplomacy.assignments.filter(x=>x!==a);return null;}
 export function clearDiplomaticAppointments(s,ids){if(s.campaign?.diplomacy)s.campaign.diplomacy.assignments=s.campaign.diplomacy.assignments.filter(a=>!ids.includes(a.officerId)||servingPeople(s).get(a.officerId)?.unit.mission?.type==='diplomacy');}
 export function cancelDiplomaticOrder(s,id,{faction=playerFaction(s),scheduled=false}={}){const d=s.campaign.diplomacy,q=d.orders.find(q=>q.id===id&&q.faction===faction);if(s.finished||!scheduled&&(s.campaign.allAI||s.campaign.phase!=='planning')||!q)return '当前不能取消此安排';d.orders=d.orders.filter(x=>x!==q);emit(s,{id:`order-${q.id}`,version:1,factions:[q.faction],sites:{},officerId:q.officerIds[0]},'order-cancel','取消外交后的待执行安排。');return null;}
 export function requestDiplomaticInterruption(s,faction,command,choice){
@@ -333,7 +334,7 @@ export function diplomaticApprovalError(s,id,version,{faction=playerFaction(s),a
  if(s.finished||!(automatic?isAIControlled(s,f):isPlayerControlled(s,f))||!p||p.status!=='pending'||!p.factions.includes(f)||p.version!==Number(version)||p.approvals[f]?.version===p.version||p.expiresDay<s.campaign.day)return '方案已失效，请重新交涉';
  return clauseError(s,p,{requester:f});
 }
-export function approveDiplomaticProposal(s,id,version,{faction=playerFaction(s),automatic=false}={}){const error=diplomaticApprovalError(s,id,version,{faction,automatic});if(error)return error;const p=s.campaign.diplomacy.proposals.find(p=>p.id===id),f=faction;p.approvals[f]={version:p.version,day:s.campaign.day,controller:automatic?'ai':'player',terms:terms(p)};if(!automatic)closePendingReports(s,p);emit(s,p,'approved',`${automatic?FACTIONS[f].name:'玩家'}批准${diplomaticProposalLabel(p,f)}最终方案。`,{faction:f});if(p.factions.every(f=>p.approvals[f]?.version===p.version))p.status='approved';return null;}
+function shared_approveDiplomaticProposal(s,id,version,{faction=playerFaction(s),automatic=false}={}){const error=diplomaticApprovalError(s,id,version,{faction,automatic});if(error)return error;const p=s.campaign.diplomacy.proposals.find(p=>p.id===id),f=faction;p.approvals[f]={version:p.version,day:s.campaign.day,controller:automatic?'ai':'player',terms:terms(p)};if(!automatic)closePendingReports(s,p);emit(s,p,'approved',`${automatic?FACTIONS[f].name:'玩家'}批准${diplomaticProposalLabel(p,f)}最终方案。`,{faction:f});if(p.factions.every(f=>p.approvals[f]?.version===p.version))p.status='approved';return null;}
 export function decideDiplomaticProposal(s,id,decision,{faction=playerFaction(s),automatic=false}={}){const p=s.campaign.diplomacy.proposals.find(p=>p.id===id),f=faction;if(s.finished||!(automatic?isAIControlled(s,f):isPlayerControlled(s,f))||!p||!p.factions.includes(f)||p.status!=='pending')return '方案已处理';const u=servingPeople(s).get(p.officerId)?.unit;
  if(!['renegotiate','reject'].includes(decision))return '方案处理方式无效';
  // A party can disclose its own changed seat when requesting fresh terms.
@@ -374,7 +375,7 @@ function reviewFinalProposal(s,p,{planning=false}={}){
 }
 function signProposal(s,p){
  const error=clauseError(s,p,{signing:true,inherited:!!p.parentId});if(error){p.status='cancelled';emit(s,p,'failed',`未签署：${error}`);const u=servingPeople(s).get(p.officerId)?.unit;if(u?.mission?.projectId===p.id)beginReturn(s,u);return;}
- p.signedTerms=terms(p);p.status='signed';p.signedDay=s.campaign.day;p.deadline=s.campaign.day+Math.max(R.contractGraceDays,...p.clauses.map(c=>c.dueOffset?c.dueOffset+R.contractGraceDays:c.deadline?c.deadline-s.campaign.day+30:0));
+ p.signedTerms=terms(p);p.status='signed';p.signedDay=s.campaign.day;p.deadline=s.campaign.day+Math.max(R.contractGraceDays,...p.clauses.map(c=>c.dueOffset?c.dueOffset+R.contractGraceDays:c.deadline?c.deadline-s.campaign.day+30:0));p.meritAwards={effective:null,fulfilled:null};
  for(const c of p.clauses){Object.assign(c,{status:'waiting',delivered:0,effectiveDay:['gold','grain','manpower','prisoner','city'].includes(c.kind)?s.campaign.day:s.campaign.day+1,untilDay:c.duration?s.campaign.day+c.duration:null,remaining:c.amount||0});
   if(['gold','grain','manpower','supply'].includes(c.kind)){const resource=c.kind==='supply'?'grain':c.kind;if(c.deferred){c.dueDay=s.campaign.day+c.dueOffset;p.escrow.push({clauseId:c.id,kind:resource,faction:c.from,cityId:p.sites[c.from],amount:0});}else{if(resource==='gold')addCityGold(s,town(s,p.sites[c.from]),-c.amount);else town(s,p.sites[c.from])[resource]-=c.amount;p.escrow.push({clauseId:c.id,kind:resource,faction:c.from,cityId:p.sites[c.from],amount:c.amount});}}
   if(c.kind==='prisoner')s.campaign.domestic.people.find(t=>t.id===c.officerId).diplomaticLock=p.id;
@@ -492,7 +493,7 @@ function settleGold(s,p,c){const e=holding(p,c);if(c.status!=='waiting'||!e||c.e
  emit(s,p,`payment-${c.delivered}`,`君主城收支：向${FACTIONS[c.to].name}实际划付${amount}金。`,{faction:c.from,officerId:null,result:{clauseId:c.id,actual:amount}});
  if(c.delivered===c.amount){completeClause(s,p,c,`约定${c.amount}金已全部结算。`);if(c.gift){const key=diplomaticPair(c.from,c.to),relation=s.campaign.diplomacy.relations[key]||0;s.campaign.diplomacy.relations[key]=Math.min(100,relation+Math.max(1,Math.floor(R.giftGain*(1-relation/100))));}}
 }
-export function declareDiplomaticWar(s,from,to,{approved=false}={}){if(from===to||to==='neutral')return null;if(diplomaticProtection(s,from,to))return '存在保护条约，须先批准解约';if(!approved)return '宣战须由君主批准';const key=diplomaticPair(from,to);if(s.campaign.diplomacy.wars[key]?.active)return null;s.campaign.diplomacy.wars[key]={active:true,day:s.campaign.day};emit(s,{id:`war-${key}-${s.campaign.day}`,version:1,factions:[from,to],sites:{}},'war',`${FACTIONS[from].name}向${FACTIONS[to].name}宣战。`,{faction:from,officerId:null});return null;}
+function shared_declareDiplomaticWar(s,from,to,{approved=false}={}){if(from===to||to==='neutral')return null;if(diplomaticProtection(s,from,to))return '存在保护条约，须先批准解约';if(!approved)return '宣战须由君主批准';const key=diplomaticPair(from,to);if(s.campaign.diplomacy.wars[key]?.active)return null;s.campaign.diplomacy.wars[key]={active:true,day:s.campaign.day};emit(s,{id:`war-${key}-${s.campaign.day}`,version:1,factions:[from,to],sites:{}},'war',`${FACTIONS[from].name}向${FACTIONS[to].name}宣战。`,{faction:from,officerId:null});return null;}
 function executeClause(s,p,c){
  if(c.status!=='waiting'||c.effectiveDay>s.campaign.day)return;
  if(c.after?.some(id=>!['done','active'].includes(p.clauses.find(x=>x.id===id)?.status)))return;
@@ -562,9 +563,12 @@ function settleDiplomaticMerit(s,p){
  if(p.parentId||p.failure)return;
  const actor=servingPeople(s).get(p.officerId),f=p.factions[0];if(!actor||actor.faction!==f)return;
  const meaningful=p.clauses.filter(c=>!['envoyPass','tradePass','militaryPass','station','restrictAid'].includes(c.kind));
- if(meaningful.some(c=>['active','done'].includes(c.status)))settleOfficerMerit(s,actor.unit,{sourceId:`diplomacy-effective:${p.id}`,amount:PROGRESSION.diplomacy.effective,faction:f,cityId:p.sites[f],category:'diplomacy',reason:'促成外交方案实际生效'});
+ // Activity is a rolling report, not a lifetime idempotency ledger. Keep the
+ // two independently earned milestones with the contract across compaction.
+ const award=(kind,amount,reason)=>{if(p.meritAwards[kind]!==null)return;settleOfficerMerit(s,actor.unit,{sourceId:`diplomacy-${kind}:${p.id}`,amount,faction:f,cityId:p.sites[f],category:'diplomacy',reason});p.meritAwards[kind]=s.campaign.day;};
+ if(meaningful.some(c=>['active','done'].includes(c.status)))award('effective',PROGRESSION.diplomacy.effective,'促成外交方案实际生效');
  // Conditions already met are credited once, independently of later expiry.
- if(meaningful.length&&meaningful.every(c=>c.kind==='deploy'?c.status==='done':['done','active'].includes(c.status))){const major=meaningful.some(c=>['city','prisoner','deploy','alliance'].includes(c.kind));settleOfficerMerit(s,actor.unit,{sourceId:`diplomacy-fulfilled:${p.id}`,amount:major?PROGRESSION.diplomacy.majorFulfilled:PROGRESSION.diplomacy.fulfilled,faction:f,cityId:p.sites[f],category:'diplomacy',reason:'完成外交目标实际履约'});}
+ if(meaningful.length&&meaningful.every(c=>c.kind==='deploy'?c.status==='done':['done','active'].includes(c.status))){const major=meaningful.some(c=>['city','prisoner','deploy','alliance'].includes(c.kind));award('fulfilled',major?PROGRESSION.diplomacy.majorFulfilled:PROGRESSION.diplomacy.fulfilled,'完成外交目标实际履约');}
 }
 function refundStoredAssets(s,p){if(!p.failure&&p.status==='signed')return;for(const e of p.escrow){if(!e.amount)continue;if(e.kind==='gold'){const home=town(s,e.cityId);if(home?.owner===e.faction){addCityGold(s,home,e.amount);e.amount=0;}continue;}const c=town(s,e.cityId);if(!c)continue;const cap=e.kind==='grain'?grainCapacity(c):30000,n=Math.max(0,Math.floor(Math.min(e.amount,cap-c[e.kind])));c[e.kind]+=n;e.amount-=n;}}
 // Reuse the exact candidate generator and legal officers for both controllers.
@@ -585,7 +589,7 @@ function readDiplomaticAIPlan(s,faction){
  }
  return rows.sort((a,b)=>b.score-a.score||a.officerId.localeCompare(b.officerId)||a.direction.localeCompare(b.direction));
 }
-export function planDiplomaticAI(s){
+function policy_planDiplomaticAI(s){
  if(!isAITurnStart(s))return;
  const d=s.campaign.diplomacy;if(d.lastAIReview===s.campaign.day)return;d.lastAIReview=s.campaign.day;
  for(const p of [...d.proposals].filter(p=>p.status==='pending'&&p.expiresDay>=s.campaign.day))reviewFinalProposal(s,p,{planning:true});
@@ -627,6 +631,8 @@ export function validateDiplomacy(s){
  for(const p of [...d.proposals,...d.contracts]){fail(int(p.id)&&p.id>0&&p.id<d.nextId&&!ids.has(p.id)&&int(p.version)&&p.version>0&&p.factions.length===2&&p.factions[0]!==p.factions[1]&&p.factions.every(f=>FACTIONS[f]&&town(s,p.sites[f]))&&OFFICER_BY_ID[p.officerId]&&DIRECTIONS[p.direction]&&GOALS[p.goal]&&['outbound','negotiating','pending','approved','signed','completed','rejected','expired','cancelled','failed'].includes(p.status)&&Array.isArray(p.clauses)&&p.clauses.length>0&&p.clauses.length<=60&&int(p.createdDay)&&p.createdDay<=s.campaign.day&&int(p.expiresDay)&&p.approvals);ids.add(p.id);
   const seen=new Set();for(const c of p.clauses){fail(int(c.id)&&c.id>0&&!seen.has(c.id)&&ACTIONS[c.kind]&&p.factions.includes(c.from)&&p.factions.includes(c.to)&&c.from!==c.to);seen.add(c.id);if(c.amount!==undefined)fail(int(c.amount)&&c.amount>0);if(c.delivered!==undefined)fail(Number.isFinite(c.delivered)&&c.delivered>=0&&c.delivered<=(c.amount||1));}
   fail(Number.isFinite(p.progress)&&p.progress>=0&&int(p.workDays)&&p.workDays<=60&&Array.isArray(p.escrow)&&p.receivers&&typeof p.receivers==='object');
+  if(p.signedDay!==undefined){const m=p.meritAwards;fail(m&&Object.keys(m).sort().join(',')==='effective,fulfilled'&&Object.values(m).every(day=>day===null||int(day)&&day>=p.signedDay&&day<=s.campaign.day)&&(m.fulfilled===null||m.effective!==null&&m.fulfilled>=m.effective)&&(!(p.initial||p.parentId)||Object.values(m).every(day=>day===null)));}
+  else fail(p.meritAwards===undefined);
   for(const [f,a]of Object.entries(p.approvals))fail(p.factions.includes(f)&&a.version===p.version&&int(a.day)&&a.day<=s.campaign.day&&a.controller===(isPlayerControlled(s,f)?'player':'ai')&&typeof a.terms==='string'&&a.terms.length<100000);
   if(['pending','approved'].includes(p.status))fail(Object.values(p.approvals).every(a=>a.terms===terms(p)));
   if(p.signedDay!==undefined){fail(int(p.signedDay)&&p.signedDay>=p.createdDay&&p.signedDay<=s.campaign.day&&int(p.deadline)&&p.deadline>p.signedDay&&typeof p.signedTerms==='string'&&p.factions.every(f=>p.approvals[f]?.terms===p.signedTerms));const escrowIds=new Set();for(const e of p.escrow){const c=p.clauses.find(c=>c.id===e.clauseId);fail(c&&!escrowIds.has(e.clauseId)&&int(e.amount)&&e.amount<=c.amount-c.delivered&&['gold','grain','manpower'].includes(e.kind)&&e.kind===(c.kind==='supply'?'grain':c.kind)&&e.cityId===p.sites[e.faction]&&p.factions.includes(e.faction)&&e.faction===c.from);escrowIds.add(e.clauseId);}}
@@ -645,3 +651,15 @@ export function validateDiplomacy(s){
  for(const a of s.armies)if(a.diplomaticTask){const t=a.diplomaticTask,p=d.contracts.find(p=>p.id===t.contractId),c=p?.clauses.find(c=>c.id===t.clauseId&&c.kind==='deploy');fail(c&&c.armyId===a.id&&c.from===a.faction&&c.to===t.recipient&&c.enemy===t.enemy&&int(t.untilDay));}
  for(const t of s.campaign.domestic.people)if(t.diplomaticLock){const p=d.contracts.find(p=>p.id===t.diplomaticLock);fail(t.status==='CAPTIVE'&&p&&(p.clauses.some(c=>c.kind==='prisoner'&&c.officerId===t.id)||t.diplomaticEscort)&&(!t.diplomaticEscort||servingPeople(s).get(t.diplomaticEscort)?.unit.mission?.projectId===p.id));}
 }
+
+export function assignDiplomat(...args){return runCoordinatedAction('assignDiplomat',args,()=>shared_assignDiplomat(...args));}
+
+export function dismissDiplomat(...args){return runCoordinatedAction('dismissDiplomat',args,()=>shared_dismissDiplomat(...args));}
+
+export function setDiplomaticGoal(...args){return runCoordinatedAction('setDiplomaticGoal',args,()=>shared_setDiplomaticGoal(...args));}
+
+export function approveDiplomaticProposal(...args){return runCoordinatedAction('approveDiplomaticProposal',args,()=>shared_approveDiplomaticProposal(...args));}
+
+export function declareDiplomaticWar(...args){return runCoordinatedAction('declareDiplomaticWar',args,()=>shared_declareDiplomaticWar(...args));}
+
+export function planDiplomaticAI(...args){return runDecisionModule('planDiplomaticAI',args,()=>policy_planDiplomaticAI(...args));}

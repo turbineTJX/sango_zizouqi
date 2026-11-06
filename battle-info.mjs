@@ -1,3 +1,4 @@
+import {roundResult} from './number-rules.mjs';
 import {BOND_DESIGNS} from './data/design/bonds.mjs';
 import {isDeploying,attackRange} from './engine.mjs';
 import {battleHealth} from './battle-health-view.mjs';
@@ -8,7 +9,7 @@ import {hidden} from './battle-status-rules.mjs';
 import {battleArrivalLabel} from './reinforcement-arrival.mjs';
 import {frontlineCapacity} from './army-trait-rules.mjs';
 const esc=v=>String(v??'—').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const num=v=>Number((v||0).toFixed(2));
+const num=v=>roundResult(v||0);
 import {retreatLabel} from './battle-retreat.mjs';
 const stateNames={active:'在场',reserve:'预备队',defeated:'已溃败',withdrawn:'已撤离'};
 const fieldNames={'战场位置':'位置','当前行动':'行动','本场伤兵':'伤兵','当前战意':'战意','当前可用情况':'施放条件','按当前局面可施放的目标':'目标','最近作用对象':'作用目标'};

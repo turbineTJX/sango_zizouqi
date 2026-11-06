@@ -29,7 +29,7 @@ test('every action unlocks exactly at its shared relation threshold in both dire
 test('faction matrix shows all action columns, real relation and locks without changing the save',()=>{
  const s=fixture(55),before=serializeCampaign(s),html=diplomaticRelationsMarkup(s);
  const row=html.match(/<tr data-diplomatic-faction="sunce">([\s\S]*?)<\/tr>/)[1];
- assert.match(row,/>55<\/td>/);assert.match(row,/>1\.2×<\/td>/);
+ assert.match(row,/>55<\/td>/);assert.match(row,/data-diplomatic-multiplier>120%<\/td>/);
  assert.match(row,/data-diplomatic-action="buyGrain" data-unlocked="true"/);
  assert.match(row,/data-diplomatic-action="border" data-unlocked="true"[^>]*title="换城按城池价值/);
  for(const [key,a]of Object.entries(DIPLOMACY_RELATION_ACTIONS)){assert.ok(html.includes(`<th scope="col">${a.name}</th>`));assert.ok(row.includes(`data-diplomatic-action="${key}"`));}

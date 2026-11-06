@@ -5,8 +5,9 @@ import {dailyConsumption,supplyConnection} from './strategic-campaign.mjs';
 import {citySupplyCapacity,allocateSupply,foodConsumption} from './army-supply.mjs';
 import {ECONOMY_RULES} from './data/design/economy-rules.mjs';
 import {withDiplomaticQueries} from './diplomacy-relations.mjs';
+import {withReadQueries} from './read-query-scope.mjs';
 
-export const localFoodUse=c=>foodConsumption(c.units.reduce((n,u)=>n+u.troops,0),c.units.reduce((n,u)=>n+u.wounded,0));
+export const localFoodUse=c=>foodConsumption(c.units.reduce((n,u)=>n+u.troops,0),(c.wounded||0)+c.units.reduce((n,u)=>n+u.wounded,0));
 const supplyQueryScopes=new WeakMap();
 let queryFamily=null;
 function supplyScope(s){
@@ -19,9 +20,12 @@ function supplyScope(s){
 export function withCitySupplyQueries(s,evaluate){
  if(supplyQueryScopes.has(s))return evaluate();
  const owner=!queryFamily;if(owner)queryFamily=new WeakMap();
- try{const scope=supplyScope(s);supplyQueryScopes.set(s,scope);return withDiplomaticQueries(()=>withIntelligenceQueries(s,()=>withRoadQueries(s,evaluate)));}finally{supplyQueryScopes.delete(s);if(owner)queryFamily=null;}
+ try{const scope=supplyScope(s);supplyQueryScopes.set(s,scope);return withReadQueries(()=>withDiplomaticQueries(()=>withIntelligenceQueries(s,()=>withRoadQueries(s,evaluate))));}finally{supplyQueryScopes.delete(s);if(owner)queryFamily=null;}
 }
 export function citySupplyBudgets(s){
+ return withCitySupplyQueries(s,()=>readCitySupplyBudgets(s));
+}
+function readCitySupplyBudgets(s){
  const scope=supplyScope(s);if(scope?.supplies)return scope.supplies;
  if(!s.armies.some(a=>!a.disbanded)){const empty=[];if(scope)scope.supplies=empty;return empty;}
  const views=new Map();
@@ -55,11 +59,21 @@ export function forecastArmySupply(s,{days=ECONOMY_RULES.budget.days,supplies=ci
  }
  const result={cities,armies:rows};if(scope){if(!scope.forecasts.has(supplies))scope.forecasts.set(supplies,new Map());scope.forecasts.get(supplies).set(key,result);}return result;
 }
-export function cityFoodRequirement(s,c,days=ECONOMY_RULES.budget.days,{supplies=citySupplyBudgets(s)}={}){
+export function cityFoodRequirement(s,c,days=ECONOMY_RULES.budget.days,{supplies}={}){
+ if(supplies===undefined){
+  // A depot only supplies armies of its own faction. No such army means this
+  // city pays garrison food alone; unrelated factions need no route forecast.
+  if(!s.armies.some(a=>!a.disbanded&&a.faction===c.owner))return Math.ceil(localFoodUse(c)*days);
+  supplies=citySupplyBudgets(s);
+ }
  if(!supplies.some(x=>x.link?.source===c.id))return Math.ceil(localFoodUse(c)*days);
  return Math.ceil(localFoodUse(c)*days+forecastArmySupply(s,{days,supplies}).cities[c.id].grain);
 }
 // Long-term demand is consumption, even if a narrow grain road cannot carry it.
-export function cityDailyFood(s,c,{supplies=citySupplyBudgets(s)}={}){
+export function cityDailyFood(s,c,{supplies}={}){
+ if(supplies===undefined){
+  if(!s.armies.some(a=>!a.disbanded&&a.faction===c.owner))return localFoodUse(c);
+  supplies=citySupplyBudgets(s);
+ }
  return localFoodUse(c)+supplies.filter(x=>x.army.faction===c.owner&&x.link?.source===c.id).reduce((n,x)=>n+x.need,0);
 }

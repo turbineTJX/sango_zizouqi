@@ -56,7 +56,7 @@ function readStrategicContext(s,faction){
    return [{officerId:a.officerId,afterDays:Math.max(1,Math.ceil(x.remaining)),key,amount:Math.floor(quantity*x.chance)}];
   });
   return {id:c.id,gold:c.gold,grain:c.grain,manpower:c.manpower,
-  troops:c.units.reduce((n,u)=>n+u.troops,0),power:power(cityForce(c)),wounded:c.units.reduce((n,u)=>n+u.wounded,0),
+  troops:c.units.reduce((n,u)=>n+u.troops,0),power:power(cityForce(c)),wounded:(c.wounded||0)+c.units.reduce((n,u)=>n+u.wounded,0),
   income:cityRecurringIncome(s,c),costs:b.costs,reserve:b.reserve,shortages:b.shortages,daysSupply:b.daysSupply,
   oneTimeGold:b.work+b.training+b.cargo+b.debt,operations,incoming:incoming.filter(o=>o.cityId===c.id),
   workLimit:Object.fromEntries(['gold','grain','manpower'].map(k=>[k,cityWorkLimit(s,c,k)])),workRemaining:Object.fromEntries(['gold','grain','manpower'].map(k=>[k,cityWorkRemaining(s,c,k)])),

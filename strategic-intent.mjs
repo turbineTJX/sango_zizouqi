@@ -1,15 +1,12 @@
 // Intent is a reservation, never a second copy of troops or resources.
-import {armySupplyCapacity} from './army-supply.mjs';
-import {isAIControlled} from './player-faction.mjs';
+import {officerCommitments} from './ai-policy/faction-coordination.mjs';
+import {resourceCommitments} from './ai-policy/resource-commitments.mjs';
 import {ECONOMY_RULES} from './data/design/economy-rules.mjs';
-import {diplomaticAssetReserve} from './diplomacy-relations.mjs';
 export const activePlans=s=>(s.campaign.ai?.plans||[]).filter(p=>!['complete','cancelled'].includes(p.phase));
 export const offensivePlans=s=>activePlans(s).filter(p=>p.phase!=='consolidate');
-const diplomaticPlans=(s,exclude)=>[...(s.campaign.diplomacy?.proposals||[]),...(s.campaign.diplomacy?.contracts||[])].filter(p=>p.id!==exclude&&(['outbound','negotiating','pending','approved'].includes(p.status)||p.status==='signed'&&p.clauses.some(c=>c.kind==='deploy'&&c.status==='waiting'&&!c.armyId)));
-const plannedLoad=(s,cityId,ids,troops={})=>armySupplyCapacity((s.cities.find(c=>c.id===cityId)?.units||[]).filter(u=>ids.includes(u.id)).map(u=>({...u,troops:troops?.[u.id]??u.troops})));
-export const plannedOfficer=(s,id,{excludeDiplomacyId=null,ignoreConcentration=false}={})=>(!ignoreConcentration&&(s.campaign.ai?.concentrations||[]).some(p=>p.status==='active'&&p.officerIds.includes(id)))||offensivePlans(s).some(p=>p.officerIds.includes(id))||(s.campaign.ai?.supports||[]).some(p=>p.officerIds.includes(id))||(s.campaign.ai?.staffing||[]).some(p=>p.officerId===id&&p.phase==='travel')||diplomaticPlans(s,excludeDiplomacyId).some(p=>p.clauses.some(c=>c.kind==='deploy'&&c.officerIds.includes(id)));
-export const plannedCargo=(s,cityId,key,{excludeDiplomacyId=null}={})=>(s.campaign.domestic?.orders||[]).filter(q=>q.kind==='transfer'&&q.cityId===cityId&&isAIControlled(s,q.faction)).reduce((n,q)=>n+(q.cargo?.[key]||0),0)+diplomaticAssetReserve(s,s.cities.find(c=>c.id===cityId)?.owner,key,cityId,excludeDiplomacyId);
-export const plannedGrain=(s,cityId,{excludeDiplomacyId=null}={})=>activePlans(s).reduce((n,p)=>n+(p.reserves[cityId]||0),0)+(s.campaign.domestic?.orders||[]).filter(q=>q.kind==='expedition'&&q.cityId===cityId&&!activePlans(s).some(p=>p.reserves[cityId]&&q.officerIds.some(id=>p.officerIds.includes(id)))).reduce((n,q)=>n+plannedLoad(s,cityId,q.officerIds,q.troops),0)+plannedCargo(s,cityId,'grain',{excludeDiplomacyId})+diplomaticPlans(s,excludeDiplomacyId).reduce((n,p)=>n+p.clauses.filter(c=>c.kind==='deploy'&&c.cityId===cityId).reduce((t,c)=>t+plannedLoad(s,cityId,c.officerIds),0),0);
+export const plannedOfficer=(s,id,options={})=>officerCommitments(s,id,options).length>0;
+export const plannedCargo=(s,cityId,key,options={})=>resourceCommitments(s,cityId,key,{...options,cargoOnly:true}).reduce((n,r)=>n+r.amount,0);
+export const plannedGrain=(s,cityId,options={})=>resourceCommitments(s,cityId,'grain',options).reduce((n,r)=>n+r.amount,0);
 export const cityIntent=(s,id)=>s.campaign.ai?.cities[id]||null;
 export function domesticIntentWeight(s,cityId,direction){
  const role=cityIntent(s,cityId)?.role;

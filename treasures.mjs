@@ -1,3 +1,4 @@
+import {runCoordinatedAction,runDecisionModule} from './ai-policy/action-runtime.mjs';
 import {factionHasMainCity} from './city-classification.mjs';
 import {equippedTreasureIds,validTreasureLoadout,treasureSlot,treasureInSlot,setTreasureEquipment,removeTreasureEquipment} from './treasure-equipment.mjs';
 import {TREASURE_DESIGNS,TREASURE_IDS,TREASURE_RULES,EYE_ACTIONS,TREASURE_HIDE_REGIONS,DISCOVERY_CATEGORIES,treasureDesign,validTreasureId} from './data/design/treasures.mjs';
@@ -86,7 +87,7 @@ export function treasureDistributionError(s,id,faction=playerFaction(s)){
  return null;
 }
 function editable(s,faction,automatic){return !s.finished&&(automatic||!s.campaign.allAI&&s.campaign.phase==='planning')&&(!automatic||isAIControlled(s,faction));}
-export function grantTreasure(s,id,recipientId,{replace=false,faction=playerFaction(s),automatic=false,checkOnly=false}={}){
+function shared_grantTreasure(s,id,recipientId,{replace=false,faction=playerFaction(s),automatic=false,checkOnly=false}={}){
  if(!editable(s,faction,automatic))return '须在筹划阶段授予宝物';
  const error=treasureDistributionError(s,id,faction);if(error)return error;
  const to=treasureRecipient(s,recipientId,faction);if(!to)return '只能授予本势力未出征的武将，参战或撤离者不可选择';
@@ -101,14 +102,14 @@ export function grantTreasure(s,id,recipientId,{replace=false,faction=playerFact
   state(s).events.push({id:'grant:'+id+':'+day(s)+':'+state(s).events.length,day:day(s),kind:'grant',faction,treasureId:id,officerId:recipientId});
   return null;
 }
-export function equipTreasure(s,officerId,id,{faction=playerFaction(s),automatic=false}={}){
+function shared_equipTreasure(s,officerId,id,{faction=playerFaction(s),automatic=false}={}){
  if(!editable(s,faction,automatic))return '须在筹划阶段装备宝物';
  const o=treasureRecipient(s,officerId,faction);if(!o)return '出征、参战或撤离期间不能换装';
  if(id){const t=treasureRecord(s,id);if(t?.state!=='person'||t.holderId!==officerId)return '只能装备本人实际携带的宝物';}
  if(!id){for(const held of [...equippedTreasureIds(o.unit)]){const error=storeTreasure(s,held,{faction,automatic});if(error)return error;}return null;}
  setTreasureEquipment(o.unit,id,s);return null;
 }
-export function storeTreasure(s,id,{faction=playerFaction(s),automatic=false}={}){
+function shared_storeTreasure(s,id,{faction=playerFaction(s),automatic=false}={}){
  if(!editable(s,faction,automatic))return '须在筹划阶段收回宝物';
  const error=treasureDistributionError(s,id,faction);if(error)return error;
  const t=treasureRecord(s,id);moveItem(s,t,{state:'treasury',factionId:faction});return null;
@@ -199,7 +200,7 @@ export function settleBattleTreasures(s,r,candidates){
  }
  t.events.push({id:'battle:'+r.id+':done',day:day(s),kind:'settled',faction,treasureId:null,officerId:null});return awards;
 }
-export function manageTreasuresAI(s){
+function policy_manageTreasuresAI(s){
  if(!isAITurnStart(s))return;
  const t=state(s);if(!t)return;
  for(const item of t.items.filter(t=>t.state==='treasury')){
@@ -239,3 +240,11 @@ export function validateTreasures(s,fail){
   fail(typeof e.id==='string'&&integer(e.day,day(s))&&e.day>0&&['grant','capture','discovery','settled'].includes(e.kind)&&typeof e.faction==='string'&&(e.treasureId===null||!!TREASURE_DESIGNS[e.treasureId])&&(e.officerId===null||!!OFFICER_BY_ID[e.officerId]),'宝物结算来源无效');if(e.roll!==undefined)fail(Number.isFinite(e.roll)&&e.roll>=0&&e.roll<1&&[.02,.04,.05,.10].includes(e.probability)&&typeof e.won==='boolean'&&e.won===(e.roll<e.probability),'宝物判定或随机结果无效');}
 }
 import {isAITurnStart} from './ai-turn.mjs';
+
+export function grantTreasure(...args){return runCoordinatedAction('grantTreasure',args,()=>shared_grantTreasure(...args));}
+
+export function equipTreasure(...args){return runCoordinatedAction('equipTreasure',args,()=>shared_equipTreasure(...args));}
+
+export function storeTreasure(...args){return runCoordinatedAction('storeTreasure',args,()=>shared_storeTreasure(...args));}
+
+export function manageTreasuresAI(...args){return runDecisionModule('manageTreasuresAI',args,()=>policy_manageTreasuresAI(...args));}

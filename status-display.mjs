@@ -1,4 +1,5 @@
-import {STATUS_DEFINITIONS} from './data/design/battle-statuses.mjs';
+import {roundResult,integerText,attributeScale} from './number-rules.mjs';
+import {STATUS_DEFINITIONS,ARMY_STATUS_DEFINITIONS} from './data/design/battle-statuses.mjs';
 import {STRATAGEMS,stratagemEffectText} from './stratagems.mjs';
 import {ATTACK_ORBS,attackOrbDescription} from './attack-orbs.mjs';
 import {COMBAT} from './combat-rules.mjs';
@@ -11,18 +12,18 @@ import {bondBlocksEffect} from './bonds.mjs';
 const entry=(name,icon,tone,priority,description)=>({name,icon,tone,priority,description});
 export function statusDescription(key,state={}){
   if(key==='attackOrb')return attackOrbDescription(state.skillId);
-  const factor=state.potency??1,p=n=>Number((state.fraction!==undefined&&['powerDown','weaken','armorBreak'].includes(key)?state.fraction*100:n*factor).toFixed(1));
+  const factor=state.potency??1,p=n=>roundResult(state.fraction!==undefined&&['powerDown','weaken','armorBreak'].includes(key)?state.fraction*100:n*factor);
   const dynamic={
     hunger:`攻击、武技威力、谋略威力与营务威力降低 ${Math.round((state.fraction??0)*100)}%；按事件期限结束，无法镇静`,
-    despair:`持续流失战意`,intentSuppression:`攻击与受击战意获取减少 ${(state.fraction??.3)*100}%`,decoy:`幻象耐久 ${state.hp??0}，承受200%伤害；不能攻击、不占上场名额`,
-    attackHaste:`普攻间隔缩短 ${(state.fraction??.2)*100}%`,longRange:`远程普攻最大射程 +${state.amount??1}`,shortRange:`远程普攻最大射程 −${state.amount??1}`,
+    despair:`持续流失战意`,intentSuppression:`攻击与受击战意获取减少 ${integerText((state.fraction??.3)*100)}%`,decoy:`幻象耐久 ${state.hp??0}，承受200%伤害；不能攻击、不占上场名额`,
+    attackHaste:`普攻间隔缩短 ${integerText((state.fraction??.2)*100)}%`,longRange:`远程普攻最大射程 +${state.amount??1}`,shortRange:`远程普攻最大射程 −${state.amount??1}`,
     powerDown:`武技威力与谋略威力降低 ${p(20)}%；可整军解除`,armorBreak:`防御降低 ${p(20)}%`,weaken:`攻击降低 ${p(20)}%`,valor:`攻击提高 ${p(25)}%`,
     phalanx:`减伤 ${p(30)}%，停止移动并免疫击退`,anchored:`停止移动，普攻最大射程 +1`,
     bulwark:`防御 +${p(30)}%、军纪 +${p(20)}%，移动减半`,camp:`防御提高 ${p(25)}%`,
     nexus:`谋略威力与军纪提高 ${p(20)}%`,emplaced:`攻击 +${p(20)}%、普攻与投石射程 +1，停止移动`,
-    attackSlow:`普攻间隔增加 ${(state.fraction??.25)*100}%`,
+    attackSlow:`普攻间隔增加 ${integerText((state.fraction??.25)*100)}%`,
     plague:`持续损失兵力，受到救治降低 ${p(50)}%；可救护解除`,
-    ward:`减少所受直接伤害 ${state.percent??0}%`,
+    ward:`减少所受直接伤害 ${integerText(state.percent??0)}%`,
   };
   return dynamic[key]||STATUS_DISPLAY[key]?.description||'';
 }
@@ -49,15 +50,15 @@ export function statusTimeLabel(until,tick){
   return steps?'生效中':'即将结束';
 }
 export function visibleStatuses(b,u){
-  const statuses=Object.entries(u.statuses||{}).filter(([key])=>hasStatus(b,u,key)).map(([key,s])=>({key,...STATUS_DISPLAY[key],description:statusDescription(key,s),state:key==='shield'?{...s,amount:shieldAmount(b,u),layers:shieldLayers(b,u)}:s,...(key==='heavyAttack'?{remaining:s.charges,time:'剩余 '+s.charges+' 次物理主动普攻'}:key==='attackOrb'?{name:s.sourceSkillName+' · 强化普攻',remaining:s.charges,time:'剩余 '+s.charges+' 次部队普攻 · 不随时间消耗'}:{remaining:statusRemaining(s.until,b.tick),time:statusTimeLabel(s.until,b.tick)})}));
+  const statuses=Object.entries(u.statuses||{}).filter(([key])=>hasStatus(b,u,key)).map(([key,s])=>({key,...STATUS_DISPLAY[key],description:statusDescription(key,s),state:key==='shield'?{...s,amount:shieldAmount(b,u),layers:shieldLayers(b,u)}:s,...(key==='heavyAttack'?{remaining:s.charges,time:'剩余 '+s.charges+' 次物理主动普攻'}:key==='attackOrb'?{remaining:s.charges,time:'剩余 '+s.charges+' 次部队普攻 · 不随时间消耗'}:{remaining:statusRemaining(s.until,b.tick),time:statusTimeLabel(s.until,b.tick)})}));
   if(u.supplyPenalty)statuses.push({key:'hunger',...STATUS_DISPLAY.hunger,description:`攻击、武技威力、谋略威力与营务威力降低 ${Math.round(u.supplyPenalty*100)}%，需恢复粮道与供粮，无法镇静`,state:{},remaining:'粮',time:'随军团补给更新'});
   return statuses.sort((a,c)=>a.priority-c.priority);
 }
 
-export const ARMY_STATUS_DISPLAY={blockadeUntil:['截断援路','暂停敌方预备队入场']};
+export const ARMY_STATUS_DISPLAY=Object.fromEntries(Object.entries(ARMY_STATUS_DEFINITIONS).map(([key,s])=>[key,[s.name,s.description]]));
 export function statusSources(b,s){
   if(s.key==='hunger'&&s.state.sourceEvent===undefined)return ['军团补给'];
-  if(s.army)return ['军略「'+s.name+'」'];
+  if(s.army)return ['军略「'+(s.state.sourceSkillName||s.name)+'」'];
   if(s.key==='shield')return (s.state.layers||[]).filter(l=>l.until>b.tick&&l.amount>0).map(l=>l.label);
   const origins=s.state.sources?.length?s.state.sources:s.state.origins?.length?s.state.origins:[s.state];
   return [...new Set(origins.map(o=>{
@@ -68,7 +69,10 @@ export function statusSources(b,s){
 }
 export function inspectionStatuses(b,u){
   const personal=visibleStatuses(b,u);
-  const army=Object.entries(ARMY_STATUS_DISPLAY).filter(([key])=>b.sides?.[u.side]?.[key]>b.tick&&!(['blockadeUntil'].includes(key)&&bondBlocksEffect(b,u,b.sides[u.side].stratagemEffects?.[key]))).map(([key,[name,description]])=>({key,name:b.sides[u.side].stratagemEffects?.[key]?STRATAGEMS[b.sides[u.side].stratagemEffects[key].key].name:name,description:b.sides[u.side].stratagemEffects?.[key]?stratagemEffectText(b.sides[u.side].stratagemEffects[key]):description,army:true,tone:['blockadeUntil'].includes(key)?'debuff':'buff',state:{until:b.sides[u.side][key]},remaining:statusRemaining(b.sides[u.side][key],b.tick),time:statusTimeLabel(b.sides[u.side][key],b.tick)}));
+  const army=Object.entries(ARMY_STATUS_DISPLAY).filter(([key])=>b.sides?.[u.side]?.[key]>b.tick&&!(['blockadeUntil'].includes(key)&&bondBlocksEffect(b,u,b.sides[u.side].stratagemEffects?.[key]))).map(([key,[name,description]])=>{
+    const source=b.sides[u.side].stratagemEffects?.[key];
+    return {key,name,description:source?stratagemEffectText(source):description,army:true,tone:['blockadeUntil'].includes(key)?'debuff':'buff',state:{until:b.sides[u.side][key],sourceSkillName:source?STRATAGEMS[source.key].name:undefined},remaining:statusRemaining(b.sides[u.side][key],b.tick),time:statusTimeLabel(b.sides[u.side][key],b.tick)};
+  });
   return [...personal,...army].map(s=>({...s,sources:statusSources(b,s)}));
 }
 // Compare derived values while holding troops, terrain and all other effects constant.
@@ -82,9 +86,9 @@ export function statusAttributeChanges(b,u,s){
   const before=unitAttributes(without,{...b,sides}),after=unitAttributes(u,b);
   const labels={...ATTRIBUTE_LABELS,attackInterval:'普攻间隔',damageReduction:'直接减伤',controlResistance:'控制时长减免'};
   return Object.entries(labels).flatMap(([key,name])=>{
-    const scale=['damageReduction','controlResistance'].includes(key)?100:1;
+    const scale=['damageReduction','controlResistance'].includes(key)?100:key==='attackInterval'?COMBAT.stepMs:attributeScale(key);
     const delta=(after[key]-before[key])*scale;
-    return Math.abs(delta)>1e-8?[{key,name,before:before[key]*scale,after:after[key]*scale,delta,unit:scale===100?'百分点':key==='attackInterval'?'回合':key==='move'?'格 / 回合':key==='range'?'格':key==='attackSpeed'?'次 / 秒':''}]:[];
+    return Math.abs(delta)>1e-8?[{key,name,before:before[key]*scale,after:after[key]*scale,delta,unit:['damageReduction','controlResistance'].includes(key)?'百分点':key==='attackInterval'?'毫秒':key==='range'?'格':scale===100?'%':''}]:[];
   });
 }
 export function statusAmounts(b,u,s){
@@ -93,7 +97,7 @@ export function statusAmounts(b,u,s){
   if(s.key==='attackOrb'){
     const stats=unitAttributes(u,b),profile=ATTACK_ORBS[v.skillId];
     rows.push(['剩余次数',v.charges+' 次（普攻命中敌方部队时消耗）']);
-    rows.push(v.skillId==='curse'?['强化普攻基数',stats.strategyPower.toFixed(2)+' 谋略威力，替代原普攻']:['每次附加基数',(stats.martialPower*profile.bonus).toFixed(2)+' 武技威力，再按目标抗性、地形等结算']);
+    rows.push(v.skillId==='curse'?['强化普攻基数',integerText(stats.strategyPower)+' 谋略威力，替代原普攻']:['每次附加基数',integerText(stats.martialPower*profile.bonus)+' 武技威力，再按目标抗性、地形等结算']);
   }
   if(['burn','burn','plague'].includes(s.key)){
     const amount=Math.round(v.amount*passiveDamageTaken(b,u,'dot')*(s.key==='plague'?1:fireTerrainFactor(b,u)));

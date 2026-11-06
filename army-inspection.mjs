@@ -1,3 +1,4 @@
+import {integerText} from './number-rules.mjs';
 import {gateDurability} from './building-durability.mjs';
 import {cityStaffStatus} from './domestic-feedback.mjs';
 import {intelligenceWorld,cityIntelligence,intelligenceLabel,cityVisible,armyVisionRadius} from './strategic-vision.mjs';
@@ -10,7 +11,7 @@ import {unitTactics} from './tactics.mjs';
 import {mapNode} from './road-network.mjs';
 import {liveSoldiers,armyBattle} from './strategic-campaign.mjs';
 const esc=v=>String(v??'—').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const num=v=>Number.isFinite(v)?v.toLocaleString('zh-CN',{maximumFractionDigits:1}):'—';
+const num=integerText;
 export function unitRadar(u){
  const stats=unitAttributes(u),axes=[['机动',stats.move,3],['攻击',stats.attack,350],['攻城',stats.siege,350],['军纪',stats.discipline,180],['防御',stats.defense,300]];
  const point=(i,r)=>{const a=-Math.PI/2+i*Math.PI*2/5;return [130+Math.cos(a)*r,116+Math.sin(a)*r];};
@@ -32,6 +33,6 @@ export function armyHoverMarkup(s,a){
  s=intelligenceWorld(s);a=s.armies.find(x=>x.id===a.id);if(!a)return '';
  const named=id=>a.units.find(u=>u.id===id)?.name||'—',types=[...new Set(a.units.filter(u=>u.troops>0).map(u=>TROOPS[u.type]?.name).filter(Boolean))],target=mapNode(s,a.target||a.route?.at(-1))?.name;
  return summaryHeader(a.name,a.faction)+summaryTable([
- ['主将',named(a.leader)],['军师',named(a.advisor)],['视野半径',armyVisionRadius(a).toLocaleString('zh-CN',{maximumFractionDigits:2})],['兵粮',num(Math.floor(a.supply||0))],['士兵',num(liveSoldiers(s,a))],['士气',num(a.morale)+'/100'],['兵科',types.length>2?'混编':types.join(' / ')||'—'],...(target?[['目标',target]]:[])
+ ['主将',named(a.leader)],['军师',named(a.advisor)],['视野半径',integerText(armyVisionRadius(a))],['兵粮',num(Math.floor(a.supply||0))],['士兵',num(liveSoldiers(s,a))],['士气',num(a.morale)+'/100'],['兵科',types.length>2?'混编':types.join(' / ')||'—'],...(target?[['目标',target]]:[])
  ]);
 }

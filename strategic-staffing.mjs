@@ -1,13 +1,25 @@
+import {runCoordinatedAction,runDecisionModule} from './ai-policy/action-runtime.mjs';
 import {isAITurnStart} from './ai-turn.mjs';
 import {residentOfficer} from './city-personnel.mjs';
 import {assignDomestic,assignmentFor,ACTIONS,DIRECTIONS} from './domestic.mjs';
 import {rankOfficerCandidates} from './officer-recommendation.mjs';
 import {withPlanningQueries} from './planning-queries.mjs';
+import {withFactionTask} from './ai-policy/faction-coordination.mjs';
+import {servingPeople} from './talent-core.mjs';
+
+// Execution invalidation only: capture, death or loss of the receiving city
+// ends the old promise immediately. It never appoints or redirects anyone.
+export function reconcileStaffingExecution(s){
+ if(!s.campaign.ai?.staffing.length)return;
+ const people=servingPeople(s);
+ s.campaign.ai.staffing=s.campaign.ai.staffing.filter(p=>
+  s.cities.some(c=>c.id===p.cityId&&c.owner===p.faction)&&people.get(p.officerId)?.faction===p.faction);
+}
 
 // A staffing promise owns no resources and is fulfilled only by real arrival,
 // the shared appointment operation and an actual completed work attempt.
 export const staffingOfficer=(s,id)=>(s.campaign.ai?.staffing||[]).some(p=>p.officerId===id);
-export function progressStrategicStaffing(s){
+function policy_progressStrategicStaffing(s){
  if(!isAITurnStart(s))return;
  const ai=s.campaign.ai,keep=[];
  for(const p of ai.staffing){
@@ -26,7 +38,7 @@ export function progressStrategicStaffing(s){
     .sort((a,b)=>Number(b.direction===p.direction)-Number(a.direction===p.direction)||b.recommendation.score-a.recommendation.score||a.direction.localeCompare(b.direction));
    if(!ranked.length)continue;
    p.direction=ranked[0].direction;
-   if(assignDomestic(s,c.id,p.direction,p.officerId,{scheduled:true,faction:p.faction}))continue;
+   if(withFactionTask(s,p,()=>assignDomestic(s,c.id,p.direction,p.officerId,{scheduled:true,faction:p.faction})))continue;
    a=assignmentFor(s,p.officerId);
   }
   // Existing legitimate appointments are preserved rather than overwritten.
@@ -51,3 +63,5 @@ export function validateStrategicStaffing(s,fail){
   fail(!!residentOfficer(s,p.officerId)||s.campaign.idle.some(o=>o.unit.id===p.officerId)||s.cities.some(c=>c.owner===p.faction&&c.units.some(u=>u.id===p.officerId&&u.mission)));
  }
 }
+
+export function progressStrategicStaffing(...args){return runDecisionModule('progressStrategicStaffing',args,()=>policy_progressStrategicStaffing(...args));}

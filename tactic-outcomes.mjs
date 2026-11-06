@@ -1,3 +1,4 @@
+import {percentText} from './number-rules.mjs';
 import {battleBuildings} from './building-rules.mjs';
 import {STATUS_DISPLAY, statusRemaining, statusDescription} from './status-display.mjs';
 import {CHANCE_EFFECT_NAMES,POWER_RULES} from './tactic-power.mjs';
@@ -45,10 +46,10 @@ export function tacticOutcome(b, caster, before, events, {includeOngoing=false}=
     const damage=sum('damage'),healing=sum('healing'),repaired=sum('repaired'),absorbed=sum('shieldAbsorbed');
     for(const e of own.filter(e=>e.resolution)){
       const r=e.resolution;
-      changes.push(`${CHANCE_EFFECT_NAMES[r.effect]}${r.immune?'免疫':r.success?'判定成功':'未成功'}（成功率 ${(r.chance*100).toFixed(1)}%）`);
+      changes.push(`${CHANCE_EFFECT_NAMES[r.effect]}${r.immune?'免疫':r.success?'判定成功':'未成功'}（成功率 ${percentText(r.chance)}）`);
     }
     const crit=own.find(e=>e.critChance!==undefined);
-    if(crit)changes.push(`${crit.critical?'暴击 ×'+POWER_RULES.criticalMultiplier:'未暴击'}（暴击率 ${(crit.critChance*100).toFixed(1)}%${own.filter(e=>e.critical).length>1?'，多段共用判定':''}）`);
+    if(crit)changes.push(`${crit.critical?'暴击 '+percentText(POWER_RULES.criticalMultiplier):'未暴击'}（暴击率 ${percentText(crit.critChance)}${own.filter(e=>e.critical).length>1?'，多段共用判定':''}）`);
     if(sum('intentDenied'))changes.push(`${own.find(e=>e.intentBlock).intentBlock}：阻止受击战意 +${sum('intentDenied')}`);
     const traitChanges=new Set(traitResults.filter(t=>t.id===u.id).flatMap(t=>t.changes));
     const attributed=changes.filter(text=>!traitChanges.has(text));

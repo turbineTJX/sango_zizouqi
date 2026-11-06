@@ -1,3 +1,15 @@
+import {runCoordinatedAction,runDecisionModule,recordFactionMethod} from './ai-policy/action-runtime.mjs';
+import {occupationPayoff} from './ai-policy/campaign-payoff.mjs';
+import {scoreCapturePurpose,purposeReason} from './ai-policy/action-purpose.mjs';
+import {jointFormations} from './ai-policy/army-formations.mjs';
+import {reconcileDiplomaticOrigins} from './ai-policy/diplomatic-handoff.mjs';
+import {operationObservationContext,rememberOperationObservation} from './ai-policy/operation-observation.mjs';
+import {queuedSupplyCompatible} from './ai-policy/queued-supply.mjs';
+import {troopCapacity} from './troop-capacity.mjs';
+import {withFactionTask} from './ai-policy/faction-coordination.mjs';
+import {rearOperatingSurplus,mayReleaseRearWorker,frontlineDemand} from './ai-policy/faction-demand.mjs';
+import {frontlineMissions,frontlineCompatible,transferFrontlineToConcentration,reviewFrontlineMissions,handoffFrontlineToPlan,coordinationPairs,closeFrontlineMission,assignFrontlineDuty,captureMethod} from './ai-policy/faction-coordination.mjs';
+import {newCoordination,validateCoordination} from './ai-policy/chronicle.mjs';
 import {macroDefenseThreats,musterMacroDefense,interceptedPower,reviewMacroDefense} from './ai-policy/macro-defense.mjs';
 import {cityFoodRelief,planCommitsCityResources} from './ai-policy/food-relief.mjs';
 import {activeConcentration,adoptConcentration,progressConcentrations,validateConcentrations} from './strategic-concentration.mjs';
@@ -39,16 +51,24 @@ import {requestFactionOrder} from './strategic-orders.mjs';
 import {prepareCityUnits,disbandCityUnits,recruitLocalUnits,findCampaignRoute,orderCampaignArmy,consolidateCityArmies,expeditionError,campaignBattleSide,CAMPAIGN} from './strategic-campaign.mjs';
 import {factionLord,cityReserve} from './talent-core.mjs';
 import {withPlanningQueries} from './planning-queries.mjs';
+import {orderedDomesticRules} from './ai-policy/rule-match.mjs';
+import {inheritMetropolitanTopology} from './metropolitan-areas.mjs';
+import {inheritRoadQueries} from './road-network.mjs';
 import {activePlans,offensivePlans,plannedOfficer,plannedGrain,plannedCargo,domesticIntentWeight} from './strategic-intent.mjs';
 import {factionsHostile,diplomaticAssignment,diplomaticProtection} from './diplomacy-relations.mjs';
 import {declareDiplomaticWar} from './diplomacy.mjs';
 import {planStrategicSupport} from './strategic-support-ai.mjs';
 import {STRATEGIC_SUPPORT_RULES as SUPPORT} from './data/design/strategic-support-rules.mjs';
 import {hasStrategicTrait,armyStrategicTrait} from './strategic-traits.mjs';
-import {strategicContext,victoryContext,recoveryCityFacts} from './strategic-context.mjs';
-import {assessRecoveryCapacity,recoveryAdvantageRequirement,continuationAdvantageRequirement,recoveryFailureReason,addRecoveryRequirements} from './strategic-recovery.mjs';
+import {assessRecoveryCapacity,recoveryCityFacts} from './ai-policy/pool-recovery.mjs';
+import {fundedOperationAdvantage} from './ai-policy/operation-risk.mjs';
+import {occupationSupply} from './ai-policy/occupation-supply.mjs';
+import {cityBaseIncome as observedBaseIncome} from './economy.mjs';
+import {withRouteSupplyQueries as withOccupationSupplyQueries} from './ai-policy/occupation-route-supply.mjs';
+import {strategicContext,victoryContext} from './strategic-context.mjs';
+import {recoveryAdvantageRequirement,continuationAdvantageRequirement,recoveryFailureReason,addRecoveryRequirements} from './strategic-recovery.mjs';
 import {drawFactionTemperament,temperamentTolerance,temperamentAdvantage,validTemperament} from './strategic-temperament.mjs';
-import {assessWarTempo} from './strategic-tempo.mjs';
+import {assessWarTempo} from './ai-policy/force-scale.mjs';
 import {planVictoryStrategy,emptyVictoryValue,victoryValueReason} from './strategic-victory.mjs';
 import {newFactionStrategy,chooseFactionStrategy} from './strategic-policy.mjs';
 import {captureTasks,updateCaptureTasks,validateCaptureTasks,validateFactionStrategy,validMilitaryEvidence} from './strategic-planner.mjs';
@@ -65,11 +85,11 @@ import {assessCombatForce,estimateCombatLossFraction} from './strategic-combat-a
 import {campaignBattleTerrain} from './strategic-campaign.mjs';
 
 const OFFENSIVE=ECONOMY_RULES.ai.offensive;
-export const STRATEGIC_AI=Object.freeze({version:20,attackRatio:1.7,foodDays:5});
+export const STRATEGIC_AI=Object.freeze({version:23,attackRatio:1.7,foodDays:5});
 const STYLES=OFFENSIVE.styles;
 const minimumEnemyReserve=Math.min(...Object.values(STYLES).map(p=>p.reserve));
 const style=(s,f)=>STYLES[s.campaign.ai?.factions[f]?.style||'balanced'];
-const offensivePolicy=(s,f)=>OFFENSIVE.styles[s.campaign.ai?.factions[f]?.style||'balanced'];
+const offensivePolicy=(s,f)=>{const p=OFFENSIVE.styles[s.campaign.ai?.factions[f]?.style||'balanced'];return s.campaign.ai?.algorithms.selector==='faction-methods-v1'?{...p,minimumValue:0}:p;};
 const recovered=u=>u.wounded/Math.max(1,u.troops+u.wounded)<=OFFENSIVE.maxWoundedShare;
 const homeFood=(s,c)=>Math.max(2500,cityFoodReserve(s,c,OFFENSIVE.homeFoodDays));
 const town=mapNode;
@@ -132,7 +152,7 @@ export function offensiveFacts(s,{faction,staging,target,groups,assaultDays,sieg
   staffingError:economicStaffingError(s,g.c,g.units.map(u=>u.id))||null}));
  const intel=cityIntelligence(s,target.id,faction);
  const victoryValue=(victoryAssessment||planVictoryStrategy(victoryContext(s,faction,view),s.campaign.ai?.factions[faction]?.strategy.victory)).targets[target.id]||emptyVictoryValue();
- const supply=columns?forecastCoordinatedSupply(s,columns.map(c=>({army:c.force,path:c.route,days:c.days*2+siegeDays+2,delay:assaultDays-c.days}))):forecastRouteSupply(s,{...cityForce(staging),units},perceivedRoute(view,staging.id,target.id,faction),assaultDays*2+siegeDays+2,{attack:true});
+ const logistics=occupationSupply(s,{force:{...cityForce(staging),units},path:perceivedRoute(view,staging.id,target.id,faction),target,columns,approachDays:assaultDays,siegeDays,intelligence:{known:!!intel.data,observedDay:intel.day},day:s.campaign.day}),supply=logistics.supply;
  const sourceSupply=!!columns||groups.every(g=>forecastRouteSupply(s,{...cityForce(g.c),units:g.units},perceivedRoute(view,g.c.id,staging.id,faction),g.days+2).feasible);
  const ownContext=context||strategicContext(s,faction),duration=assembly+assaultDays*2+siegeDays+2;
  // A centrally assembled army actually returns to the staging depot. Assess
@@ -150,9 +170,11 @@ export function offensiveFacts(s,{faction,staging,target,groups,assaultDays,sieg
   recoveryInputs.cities[i].grain=Math.max(0,recoveryInputs.cities[i].grain-Math.max(0,carry-committed));
  }
  if(arrivals.length)recoveryInputs.cities[0].dailyFood+=foodUse(arrivals);
- return {facts:{version:5,faction,day:s.campaign.day,target:{id:target.id,kind:target.kind,commerce:target.commerce,grain:target.grain},observedStockValue:observedTargetStockValue({known:!!intel.data,observedDay:intel.day},target,s.campaign.day),victoryValue,opposition,oppositionLossFactor:PLANNING.opposition.lossFactor,combatLossFraction:estimateCombatLossFraction(cap.field,defense),combatAssessment:cap.assessment,recoveryInputs,siegeDays,intelligence:{known:!!intel.data,visible:intel.visible,observedDay:intel.day},
+ const payoff=occupationPayoff(view,target,{intelligence:{known:!!intel.data,visible:intel.visible,observedDay:intel.day},day:s.campaign.day,units,foodUse:foodUse(units),approachDays:assembly+assaultDays,siegeDays,ownLosses:Math.ceil(units.reduce((n,u)=>n+u.troops,0)*estimateCombatLossFraction(cap.field,defense))});
+ return {facts:{version:5,faction,day:s.campaign.day,target:{id:target.id,kind:target.kind,commerce:target.commerce,grain:target.grain},occupationPayoff:payoff,observedStockValue:observedTargetStockValue({known:!!intel.data,observedDay:intel.day},target,s.campaign.day),victoryValue,opposition,oppositionLossFactor:PLANNING.opposition.lossFactor,combatLossFraction:estimateCombatLossFraction(cap.field,defense),combatAssessment:cap.assessment,recoveryInputs,siegeDays,intelligence:{known:!!intel.data,visible:intel.visible,observedDay:intel.day},
+  purposeNeeds:{grain:ownContext.ownCities.reduce((n,c)=>n+c.costs.grain*2,0),gold:ownContext.ownCities.reduce((n,c)=>n+c.costs.gold*2,0),manpower:ownContext.ownCities.reduce((n,c)=>n+c.troops*.2+c.wounded,0),standingTroops:ownContext.ownCities.reduce((n,c)=>n+c.troops,0)},
   fieldPower:cap.field,defense,men:units.reduce((n,u)=>n+u.troops,0),foodUse:foodUse(units),carry:armySupplyCapacity(units),supply,sourcesSupplied:sourceSupply,
-  duration,assaultSupplyDays:assaultDays*2+siegeDays+2,
+  duration:logistics.conditional?assembly+logistics.days:duration,assaultSupplyDays:logistics.days,
   assemblyGrain:columns?0:groups.reduce((n,g)=>n+foodUse(g.units)*g.days,0),
   refillGoldWeight:recoveryGroups.reduce((n,g)=>n+g.units.reduce((m,u)=>m+u.troops*trainingRate(u,g.c),0),0),
   maintenanceGold:ECONOMY_RULES.maintenance.goldPerThousandTroops,
@@ -170,7 +192,10 @@ export function observedTargetStockValue(intelligence,target,day){
  return Math.min(PLANNING.victory.maxObservedStockBonus,value*PLANNING.victory.observedStockShare/PLANNING.victory.observedStockGoldPerPoint);
 }
 function offensiveEvaluation(s,proposal){
- const {facts:f,profile}=offensiveFacts(s,proposal),algorithms=s.campaign.ai?.algorithms||PLANNING.algorithms;
+ return evaluateOffensiveFacts(s,proposal,offensiveFacts(s,proposal));
+}
+function evaluateOffensiveFacts(s,proposal,{facts:f,profile}){
+ const algorithms=s.campaign.ai?.algorithms||PLANNING.algorithms;
  const prediction=runStrategicAlgorithm('battlePredictor',algorithms,{facts:f,profile,rules:OFFENSIVE});
  const recovery=assessRecoveryCapacity(f.recoveryInputs,prediction.estimatedLosses);
  const evaluation=runStrategicAlgorithm('offensiveEvaluator',algorithms,{facts:{...f,recovery},prediction,profile,rules:OFFENSIVE});
@@ -178,7 +203,7 @@ function offensiveEvaluation(s,proposal){
  const {benefit,cost,workCost}=evaluation,policy=offensivePolicy(s,proposal.faction);
  const temperament=proposal.temperament===undefined?s.campaign.ai.factions[proposal.faction].temperament:proposal.temperament;
  const tolerance=temperamentTolerance(temperament,estimatedLosses/Math.max(1,f.men),recovery),score=evaluation.score+tolerance.valueBonus;
- const survivors=f.fieldPower*(1-estimatedLosses/Math.max(1,f.men)),requiredAdvantage=temperamentAdvantage(recoveryAdvantageRequirement(policy.ratio,recovery,f.intelligence,f.day),tolerance);
+ const survivors=f.fieldPower*(1-estimatedLosses/Math.max(1,f.men)),requiredAdvantage=fundedOperationAdvantage(temperamentAdvantage(recoveryAdvantageRequirement(policy.ratio,recovery,f.intelligence,f.day),tolerance),{facts:f,recovery,prediction});
  // A repairable resource shortage removes the economic risk allowance. If
  // the same force meets the existing margin after funding that exact deficit,
  // preserve the resource diagnosis so bounded preparation can act on it.
@@ -201,12 +226,46 @@ function offensiveEvaluation(s,proposal){
  else if(survivors<counterPower)reason='预计攻下后难以抵挡周边反攻';
  else if(score<policy.minimumValue)reason=workCost>benefit/2?'抽调内政人员代价高，优先发展':'目标收益不足以抵偿行军、战损与补给成本';
  const advantage=f.defense>0?f.fieldPower/f.defense:null;
- return {accepted:!reason,reason:reason||`${tolerance.active?'君主本旬愿意承担有限战争风险；':''}${victoryValueReason(f.victoryValue)}；预计战损${estimatedLosses}兵，现有兵粮与回城后补兵能力可承担`,score,rawScore:evaluation.score,benefit,cost,estimatedLosses,consumedGrain,replacementGold,militaryGold,workCost,counterPower,judgment:profile.judgment,victoryValue:f.victoryValue,opposition:f.opposition,recovery,advantage,requiredAdvantage,supplyDays:f.assaultSupplyDays,
-  military:{model:'static-v2-no-bonds',attackOutput:f.combatAssessment.output,attackDurability:f.combatAssessment.durability,attackPower:f.fieldPower,defensePower:f.defense,requiredAdvantage,estimatedLosses,emergencyMen:f.opposition.emergencyMen,reinforcementPower:f.opposition.reinforcementPower,contestingPower:f.opposition.contestingPower,staleMargin:f.opposition.staleMargin,observedDay:f.intelligence.observedDay,recovery,temperament:structuredClone(temperament??null)}};
+ const purpose=algorithms.offensiveEvaluator==='action-purpose-v1'?scoreCapturePurpose(f,prediction,profile):null;
+ return {accepted:!reason,reason:reason||(purpose?purposeReason(purpose):`${tolerance.active?'君主本旬愿意承担有限战争风险；':''}${victoryValueReason(f.victoryValue)}；预计战损${estimatedLosses}兵，现有兵粮与回城后补兵能力可承担`),score,rawScore:evaluation.score,benefit,cost,estimatedLosses,consumedGrain,replacementGold,militaryGold,workCost,counterPower,judgment:profile.judgment,victoryValue:f.victoryValue,opposition:f.opposition,recovery,advantage,requiredAdvantage,supplyDays:f.assaultSupplyDays,
+  purpose,
+  supplyForecast:f.supply,payoff:f.occupationPayoff,military:{model:'static-v2-no-bonds',attackOutput:f.combatAssessment.output,attackDurability:f.combatAssessment.durability,attackPower:f.fieldPower,defensePower:f.defense,requiredAdvantage,estimatedLosses,emergencyMen:f.opposition.emergencyMen,reinforcementPower:f.opposition.reinforcementPower,contestingPower:f.opposition.contestingPower,staleMargin:f.opposition.staleMargin,observedDay:f.intelligence.observedDay,recovery,temperament:structuredClone(temperament??null)}};
+}
+
+// A conditional observation method, never an attack authorization. Its only
+// possible effect is paying for one ordinary scouting assignment. No enemy
+// state is changed or consulted beyond the faction's saved report.
+function usefulOperationObservation(s,proposal){
+ const measured=offensiveFacts(s,proposal),f=measured.facts;
+ if(!f.intelligence.known||f.intelligence.visible||!f.opposition.staleMargin||!f.sourcesSupplied||f.sources.some(c=>c.staffingError||c.remainingPower<c.defenseNeed))return null;
+ const observation=operationObservationContext(s,proposal.faction,proposal.target.id,f.intelligence.observedDay);
+ if(observation.repeated)return null;
+ const view=intelligenceWorld(s,proposal.faction),observed=view.cities.find(c=>c.id===proposal.target.id),units=proposal.groups.flatMap(g=>g.units);
+ // Only a value-of-information upper bound: known ordinary production could
+ // have replenished an old warehouse. New appointments and unseen facilities
+ // are excluded. This object never becomes intelligence or spendable stock.
+ const age=Math.min(PLANNING.recovery.maximumForecastDays,Math.max(0,f.day-f.intelligence.observedDay)),income=observedBaseIncome(view,observed);
+ const target={...observed,grain:Math.min(ECONOMY_RULES.capacity.grainBase+(observed.granary||0)*ECONOMY_RULES.capacity.grainPerGranary,observed.grain+Math.floor(income.grain*age/10))};
+ // A stale report is an interval, not a promise that the old garrison can
+ // only grow. Test the favourable end solely to price fresh observation.
+ // Only the real scout's result can enter a subsequent attack authorization.
+ const intelligence={known:true,visible:false,observedDay:f.day},uncertainty=(1-f.opposition.staleMargin)/(1+f.opposition.staleMargin);
+ const stillObserved=f.opposition.reinforcementPower+f.opposition.contestingPower+f.opposition.emergencyPower;
+ const defense=observation.changedFront?estimateStrategicEnemy(s,proposal.faction,proposal.target.id,stillObserved+(stillObserved>0?f.opposition.walls:0)):f.defense*uncertainty;
+ const logistics=occupationSupply(s,{force:{...cityForce(proposal.staging),units},path:perceivedRoute(view,proposal.staging.id,target.id,proposal.faction),target,columns:proposal.columns,approachDays:proposal.assaultDays,siegeDays:proposal.siegeDays,intelligence,day:f.day});
+ const confirmed={...f,defense,intelligence,supply:logistics.supply,assaultSupplyDays:logistics.days,duration:logistics.conditional?(proposal.columns?0:Math.max(0,...proposal.groups.map(g=>g.days)))+logistics.days:f.duration,combatLossFraction:estimateCombatLossFraction(f.fieldPower,defense),opposition:{...f.opposition,total:f.opposition.total*uncertainty,staleMargin:0},
+  observedStockValue:observedTargetStockValue(intelligence,target,f.day),
+  occupationPayoff:occupationPayoff(view,target,{intelligence,day:f.day,units,foodUse:f.foodUse,approachDays:proposal.assaultDays,siegeDays:proposal.siegeDays,ownLosses:Math.ceil(f.men*estimateCombatLossFraction(f.fieldPower,defense))})};
+ const result=evaluateOffensiveFacts(s,proposal,{facts:confirmed,profile:measured.profile});
+ if(!result.accepted)return null;
+ return {kind:'observe-to-decide',faction:proposal.faction,staging:proposal.staging.id,target:target.id,observedDay:f.intelligence.observedDay,
+  observationKey:observation.key,observationSignature:observation.signature,
+  reason:observation.changedFront?'已观察的城战或领土变化使旧驻军报告不足以决定下一步，实际侦察核实可进攻机会；不预先视为空城':'现有部队与粮道已具备条件，实际侦察若确认旧报告即可重新核对进攻；不提前承诺战果',
+  evidence:{attackPower:f.fieldPower,reportedDefense:defense,uncertainDefense:f.defense,scoreIfConfirmed:result.score,payoffIfConfirmed:result.payoff}};
 }
 export function initializeStrategicAI(s){
  const factions=nationalScenario(s.campaign.scenarioId).factions.filter(f=>isAIControlled(s,f));
- s.campaign.ai={version:STRATEGIC_AI.version,temperamentSeed:(s.seed^0x5e73b91d)>>>0,algorithms:strategicAlgorithmProfile(),lastPlanDay:0,lastEconomyTurn:0,nextPlanId:1,nextSupportId:1,plans:[],supports:[],staffing:[],concentrations:[],cities:{},factions:Object.fromEntries(factions.map(f=>{const personality=OFFICER_BY_ID[factionLord(s,f)]?.personality;return [f,{style:personality===2?'cautious':personality===4?'bold':'balanced',lastReviewTurn:0,temperament:null,stance:'develop',strategy:newFactionStrategy(s.cities.length,s.cities.filter(c=>c.owner===f).length)}];})),decisions:[]};
+ s.campaign.ai={version:STRATEGIC_AI.version,coordination:newCoordination(),temperamentSeed:(s.seed^0x5e73b91d)>>>0,algorithms:strategicAlgorithmProfile({...PLANNING.algorithms,selector:'faction-methods-v1',offensiveEvaluator:'action-purpose-v1'}),lastPlanDay:0,lastEconomyTurn:0,nextPlanId:1,nextSupportId:1,plans:[],supports:[],staffing:[],concentrations:[],cities:{},factions:Object.fromEntries(factions.map(f=>{const personality=OFFICER_BY_ID[factionLord(s,f)]?.personality;return [f,{style:personality===2?'cautious':personality===4?'bold':'balanced',lastReviewTurn:0,temperament:null,stance:'develop',strategy:newFactionStrategy(s.cities.length,s.cities.filter(c=>c.owner===f).length)}];})),decisions:[]};
 }
 export function strategicPower(s,a,options={}){
  const b=fighting(s,a.id),units=b?b.battle.sides.flatMap(x=>x.units).filter(u=>u.armyId===a.id):a.units;
@@ -284,6 +343,7 @@ export function strategicDepartureError(s,q){
  return strategicPower(s,remaining)<Math.max(0,reserveNeed(s,c,observeStrategicThreat(s,c),q.kind==='expedition'?q.target:null))?'敌情变化后出兵城守备不足，保留部队并重新评估':null;
 }
 function availableUnits(s,c,{ignoreConcentration=false,militaryRank=false,defenseTarget=null}={}){
+ return withPlanningQueries(s,()=>{
  const a=cityForce(c),available=a.units.filter(u=>u.troops>0&&!busy(s,u.id,false,ignoreConcentration));
  const ranked=militaryRank?available.map(u=>({u,power:strategicPower(s,plannedCombatForce(s,c,[u]))})).sort((a,b)=>b.power-a.power||a.u.id.localeCompare(b.u.id)).map(x=>x.u)
   :rankOfficerCandidates(s,available,{task:'expedition',city:c.id}).map(x=>x.unit);
@@ -296,6 +356,7 @@ function availableUnits(s,c,{ignoreConcentration=false,militaryRank=false,defens
   selected.push(u);
  }
  return selected;
+ });
 }
 // Check physical presence before examining work. A home-city registration on an
 // officer's away mission is not evidence that they can depart from that city.
@@ -319,6 +380,11 @@ function commandUnits(s,c,units,target,kind,reason,timingOptions={}){
  if(timingOptions.arrivalDeadline!==undefined&&travelDays>timingOptions.arrivalDeadline-s.campaign.day)return false;
  const support=['reinforce','guard'].includes(kind),capacity=armySupplyCapacity(units),journeyFood=Math.ceil(foodUse(units)*(travelDays+SUPPORT.guardFoodDays));
  if(support&&journeyFood>capacity&&!forecastRouteSupply(s,plannedCombatForce(s,c,units),path,travelDays+SUPPORT.guardFoodDays).feasible)return false;
+ if(kind==='attack'){
+  const force={...cityForce(c),units,leader,advisor},observed=observedCity(s,town(s,target),c.owner);
+  const siege=Math.max(PLANNING.opposition.minimumBattleDays,Math.ceil(gateDurability(observed).hp/Math.max(1,strategicCapabilities(s,force).siege)));
+  if(!queuedSupplyCompatible(s,{army:force,path,days:travelDays*2+siege+2,delay:Math.max(0,(timingOptions.notBeforeDay||s.campaign.day)-s.campaign.day)},{coordinatedOfficerIds:timingOptions.coordinatedOfficerIds}))return false;
+ }
  const equipmentGold=units.reduce((n,u)=>n+equipmentCost(u.equipment,c.units.find(x=>x.id===u.id).equipment,u.troops+u.wounded,c),0);
  if(equipmentGold){if(c.gold-equipmentGold<strategicCityBudget(s,c).goldNeed)return false;for(const u of units)if(equipCityUnit(s,c.id,u.id,u.equipment,{scheduled:true,faction:c.owner}))return false;}
  const result=requestFactionOrder(s,c.owner,{kind:'expedition',cityId:c.id,officerIds:units.map(u=>u.id),leader,advisor,target,route:path,policy:'auto',...(timingOptions.notBeforeDay?{notBeforeDay:timingOptions.notBeforeDay}:{}),minSupply:support?Math.min(capacity,journeyFood):capacity},timing.choice);
@@ -338,6 +404,7 @@ export function strategicCityBudget(s,c,options={}){
 // it does not preview combat or change an already committed expedition.
 export function usefulSiegeEquipment(s,c,officerId,equipment,units,targets){
  if(!equipment||!units.some(u=>u.id===officerId))return false;
+ return withPlanningQueries(s,()=>{
  const plain=units.map(u=>({...u,equipment:{...u.equipment,siege:null}}));
  const loaded=plain.map(u=>u.id===officerId?{...u,equipment:{...u.equipment,siege:equipment}}:u);
  const a=plannedCombatForce(s,c,plain),b=plannedCombatForce(s,c,loaded);
@@ -350,14 +417,21 @@ export function usefulSiegeEquipment(s,c,officerId,equipment,units,targets){
   const loadedDays=strategicTravelDays(s,b,path)*2+Math.max(2,Math.ceil(gate/Math.max(1,loadedSiege)));
   return loadedDays<plainDays;
  });
+ });
 }
-export function manageStrategicEconomy(s){
+function policy_manageStrategicEconomy(s){
  if(!isAITurnStart(s))return;
  const ai=s.campaign.ai;if(ai.lastEconomyTurn===s.turn)return;ai.lastEconomyTurn=s.turn;
+ const openingBudgets=withCitySupplyQueries(s,()=>new Map(s.cities.filter(c=>Object.hasOwn(ai.factions,c.owner)).map(c=>[c.id,strategicCityBudget(s,c)])));
+ prepareStrategicTurn(s);
  for(const faction of Object.keys(ai.factions))musterMacroDefense(s,faction);
  // Recruitment may use half the opening treasury. Keep the other half for
  // officer-led civil work, rather than spending every available coin first.
  const supplies=citySupplyBudgets(s),supplyForecast=forecastArmySupply(s,{supplies}),budgets=withCitySupplyQueries(s,()=>new Map(s.cities.filter(c=>Object.hasOwn(ai.factions,c.owner)).map(c=>[c.id,strategicCityBudget(s,c,{supplies,supplyForecast})])));
+ // Reorganising or recalling an army does not replenish its former depot.
+ // Keep that turn's real supply provision through optional spending; the
+ // logistics method may hand the reserve to the new garrison by actual cargo.
+ for(const [id,b]of budgets){const before=openingBudgets.get(id);if(before){b.goldNeed=Math.max(b.goldNeed,before.goldNeed);b.grainNeed=Math.max(b.grainNeed,before.grainNeed);}}
  const floors=Object.fromEntries([...budgets].map(([id,b])=>[id,Math.max(b.goldNeed,Math.ceil(town(s,id).gold/2),ai.cities[id]?.goldNeed||0)]));
  for(const c of s.cities.filter(c=>Object.hasOwn(ai.factions,c.owner))){
   if(besieged(s,c.id)||budgets.get(c.id).budget.shortages.grain)continue;
@@ -381,6 +455,10 @@ export function manageStrategicEconomy(s){
    if(c.gold-equipmentCost(e,u.equipment,u.troops+u.wounded,c)>=floors[c.id])equipCityUnit(s,c.id,u.id,e,{scheduled:true,faction:c.owner});
   }
   const idle=s.campaign.idle.filter(o=>o.faction===c.owner&&o.location===c.id&&!o.destination&&!o.retreating&&!o.unit.mission&&!o.unit.scouting&&!busy(s,o.unit.id)&&canTrain(c,o.unit.type));
+  for(const duty of frontlineMissions(s,c.owner).filter(m=>m.cityId===c.id&&m.purpose==='preparation')){
+   const arrivals=s.campaign.idle.filter(o=>duty.officerIds.includes(o.unit.id)&&o.location===c.id&&!o.destination&&!o.unit.mission&&!o.unit.scouting&&canTrain(c,o.unit.type));
+   if(arrivals.length)withFactionTask(s,duty,()=>prepareCityUnits(s,c.id,arrivals.map(o=>o.unit.id),{scheduled:true,faction:c.owner}));
+  }
   const expanded=!budgets.get(c.id).budget.shortages.gold&&!budgets.get(c.id).budget.shortages.grain&&c.units.filter(u=>u.troops>0&&!u.mission).length>=PLANNING.tempo.campaignUnits;
   const rear=personnelCityProfile(s,c).role==='rear'&&!activeConcentration(s,c.owner)?.intendedIds.some(id=>c.units.some(u=>u.id===id))&&observeStrategicThreat(s,c).power===0;
   const unitTarget=rear?ECONOMY_RULES.ai.rearUnitTarget:expanded?Math.min(20,Math.max(6,...neighbors(s,c.id).filter(id=>town(view,id).owner!==c.owner).map(id=>town(view,id).units.filter(u=>u.troops>0).length+4))):6;
@@ -391,6 +469,10 @@ export function manageStrategicEconomy(s){
   }
   const ids=rankOfficerCandidates(s,cityPersonnel(s,c.id).filter(o=>!o.unit.mission&&!o.unit.scouting&&(o.cityUnit||o.army)&&canTrain(c,o.unit.type)).map(o=>o.unit),{task:'recruit',city:c.id}).map(x=>x.unit.id);
   if(ids.length)recruitLocalUnits(s,c,ids,{faction:c.owner,grainReserve:budgets.get(c.id).grainNeed,manpowerReserve:plannedCargo(s,c.id,'manpower'),goldReserve:floors[c.id],cap:rear?ECONOMY_RULES.ai.rearTroopTarget:ECONOMY_RULES.ai.cityTroopTarget});
+  const dutyIds=frontlineMissions(s,c.owner).filter(m=>m.cityId===c.id).flatMap(m=>m.officerIds).filter(id=>ids.includes(id));
+  // The parent duty must include a real replenishment step. A generic reserve
+  // cap cannot strand soldiers forever below their actual legal capacity.
+  if(dutyIds.length)recruitLocalUnits(s,c,dutyIds,{faction:c.owner,grainReserve:budgets.get(c.id).grainNeed,manpowerReserve:plannedCargo(s,c.id,'manpower'),goldReserve:floors[c.id],cap:Math.max(...c.units.filter(u=>dutyIds.includes(u.id)).map(troopCapacity))});
  }
 }
 function refreshCityIntents(s,faction){
@@ -401,7 +483,7 @@ function refreshCityIntentFacts(s,faction){
  for(const c of s.cities.filter(c=>c.owner===faction)){
   const threat=observeStrategicThreat(view,c),front=neighbors(s,c.id).some(id=>town(view,id).owner!==faction);
   const role=threat.power>0?'front':activePlans(s).some(q=>q.faction===faction&&q.phase==='consolidate'&&q.target===c.id)?'recovery':plans.some(p=>p.staging===c.id)?'staging':cityPersonnel(s,c.id).length<2&&c.kind==='city'?'talent':front?'front':'rear';
-  const demands=[ai.factions[faction].strategy.goal?.requirements.find(r=>r.cityId===c.id),...plans.map(p=>p.requirements.find(r=>r.cityId===c.id))].filter(Boolean);
+  const demands=[ai.factions[faction].strategy.goal?.requirements.find(r=>r.cityId===c.id),...plans.map(p=>p.requirements.find(r=>r.cityId===c.id)),...frontlineMissions(s,faction).filter(m=>m.cityId===c.id).map(m=>m.requirements)].filter(Boolean);
   const required=Object.fromEntries(['gold','grain','manpower'].map(k=>[k,Math.max(0,...demands.map(r=>r[k]))]));
   // Build a real forward depot before affordability can admit an operation.
   // This is a stock target for normal transports, never spendable future food.
@@ -435,7 +517,7 @@ function retreatArmy(s,a,reason){
  if(!error){a.task='回城补给';record(s,a.id,'retreat',home.c.id,reason);}
 }
 function emergencyOrders(s){
- const ai=s.campaign.ai,forecast=forecastArmySupply(s,{days:ECONOMY_RULES.ai.foodReserveDays,funded:true});
+ const ai=s.campaign.ai,reviewDays=CAMPAIGN_TIME.daysPerTurn,forecast=forecastArmySupply(s,{days:ECONOMY_RULES.ai.foodReserveDays+reviewDays,funded:true});
  for(const a of [...s.armies].filter(a=>Object.hasOwn(ai.factions,a.faction)&&!a.disbanded)){
   const b=fighting(s,a.id);
   if(b){
@@ -443,32 +525,50 @@ function emergencyOrders(s){
   }
   if(a.diplomaticWithdrawal&&(a.travel||a.route.length||town(s,a.location)?.owner!==a.faction))continue;
   if(a.diplomaticTask&&a.hunger<1&&a.supply>=foodUse(a.units)*2)continue;
-  const predicted=forecast.armies.find(x=>x.army.id===a.id),homes=s.cities.filter(c=>c.owner===a.faction&&!besieged(s,c.id)).map(c=>({c,path:perceivedRoute(s,a.travel?.from||a.location,c.id,a.faction)})).filter(x=>x.path&&x.c.grain>=foodUse(a.units)*3).map(x=>({...x,days:strategicTravelDays(s,a,x.path,a.travel?.from||a.location)}));
-  const returnDays=Math.min(Infinity,...homes.map(x=>x.days)),risk=predicted?.firstShortDay!=null&&predicted.firstShortDay<=returnDays+ECONOMY_RULES.budget.criticalFoodDays;
+  const predicted=forecast.armies.find(x=>x.army.id===a.id),homes=withPlanningQueries(s,()=>s.cities.filter(c=>c.owner===a.faction&&!besieged(s,c.id)).map(c=>({c,path:perceivedRoute(s,a.travel?.from||a.location,c.id,a.faction)})).filter(x=>x.path&&x.c.grain>=foodUse(a.units)*3).map(x=>({...x,days:strategicTravelDays(s,a,x.path,a.travel?.from||a.location)})));
+  const reverseDays=a.travel?remainingMarchDays(s,{...a,travel:{...a.travel,from:a.travel.to,to:a.travel.from,progress:Math.max(0,roadDistance(s,a.travel.from,a.travel.to)-a.travel.progress)}}):0;
+  const returnDays=reverseDays+Math.min(Infinity,...homes.map(x=>x.days));
+  // The next chance to order a withdrawal is a whole strategic turn away.
+  // Carry must cover that wait as well as the actual reversed road leg and
+  // homeward journey. No new retreat decision is made between turn starts.
+  const risk=predicted?.firstShortDay!=null&&predicted.firstShortDay<=reviewDays+returnDays+ECONOMY_RULES.budget.criticalFoodDays;
   if(a.hunger>=1||risk||a.supply<foodUse(a.units)*2&&town(s,a.location)?.owner!==a.faction){
-   const p=offensivePlans(s).find(p=>p.faction===a.faction&&p.officerIds.some(id=>a.units.some(u=>u.id===id)));if(p)cancelPlan(s,p,'军团预计无法维持补给，取消进攻并提前回撤');else retreatArmy(s,a,'携粮或粮道预算不足，沿道路提前回城补给');
+   const p=offensivePlans(s).find(p=>p.faction===a.faction&&p.officerIds.some(id=>a.units.some(u=>u.id===id)));
+   if(p)cancelPlan(s,p,'军团预计无法维持补给，取消进攻并提前回撤');
+   else {
+    const support=ai.supports.find(q=>q.faction===a.faction&&q.officerIds.some(id=>a.units.some(u=>u.id===id)));
+    const retreat=()=>retreatArmy(s,a,'携粮或粮道预算不足，沿道路提前回城补给');
+    if(support)withFactionTask(s,support,retreat);else retreat();
+   }
   }
  }
 }
 export function strategicColumnTravelDays(s,force,path,from=force.location){
  return marchItinerary(s,from,path,force,force.roadPolicy||'auto').days;
 }
-function operationColumns(s,faction,target,groups,limit){
- const result=[];
- for(const g of groups){const route=perceivedRoute(s,g.c.id,target.id,faction);if(!route)return null;
-  for(let i=0;i<g.units.length;i+=limit){const units=g.units.slice(i,i+limit),force=plannedCombatForce(s,g.c,units),days=strategicColumnTravelDays(s,force,route);
+function operationColumns(s,faction,target,groups,limit,compact=true){
+ const result=[],formations=jointFormations(groups,limit,{compact});if(!formations)return null;
+ for(const g of formations){const route=perceivedRoute(s,g.c.id,target.id,faction);if(!route)return null;
+   const units=g.units;
+   const force=plannedCombatForce(s,g.c,units),days=strategicColumnTravelDays(s,force,route);
    if(!Number.isFinite(days))return null;result.push({cityId:g.c.id,officerIds:units.map(u=>u.id),route:[...route],days,force});
-  }
  }return result;
 }
-function createPlan(s,faction){return withRouteSupplyQueries(s,()=>reviewPlan(s,faction));}
+function createPlan(s,faction){return withRouteSupplyQueries(s,()=>withOccupationSupplyQueries(s,()=>reviewPlan(s,faction)));}
 function reviewPlan(s,faction){
  const ai=s.campaign.ai,policy=ai.factions[faction],running=offensivePlans(s).filter(p=>p.faction===faction),existing=running[0];
  const context=strategicContext(s,faction),previous=policy.strategy,routeView=intelligenceWorld(s,faction);
  const victoryAssessment=planVictoryStrategy(context,previous.victory);
- const focus=victoryAssessment.victory.focus,focusOwner=focus&&cityObservation(s,focus.targetCity,faction)?.owner;
- if(focus&&!factionsHostile(s,faction,focusOwner))planStrategicScouting(s,faction,{prospectiveTarget:focus.targetCity});
- const cities=s.cities.filter(c=>c.owner===faction&&!besieged(s,c.id)),pool=new Map(cities.map(c=>[c.id,availableUnits(s,c,{ignoreConcentration:true,militaryRank:true}).filter(recovered)])),options=[],goals=[],admission=[];
+ const focus=victoryAssessment.victory.focus;
+ // Information is a prerequisite to choosing a method, not a reward for
+ // already having a sufficient army. Observe the selected strategic front
+ // before reserving combat officers, even while development is still needed.
+ const observationFronts=[...new Set(s.cities.filter(c=>c.owner===faction).flatMap(c=>neighbors(s,c.id)))].filter(id=>{
+  const owner=cityObservation(s,id,faction)?.owner;
+  return owner!==faction&&!diplomaticProtection(s,faction,owner)&&!diplomaticProtection(s,owner,faction);
+ }).sort((a,b)=>Number(b===focus?.targetCity)-Number(a===focus?.targetCity)||(victoryAssessment.targets[b]?.score||0)-(victoryAssessment.targets[a]?.score||0)||a.localeCompare(b)).slice(0,2);
+ planStrategicScouting(s,faction,{prospectiveTarget:focus?.targetCity,prospectiveTargets:observationFronts});
+ const cities=s.cities.filter(c=>c.owner===faction&&!besieged(s,c.id)),pool=withPlanningQueries(s,()=>new Map(cities.map(c=>[c.id,availableUnits(s,c,{ignoreConcentration:true,militaryRank:true}).filter(recovered)]))),options=[],goals=[],admission=[];
  const tempo=assessWarTempo(context,pool),canPlan=!existing||running.length<tempo.operationLimit&&running.every(p=>p.phase==='attack')&&!context.critical;
  const candidateTolerance=temperamentTolerance(policy.temperament,0,{feasible:true});
  // Secondary fronts have independent home depots. Shared road capacity is
@@ -476,7 +576,7 @@ function reviewPlan(s,faction){
  const committedCities=new Set(running.flatMap(p=>[p.staging,...p.origins.map(g=>g.cityId)]));
  if(existing)for(const id of committedCities)pool.set(id,[]);
  const explain=(staging,target,stage,reason,units=[])=>admission.push({staging:staging.id,target:target.id,stage,reason,unitCount:units.length,troops:units.reduce((n,u)=>n+u.troops,0)});
- const reports=new Map(),defenses=new Map(),assemblyPairs=[];
+ const reports=new Map(),defenses=new Map(),assemblyPairs=[],informationMethods=[];
  const observe=id=>{if(!reports.has(id))reports.set(id,observedCity(s,town(s,id),faction));return reports.get(id);};
  // Candidate comparison is read-only. Drop all observation and supply caches
  // before adopting the goal, reserving people, declaring war or issuing orders.
@@ -484,15 +584,17 @@ function reviewPlan(s,faction){
  const pairs=cities.flatMap(staging=>neighbors(s,staging.id).map(id=>({staging,target:observe(id)})))
   .filter(x=>!committedCities.has(x.staging.id)&&!running.some(p=>p.target===x.target.id)&&x.target.owner!==faction&&!diplomaticProtection(s,faction,x.target.owner)&&!diplomaticProtection(s,x.target.owner,faction)&&!(cityVisible(s,x.target.id,faction)&&besieged(s,x.target.id)))
   .map(x=>{if(!defenses.has(x.target.id))defenses.set(x.target.id,cityDefense(s,x.target,faction));const path=adjacentCityPath(routeView,x.staging.id,x.target.id);return {...x,empty:defenses.get(x.target.id)===0,distance:path?path.reduce((n,id,i)=>n+roadCost(routeView,i?path[i-1]:x.staging.id,id),0):Infinity};})
-  .sort((a,b)=>Number(b.target.id===previous.goal?.targetCity)-Number(a.target.id===previous.goal?.targetCity)||Number(b.empty)-Number(a.empty)||(victoryAssessment.targets[b.target.id]?.score||0)-(victoryAssessment.targets[a.target.id]?.score||0)||a.distance-b.distance||b.target.commerce-a.target.commerce||a.target.id.localeCompare(b.target.id)||a.staging.id.localeCompare(b.staging.id)).slice(0,PLANNING.pairLimit);
- if(canPlan)for(const {staging,target} of pairs){
+  .sort((a,b)=>Number(b.target.id===previous.goal?.targetCity)-Number(a.target.id===previous.goal?.targetCity)||Number(b.empty)-Number(a.empty)||(victoryAssessment.targets[b.target.id]?.score||0)-(victoryAssessment.targets[a.target.id]?.score||0)||a.distance-b.distance||b.target.commerce-a.target.commerce||a.target.id.localeCompare(b.target.id)||a.staging.id.localeCompare(b.staging.id));
+ const orderedPairs=coordinationPairs(s,faction,pairs,PLANNING.pairLimit);
+ if(canPlan)for(const {staging,target} of orderedPairs){
+  const pairPool=pool; // Full operations may lawfully take over earlier front duties after complete admission.
   // Compare every pair in the bounded geography shortlist. Several roster
   // variants for one city must not consume the entire target search budget.
   if(observeStrategicThreat(s,staging).power>cityDefense(s,staging)){explain(staging,target,'guard','集结城已有来袭威胁，先保境');continue;}
   const defenseNeed=Math.max(0,reserveNeed(s,staging,observeStrategicThreat(s,staging,{prospectiveFaction:target.owner}))),localPower=strategicPower(s,cityForce(staging));
   if(localPower<defenseNeed){
    explain(staging,target,'guard','当前守备尚不足，先调运真实部队补齐守备');
-   const donors=cities.filter(c=>c.id!==staging.id).map(c=>({c,units:pool.get(c.id).filter(u=>u.id!==c.governor).slice(0,10),path:safeStrategicTransportRoute(routeView,c.id,staging.id,faction)})).filter(g=>g.path&&g.units.length&&personnelRouteDays(routeView,{unit:g.units[0],location:g.c.id,destination:staging.id,cargo:{gold:0,grain:0,manpower:0}},g.path)<=PLANNING.preparationTurns*10);
+   const donors=cities.filter(c=>c.id!==staging.id).map(c=>({c,units:pairPool.get(c.id).filter(u=>u.id!==c.governor).slice(0,10),path:safeStrategicTransportRoute(routeView,c.id,staging.id,faction)})).filter(g=>g.path&&g.units.length&&personnelRouteDays(routeView,{unit:g.units[0],location:g.c.id,destination:staging.id,cargo:{gold:0,grain:0,manpower:0}},g.path)<=PLANNING.preparationTurns*10);
    const incoming=s.campaign.idle.filter(o=>o.faction===faction&&o.destination===staging.id&&!o.journey?.blocked&&o.unit.troops>0);
    const available=donors.reduce((n,g)=>n+strategicPower(s,{...cityForce(g.c),units:g.units}),0)+incoming.reduce((n,o)=>n+strategicPower(s,{...cityForce(staging),units:[o.unit]}),0);
    const targetPower=estimateStrategicEnemy(s,faction,target.id,cityDefense(s,target,faction));
@@ -504,25 +606,47 @@ function reviewPlan(s,faction){
    }
    continue;
   }
-   const groups=cities.map(c=>{const path=perceivedRoute(routeView,c.id,staging.id,faction),units=tempo.phase==='early'?pool.get(c.id).slice(0,10):pool.get(c.id),a={...cityForce(c),units};return {c,units,path,days:path?strategicTravelDays(s,a,path):Infinity};}).filter(x=>x.units.length&&x.days<=tempo.assemblyDays).sort((a,b)=>a.days-b.days||a.c.id.localeCompare(b.c.id));
+   const groups=cities.map(c=>{const path=perceivedRoute(routeView,c.id,staging.id,faction),units=tempo.phase==='early'?pairPool.get(c.id).slice(0,10):pairPool.get(c.id),a={...cityForce(c),units};return {c,units,path,days:path?strategicTravelDays(s,a,path):Infinity};}).filter(x=>x.units.length&&(x.days<=tempo.assemblyDays||tempo.phase==='joint'&&neighbors(routeView,x.c.id).includes(target.id)&&perceivedRoute(routeView,x.c.id,target.id,faction))).sort((a,b)=>a.days-b.days||a.c.id.localeCompare(b.c.id));
    const selected=[];let power=0,variants=0;const defense=estimateStrategicEnemy(s,faction,target.id,cityDefense(s,target,faction)),required=defense*temperamentAdvantage(Math.max(PLANNING.recovery.minimumAdvantage,style(s,faction).ratio-PLANNING.recovery.maximumAdvantageRelief),candidateTolerance);
-   const candidates=groups.flatMap(x=>x.units.map((u,index)=>({x,u,index}))).sort((a,b)=>a.x.days-b.x.days||a.index-b.index||a.u.id.localeCompare(b.u.id));
+   // An isolated source is a transfer candidate, not a joint army. It must
+   // not invalidate independent formations already present at other depots.
+   const combatGroups=tempo.phase==='joint'?groups.filter(g=>jointFormations([g],10,{compact:true})):groups;
+   const candidates=combatGroups.flatMap(x=>x.units.map((u,index)=>({x,u,index}))).sort((a,b)=>a.x.days-b.x.days||a.index-b.index||a.u.id.localeCompare(b.u.id));
    for(const {x,u} of candidates){let group=selected.find(g=>g.c.id===x.c.id);if(!group){group={...x,units:[]};selected.push(group);}group.units.push(u);power=selected.reduce((n,g)=>n+strategicCapabilities(s,{...cityForce(g.c),units:g.units}).field,0);
-   if(power<=required)continue;
+   // Even the final insufficient force needs a lawful information-value
+   // check: a stale margin can be the only obstacle. This never admits it.
+   if(power<=required&&selected.reduce((n,g)=>n+g.units.length,0)<candidates.length)continue;
    // Keep the complete middle/late force as an alternative. Three nearby
    // small variants must not hide the troops already gathered at the front.
    if(variants>=PLANNING.forceVariants&&!(tempo.phase!=='early'&&selected.flatMap(g=>g.units).length===candidates.length))continue;
    const units=selected.flatMap(x=>x.units),a={...cityForce(staging),units},cap=strategicCapabilities(s,a);
-   const coordinated=tempo.phase==='joint'&&units.length>tempo.columnUnits,columns=coordinated?operationColumns(s,faction,target,selected,tempo.columnUnits):null;
-   if(coordinated&&!columns)continue;
-   const assaultDays=columns?Math.max(...columns.map(c=>c.days)):strategicTravelDays(s,a,[target.id]),siegeDays=defense===0?0:Math.max(2,Math.ceil(gateDurability(target).hp/Math.max(1,cap.siege)));
+   if(tempo.phase!=='joint'&&units.length>10&&!jointFormations([{c:staging,units}],10))continue;
+   // Joint capability is an option, not an obligation to split a sufficient
+   // single depot's seven-to-ten-unit army into two incomplete columns.
+   const coordinated=tempo.phase==='joint'&&(units.length>CAMPAIGN.maxUnits||selected.length>1);let columns=coordinated?operationColumns(s,faction,target,selected,tempo.columnUnits):null;
+   if(coordinated&&!columns){const packed=operationColumns(s,faction,target,selected,10,units.length===candidates.length);if(packed?.length>1)columns=packed;}
+   if(coordinated&&!columns){assemblyPairs.push({staging,target});continue;}
+   if(!columns&&selected.some(g=>!Number.isFinite(g.days)||g.days>tempo.assemblyDays))continue;
+   let assaultDays=columns?Math.max(...columns.map(c=>c.days)):strategicTravelDays(s,a,[target.id]);const siegeDays=defense===0?0:Math.max(2,Math.ceil(gateDurability(target).hp/Math.max(1,cap.siege)));
    if(!Number.isFinite(assaultDays))continue;
-   const evaluation=evaluateOffensive(s,{faction,staging,target,groups:selected,assaultDays,siegeDays,columns,victoryAssessment,context});
+   let proposal={faction,staging,target,groups:selected,assaultDays,siegeDays,columns,victoryAssessment,context},evaluation=evaluateOffensive(s,proposal);
+   // Pack a shared road only when the ordinary six-unit columns cannot feed
+   // themselves and the legal ten-unit alternative demonstrably can.
+   if(columns&&!evaluation.supplyForecast.feasible){
+    const packed=operationColumns(s,faction,target,selected,10,units.length===candidates.length);
+    if(packed&&packed.length>1){const days=Math.max(...packed.map(c=>c.days)),alternative={...proposal,columns:packed,assaultDays:days},tested=evaluateOffensive(s,alternative);
+     if(tested.supplyForecast.feasible){columns=packed;assaultDays=days;proposal=alternative;evaluation=tested;}
+     else if(!informationMethods.some(m=>m.target===target.id)){const observation=usefulOperationObservation(s,alternative);if(observation)informationMethods.push(observation);}
+    }
+   }
+   if(!evaluation.accepted&&!informationMethods.some(m=>m.target===target.id)){
+    const observation=usefulOperationObservation(s,proposal);if(observation)informationMethods.push(observation);
+   }
    // Continue adding actual troops after a weak force fails admission. Such a
    // force must not exhaust the three genuinely viable composition alternatives.
    if(evaluation.reason==='预计攻守优势不足')continue;
    const supplyDays=evaluation.supplyDays,grain=armySupplyCapacity(units);
-   const routeSupply=columns?forecastCoordinatedSupply(s,columns.map(c=>({army:c.force,path:c.route,days:c.days*2+siegeDays+2,delay:assaultDays-c.days}))):forecastRouteSupply(s,a,perceivedRoute(routeView,staging.id,target.id,faction),supplyDays,{attack:true});
+   const routeSupply=evaluation.supplyForecast;
    if(!routeSupply.feasible||!columns&&selected.some(x=>!forecastRouteSupply(s,{...cityForce(x.c),units:x.units},x.path,x.days+2).feasible)){explain(staging,target,'carry','实际携粮与安全粮道不足以完成本次往返与攻城',units);assemblyPairs.push({staging,target});continue;}
    const origins=selected.map(x=>({cityId:x.c.id,officerIds:x.units.map(u=>u.id),grain:armySupplyCapacity(x.units)}));
    const waiting=waitingForStrategicScout(s,faction,target.id);
@@ -547,7 +671,12 @@ function reviewPlan(s,faction){
    // A real supply preparation may reserve officers before arrival. Daily
    // execution still requires actual stock and the shared departure checks.
    if(!evaluation.accepted||waiting||!funded&&!forecast.feasible)continue;
-   options.push({candidateId:['capture',staging.id,target.id,units.map(u=>u.id).join(',')].join(':'),staging,target,origins,columns,units:[...units],grain,score:evaluation.score,reason:evaluation.reason,military:evaluation.military,requirements,ready,executionDays:Math.ceil((forecast.feasible?Math.max(0,forecast.readyDay-s.campaign.day):0)+(columns?0:Math.max(0,...selected.map(g=>g.days)))+evaluation.supplyDays-assaultDays-2+PLANNING.tempo.executionBufferDays)});
+   options.push({candidateId:['capture',staging.id,target.id,units.map(u=>u.id).join(',')].join(':'),staging,target,origins,columns,units:[...units],grain,score:evaluation.score,reason:evaluation.reason,military:evaluation.military,payoff:evaluation.payoff,requirements,ready,executionDays:Math.ceil((forecast.feasible?Math.max(0,forecast.readyDay-s.campaign.day):0)+(columns?0:Math.max(0,...selected.map(g=>g.days)))+evaluation.supplyDays-assaultDays-2+PLANNING.tempo.executionBufferDays)});
+   // A single-column mission stops at its first fully funded, sufficient
+   // force. Additional soldiers increase cost and travel without filling a
+   // missing requirement. Joint campaigns still compare their full formation,
+   // and all geographical targets retain a candidate for payoff comparison.
+   if(ready&&tempo.phase!=='joint'&&ai.algorithms.selector==='faction-methods-v1'&&Object.entries(PLANNING.algorithms).every(([k,v])=>k==='selector'||ai.algorithms[k]===v))break;
   }
   if(variants===0){explain(staging,target,'force','当前合法可用编组不足以满足预计攻守优势',selected.flatMap(g=>g.units));assemblyPairs.push({staging,target});}
  }
@@ -560,28 +689,62 @@ function reviewPlan(s,faction){
   const seen=new Set();let prepared=0;
   for(const pair of assemblyPairs){const key=pair.staging.id+':'+pair.target.id;if(seen.has(key))continue;seen.add(key);
    if(!(commitment?.staging===pair.staging.id&&commitment.target===pair.target.id)&&goals.some(g=>g.staging===pair.staging.id&&g.targetCity===pair.target.id))continue;
-   const candidate=captureAssemblyCandidate(s,faction,pair,pool,cities,context,victoryAssessment,candidateTolerance);
+   const candidate=captureAssemblyCandidate(s,faction,pair,new Map([...pool].map(([id,units])=>[id,units.filter(u=>assemblyOfficerCompatible(s,faction,u,pair.staging,pair.target))])),cities,context,victoryAssessment,candidateTolerance)
+    ||mobilizationCandidate(s,faction,pair,cities,context,victoryAssessment);
    if(candidate){goals.push(candidate);if(++prepared>=PLANNING.forceVariants)break;}
   }
  }
  });
+ if(!options.some(o=>o.ready)&&informationMethods.length){
+  const method=informationMethods[0],before=new Set(s.campaign.scouting.tasks.map(t=>t.id));
+  planStrategicScouting(s,faction,{prospectiveTarget:method.target});
+  const assigned=s.campaign.scouting.tasks.find(t=>t.faction===faction&&t.targetCity===method.target);
+  if(assigned){rememberOperationObservation(s,method);recordFactionMethod(s,{...method,taskId:assigned.id,continued:before.has(assigned.id)});}
+ }
  policy.strategy=chooseFactionStrategy(context,factionStrategicProfile(s,faction),previous,goals,{activePlan:existing,force:previous.critical!==context.critical,algorithms:ai.algorithms,admission,temperament:policy.temperament});
  if(existing&&!canPlan)return;
  options.sort((a,b)=>b.score-a.score||a.target.id.localeCompare(b.target.id)||a.staging.id.localeCompare(b.staging.id));
  const goal=existing?chooseFactionStrategy(context,factionStrategicProfile(s,faction),{...previous,goal:null,trace:[]},goals.filter(g=>g.ready),{force:true,algorithms:ai.algorithms,admission,temperament:policy.temperament}).goal:policy.strategy.goal;
  if(!existing)adoptConcentration(s,faction,goals.find(g=>g.candidateId===goal?.candidateId));
- const best=goal?.kind==='capture'&&options.find(o=>o.candidateId===goal.candidateId&&(!existing||o.ready));if(!best){policy.stance=existing?'attack':'develop';return;}
+ const best=goal?.kind==='capture'&&options.find(o=>o.candidateId===goal.candidateId&&(!existing||o.ready));if(!best){
+  for(const m of frontlineMissions(s,faction))if(!goals.some(g=>g.staging===m.cityId&&g.targetCity===m.target&&g.forecast?.feasible)){
+   const c=town(s,m.cityId),enemy=cityObservation(s,m.target,faction);
+   const preparing=c?.owner===faction&&m.purpose==='preparation'&&cityPersonnel(s,c.id).some(o=>m.officerIds.includes(o.unit.id)&&!o.destination&&(!o.cityUnit||o.unit.wounded>0||o.unit.troops+o.unit.wounded<troopCapacity(o.unit)))&&c.manpower>0&&c.gold>strategicCityBudget(s,c).goldNeed&&!cityFoodRelief(s,c).urgent;
+   if(preparing)continue;
+   const duty=c?.owner===faction&&neighbors(s,c.id).includes(m.target)&&factionsHostile(s,faction,enemy?.owner)&&c.units.some(u=>m.officerIds.includes(u.id)&&u.troops>0)&&!cityFoodRelief(s,c).urgent;
+   if(duty)assignFrontlineDuty(s,m,{cityId:c.id,gold:strategicCityBudget(s,c).goldNeed,grain:Math.ceil(homeFood(s,c)),manpower:0,defensePower:Math.ceil(Math.max(0,reserveNeed(s,c)))});
+   else closeFrontlineMission(s,m,'cancelled','本旬没有可实施的准备或真实前线驻守职责，结束承诺');
+  }
+  policy.stance=existing?'attack':'develop';return;
+ }
+ const contract=captureMethod(s,faction,best);if(!contract)return;
+ recordFactionMethod(s,{kind:'capture',faction,staging:best.staging.id,target:best.target.id,reason:best.reason,payoff:best.payoff});
  if(!factionsHostile(s,faction,best.target.owner)){
   const error=declareDiplomaticWar(s,faction,best.target.owner,{approved:true});
   if(error){if(!existing){goal.status='cancelled';goal.reason=error;goal.requirements=[];policy.stance='develop';}return;}
  }
  const reserves=best.columns?{}:{[best.staging.id]:best.grain};for(const g of best.origins)if(best.columns||g.cityId!==best.staging.id)reserves[g.cityId]=(reserves[g.cityId]||0)+g.grain;
  const report=cityIntelligence(s,best.target.id,faction);
- const p={id:ai.nextPlanId++,faction,phase:'prepare',target:best.target.id,staging:best.staging.id,officerIds:best.units.map(u=>u.id),origins:best.origins,reserves,requirements:structuredClone(best.requirements),columnUnits:tempo.columnUnits,columns:best.columns?.map(({cityId,officerIds,route,days})=>({cityId,officerIds,route,days,departureDay:null}))||null,repairSince:null,military:structuredClone(best.military),createdDay:s.campaign.day,updatedDay:s.campaign.day,deadline:s.campaign.day+best.executionDays,reason:best.reason,tasks:captureTasks(s.campaign.day),intelligence:{day:report.day,visible:report.visible}};
- ai.plans.push(p);if(!existing){policy.strategy.goal.planId=p.id;policy.strategy.goal.status='running';}policy.stance='attack';record(s,`city-force:${p.staging}`,'stage',p.target,p.reason);
+ const p={id:ai.nextPlanId++,faction,phase:'prepare',target:best.target.id,staging:best.staging.id,officerIds:best.units.map(u=>u.id),origins:best.origins,reserves,requirements:structuredClone(best.requirements),columnUnits:best.columns?.some(c=>c.officerIds.length>tempo.columnUnits)?10:tempo.columnUnits,columns:best.columns?.map(({cityId,officerIds,route,days})=>({cityId,officerIds,route,days,departureDay:null}))||null,repairSince:null,military:structuredClone(best.military),createdDay:s.campaign.day,updatedDay:s.campaign.day,deadline:s.campaign.day+best.executionDays,reason:best.reason,tasks:captureTasks(s.campaign.day),intelligence:{day:report.day,visible:report.visible}};
+ handoffFrontlineToPlan(s,p);ai.plans.push(p);if(!existing){policy.strategy.goal.planId=p.id;policy.strategy.goal.status='running';}policy.stance='attack';record(s,`city-force:${p.staging}`,'stage',p.target,p.reason);
+}
+function assemblyOfficerCompatible(s,faction,u,staging,target){
+ if(frontlineCompatible(s,u.id,staging.id,target.id))return true;
+ const duties=frontlineMissions(s,faction).filter(m=>m.officerIds.includes(u.id));
+ if(!duties.length||duties.some(m=>m.target!==target.id))return false;
+ const view=intelligenceWorld(s,faction),distance=from=>{const path=perceivedRoute(view,from,target.id,faction);if(!path)return Infinity;return path.reduce((n,id,i)=>n+roadCost(view,i?path[i-1]:from,id),0);};
+ const forward=distance(staging.id);
+ // The purpose is shortening the real approach and supply corridor, while
+ // actual source defense, paid work and destination funding still admit it.
+ return Number.isFinite(forward)&&duties.every(m=>forward<distance(m.cityId));
 }
 function captureAssemblyCandidate(s,faction,{staging,target},pool,cities,context,victoryAssessment,tolerance){
  const commitment=activeConcentration(s,faction);
+ if(commitment?.purpose==='mobilize'&&commitment.staging===staging.id&&commitment.target===target.id){
+  const forecast=forecastStrategicPreparation(context,commitment.requirements,s.campaign.ai.algorithms);
+  return forecast.feasible?{candidateId:'capture-assembly:'+staging.id+':'+target.id,kind:'capture',targetFaction:target.owner,targetCity:target.id,staging:staging.id,ready:false,
+   score:commitment.score,reason:commitment.reason,requirements:structuredClone(commitment.requirements),forecast,victoryValue:victoryAssessment.targets[target.id]||emptyVictoryValue(),concentration:{full:false,intendedIds:commitment.intendedIds,purpose:'mobilize'}}:null;
+ }
  if(commitment&&commitment.staging===staging.id&&commitment.target===target.id){
   const local=pool.get(staging.id),incoming=commitment.intendedIds.map(id=>residentOfficer(s,id)||s.campaign.idle.find(o=>o.unit.id===id&&o.destination===staging.id&&!o.journey?.blocked)).filter(o=>o?.faction===faction).map(o=>o.unit);
   const units=[...new Map([...local,...incoming].map(u=>[u.id,u])).values()],force=plannedCombatForce(s,staging,units),path=perceivedRoute(s,staging.id,target.id,faction);
@@ -604,7 +767,7 @@ function captureAssemblyCandidate(s,faction,{staging,target},pool,cities,context
  const queued=s.campaign.domestic.orders.filter(q=>q.faction===faction&&q.kind==='transfer'&&q.target===staging.id).flatMap(q=>town(s,q.cityId)?.units.filter(u=>q.officerIds.includes(u.id))||[]);
  let prospects=[...local,...incoming,...queued];const ids=new Set(prospects.map(u=>u.id));
  const donors=cities.filter(c=>c.id!==staging.id).flatMap(c=>{const units=pool.get(c.id).filter(u=>u.id!==c.governor&&!ids.has(u.id)),route=units.length&&safeStrategicTransportRoute(view,c.id,staging.id,faction);if(!route)return [];
-  return units.map(u=>({u,days:personnelRouteDays(view,{unit:u,location:c.id,destination:staging.id,cargo:{gold:0,grain:0,manpower:0}},route)})).filter(x=>x.days+(assignmentFor(s,x.u.id)?.action?.remaining||0)<=PLANNING.preparationTurns*10);
+  return units.map(u=>({u,days:personnelRouteDays(view,{unit:u,location:c.id,destination:staging.id,cargo:{gold:0,grain:0,manpower:0}},route)})).filter(x=>Number.isFinite(x.days)&&c.grain>=homeFood(s,c)+foodUse([x.u])*(x.days+(assignmentFor(s,x.u.id)?.action?.remaining||0)));
  }).sort((a,b)=>a.days-b.days||a.u.id.localeCompare(b.u.id));
  const sample=plannedCombatForce(s,staging,prospects.length?prospects:donors.slice(0,1).map(d=>d.u)),approachDays=strategicTravelDays(s,sample,path);
  if(!Number.isFinite(approachDays))return null;
@@ -634,13 +797,41 @@ function captureAssemblyCandidate(s,faction,{staging,target},pool,cities,context
  // actual attack admission is deferred until arrival and the next review.
  if(full&&!forecastRouteSupply(s,force,path,days*2+siegeDays+2,{attack:true}).feasible)return null;
  const arrivals=prospects.filter(u=>!staging.units.some(v=>v.id===u.id)),budget=strategicCityBudget(s,staging);
- const requirements=[{cityId:staging.id,gold:budget.goldNeed,grain:Math.ceil(homeFood(s,staging)+foodUse(arrivals)*PLANNING.preparationTurns*10+armySupplyCapacity(prospects)),manpower:0,
+ const preparationDays=Math.max(PLANNING.preparationTurns*10,...donors.filter(d=>intendedIds.includes(d.u.id)).map(d=>d.days+(assignmentFor(s,d.u.id)?.action?.remaining||0)));
+ const requirements=[{cityId:staging.id,gold:budget.goldNeed,grain:Math.ceil(homeFood(s,staging)+foodUse(arrivals)*preparationDays+armySupplyCapacity(prospects)),manpower:0,
   defensePower:Math.ceil(strategicPower(s,cityForce({...staging,units:[...staging.units,...arrivals]})))}];
  const forecast=forecastStrategicPreparation(context,requirements,s.campaign.ai.algorithms);if(!forecast.feasible)return null;
  const victoryValue=victoryAssessment.targets[target.id]||emptyVictoryValue();
  return {candidateId:'capture-assembly:'+staging.id+':'+target.id,kind:'capture',targetFaction:target.owner,targetCity:target.id,staging:staging.id,ready:false,
   score:OFFENSIVE.objectiveValues.city+victoryValue.score-PLANNING.preparationPenalty-days*OFFENSIVE.dayCost-(full?0:PLANNING.preparationPenalty*(1-Math.min(1,strength(prospects)/Math.max(1,required)))),
   reason:full?'先经安全道路将真实现役集中到前沿，实际到达后重新核对出征、守备与补给':'先完成一批有实际收益的前沿集结，减少兵力缺口；实际到达后重评，不提前开战',requirements,forecast,victoryValue,concentration:{full,intendedIds}};
+}
+function mobilizationCandidate(s,faction,{staging,target},cities,context,victoryAssessment){
+ if(activeConcentration(s,faction)||besieged(s,staging.id)||cityFoodRelief(s,staging).urgent)return null;
+ const count=cityPersonnel(s,staging.id).filter(o=>o.unit.troops>0||frontlineMissions(s,faction).some(m=>m.officerIds.includes(o.unit.id))).length;
+ // A small realm may have enough real people and stores for two independent
+ // armies. Territory count cannot cap a stalled front at one army forever.
+ // Each additional officer still needs a safe paid move, local formation and
+ // funded replenishment; the final assault keeps its full admission checks.
+ if(count>=CAMPAIGN.maxUnits*2)return null;
+ const view=intelligenceWorld(s,faction),budget=strategicCityBudget(s,staging);
+ const donors=cities.filter(c=>c.id!==staging.id&&rearOperatingSurplus(s,c)).sort((a,b)=>Math.hypot(a.x-staging.x,a.y-staging.y)-Math.hypot(b.x-staging.x,b.y-staging.y)||a.id.localeCompare(b.id));
+ for(const from of donors){
+  const route=safeStrategicTransportRoute(view,from.id,staging.id,faction);if(!route)continue;
+  const eligible=cityPersonnel(s,from.id).filter(o=>!o.army&&!o.destination&&!o.unit.troops&&!o.unit.wounded&&!o.unit.mission&&!o.unit.scouting&&!busy(s,o.unit.id)&&canTrain(staging,o.unit.type)&&mayReleaseRearWorker(s,from,o.unit.id,{afterWork:true,operationalDemand:true})&&!economicStaffingError(s,from,[o.unit.id]));
+  for(const {unit:u}of rankOfficerCandidates(s,eligible.map(o=>o.unit),{task:'expedition',city:from.id})){
+   const days=personnelRouteDays(view,{unit:u,location:from.id,destination:staging.id,cargo:{gold:0,grain:0,manpower:0}},route)+(assignmentFor(s,u.id)?.action?.remaining||0);
+   if(!Number.isFinite(days))continue;
+   const men=troopCapacity(u),requirements=[{cityId:staging.id,gold:budget.goldNeed+trainingCost(u,men,staging),grain:Math.ceil(homeFood(s,staging)+men/100*Math.max(days,PLANNING.preparationTurns*10)+armySupplyCapacity([{...u,troops:men}])),manpower:reservedMen(staging)+men,defensePower:Math.ceil(strategicPower(s,cityForce(staging)))+1}];
+   if(!['gold','grain','manpower'].every(k=>staging[k]>=requirements[0][k]))continue;
+   const forecast=forecastStrategicPreparation(context,requirements,s.campaign.ai.algorithms);if(!forecast.feasible)continue;
+   const victoryValue=victoryAssessment.targets[target.id]||emptyVictoryValue();
+   return {candidateId:'capture-assembly:'+staging.id+':'+target.id,kind:'capture',targetFaction:target.owner,targetCity:target.id,staging:staging.id,ready:false,
+    score:OFFENSIVE.objectiveValues.city+victoryValue.score-PLANNING.preparationPenalty-days*OFFENSIVE.dayCost,reason:'前线有真实编制与整补预算，从安全后方调入适任人员；到达后实际付费成军',
+    requirements,forecast,victoryValue,concentration:{full:false,intendedIds:[u.id],purpose:'mobilize'}};
+  }
+ }
+ return null;
 }
 function releaseSourceCarry(s,p,c){
  delete p.reserves[c.id];const goal=s.campaign.ai.factions[p.faction].strategy.goal;
@@ -657,15 +848,26 @@ function prepareGarrison(s,faction){
 function prepareCityGarrison(s,faction,r,concentration=null){
  const c=town(s,r.cityId);if(!c||c.owner!==faction||besieged(s,c.id))return;
  if(concentration&&(!concentration.full&&concentration.officerIds.length>=PLANNING.concentration.partialUnits||c.grain<r.grain||c.gold<r.gold))return;
+ if(concentration?.purpose==='mobilize'){
+  for(const id of concentration.intendedIds.filter(id=>!concentration.officerIds.includes(id))){
+   const o=residentOfficer(s,id),from=o&&town(s,o.location);if(!o||o.faction!==faction||!from||o.army||o.destination||!mayReleaseRearWorker(s,from,id,{afterWork:true,operationalDemand:true})||economicStaffingError(s,from,[id]))continue;
+   const path=safeStrategicTransportRoute(s,from.id,c.id,faction);if(!path)continue;
+   const result=withFactionTask(s,concentration,()=>requestFactionOrder(s,faction,{kind:'transfer',cityId:from.id,officerIds:[id],target:c.id,cargo:{gold:0,grain:0,manpower:0},route:path,safeOnly:true},assignmentFor(s,id)?.action?'after':'now'));
+   if(!result.error){concentration.officerIds.push(id);concentration.lastProgressDay=s.campaign.day;record(s,'city-force:'+from.id,'transfer',c.id,'按照前线成军需求调任实际人员，保留后方基本岗位及已付事务');return true;}
+  }
+  return false;
+ }
  const queued=s.campaign.domestic.orders.filter(q=>q.faction===faction&&q.kind==='transfer'&&q.target===c.id).flatMap(q=>town(s,q.cityId)?.units.filter(u=>q.officerIds.includes(u.id))||[]);
  const incoming=s.campaign.idle.filter(o=>o.faction===faction&&o.destination===c.id&&!o.journey?.blocked).map(o=>o.unit);
  if(strategicPower(s,cityForce({...c,units:[...c.units,...incoming,...queued]}))>=Math.max(r.defensePower,reserveNeed(s,c)))return;
- const view=intelligenceWorld(s,faction),donors=s.cities.filter(x=>x.owner===faction&&x.id!==c.id&&!besieged(s,x.id)).map(from=>({from,units:availableUnits(s,from).filter(recovered).filter(u=>u.id!==from.governor),path:safeStrategicTransportRoute(view,from.id,c.id,faction)})).filter(x=>x.units.length&&x.path).sort((a,b)=>a.path.length-b.path.length||a.from.id.localeCompare(b.from.id));
- for(const {from,units,path}of donors){const u=units.find(u=>(!concentration||concentration.intendedIds.includes(u.id)));if(!u)continue;const days=personnelRouteDays(view,{unit:u,location:from.id,destination:c.id,cargo:{gold:0,grain:0,manpower:0}},path);if(days>PLANNING.preparationTurns*10)continue;
+ const view=intelligenceWorld(s,faction),donors=s.cities.filter(x=>x.owner===faction&&x.id!==c.id&&!besieged(s,x.id)).map(from=>({from,units:availableUnits(s,from,{ignoreConcentration:!!concentration}).filter(recovered).filter(u=>u.id!==from.governor),path:safeStrategicTransportRoute(view,from.id,c.id,faction)})).filter(x=>x.units.length&&x.path).sort((a,b)=>a.path.length-b.path.length||a.from.id.localeCompare(b.from.id));
+ for(const {from,units,path}of donors){const u=units.find(u=>(!concentration||concentration.intendedIds.includes(u.id)));if(!u)continue;const days=personnelRouteDays(view,{unit:u,location:from.id,destination:c.id,cargo:{gold:0,grain:0,manpower:0}},path);if(!Number.isFinite(days))continue;
   if(concentration){const extra=[...incoming,...queued,u],daysLeft=days+(assignmentFor(s,u.id)?.action?.remaining||0);if(c.grain<homeFood(s,c)+foodUse(extra)*daysLeft+armySupplyCapacity(extra))continue;}
-  const timing=expeditionTiming(s,from.id,[u.id],{travelDays:days});if(timing.error||timing.choice==='after'&&(assignmentFor(s,u.id)?.action?.remaining||0)+days>PLANNING.preparationTurns*10)continue;
-  const result=requestFactionOrder(s,faction,{kind:'transfer',cityId:from.id,officerIds:[u.id],target:c.id,cargo:{gold:0,grain:0,manpower:0},route:path,safeOnly:true},timing.choice);
-  if(!result.error){if(concentration){concentration.officerIds.push(u.id);concentration.lastProgressDay=s.campaign.day;}record(s,'city-force:'+from.id,'transfer',c.id,'按主攻准备调运现役部队补齐集结地守备，实际到达后重评');return true;}
+  const timing=expeditionTiming(s,from.id,[u.id],{travelDays:days});if(timing.error)continue;
+  const transfer=()=>requestFactionOrder(s,faction,{kind:'transfer',cityId:from.id,officerIds:[u.id],target:c.id,cargo:{gold:0,grain:0,manpower:0},route:path,safeOnly:true},timing.choice);
+  if(concentration&&!assemblyOfficerCompatible(s,faction,u,c,town(s,concentration.target)))continue;
+  const result=concentration?transferFrontlineToConcentration(s,concentration,u.id,transfer):transfer();
+  if(!result.error){if(concentration){if(!concentration.officerIds.includes(u.id))concentration.officerIds.push(u.id);concentration.lastProgressDay=s.campaign.day;}record(s,'city-force:'+from.id,'transfer',c.id,'按主攻准备调运现役部队补齐集结地守备，实际到达后重评');return true;}
  }
 }
 function waitForPlanRepair(s,p,reason){
@@ -749,7 +951,7 @@ function progressCoordinatedPlan(s,p,actors,staging,target){
   if(!path||JSON.stringify(path)!==JSON.stringify(column.route)||column.departureDay+strategicColumnTravelDays(s,force,path)>p.updatedDay+Math.max(...p.columns.map(c=>c.days))+PLANNING.tempo.contactWindowDays){cancelPlan(s,p,'协同路线或速度变化，无法在约定窗口接敌');return;}
   const timing=expeditionTiming(s,c.id,column.officerIds);if(timing.error||timing.choice==='after'){cancelPlan(s,p,'协同出发条件变化，无法按约接敌');return;}
   const grainBefore=c.grain;
-  if(c.grain<homeFood(s,c)+plannedGrain(s,c.id)||!commandUnits(s,c,units,p.target,'attack','旬初保存各军团的接敌时间、路线、人员与任命',{notBeforeDay:column.departureDay})){cancelPlan(s,p,'协同出发的实际粮草或共同军令复核失败');return;}
+  if(c.grain<homeFood(s,c)+plannedGrain(s,c.id)||!commandUnits(s,c,units,p.target,'attack','旬初保存各军团的接敌时间、路线、人员与任命',{notBeforeDay:column.departureDay,coordinatedOfficerIds:p.officerIds})){cancelPlan(s,p,'协同出发的实际粮草或共同军令复核失败');return;}
   const remaining=c.units.filter(u=>p.officerIds.includes(u.id));if(remaining.length)p.reserves[c.id]=armySupplyCapacity(remaining);else delete p.reserves[c.id];
   const r=p.requirements.find(r=>r.cityId===c.id);if(r)r.grain=Math.ceil(Math.max(homeFood(s,c)+(p.reserves[c.id]||0),r.grain-(grainBefore-c.grain)));
  }
@@ -799,7 +1001,8 @@ function continueOperation(s,p,actors,staging,target){
  if(!actors.some(o=>o.army&&(o.army.route.length||o.army.travel||fighting(s,o.army.id)))){cancelPlan(s,p,'进攻部队已撤回，结束本次计划');return false;}
  return true;
 }
-function progressPlan(s,p){
+function progressPlan(s,p){return withFactionTask(s,p,()=>executeCapturePlan(s,p));}
+function executeCapturePlan(s,p){
  const day=s.campaign.day,target=observedCity(s,town(s,p.target),p.faction),staging=town(s,p.staging);
  if(p.phase==='consolidate'&&target.owner!==p.faction){cancelPlan(s,p,'原占领城市失守，结束当地巩固');return;}
  if(target.owner!==p.faction&&!factionsHostile(s,p.faction,target.owner)){cancelPlan(s,p,'外交约定已改变敌对关系，撤销未执行的进攻');return;}
@@ -842,12 +1045,16 @@ function progressPlan(s,p){
  const cap=strategicCapabilities(s,{...cityForce(staging),units}),defense=cityDefense(s,target,p.faction);
  const assaultDays=strategicTravelDays(s,{...cityForce(staging),units},[target.id]);
  if(!Number.isFinite(assaultDays)){cancelPlan(s,p,'当前军团缺少船只或路线已无法通行');return;}
- const assessment=evaluateOffensive(s,{faction:p.faction,staging,target,groups:[{c:staging,units,days:0}],assaultDays,siegeDays:defense===0?0:Math.max(2,Math.ceil(gateDurability(target).hp/Math.max(1,cap.siege))),temperament:p.military.temperament});
+ const formations=units.length<=10?[{c:staging,units}]:jointFormations([{c:staging,units}],10);
+ if(!formations){cancelPlan(s,p,'实际到齐人员不足以组成完整协同军团，重新集结');return;}
+ const columns=formations.length>1?operationColumns(s,p.faction,target,[{c:staging,units}],10):null;
+ if(formations.length>1&&!columns){cancelPlan(s,p,'完整军团无法沿实际道路出征');return;}
+ const assessment=evaluateOffensive(s,{faction:p.faction,staging,target,groups:[{c:staging,units,days:0}],columns,assaultDays:columns?Math.max(...columns.map(c=>c.days)):assaultDays,siegeDays:defense===0?0:Math.max(2,Math.ceil(gateDurability(target).hp/Math.max(1,cap.siege))),temperament:p.military.temperament});
  p.military=structuredClone(assessment.military);
  if(!assessment.accepted){handlePreparationFailure(s,p,assessment);return;}
- if(s.armies.length+Math.ceil(units.length/p.columnUnits)>CAMPAIGN.maxArmies)return;
- for(let i=0;i<units.length;i+=p.columnUnits){const ids=units.slice(i,i+p.columnUnits).map(u=>u.id);if(expeditionError(s,{cityId:staging.id,officerIds:ids,leader:ids[0],advisor:ids[0],target:p.target,policy:'auto'},{scheduled:true,faction:p.faction}))return;}
- let sent=0;for(let i=0;i<units.length;i+=p.columnUnits)if(commandUnits(s,staging,units.slice(i,i+p.columnUnits),p.target,'attack',assessment.reason))sent++;
+ if(s.armies.length+formations.length>CAMPAIGN.maxArmies)return;
+ for(const f of formations){const ids=f.units.map(u=>u.id);if(expeditionError(s,{cityId:staging.id,officerIds:ids,leader:ids[0],advisor:ids[0],target:p.target,policy:'auto'},{scheduled:true,faction:p.faction}))return;}
+ let sent=0;for(const f of formations)if(commandUnits(s,staging,f.units,p.target,'attack',assessment.reason,{coordinatedOfficerIds:p.officerIds}))sent++;
  if(sent){p.phase='attack';p.updatedDay=day;p.reserves={};p.repairSince=null;p.reason=assessment.reason;
   const b=strategicCityBudget(s,staging);
   const own=recoveryCityFacts(s,staging,units,b,strategicContext(s,p.faction)),returnDays=assessment.supplyDays;
@@ -947,46 +1154,55 @@ function logistics(s,faction){
   }
  }
 }
-export function planStrategicPersonnel(s,faction){
+function policy_planStrategicPersonnel(s,faction){
  if(!isAITurnStart(s))return;
  const cities=s.cities.filter(c=>c.owner===faction&&!besieged(s,c.id));
  const roles=new Map(cities.map(c=>[c.id,personnelCityProfile(s,c).role]));
  const residents=c=>cityPersonnel(s,c.id).filter(o=>!o.unit.scouting&&!busy(s,o.unit.id));
- // Fill real vacancies in small and large cities, including cities that already
- // have three residents. Headcount alone is not evidence of useful employment.
- for(const c of [...cities].sort((a,b)=>residents(a).length-residents(b).length||a.id.localeCompare(b.id))){
+ const needs=new Set(frontlineDemand(s,faction).map(c=>c.id));
+ for(const c of [...cities].sort((a,b)=>Number(needs.has(b.id))-Number(needs.has(a.id))||residents(a).length-residents(b).length||a.id.localeCompare(b.id))){
   const personnelArrival=o=>!o.convoyCycle&&!['gold','grain','manpower'].some(k=>o.cargo?.[k]>0);
   if(s.campaign.ai.staffing.some(p=>p.faction===faction&&p.cityId===c.id)||s.campaign.idle.some(o=>o.faction===faction&&o.destination===c.id&&personnelArrival(o))||s.campaign.domestic.orders.some(q=>q.faction===faction&&q.kind==='transfer'&&q.target===c.id&&personnelArrival(q)))continue;
   const slots=new Map(Object.keys(DIRECTIONS).map(d=>[d,domesticStaffing(s,c.id,d)]));
   const directions=Object.keys(DIRECTIONS).filter(d=>slots.get(d).remaining&&slots.get(d).used<(['agriculture','commerce','military'].includes(d)?ECONOMY_RULES.ai.economicWorkersPerDirection:1));if(!directions.length)continue;
-  const foodPriority=cityNeedsAgriculture(s,c),cashPriority=cityNeedsCommerce(s,c);
-  const candidates=[];
-  for(const from of cities.filter(x=>x.id!==c.id&&residents(x).length>residents(c).length+1)){
-   const path=safeStrategicTransportRoute(s,from.id,c.id,faction);if(!path)continue;
-   const fromProfile=personnelCityProfile(s,from);
-   for(const o of residents(from).filter(o=>!o.army&&!o.unit.wounded&&o.unit.id!==from.governor&&!economicStaffingError(s,from,[o.unit.id]))){
-    if(staffingDepartureError(s,from,[o.unit.id],fromProfile))continue;
-    const current=assignmentFor(s,o.unit.id);
-    if(current&&(current.action||current.proposal||rankOfficerCandidates(s,[o.unit],{task:'domestic',city:from.id,direction:current.direction})[0].recommendation.available))continue;
-    const days=personnelRouteDays(s,{unit:o.unit,location:from.id,destination:c.id,cargo:{gold:0,grain:0,manpower:0}},path);if(days>PLANNING.preparationTurns*10)continue;
-    if(o.unit.troops+o.unit.wounded>0&&(c.grain<homeFood(s,c)+foodUse([o.unit])*OFFENSIVE.homeFoodDays||strategicDepartureError(s,{faction,cityId:from.id,target:c.id,officerIds:[o.unit.id]})))continue;
-    const preview={...s,cities:s.cities.map(x=>({...x,units:x.units.filter(u=>u.id!==o.unit.id)})),campaign:{...s.campaign,idle:[...s.campaign.idle.filter(x=>x.unit.id!==o.unit.id),{unit:o.unit,faction,location:c.id}]}};
-    const ranked=withPlanningQueries(preview,()=>directions.flatMap(direction=>rankOfficerCandidates(preview,[o.unit],{task:'domestic',city:c.id,direction}).filter(x=>x.recommendation.available).map(x=>({...x,direction,used:slots.get(direction).used,urgent:direction==='agriculture'&&foodPriority||direction==='commerce'&&cashPriority,score:x.recommendation.score*domesticIntentWeight(s,c.id,direction)})))).sort((a,b)=>Number(b.urgent)-Number(a.urgent)||a.used-b.used||b.score-a.score||a.direction.localeCompare(b.direction));
-    const best=ranked[0];if(!best)continue;
-    // Optional rear vacancies must not dismantle the real army just gathered
-    // at a border. A measured economic emergency can still take precedence.
-    if(o.unit.troops>0&&fromProfile.role==='front'&&roles.get(c.id)==='rear'){
-     const shortages=strategicCityBudget(s,c).budget.fundingShortages;
-     if(!(best.direction==='agriculture'&&shortages.grain>0||best.direction==='commerce'&&shortages.gold>0))continue;
+  // Match the first lawful vacancy/source/officer. Expensive hypothetical work
+  // is checked only for the current match, never for every officer/job pair.
+  const best=withPlanningQueries(s,()=>{
+   const foodPriority=cityNeedsAgriculture(s,c),cashPriority=cityNeedsCommerce(s,c);
+   directions.sort((a,b)=>(foodPriority?Number(b==='agriculture')-Number(a==='agriculture'):0)||(cashPriority?Number(b==='commerce')-Number(a==='commerce'):0)||(needs.has(c.id)?Number(b==='military')-Number(a==='military'):0)||slots.get(a).used-slots.get(b).used);
+   const donors=cities.filter(x=>x.id!==c.id&&(needs.has(c.id)&&rearOperatingSurplus(s,x)||residents(x).length>residents(c).length+1)).sort((a,b)=>
+    (roles.get(c.id)==='rear'?Number(roles.get(a.id)==='front')-Number(roles.get(b.id)==='front'):0)||Math.hypot(a.x-c.x,a.y-c.y)-Math.hypot(b.x-c.x,b.y-c.y)||a.id.localeCompare(b.id));
+   const paths=new Map();
+   for(const direction of directions)for(const from of donors){
+    if(!paths.has(from.id))paths.set(from.id,safeStrategicTransportRoute(s,from.id,c.id,faction));
+    const path=paths.get(from.id);if(!path)continue;
+    const fromProfile=personnelCityProfile(s,from),people=residents(from).filter(o=>!o.army&&!o.unit.wounded&&o.unit.id!==from.governor);
+    const ordered=orderedDomesticRules(people.map(o=>o.unit),direction,(u,score)=>personnelRoleScore(s,u,from,score,roles.get(from.id),roles.get(c.id)));
+    for(const {unit:u,score}of ordered){
+     if(score<=0)continue;
+     if(economicStaffingError(s,from,[u.id])||staffingDepartureError(s,from,[u.id],fromProfile))continue;
+     const current=assignmentFor(s,u.id);
+     if(current&&(current.action||current.proposal||rankOfficerCandidates(s,[u],{task:'domestic',city:from.id,direction:current.direction})[0].recommendation.available)&&!(needs.has(c.id)&&mayReleaseRearWorker(s,from,u.id,{afterWork:true})))continue;
+     const days=personnelRouteDays(s,{unit:u,location:from.id,destination:c.id,cargo:{gold:0,grain:0,manpower:0}},path);if(days+(current?.action?.remaining||0)>PLANNING.preparationTurns*10||score-days*5<=0)continue;
+     if(u.troops+u.wounded>0&&(c.grain<homeFood(s,c)+foodUse([u])*OFFENSIVE.homeFoodDays||strategicDepartureError(s,{faction,cityId:from.id,target:c.id,officerIds:[u.id]})))continue;
+     const preview={...s,cities:s.cities.map(x=>({...x,units:x.units.filter(v=>v.id!==u.id)})),campaign:{...s.campaign,idle:[...s.campaign.idle.filter(x=>x.unit.id!==u.id),{unit:u,faction,location:c.id}]}};
+     inheritMetropolitanTopology(s,preview);inheritRoadQueries(s,preview);
+     const match=rankOfficerCandidates(preview,[u],{task:'domestic',city:c.id,direction})[0];if(!match?.recommendation.available)continue;
+     if(u.troops>0&&fromProfile.role==='front'&&roles.get(c.id)==='rear'){
+      const shortages=strategicCityBudget(s,c).budget.fundingShortages;
+      if(!(direction==='agriculture'&&shortages.grain>0||direction==='commerce'&&shortages.gold>0))continue;
+     }
+     return {from,u,path,direction};
     }
-    candidates.push({from,u:o.unit,path,direction:best.direction,urgent:best.urgent,used:best.used,score:personnelRoleScore(s,o.unit,from,best.score,roles.get(from.id),roles.get(c.id))-days*5});
    }
-  }
-  candidates.sort((a,b)=>Number(b.urgent)-Number(a.urgent)||a.used-b.used||b.score-a.score||a.u.id.localeCompare(b.u.id));const best=candidates.find(x=>x.score>0);if(!best)continue;
+   return null;
+  });
+  if(!best)continue;
   const result=requestFactionOrder(s,faction,{kind:'transfer',cityId:best.from.id,officerIds:[best.u.id],target:c.id,cargo:{gold:0,grain:0,manpower:0},route:best.path,safeOnly:true},'after');
   if(!result.error){s.campaign.ai.staffing.push({faction,officerId:best.u.id,cityId:c.id,direction:best.direction,createdDay:s.campaign.day,arrivedDay:null,phase:'travel'});record(s,`city-force:${best.from.id}`,'transfer',c.id,`调任${best.u.name}补充当地${DIRECTIONS[best.direction]}人手，${roles.get(c.id)==='front'?'兼顾前线军事适性与留守':'优先后方内政适性'}，实际到达后委任`);}
  }
 }
+
 function relieveCityFood(s,faction){
  for(const c of s.cities.filter(c=>c.owner===faction&&!besieged(s,c.id))){
   const {urgent,toHarvest,inbound}=cityFoodRelief(s,c);if(!urgent)continue;
@@ -1009,25 +1225,50 @@ function quietMilitaryTurns(s,faction){
  }
  return Math.max(0,s.turn-lastTurn);
 }
-export function planStrategicAI(s){
- if(!isAITurnStart(s)||s.campaign.ai.lastPlanDay===s.campaign.day)return;
- const concentrationChecks={power:c=>strategicPower(s,cityForce(c)),unsafe:(p,c)=>{const owner=cityObservation(s,p.target,p.faction)?.owner;return besieged(s,c.id)||observeStrategicThreat(s,c).power>cityDefense(s,c)||owner===p.faction||!perceivedRoute(s,c.id,p.target,p.faction)||diplomaticProtection(s,p.faction,owner)||diplomaticProtection(s,owner,p.faction);}};
+function concentrationChecksFor(s){
+ return {power:c=>strategicPower(s,cityForce(c)),unsafe:(p,c)=>{const owner=cityObservation(s,p.target,p.faction)?.owner;return besieged(s,c.id)||observeStrategicThreat(s,c).power>cityDefense(s,c)||owner===p.faction||!perceivedRoute(s,c.id,p.target,p.faction)||diplomaticProtection(s,p.faction,owner)||diplomaticProtection(s,owner,p.faction);}};
+}
+function prepareStrategicTurn(s){
+ const coordination=s.campaign.ai.coordination;if(coordination.reviewDay===s.campaign.day)return;
+ coordination.reviewDay=s.campaign.day;
+ runDecisionModule('reconcileFactionTasks',[s],()=>{
+ reconcileDiplomaticOrigins(s);
+ const concentrationChecks=concentrationChecksFor(s);
+ reviewFrontlineMissions(s,{unsafe:(m,c)=>concentrationChecks.unsafe({...m,staging:m.cityId},c)||cityFoodRelief(s,c).urgent,canPrepare:(m,c)=>{
+  const own=cityPersonnel(s,c.id).filter(o=>m.officerIds.includes(o.unit.id)).map(o=>o.unit);
+  // A funded resident force, current recovery/recruitment or real incoming
+  // support is a concrete preparation method; a date alone is not one.
+  return own.length>0&&(m.purpose==='garrison'&&own.some(u=>u.troops>0)||c.manpower>0&&c.gold>strategicCityBudget(s,c).goldNeed||own.some(u=>u.wounded>0)||s.campaign.idle.some(o=>o.faction===m.faction&&o.destination===c.id)||Math.ceil(strategicPower(s,cityForce(c)))>=m.requirements.defensePower);
+ }});
  progressConcentrations(s,concentrationChecks);
  progressStrategicStaffing(s);
  manageArmyManagementAI(s);
- const ai=s.campaign.ai;ai.lastPlanDay=s.campaign.day;
  consolidateCityArmies(s);emergencyOrders(s);
+ });
+}
+function policy_planStrategicAI(s){
+ if(!isAITurnStart(s)||s.campaign.ai.lastPlanDay===s.campaign.day)return;
+ prepareStrategicTurn(s);const concentrationChecks=concentrationChecksFor(s);
+ const ai=s.campaign.ai;ai.lastPlanDay=s.campaign.day;
  for(const faction of Object.keys(ai.factions)){
+  runDecisionModule('observeOperationalNeeds',[s,faction],()=>{
   planStrategicScouting(s,faction);
+  });
   const policy=ai.factions[faction],review=policy.lastReviewTurn!==s.turn;policy.style=factionStrategicProfile(s,faction).style;
+  runDecisionModule('defendAndFulfilCommitments',[s,faction],()=>{
   if(review)reviewMacroDefense(s,faction,{availableUnits,commandUnits,cancelPlan,record});
   refreshCityIntents(s,faction);
   planStrategicSupport(s,faction,{availableUnits,commandUnits,retreatArmy,cancelPlan});
   for(const p of activePlans(s).filter(p=>p.faction===faction))progressPlan(s,p);
+  });
   // All strategic policies run once at the ten-day planning boundary.
   // Daily simulation only executes the orders saved during this review.
-  if(review){progressConcentrations(s,{...concentrationChecks,reviewFaction:faction});policy.lastReviewTurn=s.turn;drawFactionTemperament(ai,faction,s.turn,factionStrategicProfile(s,faction),quietMilitaryTurns(s,faction));reinforcePreparingPlans(s,faction);createPlan(s,faction);}prepareGarrison(s,faction);
-  refreshCityIntents(s,faction);logistics(s,faction);relieveCityFood(s,faction);refreshCityIntents(s,faction);if(review){planBanditExpedition(s,faction);planStrategicPersonnel(s,faction);}
+  runDecisionModule('chooseOperationalMethod',[s,faction],()=>{
+   if(review){progressConcentrations(s,{...concentrationChecks,reviewFaction:faction});policy.lastReviewTurn=s.turn;drawFactionTemperament(ai,faction,s.turn,factionStrategicProfile(s,faction),quietMilitaryTurns(s,faction));reinforcePreparingPlans(s,faction);createPlan(s,faction);}prepareGarrison(s,faction);
+  });
+  runDecisionModule('sustainAndStaffOperations',[s,faction],()=>{
+   refreshCityIntents(s,faction);logistics(s,faction);relieveCityFood(s,faction);refreshCityIntents(s,faction);if(review){planStrategicPersonnel(s,faction);planBanditExpedition(s,faction);}
+  });
   for(const p of activePlans(s).filter(p=>p.faction===faction))progressPlan(s,p);
   for(const p of ai.plans.filter(p=>p.faction===faction))updateCaptureTasks(s,p,{waitingForScout:waitingForStrategicScout,homeFood});
   const goal=policy.strategy.goal,p=ai.plans.find(p=>p.id===goal?.planId);
@@ -1044,11 +1285,12 @@ export function validateStrategicAI(s){
  strategicAlgorithmProfile(ai.algorithms);
  fail(int(ai.temperamentSeed,0xffffffff)&&int(ai.lastPlanDay,s.campaign.day)&&int(ai.lastEconomyTurn,s.turn)&&Array.isArray(ai.decisions)&&ai.decisions.length<=80);
  fail(ai.factions&&Object.keys(ai.factions).length===factions.length&&factions.every(f=>{const p=ai.factions[f];return p&&Object.hasOwn(STYLES,p.style)&&int(p.lastReviewTurn,s.turn)&&validTemperament(p.temperament,s.turn,id=>!!OFFICER_BY_ID[id])&&(p.lastReviewTurn===0?p.temperament===null:p.temperament?.turn===p.lastReviewTurn)&&['develop','attack'].includes(p.stance)&&!Object.hasOwn(p,'nextOffensiveDay');}));
+ validateCoordination(ai.coordination,s.campaign.day,id=>!!OFFICER_BY_ID[id],id=>!!town(s,id),f=>factions.includes(f),fail);
  validateStrategicStaffing(s,fail);
  for(const f of factions)validateFactionStrategy(ai.factions[f].strategy,s,f,fail);
  fail(ai.cities&&Object.entries(ai.cities).every(([id,c])=>town(s,id)&&factions.includes(c.faction)&&['front','staging','rear','recovery','talent'].includes(c.role)&&int(c.defenseNeed)&&int(c.goldNeed)&&int(c.grainNeed)&&int(c.manpowerNeed)&&int(c.updatedDay,s.campaign.day)));
  fail(int(ai.nextPlanId)&&ai.nextPlanId>0&&Array.isArray(ai.plans)&&ai.plans.length<=20+factions.length*PLANNING.tempo.maxOperations+s.cities.length);
- const ids=new Set(),claimed=new Set(ai.staffing.map(p=>p.officerId)),active=new Set(),consolidating=new Set();
+ const ids=new Set(),claimed=new Set([...ai.staffing.map(p=>p.officerId),...frontlineMissions(s).flatMap(m=>m.officerIds)]),active=new Set(),consolidating=new Set();
  for(const p of ai.plans){
   fail(p&&int(p.id)&&p.id>0&&p.id<ai.nextPlanId&&!ids.has(p.id)&&factions.includes(p.faction));ids.add(p.id);
   fail(['prepare','assemble','attack','consolidate','complete','cancelled'].includes(p.phase)&&town(s,p.target)&&town(s,p.staging)&&p.target!==p.staging&&int(p.createdDay,s.campaign.day)&&p.createdDay>0&&int(p.updatedDay,s.campaign.day)&&p.updatedDay>=p.createdDay&&int(p.deadline)&&p.deadline>=p.createdDay&&typeof p.reason==='string'&&p.reason.length<=120&&!/[<>]/.test(p.reason));
@@ -1057,7 +1299,7 @@ export function validateStrategicAI(s){
   const originIds=p.origins.flatMap(g=>g.officerIds);fail(originIds.length===p.officerIds.length&&new Set(originIds).size===originIds.length);
   fail(p.repairSince===null||int(p.repairSince)&&p.repairSince>=p.createdDay&&p.repairSince<=s.campaign.day);
   fail(validMilitaryEvidence(p.military,s.campaign.day,id=>!!town(s,id))&&p.military.temperament!==null);
-  fail(p.columns===null||Array.isArray(p.columns)&&p.columns.length>1&&p.columnUnits===PLANNING.tempo.columnUnits&&p.columns.every(c=>town(s,c.cityId)&&Array.isArray(c.officerIds)&&c.officerIds.length>0&&c.officerIds.length<=p.columnUnits&&c.officerIds.every(id=>p.origins.some(g=>g.cityId===c.cityId&&g.officerIds.includes(id)))&&int(c.days)&&c.days>0&&validMapRoute(s,c.cityId,p.target,c.route)&& (c.departureDay===null||int(c.departureDay)&&c.departureDay>=p.createdDay)));
+  fail(p.columns===null||Array.isArray(p.columns)&&p.columns.length>1&&[10,PLANNING.tempo.columnUnits].includes(p.columnUnits)&&p.columns.every(c=>town(s,c.cityId)&&Array.isArray(c.officerIds)&&c.officerIds.length>0&&c.officerIds.length<=p.columnUnits&&c.officerIds.every(id=>p.origins.some(g=>g.cityId===c.cityId&&g.officerIds.includes(id)))&&int(c.days)&&c.days>0&&validMapRoute(s,c.cityId,p.target,c.route)&& (c.departureDay===null||int(c.departureDay)&&c.departureDay>=p.createdDay)));
   if(p.columns){const columnIds=p.columns.flatMap(c=>c.officerIds);fail(columnIds.length===p.officerIds.length&&new Set(columnIds).size===columnIds.length&&p.columns.every(c=>(c.departureDay===null)===(p.columns[0].departureDay===null)));}
   fail(p.reserves&&Object.entries(p.reserves).every(([id,n])=>town(s,id)&&int(n)));
   fail([10,PLANNING.tempo.columnUnits].includes(p.columnUnits)&&Array.isArray(p.requirements)&&new Set(p.requirements.map(r=>r.cityId)).size===p.requirements.length&&p.requirements.every(r=>town(s,r.cityId)&&['gold','grain','manpower'].every(k=>int(r[k]))&&(r.defensePower===undefined||int(r.defensePower)&&r.defensePower>0)));
@@ -1074,3 +1316,9 @@ export function validateStrategicAI(s){
  validateConcentrations(s,fail,claimed);
  fail(ai.decisions.every(d=>int(d.day,s.campaign.day)&&d.day>0&&typeof d.armyId==='string'&&/^(a\d+|city-force:[a-z0-9-]+)$/.test(d.armyId)&&['attack','reinforce','guard','stage','hold','retreat','recover','transport','transfer'].includes(d.kind)&&(d.target===null||town(s,d.target))&&typeof d.reason==='string'&&d.reason.length<=120&&!/[<>]/.test(d.reason)));
 }
+
+export function manageStrategicEconomy(...args){return runDecisionModule('manageStrategicEconomy',args,()=>policy_manageStrategicEconomy(...args));}
+
+export function planStrategicAI(...args){return runDecisionModule('planStrategicAI',args,()=>policy_planStrategicAI(...args));}
+
+export function planStrategicPersonnel(...args){return runDecisionModule('planStrategicPersonnel',args,()=>policy_planStrategicPersonnel(...args));}
