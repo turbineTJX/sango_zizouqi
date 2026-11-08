@@ -120,7 +120,7 @@ test('insight exposes hidden units without changing contact; damage breaks steal
  const x=scene();setStatus(x.b,x.a,'stealth',12);setStatus(x.b,x.a,'burn',3,{sourceId:x.d.id,amount:20});stepBattle(x.b);assert.equal(hasStatus(x.b,x.a,'stealth'),false);
 });
 test('authored decoy status creates a real target, not a seventh troop or damage shield',()=>{
- const {b,u:a,ally:c,target:d,rear:e}=currentBattle('fire','crossbow',{requireS:true,enemyTypes:['archer','archer']});e.x=13;e.y=7;Object.assign(c,{x:3,y:2});createDecoy(b,a);
+ const {b,u:a,ally:c,target:d,rear:e}=currentBattle('pierce','crossbow',{requireS:true,enemyTypes:['archer','archer']});e.x=13;e.y=7;Object.assign(c,{x:3,y:2});createDecoy(b,a);
  const owner=[a,c].find(u=>hasStatus(b,u,'decoy'));assert.ok(owner);assert.equal(b.sides[0].units.length,2);
  const proxy=decoyTargets(b,0)[0];assert.equal(holdsLine(b,proxy),false);assert.equal(proxy.hp,Math.round(owner.initial*.3));
  Object.assign(d,{x:proxy.x+2,y:proxy.y,cooldown:0});d.passiveState.targetId=owner.id;const hp=owner.hp,intent=d.intent;stepBattle(b);

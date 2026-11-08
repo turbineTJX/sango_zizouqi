@@ -23,11 +23,4 @@ test('Song detail and recipient wording use its actual range, tactic priorities 
  assert.doesNotMatch(detail,/相邻战意最低/);assert.match(bondRecipients(d),/无需持有战歌/);
 });
 
-test('opening formation details explain partial shields while preserving full amounts and duration',()=>{
- for(const key of ['bondTigerFormation','bondDragonFormation']){
-  const d=BOND_DESIGNS[key],text=JSON.stringify(bondReference(key));
-  for(const fragment of ['1／2／3','1/3／2/3／全部','20%','45%','70%','36回合','向下取整'])assert.ok(text.includes(fragment),fragment);
-  assert.match(bondRecipients(d),/全部真实首发按开场占位比例/);
-  assert.doesNotMatch(d.description+d.tradeoff,/未占齐.*不领取|三位齐备才有/);
- }
-});
+test('removed opening formations have no reference entries',()=>{for(const key of ['bondFormation','bondTigerFormation','bondDragonFormation'])assert.equal(bondReference(key),null);});

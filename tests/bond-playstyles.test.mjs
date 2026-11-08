@@ -5,22 +5,6 @@ import {formationCells,formationBoost,validFormationEntry,routDamageBonus,routSp
 const id=name=>Object.values(O).find(o=>o.name===name).id;
 const team=(names,troops=4000,level=10,type='spear')=>names.map(n=>({...equipmentEntry(id(n),type),troops,level}));
 function scenario(own,enemy,extra={}){return createScenario('custom-battle',8282,20,null,{seed:8282,terrain:'land',ownTeam:team(own),enemyTeam:team(enemy),...extra});}
-test('formation markers mirror both sides, adapt to terrain and cannot consume RNG or change with unit order',()=>{
- for(const terrain of ['land','forest','hill','marsh','river']){const s=scenario(['曹仁','郝昭','罗宪'],['张任','于禁','满宠'],{terrain}),b=s.battle,seed=b.seed,initial=formationCells(b,0);assert.equal(initial.length,3);assert.deepEqual(formationCells(b,1),initial.map(p=>({x:13-p.x,y:7-p.y})));assert.ok(initial.every(p=>canOccupy(b,b.sides[0].units[0],p.x,p.y)));b.sides[0].units.reverse();assert.deepEqual(formationCells(b,0),initial);assert.equal(b.seed,seed);}
- const navy=scenario(['曹仁','郝昭','罗宪'],['张任','于禁','满宠'],{terrain:'river',ownTeam:team(['曹仁','郝昭','罗宪'],4000,10,'ship')});assert.ok(formationCells(navy.battle,0).every(p=>canOccupy(navy.battle,navy.battle.sides[0].units[0],p.x,p.y)));
-});
-test('real legal deployment grants tile-only first-entry benefits, doubles holders and extends only a complete top formation',()=>{
- const s=scenario(['曹仁','郝昭','霍峻','罗宪','于禁','王平'],['关羽','张飞','刘备']),b=s.battle,own=b.sides[0].units;
- for(let i=0;i<own.length;i++)assert.equal(deployUnit(b,own[i].id,0,i),null);
- const marks=formationCells(b,0),arranged=[own.find(u=>u.id===id('曹仁')),own.find(u=>u.id===id('于禁')),own.find(u=>u.id===id('霍峻'))];for(let i=0;i<3;i++)assert.equal(deployUnit(b,arranged[i].id,marks[i].x,marks[i].y),null);
- assert.equal(formationBoost(b,arranged[0]),0);lockDeployment(b);assert.equal(sideBonds(b,0).bondGuard.tier,3);assert.equal(formationBoost(b,arranged[0]),.28);assert.equal(formationBoost(b,arranged[1]),.28);assert.equal(formationBoost(b,own.find(u=>u.id===id('郝昭'))),0);
- assert.ok(arranged.every(u=>u.bondFormation.complete));const snapshot=structuredClone(arranged[0].bondFormation);grantBondEntries(b);assert.deepEqual(arranged[0].bondFormation,snapshot);const copy=validateSave(structuredClone(s));for(let i=0;i<8&&!b.result;i++){stepBattle(b);stepBattle(copy.battle);}assert.deepEqual(s,copy);
- assert.ok(bondAttributes(b,arranged[0]).attack.some(v=>v.label==='天覆阵位'));const bad=structuredClone(s);bad.battle.sides[0].units[0].bondFormation.tier=4;assert.throws(()=>validateSave(bad));
- b.tick=snapshot.tick+D.bondGuard.fullDuration+1;assert.equal(formationBoost(b,arranged[0]),0);
-});
-test('unmarked and reserved troops cannot retroactively receive a formation bonus by moving onto a tile',()=>{
- const s=scenario(['曹仁','郝昭','吕布'],['关羽','张飞','刘备']),b=s.battle,u=b.sides[0].units[0];assert.equal(deployUnit(b,u.id,0,0),null);lockDeployment(b);assert.equal(formationBoost(b,u),0);Object.assign(u,formationCells(b,0)[0]);grantBondEntries(b);assert.equal(formationBoost(b,u),0);assert.ok(validFormationEntry(b,u));
-});
 test('Rout accumulates actual enemy defeats on either side, bursts once, and resumes deterministically',()=>{
  for(const side of [0,1]){const heroes=team(['夏侯渊','张辽','甘宁','太史慈','孙策','马超'],5000),weak=team(['刘禅','刘璋','韩玄','刘度','孔伷','张鲁'],2000,1);const s=scenario([],[],{ownTeam:side?weak:heroes,enemyTeam:side?heroes:weak}),b=s.battle;for(const u of b.sides.flatMap(a=>a.units))u.retreatAt=null;lockDeployment(b);
   assert.equal(routDamageBonus(b,b.sides[side].units[0]),.12);let reached=false;

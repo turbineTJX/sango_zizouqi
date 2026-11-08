@@ -5,7 +5,8 @@ import {appendBattleLog} from './battle-log.mjs';
 import {bondBlocksEffect} from './bonds.mjs';
 
 export {STATUS_DEFINITIONS,REMEDIES,CONTROL_STATUSES};
-export const statusOn=(b,u,key)=>(u.statuses?.[key]?.until||0)>b.tick&&!bondBlocksEffect(b,u,u.statuses[key],{beneficial:STATUS_DEFINITIONS[key]?.tone==='buff'});
+export const effectiveStatus=(b,u,key)=>{const s=u.statuses?.[key];return (s?.sources||[s]).find(v=>v?.until>b.tick&&!bondBlocksEffect(b,u,v,{beneficial:STATUS_DEFINITIONS[key]?.tone==='buff'}));};
+export const statusOn=(b,u,key)=>!!effectiveStatus(b,u,key);
 export const statusValue=(u,key,field)=>u.statuses?.[key]?.[field]??STATUS_DEFINITIONS[key]?.[field];
 export const statusNotice=(b,u,text)=>appendBattleLog(b,u.name+' · '+text);
 export function detected(b,u,side=1-u.side){

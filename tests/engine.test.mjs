@@ -232,14 +232,12 @@ test('skill events carry enough data to show effects after the victim leaves the
 });
 
 function duel() {
-  const s = encounter();
-  s.battle.sides.forEach((side,index)=>{
-    side.units = [side.units[0]];
-    Object.assign(side.units[0],{x:4+index,y:3,intent:0,cooldown:index ? 99 : 0});
-    learnFixtureTactics(side.units[0],['thrust','phalanx']);
-  });
-  return s;
+ const x=currentBattle('thrust','spear',{requireS:true}),s=x.state,b=x.b;
+ b.sides[0].units=[x.u];b.sides[1].units=[x.target];
+ b.sides.forEach((side,index)=>{const u=side.units[0];Object.assign(u,{x:4+index,y:3,intent:0,cooldown:index?99:0,skillReady:{}});if(!index)assert.equal(learnFixtureTactics(u,['thrust','phalanx']),null);});
+ return s;
 }
+
 test('intent grows from actual attacks and surviving hits, never elapsed time', () => {
   const s=duel(),b=s.battle,a=b.sides[0].units[0],d=b.sides[1].units[0];
   stepBattle(b); assert.equal(a.intent,3); assert.equal(d.intent,2);

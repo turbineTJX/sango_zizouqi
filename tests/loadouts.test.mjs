@@ -1,5 +1,6 @@
 import {currentBattle,readyCurrent,resumeCurrent} from './helpers/current-battle.mjs';
 import {tacticPools,LEARNING_TROOPS} from '../tactic-learning.mjs';
+import {TROOP_DESIGNS} from '../data/design/troops.mjs';
 import {SPECIAL_TACTICS,setStatus} from '../tactics.mjs';
 import {appointTestCommanders} from './helpers/commanders.mjs';
 import {learnFixtureTactics,syncFixtureLearning} from './helpers/learn-tactics.mjs';
@@ -8,19 +9,11 @@ import assert from 'node:assert/strict';
 import { newGame, orderArmy, advanceTurn, startBattle, lockDeployment, stepBattle, issueCommand, validateSave, configureUnitTactics, STRATAGEMS } from '../engine.mjs';
 import { TACTICS_BOOK, unitTactics, availableTactics, defaultTacticIds, configureTactics, hasStatus, readyTactic } from '../tactics.mjs';
 function encounter(leader='cao',advisor='jia') {const state=newGame();appointTestCommanders(state,leader,advisor);orderArmy(state,'a1','guandu');advanceTurn(state);startBattle(state);return state;}
-function scenario(type,id) {
-  const state=encounter(),b=state.battle,a=b.sides[0].units[0],d=b.sides[1].units[0];
-  b.sides[0].units=[a];b.sides[1].units=[d];a.type=type;d.type='crossbow';
-  Object.assign(a,{x:4,y:3,cooldown:999,intent:100});Object.assign(d,{x:6,y:3,cooldown:999,intent:80});
-  const ids=[id,...availableTactics(a).map(s=>s.id).filter(key=>key!==id).slice(0,2)];learnFixtureTactics(a,ids);
-  for(const s of unitTactics(a))a.skillReady[s.id]=s.id===id?0:999;
-  for(const s of unitTactics(d))d.skillReady[s.id]=999;
-  lockDeployment(b);return {state,b,a,d};
-}
+function scenario(type,id) {const x=currentBattle(id,type);assert.equal(learnFixtureTactics(x.u,[id]),null);readyCurrent(x,id);return {state:x.state,b:x.b,a:x.u,d:x.target};}
 function complete(x) {const count=x.a.skillCasts;for(let i=0;i<12&&x.a.skillCasts===count;i++)stepBattle(x.b);assert.equal(x.a.skillCasts,count+1);}
 function ally(x) {const u={...structuredClone(x.a),id:'ally',x:3,y:3,intent:0,hp:1500,battleDamage:x.a.maxHp-1500,cast:null,statuses:{}};u.skillReady=Object.fromEntries(unitTactics(u).map(s=>[s.id,999]));x.b.sides[0].units.push(u);return u;}
 
-test('each troop has two fixed small actions and one large action; only listed owners have exclusives',()=>{for(const type of LEARNING_TROOPS){const p=tacticPools(type);assert.equal(p.low.length,2);assert.equal(p.high.length,1);}assert.equal(SPECIAL_TACTICS.jin,undefined);assert.ok(SPECIAL_TACTICS.cao);});
+test('each troop has three small and three large choices except one siege large; only listed owners have exclusives',()=>{for(const type of LEARNING_TROOPS){const p=tacticPools(type);assert.equal(p.low.length,3);assert.equal(p.high.length,TROOP_DESIGNS[type].equipmentSlot==='siege'?1:3);}assert.equal(SPECIAL_TACTICS.jin,undefined);assert.ok(SPECIAL_TACTICS.cao);});
 test('learned loadouts persist, ordering works and unlearned additions fail without mutation',()=>{
   const state=newGame(),u=state.armies[0].units[0],ids=unitTactics(u).map(s=>s.id),reversed=[...ids].reverse();
   assert.equal(configureUnitTactics(state,u.id,reversed),null);assert.deepEqual(u.tactics,reversed);

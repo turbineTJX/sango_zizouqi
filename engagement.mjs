@@ -14,11 +14,11 @@ export function holdsLine(b,u) {
     &&!u.isDecoy&&!['stealth','stun','confuse','disrupted'].some(k=>statusOn(b,u,k));
 }
 export function interceptorsAt(b,u,cell=u,charging=false) {
-  if((traitIgnoresZoc(b,u)||statusOn(b,u,'rapidAdvance')||bondSwiftEffect(b,u)))return [];
-  if(statusOn(b,u,'phase')&&!statusOn(b,u,'stealth'))return [];
+  const ignores=traitIgnoresZoc(b,u)||statusOn(b,u,'rapidAdvance')||bondSwiftEffect(b,u)||statusOn(b,u,'phase')&&!statusOn(b,u,'stealth');
   if(!charging&&!isMelee(u)&&!statusOn(b,u,'stealth'))return [];
-  return (b.sides[1-u.side]?.units||[]).filter(e=>holdsLine(b,e)&&hexDistance(cell,e)===1);
+  return (b.sides[1-u.side]?.units||[]).filter(e=>holdsLine(b,e)&&hexDistance(cell,e)===1&&(!ignores||strongInterceptor(e,u)));
 }
+export const strongInterceptor=(guard,mover)=>TROOP_DESIGNS[combatType(guard)]?.family==='spear'&&TROOP_DESIGNS[combatType(mover)]?.family==='cavalry';
 export function canStrikeFrom(b,u,target,cell=u,charging=false) {
   const guards=interceptorsAt(b,u,cell,charging);
   return !guards.length||guards.some(e=>e.id===target.id);
@@ -29,8 +29,8 @@ export function zocCells(b) {
   const cells=new Map();
   for(const side of b.sides)for(const u of side.units)if(holdsLine(b,u)){
     for(const [x,y] of hexNeighbors(u))if(insideHexGrid(x,y)){
-      const key=`${x},${y}`,cell=cells.get(key)||{x,y,counts:[0,0]};
-      cell.counts[u.side]++;cells.set(key,cell);
+      const key=`${x},${y}`,cell=cells.get(key)||{x,y,counts:[0,0],strong:[0,0]};
+      cell.counts[u.side]++;if(TROOP_DESIGNS[combatType(u)]?.family==='spear')cell.strong[u.side]++;cells.set(key,cell);
     }
   }
   return [...cells.values()];
@@ -38,9 +38,9 @@ export function zocCells(b) {
 // Ordered eligibility tiers, before distance/counter/focus scoring. Adjacent
 // frontliners pin the attacker; an exposed adjacent target remains attackable.
 export function meleeTargetPool(b,u,enemies) {
-  if(!isMelee(u)||(traitIgnoresZoc(b,u)||statusOn(b,u,'rapidAdvance')||bondSwiftEffect(b,u))||statusOn(b,u,'phase')||statusOn(b,u,'stealth'))return enemies;
   const engaged=interceptorsAt(b,u);
   if(engaged.length)return enemies.filter(e=>engaged.some(g=>g.id===e.id));
+  if(!isMelee(u)||(traitIgnoresZoc(b,u)||statusOn(b,u,'rapidAdvance')||bondSwiftEffect(b,u))||statusOn(b,u,'phase')||statusOn(b,u,'stealth'))return enemies;
   // A facility cannot pin a troop. Nearby civilian works must not hide an
   // approaching frontliner; exposed buildings still compete by their real value.
   const adjacent=enemies.filter(e=>hexDistance(u,e)===1&&!['building','gate'].includes(e.type));

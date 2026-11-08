@@ -2,8 +2,8 @@
   "date": "2026-11-01",
   "workflows": 112,
   "chapters": 14,
-  "screenshots": 212,
-  "referenceHash": "af0a8375ee24c98b39e390962d49a9d35ceeaf3519e6536a022f9d10163e0c30",
+  "screenshots": 215,
+  "referenceHash": "bd81dede2b174a40af563a2b8039da1174c73b9c7a92ccb57f09b620aa5d3656",
   "items": [
     {
       "id": "action-85",
@@ -776,7 +776,10 @@
         "battlefield",
         "battle-unit",
         "battle-buffs",
-        "battle-buffs-landscape"
+        "battle-buffs-landscape",
+        "battle-support-kit",
+        "battle-support-power",
+        "battle-support-power-landscape"
       ]
     },
     {

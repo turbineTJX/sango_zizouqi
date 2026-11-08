@@ -276,6 +276,9 @@
       ],
       "sources": [
         "battle-deployment.mjs",
+        "deployment-support.mjs",
+        "formation-behavior.mjs",
+        "battle-path-planning.mjs",
         "battle-council.mjs",
         "battle-appointments.mjs",
         "battle-appointments-view.mjs",
@@ -296,6 +299,8 @@
         "战斗与战后"
       ],
       "sources": [
+        "formation-behavior.mjs",
+        "battle-path-planning.mjs",
         "battlefield.mjs",
         "scene-loading.mjs",
         "battle-info.mjs",

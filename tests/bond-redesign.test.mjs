@@ -8,13 +8,13 @@ import {advanceBonds,bondCommandMultiplier,bondStratagemStrength,grantBondEntrie
 import {stratagemProfile} from '../stratagems.mjs';
 const unit=(id,type='spear')=>({id,type,level:10,troops:3000});
 function scenario(ids){return createScenario('custom-battle',773,20,null,{seed:773,terrain:'land',ownTeam:ids.map(id=>unit(id)),enemyTeam:['person-661','person-433','person-371'].map(id=>unit(id))});}
-test('rare roster is genuinely scarce and personal budgets range from one to six',()=>{
+test('rare roster is genuinely scarce and personal budgets allow retired-only holders to have zero points',()=>{
  assert.equal(Object.keys(BOND_DESIGNS).length,33);
  for(const [id,d] of Object.entries(BOND_DESIGNS).filter(([,d])=>d.category==='rare')){
   const holders=Object.values(BOND_ASSIGNMENTS).filter(a=>a[id]);assert.ok(holders.length>=3&&holders.length<=4);assert.ok(holders.every(a=>a[id]===1));assert.deepEqual(d.thresholds,[1,2,3]);
  }
  const totals=Object.values(BOND_ASSIGNMENTS).map(a=>Object.values(a).reduce((x,y)=>x+y,0));
- assert.ok(totals.every(n=>n>=1&&n<=6));assert.equal(totals.filter(n=>n===10).length,0);assert.ok(totals.filter(n=>n<=3).length>100);
+ assert.ok(totals.every(n=>n>=0&&n<=6));assert.equal(totals.filter(n=>n===10).length,0);assert.ok(totals.filter(n=>n<=3).length>100);
 });
 test('low-budget officers can gain nothing on upgrades but finish their own preset at ten',()=>{
  let empty=0;

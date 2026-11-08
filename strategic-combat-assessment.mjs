@@ -2,7 +2,7 @@ import {unitAttributes,TROOPS} from './unit-stats.mjs';
 import {combatType} from './troop-equipment.mjs';
 import {unitTactics} from './tactics.mjs';
 import {tacticSlot,tacticUsesLeft} from './tactic-tempo.mjs';
-import {powerFactor} from './tactic-power.mjs';
+import {powerFactor,tacticPowerValue} from './tactic-power.mjs';
 import {TROOP_INTENT} from './combat-rules.mjs';
 import {armyFrontlineCapacity} from './army-trait-rules.mjs';
 import {STRATEGIC_PLANNING_RULES as RULES} from './data/design/strategic-planning-rules.mjs';
@@ -15,7 +15,7 @@ const direct=R.damageEffects,healing=R.healingEffects,protection=R.protectionEff
 function tacticBudget(u,p,count,enemyCount){
  let physical=0,magical=0,heal=0,guard=0,control=0;const slots=new Map();
  for(const t of unitTactics(u)){
-  const power=t.category==='intellect'?p.strategyPower:t.category==='politics'?p.supportPower:p.martialPower;
+  const power=tacticPowerValue(p,t);
   const reach=clamp((u.intent||0)+(TROOP_INTENT[combatType(u)].attack/p.attackInterval+TROOP_INTENT[combatType(u)].hit*.2)*R.horizonSteps,0,100);
   const availability=t.passive?1:clamp(reach/Math.max(1,t.threshold),0,1)*Math.min(tacticUsesLeft(u,t),1+R.horizonSteps/Math.max(1,t.cooldown))*.7;
   let damage=(direct[t.effect]||0)*power,healingFraction=healing[t.effect]||0,shield=protection[t.effect]||0,disable=disruption[t.effect]||0;
@@ -33,10 +33,10 @@ function tacticBudget(u,p,count,enemyCount){
   if(t.effect==='remedy'||t.effect==='cleanse')shield=.025;
   if(['valor','emplace','nexus','supply','rally','relay','anchor'].includes(t.effect))damage+=p.attack*1.1;
   const effect={physical:t.category==='intellect'?0:damage*availability,magical:t.category==='intellect'?damage*availability:0,
-   heal:healingFraction*powerFactor(power)*availability,guard:shield*availability,control:disable*powerFactor(power)*availability};
+   heal:healingFraction*powerFactor(power)*availability,guard:shield*powerFactor(power)*availability,control:disable*powerFactor(power)*availability};
   // High-tier tactics share a stock/cooldown. Count the strongest option in
   // each real slot, rather than crediting every learned tactic independently.
-  const key=tacticSlot(t),value=effect.physical/250+effect.magical/200+effect.heal+effect.guard+effect.control;
+  const key=tacticSlot(t,u),value=effect.physical/250+effect.magical/200+effect.heal+effect.guard+effect.control;
   if(!slots.has(key)||slots.get(key).value<value)slots.set(key,{...effect,value});
  }
  for(const e of slots.values()){physical+=e.physical;magical+=e.magical;heal+=e.heal;guard+=e.guard;control+=e.control;}

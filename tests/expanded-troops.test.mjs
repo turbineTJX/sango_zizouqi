@@ -30,10 +30,10 @@ test('cleave charges each victim once without charging the caster',()=>{
  assert.ok([x.d,...more].every(u=>u.intent===2));assert.equal(x.b.sides[1].units[1].intent,0);
 });
 
-test('expanded catalogue cannot grant removed actions outside current fixed pools',()=>{const fixed=new Set([...LEARNING_TROOPS,...equipmentTypes('siege'),...equipmentTypes('ship')].flatMap(type=>{const p=tacticPools(type);return [...p.low,...p.high];}));for(const id of ['bandage','regrowth','camp','riposte','nexus','purify'])assert.ok(!fixed.has(id));for(const id of ['cleave','curse','bombard','ram','broadside','anchor'])assert.ok(fixed.has(id));});
+test('expanded catalogue grants the redesigned combat and support pools',()=>{const fixed=new Set([...LEARNING_TROOPS,...equipmentTypes('siege'),...equipmentTypes('ship')].flatMap(type=>{const p=tacticPools(type);return [...p.low,...p.high];}));for(const id of ['camp','nexus'])assert.ok(!fixed.has(id));for(const id of ['cleave','curse','bombard','ram','broadside','anchor','bandage','regrowth','relief','fortify','stockpile'])assert.ok(fixed.has(id));});
 
 test('挫志普攻施加丧志，不叠层，镇静解除',()=>{
- const x=scene();x.a.x=3;x.d.x=5;primeTactic(x.u,'curse');stepBattle(x.b);x.u.cooldown=0;stepBattle(x.b);assert.ok(hasStatus(x.b,x.d,'despair'));
+ const p=currentBattle('curse','halberd'),x={state:p.state,b:p.b,u:p.u,a:p.ally,d:p.target};x.a.x=3;x.d.x=5;primeTactic(x.u,'curse');stepBattle(x.b);x.u.cooldown=0;stepBattle(x.b);assert.ok(hasStatus(x.b,x.d,'despair'));
  x.u.cooldown=999;x.d.intent=30;stepBattle(x.b);assert.equal(x.d.intent,25);assert.equal(x.d.statuses.despair.stacks,undefined);
  remedy(x.b,x.d,'calm');assert.equal(hasStatus(x.b,x.d,'despair'),false);
 });
@@ -46,7 +46,7 @@ test('疑兵有独立耐久且不抵挡本体持续伤害、不增加部队',()=
  assert.equal(before-x.a.hp,20);assert.equal(x.a.statuses.decoy.hp,phantom);assert.equal(x.b.sides[0].units.length,2);assert.equal(decoyTargets(x.b,0).length,1);
 });
 
-test('no fixed ordinary loadout silently grants the retired riposte action',()=>{for(const type of LEARNING_TROOPS){const p=tacticPools(type);assert.ok(![...p.low,...p.high].includes('riposte'));}});
+test('riposte is an explicit martial large choice for baier only',()=>{for(const type of LEARNING_TROOPS){const p=tacticPools(type);assert.equal([...p.low,...p.high].includes('riposte'),type==='baier');}});
 
 test('naval deployment, swap, movement and save validation obey water and bridge domains',()=>{
  const state=createScenario('river'),b=state.battle,ship=b.sides[0].units[0],land=b.sides[0].units.find(u=>!u.equipment.ship);

@@ -9,7 +9,7 @@ import {setStatus} from '../tactics.mjs';
 import {BOND_ASSIGNMENTS as CAPS} from '../data/design/bond-assignments.mjs';
 import {OFFICER_CATALOG as OFFICERS} from '../officer-catalog.mjs';
 const roster=(bond,n)=>OFFICERS.filter(u=>CAPS[u.id]?.[bond]).sort((a,b)=>CAPS[b.id][bond]-CAPS[a.id][bond]||a.id.localeCompare(b.id)).slice(0,n).map(u=>({id:u.id,type:'spear',troops:3000,level:10}));
-function scene(bond='bondGuard',n=8){
+function scene(bond='bondArmor',n=8){
  const own=roster(bond,n),enemy=OFFICERS.filter(u=>!own.some(v=>u.id===v.id)).slice(0,6).map(u=>({id:u.id,type:'halberd',troops:3000,level:10}));
  return generateBattle({seed:123456,terrain:'land',ownTeam:own,enemyTeam:enemy});
 }

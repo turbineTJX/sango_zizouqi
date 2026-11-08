@@ -112,7 +112,7 @@ test('melee withdrawal spends an action disengaging, does not cast, and moves wi
  for(const v of b.sides.flatMap(x=>x.units).filter(v=>v!==u))v.statuses.root={until:999};
  stepBattle(b);assert.equal(u.x,4);assert.equal(u.y,3);assert.ok(u.disengage);assert.equal(u.action,'脱战准备');
  assert.equal(holdsLine(b,u),false);assert.equal(readyTactic(b,u,1),null);
- const copy=validateSave(JSON.parse(JSON.stringify(s)));stepBattle(b);stepBattle(copy.battle);assert.deepEqual(b,copy.battle);
+ const copy=validateSave(JSON.parse(JSON.stringify(s)));for(let i=0;i<6&&u.x===4&&u.y===3;i++){stepBattle(b);stepBattle(copy.battle);}assert.deepEqual(b,copy.battle);
  assert.ok(u.x!==4||u.y!==3);assert.notDeepEqual([u.x,u.y],[e.x,e.y]);assert.equal(u.skillCasts,0);
 });
 
@@ -122,7 +122,7 @@ test('focus beyond an engaged front line requires disengagement, never an illega
  b.sides[0].focus=target.id;b.sides[0].focusUntil=100;
  for(const v of b.sides.flatMap(x=>x.units).filter(v=>v!==u))v.statuses.root={until:999};
  stepBattle(b);assert.equal(u.disengage?.targetId,target.id);assert.equal(u.x,4);assert.equal(u.contribution.damage,0);
- stepBattle(b);assert.ok(u.x!==4||u.y!==3);assert.equal(u.contribution.damage,0);
+ for(let i=0;i<6&&u.x===4&&u.y===3;i++)stepBattle(b);assert.ok(u.x!==4||u.y!==3);assert.equal(u.contribution.damage,0);
 });
 
 function campaignEncounter(){

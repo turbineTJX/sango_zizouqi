@@ -17,7 +17,7 @@ function intent(p=profile,roll=0,{turn=21,quietTurns=10}={}){
 function marginalFront(){
  const f=planningFront(),{s,home,target}=f;s.turn=21;s.campaign.day=201;
  home.units.find(u=>u.id==='shao').personality=4;s.campaign.ai.factions.yuan.style='bold';
- target.gold=0;target.manpower=0;target.units.forEach(u=>u.troops=1950);initializeVision(s);
+ target.gold=0;target.manpower=0;target.units.forEach(u=>u.troops=2050);initializeVision(s);
  const p=factionStrategicProfile(s,'yuan'),proposal={faction:'yuan',staging:home,target,groups:[{c:home,units:home.units.slice(0,3),days:0}],assaultDays:1,siegeDays:2};
  return {...f,profile:p,proposal};
 }

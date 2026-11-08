@@ -11,7 +11,7 @@ import {hexDistance} from '../hex-grid.mjs';
 import {primeTactic} from './helpers/prime-tactic.mjs';
 
 function scene(){
- const ids=[tacticHolder('taunt','baier',[],true)];ids.push(tacticHolder('repeat','crossbow',ids,true));ids.push(['person-1','person-2','person-3'].find(id=>!ids.includes(id)));
+ const ids=[tacticHolder('taunt','baier',[],false)];ids.push(tacticHolder('repeat','crossbow',ids,true));ids.push(['person-1','person-2','person-3'].find(id=>!ids.includes(id)));
  const entry=(id,type)=>({id,type,troops:3000,level:1,retreatAt:null});
  const state=createScenario('custom-battle',19,20,null,{seed:19,terrain:'land',ownTeam:[entry(ids[0],'baier'),entry(ids[2],'archer')],enemyTeam:[entry(ids[1],'crossbow')]}),b=state.battle;lockDeployment(b);
  const [tank,ally]=b.sides[0].units,[enemy]=b.sides[1].units;
@@ -20,7 +20,7 @@ function scene(){
  delete enemy.statuses.phalanx;primeTactic(tank,'taunt');return {state,b,tank,ally,enemy};
 }
 test('five-hex taunt forces an out-of-range ranged enemy to approach without shooting its nearby ally',()=>{
-  const {b,tank,ally,enemy}=scene();enemy.cooldown=0;const hp=ally.hp;
+  const {b,tank,ally,enemy}=scene();enemy.cooldown=0;enemy.moveProgress=.9;const hp=ally.hp;
   assert.equal(hexDistance(tank,enemy),5);stepBattle(b);
   assert.ok(hasStatus(b,enemy,'taunt'));assert.equal(ally.hp,hp);
   assert.equal(hexDistance(tank,enemy),4);assert.equal(enemy.skillCasts,0);
@@ -51,13 +51,13 @@ test('taunt never drags melee out through another active ZOC',()=>{
 });
 
 function breach(seed=43,frontType='spear'){
- const ids=[tacticHolder('rush','cavalry',[],true)];ids.push(tacticHolder(frontType==='baier'?'taunt':'ward',frontType,ids,true));ids.push(tacticHolder('repeat','crossbow',ids,true));
+ const ids=[tacticHolder('rush','cavalry',[],true)];ids.push(tacticHolder(frontType==='baier'?'taunt':'ward',frontType,ids,false));ids.push(tacticHolder('repeat','crossbow',ids,true));
  const entry=(id,type)=>({id,type,troops:3000,level:1,retreatAt:null});const state=createScenario('custom-battle',seed,20,null,{seed,terrain:'land',ownTeam:[entry(ids[0],'cavalry')],enemyTeam:[entry(ids[1],frontType),entry(ids[2],'crossbow')]}),b=state.battle;lockDeployment(b);
  const [charger]=b.sides[0].units,[front,rear]=b.sides[1].units;
  Object.assign(charger,{x:4,y:3,cooldown:0});Object.assign(front,{x:5,y:3,cooldown:999});Object.assign(rear,{x:7,y:3,cooldown:999});
  for(const u of [charger,front,rear]){u.intent=0;u.statuses={};u.skillReady=Object.fromEntries(unitTactics(u).map(s=>[s.id,999]));}
  front.statuses.confuse={until:20};front.statuses.phalanx={until:99};rear.statuses.phalanx={until:99};primeTactic(charger,'rush');stepBattle(b);
- assert.equal(charger.tacticCasts.rush,1);assert.ok(hasStatus(b,charger,'pursuit'));return {b,charger,front,rear};
+ assert.equal(charger.tacticCasts.rush,1);for(let i=0;i<12&&charger.movementAim;i++)stepBattle(b);assert.ok(hasStatus(b,charger,'pursuit'));return {state,b,charger,front,rear};
 }
 test('a real charge follows a withdrawing rear through the current disengagement cycle',()=>{
  const {b,charger,front,rear}=breach(),start={x:rear.x,y:rear.y};delete rear.statuses.phalanx;b.sides[rear.side].retreat=true;
@@ -84,16 +84,13 @@ test('a real taunt redirects pursuit only on a successful roll and uses a legal 
   }
 });
 
-test('a natural pursuit snapshot validates and resumes deterministically',()=>{
-  const state=createScenario('field',1),b=state.battle;lockDeployment(b);let snapshot=null;
-  while(!b.result){stepBattle(b);if(snapshot)stepBattle(snapshot.battle);
-    if(!snapshot&&b.sides.flatMap(s=>s.units).some(u=>hasStatus(b,u,'pursuit'))){
-      snapshot=validateSave(structuredClone(syncFixtureLearning(state)));
-      const broken=structuredClone(state),target=broken.battle.sides.flatMap(s=>s.units).find(u=>hasStatus(b,u,'pursuit'));
-      target.statuses.pursuit.targetId=target.id;assert.throws(()=>validateSave(broken),/阵营/);
-    }
-  }
-  assert.ok(snapshot);assert.deepEqual(snapshot.battle,b);
+test('a completed real charge produces a pursuit save that resumes deterministically',()=>{
+  const {state,b,charger}=breach();
+  const snapshot=validateSave(structuredClone(syncFixtureLearning(state)));
+  const broken=structuredClone(state),target=broken.battle.sides.flatMap(s=>s.units).find(u=>u.id===charger.id);
+  target.statuses.pursuit.targetId=target.id;assert.throws(()=>validateSave(broken),/阵营/);
+  while(!b.result){stepBattle(b);stepBattle(snapshot.battle);}
+  assert.deepEqual(snapshot.battle,b);
 });
 test('current saves validate taunt and pursuit references and resume the real battle deterministically',()=>{
   const {state,b}=scene();let snapshot=null;

@@ -1,3 +1,4 @@
+import {TACTIC_DESIGNS} from './tactics.mjs';
 // Authoritative officer assignments. Fixed repertoire; no random military commands.
 export const OFFICER_ASSIGNMENTS = {
   "person-1": {
@@ -4592,148 +4593,241 @@ export const OFFICER_ASSIGNMENTS = {
   }
 };
 
-export const TROOP_TACTIC_POOLS = {
-  "spear": [
-    "phalanx",
-    "thrust"
-  ],
-  "halberd": [
-    "bulwark",
-    "cleave"
-  ],
-  "cavalry": [
-    "gallop",
-    "rush"
-  ],
-  "archer": [
-    "fire",
-    "scatter"
-  ],
-  "crossbow": [
-    "fire",
-    "repeat"
-  ],
-  "siege": [
-    "emplace",
-    "bombard"
-  ],
-  "ram": [
-    "bulwark",
-    "ram"
-  ],
-  "tower": [
-    "emplace",
-    "repeat"
-  ],
-  "ship": [
-    "anchor",
-    "broadside"
-  ],
-  "qingzhou": [
-    "phalanx",
-    "qingzhou-fight"
-  ],
-  "baier": [
-    "phalanx",
-    "baier-guard"
-  ],
-  "rattan": [
-    "bulwark",
-    "rattan-wall"
-  ],
-  "greatHalberd": [
-    "bulwark",
-    "halberd-shift"
-  ],
-  "tigerCavalry": [
-    "gallop",
-    "tiger-charge"
-  ],
-  "whiteHorse": [
-    "gallop",
-    "horse-volley"
-  ],
-  "longbow": [
-    "fire",
-    "longbow-shot"
-  ],
-  "heavyRam": [
-    "bulwark",
-    "ram"
-  ],
-  "mengchong": [
-    "anchor",
-    "navalRam"
-  ],
-  "louShip": [
-    "anchor",
-    "broadside"
-  ],
-  "fightingShip": [
-    "anchor",
-    "broadside"
-  ]
+// Three power channels have small and large choices; siege retains one combined large action.
+export const TROOP_TACTIC_REPERTOIRES = {
+  "spear": {
+    "small": [
+      "phalanx",
+      "ward",
+      "cleanse"
+    ],
+    "large": [
+      "thrust",
+      "doubt",
+      "relief"
+    ]
+  },
+  "halberd": {
+    "small": [
+      "bulwark",
+      "curse",
+      "purify"
+    ],
+    "large": [
+      "cleave",
+      "smoke",
+      "fortify"
+    ]
+  },
+  "cavalry": {
+    "small": [
+      "gallop",
+      "harass",
+      "relay"
+    ],
+    "large": [
+      "rush",
+      "lure",
+      "regroup"
+    ]
+  },
+  "archer": {
+    "small": [
+      "fire",
+      "poisonShot",
+      "rally"
+    ],
+    "large": [
+      "scatter",
+      "wildfire",
+      "regrowth"
+    ]
+  },
+  "qingzhou": {
+    "small": [
+      "phalanx",
+      "ward",
+      "bandage"
+    ],
+    "large": [
+      "qingzhou-fight",
+      "doubt",
+      "relief"
+    ]
+  },
+  "baier": {
+    "small": [
+      "phalanx",
+      "taunt",
+      "bodyguard"
+    ],
+    "large": [
+      "riposte",
+      "doubt",
+      "baier-guard"
+    ]
+  },
+  "rattan": {
+    "small": [
+      "bulwark",
+      "antiMagic",
+      "purify"
+    ],
+    "large": [
+      "rattan-wall",
+      "doubt",
+      "fortify"
+    ]
+  },
+  "greatHalberd": {
+    "small": [
+      "pierce",
+      "bind",
+      "bodyguard"
+    ],
+    "large": [
+      "halberd-shift",
+      "smoke",
+      "fortify"
+    ]
+  },
+  "tigerCavalry": {
+    "small": [
+      "gallop",
+      "disarm",
+      "relay"
+    ],
+    "large": [
+      "tiger-charge",
+      "lure",
+      "regroup"
+    ]
+  },
+  "whiteHorse": {
+    "small": [
+      "suppress",
+      "scout",
+      "relay"
+    ],
+    "large": [
+      "horse-volley",
+      "smoke",
+      "regroup"
+    ]
+  },
+  "crossbow": {
+    "small": [
+      "pierce",
+      "seal",
+      "screen"
+    ],
+    "large": [
+      "repeat",
+      "plague",
+      "stockpile"
+    ]
+  },
+  "longbow": {
+    "small": [
+      "suppress",
+      "extendRange",
+      "rally"
+    ],
+    "large": [
+      "longbow-shot",
+      "plague",
+      "stockpile"
+    ]
+  },
+  "ram": {
+    "small": [
+      "bulwark",
+      "blight",
+      "bodyguard"
+    ],
+    "large": [
+      "ram"
+    ]
+  },
+  "siege": {
+    "small": [
+      "emplace",
+      "tremor",
+      "screen"
+    ],
+    "large": [
+      "bombard"
+    ]
+  },
+  "tower": {
+    "small": [
+      "emplace",
+      "cutRange",
+      "screen"
+    ],
+    "large": [
+      "siegeVolley"
+    ]
+  },
+  "ship": {
+    "small": [
+      "anchor",
+      "mirage",
+      "quench"
+    ],
+    "large": [
+      "broadside",
+      "undertow",
+      "refit"
+    ]
+  },
+  "heavyRam": {
+    "small": [
+      "bulwark",
+      "breakFormation",
+      "purify"
+    ],
+    "large": [
+      "ram"
+    ]
+  },
+  "mengchong": {
+    "small": [
+      "anchor",
+      "bind",
+      "boarding"
+    ],
+    "large": [
+      "navalRam",
+      "undertow",
+      "refit"
+    ]
+  },
+  "louShip": {
+    "small": [
+      "anchor",
+      "mirage",
+      "boarding"
+    ],
+    "large": [
+      "broadside",
+      "undertow",
+      "refit"
+    ]
+  },
+  "fightingShip": {
+    "small": [
+      "anchor",
+      "chain",
+      "boarding"
+    ],
+    "large": [
+      "broadside",
+      "undertow",
+      "refit"
+    ]
+  }
 };
-export const INTELLECT_TACTIC_POOLS = {
-  "spear": [
-    "ward"
-  ],
-  "halberd": [
-    "curse"
-  ],
-  "cavalry": [
-    "harass"
-  ],
-  "archer": [
-    "rally"
-  ],
-  "crossbow": [
-    "rally"
-  ],
-  "siege": [
-    "tremor"
-  ],
-  "ram": [
-    "blight"
-  ],
-  "tower": [
-    "cutRange"
-  ],
-  "ship": [
-    "boarding"
-  ],
-  "qingzhou": [
-    "ward"
-  ],
-  "baier": [
-    "taunt"
-  ],
-  "rattan": [
-    "curse"
-  ],
-  "greatHalberd": [
-    "curse"
-  ],
-  "tigerCavalry": [
-    "harass"
-  ],
-  "whiteHorse": [
-    "harass"
-  ],
-  "longbow": [
-    "rally"
-  ],
-  "heavyRam": [
-    "blight"
-  ],
-  "mengchong": [
-    "boarding"
-  ],
-  "louShip": [
-    "boarding"
-  ],
-  "fightingShip": [
-    "boarding"
-  ]
-};
-
+export const TROOP_TACTIC_POOLS=Object.fromEntries(Object.entries(TROOP_TACTIC_REPERTOIRES).map(([id,p])=>[id,[...p.small,...p.large].filter(k=>TACTIC_DESIGNS[k].category==='force')]));
+export const INTELLECT_TACTIC_POOLS=Object.fromEntries(Object.entries(TROOP_TACTIC_REPERTOIRES).map(([id,p])=>[id,[...p.small,...p.large].filter(k=>TACTIC_DESIGNS[k].category==='intellect')]));
+export const SUPPORT_TACTIC_POOLS=Object.fromEntries(Object.entries(TROOP_TACTIC_REPERTOIRES).map(([id,p])=>[id,[...p.small,...p.large].filter(k=>TACTIC_DESIGNS[k].category==='politics')]));

@@ -7,6 +7,9 @@ import {hexDistance} from './hex-grid.mjs';
 import {COMBAT} from './combat-rules.mjs';
 import {recordContribution} from './progression.mjs';
 import {BOND_DESIGNS} from './data/design/bonds.mjs';
+import {preferFormation} from './formation-behavior.mjs';
+import {FORMATION} from './combat-rules.mjs';
+import {isTargetable} from './engagement.mjs';
 
 const rule=(b,u,special)=>activeBonds(b,u).find(d=>d.special===special);
 const origin=(u,name)=>({sourceId:u.id,sourceName:u.name,sourceSkillName:name});
@@ -16,7 +19,7 @@ function eligible(b,u,target,key){
  return !!target&&bondOnField(target)&&target.type!=='gate'&&!hasStatus(b,target,'stasis')&&!hasStatus(b,target,'magicImmune')&&!bondBlocksEffect(b,target,u)&&!traitImmune(target,key)&&!(CONTROL_STATUSES.includes(key)&&hasStatus(b,target,'resolve'));
 }
 function status(b,u,target,key,steps,d,api,extra={}){
- if(!eligible(b,u,target,key)||hasStatus(b,target,key))return false;
+ if(!eligible(b,u,target,key)||hasStatus(b,target,key)&&(key!=='link'||(target.statuses.link.fraction??STATUS_DEFINITIONS.link.fraction)>=extra.fraction))return false;
  const source={...origin(u,d.name),...extra};
  if(CONTROL_STATUSES.includes(key))api.control(target,steps,key,source);else setStatus(b,target,key,steps,source);
  if(!hasStatus(b,target,key))return false;
@@ -35,7 +38,7 @@ export function resolveBondAttack(b,u,api){
  // Feed an unspent tactic that is close to activation before a low but idle bar.
  const gap=v=>Math.min(...unitTactics(v).filter(t=>!t.passive&&tacticUsesLeft(v,t)>0&&t.threshold>v.intent).map(t=>t.threshold-v.intent));
  const pending=candidates.map(unit=>({unit,gap:gap(unit)})).filter(v=>Number.isFinite(v.gap)).sort((a,c)=>a.gap-c.gap||a.unit.id.localeCompare(c.unit.id));
- const target=pending[0]?.unit||candidates.sort((a,c)=>a.intent-c.intent||a.id.localeCompare(c.id))[0];if(!target)return;
+ const target=preferFormation(b,u,'intent',pending.length?pending.map(p=>p.unit):candidates.sort((a,c)=>a.intent-c.intent||a.id.localeCompare(c.id)))[0];if(!target)return;
  const amount=d.intentGain[d.tier-1],overflow=Math.max(0,target.intent+amount-COMBAT.intentCap),gain=api.intent(target,amount,u);
  let protectedAmount=0;
  if(d.tier===d.thresholds.length&&overflow){const size=Math.floor(target.maxHp*Math.min(d.overflowShieldCap,overflow*d.overflowShieldRate));if(shield(b,u,target,size,d.shieldSteps,'战歌'))protectedAmount=size;}
@@ -45,28 +48,31 @@ export function resolveBondHit(b,u,target,api,{isolated=!adjacentBondAlly(b,targ
  if(!bondOperational(b,u)||target.isDecoy||target.type==='gate')return;
  if(topBond(b,u,'bondSkirmish')&&isolated){setStatus(b,u,'phase',BOND_DESIGNS.bondSkirmish.phaseSteps,origin(u,'袭后'));api.signal(u,u,'袭后',{text:'袭后 · 穿阵'});}
  if(!bondOnField(target))return;
- const crusher=rule(b,u,'crusherAttack');
- if(crusher&&eligible(b,u,target,'armorBreak')&&!hasStatus(b,target,'armorBreak')&&api.random(b)<crusher.chance[crusher.tier-1]&&status(b,u,target,'armorBreak',crusher.statusSteps,crusher,api)&&crusher.tier===crusher.thresholds.length){const n=api.drain(target,crusher.intentDrain,u);if(n)api.signal(u,target,crusher.name,{text:'摧锋 · 战意 −'+n,intentDrained:n});}
  const lure=rule(b,u,'lureAttack');
- if(lure&&eligible(b,u,target,'taunt')&&!hasStatus(b,target,'taunt')&&api.random(b)<lure.chance[lure.tier-1]&&status(b,u,target,'taunt',lure.statusSteps,lure,api)&&lure.tier===lure.thresholds.length)for(const other of enemies(b,u).filter(v=>v!==target&&hexDistance(v,target)<=lure.range))status(b,u,other,'slow',lure.statusSteps,lure,api);
+ if(lure&&eligible(b,u,target,'taunt')&&!hasStatus(b,target,'taunt')&&api.random(b)<lure.chance[lure.tier-1]&&status(b,u,target,'taunt',lure.statusSteps,lure,api)&&lure.tier===lure.thresholds.length)api.queueLure(u,target);
  const fire=rule(b,u,'fireAttack');
  if(fire&&eligible(b,u,target,'burn')&&api.random(b)<fire.chance[fire.tier-1]){const amount=Math.max(1,Math.round(api.attributes(u).strategyPower*fire.burnRate*100/(100+api.attributes(target).discipline)));setStatus(b,target,'burn',fire.statusSteps,{...origin(u,fire.name),amount});api.signal(u,target,fire.name,{text:'火谋 · 灼烧'});recordContribution(u,'control',1);}
  const chain=rule(b,u,'chainAttack');
- if(chain&&hasStatus(b,target,'burn')&&!hasStatus(b,target,'link')&&(u.bondState.linkReady||0)<=b.tick&&eligible(b,u,target,'link')){
-  const others=enemies(b,u).filter(v=>v!==target&&hexDistance(v,target)<=chain.range&&!hasStatus(b,v,'link')&&eligible(b,u,v,'link')).sort((a,c)=>nearest(target,a,c)).slice(0,chain.targets[chain.tier-1]-1);
+ const strongerLink=v=>!hasStatus(b,v,'link')||(v.statuses.link.fraction??STATUS_DEFINITIONS.link.fraction)<chain.fraction[chain.tier-1];
+ if(chain&&hasStatus(b,target,'burn')&&strongerLink(target)&&(u.bondState.linkReady||0)<=b.tick&&eligible(b,u,target,'link')){
+  const others=enemies(b,u).filter(v=>v!==target&&hexDistance(v,target)<=chain.range&&strongerLink(v)&&eligible(b,u,v,'link')).sort((a,c)=>nearest(target,a,c)).slice(0,chain.targets[chain.tier-1]-1);
   if(!others.length)return;
   const group=u.id+':bondChain:'+b.tick;for(const v of [target,...others])status(b,u,v,'link',chain.statusSteps,chain,api,{group,fraction:chain.fraction[chain.tier-1]});u.bondState.linkReady=b.tick+chain.period;
  }
 }
+export function resolveLureSpread(b,u,targets,api){
+ const d=rule(b,u,'lureAttack');if(!d||d.tier!==d.thresholds.length)return;
+ for(const target of targets)status(b,u,target,'slow',d.statusSteps,d,api);
+}
 export function pulseBondCombos(b,u,target,api){
  if(!bondOperational(b,u))return;
  const swift=rule(b,u,'swiftBurst');
- if(swift&&(u.bondState.swiftReady||0)<=b.tick){
+ if(swift&&(u.bondState.swiftReady||0)<=b.tick&&enemies(b,u).some(v=>isTargetable(b,v)&&hexDistance(u,v)<=FORMATION.nearEnemy)){
   setStatus(b,u,'swiftRush',swift.burstSteps[swift.tier-1]-1,{...origin(u,swift.name),castTick:b.tick,bondSwiftTier:swift.tier});
   u.bondState.swiftReady=b.tick+swift.period;api.signal(u,u,swift.name,{text:'疾驰 · 突进'});
  }
  const escort=rule(b,u,'escort');
- if(escort&&(u.bondState.escortReady||0)<=b.tick){const friend=b.sides[u.side].units.filter(v=>v!==u&&bondOnField(v)&&v.hp<=v.maxHp*escort.hpThreshold&&hexDistance(v,u)<=escort.range).sort((a,c)=>a.hp/a.maxHp-c.hp/c.maxHp||a.id.localeCompare(c.id))[0];if(friend){const size=Math.floor(friend.maxHp*escort.shieldFraction[escort.tier-1]);if(shield(b,u,friend,size,escort.shieldSteps,'护卫',{bondGuardTier:escort.tier,sourceId:u.id,castTick:b.tick})){u.bondState.escortReady=b.tick+escort.period;recordContribution(u,'support',1);api.signal(u,friend,'护卫',{text:'护卫 · 护盾 +'+size});}}}
+ if(escort&&(u.bondState.escortReady||0)<=b.tick){const friend=preferFormation(b,u,'care',b.sides[u.side].units.filter(v=>v!==u&&bondOnField(v)&&v.hp<=v.maxHp*escort.hpThreshold&&hexDistance(v,u)<=escort.range).sort((a,c)=>a.hp/a.maxHp-c.hp/c.maxHp||a.id.localeCompare(c.id)))[0];if(friend){const size=Math.floor(friend.maxHp*escort.shieldFraction[escort.tier-1]);if(shield(b,u,friend,size,escort.shieldSteps,'护卫',{bondGuardTier:escort.tier,sourceId:u.id,castTick:b.tick})){u.bondState.escortReady=b.tick+escort.period;recordContribution(u,'support',1);api.signal(u,friend,'护卫',{text:'护卫 · 护盾 +'+size});}}}
  const doubt=rule(b,u,'doubtPulse');
  if(doubt&&b.tick>=(u.bondState.doubtReady??(u.bondEntry?.tick||0)+doubt.period)&&target&&bondOnField(target)&&target.side!==u.side){
   u.bondState.doubtReady=b.tick+doubt.period;

@@ -1,3 +1,4 @@
+import {tacticHolder} from './helpers/current-battle.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createScenario} from '../scenarios.mjs';
@@ -48,10 +49,10 @@ test('lower Valor tiers both resist and receive real basic damage with determini
  }
 });
 
-test('full Valor blocks real attacks on both sides only when source intent is strictly lower',()=>{
- for(const side of [0,1])for(const intent of [89,90,91]){
+test('full Valor blocks real attacks on both sides only with at least a 25 point advantage',()=>{
+ for(const side of [0,1])for(const intent of [64,65,66,89,90,91]){
   const x=scene(full,side);x.enemy.intent=intent;x.enemy.cooldown=0;stepBattle(x.b);
-  assert.equal(damageTo(x)===0,intent===89);
+  assert.equal(damageTo(x)===0,intent<=65);
   assert.doesNotThrow(()=>validateSave(structuredClone(x.state)));
  }
 });
@@ -94,7 +95,7 @@ test('full Valor rejects low-source harmful effects but preserves all beneficial
 
 test('full Valor blocks actual hostile tactics and their secondary effects without refunding casts',()=>{
  for(const skill of ['ward','thrust']){
-  const x=scene(full,0,'spear'),caster=x.enemies[1];Object.assign(caster,{x:5,y:3,intent:60});primeTactic(caster,skill);
+  const holder=tacticHolder(skill,'spear',full.map(id)),name=O[holder].name,foes=[name,...['曹操','袁绍','田丰','郭嘉'].filter(n=>n!==name)].slice(0,4),x=scene(full,0,'spear',foes),caster=x.enemies[0];Object.assign(caster,{x:5,y:3,intent:60});primeTactic(caster,skill);
   stepBattle(x.b);assert.equal(caster.tacticCasts[skill],1);assert.equal(damageTo(x),0);assert.equal(hasStatus(x.b,x.u,'taunt'),false);assert.equal(hasStatus(x.b,x.u,'stun'),false);
  }
  const x=scene(),caster=x.enemies[3];Object.assign(caster,{x:6,y:3,intent:60});primeTactic(caster,'undermine');stepBattle(x.b);

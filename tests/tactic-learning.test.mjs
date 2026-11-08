@@ -9,9 +9,10 @@ import {createScenario,SCENARIOS} from '../scenarios.mjs';
 import {planEnemyArmy} from '../battle-ai.mjs';
 import {newCampaign,validateCampaign,serializeCampaign,changeCityTroop} from './helpers/auto-domestic-campaign.mjs';
 import {RULES_VERSION} from '../combat-rules.mjs';
+import {TROOP_DESIGNS} from '../data/design/troops.mjs';
 
-test('每兵种固定武技小战法、谋略小战法和大战法各一项',()=>{
- for(const type of LEARNING_TROOPS){const p=tacticPools(type);assert.equal(p.low.length,2,type);assert.equal(p.high.length,1,type);assert.deepEqual(p.low.map(id=>TACTICS_BOOK[id].category).sort(),['force','intellect']);assert.equal(new Set([...p.low,...p.high]).size,3);}
+test('三条威力都有大小战法，兵器保留唯一合成大战法',()=>{
+ for(const type of LEARNING_TROOPS){const p=tacticPools(type),siege=TROOP_DESIGNS[type].equipmentSlot==='siege';assert.equal(p.low.length,3,type);assert.equal(p.high.length,siege?1:3,type);assert.deepEqual(p.low.map(id=>TACTICS_BOOK[id].category).sort(),['force','intellect','politics']);if(!siege)assert.deepEqual(p.high.map(id=>TACTICS_BOOK[id].category).sort(),['force','intellect','politics']);assert.equal(new Set([...p.low,...p.high]).size,siege?4:6);}
 });
 test('832名武将全部兵种和等级遵守S三项、A两项、B/C一项，种子不影响配置',()=>{
  for(const source of OFFICER_CATALOG){
@@ -21,19 +22,19 @@ test('832名武将全部兵种和等级遵守S三项、A两项、B/C一项，种
    const p=a.tacticLearning.byTroop[type],apt=troopAptitude(source,type);
    assert.equal(p.low.length+p.high.length,[1,1,2,3][apt],source.name+'/'+type);
    assert.equal(p.high.length,apt>=2?1:0);
-   if(apt<3)assert.equal(TACTICS_BOOK[p.low[0]].category,smallTacticCategory(source));
+   if(apt===3)assert.equal(new Set(p.low.map(id=>TACTICS_BOOK[id].category)).size,2);
   }
  }
 });
-test('属性比较按智武、政统、魅力50边界选择，不受等级或随机数影响',()=>{
+test('武技、谋略、营务偏好分别按基础武智政比较，平分稳定',()=>{
  for(const [stats,expected] of [
-  [{force:80,intellect:79,leadership:1,politics:100,charm:100},'force'],
+  [{force:80,intellect:79,leadership:1,politics:100,charm:100},'politics'],
   [{force:79,intellect:80,leadership:100,politics:1,charm:0},'intellect'],
   [{force:80,intellect:80,leadership:71,politics:70,charm:100},'force'],
-  [{force:80,intellect:80,leadership:70,politics:71,charm:0},'intellect'],
+  [{force:80,intellect:80,leadership:70,politics:71,charm:0},'force'],
   [{force:80,intellect:80,leadership:70,politics:70,charm:49},'force'],
-  [{force:80,intellect:80,leadership:70,politics:70,charm:50},'intellect'],
- ]){assert.equal(smallTacticCategory(stats),expected);const r=createTacticLearning({...stats,aptitudes:{spear:1}});assert.equal(TACTICS_BOOK[r.byTroop.spear.low[0]].category,expected);}
+  [{force:80,intellect:80,leadership:70,politics:70,charm:50},'force'],
+ ]){assert.equal(smallTacticCategory(stats),expected);const r=createTacticLearning({...stats,aptitudes:{spear:1}});assert.equal(r.byTroop.spear.low.length,1);}
 });
 test('仅确认16人拥有专属，一级即可跨四兵科及升级兵种携带且不挤占普通名额',()=>{
  const expected='曹操 刘备 孙策 关羽 张飞 赵云 马超 黄忠 吕布 张辽 诸葛亮 庞统 郭嘉 司马懿 周瑜 陆逊'.split(' ').sort();

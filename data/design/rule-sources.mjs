@@ -7,7 +7,7 @@ export const RULE_SOURCES=Object.freeze({
  'talent-rules':['talent-core.mjs','talent-lifecycle.mjs','domestic.mjs','data/design/domestic-actions.mjs','city-personnel.mjs','data/design/talent-loyalty.mjs'],
  events:['domestic.mjs','data/design/domestic-incidents.mjs','activity-retention.mjs'],
  'relations-cooperation':['relationships.mjs','domestic-cooperation.mjs'],
- 'progression-learning':['data/design/progression.mjs','tactic-learning.mjs','data/design/assignments.mjs'],
- 'formation-deployment':['hex-grid.mjs','data/design/bandits.mjs','bandit-state.mjs','bandits.mjs','troop-capacity.mjs','strategic-campaign.mjs','engine.mjs','combat-rules.mjs','defense-line.mjs','reserve-entry.mjs','tactic-positioning.mjs','tactic-aim.mjs','data/design/tactics.mjs','data/design/bonds.mjs','bonds.mjs','bond-battlefield.mjs'],
+ 'progression-learning':['data/design/progression.mjs','tactic-learning.mjs','data/design/assignments.mjs','data/design/tactic-selection.mjs'],
+ 'formation-deployment':['hex-grid.mjs','data/design/bandits.mjs','bandit-state.mjs','bandits.mjs','troop-capacity.mjs','strategic-campaign.mjs','engine.mjs','combat-rules.mjs','formation-behavior.mjs','battle-path-planning.mjs','engagement.mjs','unit-stats.mjs','deployment-support.mjs','defense-line.mjs','reserve-entry.mjs','tactic-positioning.mjs','tactic-aim.mjs','data/design/troops.mjs','data/design/battle-statuses.mjs','data/design/tactics.mjs','data/design/bonds.mjs','bonds.mjs','bond-debuffs.mjs','bond-battlefield.mjs'],
  'ai-parameters':['officer-recommendation.mjs','battle-ai.mjs','strategic-ai.mjs','strategic-concentration.mjs','strategic-personnel.mjs','data/design/strategic-planning-rules.mjs','data/design/economy-rules.mjs'],
 });

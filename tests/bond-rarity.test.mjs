@@ -68,7 +68,7 @@ test('Skirmish loses its damage bonus when the target has a real adjacent friend
  const protector=b.sides[1].units[1];Object.assign(protector,{x:6,y:3});assert.equal(bondDamage(b,u,target,'basic'),1);
  protector.status='reserve';assert.equal(bondDamage(b,u,target,'basic'),1.16);
 });
-test('rare Beauty drains hit intent and rolls full-field anomalies through actual hits on either side',()=>{
+test('rare Beauty drains hit intent and rolls local anomalies through actual hits on either side',()=>{
  for(const side of [0,1]){
   const {state,b,u,us,target}=scene(['貂蝉','甄氏','大乔','小乔'],side,'archer');assert.equal(sideBonds(b,side).bondBeauty.tier,3);
   for(const v of b.sides.flatMap(a=>a.units)){v.cooldown=999;v.retreatAt=null;v.skillReady=Object.fromEntries(v.tactics.map(id=>[id,999]));}
@@ -99,22 +99,22 @@ test('Beauty tiers use current field points, drain only hit units, and lower tie
  const teams=[['貂蝉'],['貂蝉','甄氏'],['貂蝉','甄氏','大乔','小乔']];
  for(const side of [0,1])for(let i=0;i<teams.length;i++){
   const x=beautyScene(teams[i],side),rule=bondHitEffect(x.b,x.u);
-  assert.equal(rule.intentDrain,[12,18,24][i]);assert.equal(rule.chance,[.4,.55,.7][i]);assert.equal(rule.allEnemies,i===2);
+  assert.equal(rule.intentDrain,[12,18,24][i]);assert.equal(rule.chance,[.4,.55,.7][i]);assert.equal(rule.spread,i===2);
   beautyChance(1,()=>stepBattle(x.b));
   assert.equal(x.target.intent,50+intentIncome(x.target).hit-rule.intentDrain);
   assert.equal(beautyStatuses(x.target).length,1);assert.equal(x.target.statuses.powerDown,undefined);
-  for(const v of x.foes.slice(1)){assert.equal(v.intent,50);assert.equal(beautyStatuses(v).length,i===2?1:0);}
+  for(const v of x.foes.slice(1)){assert.equal(v.intent,50);assert.equal(beautyStatuses(v).length,0);}
   for(const [key,s]of beautyStatuses(x.target)){assert.equal(s.until-x.b.tick-1,3);if(CONTROL_STATUSES.includes(key))assert.ok(hasStatus(x.b,x.target,'resolve'));}
   assert.doesNotThrow(()=>validateSave(structuredClone(x.state)));
  }
- const x=beautyScene();x.us[3].status='reserve';assert.equal(bondHitEffect(x.b,x.u).allEnemies,false);assert.equal(bondHitEffect(x.b,x.us[3]),null);
+ const x=beautyScene();x.us[3].status='reserve';assert.equal(bondHitEffect(x.b,x.u).spread,false);assert.equal(bondHitEffect(x.b,x.us[3]),null);
 });
 
-test('Beauty probability can miss and full-field targets have independent seeded outcomes',()=>{
+test('Beauty probability can miss and local delayed targets have independent seeded outcomes',()=>{
  const miss=beautyScene();beautyChance(0,()=>stepBattle(miss.b));assert.ok(miss.foes.every(v=>!beautyStatuses(v).length));assert.ok(miss.target.intent<50);
  let remote=false,mixed=false;
  for(let seed=1;seed<=24;seed++){
-  const x=beautyScene();x.b.seed=seed;stepBattle(x.b);
+  const x=beautyScene();Object.assign(x.foes[1],{x:7,y:3});x.b.seed=seed;stepBattle(x.b);x.u.cooldown=999;stepBattle(x.b);
   const results=x.foes.map(v=>beautyStatuses(v).length>0);remote ||= results.slice(1).some(Boolean);mixed ||= results.some(Boolean)&&results.some(v=>!v);
  }
  assert.ok(remote);assert.ok(mixed);
@@ -133,21 +133,21 @@ test('Beauty respects magic immunity, stasis, existing anomalies and control pro
  });
 });
 
-test('Beauty full-field rolls exclude reserves, withdrawn and defeated units',()=>{
+test('Beauty spread excludes reserves, withdrawn and defeated units',()=>{
  beautyChance(1,()=>{
   const x=beautyScene();x.foes[1].status='reserve';x.foes[1].arrivalTick=999;x.foes[2].status='withdrawn';x.foes[3].status='defeated';x.foes[3].hp=0;
   stepBattle(x.b);assert.equal(beautyStatuses(x.target).length,1);assert.ok(x.foes.slice(1).every(v=>!beautyStatuses(v).length));
  });
 });
 
-test('Beauty full-field anomalies trigger once per contact attack and still trigger after a lethal hit',()=>{
+test('Beauty spread locks once per contact attack and still trigger after a lethal hit',()=>{
  beautyChance(1,()=>{
   const x=beautyScene(undefined,0,'spear');const neighbors=hexNeighbors(x.u);
   x.foes.slice(0,3).forEach((v,i)=>Object.assign(v,{x:neighbors[i][0],y:neighbors[i][1]}));
-  stepBattle(x.b);assert.ok(x.foes.every(v=>beautyStatuses(v).length===1));
+  stepBattle(x.b);assert.ok(x.foes.slice(0,3).every(v=>beautyStatuses(v).length===1));assert.equal(x.u.beautyAims.length,1);assert.equal(beautyStatuses(x.foes[3]).length,0);
   assert.equal(x.b.effects.filter(e=>e.from===x.u.id&&e.label==='倾国'&&e.intentDrained).length,3);
   assert.equal(x.foes[3].intent,50);
-  const lethal=beautyScene();lethal.target.hp=1;stepBattle(lethal.b);assert.equal(lethal.target.status,'defeated');assert.ok(!beautyStatuses(lethal.target).length);assert.ok(lethal.foes.slice(1).every(v=>beautyStatuses(v).length===1));
+  const lethal=beautyScene();lethal.target.hp=1;stepBattle(lethal.b);assert.equal(lethal.target.status,'defeated');assert.ok(!beautyStatuses(lethal.target).length);assert.equal(lethal.u.beautyAims.length,1);Object.assign(lethal.foes[1],{x:7,y:3});lethal.u.cooldown=999;stepBattle(lethal.b);assert.equal(beautyStatuses(lethal.foes[1]).length,1);assert.ok(lethal.foes.slice(2).every(v=>!beautyStatuses(v).length));
  });
 });
 
@@ -158,3 +158,36 @@ test('fully shielded hits and non-holders cannot trigger Beauty',()=>{
   const nonholder=beautyScene(['荀彧','貂蝉','甄氏','大乔','小乔']);assert.equal(sideBonds(nonholder.b,0).bondBeauty.tier,3);assert.equal(bondHitEffect(nonholder.b,nonholder.u),null);stepBattle(nonholder.b);assert.ok(nonholder.foes.every(v=>!beautyStatuses(v).length));
  });
 });
+
+test('Beauty locks a local area, permits escape and entry, and preserves pending RNG across a save',()=>{
+ for(const side of [0,1])beautyChance(1,()=>{
+  const x=beautyScene(undefined,side);Object.assign(x.foes[1],{x:7,y:3});stepBattle(x.b);x.u.cooldown=999;
+  assert.equal(beautyStatuses(x.foes[1]).length,0);assert.equal(x.u.beautyAims.length,1);
+  const bad=structuredClone(x.state);bad.battle.sides[side].units[0].beautyAims[0].cells=[];assert.throws(()=>validateSave(bad),/倾国锁定范围/);
+  Object.assign(x.foes[1],{x:12,y:7});Object.assign(x.foes[2],{x:7,y:3});
+  const copy=validateSave(structuredClone(x.state));stepBattle(x.b);stepBattle(copy.battle);
+  assert.deepEqual(x.state,copy);assert.equal(beautyStatuses(x.foes[1]).length,0);assert.equal(beautyStatuses(x.foes[2]).length,1);
+  assert.equal(x.foes[2].intent,50,'spread does not drain intent');assert.equal(x.u.beautyAims.length,0);
+ });
+});
+test('Wisdom opening bonus requires both low intent and an active anomaly at every tier',()=>{
+ const teams=[['诸葛亮'],['诸葛亮','郭嘉','庞统'],['诸葛亮','郭嘉','庞统','司马懿','周瑜']];
+ for(const side of [0,1])for(let tier=0;tier<3;tier++){
+  const x=scene(teams[tier],side);x.target.intent=59;x.target.statuses={};
+  const baseline=bondDamage(x.b,x.u,x.target,'intellect');
+  setStatus(x.b,x.target,'weaken',3,{sourceId:x.u.id});
+  assert.equal(bondDamage(x.b,x.u,x.target,'intellect'),baseline*(1+[.2,.3,.4][tier]));
+  x.target.intent=60;assert.equal(bondDamage(x.b,x.u,x.target,'intellect'),baseline);
+  x.target.intent=59;assert.equal(bondDamage(x.b,x.u,x.target,'dot'),1);
+  x.target.statuses.weaken.until=x.b.tick;assert.equal(bondDamage(x.b,x.u,x.target,'intellect'),baseline);
+  assert.ok(x.us.every(u=>!u.statuses.attackOrb&&!u.bondEquipment.some(e=>e.id==='bondWisdom')));
+ }
+});
+test('Beauty delayed spread has a hard two-target cap and never spreads again',()=>beautyChance(1,()=>{
+ const x=beautyScene();stepBattle(x.b);x.u.cooldown=999;
+ const aim=x.u.beautyAims[0],others=x.foes.filter(v=>v.id!==aim.targetId),cells=hexNeighbors(aim.point);
+ others.forEach((v,i)=>Object.assign(v,{x:cells[i][0],y:cells[i][1]}));
+ stepBattle(x.b);assert.equal(others.filter(v=>beautyStatuses(v).length>0).length,2);
+ assert.equal(x.u.beautyAims.length,0);assert.ok(others.every(v=>v.intent===50));
+ stepBattle(x.b);assert.equal(x.u.beautyAims.length,0);
+}));

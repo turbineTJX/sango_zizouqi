@@ -11,21 +11,21 @@ const id=name=>Object.values(OFFICER_DESIGNS).find(o=>o.name===name).id;
 const team=names=>names.map(name=>({id:id(name),troops:3000,type:'spear',level:10}));
 const positions=b=>b.sides[1].units.map(u=>({id:u.id,status:u.status,x:u.x,y:u.y,formation:u.formation}));
 
-test('AI retains basic deployment and can use an already active formation without changing its selected troops',()=>{
+test('AI retains basic deployment without retired formation rewards or changing selected troops',()=>{
  const state=generateBattle({seed:17711,terrain:'land',battleKind:'field',limit:480,
   ownTeam:team(['刘备','关羽','张飞']),enemyTeam:team(['曹仁','郝昭','霍峻','罗宪','于禁','王平'])});
  const b=state.battle,before=structuredClone(b.sides[0]),seed=b.seed;
- assert.equal(sideBonds(b,1).bondGuard.tier,3);
+
  const roster=b.sides[1].units.map(u=>({id:u.id,status:u.status,tactics:[...u.tactics]}));
  const growth=b.sides[1].units.map(u=>structuredClone(u.bondGrowth));
  planEnemyArmy(b);
  assert.deepEqual(b.sides[1].units.map(u=>({id:u.id,status:u.status,tactics:[...u.tactics]})),roster);
  const marks=formationCells(b,1);
- assert.ok(b.sides[1].units.some(u=>u.status==='active'&&marks.some(p=>p.x===u.x&&p.y===u.y)));
+ assert.deepEqual(marks,[]);assert.equal(new Set(b.sides[1].units.filter(u=>u.status==='active').map(u=>u.x+','+u.y)).size,6);
  const placed=positions(b);planEnemyArmy(b);assert.deepEqual(positions(b),placed);
  assert.deepEqual(b.sides[0],before);assert.equal(b.seed,seed);
  assert.deepEqual(b.sides[1].units.map(u=>u.bondGrowth),growth);
- lockDeployment(b);assert.equal(sideBonds(b,1).bondGuard.tier,3);
+ lockDeployment(b);
  validateSave(structuredClone(state));
 });
 

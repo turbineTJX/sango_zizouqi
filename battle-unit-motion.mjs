@@ -11,7 +11,7 @@ const groups={
  swift:['swiftRush','rapidAdvance','haste','attackHaste','phase','pursuit'],
  force:['valor','peachFury','heavyAttack','riposte'],
  weapon:['attackOrb','burningAttack','strategyAttack','longRange','nexus','insight'],
- weakened:['powerDown','hunger','weaken','despair','intentSuppression','attackSlow','shortRange'],spent:['stasisLock'],
+ weakened:['powerDown','hunger','weaken','disciplineDown','despair','intentSuppression','attackSlow','shortRange'],spent:['stasisLock'],
  stagger:['disrupted','armorBreak','link'],
  stun:['stun'],confuse:['confuse'],burn:['burn'],plague:['plague'],seal:['seal'],
  root:['root'],disarm:['disarm'],slow:['slow'],taunt:['taunt'],recovery:['regrowth'],

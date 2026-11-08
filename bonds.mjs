@@ -1,13 +1,15 @@
 import {grantReserveEntries,syncPeach} from './bond-reserves-peach.mjs';
 import {grantBondEquipment,validBondEquipment} from './bond-equipment.mjs';
-import {grantFormationEntries,formationBoost,validFormationEntry,routDamageBonus,routSpeedBonus,grantOpeningFormationEntries,openingFormationModifiers,validOpeningFormationEntries,validOpeningFormationShield,lockFormationChoice,formationChoice,validFormationChoice} from './bond-battlefield.mjs';
+import {routDamageBonus,routSpeedBonus} from './bond-battlefield.mjs';
 import {BOND_DESIGNS} from './data/design/bonds.mjs';
 import {BOND_ASSIGNMENTS} from './data/design/bond-assignments.mjs';
 import {troopFamily} from './troop-training.mjs';
 import {TREASURE_RULES} from './data/design/treasures.mjs';
 import {treasureBondBonuses,grantTreasureEntries} from './treasure-battle.mjs';
 import {setStatus} from './tactics.mjs';
-export const bondCaps=u=>BOND_ASSIGNMENTS[u.id]||{bondGuard:1};
+import {STATUS_DEFINITIONS} from './data/design/battle-statuses.mjs';
+import {grantBondDebuffs} from './bond-debuffs.mjs';
+export const bondCaps=u=>BOND_ASSIGNMENTS[u.id]||{};
 const hash=s=>{let n=2166136261;for(const c of String(s))n=Math.imul(n^c.charCodeAt(0),16777619);return n>>>0;};
 function random(g){g.seed=(Math.imul(g.seed,1664525)+1013904223)>>>0;return g.seed/4294967296;}
 export function advanceBonds(u,seed=0){
@@ -51,13 +53,13 @@ export function sideBondDetails(b,side){
 export const sideBonds=(b,side)=>Object.fromEntries(Object.entries(sideBondDetails(b,side)).map(([id,{points,tier}])=>[id,{points,tier}]));
 export function activeBonds(b,u){
  if(!b||!bondOnField(u))return [];
- return Object.entries(sideBonds(b,u.side)).filter(([id,s])=>s.tier>0&&(BOND_DESIGNS[id].family?troopFamily(u.type)===BOND_DESIGNS[id].family:(bondLevels(u)[id]||0)>0)&&(!['formationTiles','openingFormation'].includes(BOND_DESIGNS[id].special)||formationChoice(b,u.side)?.id===id)).map(([id,s])=>({id,...BOND_DESIGNS[id],...s}));
+ return Object.entries(sideBonds(b,u.side)).filter(([id,s])=>s.tier>0&&(BOND_DESIGNS[id].family?troopFamily(u.type)===BOND_DESIGNS[id].family:(bondLevels(u)[id]||0)>0)).map(([id,s])=>({id,...BOND_DESIGNS[id],...s}));
 }
 export const topBond=(b,u,id)=>activeBonds(b,u).some(x=>x.id===id&&x.tier===x.thresholds.length);
 export function bondAttributes(b,u){
  const mods={};
  for(const d of activeBonds(b,u)){
- if(d.family||['intentIncome','hitIntentDeny','swiftBurst','songAttack','crusherAttack','doubtPulse','lureAttack','fireAttack','chainAttack','valorIntent','spreadGuard','finishStrike','counterHorse','siegeStrike','nearAllySpeed','isolatedStrike','escort','physicalGuard','distantStrike','lastStand','entryPower','beautyHit','swornLink','reserveEntry','formationTiles','openingFormation','routMomentum'].includes(d.special))continue;
+ if(d.family||['intentIncome','hitIntentDeny','swiftBurst','songAttack','crusherAttack','disciplineAttack','powerDownAttack','doubtPulse','lureAttack','fireAttack','chainAttack','valorIntent','spreadGuard','finishStrike','counterHorse','siegeStrike','nearAllySpeed','isolatedStrike','escort','physicalGuard','distantStrike','lastStand','entryPower','beautyHit','swornLink','reserveEntry','routMomentum'].includes(d.special))continue;
   (mods[d.stat] ||= []).push({label:`${d.name} ${d.points}点`,factor:1+d.values[d.tier-1]});
   if(d.tier===d.thresholds.length&&d.extraValue)(mods[d.extra] ||= []).push({label:`${d.name}满档`,factor:1+d.extraValue});
  }
@@ -65,8 +67,6 @@ export function bondAttributes(b,u){
  for(const d of activeBonds(b,u))if(d.special==='swornLink')(mods.discipline ||= []).push({label:'桃园结义',factor:1+d.values[d.tier-1]});
  for(const d of activeBonds(b,u))if(d.special==='nearAllySpeed'&&adjacentBondAlly(b,u))(mods.attackSpeed ||= []).push({label:'聚势邻接',factor:1+d.values[d.tier-1]});
  for(const d of activeBonds(b,u))if(d.special==='lastStand'&&u.hp<=u.maxHp*d.hpThreshold)for(const stat of ['attack','martialPower','strategyPower'])(mods[stat] ||= []).push({label:'背水反击',factor:1+d.values[d.tier-1]});
- const formation=formationBoost(b||{},u);if(formation)for(const stat of ['attack','martialPower','strategyPower'])(mods[stat] ||= []).push({label:'天覆阵位',factor:1+formation});
- for(const {stat,label,factor} of openingFormationModifiers(b||{},u))(mods[stat] ||= []).push({label,factor});
  if(bondOnField(u)&&(u.statuses?.peachFury?.until||0)>(b?.tick??Infinity)){for(const stat of ['attack','martialPower','strategyPower'])(mods[stat] ||= []).push({label:'桃园奋战',factor:1+BOND_DESIGNS.bondPeach.furyPower});(mods.attackSpeed ||= []).push({label:'桃园奋战',factor:1+BOND_DESIGNS.bondPeach.furySpeed});}
  const swift=bondSwiftEffect(b,u);if(swift)(mods.move ||= []).push({label:'疾驰突进',factor:1+swift.moveBonus});
  const speed=b?routSpeedBonus(b,u):0;if(speed)(mods.attackSpeed ||= []).push({label:'破军乘胜',factor:1+speed});
@@ -78,7 +78,7 @@ export function bondList(u,b){
  if(!adjacentBondAlly(b,u))active.delete('bondMuster');
  if(!bondSwiftEffect(b,u))active.delete('bondSwift');
  if(adjacentBondAlly(b,u))active.delete('bondSpread');
- active.delete('bondGuard');if(formationBoost(b||{},u))active.add('bondGuard');if((u.statuses?.peachFury?.until||0)>(b?.tick??Infinity))active.add('bondPeach');
+ if((u.statuses?.peachFury?.until||0)>(b?.tick??Infinity))active.add('bondPeach');
  return Object.entries(bondCaps(u)).map(([id,cap])=>({id,...BOND_DESIGNS[id],domain:'battle',level:current[id]||0,unlocked:!!current[id],cap,state:active.has(id)?'在场生效':'未生效',description:`个人等级 ${current[id]||0}／${cap}；${b?`场上合计 ${side[id]?.points||0} 点；`:''}${BOND_DESIGNS[id].description}`}));
 }
 import {hexDistance} from './hex-grid.mjs';
@@ -89,7 +89,7 @@ export function bondDamage(b,u,target,kind){
  if(target.type==='gate')return activeBonds(b,u).filter(d=>d.special==='siegeStrike').reduce((factor,d)=>factor*(1+d.values[d.tier-1]),1);
  let factor=(1+routDamageBonus(b,u))*bondValorDamage(b,u,target);
  for(const d of activeBonds(b,u)){
-  if(d.special==='lowIntent'&&d.tier===d.thresholds.length&&kind==='intellect'&&target.intent<60)factor*=1+d.specialValue;
+  if(d.special==='lowIntent'&&kind==='intellect'&&target.intent<d.intentThreshold&&Object.keys(STATUS_DEFINITIONS).some(key=>['control','debuff','damage'].includes(STATUS_DEFINITIONS[key].tone)&&bondStatus(b,target,key)))factor*=1+d.openingBonus[d.tier-1];
   if(d.special==='finishStrike'&&target.hp<=target.maxHp*d.hpThreshold)factor*=1+d.values[d.tier-1];
   if(d.special==='counterHorse'&&troopFamily(target.type)==='cavalry')factor*=1+d.values[d.tier-1];
   if(d.special==='isolatedStrike'&&!adjacentBondAlly(b,target))factor*=1+d.values[d.tier-1];
@@ -127,24 +127,22 @@ export function grantBondEntries(b,side=null,entryOrder=[]){
  syncPeach(b);
  if(!b.deploymentLocked)return;
  for(const army of b.sides){
-  lockFormationChoice(b,b.sides.indexOf(army));
   const pending=army.units.filter(u=>bondOnField(u)&&!u.bondEntry&&(side===null||u.side===side));
   pending.sort((a,c)=>entryOrder.indexOf(a.id)-entryOrder.indexOf(c.id));
   grantReserveEntries(b,pending,b.sides.indexOf(army));
   if(!pending.length)continue;
   const sums=sideBonds(b,pending[0].side),tier=id=>sums[id]?.tier||0;
-  grantFormationEntries(b,pending,pending[0].side,formationChoice(b,pending[0].side)?.id==='bondGuard'?formationChoice(b,pending[0].side).tier:0);
-  grantOpeningFormationEntries(b,pending,pending[0].side);
   for(const u of pending){
    grantBondEquipment(b,u,sums);
    u.bondEntry={tick:b.tick};
   }
   grantTreasureEntries(b,pending,(u,key,steps,extra)=>setStatus(b,u,key,steps,extra));
  }
+ grantBondDebuffs(b);
 }
 export function validBondEntry(b,u){
  const e=u.bondEntry;
- if(!validFormationChoice(b,u.side)||!validFormationEntry(b,u)||!validOpeningFormationEntries(b,u)||!validOpeningFormationShield(b,u)||!validBondEquipment(b,u))return false;
+ if(u.bondFormation!==undefined||u.bondOpeningFormations!==undefined||b.sides[u.side].bondFormationChoice!==undefined||(u.statuses?.shield?.layers||[]).some(l=>l.source?.startsWith('formation:'))||!validBondEquipment(b,u))return false;
  // Reserves withdrawn by an army retreat never entered the field or received entry rewards.
  if(!e)return !b.deploymentLocked||u.status==='reserve'||u.status==='withdrawn'&&b.sides[u.side]?.retreat&&u.x===-1&&u.y===-1&&!u.participated;
  return b.deploymentLocked&&Object.keys(e).length===1&&Number.isInteger(e.tick)&&e.tick>=0&&e.tick<=b.tick;
@@ -160,27 +158,30 @@ export function bondHitIntentDenialChance(b,u,target){
  const d=activeBonds(b,u).find(d=>d.special==='hitIntentDeny');return d?d.chance[d.tier-1]:0;
 }
 
-export function bondHitEffect(b,u){const d=activeBonds(b,u).find(d=>d.special==='beautyHit');return d?{intentDrain:d.intentDrain[d.tier-1],chance:d.statusChance[d.tier-1],steps:d.statusSteps,statuses:d.statuses,allEnemies:d.tier===d.thresholds.length}:null;}
+export function bondHitEffect(b,u){const d=activeBonds(b,u).find(d=>d.special==='beautyHit');return d?{intentDrain:d.intentDrain[d.tier-1],chance:d.statusChance[d.tier-1],steps:d.statusSteps,statuses:d.statuses,spread:d.tier===d.thresholds.length}:null;}
 
 export const bondSource=(b,source)=>b?.sides?.flatMap(s=>s.units||[]).find(u=>u.id===(typeof source==='string'?source:source?.sourceId||source?.id))||null;
 export const bondValorRule=(b,u)=>activeBonds(b,u).find(d=>d.special==='valorIntent')||null;
 export function bondBlocksEffect(b,u,source,{beneficial=false}={}){
  if(beneficial)return false;
- const actor=bondSource(b,source),d=actor&&actor!==u&&!actor.isDecoy&&actor.intent<u.intent?bondValorRule(b,u):null;
+ const actor=bondSource(b,source),d=actor&&actor!==u&&!actor.isDecoy&&u.intent-actor.intent>=BOND_DESIGNS.bondValor.immunityGap?bondValorRule(b,u):null;
  return !!d&&d.tier===d.thresholds.length;
 }
 export function bondDamageImmunity(b,u,source){
  const actor=bondSource(b,source);
- if(!actor||actor===u||actor.isDecoy||actor.intent>=u.intent)return 0;
+ if(!actor||actor===u||actor.isDecoy||u.intent-actor.intent<BOND_DESIGNS.bondValor.immunityGap)return 0;
  const d=bondValorRule(b,u);return d?d.immunityChance[d.tier-1]:0;
 }
 export function bondValorDamage(b,u,target){
  if(!u||!target||target.isDecoy||target.type==='gate'||u.side===target.side||!(target.intent<u.intent))return 1;
  const d=bondValorRule(b,u);return d?1+d.values[d.tier-1]:1;
 }
-const bondStatus=(b,u,key)=>(u.statuses?.[key]?.until||0)>b.tick&&!bondBlocksEffect(b,u,u.statuses[key]);
+const bondStatus=(b,u,key)=>(u.statuses?.[key]?.sources||[u.statuses?.[key]]).some(s=>s?.until>b.tick&&!bondBlocksEffect(b,u,s));
 export const bondControlled=(b,u)=>['stun','confuse','seal','disrupted'].some(key=>bondStatus(b,u,key));
-export const bondFinisherCritical=(b,u,target)=>!target.isDecoy&&target.type!=='gate'&&target.hp<=target.maxHp*BOND_DESIGNS.bondFinisher.hpThreshold&&topBond(b,u,'bondFinisher')&&bondStatus(b,target,'armorBreak');
+export const bondFinisherCritical=(b,u,target)=>{
+ if(target.isDecoy||target.type==='gate'||target.hp>target.maxHp*BOND_DESIGNS.bondFinisher.hpThreshold||!bondStatus(b,target,'armorBreak'))return 0;
+ const d=activeBonds(b,u).find(d=>d.special==='finishStrike');return d?d.criticalChance[d.tier-1]:0;
+};
 export function bondDefenseIgnore(b,u,target,kind){
  const d=activeBonds(b,u).find(d=>d.special==='distantStrike');
  return d&&['basic','force'].includes(kind)&&!target.isDecoy&&target.type!=='gate'&&d.tier===d.thresholds.length&&hexDistance(u,target)>=d.minDistance&&bondControlled(b,target)?d.defenseIgnore:0;

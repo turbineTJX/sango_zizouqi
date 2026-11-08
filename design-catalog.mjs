@@ -32,13 +32,14 @@ import {OFFICER_DESIGNS} from './data/design/officers.mjs';
 import {CITY_DESIGNS,DEMO_CITY_DESIGNS} from './data/design/cities.mjs';
 import {NATIONAL_SCENARIO_DESIGNS,EXTRA_FACTION_DESIGNS,ATLAS_SCENARIO_ANCHORS} from './data/design/national-scenarios.mjs';
 import {REFERENCE_SCENARIO} from './data/design/reference-scenario.mjs';
-import {OFFICER_ASSIGNMENTS,TROOP_TACTIC_POOLS,INTELLECT_TACTIC_POOLS} from './data/design/assignments.mjs';
+import {OFFICER_ASSIGNMENTS,TROOP_TACTIC_POOLS,INTELLECT_TACTIC_POOLS,SUPPORT_TACTIC_POOLS,TROOP_TACTIC_REPERTOIRES} from './data/design/assignments.mjs';
+import {TACTIC_SELECTION_RULES,TACTIC_ROLE_GROUPS,TACTIC_STAT_PREFERENCES} from './data/design/tactic-selection.mjs';
 import {DESIGN_FIELDS,DESIGN_EFFECTS,ENGINE_TRAIT_IDS} from './data/design/schema.mjs';
 import TECHNOLOGIES from './data/design/technologies.mjs';
 import {CITY_TECHNOLOGY_PROFILES} from './data/design/city-technologies.mjs';
 import {validateTechnologyDesigns} from './technology-design-validation.mjs';
 import {DIPLOMACY_RULES,DIPLOMACY_AI,DIPLOMACY_CITY_EXCHANGE,DIPLOMACY_WORK,DIPLOMACY_DIRECTIONS,DIPLOMACY_GOALS,DIPLOMACY_ACTIONS,DIPLOMACY_RELATION_TIERS,DIPLOMACY_RELATION_ACTIONS} from './data/design/diplomacy-rules.mjs';
-export const DESIGN_TABLES={officerFates:OFFICER_FATE_RULES,bandits:BANDIT_RULES,battleMaps:BATTLE_MAPS,battleMapCategories:{purposes:MAP_CATEGORIES,assignments:BUILTIN_MAP_CATEGORIES},strategicPlanning:STRATEGIC_PLANNING_RULES,strategicSupport:STRATEGIC_SUPPORT_RULES,treasures:TREASURE_DESIGNS,treasureRules:TREASURE_RULES,domesticIncidents:{rules:DOMESTIC_INCIDENT_RULES,events:DOMESTIC_INCIDENTS},diplomacy:{relationTiers:DIPLOMACY_RELATION_TIERS,relationActions:DIPLOMACY_RELATION_ACTIONS,rules:DIPLOMACY_RULES,ai:DIPLOMACY_AI,cityExchange:DIPLOMACY_CITY_EXCHANGE,work:DIPLOMACY_WORK,directions:DIPLOMACY_DIRECTIONS,goals:DIPLOMACY_GOALS,actions:DIPLOMACY_ACTIONS},bonds:BOND_DESIGNS,bondAssignments:BOND_ASSIGNMENTS,roadNetwork:ROAD_NETWORK_DESIGN,economy:ECONOMY_RULES,progression:MERIT_RULES,technologies:TECHNOLOGIES,cityTechnologies:CITY_TECHNOLOGY_PROFILES,buildings:BUILDING_DESIGNS,domesticActions:DOMESTIC_ACTION_DESIGNS,domesticStaffing:DOMESTIC_STAFFING_RULES,domesticRecommendation:DOMESTIC_RECOMMENDATION_RULES,directions:DOMESTIC_DIRECTIONS,directionStats:DOMESTIC_DIRECTION_STATS,roads:NATIONAL_ROAD_DESIGNS,demoRoads:DEMO_ROAD_DESIGNS,movement:MOVEMENT_RULES,traits:TRAIT_DESIGNS,tactics:TACTIC_DESIGNS,stratagems:STRATAGEM_DESIGNS,stratagemAttributes:STRATAGEM_ATTRIBUTE_RULES,troops:TROOP_DESIGNS,officers:OFFICER_DESIGNS,cities:CITY_DESIGNS,demoCities:DEMO_CITY_DESIGNS,assignments:OFFICER_ASSIGNMENTS,troopPools:TROOP_TACTIC_POOLS,intellectPools:INTELLECT_TACTIC_POOLS};
+export const DESIGN_TABLES={officerFates:OFFICER_FATE_RULES,bandits:BANDIT_RULES,battleMaps:BATTLE_MAPS,battleMapCategories:{purposes:MAP_CATEGORIES,assignments:BUILTIN_MAP_CATEGORIES},strategicPlanning:STRATEGIC_PLANNING_RULES,strategicSupport:STRATEGIC_SUPPORT_RULES,treasures:TREASURE_DESIGNS,treasureRules:TREASURE_RULES,domesticIncidents:{rules:DOMESTIC_INCIDENT_RULES,events:DOMESTIC_INCIDENTS},diplomacy:{relationTiers:DIPLOMACY_RELATION_TIERS,relationActions:DIPLOMACY_RELATION_ACTIONS,rules:DIPLOMACY_RULES,ai:DIPLOMACY_AI,cityExchange:DIPLOMACY_CITY_EXCHANGE,work:DIPLOMACY_WORK,directions:DIPLOMACY_DIRECTIONS,goals:DIPLOMACY_GOALS,actions:DIPLOMACY_ACTIONS},bonds:BOND_DESIGNS,bondAssignments:BOND_ASSIGNMENTS,roadNetwork:ROAD_NETWORK_DESIGN,economy:ECONOMY_RULES,progression:MERIT_RULES,technologies:TECHNOLOGIES,cityTechnologies:CITY_TECHNOLOGY_PROFILES,buildings:BUILDING_DESIGNS,domesticActions:DOMESTIC_ACTION_DESIGNS,domesticStaffing:DOMESTIC_STAFFING_RULES,domesticRecommendation:DOMESTIC_RECOMMENDATION_RULES,directions:DOMESTIC_DIRECTIONS,directionStats:DOMESTIC_DIRECTION_STATS,roads:NATIONAL_ROAD_DESIGNS,demoRoads:DEMO_ROAD_DESIGNS,movement:MOVEMENT_RULES,traits:TRAIT_DESIGNS,tactics:TACTIC_DESIGNS,stratagems:STRATAGEM_DESIGNS,stratagemAttributes:STRATAGEM_ATTRIBUTE_RULES,troops:TROOP_DESIGNS,officers:OFFICER_DESIGNS,cities:CITY_DESIGNS,demoCities:DEMO_CITY_DESIGNS,assignments:OFFICER_ASSIGNMENTS,troopPools:TROOP_TACTIC_POOLS,intellectPools:INTELLECT_TACTIC_POOLS,supportPools:SUPPORT_TACTIC_POOLS};
 export function validateDesignTables(tables=DESIGN_TABLES){
  const errors=validateBattleMaps(tables.battleMaps),check=(ok,path,msg)=>{if(!ok)errors.push(path+'：'+msg);},exists=(table,id)=>Object.hasOwn(table,id),numeric=(n,min=0,max=Infinity)=>typeof n==='number'&&Number.isFinite(n)&&n>=min&&n<=max;
  const aftermath=tables.officerFates;
@@ -101,10 +102,13 @@ export function validateDesignTables(tables=DESIGN_TABLES){
  check(Object.values(tables.bondAssignments||{}).filter(a=>Object.keys(a).length===3).length<10,'bondAssignments','三羁绊持有者须少于十人');
  for(const [id,d] of Object.entries(tables.bonds||{})){
   const path='bonds.'+id;
+  if(d.special==='valorIntent')check(d.immunityGap===25,path,'勇武免疫须领先25战意');
+  if(d.special==='lowIntent')check(!d.entryEquipment&&d.intentThreshold===60&&d.openingBonus?.length===d.thresholds.length&&d.openingBonus.every(n=>numeric(n,0,1)),path,'深谋铺垫增伤或入场配置无效');
+  if(d.special==='beautyHit')check(d.spreadRadius===1&&d.spreadDelay===1&&d.spreadTargets===2,path,'倾国扩散范围与延迟无效');
   check(['basic','advanced'].includes(d.grade)&&typeof d.summary==='string'&&d.summary.length>0&&typeof d.tradeoff==='string'&&d.tradeoff.length>0,path,'羁绊定位或组阵取舍无效');
   if(d.special==='valorIntent')check(d.immunityChance?.length===d.thresholds.length&&d.immunityChance.every(n=>numeric(n,0,1))&&d.immunityChance.at(-1)===1,path,'勇武免疫参数无效');
   if(d.special==='distantStrike')check(d.minDistance===2,path,'远击距离无效');
-  if(d.special==='finishStrike')check(d.hpThreshold===.5,path,'锐锋兵力阈值无效');
+  if(d.special==='finishStrike')check(d.hpThreshold===.5&&JSON.stringify(d.criticalChance)==='[0,0.5,1]',path,'锐锋兵力阈值或条件暴击率无效');
   if(d.special==='lastStand')check(numeric(d.hpThreshold,.1,.6)&&d.protection?.length===d.thresholds.length&&d.protection.every(n=>numeric(n,0,.4)),path,'背水阈值或减伤无效');
   for(const field of ['specialRates','flankRates'])if(d[field])check(d[field].length===d.thresholds.length&&d[field].every(n=>numeric(n,0,.5)),path,'条件效果分档无效');
   if(d.hitStatus)check(['slow','armorBreak'].includes(d.hitStatus)&&d.hitDuration?.length===d.thresholds.length&&d.hitDuration.every(n=>Number.isInteger(n)&&n>=0&&n<=4)&&(!d.targetFamily||d.targetFamily==='cavalry'),path,'羁绊命中异常无效');
@@ -117,17 +121,17 @@ export function validateDesignTables(tables=DESIGN_TABLES){
   if(d.special==='command')check(Array.isArray(d.commandRate)&&d.commandRate.length===d.thresholds.length&&d.commandRate.every(n=>numeric(n,1,2)),path,'谋主恢复倍率无效');
   const tierNumbers=(key,min,max)=>Array.isArray(d[key])&&d[key].length===d.thresholds.length&&d[key].every(n=>numeric(n,min,max));
   const rounds=key=>Number.isSafeInteger(d[key])&&d[key]>0&&d[key]<=12;
-  const basicStat={attackPower:'attack',defenseArmor:'defense',rapidAttack:'attackSpeed'}[d.special];
+  const basicStat={attackPower:'attack',defenseArmor:'defense',rapidAttack:'attackSpeed',martialPower:'martialPower'}[d.special];
   if(basicStat)check(d.stat===basicStat&&tierNumbers('values',.01,.5)&&d.extraValue===0,path,'基础数值羁绊属性无效');
   if(d.special==='intentIncome')check(tierNumbers('incomeBonus',.01,2)&&d.values.every(n=>n===0),path,'昂扬战意获取参数无效');
   if(d.special==='hitIntentDeny')check(tierNumbers('chance',0,1)&&d.chance.at(-1)===1&&d.values.every(n=>n===0),path,'截气概率或满档参数无效');
   if(d.special==='swiftBurst')check(d.stat==='move'&&tierNumbers('values',.01,1)&&rounds('period')&&Array.isArray(d.burstSteps)&&d.burstSteps.length===d.thresholds.length&&d.burstSteps.every(n=>Number.isSafeInteger(n)&&n>0&&n<d.period),path,'疾驰突进时长或冷却无效');
   if(d.special==='escort')check(tierNumbers('shieldFraction',0,.3)&&numeric(d.range,1,2)&&numeric(d.hpThreshold,.1,.5)&&rounds('period')&&rounds('shieldSteps')&&d.invincibleSteps===1,path,'护卫护盾或限次参数无效');
   if(d.special==='songAttack')check(tierNumbers('intentGain',1,10)&&numeric(d.range,1,2)&&rounds('shieldSteps')&&numeric(d.overflowShieldRate,0,.02)&&numeric(d.overflowShieldCap,0,.1),path,'战歌参数无效');
-  if(['crusherAttack','doubtPulse','lureAttack','fireAttack'].includes(d.special))check(tierNumbers('chance',0,1)&&rounds('statusSteps'),path,'羁绊异常概率或时长无效');
-  if(d.special==='crusherAttack')check(numeric(d.intentDrain,1,12),path,'摧锋战意参数无效');
+  if(['doubtPulse','lureAttack','fireAttack'].includes(d.special))check(tierNumbers('chance',0,1)&&rounds('statusSteps'),path,'羁绊异常概率或时长无效');
+  if(['crusherAttack','disciplineAttack','powerDownAttack'].includes(d.special))check(d.onceDebuff===true&&Number.isSafeInteger(d.debuffSteps)&&d.debuffSteps>=120&&d.debuffSteps<=240&&d.statusKey===({crusherAttack:'armorBreak',disciplineAttack:'disciplineDown',powerDownAttack:'powerDown'})[d.special]&&tierNumbers('values',.01,.3)&&d.chance===undefined&&d.battleLasting===undefined&&d.intentDrain===undefined,path,'一次性属性削弱参数无效');
   if(['doubtPulse','fireAttack','chainAttack'].includes(d.special))check(rounds('period')&&numeric(d.range,1,3),path,'羁绊冷却或范围无效');
-  if(d.special==='lureAttack')check(numeric(d.range,1,3),path,'诱敌范围无效');
+  if(d.special==='lureAttack')check(d.spreadRadius===1&&d.spreadDelay===1&&d.spreadTargets===2,path,'诱敌锁定范围无效');
   if(d.special==='fireAttack')check(numeric(d.burnRate,.01,.1),path,'火谋威力无效');
   if(d.special==='chainAttack')check(tierNumbers('fraction',0,.5)&&rounds('statusSteps')&&d.targets?.join(',')==='2,2,3',path,'连环参数无效');
   if(d.special==='distantStrike')check(tierNumbers('controlBonus',0,.3)&&numeric(d.defenseIgnore,0,.5),path,'远击控制利用参数无效');
@@ -152,13 +156,6 @@ export function validateDesignTables(tables=DESIGN_TABLES){
   if(d.special==='swornLink')check(tierNumbers('values',.01,.5)&&tierNumbers('protection',0,.4)&&d.protection[0]===0,path,'桃园分档军纪或减伤参数无效');
   if(d.special==='swornLink')check(numeric(d.furyPower,0,1)&&numeric(d.furySpeed,0,1)&&Number.isInteger(d.furySteps)&&d.furySteps>0&&d.furySteps<=20&&Number.isInteger(d.invincibleSteps)&&d.invincibleSteps>0&&d.invincibleSteps<=6,path,'桃园强化参数无效');
   if(d.special==='reserveEntry')check(d.slots?.join(',')==='1,2,3'&&tierNumbers('intent',1,100)&&d.intent.every(Number.isInteger)&&tierNumbers('entrySteps',1,12)&&d.entrySteps.every(Number.isInteger)&&tierNumbers('entryShield',0,.4),path,'蓄锐入场参数无效');
-  if(d.special==='formationTiles')check(d.entryDuration?.length===d.thresholds.length&&d.entryDuration.every(n=>Number.isInteger(n)&&n>0&&n<=24)&&numeric(d.holderMultiplier,1,2)&&Number.isInteger(d.fullDuration)&&d.fullDuration>=Math.max(...d.entryDuration)&&d.fullDuration<=30,path,'军阵参数无效');
-  if(d.special==='formationTiles')check(['land','forest','hill','marsh','river','naval','mixed'].every(key=>Array.isArray(d.patterns?.[key])&&d.patterns[key].length===3&&new Set(d.patterns[key].map(p=>String(p))).size===3&&d.patterns[key].every(p=>Array.isArray(p)&&p.length===2&&Number.isInteger(p[0])&&p[0]>=0&&p[0]<5&&Number.isInteger(p[1])&&p[1]>=0&&p[1]<8)),path,'军阵阵位无效');
-  if(d.special==='openingFormation'){
-   check(tierNumbers('completeShield',0,1)&&Number.isInteger(d.completeSteps)&&d.completeSteps>0&&d.completeSteps<=60,path,'成阵护盾参数无效');
-   check(Array.isArray(d.formationSlots)&&d.formationSlots.length===3&&d.formationSlots.every(s=>typeof s.name==='string'&&Array.isArray(s.stats)&&s.stats.length>0&&new Set(s.stats).size===s.stats.length&&s.stats.every(k=>['attack','defense','discipline','martialPower','strategyPower','attackSpeed'].includes(k))&&s.values?.length===d.thresholds.length&&s.values.every(v=>numeric(v,Number.EPSILON,1))),path,'开场阵法属性无效');
-   check(['land','forest','hill','marsh','river','naval','mixed'].every(key=>Array.isArray(d.patterns?.[key])&&d.patterns[key].length===3&&new Set(d.patterns[key].map(p=>String(p))).size===3&&d.patterns[key].every(p=>Array.isArray(p)&&p.length===2&&Number.isInteger(p[0])&&p[0]>=0&&p[0]<5&&Number.isInteger(p[1])&&p[1]>=0&&p[1]<8)),path,'开场阵法阵位无效');
-  }
   if(d.special==='routMomentum')check(d.killBonus?.length===d.thresholds.length&&d.killBonus.every(n=>numeric(n,0,.1))&&d.burstSpeed?.length===d.thresholds.length&&d.burstSpeed.every(n=>numeric(n,0,.5))&&Number.isInteger(d.killGoal)&&d.killGoal>=2&&d.killGoal<=5&&Number.isInteger(d.burstDuration)&&d.burstDuration>0&&d.burstDuration<=16,path,'破军参数无效');
   if(d.special==='valorRamp')check(d.stackRates?.length===d.thresholds.length&&d.stackRates.every(n=>numeric(n,0,.1))&&Number.isInteger(d.maxStacks)&&d.maxStacks>0&&d.maxStacks<=8&&numeric(d.rallyIntent,1,30),path,'奋战参数无效');
   check(/^\p{Script=Han}{2}$/u.test(d.name),path,'羁绊名称须为两个汉字');
@@ -167,7 +164,7 @@ export function validateDesignTables(tables=DESIGN_TABLES){
   check(['attack','defense','move','attackSpeed','siege','martialPower','strategyPower','discipline'].includes(d.stat)&&['attack','defense','move','attackSpeed','siege','martialPower','strategyPower','discipline'].includes(d.extra),path,'羁绊属性未接入');
   check(Array.isArray(d.values)&&d.values.length===d.thresholds.length&&d.values.every(n=>numeric(n,0,1))&&numeric(d.extraValue,0,1),path,'羁绊数值无效');
   check(numeric(d.specialValue,0,1),path,'羁绊特殊效果数值无效');
-  check(['attackPower','defenseArmor','rapidAttack','intentIncome','hitIntentDeny','swiftBurst','songAttack','crusherAttack','doubtPulse','lureAttack','fireAttack','chainAttack','antiCavalry','ignoreZoc','rearStrike','surrounded','gateStrike','formation','woundedStrike','lowIntent','escort','command','entryZoc','entryPower','entryIntent','commandStrength','beautyHit','swornLink','reserveEntry','valorIntent','physicalGuard','distantStrike','lastStand','scholarPower','spreadGuard','finishStrike','counterHorse','siegeStrike','steadyDiscipline','nearAllySpeed','isolatedStrike','formationTiles','openingFormation','routMomentum'].includes(d.special),path,'羁绊特殊效果未接入');
+  check(['attackPower','defenseArmor','rapidAttack','martialPower','disciplineAttack','powerDownAttack','intentIncome','hitIntentDeny','swiftBurst','songAttack','crusherAttack','doubtPulse','lureAttack','fireAttack','chainAttack','antiCavalry','ignoreZoc','rearStrike','surrounded','gateStrike','formation','woundedStrike','lowIntent','escort','command','entryZoc','entryPower','entryIntent','commandStrength','beautyHit','swornLink','reserveEntry','valorIntent','physicalGuard','distantStrike','lastStand','scholarPower','spreadGuard','finishStrike','counterHorse','siegeStrike','steadyDiscipline','nearAllySpeed','isolatedStrike','routMomentum'].includes(d.special),path,'羁绊特殊效果未接入');
  }
  validateTechnologyDesigns(tables,check);const techIds=new Set(tables.technologies.records.map(r=>r.id));
  for(const [id,t] of Object.entries(tables.troops)){
@@ -181,8 +178,13 @@ export function validateDesignTables(tables=DESIGN_TABLES){
   check(t.beats===null||exists(tables.troops,t.beats),'troops.'+id+'.beats','克制兵种不存在');
  }
  for(const [id,t] of Object.entries(tables.tactics)){
+  check(!Object.values(tables.bonds).some(b=>b.name===t.name),'tactics.'+id+'.name','战法与羁绊名称不能重复');
+  if(t.powerSource!==undefined)check(t.powerSource==='combined'&&t.category==='force'&&t.learningTier==='high'&&!t.special&&['ram','bombard','repeat'].includes(t.effect),'tactics.'+id+'.powerSource','合成威力只用于兵器大战法');
+  if(t.exploit?.anyNegative!==undefined)check(t.exploit.anyNegative===true&&t.exploit.statuses===undefined&&numeric(t.exploit.scale,0),'tactics.'+id+'.exploit','任意异常乘隙须与指定状态互斥');
   if(t.geometry!==undefined){const g=t.geometry;check(g&&['line','fan','burst'].includes(g.kind)&&Object.keys(g).every(k=>['kind','reach','radius','maxTargets','secondaryScale','delay'].includes(k))&&Number.isInteger(g.maxTargets)&&g.maxTargets>=1&&g.maxTargets<=3&&(g.kind==='burst'?Number.isInteger(g.radius)&&g.radius>=0&&g.radius<=2:Number.isInteger(g.reach)&&g.reach>=1&&g.reach<=5)&&(g.kind!=='fan'||g.reach===1)&&(g.secondaryScale===undefined||numeric(g.secondaryScale,0,1))&&Number.isInteger(g.delay)&&g.delay>=1&&g.delay<=2,'tactics.'+id+'.geometry','战法形状、射程或蓄势时长无效');}
-  if(t.supportPosition!==undefined)check(['front','column','flanks'].includes(t.supportPosition)&&(['rally','screen'].includes(t.effect)||t.effect==='famous'&&t.mode==='support'),'tactics.'+id+'.supportPosition','站位支援须绑定已接入的友军支援战法');
+  if(t.supportPosition!==undefined)check(['front','column','flanks'].includes(t.supportPosition)&&(["rally","supply","relay","screen","cleanse","bandage","regrowth","purify","boarding","nexus"].includes(t.effect)||['famous','status','remedy'].includes(t.effect)&&t.mode==='support'),'tactics.'+id+'.supportPosition','站位支援须绑定已接入的友军支援战法');
+  if(t.recipient!==undefined)check(['ship','ranged'].includes(t.recipient)&&t.effect==='famous'&&t.mode==='support','tactics.'+id+'.recipient','支援对象限制须为舰船或远程友军');
+  if(t.remedy!==undefined)check(Object.hasOwn(REMEDIES,t.remedy)&&(t.effect==='remedy'||t.effect==='famous'&&t.mode==='support'),'tactics.'+id+'.remedy','解除动作无效');
   if(t.effect==='undermine')check(numeric(t.suppression,0,1)&&Number.isInteger(t.steps)&&t.steps>0&&Number.isInteger(t.targets)&&t.targets>0&&numeric(t.range,1)&&numeric(t.radius,0),'tactics.'+id,'抑气比例、范围或持续无效');
   if(t.selfStatus!==undefined)check(Object.hasOwn(STATUS_DEFINITIONS,t.selfStatus)&&Number.isInteger(t.selfStatusSteps)&&t.selfStatusSteps>0,'tactics.'+id+'.selfStatus','自身状态或时长无效');
   if(t.regrowthFraction!==undefined)check(numeric(t.regrowthFraction,0,1)&&Number.isInteger(t.regrowthSteps)&&t.regrowthSteps>0&&t.mode==='support','tactics.'+id+'.regrowth','休整参数无效');
@@ -199,7 +201,7 @@ export function validateDesignTables(tables=DESIGN_TABLES){
   if(t.stasisDays!==undefined)check(['mirage','mist'].includes(t.effect)&&Number.isInteger(t.stasisDays)&&t.stasisDays>0&&numeric(t.stasisHealth,0,1)&&Number.isInteger(t.stasisLockDays)&&t.stasisLockDays>t.stasisDays,'tactics.'+id+'.stasis','避战参数无效');
   check(t.id===id,'tactics.'+id,'记录ID与键不一致');check(DESIGN_EFFECTS.tactics.includes(t.effect),'tactics.'+id+'.effect','引擎尚未支持此效果');
   if(t.effect==='displace')check(t.range===1&&Number.isInteger(t.steps)&&t.steps>=1&&t.steps<=2&&numeric(t.scale,Number.EPSILON),'tactics.'+id,'位移战法须为相邻、最多两格的实际击退');
-  check(['low','high','special'].includes(t.learningTier),'tactics.'+id+'.learningTier','无效学习类别');check(['force','intellect','politics'].includes(t.category),'tactics.'+id+'.category','无效能力类别');
+  check(['low','high','special'].includes(t.learningTier),'tactics.'+id+'.learningTier','无效学习类别');check(['force','intellect','politics'].includes(t.category),'tactics.'+id+'.category','战法须使用武技、谋略或营务威力');
   for(const key of ['cooldown','threshold','intentCost','maxUses'])check(numeric(t[key]),'tactics.'+id+'.'+key,'须为非负数');
   check(Number.isInteger(t.maxUses)&&t.maxUses>=0,'tactics.'+id+'.maxUses','须为非负整数');
   check(t.passive?t.maxUses===0:t.maxUses>0,'tactics.'+id+'.maxUses','主动战法须有限次，常驻光环须为0');
@@ -280,8 +282,8 @@ export function validateDesignTables(tables=DESIGN_TABLES){
   check(exists(tables.troops,u.type),'officers.'+id+'.type','兵种不存在');for(const type of ['spear','halberd','cavalry','archer'])check(Number.isInteger(u.aptitudes?.[type])&&numeric(u.aptitudes[type],0,3),'officers.'+id+'.aptitudes.'+type,'适性须为0～3');
   const r=u.relations||{};for(const key of ['fatherId','motherId'])if(r[key])check(exists(tables.officers,r[key]),'officers.'+id+'.relations.'+key,'人物不存在');for(const key of ['spouseIds','swornSiblingIds','likedIds','dislikedIds'])ids(r[key],tables.officers,'officers.'+id+'.relations.'+key);
   check(!!tables.bondAssignments?.[id]&&Object.entries(tables.bondAssignments[id]).every(([key,n])=>tables.bonds?.[key]&&Number.isInteger(n)&&n>=1&&n<=3),'bondAssignments.'+id,'羁绊上限须为1～3且引用共享池');
-  const labels=Object.keys(tables.bondAssignments?.[id]||{}).length;check(labels>=1&&labels<=(BOND_TRIPLE_OFFICERS.includes(id)?3:2),'bondAssignments.'+id,'通常一至两种，仅指定稀有武将可有三种羁绊');
-  const budget=Object.values(tables.bondAssignments?.[id]||{}).reduce((n,v)=>n+v,0);check(budget>=1&&budget<=6,'bondAssignments.'+id,'个人总点数须为1～6');
+  const labels=Object.keys(tables.bondAssignments?.[id]||{}).length;check(labels>=0&&labels<=(BOND_TRIPLE_OFFICERS.includes(id)?3:2),'bondAssignments.'+id,'通常零至两种，仅指定稀有武将可有三种羁绊');
+  const budget=Object.values(tables.bondAssignments?.[id]||{}).reduce((n,v)=>n+v,0);check(budget>=0&&budget<=6,'bondAssignments.'+id,'个人总点数须为0～6');
   check(exists(tables.assignments,id),'assignments.'+id,'缺少武将能力分配');
  }
  for(const [id,a] of Object.entries(tables.assignments)){
@@ -290,15 +292,22 @@ export function validateDesignTables(tables=DESIGN_TABLES){
   const u=tables.officers[id];if(u){check(a.stratagems.length<=(id==='person-290'?2:1),'assignments.'+id+'.stratagems','超过当前军略资格或名额');}
   for(const key of a.stratagems)if(tables.stratagems[key])check(tables.stratagems[key].roster?.includes(id),'assignments.'+id+'.stratagems','不在军略指定人物名单');
  }
- for(const name of ['troopPools','intellectPools']){
+ for(const name of ['troopPools','intellectPools','supportPools']){
   for(const type of Object.keys(tables.troops))ids(tables[name][type],tables.tactics,name+'.'+type);
   for(const type of Object.keys(tables[name]))check(exists(tables.troops,type),name+'.'+type,'兵种不存在');
  }
+ for(const [key,value] of Object.entries(TACTIC_SELECTION_RULES))check(Number.isFinite(value)&&value>=0,'tacticSelection.'+key,'分配参数须为非负数');
+ for(const [role,list] of Object.entries(TACTIC_ROLE_GROUPS))ids(list,tables.tactics,'tacticSelection.roles.'+role);
+ for(const [id,weights] of Object.entries(TACTIC_STAT_PREFERENCES))check(exists(tables.tactics,id)&&Object.entries(weights).every(([key,n])=>['force','intellect','leadership','politics','charm'].includes(key)&&numeric(n,0,1)),'tacticSelection.preferences.'+id,'战法属性偏好无效');
  for(const type of Object.keys(tables.troops)){
-  const all=[...(tables.troopPools[type]||[]),...(tables.intellectPools[type]||[])];
+  const siege=tables.troops[type].equipmentSlot==='siege',largeCount=siege?1:3;
+  const all=[...(tables.troopPools[type]||[]),...(tables.intellectPools[type]||[]),...(tables.supportPools[type]||[])];
   const small=all.filter(id=>tables.tactics[id]?.learningTier==='low'),big=all.filter(id=>tables.tactics[id]?.learningTier==='high');
-  check(all.length===3&&new Set(all).size===3&&small.length===2&&big.length===1,'fixedTactics.'+type,'须固定两个小战法和一个大战法');
-  check(small.filter(id=>tables.tactics[id]?.category==='force').length===1&&small.filter(id=>tables.tactics[id]?.category==='intellect').length===1,'fixedTactics.'+type,'小战法须武技、谋略各一项');
+  check(all.length===3+largeCount&&new Set(all).size===3+largeCount&&small.length===3&&big.length===largeCount,'fixedTactics.'+type,'须有三个小战法，兵器一个大战法，其余三个大战法');
+  check(['force','intellect','politics'].every(category=>small.filter(id=>tables.tactics[id]?.category===category).length===1),'fixedTactics.'+type,'小战法池须覆盖武技、谋略、营务三类');
+  if(siege)check(big.every(id=>tables.tactics[id]?.powerSource==='combined'),'fixedTactics.'+type,'兵器大战法须使用当前武技、谋略合成威力');
+  else check(['force','intellect','politics'].every(category=>big.filter(id=>tables.tactics[id]?.category===category).length===1)&&big.every(id=>tables.tactics[id]?.powerSource===undefined),'fixedTactics.'+type,'非兵器大战法池须覆盖武技、谋略、营务三类');
+  check(TROOP_TACTIC_REPERTOIRES[type]?.small.length===3&&TROOP_TACTIC_REPERTOIRES[type]?.large.length===largeCount&&all.every(id=>[...TROOP_TACTIC_REPERTOIRES[type].small,...TROOP_TACTIC_REPERTOIRES[type].large].includes(id)),'fixedTactics.'+type,'固定池与兵种战法来源不一致');
  }
  for(const name of ['cities','demoCities']){
   check(new Set(tables[name].map(c=>c.id)).size===tables[name].length,name,'重复据点ID');

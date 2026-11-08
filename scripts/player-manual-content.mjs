@@ -80,7 +80,7 @@ const mapping=`
 设置撤离目的地|retreat-node
 重置阵型|battle-intent
 开始战斗|battlefield council|完成任命与部署 → 用勾号确认或叉号取消站位预览 → 开战
-查看战场与部队|battlefield battle-unit battle-buffs battle-buffs-landscape|点部队或头像 → 战况简报 → 状态 → 按需展开属性影响、完整属性或战法说明|状态直接显示名称、效果、来源与剩余回合或次数。返回战场、关闭或 Esc 保持暂停；普通战斗中点“继续战斗”才恢复。羁绊浮层可收起、切换敌我。
+查看战场与部队|battlefield battle-unit battle-buffs battle-buffs-landscape battle-support-kit battle-support-power battle-support-power-landscape|点部队或头像 → 战况简报 → 状态 → 按需展开属性影响、完整属性或战法说明|只列个人实际获得的战法，武技、谋略、营务均有大小战法，详情显示当前对应威力。状态直接显示名称、效果、来源与剩余回合或次数。返回战场、关闭或 Esc 保持暂停；普通战斗中点“继续战斗”才恢复。羁绊浮层可收起、切换敌我。
 暂停与变速|battlefield stratagem-result|点击播放或暂停图标 → 点击速度按钮切换倍速|主动暂停、查看部队详情时所有战场同步暂停；继续后同步推进。确认切换视图并加载完成会自动继续，玩家同时只指挥一场。
 施放全军型军略|stratagem-army stratagem-army-result|军略（暂停） → 查看充能与次数 → 点击可用军略 → 自动继续战斗|成功后短暂标记作用对象。
 施放范围军略|stratagem-list stratagem-area stratagem-landscape stratagem-result stratagem-combination stratagem-provider-cost|军略（暂停） → 选择可用项 → 选落点（舍己护军固定以施放者为中心） → 按需旋转 → 核对目标、实际效果与代价 → 施放 → 自动继续战斗|励军固阵每队真实消耗20战意，不足者不受益；舍己护军的施放者只承担疲弱、不领取保护。全部持续时间查看实际提供者效果。取消或 Esc 保持暂停，不消耗充能。

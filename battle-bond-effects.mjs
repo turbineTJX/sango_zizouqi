@@ -20,15 +20,28 @@ export class BattleBondEffects{
   const units=b.sides.flatMap(s=>s.units),lookup=new Map(units.map(u=>[u.id,u])),next=new Map();
   this.visible=new Set(units.filter(u=>visible(b,u)).map(u=>u.id));
   for(const u of units.filter(u=>visible(b,u))){
-   for(const d of activeBonds(b,u))if(d.special!=='openingFormation')next.set(stamp(u.id,d.id),{unit:u.id,id:d.id,tier:d.tier,side:u.side,x:u.x,y:u.y,low:d.id==='bondLastStand'&&u.hp<=u.maxHp*d.hpThreshold});
+   for(const d of activeBonds(b,u))if(!d.onceDebuff)next.set(stamp(u.id,d.id),{unit:u.id,id:d.id,tier:d.tier,side:u.side,x:u.x,y:u.y,low:d.id==='bondLastStand'&&u.hp<=u.maxHp*d.hpThreshold});
    for(const e of u.bondOpeningFormations||[])next.set(stamp(u.id,e.id),{unit:u.id,id:e.id,tier:e.tier,side:u.side,x:u.x,y:u.y,low:false});
   }
   this.items=this.items.filter(e=>e.end>clock&&this.visible.has(e.unit));
   if(silent)this.items=[];
   const opening=b.deploymentLocked&&this.sawDeployment&&!this.opened;
-  if(b.deploymentLocked&&!paused&&(opening||!fresh&&!silent)){
+  const triggered=[];
+  for(const [side,army] of b.sides.entries())for(const cast of army.bondDebuffCasts||[]){
+   const key=stamp('debuff:'+side,cast.id);next.set(key,{castTick:cast.castTick});
+   if(!opening&&this.previous.has(key))continue;
+   const d=BOND_DESIGNS[cast.id];if(!d?.onceDebuff)continue;
+   const targets=cast.targets.filter(id=>{
+    const u=lookup.get(id),status=u?.statuses?.[d.statusKey];
+    return visible(b,u)&&(status?.sources||[status]).some(s=>s?.sourceBond===cast.id&&s.sourceId===cast.sourceId&&s.castTick===cast.castTick&&s.until>b.tick);
+   });
+   const source=lookup.get(cast.sourceId),anchor=visible(b,source)?source:cast.holders.map(h=>lookup.get(h.id)).find(u=>visible(b,u))||lookup.get(targets[0]);
+   if(anchor)triggered.push({unit:anchor.id,sourceId:cast.sourceId,id:cast.id,tier:cast.tier,side,x:anchor.x,y:anchor.y,kind:opening?'opening':'proc',targets:targets.filter(id=>id!==anchor.id)});
+  }
+  if(b.deploymentLocked&&!paused&&!silent&&(opening||!fresh)){
    const added=new Map();
    for(const [key,s]of next){
+    if(!s.id)continue;
     const prior=this.previous.get(key);
     if(opening||!prior||s.tier>prior.tier){
      const group=added.get(s.unit)||[];group.push(s);added.set(s.unit,group);
@@ -38,9 +51,10 @@ export class BattleBondEffects{
      this.push({...s,kind:'proc'},hit?hit.start+hit.duration*.52:clock,clock,speed);
     }
    }
+   for(const s of triggered){const group=added.get(s.unit)||[];group.push(s);added.set(s.unit,group);}
    for(const group of added.values()){
     group.sort((a,c)=>Number(BOND_DESIGNS[c.id].grade==='advanced')-Number(BOND_DESIGNS[a.id].grade==='advanced')||a.id.localeCompare(c.id));
-    group.forEach((s,slot)=>this.push({...s,kind:opening?'opening':'activation',slot,count:group.length},clock+slot*110/Math.sqrt(speed),clock,speed));
+    group.forEach((s,slot)=>this.push({...s,kind:s.kind||(opening?'opening':'activation'),slot,count:group.length},clock+slot*110/Math.sqrt(speed),clock,speed));
    }
    if(opening)this.opened=true;
   }

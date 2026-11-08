@@ -1,4 +1,4 @@
-import {currentBattle} from './helpers/current-battle.mjs';
+import {currentBattle,tacticHolder} from './helpers/current-battle.mjs';
 import {TROOPS} from '../unit-stats.mjs';
 import {chooseStratagemPoint} from '../stratagem-area.mjs';
 import {STRATAGEMS as AREA_DESIGNS} from '../stratagems.mjs';
@@ -52,7 +52,7 @@ test('ordinary attacks use the displayed attack once, without a second troop mul
 for(const [id,type,skill] of [
  ['person-661','spear','unique-person-661'],['person-433','spear','unique-person-433'],
  ['person-99','cavalry','unique-person-99'],['person-246','archer','unique-person-246'],
- ['ju','archer','scatter'],['person-246','archer','fire'],['ju','siege','tremor'],
+ [tacticHolder('scatter','archer',[],true),'archer','scatter'],[tacticHolder('fire','archer',[],true),'archer','fire'],['ju','siege','tremor'],
  ['shao','siege','bombard'],['person-246','ship','broadside'],
 ])test(`100 survivors: ${skill} earns intent and cannot destroy a 48,000-soldier army`,()=>{
  const {b,u}=remnant(id,type,skill);let damage=0;

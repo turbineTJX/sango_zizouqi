@@ -1,6 +1,7 @@
 {
-  "rulesVersion": 142,
+  "rulesVersion": 151,
   "files": [
+    "docs/布阵与自动战斗重设计.md",
     "docs/军略组合与代价.md",
     "docs/短控联动试玩.md",
     "docs/战法分层与状态覆盖草案.md",
@@ -125,7 +126,7 @@
     "docs/design-tables/固定贼寨与随机贼将一览表.md"
   ],
   "runtimeVersions": {
-    "rules": 142,
+    "rules": 151,
     "campaign": 73,
     "ai": 20,
     "strategy": 14,

@@ -48,7 +48,7 @@ test('真实交战中魔免部队仍遭普攻，战法与持续伤害不扣兵�
   const state=charged(seed,true),b=state.battle;
   // Lower intent income changes spell timing. Use a naturally earned incoming
   // thrust window so this tests protection, not the old charging schedule.
-  while(!b.result&&!b.sides[1].units.some(u=>u.status==='active'&&readyTactic(b,u,unitAttributes(u,b).range)?.skill.effect==='thrust'))stepBattle(b);
+  while(!b.result&&!b.sides[1].units.some(u=>u.status==='active'&&['thrust','rush','confuse','wildfire','cleave'].includes(readyTactic(b,u,unitAttributes(u,b).range)?.skill.effect)))stepBattle(b);
   assert.equal(b.result,null);assert.equal(issueCommand(b,'cao-wuchao'),null);const copy=validateSave(structuredClone(state));
   for(let n=0;n<6&&!b.result;n++){
    stepBattle(b);stepBattle(copy.battle);assert.deepEqual(b,copy.battle);
@@ -62,10 +62,10 @@ test('真实交战中魔免部队仍遭普攻，战法与持续伤害不扣兵�
 });
 test('疾风迅雷覆盖范围友军，空范围不消费，预览高亮与AI一致',()=>{
  const state=charged(),b=state.battle,s=STRATAGEMS['swift'],point=chooseStratagemPoint(b,s,0),target=stratagemAreaTargets(b,s,point,0)[0];
- remedy(b,target,'breakFormation');delete target.statuses.root;const before=unitAttributes(target,b);assert.ok(issueCommand(b,'swift',{x:0,y:0}));assert.equal(b.commandProgress,COMMAND_RESOURCE.capacity);
+ remedy(b,target,'breakFormation');for(const key of ['root','phalanx','stun','anchored','emplaced'])delete target.statuses[key];const before=unitAttributes(target,b);assert.ok(issueCommand(b,'swift',{x:0,y:0}));assert.equal(b.commandProgress,COMMAND_RESOURCE.capacity);
  assert.ok(areaPreview(b,s,{point}).targetIds.includes(target.id));assert.equal(issueCommand(b,'swift',point),null);
  assert.ok(b.sides[0].units.filter(u=>hasStatus(b,u,'rapidAdvance')).length>=1);assert.equal(target.statuses.rapidAdvance.until,b.tick+b.lastCommand.source.duration+1);
- assert.equal(b.sides[0].hasteUntil,undefined);const after=unitAttributes(target,b);assert.equal(after.move,before.move+1);assert.equal(after.attackInterval,before.attackInterval*.75);
+ assert.equal(b.sides[0].hasteUntil,undefined);const after=unitAttributes(target,b);assert.equal(after.move,Math.min(1,before.move+1));assert.equal(after.attackInterval,before.attackInterval*.75);
  assert.notDeepEqual(chooseStratagemPoint(b,s,0),point);
  const copy=validateSave(structuredClone(state));for(let n=0;n<26&&!b.result;n++){stepBattle(b);stepBattle(copy.battle);assert.deepEqual(b,copy.battle);}
 });
@@ -74,7 +74,7 @@ test('神速无视ZOC但保留目标合法性；攻速及移速同类取高不�
  Object.assign(u,{x:5,y:3});Object.assign(enemy,{x:6,y:3});enemy.statuses={};enemy.withdrawing=false;enemy.disengage=null;
  assert.ok(interceptorsAt(b,u).length);remedy(b,u,'breakFormation');delete u.statuses.root;const stats=unitAttributes(u,b);setStatus(b,u,'rapidAdvance',24);
  assert.deepEqual(interceptorsAt(b,u),[]);assert.deepEqual(meleeTargetPool(b,u,[enemy]),[enemy]);
- setStatus(b,u,'haste',4);setStatus(b,u,'attackHaste',4,{fraction:.2});const buff=unitAttributes(u,b);assert.equal(buff.move,stats.move+1);assert.equal(buff.attackInterval,stats.attackInterval*.75);
+ setStatus(b,u,'haste',4);setStatus(b,u,'attackHaste',4,{fraction:.2});const buff=unitAttributes(u,b);assert.equal(buff.move,Math.min(1,stats.move+1));assert.equal(buff.attackInterval,stats.attackInterval*.75);
 });
 test('敌方自然充能使用同一魔免及范围神速规则，固定优先序不变成收益评分',()=>{
  const entry=id=>({id,type:'spear',level:10,troops:5000});

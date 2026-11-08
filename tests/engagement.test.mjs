@@ -27,7 +27,7 @@ test('engaged melee shares its attack with every adjacent troop despite explicit
 });
 
 test('nearby front takes priority before contact; fast movement stops on contact',()=>{
-  const {b,a,front,rear}=scene('cavalry',false,true);a.x=3;rear.x=7;b.sides[a.side].focus=null;assert.ok(!a.tactics.includes('rush'));
+  const {b,a,front,rear}=scene('cavalry',false,true);a.x=3;rear.x=7;b.sides[a.side].focus=null;a.deploymentBehavior.flank=null;a.skillReady=Object.fromEntries(unitTactics(a).map(s=>[s.id,999]));
 
   a.statuses.haste={until:99};
   for(let i=0;i<4&&hexDistance(a,front)>1;i++)stepBattle(b);assert.equal(hexDistance(a,front),1);assert.equal(a.x,4);
@@ -51,14 +51,14 @@ test('an open flank allows a real rush to the rear without crossing a melee zone
   const {b,a,front,rear}=scene();Object.assign(front,{x:10,y:0});Object.assign(rear,{x:7,y:4});
   primeTactic(a,'rush');const path=routeTo(b,a,rear,3);
   assert.ok(path?.length);assert.ok(path.every(p=>hexDistance(p,front)>1));
-  stepBattle(b);assert.equal(a.tacticCasts.rush,1);assert.ok(attacks(b,a).some(e=>e.to===rear.id));
+  stepBattle(b);assert.equal(a.tacticCasts.rush,1);assert.ok(a.movementAim);for(let i=0;i<20&&a.movementAim;i++)stepBattle(b);assert.ok(attacks(b,a).some(e=>e.to===rear.id));
 });
 
 test('an unreachable rear focus advances into a legal blocking line instead of stalling',()=>{
  const {state,b,u:a,ally}=currentBattle('rush','cavalry',{requireS:true,enemyTypes:['spear','spear','spear','spear','archer']});
  Object.assign(ally,{x:0,y:7});const wall=b.sides[1].units.slice(0,4),rear=b.sides[1].units[4];
  wall.forEach((u,i)=>{Object.assign(u,{x:5,y:1+i*2});u.statuses.phalanx={until:999};});Object.assign(rear,{x:7,y:3,hp:300,battleDamage:2700});rear.statuses.phalanx={until:999};a.x=1;a.cooldown=0;b.sides[0].focus=rear.id;b.sides[0].focusUntil=99;
- validateSave(structuredClone(state));assert.equal(routeTo(b,a,rear,12),null);stepBattle(b);assert.ok(a.x>1);
+ validateSave(structuredClone(state));assert.equal(routeTo(b,a,rear,12),null);for(let i=0;i<5&&a.x===1;i++)stepBattle(b);assert.ok(a.x>1);
  for(let n=0;n<12&&!attacks(b,a).length;n++)stepBattle(b);
  assert.ok(attacks(b,a).some(e=>wall.some(w=>w.id===e.to)));assert.ok(a.x<=4);assert.equal(rear.hp,300);
 });

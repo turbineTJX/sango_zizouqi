@@ -6,22 +6,23 @@ import {stepBattle,lockDeployment,validateSave,unitAttributes} from '../engine.m
 import {TACTICS_BOOK,unitTactics,setStatus,hasStatus,statusPower} from '../tactics.mjs';
 import {powerFactor,effectChance,criticalChance,powerDuration} from '../tactic-power.mjs';
 import {primeTactic} from './helpers/prime-tactic.mjs';
+import {tacticHolder} from './helpers/current-battle.mjs';
 
 function scene(skill,seed=71,force=100,intellect=100){
  const type={'unique-person-433':'halberd',repeat:'crossbow',ward:'spear',phalanx:'spear',bulwark:'halberd'}[skill];
  const entry=(id,type)=>({id,type,troops:3000,level:1,retreatAt:null});
- const state=createScenario('custom-battle',seed,20,null,{seed,terrain:'land',ownTeam:[entry(skill==='repeat'?'person-186':'person-433',type)],enemyTeam:[entry('shao','spear')]});
+ const state=createScenario('custom-battle',seed,20,null,{seed,terrain:'land',ownTeam:[entry(tacticHolder(skill,type),type)],enemyTeam:[entry('shao','spear')]});
  const b=state.battle;lockDeployment(b);const u=b.sides[0].units[0],d=b.sides[1].units[0];
  for(const v of [u,d]){v.cooldown=999;v.intent=0;v.skillReady=Object.fromEntries(unitTactics(v).map(s=>[s.id,999]));setStatus(b,v,'root',999);}
  Object.assign(u,{force,intellect,x:4,y:3,commandBonus:0,advisorBonus:0});Object.assign(d,{x:skill==='repeat'?6:5,y:3});
  primeTactic(u,skill);return {state,b,u,d};
 }
 
-const cast=x=>{stepBattle(x.b);return x.b.effects.filter(e=>e.from===x.u.id&&!e.ongoing);};
+const cast=x=>{stepBattle(x.b);while(x.u.tacticAim)stepBattle(x.b);return x.b.effects.filter(e=>e.from===x.u.id&&!e.ongoing);};
 
 test('every tactic declares its actual power, chance effects and critical policy',()=>{
  for(const s of Object.values(TACTICS_BOOK)){
-  assert.equal(s.power.attribute,s.category==='politics'?'supportPower':s.category==='intellect'?'strategyPower':'martialPower',s.id);
+  assert.equal(s.power.attribute,s.powerSource==='combined'?'combinedPower':s.category==='politics'?'supportPower':s.category==='intellect'?'strategyPower':'martialPower',s.id);
   assert.equal(typeof s.power.critical,'boolean');assert.ok(s.passive||s.powerDescription.includes(s.power.name));
  }
  assert.equal(powerFactor(280),1);assert.equal(powerFactor(0),.7);assert.equal(powerFactor(10000),1.6);

@@ -24,10 +24,11 @@ function battle(type,{equipment=emptyEquipment(),kind='field',terrain='land',see
  for(const v of [u,target]){v.cooldown=999;v.intent=0;v.skillReady=Object.fromEntries(allLearnedTacticIds(v).map(id=>[id,999]));}
  return {s,b,u,target};
 }
-test('four aptitude families preserve small slots with the authored Baier guard branch',()=>{
+test('four aptitude families keep real aptitudes and select only from each upgrade pool',()=>{
  assert.equal(troopTypes().length,12);assert.equal(equipmentTypes('ship').length,4);assert.equal(equipmentTypes('siege').length,4);
- for(const type of upgrades){const u=makeOfficer(holder(type)),base=TROOP_DESIGNS[type].family;u.type=type;initializeTacticLearning(u);const advanced=unitTactics(u);const original=unitTactics({...u,type:base});assert.deepEqual(advanced.filter(s=>s.learningTier==='low').map(s=>s.id),type==='baier'?['phalanx','taunt']:original.filter(s=>s.learningTier==='low').map(s=>s.id));assert.notEqual(advanced.find(s=>s.learningTier==='high').id,original.find(s=>s.learningTier==='high').id);assert.equal(troopAptitude(u,type),troopAptitude(u,base));}
+ for(const type of upgrades){const u=makeOfficer(holder(type)),base=TROOP_DESIGNS[type].family;u.type=type;initializeTacticLearning(u);const chosen=unitTactics(u).filter(s=>!s.special);assert.equal(chosen.filter(s=>s.learningTier==='low').length,2);assert.equal(chosen.filter(s=>s.learningTier==='high').length,1);assert.equal(troopAptitude(u,type),troopAptitude(u,base));}
 });
+
 test('cities gate new recruitment and conversion; failed equipment or troop drafts spend nothing',()=>{
  const s=newCampaign(27,'guandu-200'),c=s.cities.find(c=>c.id==='xuchang'),u=c.units[0];c.gold=100000;
  for(const type of ['spear','halberd','cavalry','archer'])assert.ok(canTrain(c,type));

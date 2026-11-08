@@ -29,7 +29,7 @@ export function tacticShapeCells(b,u,s,target,range){
  if(g.kind==='line')return tacticRay(b,u,target,reach);
  if(g.kind==='burst'){
   const cells=[];for(let y=0;y<8;y++)for(let x=0;x<14;x++){
-   const p={x,y};if(hexDistance(target,p)<=g.radius&&hexDistance(u,p)<=reach&&!blocked(b,x,y))cells.push(p);
+   const p={x,y};if(hexDistance(target,p)<=g.radius&&hexDistance(u,p)<=reach&&hexDistance(u,p)>=(s.minRange||0)&&!blocked(b,x,y))cells.push(p);
   }return cells;
  }
  const a=toAxial(u),t=toAxial(target),vx=t.q-a.q+(t.r-a.r)/2,vy=(t.r-a.r)*Math.sqrt(3)/2;
@@ -49,15 +49,21 @@ export function tacticShapeTargets(b,u,s,target,pool,range){
   .sort((a,c)=>Number(c===target)-Number(a===target)||hexDistance(u,a)-hexDistance(u,c)||order(a,c))
   .slice(0,s.geometry.maxTargets);
 }
+export function supportPositionRank(u,s,a){
+ if(a.id===u.id)return 3;
+ const d=u.deploymentBehavior;
+ if(d&&hexDistance(u,a)<=3){
+  if(s.supportPosition==='front'&&a.id===d.intentId)return -1;
+  if(s.supportPosition!=='front'&&d.careIds.includes(a.id))return -1;
+ }
+ if(s.supportPosition==='column')return a.x===u.x?0:1;
+ if(s.supportPosition==='flanks')return a.x===u.x&&a.y!==u.y?0:1;
+ const forward=(a.x-u.x)*(u.side===1?-1:1);
+ return forward>0?(a.y===u.y?0:1):2;
+}
 export function positionedSupportTargets(u,s,pool){
  if(!s.supportPosition)return pool;
- const score=a=>{
-  if(a===u)return 1000;
-  if(s.supportPosition==='column')return Math.abs(a.x-u.x)*20+hexDistance(u,a);
-  if(s.supportPosition==='flanks')return Math.abs(a.x-u.x)*20+(a.y===u.y?10:0)+hexDistance(u,a);
-  const forward=(a.x-u.x)*(u.side===1?-1:1);
-  return (forward<=0?100:0)+Math.abs(a.y-u.y)*10+hexDistance(u,a);
- };
- // Stable ties preserve the existing need-based ranking within a position.
- return [...pool].sort((a,c)=>score(a)-score(c));
+ // Distance only limits reach. Within each positional group keep need ranking.
+ return [...pool].sort((a,c)=>supportPositionRank(u,s,a)-supportPositionRank(u,s,c));
 }
+export const supportPositionText=s=>s.supportPosition==='front'?'同排前方优先，其次其他前方，再选范围内友军':s.supportPosition==='flanks'?'同列侧翼优先，再选范围内友军':'同列友军优先，再选范围内友军';

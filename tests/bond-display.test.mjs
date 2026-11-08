@@ -2,13 +2,13 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {bondSummary,bondsMarkup,personalBondsMarkup,battleBondsMarkup,openingBondUnits,bondDetail,bondContributors} from '../bond-display.mjs';
 import {sideBonds} from '../bonds.mjs';
-const unit=(id,status,points)=>({id,name:id,status,hp:2000,troops:2000,bondGrowth:{levels:{bondGuard:points}}});
+const unit=(id,status,points)=>({id,name:id,status,hp:2000,troops:2000,bondGrowth:{levels:{bondRaid:points}}});
 test('display uses the engine in-field sums and updates after substitution',()=>{
  const a=unit('a','active',2),r=unit('r','reserve',3),d={...unit('d','active',3),isDecoy:true},b={sides:[{units:[a,r,d]},{units:[]}]};
  const before=JSON.stringify(b);
- assert.equal(bondSummary([],b)[0].points,sideBonds(b,0).bondGuard.points);
+ assert.equal(bondSummary([],b)[0].points,sideBonds(b,0).bondRaid.points);
  assert.equal(bondSummary([],b)[0].next,3);
- assert.match(battleBondsMarkup(b,0),/天覆/);assert.match(battleBondsMarkup(b,0),/2\/3/);
+ assert.match(battleBondsMarkup(b,0),/破军/);assert.match(battleBondsMarkup(b,0),/2\/3/);
  assert.doesNotMatch(battleBondsMarkup(b,0),/敌军羁绊/);
  assert.equal(bondDetail(bondSummary([],b)[0]).groups[0].rows.length,3);
  assert.equal(JSON.stringify(b),before);
@@ -22,7 +22,7 @@ test('draft preview excludes zero troops and decoys and shows opening levels',()
  assert.equal(bondSummary([a,b,c])[0].points,6);
  assert.match(bondsMarkup([a,b,c]),/首发羁绊/);
  assert.doesNotMatch(bondsMarkup([a,b,c]),/bond-effect|bond-tooltip|bond-thresholds/);
- assert.match(personalBondsMarkup({id:'unknown',level:1}),/天覆0/);
+ assert.doesNotMatch(personalBondsMarkup({id:'unknown',level:1}),/bond-personal/);
 });
 
 test('opening preview follows first flags and shared commander capacity; reserves cannot inflate tier',()=>{
@@ -34,20 +34,20 @@ test('opening preview follows first flags and shared commander capacity; reserve
  const detail=bondDetail(bondSummary(openingBondUnits(units))[0]);
  assert.ok(detail.groups[0].rows.some(r=>r[0]==='6 点 · 当前'));
  assert.ok(detail.groups[0].rows.some(r=>r[0]==='12 点'));
- assert.match(html,/天覆/);assert.match(JSON.stringify(detail),/阵位/);
+ assert.match(html,/破军/);assert.match(JSON.stringify(detail),/击溃/);
  assert.doesNotMatch(JSON.stringify(detail),/定位|稀缺性|组阵取舍|贡献部队|当前状态|完整效果|成长/);
  assert.match(bondsMarkup(units,{army:{leader:'cao'}}),/7\/12/);
- assert.match(bondsMarkup(units.map(u=>({...u,bondGrowth:{levels:{bondGuard:2}}}))),/12\/12/);
+ assert.match(bondsMarkup(units.map(u=>({...u,bondGrowth:{levels:{bondRaid:2}}}))),/12\/12/);
  assert.match(bondsMarkup([unit('only','active',1)]),/1\/3/);
- assert.doesNotMatch(personalBondsMarkup({id:'unknown',level:1}),/当前 \/ 上限|天覆0 \//);
+ assert.doesNotMatch(personalBondsMarkup({id:'unknown',level:1}),/当前 \/ 上限|破军0 \//);
 });
 test('contributor portraits use the same actual holders and points as the battle summary, including inactive tiers',()=>{
  const a=unit('a','active',2),r=unit('r','reserve',3),dead={...unit('dead','active',2),hp:0},decoy={...unit('decoy','active',3),isDecoy:true},gone=unit('gone','withdrawn',2),b={tick:1,sides:[{units:[a,r,dead,decoy,gone]},{units:[]}]};
- const before=JSON.stringify(b);assert.deepEqual(bondContributors([],b,0,'bondGuard'),[{id:'a',name:'a',points:2}]);assert.equal(bondSummary([],b)[0].tier,0);assert.match(battleBondsMarkup(b,0),/data-bond-contributors/);assert.equal(JSON.stringify(b),before);
- a.status='withdrawn';r.status='active';assert.deepEqual(bondContributors([],b,0,'bondGuard'),[{id:'r',name:'r',points:3}]);assert.equal(bondContributors([],b,0,'bondValor').length,0);
+ const before=JSON.stringify(b);assert.deepEqual(bondContributors([],b,0,'bondRaid'),[{id:'a',name:'a',points:2}]);assert.equal(bondSummary([],b)[0].tier,0);assert.match(battleBondsMarkup(b,0),/data-bond-contributors/);assert.equal(JSON.stringify(b),before);
+ a.status='withdrawn';r.status='active';assert.deepEqual(bondContributors([],b,0,'bondRaid'),[{id:'r',name:'r',points:3}]);assert.equal(bondContributors([],b,0,'bondValor').length,0);
 });
 test('opening portraits exclude the bench and unreached reinforcements, while hidden enemies use unknown portraits',()=>{
  const units=Array.from({length:9},(_,i)=>({...unit('u'+i,'reserve',1),first:i<6}));units[8].arrivalTick=10;
- assert.deepEqual(bondContributors(openingBondUnits(units),null,0,'bondGuard').map(u=>u.id),units.slice(0,6).map(u=>u.id));
- const secret={...unit('secret','active',2),name:'吕布',side:1,statuses:{stealth:{until:9}}},b={tick:1,sides:[{units:[]},{units:[secret]}]};assert.deepEqual(bondContributors([],b,1,'bondGuard'),[{id:null,name:'未侦察部队',points:2}]);assert.doesNotMatch(battleBondsMarkup(b,1),/吕布|secret/);delete secret.statuses.stealth;assert.equal(bondContributors([],b,1,'bondGuard')[0].id,'secret');
+ assert.deepEqual(bondContributors(openingBondUnits(units),null,0,'bondRaid').map(u=>u.id),units.slice(0,6).map(u=>u.id));
+ const secret={...unit('secret','active',2),name:'吕布',side:1,statuses:{stealth:{until:9}}},b={tick:1,sides:[{units:[]},{units:[secret]}]};assert.deepEqual(bondContributors([],b,1,'bondRaid'),[{id:null,name:'未侦察部队',points:2}]);assert.doesNotMatch(battleBondsMarkup(b,1),/吕布|secret/);delete secret.statuses.stealth;assert.equal(bondContributors([],b,1,'bondRaid')[0].id,'secret');
 });

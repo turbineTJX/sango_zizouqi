@@ -1,8 +1,9 @@
 // Shared vector glyphs for bond panels and battlefield activation seals.
 // Paths use only M/L/Q/C/Z so the same artwork also draws on a canvas.
 const glyphs={
- bondTigerFormation:['#e9b276','strike','M2 8 L7 3 L12 6 L17 3 L22 8 L20 18 L12 23 L4 18 Z M6 10 L9 12 M18 10 L15 12 M9 17 L12 19 L15 17 M12 7 L12 12'],
- bondDragonFormation:['#94cbd9','control','M3 18 Q5 5 14 5 L18 2 L21 7 L17 9 Q12 7 10 13 Q9 19 16 18 L20 14 M4 21 L9 19 M7 3 L10 6 M15 12 L19 11 M14 20 L17 23'],
+ bondMartial:['#e6a779','strike','M3 21 L17 7 L16 3 L21 2 L22 7 L18 6 L5 22 M4 15 L10 21 M3 5 L8 10 M5 3 L10 8'],
+ bondDisciplineBreak:['#aeb0de','control','M5 2 L5 22 M5 3 L21 4 L17 9 L21 14 L5 13 M9 5 L17 12 M17 5 L9 12 M2 18 L8 18'],
+ bondEnfeeble:['#caa9c5','control','M4 3 L18 17 M3 8 L8 3 M16 15 L21 20 M13 3 L21 3 L21 11 M3 15 L3 21 L11 21 M8 16 L16 8'],
  bondPower:['#edb179','strike','M5 20 L18 7 L20 3 L16 5 L3 18 M4 14 L10 20 M3 21 L6 18'],
  bondArmor:['#9dbed5','guard','M12 2 L21 6 L19 15 Q17 20 12 22 Q7 20 5 15 L3 6 Z M12 6 L12 17 M7 10 L17 10'],
  bondHaste:['#f2ca80','swift','M3 7 L10 12 L3 17 M10 5 L19 12 L10 19 M20 5 L20 19'],
@@ -10,7 +11,6 @@ const glyphs={
  bondSuppress:['#97b6d4','control','M3 7 Q9 3 17 7 Q22 10 17 12 L7 12 M4 17 Q10 21 17 17 M5 3 L19 21'],
  bondValor:['#ffc56d','strike','M4 19 L5 9 L8 4 L16 4 L19 9 L20 19 M5 13 L9 15 L9 19 M19 13 L15 15 L15 19 M12 4 L12 1 M8 21 L16 21'],
  bondWisdom:['#c6adf2','control','M12 21 L2 9 Q12 0 22 9 Z M12 21 L7 7 M12 21 L12 5 M12 21 L17 7'],
- bondGuard:['#83c9ca','guard','M3 3 L8 3 L8 8 L3 8 Z M16 3 L21 3 L21 8 L16 8 Z M9 14 L15 14 L15 21 L9 21 Z M8 6 L16 6 M5 8 L12 14 L19 8'],
  bondRaid:['#edb286','strike','M5 22 L5 2 L20 3 L16 8 L20 13 L5 12 M9 5 L14 9 M14 5 L9 9 M10 17 L19 17 M16 14 L20 17 L16 20'],
  bondEscort:['#8bcdd7','guard','M4 7 L11 4 L15 7 L14 15 L10 19 L5 16 Z M12 7 L18 5 L22 8 L21 16 L17 20 L14 17'],
  bondBeauty:['#efa7c6','support','M12 12 C1 9 4 0 10 5 C12 -1 19 2 17 7 C24 6 24 15 18 15 C21 23 12 25 11 18 C4 23 -1 15 6 13 Z M12 10 L12 15 M9 12 L15 12'],

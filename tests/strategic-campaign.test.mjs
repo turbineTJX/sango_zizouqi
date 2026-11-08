@@ -154,7 +154,7 @@ test('combat desertions are never healable and dissolved officers are not duplic
 test('city capture settles once and can be saved immediately within a day',()=>{
   const s=newCampaign();for(const c of s.cities.filter(c=>c.owner==='yuan'))c.kind='gate';for(const a of s.armies.filter(a=>a.faction==='yuan'))a.stationary=true;orderCampaignArmy(s,'a1','guandu');approachDestination(s,s.armies.find(a=>a.id==='a1'),2);beginExecution(s);runTo(s,7);
   const r=s.campaign.battles.find(r=>r.cityId==='guandu');assert.ok(r);
-  for(let guard=0;guard<240&&!r.settled;guard++){
+  for(let guard=0;guard<1000&&!r.settled;guard++){
     if(s.campaign.phase==='planning')beginExecution(s);
     for(const x of activeBattles(s).filter(x=>x.awaiting))chooseEncounter(s,x.id,false);
     advanceCampaignStep(s);

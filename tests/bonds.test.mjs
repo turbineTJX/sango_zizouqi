@@ -24,12 +24,12 @@ test('random progression survives save, bulk upgrades and changes of troop',()=>
  assert.ok(outcomes.size>1);
 });
 test('only live field units sum levels; reserve arrival and retreat immediately update tiers',()=>{
- const unit=(id,n,status='active')=>({id,side:0,type:'cavalry',status,hp:1000,level:10,bondGrowth:{levels:{bondGuard:n}}});
+ const unit=(id,n,status='active')=>({id,side:0,type:'cavalry',status,hp:1000,level:10,bondGrowth:{levels:{bondArmor:n}}});
  const a=unit('a',3),b=unit('b',2),c=unit('c',2,'reserve');const battle={sides:[{units:[a,b,c]},{units:[]}]};
- assert.equal(sideBonds(battle,0).bondGuard.points,5);assert.equal(traitIgnoresZoc(battle,a),false);
- c.status='active';assert.equal(sideBonds(battle,0).bondGuard.points,7);assert.equal(traitIgnoresZoc(battle,a),false);
- c.status='retreated';assert.equal(sideBonds(battle,0).bondGuard.points,5);
- b.hp=0;assert.equal(sideBonds(battle,0).bondGuard.points,3);
+ assert.equal(sideBonds(battle,0).bondArmor.points,5);assert.equal(traitIgnoresZoc(battle,a),false);
+ c.status='active';assert.equal(sideBonds(battle,0).bondArmor.points,7);assert.equal(traitIgnoresZoc(battle,a),false);
+ c.status='retreated';assert.equal(sideBonds(battle,0).bondArmor.points,5);
+ b.hp=0;assert.equal(sideBonds(battle,0).bondArmor.points,3);
  assert.equal(bondAttributes(battle,a).move,undefined);assert.deepEqual(activeBonds(battle,c),[]);
 });
 test('independent commander traits remain and replaced battle traits no longer activate',()=>{

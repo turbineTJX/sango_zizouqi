@@ -14,8 +14,10 @@ import {peachInvincible,peachRecipients,splitPeachDamage,settlePeach,validPeachS
 import {heavyRule,validBondEquipmentStatus} from './bond-equipment.mjs';
 import {recordBondDefeat,validBondRout} from './bond-battlefield.mjs';
 import {validBondState} from './bond-events.mjs';
-import {resolveBondHit,resolveBondAttack,pulseBondCombos,settleEscortBreak,validEscortStatus} from './bond-combos.mjs';
-import {bondFinisherCritical,bondDefenseIgnore,bondOperational,adjacentBondAlly,bondSwiftEffect,validSwiftStatus} from './bonds.mjs';
+import {BOND_DESIGNS} from './data/design/bonds.mjs';
+import {resolveBondHit,resolveBondAttack,resolveLureSpread,pulseBondCombos,settleEscortBreak,validEscortStatus} from './bond-combos.mjs';
+import {grantBondDebuffs,validBondDebuffs} from './bond-debuffs.mjs';
+import {bondFinisherCritical,bondDefenseIgnore,bondOperational,adjacentBondAlly,bondSwiftEffect,validSwiftStatus,topBond} from './bonds.mjs';
 import {bondHitEffect,bondBlocksEffect,bondDamageImmunity,bondValorDamage,bondSource,bondHitIntentDenialChance} from './bonds.mjs';
 import {bondCommandMultiplier,bondDamage,grantBondEntries,bondStratagemStrength,validBondEntry,validBondStrength} from './bonds.mjs';
 import {validBondGrowth} from './bonds.mjs';
@@ -49,7 +51,7 @@ import {validateMapDocument} from './battle-map-document.mjs';
 import {arrivalConditionMet,sameArrivalCondition} from './reinforcement-arrival.mjs';
 import {applyBattleEvents,validBattleEventStatus} from './battle-events.mjs';
 import {relationshipInfo,validRelationshipScores,validRelationshipTypes} from './relationships.mjs';
-import {hexDistance, hexNeighbors, hexBeyond, approachNeighbors} from './hex-grid.mjs';
+import {hexDistance, insideHexGrid, hexNeighbors, hexBeyond, approachNeighbors} from './hex-grid.mjs';
 import {tacticShapeTargets,tacticShapeCells} from './tactic-positioning.mjs';
 import {createTacticAim,tacticAimTargets,validTacticAim} from './tactic-aim.mjs';
 import {reserveEntryCells,validReserveEntryPoint,planReserveEntriesAI} from './reserve-entry.mjs';
@@ -62,12 +64,14 @@ import {learnedTacticIds,allLearnedTacticIds,initializeTacticLearning,validTacti
 import { terrainAt, blockedTerrain, gateTarget, canOccupy, canTraverseTerrain, BATTLE_TERRAINS } from './battlefield.mjs';
 import {tacticTerrainEffect,fireTerrainFactor} from './terrain-rules.mjs';
 import {planEnemyArmy,chooseEnemyCommand,rankEnemyReserves} from './battle-ai.mjs';
-import {isTargetable,meleeTargetPool,interceptorsAt,canStrikeFrom,holdsLine} from './engagement.mjs';
+import {isTargetable,meleeTargetPool,interceptorsAt,canStrikeFrom,holdsLine,strongInterceptor} from './engagement.mjs';
+import {lockFormation,establishFormation,formationPeer,validDeploymentBehavior} from './formation-behavior.mjs';
+import {planBattleRoute,formationGuardOrder,formationRearRoute,routeMovementCost} from './battle-path-planning.mjs';
 import { SCENARIOS } from './scenario-catalog.mjs';
-import { COMBAT, RULES_VERSION, CAMPAIGN_TIME, INTENT_STATE, TARGETING } from './combat-rules.mjs';
+import { COMBAT, RULES_VERSION, CAMPAIGN_TIME, INTENT_STATE, TARGETING, FORMATION } from './combat-rules.mjs';
 import {snapshotTactic,tacticOutcome} from './tactic-outcomes.mjs';
 import {cooperationCandidate,tacticSupportRecipients,cooperatingUnit} from './tactic-cooperation.mjs';
-import {powerFactor,powerDuration,effectChance,criticalChance,statusFraction,DURATION_POWER_STATUSES,CHANCE_EFFECT_NAMES,POWER_RULES} from './tactic-power.mjs';
+import {tacticPowerValue,powerFactor,powerDuration,effectChance,criticalChance,statusFraction,DURATION_POWER_STATUSES,CHANCE_EFFECT_NAMES,POWER_RULES} from './tactic-power.mjs';
 import {FAMOUS_OFFICERS} from './famous-officers.mjs';
 import {famousTargets, famousIntentTargets, tacticOpening, undermineTargets, expandedSupportTargets, basicSupportTargets, areaTacticTargets, exposedTarget, tauntTarget, pursuitTarget, flankingTarget, supportApproach, repairTarget} from './tactics.mjs';
 export { TROOPS, unitAttributes, disciplineDuration, isRear } from './unit-stats.mjs';
@@ -398,6 +402,7 @@ export function lockDeployment(b,{validateCount=true}={}) {
   for(const side of [0,1])b.sides[side].battleIntent=battleIntent(b,side);
   for(const side of b.sides){const source=side.units.find(u=>shieldLayers(b,u).some(l=>l.source==='siege:opening'));if(source){const layer=shieldLayers(b,source).find(l=>l.source==='siege:opening'),ratio=layer.amount/source.initial;for(const u of side.units){refreshShield(b,u,shieldLayers(b,u).filter(l=>l.source!=='siege:opening'));if(u.status==='active')setStatus(b,u,'shield',layer.until-b.tick,{amount:Math.round(u.initial*ratio),source:'siege:opening',label:'守城首发护盾'});}}}
   b.deploymentLocked = true;
+  lockFormation(b);
   grantBondEntries(b);
   for(const [side,army] of b.sides.entries())for(const c of army.commanders||[])if(mechanicEntries(c,'passive').some(({rule})=>rule.effect==='frontline'&&rule.roles.includes(c.role)))appendBattleLog(b,c.name+'「奸雄」：所属军团上场上限7队，额外名额仅限本军团。','trait',side);
   for(const u of b.sides.flatMap(s=>s.units).filter(u=>u.status==='active'))armEntryStatuses(b,u,unitTactics(u));
@@ -414,7 +419,7 @@ function spawn(b, unit) {
   const open = reserveEntryCells(b,unit);
   if (!open.length) return false;
   unit.x = open[0].x; unit.y = open[0].y; unit.status = 'active'; unit.action = '列阵';syncCombatForm(b,unit);
-  if(b.deploymentLocked)armEntryStatuses(b,unit,unitTactics(unit));
+  if(b.deploymentLocked){armEntryStatuses(b,unit,unitTactics(unit));establishFormation(b,unit);}
   unit.passiveState ||= initialPassiveState(b.tick);unit.passiveState.lastMoveTick=b.tick;
   if(b.tick>0&&!unit.passiveState.reserveEntered){
     unit.passiveState.reserveEntered=true;
@@ -634,13 +639,16 @@ function pickTarget(b, unit, inRangeOnly = false, reachableOnly = false) {
     if(reachable&&(!inRangeOnly||inReach(ordered)))return ordered;
     if(!reachable)ordered=null;
   }
-  if(!forced&&!ordered&&bondSwiftEffect(b,unit)){
-    const stats=unitAttributes(unit,b),inReach=t=>distance(unit,t)>=stats.minRange&&distance(unit,t)<=stats.range&&canStrikeFrom(b,unit,t);
-    // Use the real route search: ZOC is ignored by the shared engagement rule,
-    // while occupied cells, terrain and guard orders still constrain pursuit.
+  const pinned=interceptorsAt(b,unit);
+  const breakthrough=hasStatus(b,unit,'phase')||bondSwiftEffect(b,unit)||hasStatus(b,unit,'rapidAdvance');
+  const flank=combatFamily(unit)==='cavalry'&&unit.deploymentBehavior?.flank;
+  if(!forced&&!ordered&&!pinned.length&&(breakthrough||flank)){
+    const frontCost=Math.min(...enemies.filter(e=>!isRear(e)).map(e=>pathTo(e)).filter(p=>p.route!==null).map(p=>p.cost));
+    const until=Math.max(...['phase','swiftRush','rapidAdvance'].map(k=>hasStatus(b,unit,k)?unit.statuses[k].until:0));
+    const budget=flank?frontCost+FORMATION.flankDetour:Math.max(0,until-b.tick)*stats.move+(unit.moveProgress||0);
     const rear=enemies.filter(e=>!e.isDecoy&&isRear(e)&&(stats.move>0||inReach(e)))
-      .map(target=>({target,route:findMoveRoute(b,unit,target).route})).filter(e=>e.route!==null)
-      .sort((a,c)=>a.route.length-c.route.length||distance(unit,a.target)-distance(unit,c.target)||a.target.id.localeCompare(c.target.id))[0]?.target;
+      .map(target=>({target,...pathTo(target)})).filter(p=>p.route!==null&&(inReach(p.target)||p.cost<=budget))
+      .sort((a,c)=>a.cost-c.cost||distance(unit,a.target)-distance(unit,c.target)||a.target.id.localeCompare(c.target.id))[0]?.target;
     if(rear)return inRangeOnly&&!inReach(rear)?null:rear;
   }
   if(hasStatus(b,unit,'stealth')){
@@ -657,8 +665,10 @@ function pickTarget(b, unit, inRangeOnly = false, reachableOnly = false) {
   const chaseTarget=!focused&&(pursuitTarget(b,unit,enemies)||flankingTarget(b,unit,enemies));
   const chase=chaseTarget&&(unitAttributes(unit,b).move>0||inReach(chaseTarget))?chaseTarget:null;
   const finishers=pool.filter(t=>inReach(t)&&distance(unit,t)<=2&&t.hp/t.maxHp<=.1&&(t.type!=='building'||buildingValue(t)>0));
-  const ranged=pool.filter(t=>inReach(t)&&(isRear(t)||t.type==='building'&&buildingValue(t)>0));
-  let candidates=(forced?[forced]:!focused&&finishers.length?finishers:!focused&&ranged.length?ranged:chase&&(!inRangeOnly||inReach(chase))?[chase]:pool).filter(t=>!inRangeOnly||inReach(t));
+  const current=pool.find(t=>t.id===unit.passiveState?.targetId&&inReach(t));
+  const screen=formationPeer(b,unit,'screen'),shared=screen&&pool.find(t=>t.id===screen.passiveState?.targetId&&inReach(t));
+  const nearby=pool.filter(inReach);
+  let candidates=(forced?[forced]:!focused&&finishers.length?finishers:current?[current]:shared?[shared]:chase&&(!inRangeOnly||inReach(chase))?[chase]:nearby.length?nearby:pool).filter(t=>!inRangeOnly||inReach(t));
   if(structureBattle&&!forced){
     const militaryTarget=enemies.some(t=>(t.type!=='building'||buildingValue(t)>0)&&(stats.move>0||inReach(t))&&pathTo(t).route!==null);
     if(!militaryTarget&&stats.move>0){
@@ -680,6 +690,7 @@ function pickTarget(b, unit, inRangeOnly = false, reachableOnly = false) {
     const reachable=candidates.filter(t=>(stats.move>0||inReach(t))&&pathTo(t).route!==null);
     if(reachable.length)candidates=reachable;
   }
+  if(!forced&&!ordered&&!candidates.some(inReach)){const previous=candidates.find(t=>t.id===unit.passiveState?.targetId),best=Math.min(...candidates.map(t=>pathTo(t).cost));if(previous&&pathTo(previous).route!==null&&pathTo(previous).cost<=best+FORMATION.retargetMargin)return previous;}
   return candidates.sort((a, c) => {
     const score = target => {
       const d=distance(unit,target);
@@ -702,34 +713,15 @@ function pickTarget(b, unit, inRangeOnly = false, reachableOnly = false) {
       if (b.siege?.gate.side === unit.side) s += distance(target,b.siege.gate)*4;
       return s;
     };
+    if(!structureBattle){
+      if(inReach(a)&&inReach(c))return distance(unit,a)-distance(unit,c)||score(a)-score(c)||a.id.localeCompare(c.id);
+      return pathTo(a).cost-pathTo(c).cost||score(a)-score(c)||a.id.localeCompare(c.id);
+    }
     return score(a) - score(c) || a.id.localeCompare(c.id);
   })[0];
 }
-function findMoveRoute(b, unit, target, retreat = false, supportRange = null, ignoredBuildings = null, returning = false) {
-  const occupied = b.sides.flatMap(s => s.units).filter(u => u.status === 'active' && u !== unit);
-  // Breadth-first pathfinding handles blocked allies without passing through them.
-  const inLine = retreat ? ()=>true : returning ? p=>unit.side===0?p.x<=Math.max(4,unit.x):p.x>=Math.min(9,unit.x) : defenseLine(b,unit,target);
-  const goal = returning ? p=>insideDefenseLine(unit,p) : retreat ? p => p.x === (unit.side === 0 ? 0 : 13) : p => inLine(p) && distance(p, target) <= (supportRange??attackRange(b,unit)) && (supportRange!==null||distance(p,target)>=(unitAttributes(unit,b).minRange||0)&&canStrikeFrom(b,unit,target,p));
-  const queue = [{ x: unit.x, y: unit.y, path: [] }], visited = new Set([`${unit.x},${unit.y}`]);
-  let route = null, contactRoute = null;
-  while (queue.length) {
-    const node = queue.shift();
-    if (goal(node)) { route = node.path; break; }
-    if(interceptorsAt(b,unit,node,retreat||!!unit.disengage).some(e=>!unit.disengage?.guards.includes(e.id))||node.path.length>0&&unit.disengage&&interceptorsAt(b,unit,node,retreat||!!unit.disengage).length){
-      // An unreachable focus behind a complete line still advances to contact.
-      contactRoute ??= node.path;
-      continue;
-    }
-    const neighbors = approachNeighbors(node,target,unit.side);
-    for (const [x, y] of neighbors) {
-      const key = `${x},${y}`;
-      const cleared=ignoredBuildings&&canTraverseTerrain(b,unit,x,y)&&battleBuildings(b).some(a=>a.hp>0&&a.x===x&&a.y===y&&ignoredBuildings.has(a.id));
-      if (x < 0 || y < 0 || x >= GRID.cols || y >= GRID.rows || (!retreat && !inLine({x,y})) || !canOccupy(b,unit,x,y)&&!cleared || visited.has(key) || occupied.some(u => u.x === x && u.y === y)) continue;
-      if(!node.path.length&&unit.disengage){const guards=b.sides[1-unit.side].units.filter(e=>unit.disengage.guards.includes(e.id)&&holdsLine(b,e));if(guards.length&&guards.reduce((n,e)=>n+distance({x,y},e),0)<=guards.reduce((n,e)=>n+distance(unit,e),0))continue;}
-      visited.add(key); queue.push({ x, y, path: [...node.path, { x, y }] });
-    }
-  }
-  return {route,contactRoute};
+function findMoveRoute(b,unit,target,retreat=false,supportRange=null,ignoredBuildings=null,returning=false){
+ return planBattleRoute(b,unit,target,{retreat,supportRange,ignoredBuildings,returning,range:attackRange(b,unit)});
 }
 export function syncCombatForm(b,u,target=null){
  const ground=terrainAt(b,u.x,u.y),gate=target?.type==='building'?target:b.siege?.gate;
@@ -751,20 +743,19 @@ function moveUnit(b, unit, target, retreat = false, supportRange = null, returni
   if(guards.length&&!unit.disengage){unit.disengage={targetId:retreat||returning?null:target.id,guards:guards.map(e=>e.id),readyTick:b.tick+1};unit.cast=null;unit.action='脱战准备';return true;}
   if(unit.disengage&&b.tick<unit.disengage.readyTick){unit.action='脱战准备';return true;}
 
-  const speed=unitAttributes(unit,b).move;
-  if(speed<=0){unit.moveProgress=0;unit.action='固守 / 迟滞';return true;}
   const paths=findMoveRoute(b,unit,target,retreat,supportRange,null,returning),route=paths.route??paths.contactRoute;
-  if (route?.length) {
-    unit.moveProgress=(unit.moveProgress||0)+speed;const steps=Math.floor(unit.moveProgress);unit.moveProgress-=steps;
-    if(!steps){unit.action='迟滞行军';return true;}
-    // Stop at first contact, even if speed would otherwise skip this hex.
-    const contact=route.findIndex(p=>interceptorsAt(b,unit,p,retreat||!!unit.disengage).length);
-    const transition=route.findIndex(p=>(terrainAt(b,p.x,p.y)==='water')!==(terrainAt(b,unit.x,unit.y)==='water'));
-    const next = route[Math.min(route.length, steps,transition<0?Infinity:transition+1,unit.disengage?1:Infinity,contact<0?Infinity:contact+1) - 1];
-    const from={x:unit.x,y:unit.y};unit.x = next.x; unit.y = next.y;moved(b,unit,from,retreat?null:target);unit.disengage=null; unit.action = retreat ? '撤离' : returning ? '返回防线' : `接近${target.name}`;
-    if(!retreat)ambushContact(b,unit);
-  } else unit.action = retreat ? '等待撤离' : b.siege?.gate.side===unit.side ? '守护城门' : '调整阵线';
-  return returning ? !!route?.length : route!==null;
+  if(route?.length)advanceRoute(b,unit,route,retreat?'撤离':returning?'返回防线':'接近'+target.name,target);
+  else unit.action=retreat?'等待撤离':b.siege?.gate.side===unit.side?'守护城门':'调整阵线';
+  return returning?!!route?.length:route!==null;
+}
+function advanceRoute(b,u,route,label,target=null){
+ const speed=unitAttributes(u,b).move;if(speed<=0){u.action='无法移动';return false;}
+ const next=route[0];if(!next||!openCell(b,next.x,next.y,u)){u.action='路线受阻';return false;}
+ const total=(u.moveProgress||0)+Math.min(FORMATION.maxMove,speed),steps=Math.floor(total+1e-9);
+ u.moveProgress=Math.max(0,total-steps);
+ if(!steps){u.action=label+' · 行进';return false;}
+ const from={x:u.x,y:u.y};u.x=next.x;u.y=next.y;moved(b,u,from,target);u.disengage=null;u.action=label;
+ if(label!=='撤离')ambushContact(b,u);return true;
 }
 function ambushContact(b,u){
   if(!hasStatus(b,u,'stealth'))return false;
@@ -788,7 +779,7 @@ function combatEffect(b, attacker, target, skill, damage, phase = 'impact', defi
 function counters(a,c) { return !!TROOPS[a]&&!!TROOPS[c]&&TROOPS[a].beats===TROOPS[c].family; }
 function damageGate(b, attacker, scale=1, definition=null, target=null) {
   const gate = target||b.siege.gate, own = unitAttributes(attacker,b);
-  const damage = Math.min(gate.hp,Math.max(1,Math.round((definition?own.martialPower+own.siege:own.siege)*scale*bondDamage(b,attacker,{...gate,type:'gate'},'force')*(definition?.critical?POWER_RULES.criticalMultiplier:1)*COMBAT.damageScale*(.9+random(b)*.2))));
+  const damage = Math.min(gate.hp,Math.max(1,Math.round((definition?tacticPowerValue(own,definition)+own.siege:own.siege)*scale*bondDamage(b,attacker,{...gate,type:'gate'},'force')*(definition?.critical?POWER_RULES.criticalMultiplier:1)*COMBAT.damageScale*(.9+random(b)*.2))));
   gate.hp -= damage;gate.lastDamagedTick=b.tick;
   attacker.participated = true;
   attacker.cooldown = own.attackInterval-(attacker.attackCarry||0); attacker.attackCarry = 0;
@@ -823,14 +814,15 @@ function damageUnitInner(b, attacker, target, skill, scale=1, definition=null, g
     if(!valorImmune)combatEffect(b,attacker,target,skill,0,'impact',definition,{text:hasStatus(b,target,'commandInvincible')?'无敌':hasStatus(b,target,'guardInvincible')?'护卫免伤':peachInvincible(b,target)?'桃园无敌':'魔免',damageKind:intellectual?'intellect':'force'});return 0;
   }
   const kind=intellectual?'intellect':skill?'force':'basic';
-  const power=skill?(intellectual?own.strategyPower:own.martialPower):orb?(orb.skillId==='curse'?own.strategyPower:own.attack+own.martialPower*orbProfile.bonus*(orbTerrain?.damage??1)):intellectual?own.strategyPower*.8:own.attack;
+  const power=skill?tacticPowerValue(own,definition):orb?(orb.skillId==='curse'?own.strategyPower:own.attack+own.martialPower*orbProfile.bonus*(orbTerrain?.damage??1)):intellectual?own.strategyPower*.8:own.attack;
   const resistance=intellectual?enemy.discipline:enemy.defense*(1-bondDefenseIgnore(b,attacker,target,kind));
   const counter=counters(combatType(attacker),combatType(target))?1.28:counters(combatType(target),combatType(attacker))?.84:1;
   const pursuitBonus=!skill&&hasStatus(b,attacker,'pursuit')&&isRear(target)?1.35:1;
   const base=power*counter*100/(100+resistance)*(1-enemy.damageReduction)*passiveDamageMultiplier(b,attacker,target,kind,!skill)*passiveDamageTaken(b,target,kind,!skill)*pursuitBonus;
   const terrain=skill&&definition?(terrainOverride??tacticTerrainEffect(b,attacker,definition,target)):null;
   const heavyBonus=!skill&&allowCounter&&!intellectual&&!target.isDecoy?(heavyRule(b,attacker)?.bonus||0):0;
-  const bondCritical=!skill&&allowCounter&&bondFinisherCritical(b,attacker,target);
+  const bondCriticalChance=!skill&&allowCounter?bondFinisherCritical(b,attacker,target):0;
+  const bondCritical=bondCriticalChance>0&&(bondCriticalChance===1||random(b)<bondCriticalChance);
   const raw=base*(1+heavyBonus)*(attack?.roll??(.9+random(b)*.2))*COMBAT.damageScale*(terrain?.damage??1)*(definition?.critical||bondCritical?POWER_RULES.criticalMultiplier:1);
   let damage;
   if(attack){
@@ -860,7 +852,7 @@ function damageUnitInner(b, attacker, target, skill, scale=1, definition=null, g
     intentTargets?.add(target.id);
   }
   attacker.action = skill ? definition?.name || attacker.skill : `攻击${target.name}`;
-  combatEffect(b, attacker, target, skill, damage,'impact',orb?TACTICS_BOOK[orb.skillId]:definition,{...(orb?{attackOrb:orb.skillId,orbRemaining:orb.charges-1,text:orbProfile.name+' · 余 '+(orb.charges-1)+' 次',...(orbTerrain.label?{terrain:orbTerrain.label+'（仅附加威力）',terrainFactor:orbTerrain.damage}:{})}:{}),...(definition?.trait?{ongoing:true}:{}),shieldAbsorbed,damageKind:intellectual?'intellect':'force',...(bondCritical?{critical:true,critChance:1,bondCritical:'bondFinisher',text:'锐锋 · 暴击'}:{}),...(definition?.critChance?{critical:definition.critical,critChance:definition.critChance}:{}),...(terrain?.label?{terrain:terrain.label,terrainFactor:terrain.damage}:{}),...(!allowCounter?{ongoing:true}:{}),...(intentDenied?{intentDenied,intentBlock:skill?'断势':'截气'}:{})});
+  combatEffect(b, attacker, target, skill, damage,'impact',orb?TACTICS_BOOK[orb.skillId]:definition,{...(orb?{attackOrb:orb.skillId,orbRemaining:orb.charges-1,text:orbProfile.name+' · 余 '+(orb.charges-1)+' 次',...(orbTerrain.label?{terrain:orbTerrain.label+'（仅附加威力）',terrainFactor:orbTerrain.damage}:{})}:{}),...(definition?.trait?{ongoing:true}:{}),shieldAbsorbed,damageKind:intellectual?'intellect':'force',...(bondCritical?{critical:true,critChance:bondCriticalChance,bondCritical:'bondFinisher',text:'锐锋 · 暴击'}:{}),...(definition?.critChance?{critical:definition.critical,critChance:definition.critChance}:{}),...(terrain?.label?{terrain:terrain.label,terrainFactor:terrain.damage}:{}),...(!allowCounter?{ongoing:true}:{}),...(intentDenied?{intentDenied,intentBlock:skill?'断势':'截气'}:{})});
   if(orb){
     if(target.hp>0){
       const extra={sourceId:attacker.id,sourceName:attacker.name,sourceSkillName:orbProfile.name,potency:orb.potency};
@@ -879,9 +871,9 @@ function damageUnitInner(b, attacker, target, skill, scale=1, definition=null, g
     const beauty=!skill&&!target.isDecoy?bondHitEffect(b,attacker):null;
     if(beauty){
       if(target.hp>0&&!hasStatus(b,target,'magicImmune')){const amount=lowerIntent(target,beauty.intentDrain,attacker,b);if(amount)combatEffect(b,attacker,target,false,0,'impact',{name:'倾国',visual:'banner'},{ongoing:true,text:'倾国 · 战意 −'+amount,intentDrained:amount});}
-      // A shared-contact attack rolls the full-field effect once after all hits.
-      if(beauty.allEnemies&&attack)attack.beauty=beauty;
-      else applyBeautyStatuses(b,attacker,beauty,beauty.allEnemies?activeUnits(b,1-attacker.side):[target]);
+      // Lock before primary control can move the target; one spread per attack.
+      if(beauty.spread&&(!attack||!attack.beautyQueued)){queueBondAim(b,attacker,target,'bondBeauty');if(attack)attack.beautyQueued=true;}
+      applyBeautyStatuses(b,attacker,beauty,[target]);
     }
     if(!skill){resolveBondHit(b,attacker,target,bondComboApi(b),{isolated});if(!attack)resolveBondAttack(b,attacker,bondComboApi(b));}
     if(target.hp<=0)traitEvent(b,attacker,'kill',{target,damage});
@@ -889,6 +881,31 @@ function damageUnitInner(b, attacker, target, skill, scale=1, definition=null, g
   if(attack)attack.targets.push(target);
   else if(allowCounter)counterAttack(b,attacker,target);
   return damage;
+}
+const bondSpreadCells=point=>[point,...hexNeighbors(point).map(([x,y])=>({x,y}))].filter(p=>insideHexGrid(p.x,p.y));
+const bondAimFields={bondBeauty:'beautyAims',bondLure:'lureAims'};
+function queueBondAim(b,u,target,id){
+ const d=BOND_DESIGNS[id],point={x:target.x,y:target.y},aim={point,targetId:target.id,startedAt:b.tick,resolveAt:b.tick+d.spreadDelay,cells:bondSpreadCells(point)};
+ (u[bondAimFields[id]] ||= []).push(aim);
+ combatEffect(b,u,target,false,0,'cast',{name:d.name,visual:'banner'},{ongoing:true,bondSpread:true,text:d.name+' · 扩散蓄势',tacticGeometry:{kind:'burst',cells:aim.cells}});
+}
+function validBondAims(b,u,id){
+ const aims=u[bondAimFields[id]];if(aims===undefined)return true;
+ return Array.isArray(aims)&&aims.length<=(id==='bondBeauty'?1:6)&&new Set(aims.map(a=>a?.targetId)).size===aims.length&&aims.every(a=>a&&Object.keys(a).sort().join(',')==='cells,point,resolveAt,startedAt,targetId'&&a.startedAt===b.tick&&a.resolveAt===a.startedAt+BOND_DESIGNS[id].spreadDelay&&a.point&&Object.keys(a.point).sort().join(',')==='x,y'&&Number.isInteger(a.point.x)&&Number.isInteger(a.point.y)&&insideHexGrid(a.point.x,a.point.y)&&b.sides[1-u.side].units.some(v=>v.id===a.targetId)&&u.bondGrowth?.levels?.[id]>0&&JSON.stringify(a.cells)===JSON.stringify(bondSpreadCells(a.point)));
+}
+function resolveBondAims(b,sequence){
+ for(const side of sequence)for(const u of b.sides[side].units)for(const [id,field]of Object.entries(bondAimFields)){
+  const pending=u[field];if(!pending?.length)continue;
+  u[field]=pending.filter(a=>a.resolveAt>b.tick);
+  for(const aim of pending.filter(a=>a.resolveAt<=b.tick)){
+   const d=BOND_DESIGNS[id];
+   if(!topBond(b,u,id)||u.hp<=0||u.status!=='active'||u.withdrawing||u.disengage||b.sides[side].retreat)continue;
+   const targets=activeUnits(b,1-side).filter(v=>v.id!==aim.targetId&&!v.isDecoy&&isTargetable(b,v)&&aim.cells.some(p=>v.x===p.x&&v.y===p.y)).sort((a,c)=>distance(aim.point,a)-distance(aim.point,c)||a.id.localeCompare(c.id)).slice(0,d.spreadTargets);
+   if(id==='bondBeauty')applyBeautyStatuses(b,u,bondHitEffect(b,u),targets);else resolveLureSpread(b,u,targets,bondComboApi(b));
+   const target=b.sides[1-side].units.find(v=>v.id===aim.targetId);
+   combatEffect(b,u,target,false,0,'impact',{name:d.name,visual:'banner'},{ongoing:true,bondSpread:true,text:d.name+(targets.length?' · 范围扩散':' · 落空'),...(!targets.length?{missed:true}:{}),x:aim.point.x,y:aim.point.y,tacticGeometry:{kind:'burst',cells:aim.cells}});
+  }
+ }
 }
 function applyBeautyStatuses(b,attacker,beauty,targets){
   for(const target of targets){
@@ -952,7 +969,6 @@ function basicAttackCore(b,u,target,contacts){
   const orb=hasStatus(b,u,'attackOrb')?u.statuses.attackOrb:null;
   const start=b.effects.length,before=area?snapshotTactic(b):null;
   for(const enemy of contacts)damageUnit(b,u,enemy,false,area?1:1/contacts.length,null,true,true,null,null,attack);
-  if(attack.beauty)applyBeautyStatuses(b,u,attack.beauty,activeUnits(b,1-u.side));
   const hits=b.effects.slice(start).filter(e=>e.from===u.id&&!e.skill&&!e.ongoing);
   for(const effect of hits){
     if(area){effect.abilityKind='trait';effect.traitId=area.id;effect.label=area.name;effect.traitEffective=true;}
@@ -981,18 +997,27 @@ function spendTactic(b,u,s){
 function finishTacticInner(b,u,s,target,impact=null) {
   if(u.withdrawing||u.disengage||b.sides[u.side].retreat||u.status!=='active'||u.hp<=0)return false;
   breakStealth(b,u,'施放战法');
+  if(!impact&&['rush','terror','navalRam'].includes(s.effect)){
+    const path=routeTo(b,u,target,s.effect==='navalRam'?2:3);
+    if(path===null)return false;
+    if(path.length){
+      const payment=spendTactic(b,u,s);
+      u.movementAim={skillId:s.id,targetId:target.id,origin:{x:u.x,y:u.y},point:{x:target.x,y:target.y},path,index:0,startedAt:b.tick,payment};
+      combatEffect(b,u,target,true,0,'cast',s,{text:'突进蓄势',intentPayment:payment});traitEvent(b,u,'cast',{target});u.action=s.name+' · 推进';return true;
+    }
+  }
   if(s.geometry&&!impact){
-    const aim=createTacticAim(b,u,s,target,s.geometry.reach??attackRange(b,u));
+    const aim=createTacticAim(b,u,s,target,s.geometry.reach??((s.range??attackRange(b,u))+(s.effect==='bombard'&&hasStatus(b,u,'emplaced')?1:0)));
     if(!aim.cells.some(p=>p.x===target.x&&p.y===target.y))return false;
     u.tacticAim=aim;const intentPayment=spendTactic(b,u,s);
     combatEffect(b,u,target,true,0,'cast',s,{text:'蓄势',intentPayment,tacticGeometry:{kind:s.geometry.kind,cells:aim.cells}});
     traitEvent(b,u,'cast',{target});u.action=s.name+' · 蓄势';return true;
   }
   // Invalid movement casts must not consume a relationship roll.
-  if(s.effect==='lure'&&!lureCell(b,u,target)||s.effect==='retreatShot'&&!retreatCell(b,u)||['rush','terror'].includes(s.effect)&&routeTo(b,u,target,3)===null)return false;
+  if(!impact&&(s.effect==='lure'&&!lureCell(b,u,target)||s.effect==='retreatShot'&&!retreatCell(b,u)||['rush','terror'].includes(s.effect)&&routeTo(b,u,target,3)===null))return false;
   const before=snapshotTactic(b);
   const power=statusPower(u,s,b),factor=powerFactor(power);
-  const origin={...u},terrainPath=['rush','terror'].includes(s.effect)?routeTo(b,u,target,3):[];
+  const origin={...u,...(impact?.movement?impact.origin:{})},terrainPath=impact?.movement?impact.path:['rush','terror'].includes(s.effect)?routeTo(b,u,target,3):[];
   const terrainFor=t=>tacticTerrainEffect(b,origin,s,t,terrainPath);
   const terrainNotes=new Set();
   const noteTerrain=t=>{const terrain=terrainFor(t);if(terrain.label)terrainNotes.add(terrain.label);return terrain;};
@@ -1023,7 +1048,9 @@ function finishTacticInner(b,u,s,target,impact=null) {
     if(DURATION_POWER_STATUSES.has(key))steps=powerDuration(steps,power);
     const terrain=terrainFor(t),adjusted=terrain.statuses.includes(key)?Math.max(1,Math.round(steps*noteTerrain(t).factor)):steps;
     if(t!==u&&t.hp>0&&!hasStatus(b,t,key))recordContribution(u,t.side===u.side?'support':'control',1);
-    setStatus(b,t,key,key==='seal'?disciplineDuration(b,t,duration(adjusted)):duration(adjusted),{sourceId:u.id,sourceName:u.name,sourceSkillName:s.name,potency:factor,...extra,...(key==='ward'?{percent:Math.min(80,Math.round(extra.percent*factor))}:{}),...(key==='shield'?{source:u.id+':'+s.id,label:u.name+' · '+s.name}:{})});
+    const lasting=key==='seal'?disciplineDuration(b,t,duration(adjusted)):key==='link'&&s.link?adjusted:duration(adjusted);
+    if(key==='magicImmune')for(const negative of NEGATIVE_STATUSES)if(negative!=='hunger')delete t.statuses[negative];
+    setStatus(b,t,key,lasting,{sourceId:u.id,sourceName:u.name,sourceSkillName:s.name,potency:factor,...extra,...(key==='magicImmune'?{sourceTactic:s.id,castTick:b.tick,duration:lasting,powerSnapshot:power}:{}),...(key==='ward'?{percent:Math.min(80,Math.round(extra.percent*factor))}:{}),...(key==='shield'?{source:u.id+':'+s.id,label:u.name+' · '+s.name}:{})});
     return true;
   };
   const intentTargets=new Set();
@@ -1067,8 +1094,8 @@ function finishTacticInner(b,u,s,target,impact=null) {
     setStatus(b,u,'attackOrb',Math.max(0,(b.maxTicks||240)-b.tick),{skillId:s.id,charges:ATTACK_ORBS[s.id].charges,potency:factor,sourceId:u.id,sourceName:u.name,sourceSkillName:s.name});
     combatEffect(b,u,u,true,0,'impact',s,{enchantment:true,text:s.name+' · 装填 '+ATTACK_ORBS[s.id].charges+' 次'});
    }else switch(s.effect) {
-    case 'status':{const targets=s.statusKey==='link'?activeUnits(b,1-u.side).filter(t=>isTargetable(b,t)&&distance(u,t)<=s.range).sort((a,c)=>Number(c===target)-Number(a===target)||a.id.localeCompare(c.id)).slice(0,s.targets):[target];for(const t of targets){if(s.statusKey==='stun'){control(t,s.steps,'stun');continue;}status(t,s.statusKey,s.steps,{sourceId:u.id,...(s.statusKey==='link'?{group:u.id+':'+b.tick}:{} )});signal(t);}break;}
-    case 'remedy':remedy(b,target,s.remedy);signal(target);break;
+    case 'status':{const targets=impact?.targets||(s.statusKey==='link'?activeUnits(b,1-u.side).filter(t=>isTargetable(b,t)&&distance(u,t)<=s.range).sort((a,c)=>Number(c===target)-Number(a===target)||a.id.localeCompare(c.id)).slice(0,s.targets):[target]);for(const t of targets){if(['stun','root','disarm'].includes(s.statusKey)){control(t,s.steps,s.statusKey);continue;}status(t,s.statusKey,s.steps,{sourceId:u.id,...(s.statusKey==='link'?{group:u.id+':'+b.tick}:{} )});signal(t);}break;}
+    case 'remedy':remedy(b,target,s.remedy);if(s.mode==='support'&&s.shield)status(target,'shield',s.steps,{amount:boosted(target.maxHp*s.shield,target,'shield')});signal(target);break;
     case 'cleave':(impact?.targets||tacticShapeTargets(b,u,s,target,activeUnits(b,1-u.side).filter(t=>isTargetable(b,t)),1)).forEach((t,i)=>{if(u.hp>0)hit(t,.95,i===0);});break;
     case 'bulwark':status(u,'bulwark',10);signal();break;
     case 'riposte':status(u,'riposte',8,{lastTick:0});signal();break;
@@ -1088,7 +1115,7 @@ function finishTacticInner(b,u,s,target,impact=null) {
     case 'regrowth':status(target,'regrowth',6,{amount:boosted(target.maxHp*(.015+power/50000),target,'healing',false),sourceId:u.id});signal(target);break;
     case 'purify':remedy(b,target,'rally');heal(target,.05);signal(target);break;
     case 'bombard':case 'tremor':case 'broadside':case 'undertow':{
-      const targets=areaTacticTargets(b,u,s,target,s.range+(s.effect==='bombard'&&hasStatus(b,u,'emplaced')?1:0)).filter(t=>distance(u,t)>=(s.minRange||0));
+      const targets=impact?.targets||areaTacticTargets(b,u,s,target,s.range+(s.effect==='bombard'&&hasStatus(b,u,'emplaced')?1:0)).filter(t=>distance(u,t)>=(s.minRange||0));
       targets.forEach((t,i)=>{if(u.hp<=0)return;hit(t,s.effect==='bombard'?(i?.65:1.45):s.effect==='tremor'?.75:s.effect==='broadside'?1.05:.65,i===0);if(t.hp>0&&s.effect==='tremor')status(t,'attackSlow',6);if(t.hp>0&&s.effect==='undertow'){status(t,'slow',6);status(t,'despair',10);}});break;
     }
     case 'displace':{
@@ -1101,7 +1128,7 @@ function finishTacticInner(b,u,s,target,impact=null) {
     case 'emplace':status(u,'emplaced',10);signal();break;
     case 'plague':hit(target,.6);if(target.hp>0){status(target,'plague',10,{sourceId:u.id,amount:boosted(power*(12/280+.08)*100/(100+unitAttributes(target,b).discipline),null,null,false)});}break;
     case 'nexus':status(target,'nexus',8);signal(target);break;
-    case 'navalRam':{const path=routeTo(b,u,target,2);if(!path?.length)return false;Object.assign(u,path.at(-1));moved(b,u,start);hit(target,1.7);break;}
+    case 'navalRam':{if(!impact?.movement)return false;hit(target,1.7);break;}
     case 'anchor':status(u,'anchored',8);signal();break;
     case 'boarding':heal(target,.1);gainIntent(target,boosted(20,target,'intent'),u);signal(target);break;
     case 'famous': {
@@ -1130,6 +1157,7 @@ function finishTacticInner(b,u,s,target,impact=null) {
           if(s.heal)heal(t,s.heal);
           if(s.regrowthFraction)status(t,'regrowth',s.regrowthSteps,{amount:boosted(t.maxHp*s.regrowthFraction,t,'healing'),sourceId:u.id});
           if(s.cleanse){remedy(b,t,'calm');status(t,'resolve',3);}
+          if(s.remedy)remedy(b,t,s.remedy);
           if(s.shield)status(t,'shield',8,{amount:boosted(t.maxHp*s.shield,t,'shield')});
           if(s.intent&&t!==u)gainIntent(t,boosted(s.intent,t,'intent'),u);
           if(s.cooldownReduction&&t!==u)for(const id of Object.keys(t.skillReady||{}))t.skillReady[id]=Math.max(b.tick,t.skillReady[id]-boosted(s.cooldownReduction,t,'cooldown'));
@@ -1141,8 +1169,8 @@ function finishTacticInner(b,u,s,target,impact=null) {
       }
       if(s.link){
         // Connect survivors after the opening damage: only later hits propagate.
-        // Keep existing groups intact and never use immune or untargetable members.
-        const members=targets.filter(t=>t.hp>0&&t.status==='active'&&isTargetable(b,t)&&!battleInvincible(b,t)&&!hasStatus(b,t,'link')&&!hasStatus(b,t,'magicImmune')&&!bondBlocksEffect(b,t,u));
+        // Equal/stronger existing groups retain their members and expiry.
+        const members=targets.filter(t=>t.hp>0&&t.status==='active'&&isTargetable(b,t)&&!battleInvincible(b,t)&&(!hasStatus(b,t,'link')||statusValue(t,'link','fraction')<s.link.fraction)&&!traitImmune(t,'link')&&!hasStatus(b,t,'magicImmune')&&!bondBlocksEffect(b,t,u));
         if(members.length>=2)for(const t of members)if(status(t,'link',s.link.steps,{group:u.id+':'+s.id+':'+b.tick,fraction:s.link.fraction}))signal(t,'连环 · 后续传导');
       }
       if(s.selfStatus)status(u,s.selfStatus,s.selfStatusSteps);
@@ -1156,7 +1184,7 @@ function finishTacticInner(b,u,s,target,impact=null) {
     }
     case 'confuse':if(s.id==='doubt'){hit(target,1.6);status(u,'strategyAttack',10);}if(target.hp>0)control(target,controlSteps,'confuse');break;
     case 'wildfire': {
-      const targets=areaTacticTargets(b,u,s,target,s.range),scale=hasStatus(b,target,'burn')?1.25:.85;
+      const targets=impact?.targets||areaTacticTargets(b,u,s,target,s.range),scale=hasStatus(b,target,'burn')?1.25:.85;
       targets.forEach((t,i)=>{hit(t,scale,i===0);if(t.hp>0)status(t,'burn',6,{sourceId:u.id,amount:boosted(power*(6/280+.04)*100/(100+unitAttributes(t,b).discipline),null,null,false)});});status(u,'strategyAttack',16);status(u,'burningAttack',12,{powerStat:'strategyPower',rate:6/280+.04});break;
     }
     case 'rally':for(const a of basicSupportTargets(b,u,s)){const amount=boosted(24+Math.round(power*.02),a,'intent',false),before=a.intent;gainIntent(a,amount,u);signal(a,`战意 +${a.intent-before}`,{intentRestored:a.intent-before});}break;
@@ -1179,7 +1207,7 @@ function finishTacticInner(b,u,s,target,impact=null) {
       status(u,'phase',4);
       const nearest=activeUnits(b,1-u.side).sort((a,c)=>distance(u,a)-distance(u,c)||a.id.localeCompare(c.id))[0];
       if(nearest&&routeTo(b,u,nearest,14)?.length)status(u,'haste',6);
-      signal(u,'疾驰 · 无视拦截');break;
+      signal(u,'奔袭 · 无视拦截');break;
     }
     case 'valor':status(u,'valor',8);status(u,'armorBreak',8,{potency:1});signal(u,`攻击 +${(25*factor).toFixed(1)}% · 防御 −20%`);break;
     case 'scatter': {
@@ -1198,8 +1226,7 @@ function finishTacticInner(b,u,s,target,impact=null) {
       combatEffect(b,u,u,true,0,'impact',s,{fromX:start.x,fromY:start.y,text:'退射',visual:'charge'});break;
     }
     case 'rush':case 'terror': {
-      const route=routeTo(b,u,target,3);if(route===null)return false;
-      if(route.length){Object.assign(u,route.at(-1));moved(b,u,start);}
+      const route=impact?.movement?impact.path:[];if(!impact?.movement&&distance(u,target)>attackRange(b,u))return false;
       hit(target,s.effect==='terror'?2.7:isRear(target)?2.2:1.6);
       // Keep the original path in the visual event even after moving the simulation unit.
       Object.assign(b.effects.at(-1),{fromX:start.x,fromY:start.y});
@@ -1223,7 +1250,7 @@ function finishTacticInner(b,u,s,target,impact=null) {
       signal(target,'护盾');break;
     }
     case 'undermine':{
-      for(const t of undermineTargets(b,u,s,target)){
+      for(const t of (impact?.targets||undermineTargets(b,u,s,target)).filter(t=>!t.isDecoy&&!hasStatus(b,t,'magicImmune')&&t.intent>0&&unitTactics(t).some(skill=>tacticUsesLeft(t,skill)>0))){
         const opening=tacticOpening(b,s,t),amount=lowerIntent(t,boosted(s.drain+opening.drain),u,b);
         status(t,'intentSuppression',s.steps,{fraction:s.suppression});status(t,'weaken',s.steps);
         signal(t,'战意 −'+amount,{intentDrained:amount,...(opening.highIntent?{openingTrigger:'highIntent'}:{})});
@@ -1268,7 +1295,7 @@ function finishTacticInner(b,u,s,target,impact=null) {
     }
   }
   if(partner&&!linked)battleLog(b,partner.name+' → '+u.name+'：关系 '+relation.score+'，'+relation.chance+'% 连携判定未成功，战法正常生效。');
-  if(['relay','screen','bandage','regrowth','purify','boarding'].includes(s.effect)){u.cooldown=unitAttributes(u,b).attackInterval;u.attackCarry=0;}
+  if(['relay','screen','bandage','regrowth','purify','boarding'].includes(s.effect)||s.category==='politics'&&(s.heal||s.regrowthFraction)){u.cooldown=unitAttributes(u,b).attackInterval;u.attackCarry=0;}
   u.participated=true;target.participated=true;
   if(!impact){const payment=spendTactic(b,u,s);if(castEvents.length)castEvents[0].intentPayment=payment;}
   u.action=s.name;if(!castEvents.length)appendBattleLog(b,`${u.name}发动「${s.name}」：无即时数值变化。`,'tactic',u.side);return true;
@@ -1285,6 +1312,40 @@ function resolveTacticAims(b,sequence){
    combatEffect(b,u,target,true,0,'impact',s,{x:aim.point.x,y:aim.point.y,fromX:aim.origin.x,fromY:aim.origin.y,missed:true,text:interrupted?'蓄势中断':'落空',tacticGeometry:{kind:s.geometry.kind,cells:aim.cells}});
   }else finishTactic(b,u,s,targets[0],{aim,targets});
  }
+}
+function validMovementAim(b,u){
+ const a=u.movementAim;if(a==null)return true;
+ const s=TACTICS_BOOK[a.skillId];
+ if(!s||!['rush','terror','navalRam'].includes(s.effect)||!allLearnedTacticIds(u).includes(a.skillId)||!(u.tacticCasts?.[a.skillId]>0))return false;
+ if(Object.keys(a).sort().join(',')!=='index,origin,path,payment,point,skillId,startedAt,targetId'||!Number.isInteger(a.startedAt)||a.startedAt<0||a.startedAt>b.tick)return false;
+ if(!a.origin||!a.point||!insideHexGrid(a.origin.x,a.origin.y)||!insideHexGrid(a.point.x,a.point.y)||!Array.isArray(a.path)||!a.path.length||a.path.length>(s.effect==='navalRam'?2:3)||!Number.isInteger(a.index)||a.index<0||a.index>=a.path.length)return false;
+ if(!b.sides[1-u.side].units.some(t=>t.id===a.targetId)||!a.payment||!Number.isInteger(a.payment.before)||a.payment.before<0||a.payment.before>100||a.payment.cost!==s.intentCost||a.payment.after!==a.payment.before-a.payment.cost||a.payment.after<0)return false;
+ let prior=a.origin;for(const p of a.path){if(!insideHexGrid(p.x,p.y)||hexDistance(prior,p)!==1)return false;prior=p;}
+ const here=a.index?a.path[a.index-1]:a.origin;
+ return u.x===here.x&&u.y===here.y;
+}
+function interruptMovement(b,u,text='突进中断'){
+ const a=u.movementAim;if(!a)return;u.movementAim=null;
+ const target=b.sides[1-u.side].units.find(t=>t.id===a.targetId)||u;
+ combatEffect(b,u,target,true,0,'impact',TACTICS_BOOK[a.skillId],{missed:true,text});u.action=text;
+}
+function movementInterrupted(b,u){
+ const a=u.movementAim;if(!a)return false;
+ const expected=a.index?a.path[a.index-1]:a.origin;
+ return u.hp<=0||u.status!=='active'||u.withdrawing||u.disengage||b.sides[u.side].retreat||u.x!==expected.x||u.y!==expected.y||['stun','confuse','seal','stasis','root'].some(k=>hasStatus(b,u,k));
+}
+function advanceMovementAim(b,u){
+ const a=u.movementAim,s=TACTICS_BOOK[a.skillId],target=b.sides[1-u.side].units.find(t=>t.id===a.targetId);
+ if(movementInterrupted(b,u)){interruptMovement(b,u);return;}
+ const contact=()=>target&&target.hp>0&&target.status==='active'&&isTargetable(b,target)&&distance(u,target)<=attackRange(b,u)&&canStrikeFrom(b,u,target)&&[a.point,...a.path.slice(a.index)].some(p=>p.x===target.x&&p.y===target.y);
+ if(contact()){u.movementAim=null;finishTactic(b,u,s,target,{movement:true,origin:a.origin,path:a.path.slice(0,a.index)});return;}
+ if(!openCell(b,a.path[a.index].x,a.path[a.index].y,u)||interceptorsAt(b,u).length){interruptMovement(b,u);return;}
+ if(!advanceRoute(b,u,a.path.slice(a.index),s.name+' · 推进',target))return;
+ a.index++;
+ if(a.index<a.path.length){u.action=s.name+' · 推进';return;}
+ u.movementAim=null;
+ if(!target||target.hp<=0||target.status!=='active'||target.x!==a.point.x||target.y!==a.point.y||!isTargetable(b,target)||distance(u,target)>attackRange(b,u)||!canStrikeFrom(b,u,target)){combatEffect(b,u,target||u,true,0,'impact',s,{missed:true,text:'突进落空'});return;}
+ finishTactic(b,u,s,target,{movement:true,origin:a.origin,path:a.path});
 }
 function triggerPreparedDecoy(b,u){
   const mark=u.preparedDecoy;
@@ -1383,6 +1444,7 @@ export function stepBattle(b, {aiSides=[1],pauseForReinforcements=!aiSides.inclu
   applyBattleEvents(b);
   for(const u of b.sides.flatMap(s=>s.units))traitEvent(b,u,'pulse');
   fillControllerSlots(b,aiSides);
+  grantBondDebuffs(b);
   pulseStratagemZones(b);
   pulseFacilities(b);
   for(const side of (b.tick%2?[0,1]:[1,0]))for(const u of activeUnits(b,side))if(bondOperational(b,u)){
@@ -1397,6 +1459,7 @@ export function stepBattle(b, {aiSides=[1],pauseForReinforcements=!aiSides.inclu
     if (unit.status !== 'active') continue;
     unit.attackCarry=unit.cooldown>1e-9&&unit.cooldown<1?1-unit.cooldown:0;
     unit.cooldown = unit.cooldown-1<1e-9?0:unit.cooldown-1;
+    if(movementInterrupted(b,unit))interruptMovement(b,unit);
     if(hasStatus(b,unit,'stasis')){unit.action='避战 · 无敌';continue;}
     if(hasStatus(b,unit,'stun')){unit.cast=null;unit.action='眩晕';continue;}
     if(hasStatus(b,unit,'confuse')) {
@@ -1421,11 +1484,13 @@ export function stepBattle(b, {aiSides=[1],pauseForReinforcements=!aiSides.inclu
       if(meaningful&&findMoveRoute(b,unit,target).route!==null){moveUnit(b,unit,target);continue;}unit.disengage=null;
     }
     if(unit.tacticAim){unit.action=TACTICS_BOOK[unit.tacticAim.skillId].name+' · 蓄势';continue;}
+    if(unit.movementAim){advanceMovementAim(b,unit);continue;}
     if(syncCombatForm(b,unit,pickTarget(b,unit))){unit.action='展开兵器';continue;}
     if(ambushContact(b,unit))continue;
     const ready = readyTactic(b,unit,attackRange(b,unit));
     if (ready) {
       const {skill:s,target}=ready;
+      if(ready.approach){moveUnit(b,unit,target,false,ready.range);continue;}
       if(!finishTactic(b,unit,s,target))continue;
       if(b.result)return;
       unit.skillReady[s.id]=b.tick+s.cooldown;
@@ -1435,9 +1500,17 @@ export function stepBattle(b, {aiSides=[1],pauseForReinforcements=!aiSides.inclu
     if(repairBuilding&&unit.intent>=TACTICS_BOOK.camp.threshold&&(unit.skillReady.camp||0)<=b.tick&&distance(unit,repairBuilding)>2&&!activeUnits(b,1-side).some(e=>distance(unit,e)<=1)){moveUnit(b,unit,repairBuilding,false,2);continue;}
     const breachGate=gateTarget(b,unit);
     if(breachGate&&combatFamily(unit)==='siege'&&unitTactics(unit).some(s=>s.id==='ram'&&tacticUsesLeft(unit,s)>0)&&unit.intent>=TACTICS_BOOK.ram.threshold&&(unit.skillReady.ram||0)<=b.tick&&!tauntTarget(b,unit,attackRange(b,unit))&&!activeUnits(b,1-side).some(e=>distance(unit,e)<=2)&&distance(unit,breachGate)>2){moveUnit(b,unit,breachGate,false,2);continue;}
+    const guard=!tauntTarget(b,unit,attackRange(b,unit))&&!interceptorsAt(b,unit).length&&formationGuardOrder(b,unit);
+    if(guard){
+      if(guard.target&&distance(unit,guard.target)<=attackRange(b,unit)&&canStrikeFrom(b,unit,guard.target)){
+        if(!unit.cooldown&&!hasStatus(b,unit,'disarm'))basicAttack(b,unit,guard.target,contactTargets(b,unit));else unit.action='留守 · 接战';
+      }else if(guard.route.length)advanceRoute(b,unit,guard.route,'留守接应',guard.target);
+      else unit.action='留守后排';
+      continue;
+    }
     const focused=pickTarget(b,unit);
     const explicitFocus=focused && b.sides[side].focus===focused.id && b.sides[side].focusUntil>b.tick;
-    const swiftChase=focused&&isRear(focused)&&bondSwiftEffect(b,unit);
+    const swiftChase=focused&&isRear(focused)&&(bondSwiftEffect(b,unit)||hasStatus(b,unit,'phase'))&&!interceptorsAt(b,unit).length;
     const contacts=hasStatus(b,unit,'stealth')?[]:contactTargets(b,unit);
     const target = (swiftChase?focused:null) || (contacts.length>1&&!explicitFocus?contacts.find(e=>e.id===focused?.id)||contacts[0]:null) || (!unit.cooldown && !explicitFocus ? pickTarget(b,unit,true) : null) || focused; if (!target){unit.action='警戒等待';continue;}
     if(distance(unit,target)<(unitAttributes(unit,b).minRange||0)){moveUnit(b,unit,target);continue;}
@@ -1453,6 +1526,7 @@ export function stepBattle(b, {aiSides=[1],pauseForReinforcements=!aiSides.inclu
     } else {
       const support=!swiftChase&&!hasStatus(b,unit,'stealth')&&!explicitFocus&&!tauntTarget(b,unit,attackRange(b,unit))&&supportApproach(b,unit);
       if(support){if(distance(unit,support.target)>support.range)moveUnit(b,unit,support.target,false,support.range);else unit.action='策应队友';}
+      else if(!swiftChase&&!explicitFocus&&formationRearRoute(b,unit,target)?.length){advanceRoute(b,unit,formationRearRoute(b,unit,target),'跟进前线',target);}
       else if(!moveUnit(b,unit,target)&&!explicitFocus&&!tauntTarget(b,unit,attackRange(b,unit))){
         // An unreachable scored target must not suppress a reachable threat.
         // Reuse the actual movement search, including guard bounds, occupancy,
@@ -1462,7 +1536,9 @@ export function stepBattle(b, {aiSides=[1],pauseForReinforcements=!aiSides.inclu
       }
     }
   }
+  resolveBondAims(b,sequence);
   resolveTacticAims(b,sequence);
+  for(const u of b.sides.flatMap(s=>s.units))if(movementInterrupted(b,u))interruptMovement(b,u);
   confirmScheduledArrivals(b,pauseForReinforcements,{conditionsOnly:true,aiSides});
   if(!b.reinforcementCouncil)fillControllerSlots(b,aiSides);
   const counts = [0,1].map(side => remainingUnits(b,side).length + (b.siege?.gate.side === side && b.siege.gate.hp > 0 && !b.sides[side].retreat && !(remainingUnits(b,side).length===0&&b.sides[side].units.some(u=>u.status==='withdrawn')) ? 1 : 0));
@@ -1675,6 +1751,7 @@ function validateSaveInCatalog(value, { strategic = false } = {}) {
     for(const [index,side] of b.sides.entries())validateBattleAppointments(b,index,[...new Set([...b.context.attackingIds,...b.context.defenderIds])].map(id=>armyById(value,id)).filter(a=>a.faction===side.faction).flatMap(armyCommanders),require);
     b.sides.forEach((side, index) => {
       require(validPeachState(b,side)&&validReserveState(b,side),'桃园或蓄锐记录无效');
+      require(validBondDebuffs(b,index),'羁绊削弱施放记录无效');
       require(side.stratagemUses&&typeof side.stratagemUses==='object'&&!Array.isArray(side.stratagemUses),'军略次数记录缺失');
       for(const [key,n] of Object.entries(side.stratagemUses))require(STRATAGEMS[key]?.maxUses&&Number.isInteger(n)&&n>0&&n<=STRATAGEMS[key].maxUses,'军略次数记录无效');
       require(number(side.blockadeUntil),'阻援期限无效');
@@ -1722,6 +1799,8 @@ function validateSaveInCatalog(value, { strategic = false } = {}) {
         require(validTacticAim(b,u,u.tacticAim,TACTICS_BOOK),'战法蓄势或锁定覆盖格无效');
         if(u.tacticAim)require(allLearnedTacticIds(u).includes(u.tacticAim.skillId),'蓄势战法未获得');
         require(Number.isFinite(u.moveProgress)&&u.moveProgress>=0&&u.moveProgress<1,'移动进度无效');
+        require(validDeploymentBehavior(b,u),'布阵职责或支援来源无效');
+        require(validMovementAim(b,u),'突进路线或支付记录无效');
         const ps=u.passiveState;
         require(ps&&Number.isSafeInteger(ps.moveCount)&&ps.moveCount>=0,'人物特性移动记录无效');
         require(ps&&typeof ps==='object'&&!Array.isArray(ps)&&number(ps.lastMoveTick,b.tick)&&number(ps.shots,100000)&&typeof ps.reserveEntered==='boolean'&&number(ps.entryUntil,b.tick+15)&&(ps.entryUntil===0||ps.reserveEntered)&&
@@ -1755,6 +1834,9 @@ function validateSaveInCatalog(value, { strategic = false } = {}) {
           if(status.sourceCommand&&STRATAGEMS[status.sourceCommand]?.combination){
             const design=STRATAGEMS[status.sourceCommand],provider=commandProvidersAt(side,status.castTick).find(c=>c.id===status.sourceId&&commanderStratagems(c).includes(status.sourceCommand)),profile=provider&&stratagemProfile(status.sourceCommand,provider);
             require(validCombinationStatus(b,u,key,status,design,profile),'组合军略状态来源、幅度或时长无效');
+          }else if(key==='magicImmune'&&status.sourceTactic){
+            const skill=TACTICS_BOOK[status.sourceTactic];
+            require(!status.sourceCommand&&skill?.statusKey===key&&skill.range===0&&status.sourceId===u.id&&allLearnedTacticIds(u).includes(skill.id)&&u.tacticCasts[skill.id]>0&&status.sourceSkillName===skill.name&&Number.isFinite(status.powerSnapshot)&&status.powerSnapshot>=0&&status.potency===powerFactor(status.powerSnapshot)&&Number.isInteger(status.castTick)&&status.castTick>=0&&status.castTick<=b.tick&&Number.isInteger(status.duration)&&status.duration>=powerDuration(skill.steps,status.powerSnapshot)&&status.duration<=powerDuration(skill.steps,status.powerSnapshot)+1&&status.until===status.castTick+status.duration+1,'御术来源或时长无效');
           }else if(['magicImmune','rapidAdvance','commandInvincible'].includes(key)||status.sourceCommand){
             const strategy=STRATAGEMS[status.sourceCommand],provider=b.sides.flatMap(s=>commandProvidersAt(s,status.castTick)).find(c=>c.id===status.sourceId&&commanderStratagems(c).includes(status.sourceCommand)),p=provider&&stratagemProfile(status.sourceCommand,provider);
             const specialProtection=!!strategy?.disciplineDuration,postControl=key==='resolve'&&strategy?.effect==='stun';
@@ -1795,6 +1877,8 @@ function validateSaveInCatalog(value, { strategic = false } = {}) {
           if(key==='burn')require(number(status.baseAmount,1000000)&&Number.isInteger(status.stacks)&&status.stacks>=1&&status.stacks<=3&&status.amount===status.baseAmount*status.stacks,'燃烧层数无效');
         }
         require(validBondState(u,b.tick),'羁绊触发记录无效');
+        require(validBondAims(b,u,'bondBeauty'),'倾国锁定范围无效');
+        require(validBondAims(b,u,'bondLure'),'诱敌锁定范围无效');
         require(validTraitState(u,b.tick),'人物特性触发记录无效');
         require(u.retreatDispatched===undefined||typeof u.retreatDispatched==='boolean'&&u.status==='withdrawn','撤离交接状态无效');
         require(u.disengage===null||u.disengage&&Number.isSafeInteger(u.disengage.readyTick)&&u.disengage.readyTick>=0&&u.disengage.readyTick<=b.tick+1&&(u.disengage.targetId===null||battleBuildings(b).some(a=>a.side!==u.side&&a.id===u.disengage.targetId)||b.sides[1-u.side].units.some(e=>e.id===u.disengage.targetId))&&Array.isArray(u.disengage.guards)&&u.disengage.guards.every(id=>b.sides[1-u.side].units.some(e=>e.id===id)),'脱战状态无效');
@@ -1859,9 +1943,10 @@ function validateSaveInCatalog(value, { strategic = false } = {}) {
       if(e.commandRestored!==undefined)require(e.abilityKind==='trait'&&number(e.commandRestored,COMMAND_RESOURCE.capacity),'特性军略恢复记录无效');
       if(e.sharedTargets!==undefined||e.damageShare!==undefined)require(!e.skill&&Number.isInteger(e.sharedTargets)&&e.sharedTargets>=2&&e.sharedTargets<=6&&e.damageShare===1/e.sharedTargets,'普攻分摊记录无效');
       if(e.castPower!==undefined)require(Number.isFinite(e.castPower)&&e.castPower>=0&&e.castPower<=100000,'战法威力记录无效');
-      if(e.tacticGeometry!==undefined){const g=e.tacticGeometry;require(e.skill&&g&&['line','fan','burst'].includes(g.kind)&&Array.isArray(g.cells)&&g.cells.length>0&&g.cells.length<=25&&g.cells.every(p=>p&&Object.keys(p).sort().join(',')==='x,y'&&Number.isInteger(p.x)&&p.x>=0&&p.x<14&&Number.isInteger(p.y)&&p.y>=0&&p.y<8)&&new Set(g.cells.map(p=>p.x+':'+p.y)).size===g.cells.length,'战法覆盖格记录无效');}
-      if(e.missed!==undefined)require(e.missed===true&&e.skill&&e.phase==='impact'&&e.tacticGeometry&&e.damage===0&&!e.shieldAbsorbed&&!e.healing,'战法落空记录无效');
-      if(e.bondCritical!==undefined)require(e.bondCritical==='bondFinisher'&&!e.skill&&!e.ongoing&&e.critical===true&&e.critChance===1&&b.sides.flatMap(s=>s.units).some(u=>u.id===e.from&&(u.bondGrowth.levels.bondFinisher||0)>0),'锐锋暴击来源无效');
+      if(e.bondSpread!==undefined)require(e.bondSpread===true&&!e.skill&&e.ongoing===true&&['倾国','诱敌'].includes(e.label)&&e.damage===0&&e.tacticGeometry?.kind==='burst'&&e.tacticGeometry.cells?.length<=7&&b.sides.flatMap(s=>s.units).some(u=>u.id===e.from&&u.bondGrowth?.levels?.[e.label==='倾国'?'bondBeauty':'bondLure']>0),'羁绊扩散来源无效');
+      if(e.tacticGeometry!==undefined){const g=e.tacticGeometry;require((e.skill||e.bondSpread)&&g&&['line','fan','burst'].includes(g.kind)&&Array.isArray(g.cells)&&g.cells.length>0&&g.cells.length<=25&&g.cells.every(p=>p&&Object.keys(p).sort().join(',')==='x,y'&&Number.isInteger(p.x)&&p.x>=0&&p.x<14&&Number.isInteger(p.y)&&p.y>=0&&p.y<8)&&new Set(g.cells.map(p=>p.x+':'+p.y)).size===g.cells.length,'战法覆盖格记录无效');}
+      if(e.missed!==undefined)require(e.missed===true&&(e.skill||e.bondSpread)&&e.phase==='impact'&&e.tacticGeometry&&e.damage===0&&!e.shieldAbsorbed&&!e.healing,'战法落空记录无效');
+      if(e.bondCritical!==undefined)require(e.bondCritical==='bondFinisher'&&!e.skill&&!e.ongoing&&e.critical===true&&[.5,1].includes(e.critChance)&&b.sides.flatMap(s=>s.units).some(u=>u.id===e.from&&(u.bondGrowth.levels.bondFinisher||0)>0),'锐锋暴击来源无效');
       else if(e.critical!==undefined||e.critChance!==undefined)require(typeof e.critical==='boolean'&&Number.isFinite(e.critChance)&&e.critChance>=.05&&e.critChance<=.3&&e.skill&&!e.ongoing,'暴击判定无效');
       if(e.resolution!==undefined){const r=e.resolution;require(r&&Object.hasOwn(CHANCE_EFFECT_NAMES,r.effect)&&Number.isFinite(r.chance)&&typeof r.success==='boolean'&&typeof r.immune==='boolean'&&(r.immune?r.chance===0&&!r.success:r.chance>=.25&&r.chance<=.95),'效果成功判定无效');}
       if(e.shieldAbsorbed!==undefined)require(number(e.shieldAbsorbed),'护盾吸收数值无效');
@@ -1927,7 +2012,7 @@ function settleIntentRouts(b){
 const pendingGuardBreaks=new WeakMap();
 const battleInvincible=(b,u)=>peachInvincible(b,u)||hasStatus(b,u,'guardInvincible')||hasStatus(b,u,'commandInvincible');
 function absorbBattleShield(b,u,amount){const before=(u.statuses?.shield?.layers||[]).filter(l=>l.until>b.tick).map(l=>({...l}));const remaining=absorbShield(b,u,amount,layer=>{if(layer.bondGuardTier===3){if(!pendingGuardBreaks.has(b))pendingGuardBreaks.set(b,new Map());pendingGuardBreaks.get(b).set(u,layer);}});for(const layer of before){const now=u.statuses?.shield?.layers.find(l=>l.source===layer.source)?.amount||0,used=layer.amount-now,source=b.sides[u.side].units.find(v=>v.id===(layer.sourceId||layer.source.split(':')[0]));if(used>0&&source&&source!==u&&!u.isDecoy){recordContribution(source,'protection',used);source.participated=true;}}return remaining;}
-function bondComboApi(b){return {random,attributes:u=>unitAttributes(u,b),control:(u,steps,key,source)=>applyControl(b,u,steps,key,source),drain:(u,n,source)=>lowerIntent(u,n,source,b),intent:(u,n)=>{const before=u.intent;gainIntent(u,n);return u.intent-before;},signal:(source,target,name,extra={})=>combatEffect(b,source,target,false,0,'impact',{name,visual:'banner'},{ongoing:true,text:name,...extra})};}
+function bondComboApi(b){return {random,queueLure:(u,target)=>queueBondAim(b,u,target,'bondLure'),attributes:u=>unitAttributes(u,b),control:(u,steps,key,source)=>applyControl(b,u,steps,key,source),drain:(u,n,source)=>lowerIntent(u,n,source,b),intent:(u,n)=>{const before=u.intent;gainIntent(u,n);return u.intent-before;},signal:(source,target,name,extra={})=>combatEffect(b,source,target,false,0,'impact',{name,visual:'banner'},{ongoing:true,text:name,...extra})};}
 function applyPeachDamage(b,attacker,target,amount,kind={secondary:true}){
  if(amount<=0||battleInvincible(b,target))return {damage:0,absorbed:0,shared:false};
  if(!kind.valorChecked&&blockValorDamage(b,attacker,target))return {damage:0,absorbed:0,shared:false};

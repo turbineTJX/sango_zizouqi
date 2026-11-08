@@ -1,7 +1,7 @@
-// Authoritative design data. Runtime imports this table.
+// Authoritative tactic designs. Simulation and UI both read this table.
 export const TACTIC_DESIGNS = {
   "cleave": {
-    "name": "浴血横扫",
+    "name": "横扫",
     "category": "force",
     "threshold": 50,
     "cooldown": 20,
@@ -9,7 +9,12 @@ export const TACTIC_DESIGNS = {
     "effect": "cleave",
     "visual": "slash",
     "description": "朝目标方向横扫连续三个相邻格的扇形，最多命中三队敌军，各造成武技伤害；背向敌军不受波及。相邻攻击造成的实际兵力伤害按30%救治自身已有伤兵、25%转为自身护盾；每次施放救治和护盾各不超过兵力上限8%，护盾持续6回合，同源不叠加；护盾吸收、疑兵及城门伤害不计",
-    "geometry": {"kind":"fan","reach":1,"maxTargets":3,"delay":1},
+    "geometry": {
+      "kind": "fan",
+      "reach": 1,
+      "maxTargets": 3,
+      "delay": 1
+    },
     "role": "近身群攻",
     "tradeoff": "敌军分散或不贴身时收益低",
     "learningTier": "high",
@@ -85,7 +90,7 @@ export const TACTIC_DESIGNS = {
     "effect": "blight",
     "steps": 6,
     "visual": "shockwave",
-    "description": "对2格内一队敌军造成谋略伤害，并施加疫伤6回合：持续损失兵力，救治效果降低50%；可救护解除",
+    "description": "对2格内一队敌军造成谋略伤害，并施加疫伤6回合：持续损失兵力，救治效果降低50%；可急救解除",
     "role": "近程减疗",
     "tradeoff": "不禁止护盾或镇静，不降低战后恢复",
     "learningTier": "low",
@@ -115,38 +120,40 @@ export const TACTIC_DESIGNS = {
     "stasisLockDays": 12
   },
   "bandage": {
-    "name": "救护",
+    "name": "急救",
     "category": "politics",
     "threshold": 20,
     "cooldown": 28,
     "range": 2,
     "effect": "bandage",
     "visual": "slash",
-    "description": "救治一队友军兵力上限 6% 的已有伤兵，随营务威力增强；施放后重置普攻间隔；解除疫伤",
+    "description": "救治一队友军兵力上限 6% 的已有伤兵，随营务威力增强；施放后重置普攻间隔；解除疫伤；按站位优先同列友军，再选附近友军，同组按实际需要选择，距离仅限制施放范围；无需要则跳过，自身最后考虑。",
     "role": "即时救护",
     "tradeoff": "仅救治真实伤兵，不复活",
     "learningTier": "low",
     "tempoRole": "基础铺垫",
     "intentCost": 0,
     "maxUses": 2,
-    "id": "bandage"
+    "id": "bandage",
+    "supportPosition": "column"
   },
   "supply": {
     "name": "鼓舞",
-    "category": "intellect",
+    "category": "politics",
     "threshold": 10,
     "cooldown": 30,
     "range": 2,
     "effect": "supply",
     "visual": "shockwave",
-    "description": "为一队其他友军增加 24 战意，随谋略威力增强；战意缺口至少 15 时发动",
+    "description": "为一队其他友军增加 24 战意，随营务威力增强；战意缺口至少 15 时发动；按站位优先同排前方、其他前方，再选附近友军，同组按实际需要选择，距离仅限制施放范围；无需要则跳过，自身最后考虑。",
     "role": "战意策应",
     "tradeoff": "不鼓舞自身，不治疗、不造成伤害",
     "learningTier": "low",
     "tempoRole": "基础铺垫",
     "intentCost": 0,
     "maxUses": 2,
-    "id": "supply"
+    "id": "supply",
+    "supportPosition": "front"
   },
   "camp": {
     "name": "修缮",
@@ -173,35 +180,38 @@ export const TACTIC_DESIGNS = {
     "range": 2,
     "effect": "regrowth",
     "visual": "slash",
-    "description": "为一队友军施加休整6回合，每回合救治伤兵，恢复量与友军兵力上限、营务威力有关；施放后重置普攻间隔",
+    "description": "为一队友军施加休整6回合，每回合救治伤兵，恢复量与友军兵力上限、营务威力有关；施放后重置普攻间隔；按站位优先同列友军，再选附近友军，同组按实际需要选择，距离仅限制施放范围；无需要则跳过，自身最后考虑。",
     "role": "持续救护",
     "tradeoff": "不能复活；受减疗和伤兵预算限制，重复施放不叠加",
     "learningTier": "high",
     "tempoRole": "进阶交锋",
     "intentCost": 0,
     "maxUses": 1,
-    "id": "regrowth"
+    "id": "regrowth",
+    "supportPosition": "column"
   },
   "purify": {
     "name": "整军",
-    "category": "intellect",
+    "category": "politics",
     "threshold": 25,
     "cooldown": 30,
     "range": 2,
     "effect": "purify",
     "visual": "shockwave",
-    "description": "为一队友军解除挫锐、定身、缴械、封技、失阵、迟滞、破甲、疲弱、缓攻、短射，并救治已有伤兵",
+    "description": "为一队友军解除挫锐、定身、缴械、封技、失阵、迟滞、破甲、疲弱、缓攻、短射，并救治已有伤兵；按站位优先同列友军，再选附近友军，同组按实际需要选择，距离仅限制施放范围；无需要则跳过，自身最后考虑。",
     "role": "镇静救急",
     "tradeoff": "没有护盾和坚定，不能预先施放",
     "learningTier": "low",
     "tempoRole": "基础铺垫",
     "intentCost": 0,
     "maxUses": 2,
-    "id": "purify"
+    "id": "purify",
+    "supportPosition": "column"
   },
   "bombard": {
     "name": "投石",
     "category": "force",
+    "powerSource": "combined",
     "threshold": 60,
     "cooldown": 24,
     "range": 5,
@@ -216,17 +226,24 @@ export const TACTIC_DESIGNS = {
     "intentCost": 0,
     "maxUses": 1,
     "id": "bombard",
-    "targetRear": true
+    "targetRear": true,
+    "geometry": {
+      "kind": "burst",
+      "radius": 1,
+      "maxTargets": 3,
+      "delay": 2
+    }
   },
   "ram": {
     "name": "冲车",
     "category": "force",
+    "powerSource": "combined",
     "threshold": 65,
     "cooldown": 28,
     "range": 2,
     "effect": "ram",
     "visual": "slash",
-    "description": "优先撞击两格内敌方城门（伤害与武技威力、攻城威力有关）；无城门目标时攻击一队敌军（武技伤害）",
+    "description": "优先撞击两格内敌方城门（伤害使用当前武技威力与谋略威力各50%的合成威力，并计入攻城威力）；无城门目标时攻击一队敌军（武技伤害）",
     "role": "攻城突击",
     "tradeoff": "需要推进至近处，无法同时保持远程安全",
     "learningTier": "high",
@@ -260,9 +277,9 @@ export const TACTIC_DESIGNS = {
     "range": 5,
     "effect": "plague",
     "visual": "shockwave",
-    "description": "造成谋略伤害并施加疫伤10回合：持续损失兵力，救治效果降低50%；伤害受军纪抵御，不叠加，可救护解除",
+    "description": "造成谋略伤害并施加疫伤10回合：持续损失兵力，救治效果降低50%；伤害受军纪抵御，不叠加，可急救解除",
     "role": "疫伤压疗",
-    "tradeoff": "持续伤害兑现较慢；镇静可同时清除疫伤和减疗",
+    "tradeoff": "持续伤害兑现较慢；可急救解除，疫伤不叠层",
     "learningTier": "high",
     "tempoRole": "进阶交锋",
     "intentCost": 0,
@@ -294,14 +311,15 @@ export const TACTIC_DESIGNS = {
     "range": 3,
     "effect": "nexus",
     "visual": "shockwave",
-    "description": "为一队其他友军施加阵枢8回合：谋略威力与军纪各提高20%",
+    "description": "为一队其他友军施加阵枢8回合：谋略威力与军纪各提高20%；按站位优先同排前方、其他前方，再选附近友军，同组按实际需要选择，距离仅限制施放范围；无需要则跳过，自身最后考虑。",
     "role": "谋略增益",
     "tradeoff": "无直接伤害；需要谋攻或承伤队友兑现",
     "learningTier": "low",
     "tempoRole": "基础铺垫",
     "intentCost": 0,
     "maxUses": 2,
-    "id": "nexus"
+    "id": "nexus",
+    "supportPosition": "front"
   },
   "navalRam": {
     "name": "艨冲",
@@ -311,7 +329,7 @@ export const TACTIC_DESIGNS = {
     "range": 3,
     "effect": "navalRam",
     "visual": "slash",
-    "description": "沿最多两格水路冲击一队敌方舰船（武技伤害）；不能穿过部队或登岸",
+    "description": "按实际移速沿最多两格水路逐格冲击一队敌方舰船（武技伤害）；锁定路线，受控可中断，不能穿过部队或登岸",
     "role": "水上突击",
     "tradeoff": "只能冲击舰船，需要真实空闲水路",
     "learningTier": "high",
@@ -335,7 +353,13 @@ export const TACTIC_DESIGNS = {
     "tempoRole": "进阶交锋",
     "intentCost": 0,
     "maxUses": 1,
-    "id": "broadside"
+    "id": "broadside",
+    "geometry": {
+      "kind": "burst",
+      "radius": 1,
+      "maxTargets": 2,
+      "delay": 2
+    }
   },
   "anchor": {
     "name": "抛锚",
@@ -369,7 +393,13 @@ export const TACTIC_DESIGNS = {
     "tempoRole": "进阶交锋",
     "intentCost": 0,
     "maxUses": 1,
-    "id": "undertow"
+    "id": "undertow",
+    "geometry": {
+      "kind": "burst",
+      "radius": 1,
+      "maxTargets": 2,
+      "delay": 2
+    }
   },
   "mist": {
     "name": "雾隐",
@@ -393,20 +423,21 @@ export const TACTIC_DESIGNS = {
   },
   "boarding": {
     "name": "接舷",
-    "category": "intellect",
+    "category": "politics",
     "threshold": 30,
     "cooldown": 35,
     "range": 2,
     "effect": "boarding",
     "visual": "shockwave",
-    "description": "为两格内一队其他舰船救治兵力上限 10% 的伤兵，并增加 20 战意；重置普攻间隔",
+    "description": "为两格内一队其他舰船救治兵力上限 10% 的伤兵，并增加 20 战意；重置普攻间隔；按站位优先同列友军，再选附近友军，同组按实际需要选择，距离仅限制施放范围；无需要则跳过，自身最后考虑。",
     "role": "舰队补给",
     "tradeoff": "只能支援其他舰船，不能补充阵亡士兵",
     "learningTier": "low",
     "tempoRole": "基础铺垫",
     "intentCost": 0,
     "maxUses": 2,
-    "id": "boarding"
+    "id": "boarding",
+    "supportPosition": "column"
   },
   "smoke": {
     "name": "扰乱",
@@ -440,7 +471,13 @@ export const TACTIC_DESIGNS = {
     "maxUses": 1,
     "id": "wildfire",
     "role": "谋攻叠燃",
-    "tradeoff": "门槛高、冷却长；持续射击才能叠满灼烧，镇静清空层数"
+    "tradeoff": "门槛高、冷却长；持续射击才能叠满灼烧，镇静清空层数",
+    "geometry": {
+      "kind": "burst",
+      "radius": 1,
+      "maxTargets": 2,
+      "delay": 2
+    }
   },
   "rally": {
     "name": "振旅",
@@ -448,9 +485,9 @@ export const TACTIC_DESIGNS = {
     "cooldown": 28,
     "effect": "rally",
     "visual": "banner",
-    "description": "为2格内一队其他友军增加战意，优先同一横排前方最近的合资格友军，其次前方其他友军，再按实际站位与战意选择；恢复量与谋略威力有关，仅在友军缺少至少15战意时发动",
+    "description": "为2格内一队其他友军增加战意，优先同一横排前方有需要的友军，其次前方其他友军，再按实际站位与战意选择；恢复量与营务威力有关，仅在友军缺少至少15战意时发动；按站位优先同排前方、其他前方，再选附近友军，同组按实际需要选择，距离仅限制施放范围；无需要则跳过，自身最后考虑。",
     "supportPosition": "front",
-    "category": "intellect",
+    "category": "politics",
     "range": 2,
     "learningTier": "low",
     "tempoRole": "基础铺垫",
@@ -461,7 +498,7 @@ export const TACTIC_DESIGNS = {
     "tradeoff": "不鼓舞自身，队友满战意时无收益"
   },
   "doubt": {
-    "name": "疑阵",
+    "name": "惑敌",
     "threshold": 65,
     "cooldown": 26,
     "effect": "confuse",
@@ -478,7 +515,7 @@ export const TACTIC_DESIGNS = {
     "tradeoff": "需靠近前线；控制受军纪和控制保护限制"
   },
   "ward": {
-    "name": "眩晕",
+    "name": "扰阵",
     "threshold": 25,
     "cooldown": 30,
     "effect": "status",
@@ -521,7 +558,7 @@ export const TACTIC_DESIGNS = {
     "effect": "cleanse",
     "visual": "banner",
     "description": "为一队友军解除混乱、嘲讽、丧志、抑气，给予护盾并施加坚定3回合",
-    "category": "intellect",
+    "category": "politics",
     "range": 2,
     "learningTier": "low",
     "tempoRole": "基础铺垫",
@@ -529,10 +566,11 @@ export const TACTIC_DESIGNS = {
     "maxUses": 2,
     "id": "cleanse",
     "role": "解除压制",
-    "tradeoff": "无减益时不发动，无法预先套盾"
+    "tradeoff": "无减益时不发动，无法预先套盾",
+    "supportPosition": "column"
   },
   "lure": {
-    "name": "诱敌",
+    "name": "牵引",
     "threshold": 45,
     "cooldown": 24,
     "effect": "lure",
@@ -549,7 +587,7 @@ export const TACTIC_DESIGNS = {
     "tradeoff": "无伤害；无法拉动方阵或贴身敌人"
   },
   "harass": {
-    "name": "挫锐",
+    "name": "挫敌",
     "threshold": 15,
     "cooldown": 28,
     "effect": "harass",
@@ -571,8 +609,8 @@ export const TACTIC_DESIGNS = {
     "cooldown": 33,
     "effect": "relay",
     "visual": "banner",
-    "description": "为2格内一队其他友军救治已有伤兵，恢复量随谋略威力提高；战法冷却缩短2回合，并施加疾行4回合，移动力增加1；施放后重置普攻间隔",
-    "category": "intellect",
+    "description": "为2格内一队其他友军救治已有伤兵，恢复量随营务威力提高；战法冷却缩短2回合，并施加疾行4回合，移动力增加1；施放后重置普攻间隔；按站位优先同列友军，再选附近友军，同组按实际需要选择，距离仅限制施放范围；无需要则跳过，自身最后考虑。",
+    "category": "politics",
     "range": 2,
     "learningTier": "low",
     "tempoRole": "基础铺垫",
@@ -580,7 +618,8 @@ export const TACTIC_DESIGNS = {
     "maxUses": 2,
     "id": "relay",
     "role": "前线治疗策应",
-    "tradeoff": "只治疗其他友军已有伤兵；短射程，无伤害、不治疗自身"
+    "tradeoff": "只治疗其他友军已有伤兵；短射程，无伤害、不治疗自身",
+    "supportPosition": "column"
   },
   "ambush": {
     "name": "伏弩",
@@ -601,17 +640,17 @@ export const TACTIC_DESIGNS = {
   },
   "seal": {
     "name": "扰策",
-    "threshold": 60,
+    "threshold": 30,
     "cooldown": 26,
     "effect": "seal",
     "visual": "slash",
     "description": "对4格内一队敌军尝试施加封技，基础5回合，受军纪减免；优先战意高者，不造成伤害",
     "category": "intellect",
     "range": 4,
-    "learningTier": "high",
-    "tempoRole": "进阶交锋",
+    "learningTier": "low",
+    "tempoRole": "基础铺垫",
     "intentCost": 0,
-    "maxUses": 1,
+    "maxUses": 2,
     "id": "seal",
     "role": "封锁战法",
     "tradeoff": "不造成伤害，也不阻止敌人普攻移动"
@@ -622,9 +661,9 @@ export const TACTIC_DESIGNS = {
     "cooldown": 30,
     "effect": "screen",
     "visual": "banner",
-    "description": "为3格内一队合资格友军救治伤兵，优先同列其他友军；恢复量与友军兵力上限、谋略威力有关，附加4%护盾6回合；无伤兵时仅保护接敌者，不复活；施放后重置普攻间隔",
+    "description": "为3格内一队合资格友军救治伤兵，优先同列其他友军；恢复量与友军兵力上限、营务威力有关，附加4%护盾6回合；无伤兵时仅保护接敌者，不复活；施放后重置普攻间隔；按站位优先同列友军，再选附近友军，同组按实际需要选择，距离仅限制施放范围；无需要则跳过，自身最后考虑。",
     "supportPosition": "column",
-    "category": "intellect",
+    "category": "politics",
     "range": 3,
     "learningTier": "low",
     "tempoRole": "基础铺垫",
@@ -658,7 +697,12 @@ export const TACTIC_DESIGNS = {
     "effect": "scatter",
     "visual": "volley",
     "description": "以射程内目标为中心，攻击其2格内且仍在自身射程内的最多3队敌军，单队伤害较低",
-    "geometry": {"kind":"burst","radius":2,"maxTargets":3,"delay":2},
+    "geometry": {
+      "kind": "burst",
+      "radius": 2,
+      "maxTargets": 3,
+      "delay": 2
+    },
     "learningTier": "high",
     "tempoRole": "进阶交锋",
     "intentCost": 0,
@@ -692,7 +736,12 @@ export const TACTIC_DESIGNS = {
     "effect": "thrust",
     "visual": "slash",
     "description": "沿相邻目标方向刺击连续两格，最多命中两队敌军；第二队伤害较低，山壁截断贯穿；优先可贯穿的阵列",
-    "geometry": {"kind":"line","reach":2,"maxTargets":2,"delay":1},
+    "geometry": {
+      "kind": "line",
+      "reach": 2,
+      "maxTargets": 2,
+      "delay": 1
+    },
     "learningTier": "high",
     "tempoRole": "进阶交锋",
     "intentCost": 0,
@@ -735,12 +784,12 @@ export const TACTIC_DESIGNS = {
     "tradeoff": "无控制或破甲铺垫时伤害较低"
   },
   "gallop": {
-    "name": "疾驰",
+    "name": "奔袭",
     "threshold": 0,
     "cooldown": 28,
     "effect": "gallop",
     "visual": "charge",
-    "description": "无需战意；行军接敌或2格内有敌人时发动：获得减伤6回合（直接伤害降低25%）、穿阵4回合（无视敌方ZOC）；有接敌路线时另获疾行6回合（移动力增加1）；不能穿过部队或不可通行地形，不造成伤害",
+    "description": "无需战意；3格内有合法可见敌军时发动：获得减伤6回合（直接伤害降低25%）、穿阵4回合（无视普通ZOC，枪兵仍能拦截骑兵）；有接敌路线时另获疾行6回合（移动力增加0.25，有效移速最多1）；不能穿过部队或不可通行地形，不造成伤害",
     "learningTier": "low",
     "tempoRole": "基础铺垫",
     "intentCost": 0,
@@ -756,7 +805,7 @@ export const TACTIC_DESIGNS = {
     "cooldown": 24,
     "effect": "rush",
     "visual": "charge",
-    "description": "沿最多3格空闲路线冲击，造成武技伤害，对弓弩更强，优先可达后排；获得后阵追击8回合：优先追击后排，对弓弩普攻提高35%；不能穿过有效ZOC",
+    "description": "按实际移速沿最多3格空闲路线逐格冲击，造成武技伤害，对弓弩更强，优先可达后排；锁定路线，受控可中断；命中后获得后阵追击8回合：优先追击后排，对弓弩普攻提高35%；不能穿过有效ZOC",
     "learningTier": "high",
     "tempoRole": "进阶交锋",
     "intentCost": 0,
@@ -840,7 +889,7 @@ export const TACTIC_DESIGNS = {
     "cooldown": 34,
     "effect": "terror",
     "visual": "charge",
-    "description": "沿最多 3 格路线突进，造成武技伤害并混乱目标 2回合",
+    "description": "按实际移速沿最多3格锁定路线逐格突进，造成武技伤害并混乱目标2回合；受控可中断，不追踪移出路线的目标",
     "special": true,
     "learningTier": "special",
     "tempoRole": "决胜专属",
@@ -876,7 +925,13 @@ export const TACTIC_DESIGNS = {
     "radius": 1,
     "targets": 3,
     "steps": 10,
-    "suppression": 0.5
+    "suppression": 0.5,
+    "geometry": {
+      "kind": "burst",
+      "radius": 1,
+      "maxTargets": 3,
+      "delay": 2
+    }
   },
   "unique-cao": {
     "name": "魏武之强",
@@ -900,16 +955,17 @@ export const TACTIC_DESIGNS = {
     "effect": "famous",
     "special": true,
     "visual": "banner",
-    "description": "为4格内最多3队其他友军施加奋战、营垒12回合：攻击提高20%、防御提高15%，幅度随谋略威力提高；增加20战意（受威力影响）",
+    "description": "为4格内最多3队其他友军施加奋战、营垒12回合：攻击提高20%、防御提高15%，幅度随谋略威力提高；增加20战意（受威力影响）；按站位优先同排前方、其他前方，再选附近友军，同组按实际需要选择，距离仅限制施放范围；无需要则跳过，自身最后考虑。",
     "learningTier": "special",
     "tempoRole": "交锋专属",
     "intentCost": 0,
     "maxUses": 2,
-    "id": "unique-cao"
+    "id": "unique-cao",
+    "supportPosition": "front"
   },
   "unique-person-636": {
     "name": "义勇援军",
-    "category": "intellect",
+    "category": "politics",
     "threshold": 40,
     "cooldown": 28,
     "range": 3,
@@ -923,7 +979,7 @@ export const TACTIC_DESIGNS = {
     "effect": "famous",
     "special": true,
     "visual": "banner",
-    "description": "为3格内最多2队有伤兵的友军施加休整6回合，每回合救治兵力上限1.2%的已有伤兵，并给予护盾；护盾基础为兵力上限4%，受战法威力影响，持续8回合；救治受威力、真实伤兵与疫伤限制",
+    "description": "为3格内最多2队有伤兵的友军施加休整6回合，每回合救治兵力上限1.2%的已有伤兵，并给予护盾；护盾基础为兵力上限4%，受战法威力影响，持续8回合；救治受威力、真实伤兵与疫伤限制；按站位优先同列友军，再选附近友军，同组按实际需要选择，距离仅限制施放范围；无需要则跳过，自身最后考虑。",
     "learningTier": "special",
     "tempoRole": "持续专属",
     "intentCost": 0,
@@ -931,7 +987,8 @@ export const TACTIC_DESIGNS = {
     "id": "unique-person-636",
     "regrowthFraction": 0.012,
     "regrowthSteps": 6,
-    "shield": 0.04
+    "shield": 0.04,
+    "supportPosition": "column"
   },
   "unique-person-99": {
     "name": "青龙偃月",
@@ -943,12 +1000,7 @@ export const TACTIC_DESIGNS = {
     "mode": "attack",
     "execute": 0.6,
     "exploit": {
-      "statuses": [
-        "armorBreak",
-        "confuse",
-        "slow",
-        "stun"
-      ],
+      "anyNegative": true,
       "scale": 0.9
     },
     "debuff": "armorBreak",
@@ -960,7 +1012,7 @@ export const TACTIC_DESIGNS = {
     "effect": "famous",
     "special": true,
     "visual": "slash",
-    "description": "攻击1格内一队敌军，造成武技伤害；目标兵力低于40%时提高伤害，施放前已有破甲、混乱、迟滞或眩晕时另提高伤害；命中后施加破甲5回合，防御降低20%；本次新状态不触发增伤，多项铺垫不重复叠加",
+    "description": "攻击1格内一队敌军，造成武技伤害；目标兵力低于40%时提高伤害，命中前已有任意生效中的战斗异常时另提高伤害；命中后施加破甲5回合，防御降低20%；本次新状态不触发增伤，多项异常不重复叠加",
     "learningTier": "special",
     "tempoRole": "决胜专属",
     "intentCost": 0,
@@ -988,12 +1040,18 @@ export const TACTIC_DESIGNS = {
     "effect": "famous",
     "special": true,
     "visual": "shockwave",
-    "description": "攻击1格内目标及其相邻敌军，最多3队，造成武技伤害并尝试施加混乱6回合，为友军追击创造机会；自身获得减伤6回合，直接伤害降低15%；控制遵守军纪与坚定规则",
+    "description": "攻击前方相邻扇形覆盖格中的敌军，最多3队，造成武技伤害并尝试施加混乱6回合，为友军追击创造机会；自身获得减伤6回合，直接伤害降低15%；控制遵守军纪与坚定规则",
     "learningTier": "special",
     "tempoRole": "决胜专属",
     "intentCost": 0,
     "maxUses": 1,
-    "id": "unique-person-433"
+    "id": "unique-person-433",
+    "geometry": {
+      "kind": "fan",
+      "reach": 1,
+      "maxTargets": 3,
+      "delay": 1
+    }
   },
   "unique-person-396": {
     "name": "七进七出",
@@ -1035,13 +1093,19 @@ export const TACTIC_DESIGNS = {
     "effect": "famous",
     "special": true,
     "visual": "slash",
-    "description": "攻击1格内目标及其相邻敌军，最多2队，造成武技伤害并尝试施加定身2回合；定身不阻止普攻、战法或ZOC",
+    "description": "攻击前方相邻扇形覆盖格中的敌军，最多2队，造成武技伤害并尝试施加定身2回合；定身不阻止普攻、战法或ZOC",
     "learningTier": "special",
     "tempoRole": "交锋专属",
     "intentCost": 0,
     "maxUses": 1,
     "id": "unique-person-516",
-    "control": "root"
+    "control": "root",
+    "geometry": {
+      "kind": "fan",
+      "reach": 1,
+      "maxTargets": 2,
+      "delay": 1
+    }
   },
   "unique-person-186": {
     "name": "百步穿杨",
@@ -1094,7 +1158,13 @@ export const TACTIC_DESIGNS = {
     "tempoRole": "决胜专属",
     "intentCost": 0,
     "maxUses": 1,
-    "id": "unique-person-290"
+    "id": "unique-person-290",
+    "geometry": {
+      "kind": "burst",
+      "radius": 1,
+      "maxTargets": 3,
+      "delay": 2
+    }
   },
   "unique-person-558": {
     "name": "连环奇计",
@@ -1102,25 +1172,29 @@ export const TACTIC_DESIGNS = {
     "threshold": 50,
     "cooldown": 30,
     "range": 4,
-    "scale": 0.9,
+    "scale": 0.6,
     "mode": "attack",
     "targets": 3,
     "radius": 1,
-    "debuff": "slow",
-    "steps": 4,
     "link": {
-      "steps": 12,
-      "fraction": 0.35
+      "steps": 3,
+      "fraction": 0.2
     },
     "effect": "famous",
     "special": true,
     "visual": "slash",
-    "description": "攻击4格内目标及其相邻敌军，最多3队，造成谋略伤害并施加迟滞4回合，移动速度减半；命中后将至少两队存活且未处于连环的目标连接12回合，后续受伤的35%分摊传导给同组其他敌军，传导不递归；不要求灼烧，魔免与无敌目标不能被连接",
+    "description": "锁定4格内目标周围1格，蓄势2回合对实际落点最多3队敌军造成0.6倍率谋略伤害；命中后至少两队合法存活敌军连环3回合，后续直接兵力伤害的20%作为额外传导总额由其余成员平分。移出可躲避，不施加迟滞；已有连环取较强效果，同强度保留原组，不叠加、不递归；死者、魔免与无敌目标不能加入新组",
     "learningTier": "special",
     "tempoRole": "交锋专属",
     "intentCost": 0,
     "maxUses": 1,
-    "id": "unique-person-558"
+    "id": "unique-person-558",
+    "geometry": {
+      "kind": "burst",
+      "radius": 1,
+      "maxTargets": 3,
+      "delay": 2
+    }
   },
   "unique-person-371": {
     "name": "霸王讨逆",
@@ -1181,7 +1255,13 @@ export const TACTIC_DESIGNS = {
     "tempoRole": "决胜专属",
     "intentCost": 0,
     "maxUses": 1,
-    "id": "unique-person-246"
+    "id": "unique-person-246",
+    "geometry": {
+      "kind": "burst",
+      "radius": 1,
+      "maxTargets": 3,
+      "delay": 2
+    }
   },
   "unique-person-603": {
     "name": "火烧连营",
@@ -1209,7 +1289,13 @@ export const TACTIC_DESIGNS = {
     "tempoRole": "决胜专属",
     "intentCost": 0,
     "maxUses": 1,
-    "id": "unique-person-603"
+    "id": "unique-person-603",
+    "geometry": {
+      "kind": "burst",
+      "radius": 1,
+      "maxTargets": 3,
+      "delay": 2
+    }
   },
   "unique-person-226": {
     "name": "鹰视狼顾",
@@ -1270,12 +1356,18 @@ export const TACTIC_DESIGNS = {
     "effect": "famous",
     "special": true,
     "visual": "slash",
-    "description": "攻击1格内目标及其相邻敌军，最多3队，造成武技伤害；施放前已有破甲或迟滞时提高伤害；命中后施加缓攻4回合，普攻间隔增加25%；本次新状态不触发增伤",
+    "description": "攻击前方相邻扇形覆盖格中的敌军，最多3队，造成武技伤害；施放前已有破甲或迟滞时提高伤害；命中后施加缓攻4回合，普攻间隔增加25%；本次新状态不触发增伤",
     "learningTier": "special",
     "tempoRole": "决胜专属",
     "intentCost": 70,
     "maxUses": 1,
-    "id": "unique-person-661"
+    "id": "unique-person-661",
+    "geometry": {
+      "kind": "fan",
+      "reach": 1,
+      "maxTargets": 3,
+      "delay": 1
+    }
   },
   "bind": {
     "id": "bind",
@@ -1323,7 +1415,7 @@ export const TACTIC_DESIGNS = {
     "effect": "status",
     "statusKey": "attackHaste",
     "mode": "support",
-    "category": "intellect",
+    "category": "politics",
     "threshold": 30,
     "cooldown": 24,
     "range": 3,
@@ -1363,6 +1455,7 @@ export const TACTIC_DESIGNS = {
     "effect": "status",
     "statusKey": "longRange",
     "mode": "support",
+    "supportPosition": "column",
     "category": "intellect",
     "threshold": 30,
     "cooldown": 24,
@@ -1403,6 +1496,7 @@ export const TACTIC_DESIGNS = {
     "effect": "status",
     "statusKey": "insight",
     "mode": "support",
+    "supportPosition": "column",
     "category": "intellect",
     "threshold": 30,
     "cooldown": 24,
@@ -1419,11 +1513,12 @@ export const TACTIC_DESIGNS = {
   },
   "bodyguard": {
     "id": "bodyguard",
-    "name": "护卫",
+    "name": "援护",
     "effect": "status",
     "statusKey": "guard",
     "mode": "support",
-    "category": "intellect",
+    "supportPosition": "column",
+    "category": "politics",
     "threshold": 30,
     "cooldown": 24,
     "range": 1,
@@ -1440,7 +1535,7 @@ export const TACTIC_DESIGNS = {
   },
   "chain": {
     "id": "chain",
-    "name": "连环",
+    "name": "连锁",
     "effect": "status",
     "statusKey": "link",
     "mode": "attack",
@@ -1450,14 +1545,20 @@ export const TACTIC_DESIGNS = {
     "range": 3,
     "steps": 6,
     "visual": "banner",
-    "description": "对范围内最多三队敌军施加连环6回合，受直接伤害时向其他连接部队传导合计20%伤害，不递归传导",
+    "description": "锁定3格内目标周围1格区域，蓄势后为其中最多3队敌军施加连环；沿用连环传导与免疫规则",
     "learningTier": "low",
     "tempoRole": "基础铺垫",
     "intentCost": 0,
     "maxUses": 2,
     "targets": 3,
     "role": "状态压制",
-    "tradeoff": "单项状态遵守射程、持续和共同保护规则"
+    "tradeoff": "单项状态遵守射程、持续和共同保护规则",
+    "geometry": {
+      "kind": "burst",
+      "radius": 1,
+      "maxTargets": 3,
+      "delay": 2
+    }
   },
   "quench": {
     "id": "quench",
@@ -1465,19 +1566,21 @@ export const TACTIC_DESIGNS = {
     "effect": "remedy",
     "remedy": "quench",
     "mode": "support",
-    "category": "intellect",
+    "supportPosition": "column",
+    "category": "politics",
     "threshold": 30,
     "cooldown": 24,
     "range": 3,
     "steps": 6,
     "visual": "banner",
-    "description": "解除一队友军的灼烧",
+    "description": "解除一队友军的灼烧，并提供兵力上限4%的护盾6回合；护盾量随当前营务威力提高",
     "learningTier": "low",
     "tempoRole": "基础铺垫",
     "intentCost": 0,
     "maxUses": 2,
     "role": "状态支援",
-    "tradeoff": "单项状态遵守射程、持续和共同保护规则"
+    "tradeoff": "单项状态遵守射程、持续和共同保护规则",
+    "shield": 0.04
   },
   "breakFormation": {
     "id": "breakFormation",
@@ -1541,7 +1644,7 @@ export const TACTIC_DESIGNS = {
   "baier-guard": {
     "id": "baier-guard",
     "name": "白毦护阵",
-    "category": "force",
+    "category": "politics",
     "threshold": 55,
     "cooldown": 24,
     "intentCost": 0,
@@ -1557,7 +1660,7 @@ export const TACTIC_DESIGNS = {
     "targets": 2,
     "shield": 0.08,
     "ward": 20,
-    "description": "为2格内最多两队合资格友军提供兵力上限8%的护盾与减伤20%，优先同列其他友军；护盾持续8回合、减伤持续5回合。",
+    "description": "为2格内最多两队合资格友军提供兵力上限8%的护盾与减伤20%，优先同列其他友军；护盾持续8回合、减伤持续5回合。；按站位优先同列友军，再选附近友军，同组按实际需要选择，距离仅限制施放范围；无需要则跳过，自身最后考虑。",
     "supportPosition": "column"
   },
   "rattan-wall": {
@@ -1657,6 +1760,196 @@ export const TACTIC_DESIGNS = {
     "scale": 2,
     "targetRear": true,
     "description": "沿5格内目标方向贯穿射击，最多命中三队敌军，主目标以外的伤害为50%；优先合法后排，山壁截断射线，仍遵守嘲讽和近战拦截。",
-    "geometry": {"kind":"line","reach":5,"maxTargets":3,"secondaryScale":0.5,"delay":2}
+    "geometry": {
+      "kind": "line",
+      "reach": 5,
+      "maxTargets": 3,
+      "secondaryScale": 0.5,
+      "delay": 2
+    }
+  },
+  "antiMagic": {
+    "id": "antiMagic",
+    "name": "御术",
+    "effect": "status",
+    "statusKey": "magicImmune",
+    "mode": "support",
+    "category": "intellect",
+    "threshold": 35,
+    "cooldown": 36,
+    "range": 0,
+    "steps": 3,
+    "visual": "banner",
+    "description": "自身获得魔免3回合（基准）：解除并免疫战斗异常，仅承受物理普攻伤害；不免除缺粮或主动代价；持续时间随谋略威力提高",
+    "learningTier": "low",
+    "tempoRole": "基础铺垫",
+    "intentCost": 0,
+    "maxUses": 2,
+    "role": "短时御术",
+    "tradeoff": "只保护自身，窗口短，不能阻止物理普攻"
+  },
+  "siegeVolley": {
+    "name": "攒射",
+    "threshold": 55,
+    "cooldown": 22,
+    "effect": "repeat",
+    "visual": "volley",
+    "description": "优先射击2～5格内的后排敌军，对同一合法目标连续射击两次；使用当前武技威力与谋略威力各50%的合成威力，仍按物理伤害接受防御抵御；遵守嘲讽与近战拦截。",
+    "learningTier": "high",
+    "tempoRole": "进阶交锋",
+    "intentCost": 0,
+    "maxUses": 1,
+    "id": "siegeVolley",
+    "category": "force",
+    "role": "兵器攒射",
+    "tradeoff": "不破甲、不控制，也无法自保",
+    "range": 5,
+    "minRange": 2,
+    "targetRear": true,
+    "powerSource": "combined"
+  },
+  "relief": {
+    "id": "relief",
+    "name": "救援",
+    "category": "politics",
+    "learningTier": "high",
+    "effect": "famous",
+    "mode": "support",
+    "range": 3,
+    "targets": 2,
+    "threshold": 55,
+    "cooldown": 28,
+    "intentCost": 0,
+    "maxUses": 1,
+    "tempoRole": "进阶交锋",
+    "visual": "banner",
+    "role": "营务支援",
+    "tradeoff": "需要友军与合适站位，不能直接造成伤害",
+    "supportPosition": "column",
+    "heal": 0.12,
+    "shield": 0.08,
+    "cleanse": true,
+    "description": "为3格内最多两队友军救治兵力上限12%的已有伤兵，给予8%护盾8回合；解除混乱、嘲讽、丧志和抑气，并施加坚定3回合；救治受真实伤兵与疫伤限制；效果量、幅度和适用状态时长随当前营务威力增强；按站位优先同列友军，同组按实际需要选择，无需要则跳过，自身最后考虑"
+  },
+  "fortify": {
+    "id": "fortify",
+    "name": "固阵",
+    "category": "politics",
+    "learningTier": "high",
+    "effect": "famous",
+    "mode": "support",
+    "range": 2,
+    "targets": 2,
+    "threshold": 55,
+    "cooldown": 28,
+    "intentCost": 0,
+    "maxUses": 1,
+    "tempoRole": "进阶交锋",
+    "visual": "banner",
+    "role": "营务支援",
+    "tradeoff": "需要友军与合适站位，不能直接造成伤害",
+    "supportPosition": "column",
+    "shield": 0.12,
+    "buffs": {
+      "camp": 0.8
+    },
+    "buffSteps": 8,
+    "description": "为2格内最多两队友军提供兵力上限12%的护盾8回合，并施加营垒8回合，基准提高20%防御；不提供伤兵救治；效果量、幅度和适用状态时长随当前营务威力增强；按站位优先同列友军，同组按实际需要选择，无需要则跳过，自身最后考虑"
+  },
+  "regroup": {
+    "id": "regroup",
+    "name": "整备",
+    "category": "politics",
+    "learningTier": "high",
+    "effect": "famous",
+    "mode": "support",
+    "range": 3,
+    "targets": 2,
+    "threshold": 55,
+    "cooldown": 28,
+    "intentCost": 0,
+    "maxUses": 1,
+    "tempoRole": "进阶交锋",
+    "visual": "banner",
+    "role": "营务支援",
+    "tradeoff": "需要友军与合适站位，不能直接造成伤害",
+    "supportPosition": "column",
+    "excludeSelf": true,
+    "heal": 0.08,
+    "cooldownReduction": 4,
+    "buffs": {
+      "haste": 1
+    },
+    "buffSteps": 6,
+    "description": "为3格内最多两队其他友军救治兵力上限8%的已有伤兵，缩短当前战法冷却4回合，并施加疾行6回合；不会恢复已用尽次数或取消施法间隔；效果量、幅度和适用状态时长随当前营务威力增强；按站位优先同列友军，同组按实际需要选择，无需要则跳过，自身最后考虑"
+  },
+  "stockpile": {
+    "id": "stockpile",
+    "name": "备射",
+    "category": "politics",
+    "learningTier": "high",
+    "effect": "famous",
+    "mode": "support",
+    "range": 3,
+    "targets": 2,
+    "threshold": 55,
+    "cooldown": 28,
+    "intentCost": 0,
+    "maxUses": 1,
+    "tempoRole": "进阶交锋",
+    "visual": "banner",
+    "role": "营务支援",
+    "tradeoff": "需要友军与合适站位，不能直接造成伤害",
+    "supportPosition": "front",
+    "excludeSelf": true,
+    "recipient": "ranged",
+    "buffs": {
+      "attackHaste": 1,
+      "longRange": 1
+    },
+    "buffSteps": 8,
+    "description": "为3格内最多两队其他远程友军施加速攻和远射8回合，基准普攻间隔缩短20%、普攻射程增加1；不改变战法射程，不与同类状态叠加；效果量、幅度和适用状态时长随当前营务威力增强；按站位优先同列友军，同组按实际需要选择，无需要则跳过，自身最后考虑"
+  },
+  "refit": {
+    "id": "refit",
+    "name": "修船",
+    "category": "politics",
+    "learningTier": "high",
+    "effect": "famous",
+    "mode": "support",
+    "range": 3,
+    "targets": 2,
+    "threshold": 55,
+    "cooldown": 28,
+    "intentCost": 0,
+    "maxUses": 1,
+    "tempoRole": "进阶交锋",
+    "visual": "banner",
+    "role": "营务支援",
+    "tradeoff": "需要友军与合适站位，不能直接造成伤害",
+    "supportPosition": "column",
+    "recipient": "ship",
+    "heal": 0.14,
+    "shield": 0.08,
+    "remedy": "quench",
+    "description": "为3格内最多两队舰船救治兵力上限14%的已有伤兵，解除灼烧并提供8%护盾8回合；只在真实舰船形态下接受效果，不恢复已损失且无法救治的兵力；效果量、幅度和适用状态时长随当前营务威力增强；按站位优先同列友军，同组按实际需要选择，无需要则跳过，自身最后考虑"
+  },
+  "poisonShot": {
+    "name": "毒矢",
+    "category": "intellect",
+    "threshold": 25,
+    "cooldown": 28,
+    "range": 4,
+    "effect": "blight",
+    "steps": 6,
+    "visual": "shockwave",
+    "description": "射击4格内一队敌军，造成较低谋略伤害并施加疫伤6回合：持续损失兵力、救治效果降低50%；使用当前谋略威力，受军纪抵御，可急救解除；毒矢沿用公共疫伤状态，不另造中毒状态",
+    "role": "疫伤铺垫",
+    "tradeoff": "不叠加疫伤，能被急救解除",
+    "learningTier": "low",
+    "tempoRole": "基础铺垫",
+    "intentCost": 0,
+    "maxUses": 2,
+    "id": "poisonShot"
   }
 };

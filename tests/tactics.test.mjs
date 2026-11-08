@@ -9,17 +9,18 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { newGame, orderArmy, advanceTurn, startBattle, lockDeployment, stepBattle, issueCommand, validateSave, lowerIntent } from '../engine.mjs';
 import { TACTICS_BOOK, TROOP_TACTICS, unitTactics, hasStatus, tacticTarget, setStatus } from '../tactics.mjs';
-import { hexNeighbors } from '../hex-grid.mjs';
+import { hexNeighbors, hexDistance } from '../hex-grid.mjs';
 import {powerFactor} from '../tactic-power.mjs';
 import {unitAttributes} from '../unit-stats.mjs';
 
-function scene(type='spear',id=null){const skill=id==='liao'?'terror':type==='spear'?'thrust':type==='archer'?'scatter':type==='cavalry'?'rush':'repeat',x=currentBattle(skill,type,{requireS:!id});x.ally.x=0;x.ally.y=0;x.rear.x=13;x.rear.y=7;if(['archer','crossbow'].includes(type))x.target.x=6;return{state:x.state,b:x.b,a:x.u,d:x.target};}
+function scene(type='spear',id=null,requested=null){const skill=requested||(id==='liao'?'terror':type==='spear'?'thrust':type==='archer'?'scatter':type==='cavalry'?'rush':'repeat'),x=currentBattle(skill,type,{requireS:!id});x.ally.x=0;x.ally.y=0;x.rear.x=13;x.rear.y=7;if(['archer','crossbow'].includes(type))x.target.x=6;return{state:x.state,b:x.b,a:x.u,d:x.target};}
 
 function allowOnly(a,id) {primeTactic(a,id);}
 function complete(b,a) {
   const before=a.skillCasts;
   for(let i=0;i<10 && a.skillCasts===before;i++)stepBattle(b);
   assert.equal(a.skillCasts,before+1);
+  for(let i=0;i<20&&(a.tacticAim||a.movementAim);i++)stepBattle(b);
 }
 
 test('unlearned units have no tactics and each learned slot belongs to the current troop or owner',()=>{
@@ -49,7 +50,7 @@ test('expired cooldown and restored intent cannot replenish an exhausted advance
   a.intent=TACTICS_BOOK.thrust.threshold;stepBattle(b);assert.equal(a.tacticCasts.thrust,1);assert.equal(a.cast,null);assert.equal(a.intent,TACTICS_BOOK.thrust.threshold-TACTICS_BOOK.thrust.intentCost);
 });
 test('fire burns without intent feedback and ranged skills have distinct real effects',()=>{
-  const {b,a,d}=scene('archer');allowOnly(a,'fire');complete(b,a);assert.equal(d.statuses.burn,undefined);a.cooldown=0;stepBattle(b);
+  const {b,a,d}=scene('archer',null,'fire');allowOnly(a,'fire');complete(b,a);assert.equal(d.statuses.burn,undefined);a.cooldown=0;stepBattle(b);
   assert.ok(hasStatus(b,d,'burn'));const hp=d.hp,ai=a.intent,di=d.intent;a.cooldown=999;
   stepBattle(b);assert.ok(d.hp<hp);assert.equal(a.intent,ai);assert.equal(d.intent,di);
   const x=scene('crossbow');allowOnly(x.a,'repeat');complete(x.b,x.a);
@@ -66,10 +67,10 @@ test('thrust hits the unit directly behind; scatter hits several nearby targets'
 });
 test('formation and gallop grant real statuses; rush needs a legal path',()=>{
   for(const [type,id,status] of [['spear','phalanx','phalanx'],['cavalry','gallop','haste']]) {
-    const {b,a,d}=scene(type);if(id==='gallop')d.x=9;
+    const {b,a,d}=scene(type,null,id);if(id==='gallop')d.x=7;
     allowOnly(a,id);complete(b,a);assert.ok(hasStatus(b,a,status));assert.ok(b.effects.some(e=>e.text));
   }
-  const {b,a,d}=scene('cavalry');d.x=8;allowOnly(a,'rush');complete(b,a);assert.equal(a.x,7);assert.equal(a.y,3);assert.ok(d.hp<d.maxHp);
+  const {b,a,d}=scene('cavalry');d.x=8;const start={x:a.x,y:a.y};allowOnly(a,'rush');complete(b,a);assert.ok(hexDistance(start,a)>0&&hexDistance(start,a)<=3);assert.equal(hexDistance(a,d),1);assert.ok(d.hp<d.maxHp);
 
 });
 test('blocked displacement never overlaps units or crosses board limits',()=>{
@@ -80,9 +81,9 @@ test('blocked displacement never overlaps units or crosses board limits',()=>{
   hexNeighbors(r.a).forEach(([x,y],i)=>r.b.sides[1].units.push({...structuredClone(r.d),id:`wall-${i}`,x,y}));
   assert.equal(tacticTarget(r.b,r.a,TACTICS_BOOK.rush,1),null);
 });
-test('current rare tactical control requires its actual exclusive holder',()=>{let success=false;for(let seed=1;seed<=30&&!success;seed++){const x=currentBattle('terror','cavalry',{seed});x.target.x=6;x.rear.x=13;allowOnly(x.u,'terror');complete(x.b,x.u);success=hasStatus(x.b,x.target,'confuse');}assert.ok(success);const x=currentBattle('undermine','crossbow');x.target.intent=100;x.rear.intent=0;const hp=x.target.hp;allowOnly(x.u,'undermine');complete(x.b,x.u);assert.ok(x.target.intent<100);assert.equal(x.target.hp,hp);});
+test('current rare tactical control requires its actual exclusive holder',()=>{let success=false;for(let seed=1;seed<=30&&!success;seed++){const x=currentBattle('terror','cavalry',{seed});x.target.x=6;x.rear.x=13;allowOnly(x.u,'terror');complete(x.b,x.u);success=hasStatus(x.b,x.target,'confuse');}assert.ok(success);const x=currentBattle('undermine','crossbow');x.target.intent=100;x.rear.intent=0;const hp=x.target.hp;allowOnly(x.u,'undermine');complete(x.b,x.u);while(x.u.tacticAim)stepBattle(x.b);assert.ok(x.target.intent<100);assert.equal(x.target.hp,hp);});
 test('independent cooldowns, statuses and active casts survive save and resume identically',()=>{
-  const {state,b,a}=scene('archer');allowOnly(a,'fire');complete(b,a);
+  const {state,b,a}=scene('archer',null,'fire');allowOnly(a,'fire');complete(b,a);
   const resumed=validateSave(JSON.parse(JSON.stringify(syncFixtureLearning(state))));
   for(let i=0;i<12;i++){stepBattle(b);stepBattle(resumed.battle);}
   assert.deepEqual(b,resumed.battle);

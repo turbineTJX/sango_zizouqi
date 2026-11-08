@@ -14,7 +14,7 @@ export function commandRefresh(u,p,tick){
  const record={id:u.id,casts:{...u.tacticCasts},restoredBefore:{...u.tacticRestored},bonus:{...u.tacticUseBonus},restored:{},readyBefore:{...u.skillReady},readyAfter:{}};
  const seen=new Set();
  for(const s of skills(u)){
-  const slot=tacticSlot(s);if(seen.has(slot))continue;seen.add(slot);
+  const slot=tacticSlot(s,u);if(seen.has(slot))continue;seen.add(slot);
   const n=tacticUseLimit(u,s)-tacticUsesLeft(u,s);if(n>0)record.restored[s.id]=n;
  }
  u.tacticCommandRestored={...record.restored};
@@ -59,7 +59,7 @@ export function validStratagemEvents(b,sideIndex){
     const expected=commandRefresh(snapshot,e.source,e.castTick);
     if(!same(r.restored,expected.restored)||!same(r.readyAfter,expected.readyAfter)||!same(u.tacticCommandRestored,r.restored))return false;
     for(const s of skills(u)){
-     const total=(m)=>Object.entries(m).filter(([id])=>tacticSlot({...TACTIC_DESIGNS[id],id})===tacticSlot(s)).reduce((n,[,v])=>n+v,0);
+     const total=(m)=>Object.entries(m).filter(([id])=>tacticSlot({...TACTIC_DESIGNS[id],id},u)===tacticSlot(s,u)).reduce((n,[,v])=>n+v,0);
      if(total(r.restoredBefore)>total(r.casts)||total(r.casts)>tacticUseLimit(snapshot,s)+total(r.restoredBefore))return false;
      if(total(u.tacticCasts)<total(r.casts)||total(u.tacticRestored)<total(r.restoredBefore))return false;
     }

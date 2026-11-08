@@ -1,4 +1,4 @@
-import {currentBattle,readyCurrent,resumeCurrent} from './helpers/current-battle.mjs';
+import {currentBattle,readyCurrent,resumeCurrent,tacticHolder} from './helpers/current-battle.mjs';
 import {equipmentEntry} from './helpers/current-battle.mjs';
 import {combatType} from '../troop-equipment.mjs';
 import test from 'node:test';
@@ -19,7 +19,7 @@ function scene(id,type='cavalry',side=0,seed=17){
  Object.assign(u,{x:4,y:3});Object.assign(ally,{x:4,y:4});Object.assign(target,{x:5,y:3});Object.assign(rear,{x:7,y:type==='ship'?2:3});if(type==='ship'){target.y=2;syncCombatForm(b,u);syncCombatForm(b,ally);}
  return {state,b,u,ally,target,rear};
 }
-function cast(x,id){assert.ok(unitTactics(x.u).some(t=>t.id===id),'legal fixed kit '+id);x.u.intent=100;x.u.skillReady[id]=0;stepBattle(x.b);assert.equal(x.u.tacticCasts[id],1);}
+function cast(x,id){assert.ok(unitTactics(x.u).some(t=>t.id===id),'legal fixed kit '+id);x.u.intent=100;x.u.skillReady[id]=0;stepBattle(x.b);assert.equal(x.u.tacticCasts[id],1);for(let i=0;i<16&&(x.u.tacticAim||x.u.movementAim);i++)stepBattle(x.b);}
 function resume(x){const copy=validateSave(structuredClone(x.state));for(let i=0;i<10;i++){stepBattle(x.b);stepBattle(copy.battle);}assert.deepEqual(x.b,copy.battle);}
 
 for(const side of [0,1])test('carried siege small tactics apply real plague and short range on side '+side,()=>{
@@ -43,5 +43,5 @@ test('Liu Bei supplies bounded regrowth and shields instead of instant healing a
 test('Xu Shu no longer receives retired identity insight at level one',()=>{const x=scene('person-294','spear');setStatus(x.b,x.target,'stealth',8);stepBattle(x.b);assert.equal(hasStatus(x.b,x.u,'insight'),false);assert.equal(x.u.traitState['hero-person-294:0'],undefined);resume(x);});
 test('Gan Ning does not retain retired automatic stealth or haste identity effects',()=>{const x=scene('person-119');x.u.cooldown=0;stepBattle(x.b);assert.equal(hasStatus(x.b,x.u,'stealth'),false);assert.equal(hasStatus(x.b,x.u,'attackHaste'),false);assert.equal(x.u.traitState['hero-person-119:1'],undefined);resume(x);});
 test('anchored gives basic range only with zero movement and no damage reduction',()=>{
- const x=scene('person-246','ship');const before=unitAttributes(x.u,x.b);cast(x,'anchor');assert.ok(hasStatus(x.b,x.u,'anchored'));const after=unitAttributes(x.u,x.b);assert.equal(after.range,before.range+1);assert.equal(after.move,0);assert.equal(after.damageReduction,before.damageReduction);remedy(x.b,x.u,'breakFormation');assert.equal(unitAttributes(x.u,x.b).range,before.range);
+ const x=scene(tacticHolder('anchor','ship',['person-1','shao','tian']),'ship');const before=unitAttributes(x.u,x.b);cast(x,'anchor');assert.ok(hasStatus(x.b,x.u,'anchored'));const after=unitAttributes(x.u,x.b);assert.equal(after.range,before.range+1);assert.equal(after.move,0);assert.equal(after.damageReduction,before.damageReduction);remedy(x.b,x.u,'breakFormation');assert.equal(unitAttributes(x.u,x.b).range,before.range);
 });
