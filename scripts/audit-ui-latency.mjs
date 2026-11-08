@@ -1,3 +1,4 @@
+import {mapResourcesReady} from './map-camera-ui-helpers.mjs';
 import {runCampaignDay} from './time-control-ui-helpers.mjs';
 // Measure real UI handlers in an isolated browser profile. Timing wrappers are
 // served through test routes; production modules and user saves are not edited.
@@ -21,7 +22,7 @@ planBattleCouncilsAI(battle.battle,[0,1]);lockDeployment(battle.battle);
 const exported={
  'national-map-view.mjs':['nationalArtMap'], 'strategic-view.mjs':['strategicView'],
  'art-strategic-map.mjs':['attachStrategicMap','detachStrategicMap'],
- 'strategic-dom.mjs':['patchStrategicDOM'],'map-camera-preview.mjs':['prepareMapCameraPreview'],
+ 'strategic-dom.mjs':['patchStrategicDOM'],'map-camera-renderer.mjs':['prepareMapCameraRenderer'],'map-sprite-cache.mjs':['prepareMapSprites'],'map-terrain-tiles.mjs':['prepareTerrainTiles'],
  'strategic-campaign.mjs':['serializeCampaign','validateCampaign'],'engine.mjs':['stepBattle']
 };
 const classes={'art-battle.mjs':{BattleArt:['draw','measure','update']},'art-models.mjs':{ModelLayer:['draw']},'battle-effects.mjs':{BattleEffects:['draw']},'battle-labels.mjs':{BattleLabels:['layout']}};
@@ -70,7 +71,7 @@ try{
   page.on('pageerror',error=>result.errors.push(error.message));
   const start=Date.now();await page.goto(`http://127.0.0.1:${port}/${route}`);
   await page.locator(route==='#strategy'?'.national-world':'#battle-board').waitFor();
-  if(route==='#strategy')await page.waitForFunction(()=>document.querySelector('.national-world')?.dataset.cameraPreviewReady==='true');
+  if(route==='#strategy')await page.waitForFunction(mapResourcesReady);
   await page.waitForTimeout(800);
   const cdp=await context.newCDPSession(page);await cdp.send('Performance.enable');
   return {context,page,cdp,startupMs:Date.now()-start};

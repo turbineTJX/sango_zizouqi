@@ -26,10 +26,10 @@ export class ModelLayer {
   this.board=board;this.pack=pack;this.scene=new T.Scene();this.cache=new Map();this.objects=new Map();this.wanted=new Map();this.batches=new NativeModelBatches(this.scene);this.scene.matrixWorldAutoUpdate=false;
   this.renderer=new T.WebGLRenderer({alpha:true,antialias:true,powerPreference:'high-performance'});this.renderer.setPixelRatio(Math.min(devicePixelRatio||1,2));this.renderer.setClearColor(0,0);this.renderer.outputColorSpace=T.SRGBColorSpace;this.renderer.toneMapping=T.ACESFilmicToneMapping;this.renderer.toneMappingExposure=1.1;this.renderer.domElement.className='art-models';this.renderer.domElement.setAttribute('aria-hidden','true');board.prepend(this.renderer.domElement);
   this.camera=new T.OrthographicCamera(0,1,1,0,.1,1000);this.camera.position.z=500;
-  this.scene.add(new T.HemisphereLight(0xf5eedb,0x555f4b,2));const sun=new T.DirectionalLight(0xffeed4,3);sun.position.set(-100,250,300);this.scene.add(sun);
+  this.scene.add(new T.HemisphereLight(0xdce2d4,0x514c3a,1.45));const sun=new T.DirectionalLight(0xffedd0,2.25);sun.position.set(-160,230,280);this.scene.add(sun);
   const fill=new T.DirectionalLight(0xb9cbd1,.8);fill.position.set(200,60,-100);this.scene.add(fill);
   this.renderer.domElement.addEventListener('webglcontextlost',e=>{e.preventDefault();this.failed=true;this.board.dataset.modelStatus='fallback';this.board.classList.remove('has-gate-model');this.renderer.domElement.style.display='none';for(const o of this.objects.values())o.root.visible=false;});
-  this.measure=()=>{this.viewport={w:board.clientWidth,h:board.clientHeight,compact:(board.parentElement?.clientWidth||board.clientWidth)<600};this.onChange?.();};
+  this.measure=()=>{this.viewport={w:board.clientWidth,h:board.clientHeight,compact:(board.parentElement?.clientWidth||board.clientWidth)<1000||board.clientHeight<480};this.onChange?.();};
   this.resize=new ResizeObserver(this.measure);this.resize.observe(board);if(board.parentElement)this.resize.observe(board.parentElement);this.measure();
  }
  async load(key){
@@ -59,19 +59,19 @@ export class ModelLayer {
   for(const [id,o]of this.objects)if(!wanted.has(id)||wanted.get(id).key!==o.key){this.scene.remove(o.root);o.flashMaterials?.forEach(m=>m.material.dispose());this.objects.delete(id);}
   for(const [id,def]of wanted){if(this.objects.has(id)||this.pending.has(id))continue;const job=this.load(def.key).then(source=>{
    if(!source||this.dead||!this.wanted.has(id)||this.wanted.get(id).key!==def.key||this.objects.has(id))return;
-   const model=cloneAnimatedModel(source),tilt=new T.Group(),root=new T.Group();tilt.add(model);tilt.rotation.x=model.userData.nativeTroop?.62:Math.PI/3;root.add(tilt);
+   const model=cloneAnimatedModel(source),tilt=new T.Group(),root=new T.Group();tilt.add(model);tilt.rotation.x=model.userData.nativeTroop?.88:Math.PI/3;root.add(tilt);
    const flashMaterials=[],copies=new Map(),copy=m=>{
     if(copies.has(m))return copies.get(m);const material=m.clone();copies.set(m,material);flashMaterials.push({material,color:material.color?.clone(),emissive:material.emissive?.clone(),intensity:material.emissiveIntensity,opacity:material.opacity,transparent:material.transparent});return material;
    };
    if(def.unit)model.traverse(n=>{if(n.isMesh)n.material=Array.isArray(n.material)?n.material.map(copy):copy(n.material);});
    const box=new T.Box3().setFromObject(tilt),size=box.getSize(new T.Vector3()),center=box.getCenter(new T.Vector3());
-   if(model.userData.nativeTroop)tilt.position.set(-center.x,-box.min.y,-center.z);else tilt.position.sub(center);
+   if(!model.userData.nativeTroop)tilt.position.sub(center);
    const clips=model.animations||[],mixer=clips.length?new T.AnimationMixer(model):null;
-   this.scene.add(root);this.objects.set(id,{root,tilt,model,clips,mixer,key:def.key,width:size.x,height:size.y,flashMaterials});this.board.dataset.modelStatus='ready';this.board.dataset.modelCount=String(this.objects.size);this.onChange?.();
+   this.scene.add(root);this.objects.set(id,{root,tilt,model,clips,mixer,key:def.key,width:size.x,height:size.y,headHeight:box.max.y,flashMaterials});this.board.dataset.modelStatus='ready';this.board.dataset.modelCount=String(this.objects.size);this.onChange?.();
   }).catch(()=>null).finally(()=>this.pending.delete(id));this.pending.set(id,job);}
  }
  hasUnit(id){return !this.failed&&this.objects.has('unit-'+id);}
- captionRise(id){const obj=this.objects.get('unit-'+id);return obj?this.h/6.25*.12+obj.height*obj.root.scale.y*(obj.model.userData.nativeTroop?1:.5):null;}
+ captionRise(id){const obj=this.objects.get('unit-'+id);return obj?obj.model.userData.nativeTroop?obj.headHeight*obj.root.scale.y:this.h/6.25*.12+obj.height*obj.root.scale.y*.5:null;}
  bodyAnchors(id){const obj=this.objects.get('unit-'+id);return obj?.model?.userData.nativeTroop?troopModelAnchors(obj,this.h):null;}
  draw(clock,presentation=null){
   if(this.dead||this.failed)return;const {w,h,compact} = this.viewport||{w:this.board.clientWidth,h:this.board.clientHeight,compact:(this.board.parentElement?.clientWidth||this.board.clientWidth)<600};if(!w||!h)return;
@@ -87,7 +87,7 @@ export class ModelLayer {
    obj.root.visible=death<1;
    if(u&&presentation?.position)p=presentation.position(u);
    else if(moving&&u.from&&!reduced){const t=Math.max(0,Math.min(1,(clock-u.moveAt)/.48));p={x:u.from.x+(p.x-u.from.x)*t,y:u.from.y+(p.y-u.from.y)*t};}
-   const scale=Math.min(w/14.5/obj.width,h/6.25/obj.height)*d.size;obj.root.scale.setScalar(scale);obj.root.position.set(p.x*w,h-p.y*h+h/6.25*.12,0);
+   const scale=Math.min(w/14.5/obj.width,h/6.25/obj.height)*d.size;obj.root.scale.setScalar(scale);obj.root.position.set(p.x*w,h-p.y*h+(obj.model.userData.nativeTroop?0:h/6.25*.12),0);
    const nativeTroop=!!obj.model?.userData.nativeTroop;
    if(u&&d.key.startsWith('builtin:')&&!nativeTroop)obj.tilt.rotation.y=(arrival?arrival.facing<0:u.target?u.target.x<p.x:u.side===1)?Math.PI:0;
    const curve=this.pack.animations?.move;obj.root.rotation.z=0;
@@ -112,7 +112,7 @@ export class ModelLayer {
      const progress=action?actorCastProgress((presentation.clock-action.start)/action.duration,event):1,walking=action?event?.presentationKind==='charge'&&progress>=.24&&progress<.52:moving;
      const moveProgress=arrival?.walking?arrival.p:action?(progress-.24)/.28:Math.max(0,Math.min(1,(clock-(u.moveAt??clock))/.48));
      const absorbed=hits.find(hit=>hit.to===u.id&&hit.absorbed>0&&!hit.damage&&presentation.clock>=hit.start&&presentation.clock<hit.start+180),guardImpact=absorbed?Math.sin((presentation.clock-absorbed.start)/180*Math.PI):0;
-     animateTroopModel(obj,{time:(presentation?.clock??clock*1000)/1000,progress,moving:walking,moveProgress,kind:event?.presentationKind||'strike',statuses:presentation?.statuses?.(u.id)||[],reduced,facing,death:u?.defeated===false?0:death,compact,reaction:reaction?.recoil||0,guardImpact});
+     animateTroopModel(obj,{time:(presentation?.clock??clock*1000)/1000,progress,moving:walking,moveProgress,kind:event?.presentationKind||'strike',statuses:presentation?.statuses?.(u.id)||[],reduced,facing,death:u?.defeated===false?0:death,compact,maxMembers:compact?(w<600?2:4):Infinity,reaction:reaction?.recoil||0,guardImpact});
     }
    }
    if(reaction&&!reduced){

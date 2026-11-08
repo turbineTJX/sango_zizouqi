@@ -1,13 +1,22 @@
 import {app,BrowserWindow,protocol,Menu,screen,ipcMain,dialog} from 'electron';
 import {readFile,writeFile,mkdir} from 'node:fs/promises';
-import {resolve,join,extname,sep} from 'node:path';
+import {rmSync} from 'node:fs';
+import {resolve,join,extname,sep,dirname,basename} from 'node:path';
 import {serveAssets} from '../asset-server.mjs';
 import {loadPlaytestArt,serveLocalArt} from '../local-art-server.mjs';
 import {MAX_SAVE_BYTES} from '../save-storage.mjs';
 
 protocol.registerSchemesAsPrivileged([{scheme:'sango',privileges:{standard:true,secure:true,supportFetchAPI:true,corsEnabled:true}}]);
+const projectPreview=!app.isPackaged&&process.env.SANGO_PROJECT_PREVIEW==='1';
+if(projectPreview)app.on('quit',()=>{
+ // A project launch owns only its generated run directory, never its save data.
+ const root=process.env.SANGO_PREVIEW_STAGE_ROOT;
+ if(root&&dirname(__dirname)===resolve(root)&&basename(__dirname).startsWith('run-')){
+  try{rmSync(__dirname,{recursive:true,force:true});}catch{}
+ }
+});
 app.setName('三国 · 君临');
-app.setAppUserModelId('com.sango.sovereign');
+app.setAppUserModelId(projectPreview?'com.sango.sovereign.preview':'com.sango.sovereign');
 app.setPath('userData',process.env.SANGO_USER_DATA||join(app.getPath('appData'),'SangoSovereign'));
 const locked=app.requestSingleInstanceLock();
 if(!locked)app.quit();
@@ -15,8 +24,8 @@ else{
  let window,manualWindow,manualClosed;
  app.on('second-instance',()=>{if(window){if(window.isMinimized())window.restore();window.show();window.focus();}});
  app.whenReady().then(async()=>{
-  const code=join(__dirname,'code'),art=app.isPackaged?join(process.resourcesPath,'art'):join(__dirname,'art');
-  const playtest=await loadPlaytestArt(join(art,'playtest'));
+  const code=join(__dirname,'code'),art=app.isPackaged?join(process.resourcesPath,'art'):projectPreview?resolve(process.env.SANGO_PREVIEW_ASSET_ROOT):join(__dirname,'art');
+  const playtest=await loadPlaytestArt(projectPreview?resolve(process.env.SANGO_PREVIEW_PLAYTEST_ROOT):join(art,'playtest'));
   const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.mjs':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json; charset=utf-8','.svg':'image/svg+xml','.png':'image/png','.webp':'image/webp','.woff2':'font/woff2','.bin':'application/octet-stream','.webmanifest':'application/manifest+json'};
   protocol.handle('sango',async request=>{
    try{
@@ -71,6 +80,7 @@ else{
   window.webContents.on('will-navigate',(event,url)=>{if(!url.startsWith('sango://game/'))event.preventDefault();});
   window.webContents.on('before-input-event',(event,input)=>{if(input.type==='keyDown'&&input.key==='F11'){window.setFullScreen(!window.isFullScreen());event.preventDefault();}});
   window.loadURL('sango://game/');
+  if(projectPreview)window.on('page-title-updated',(event,title)=>{event.preventDefault();window.setTitle(title+' · 项目最新版');});
  });
  app.on('window-all-closed',()=>app.quit());
 }

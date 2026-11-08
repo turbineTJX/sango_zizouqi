@@ -5,6 +5,8 @@
   "type": "module",
   "description": "三国 · 君临：离线君主策略玩法原型",
   "scripts": {
+    "start:desktop": "node scripts/start-desktop.mjs",
+    "verify:desktop-preview": "node scripts/verify-desktop-preview.mjs",
     "test:scenario-editor": "node --test tests/main-city-rule.test.mjs tests/scenario-editor.test.mjs tests/reference-scenarios.test.mjs tests/national-campaign.test.mjs",
     "verify:scenario-editor": "node scripts/verify-scenario-editor-ui.mjs",
     "verify:scenario-opening": "node scripts/verify-scenario-opening-ui.mjs",
@@ -25,13 +27,19 @@
     "verify:officer-editor": "node scripts/verify-officer-editor-ui.mjs",
     "test:map-editor": "node --test tests/battle-map-editor.test.mjs tests/custom-battle.test.mjs tests/battle-generator.test.mjs tests/battle-map-variety.test.mjs tests/terrain.test.mjs tests/historical-maps.test.mjs",
     "verify:map-editor": "node scripts/verify-battle-map-editor-ui.mjs",
-    "test:geographic-roads": "node --test tests/geographic-roads.test.mjs tests/road-encounter-terrain.test.mjs tests/road-network.test.mjs tests/strategic-nodes.test.mjs tests/strategic-movement.test.mjs tests/ancient-atlas.test.mjs tests/atlas-cities.test.mjs",
+    "test:geographic-roads": "node --test tests/geographic-roads.test.mjs tests/waterway-placement.test.mjs tests/road-geometry.test.mjs tests/road-encounter-terrain.test.mjs tests/road-network.test.mjs tests/strategic-nodes.test.mjs tests/strategic-movement.test.mjs tests/ancient-atlas.test.mjs tests/atlas-cities.test.mjs",
     "audit:geographic-roads": "node scripts/audit-geographic-roads.mjs",
     "verify:geographic-roads": "node scripts/verify-geographic-roads-ui.mjs",
+    "verify:waterways": "node scripts/verify-waterway-placement-ui.mjs",
+    "audit:historical-geography": "node scripts/audit-historical-geography.mjs",
+    "audit:settlement-tiers": "node scripts/audit-settlement-tier-proposal.mjs",
+    "docs:settlement-tiers": "node scripts/build-settlement-tier-proposal.mjs",
+    "test:historical-geography": "node --test tests/historical-geography.test.mjs tests/waterway-placement.test.mjs tests/geographic-roads.test.mjs tests/road-geometry.test.mjs tests/map-label-layout.test.mjs tests/ancient-atlas.test.mjs tests/atlas-cities.test.mjs tests/national-geography.test.mjs tests/town-layout.test.mjs tests/design-tables.test.mjs",
+    "verify:historical-geography": "node scripts/verify-historical-geography-ui.mjs",
     "test:campaign-runner": "node --test tests/campaign-runner.test.mjs tests/source-offline.test.mjs",
     "test:campaign-replay": "node --test tests/campaign-replay.test.mjs tests/strategic-campaign.test.mjs",
     "verify:campaign-replay": "node scripts/verify-campaign-replay-ui.mjs",
-    "verify:map-performance": "node scripts/verify-map-performance-ui.mjs",
+    "verify:map-performance": "node scripts/verify-map-gpu-ui.mjs",
     "verify:ui-performance": "node scripts/verify-ui-performance.mjs",
     "test:art-performance": "node --test tests/art-loading-performance.test.mjs",
     "verify:art-performance": "node scripts/verify-art-performance-ui.mjs",
@@ -291,7 +299,12 @@
     "test:manual": "node --test tests/player-manual-sync.test.mjs",
     "verify:gate-art": "node scripts/verify-gate-art-ui.mjs",
     "test:stratagem-combinations": "node --test tests/stratagem-combinations.test.mjs",
-    "verify:stratagem-combinations-ui": "node scripts/verify-stratagem-combinations-ui.mjs"
+    "verify:stratagem-combinations-ui": "node scripts/verify-stratagem-combinations-ui.mjs",
+    "art:map": "node scripts/build-map-assets.mjs",
+    "art:map:check": "node scripts/build-map-assets.mjs --check",
+    "vendor:pixi": "node scripts/vendor-pixi.mjs",
+    "prestart": "node scripts/build-map-assets.mjs",
+    "verify:map-gpu-desktop": "node scripts/verify-map-gpu-desktop.mjs"
   },
   "engines": {
     "node": ">=20"
@@ -309,6 +322,7 @@
     "electron-builder": "26.15.3",
     "esbuild": "0.28.2",
     "fflate": "0.8.3",
+    "pixi.js": "8.22.0",
     "playwright": "1.64.0",
     "sharp": "0.35.5"
   }

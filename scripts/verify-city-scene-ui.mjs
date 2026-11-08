@@ -1,3 +1,4 @@
+import {readMapView} from './map-camera-ui-helpers.mjs';
 import {panMapTo} from './map-target-ui-helpers.mjs';
 import {importSaveFixture} from './save-fixture-ui-helpers.mjs';
 import {completeTechnologyBuilding} from '../building-durability.mjs';
@@ -29,7 +30,7 @@ try{
  await page.addInitScript(()=>{localStorage.setItem('sango-page-guides-v1',JSON.stringify({version:1,enabled:false,seen:[]}));const save=sessionStorage.getItem('city-scene-fixture');if(save)localStorage.setItem('sango-sovereign-v2',save);});await page.goto(`http://127.0.0.1:${port}/#strategy`);
  const load=async save=>{await importSaveFixture(page,save);await page.reload();await page.locator('.national-world').waitFor();await page.evaluate(async()=>{const {assetCatalog}=await import('./asset-catalog.mjs');await Promise.all(Object.values(assetCatalog.town.art).map(async src=>{const image=new Image();image.src=src;await image.decode();if(image.naturalWidth<1000)throw Error('Town image did not load at its full resolution: '+src);}));});};
  const main=page.locator('.national-world'),city=page.locator('.national-world [data-city="xuchang"]');
- const view=()=>main.evaluate(s=>({width:s.viewBox.baseVal.width,height:s.viewBox.baseVal.height,x:s.viewBox.baseVal.x,y:s.viewBox.baseVal.y}));
+ const view=()=>main.evaluate(readMapView);
  await load(baseline);await page.screenshot({path:out+'/strategy.png'});
  const before=await page.evaluate(async ()=>await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2'));
  await page.locator('[data-map-view="city"]').click();assert.ok((await view()).height<150);assert.match(await main.getAttribute('class'),/map-close/);

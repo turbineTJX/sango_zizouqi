@@ -1,7 +1,7 @@
 {
   "version": 1,
   "id": "original-sango",
-  "revision": "1-music-epic1-e1bada08-gate2-24eec2ea-treasures-v2-70-voice-ea514887",
+  "revision": "1-music-epic1-e1bada08-gate2-24eec2ea-treasures-v2-70-voice-ea514887-battlefield-realism-v1",
   "officers": "./assets/officers/manifest.json",
   "town": {
     "art": {
@@ -2754,5 +2754,10 @@
     "phoenixRobe": "./assets/treasures/phoenixRobe-v2.webp",
     "imperialSeal": "./assets/treasures/imperialSeal-v2.webp",
     "bronzeBird": "./assets/treasures/bronzeBird-v2.webp"
-  }
+  },
+  "battlefield": {
+    "ground": "./assets/battlefield/grass-v1.webp",
+    "tree": "./assets/battlefield/elm-v1.webp"
+  },
+  "mapGPU": "./assets/map/gpu/65b7afe40c08c2148e98/manifest.json"
 }

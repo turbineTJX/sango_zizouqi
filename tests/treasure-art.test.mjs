@@ -16,7 +16,7 @@ test('all 70 treasure IDs resolve real, distinct images through the portable ass
 test('named equipment builds distinct animated leader geometry while preserving the real troop family and both sides',()=>{
  for(const [id,a] of Object.entries(TREASURE_APPEARANCES))for(const side of [0,1])for(const type of ['spear','cavalry','archer']){
   const unit={type,side,treasureId:id,equipment:{siege:null,ship:null}},before=JSON.stringify(unit),key=unitModelKey({models:{}},unit),model=createTroopModel(type,side,id);
-  assert.equal(key,`builtin:troop:${type}:${side}:${id}`);assert.equal(model.userData.type,type);assert.deepEqual(model.userData.treasureIds,[id]);assert.equal(model.children.filter(x=>x.name.startsWith('member-')).length,type==='cavalry'?2:4);
+  assert.equal(key,`builtin:troop:${type}:${side}:${id}`);assert.equal(model.userData.type,type);assert.deepEqual(model.userData.treasureIds,[id]);assert.equal(model.children.filter(x=>x.name.startsWith('member-')).length,type==='cavalry'?4:9);
   if(a.shape==='horse')assert.ok(model.getObjectByName(type==='cavalry'?'horse-0':'horse-treasure'));else if(a.shape==='armor')assert.ok(model.getObjectByName('treasure-mirror-armor'));else if(a.shape==='robe')assert.ok(model.getObjectByName('treasure-robe'));else if(a.shape==='wagon')assert.ok(model.getObjectByName('treasure-wagon'));else assert.ok(model.getObjectByName(a.shape==='bow'?'treasure-bow-trim':'treasure-weapon'));
   animateTroopModel({model},{time:300,progress:.5,moving:true,compact:true});assert.equal(JSON.stringify(unit),before);
  }

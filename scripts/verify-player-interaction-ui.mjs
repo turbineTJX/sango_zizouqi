@@ -1,3 +1,4 @@
+import {readMapView} from './map-camera-ui-helpers.mjs';
 import {chooseAssignment} from './assignment-picker-ui-helpers.mjs';
 import assert from 'node:assert/strict';
 import {spawn} from 'node:child_process';
@@ -58,7 +59,7 @@ try{
  assert.ok(await action('campaign-command-next').isDisabled());assert.match(await page.locator('#command-readiness').innerText(),/选择终点/);
  for(const [w,h]of [[1440,900],[1024,600],[844,390],[740,360]])await layout('expedition',w,h);
  await page.locator('[data-map-view="national"]').click();
- assert.deepEqual(await page.locator('.national-world').evaluate(el=>{const v=el.viewBox.baseVal;return [v.width,v.height];}),[1024,1024]);
+ assert.deepEqual(await page.locator('.national-world').evaluate(readMapView).then(v=>[v.width,v.height]),[1024,1024]);
  assert.ok(await action('campaign-command-next').isDisabled());
  await page.locator('[data-map-view="selected"]').click();
  await chooseCommandTarget(page,'chenliu');assert.ok(await action('campaign-command-next').isEnabled());

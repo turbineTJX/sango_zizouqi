@@ -6,6 +6,7 @@ import {campaignBattleTerrain,campaignBattleMapId} from '../strategic-campaign.m
 import {chosenRoad} from '../road-metrics.mjs';
 import {BATTLE_MAPS,FIELD_MAP_IDS} from '../data/design/battle-maps.mjs';
 import {mapNode} from '../road-network.mjs';
+import {isWaterPoint} from '../national-geography.mjs';
 
 test('national road encounters use the actual shared road terrain in both directions',()=>{
  const s=newCampaign(618,'guandu-200');
@@ -40,6 +41,7 @@ for(const [name,from,to,expected]of [
  const record=s.campaign.battles.find(r=>r.armyIds.includes(a.id)&&r.armyIds.includes(enemy.id));assert.ok(record);
  assert.ok(record.armies.every(x=>x.travel),'contact must be on the road, not an arrival at the port');
  assert.equal(record.kind,'field');assert.equal(record.battle.terrain,expected);assert.equal(BATTLE_MAPS[record.battle.mapId].terrain,expected);
+ if(expected==='river')assert.ok(isWaterPoint(record.point,2.7),'a real naval encounter must be located on the visible water');
  assert.equal(record.battle.mapId,campaignBattleMapId(s,from,to));assert.equal(record.battle.buildingSiteId,null);
  if(record.awaiting)chooseEncounter(s,record.id,false);
  const resumed=validateCampaign(JSON.parse(serializeCampaign(s)));

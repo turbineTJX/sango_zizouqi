@@ -1,3 +1,4 @@
+import {mapResourcesReady} from './map-camera-ui-helpers.mjs';
 import {spawn} from 'node:child_process';
 import {readFileSync,mkdirSync,writeFileSync} from 'node:fs';
 import {chromium} from 'playwright';
@@ -18,7 +19,7 @@ try{
  page.on('pageerror',e=>errors.push(e.message));
  if(process.env.MAP_RENDER_MODULE){const body=readFileSync(process.env.MAP_RENDER_MODULE,'utf8');await page.route('**/art-strategic-map.mjs',route=>route.fulfill({body,contentType:'text/javascript'}));}
  await page.addInitScript(raw=>{localStorage.setItem('sango-sovereign-v2',raw);localStorage.setItem('sango-page-guides-v1',JSON.stringify({version:1,enabled:false,seen:[]}));},serializeCampaign(campaign));
- await page.goto('http://127.0.0.1:4391/#strategy');await page.waitForFunction(()=>document.querySelector('.national-world')?.dataset.cameraPreviewReady==='true');
+ await page.goto('http://127.0.0.1:4391/#strategy');await page.waitForFunction(mapResourcesReady);
  for(let i=0;i<4&&await page.locator('.modal .close-button').count();i++)await page.locator('.modal .close-button').last().click();
  const map=page.locator('.national-world');
  const saved=await page.evaluate(async()=>await(await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2'));

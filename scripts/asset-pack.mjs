@@ -5,6 +5,7 @@ import {createHash} from 'node:crypto';
 import {ASSET_ROOT,PROJECT_ROOT,assetFile} from '../asset-workspace.mjs';
 import {sanitizeAssetCatalog,catalogAssetURLs,publicAssetURL} from '../asset-catalog.mjs';
 import {sanitizeOfficerArt} from '../art-assets.mjs';
+import {validateMapGPUManifest} from '../map-gpu-assets.mjs';
 
 export async function validateAssetPack(root=ASSET_ROOT){
  const base=await realpath(root),catalogRaw=JSON.parse(await readFile(resolve(base,'manifest.json'),'utf8')),catalog=sanitizeAssetCatalog(catalogRaw);
@@ -27,6 +28,8 @@ export async function validateAssetPack(root=ASSET_ROOT){
   files.set(url,path);
  };
  for(const url of catalogAssetURLs(catalogRaw))await add(url);
+ if(catalogRaw.mapGPU&&!catalog.mapGPU)throw Error('Invalid map GPU manifest URL');
+ if(catalog.mapGPU){const map=validateMapGPUManifest(JSON.parse(await readFile(files.get(catalog.mapGPU),'utf8')));for(const [url,e]of Object.entries(map.files))await add(url,e.sha256);}
  for(const entry of Object.values(catalog.music))if(entry.sha256)await add(entry.url,entry.sha256);
  for(const entry of Object.values(catalog.voices))await add(entry.url,entry.sha256);
  let officers=null;
@@ -43,6 +46,7 @@ export async function validateAssetPack(root=ASSET_ROOT){
 }
 export async function bundleAssetPack(out,root=ASSET_ROOT){
  const pack=await validateAssetPack(root);
+ if(pack.catalog.mapGPU){const {buildMapAssets}=await import('./build-map-assets.mjs');await buildMapAssets({root,check:true});}
  // Only the public catalog and its declared runtime files cross this boundary.
  await mkdir(out,{recursive:true});
  for(const [url,source] of pack.files){
@@ -64,5 +68,6 @@ if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)){
  if(!['check','bundle'].includes(command))throw Error('Usage: asset-pack.mjs check | bundle [directory]');
  const out=command==='bundle'?resolve(destination||resolve(PROJECT_ROOT,'dist','art-'+Date.now())):null;
  const pack=out?await bundleAssetPack(out):await validateAssetPack();
+ if(!out&&pack.catalog.mapGPU){const {buildMapAssets}=await import('./build-map-assets.mjs');await buildMapAssets({check:true});}
  console.log(JSON.stringify({id:pack.catalog.id,revision:pack.catalog.revision,files:pack.files.size,...(out?{directory:out}:{root:ASSET_ROOT})},null,2));
 }

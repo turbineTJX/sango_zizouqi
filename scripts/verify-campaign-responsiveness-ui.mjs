@@ -1,3 +1,4 @@
+import {mapResourcesReady} from './map-camera-ui-helpers.mjs';
 import {runCampaignDay} from './time-control-ui-helpers.mjs';
 import assert from 'node:assert/strict';
 import {spawn} from 'node:child_process';
@@ -15,7 +16,7 @@ try{
  page.on('pageerror',e=>errors.push(e.message));
  await page.addInitScript(raw=>{localStorage.setItem('sango-sovereign-v2',raw);localStorage.setItem('sango-page-guides-v1',JSON.stringify({version:1,enabled:false,seen:[]}));},raw);
  await page.goto(`http://127.0.0.1:${port}/#strategy`);await page.locator('.national-world').waitFor();assert.equal(await page.locator('[data-action="campaign-day"],.turn-day').count(),0);
- await page.waitForFunction(()=>document.querySelector('.national-world')?.dataset.cameraPreviewReady==='true');
+ await page.waitForFunction(mapResourcesReady);
  const saved=()=>page.evaluate(async()=>await(await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2'));
  const before=await saved();
  await page.locator('.turn-seal').click();await page.waitForFunction(()=>document.querySelector('.world-turn')?.getAttribute('aria-busy')==='true');

@@ -1,3 +1,4 @@
+import {readMapView} from './map-camera-ui-helpers.mjs';
 import {createRequire} from 'node:module';
 import {spawn} from 'node:child_process';
 import {mkdir,writeFile} from 'node:fs/promises';
@@ -17,7 +18,7 @@ try{
  const errors=[];page.on('pageerror',e=>errors.push(e.message));
  await page.addInitScript(raw=>{localStorage.setItem('sango-sovereign-v2',raw);localStorage.setItem('sango-page-guides-v1',JSON.stringify({version:1,enabled:false,seen:[]}));},serializeCampaign(fixture));
  await page.goto('http://127.0.0.1:4204/#strategy');const main=page.locator('.national-world');await main.waitFor();
- const view=()=>main.evaluate(el=>{const v=el.viewBox.baseVal;return {x:v.x,y:v.y,width:v.width,height:v.height};});
+ const view=()=>main.evaluate(readMapView);
  const saved=()=>page.evaluate(async()=>await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2'));
  const absent=async()=>assert.equal(await page.locator('.strategy-radar,[data-strategy-radar],.radar-viewport').count(),0);
  const contains=async point=>{const v=await view();assert.ok(point.x>=v.x&&point.x<=v.x+v.width&&point.y>=v.y&&point.y<=v.y+v.height);};

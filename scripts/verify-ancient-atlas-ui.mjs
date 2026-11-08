@@ -1,3 +1,4 @@
+import {readMapView} from './map-camera-ui-helpers.mjs';
 import {spawn} from 'node:child_process';
 import {mkdir,readFile,writeFile} from 'node:fs/promises';
 import {createRequire} from 'node:module';
@@ -37,7 +38,7 @@ try{
  await page.locator('[data-map-view="national"]').click();await page.locator('#national-city-search').selectOption('atlas-jincheng');assert.equal(await page.locator('#modal-title').innerText(),'金城');await page.locator('[data-action="close"]').click();await page.locator('[data-map-view="selected"]').click();await page.screenshot({path:out+'/northwest-desktop.png'});
  await page.locator('#national-city-search').selectOption('town-40');await page.locator('[data-action="close"]').click();await page.locator('[data-map-view="selected"]').click();await page.screenshot({path:out+'/shu-desktop.png'});
  await page.locator('#national-city-search').selectOption('xuchang');await page.locator('[data-action="close"]').click();await page.locator('[data-map-view="city"]').click();assert.equal(await main.locator('.is-town-focused [data-city-building]').count(),9);
- await page.locator('[data-map-view="national"]').click();assert.equal(await main.evaluate(el=>el.viewBox.baseVal.width),1024);
+ await page.locator('[data-map-view="national"]').click();assert.equal((await main.evaluate(readMapView)).width,1024);
  await main.focus();await page.keyboard.press('ArrowRight');await page.keyboard.press('+');
  assert.equal(await page.evaluate(async ()=>await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2')),before);
  await page.setViewportSize({width:390,height:844});await page.locator('[data-map-view="selected"]').click();assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));await page.screenshot({path:out+'/mobile.png'});

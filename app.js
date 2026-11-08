@@ -509,7 +509,7 @@ function hexBoard(b) {
     const aim=aims.find(u=>u.tacticAim.cells.some(p=>p.x===x&&p.y===y));
     return `<polygon data-tactic-aim="${aim?.id??''}" class="${aim?'hex-tactic-aim aim-side-'+aim.side:''} hex-${ground} ${x<5?'hex-home':x>8?'hex-away':''}" points="${[[0,-.5],[.5,-.25],[.5,.25],[0,.5],[-.5,.25],[-.5,-.25]].map(([dx,dy])=>[cx+dx*100,cy+dy*h].join(',')).join(' ')}"><title>${TERRAIN_NAMES[ground]}</title></polygon>${ground==='land'?'':`<text class="terrain-cell-label" x="${cx}" y="${cy+h*.34}">${TERRAIN_NAMES[ground]}</text>`}`;
   }).join('');
-  return `<svg class="hex-grid" viewBox="0 0 ${w} ${height}" aria-hidden="true">${battleMapArtwork(b)}${cells}</svg>`;
+  return `<svg class="hex-grid" viewBox="0 0 ${w} ${height}" aria-hidden="true">${battleMapArtwork(b,{art:assetCatalog.battlefield})}${cells}</svg>`;
 }
 function battle() {
   const b=state.battle;
@@ -707,7 +707,7 @@ function render() {
   if(scene&&scene!==renderedScene&&!sceneLoading.busy){
    const continueNavigation=ui.navigationContinue===scene;ui.navigationContinue=null;
    ui.paused=true;
-   void sceneLoading.run(state.battle?'正在进入战场':'正在返回大地图',async report=>{
+   void sceneLoading.run(state.battle?'正在进入战场':'载入中',async report=>{
     render();
     let artLayer;
     do{artLayer=battleArt;await artLayer?.whenReady(report);await waitForSceneImages($('#app'),report);}while(artLayer!==battleArt);
@@ -1365,9 +1365,7 @@ async function act(action, el) {
   else if(action==='reserve-entry-clear'){closeModal();ui.councilOpen=false;ui.reserveEntrySelection=true;draftReserveEntry(el.dataset.inspect,null,null);}
   else if(action==='deployment-cancel'){ui.deploymentSelection=null;ui.deploymentDraft=null;ui.reserveEntrySelection=false;updateBattle();}
   else if(action==='deployment-confirm'){
-   const p=ui.deploymentDraft,b=state.battle;if(!p||p.battleId!==b?.id||p.unitId!==ui.deploymentSelection)return;
-   const error=p.kind==='entry'?configureReserveEntry(b,p.unitId,p.x===null?null:{x:p.x,y:p.y}):p.kind==='reserve'?reserveDeploymentUnit(b,p.unitId,p.toId):deployUnit(b,p.unitId,p.x,p.y);
-   if(error)return toast(error,'error');ui.deploymentDraft=null;ui.deploymentSelection=null;ui.reserveEntrySelection=false;syncCouncilDraft();save();updateBattle();
+   commitDeploymentDraft();
   }
   else if(action==='unit-officer'){ui.inspectUnit=el.dataset.inspect||ui.inspectUnit;openModal('unit-officer');}
   else if(action==='tactic-detail'){ui.inspectionReturn=ui.modal;ui.inspectUnit=el.dataset.inspect;ui.inspectSkill=el.dataset.skill;openModal('tactic-detail');}
@@ -1539,17 +1537,25 @@ function placeSelected(cell) {
   if (!ui.deploymentSelection) return toast('请拖动我军部队，或在详情中选择“调整站位”');
   draftBattlePlacement(ui.deploymentSelection,Number(cell.dataset.deployX),Number(cell.dataset.deployY));
 }
-function draftBattlePlacement(id,x,y){
+function commitDeploymentDraft(){
+ const p=ui.deploymentDraft,b=state.battle;if(!p||p.battleId!==b?.id||p.unitId!==ui.deploymentSelection)return false;
+ const error=p.kind==='entry'?configureReserveEntry(b,p.unitId,p.x===null?null:{x:p.x,y:p.y}):p.kind==='reserve'?reserveDeploymentUnit(b,p.unitId,p.toId):deployUnit(b,p.unitId,p.x,p.y);
+ if(error){toast(error,'error');return false;}
+ ui.deploymentDraft=null;ui.deploymentSelection=null;ui.reserveEntrySelection=false;syncCouncilDraft();save();updateBattle();return true;
+}
+function draftBattlePlacement(id,x,y,immediate=false){
  ui.reserveEntrySelection=false;
  ui.deploymentBattleId=state.battle?.id;
  const draft=previewBattlePlacement(state.battle,id,x,y);ui.deploymentDraft=null;ui.deploymentSelection=id;
- if(draft.error)toast(draft.error,'error');else ui.deploymentDraft=draft;updateBattle();
+ if(draft.error){toast(draft.error,'error');updateBattle();return false;}
+ ui.deploymentDraft=draft;if(immediate)return commitDeploymentDraft();updateBattle();return true;
 }
-function draftReservePlacement(id,toId=null){
+function draftReservePlacement(id,toId=null,immediate=false){
  ui.reserveEntrySelection=false;
  ui.deploymentBattleId=state.battle?.id;
  const b=state.battle,error=reserveDeploymentUnit(structuredClone(b),id,toId);ui.deploymentDraft=null;ui.deploymentSelection=id;
- if(error)toast(error,'error');else ui.deploymentDraft={kind:'reserve',battleId:b.id,unitId:id,toId};updateBattle();
+ if(error){toast(error,'error');updateBattle();return false;}
+ ui.deploymentDraft={kind:'reserve',battleId:b.id,unitId:id,toId};if(immediate)return commitDeploymentDraft();updateBattle();return true;
 }
 
 function draftReserveEntry(id,x,y){
@@ -1560,7 +1566,7 @@ function draftReserveEntry(id,x,y){
 // Active targeting takes precedence over the ordinary detail buttons on labels.
 document.addEventListener('click',event=>{
  if(suppressDeploymentTouchClick(event))return;
- const el=event.target,board=el.closest('#battle-board'),marker=el.closest('.battle-unit,[data-action="unit-stats"][data-inspect]');
+ const portrait=prioritizeBattleCaption(event),el=portrait?.querySelector('.map-portrait-row')||event.target,board=el.closest('#battle-board'),marker=el.closest('.battle-unit,[data-action="unit-stats"][data-inspect]');
  if(ui.deploymentSelection&&isBattleCouncil(state.battle)&&el.closest('[data-reserve-bench]')&&!marker){event.preventDefault();event.stopImmediatePropagation();draftReservePlacement(ui.deploymentSelection);return;}
  if(!board&&!marker)return;
  if(ui.areaDraft){
@@ -1581,6 +1587,7 @@ document.addEventListener('click',event=>{
   return;
  }
  if(ui.deploymentSelection&&isBattleCouncil(state.battle)&&marker){const u=state.battle.sides[0].units.find(u=>u.id===marker.dataset.inspect&&u.status==='reserve');if(u){event.preventDefault();event.stopImmediatePropagation();draftReservePlacement(ui.deploymentSelection,u.id);}}
+ if(portrait&&!ui.deploymentSelection){event.preventDefault();event.stopImmediatePropagation();ui.inspectUnit=portrait.dataset.unit;openModal('unit-stats');}
 },true);
 function beginDeploymentDrag(id){
  ui.reserveEntrySelection=false;ui.deploymentSelection=id;
@@ -1591,23 +1598,25 @@ function beginDeploymentDrag(id){
 function deploymentDrop(id,el){
  if(!isBattleCouncil(state.battle)||!el)return false;
  const bench=el.closest('[data-reserve-bench]'),row=el.closest('[data-council-unit]');
- if(bench){if(row?.dataset.councilUnit===id)return false;draftReservePlacement(id,row?.dataset.councilUnit);return true;}
+ if(bench){if(row?.dataset.councilUnit===id)return false;return draftReservePlacement(id,row?.dataset.councilUnit,true);}
  if(!isDeploying(state.battle))return false;
  const cell=el.closest('[data-deploy-x]'),target=el.closest('.battle-unit.side-0,.unit-nameplate.side-0');
  const u=target&&activeUnits(state.battle,0).find(u=>u.id===(target.dataset.unit||target.dataset.inspect));
  if(!cell&&!u||u?.id===id)return false;
- draftBattlePlacement(id,cell?Number(cell.dataset.deployX):u.x,cell?Number(cell.dataset.deployY):u.y);return true;
+ return draftBattlePlacement(id,cell?Number(cell.dataset.deployX):u.x,cell?Number(cell.dataset.deployY):u.y,true);
 }
 
-// HTML drag-and-drop is for mouse input; touch and pen use the same draft handlers.
+// Mouse, touch and pen share validation and commit a legal drop on release.
 let deploymentTouch=null,deploymentTouchClick=null,deploymentTouchButton=null;
 function prioritizeBattleCaption(event){
  const board=$('#battle-board');if(!board)return null;
- const hit=document.elementFromPoint(event.clientX,event.clientY);let unit=null;
- if(hit?.closest('#battle-board'))for(const el of board.querySelectorAll('[data-unit]')){
-  const r=el.querySelector('.unit-map-caption')?.getBoundingClientRect();
-  if(r&&event.clientX>=r.left&&event.clientX<=r.right&&event.clientY>=r.top&&event.clientY<=r.bottom){unit=el;break;}
+ const hit=document.elementFromPoint(event.clientX,event.clientY);let unit=null,distance=Infinity;
+ if(hit?.closest('#battle-board'))for(const candidate of board.querySelectorAll('[data-unit]')){
+  const r=candidate.querySelector('.map-portrait-row')?.getBoundingClientRect();if(!r)continue;
+  const d=Math.hypot(event.clientX-r.left-r.width/2,event.clientY-r.top-r.height/2);
+  if(d<=Math.min(r.width,r.height)/2+2&&d<distance){unit=candidate;distance=d;}
  }
+ unit ||= hit?.closest('.unit-map-caption')?.closest('[data-unit]')||null;
  for(const el of board.querySelectorAll('[data-unit]'))el.classList.toggle('caption-priority',el===unit);
  return unit;
 }
@@ -2274,7 +2283,7 @@ async function calculateCampaign(operation){
   presentDomesticAlerts();
   // Commit a completed day once. Camera movement may finish before its DOM patch.
   if(operation==='begin'||day!==state.campaign.day||result.encounter||result.reinforcement||result.deployment)void save();
-  const refresh=()=>{if(state!==computed.state)return;if($('#app .map-camera-moving')){setTimeout(refresh,100);return;}render();};refresh();
+  const refresh=()=>{if(state!==computed.state)return;if($('#app .map-camera-moving,#app [data-map-camera-moving="true"]')){setTimeout(refresh,100);return;}render();};refresh();
  }catch(error){ui.campaignComputing=false;ui.paused=true;console.error('Campaign calculation:',error);toast('本日推演未完成，已暂停；可重新点击进行','error');campaignProgress();}
 }
 

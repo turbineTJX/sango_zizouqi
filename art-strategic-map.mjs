@@ -1,4 +1,8 @@
-import {prepareMapCameraPreview} from './map-camera-preview.mjs';
+import {prepareMapCameraRenderer,mapWheelRatio} from './map-camera-renderer.mjs';
+import {prepareMapGPU} from './map-gpu-renderer.mjs';
+import {assetCatalog} from './asset-catalog.mjs';
+import {prepareMapSprites} from './map-sprite-cache.mjs';
+import {prepareTerrainTiles} from './map-terrain-tiles.mjs';
 import {prepareMapEffects} from './map-effect-cache.mjs';
 import {forgetMarkup} from './strategic-dom.mjs';
 import {metropolisLabelPosition} from './map-label-layout.mjs';
@@ -7,7 +11,7 @@ import {fogMarkup,intelligenceWorld,cityIntelligence} from './strategic-vision.m
 import {citySoldierLabel} from './city-budget.mjs';
 import {cityStaffBadge} from './domestic-feedback.mjs';
 import {clampMapView,centeredMapView,MIN_MAP_SIZE,mapDetailLevel,MAP_DETAIL_NAMES,metropolitanMemberView,metropolitanOverviewView} from './strategic-map-camera.mjs';
-import {cityBuildingCard,citySceneMarkup,cityCompactMarkup,CITY_DETAIL_THRESHOLD,CITY_INTERIOR_SIZE} from './city-scene.mjs';
+import {cityBuildingCard,citySceneMarkup,cityCompactMarkup,cityLocationModelMarkup,CITY_DETAIL_THRESHOLD,CITY_INTERIOR_SIZE} from './city-scene.mjs';
 import {TOWN_FRAME} from './town-art.mjs';
 import {mapDetailBlend,overviewSymbolBlend} from './map-detail-level.mjs';
 import {armyMapMarkers,battleMapMarkers,ARMY_CARD} from './strategic-army-markers.mjs';
@@ -49,13 +53,15 @@ function prepareTerrain(svg){
   terrainLayers.set(season,{layers:layers.map(({cls,markup})=>({cls,url:'data:image/svg+xml;charset=utf-8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">'+markup+'</svg>')})),provinces:serialize(provinces)});
  }
  const cached=terrainLayers.get(season);
- // Retain vector detail in isolated SVG images. The browser can reuse their
- // rendering without relaying out thousands of decorative paths on zoom.
+ // Vectors are immutable sources for the texture pyramid. Once decoded, the
+ // parent bitmaps stay resident during movement and while the camera rests.
  if(terrain.dataset.isolated!=='true'){
   terrain.innerHTML=cached.layers.map(({cls,url})=>`<g class="${cls}"><image href="${url}" width="1024" height="1024" pointer-events="none"/></g>`).join('')+cached.provinces;
   terrain.dataset.isolated='true';
  }
  const images=[...terrain.querySelectorAll('image')];
+ images.forEach(image=>image.dataset.mapTerrainBase='');
+ const detailTiles=prepareTerrainTiles(terrain,cached.layers);
  // Keep one season of screen-resolution textures in memory. At a wide view
  // they already exceed the display resolution; retain vectors for close detail.
  if(previewSeason!==season){
@@ -73,8 +79,9 @@ function prepareTerrain(svg){
   if(blob&&generation===previewGeneration){layer.preview=URL.createObjectURL(blob);layer.preload=new Image();layer.preload.src=layer.preview;await layer.preload.decode();}
  })().catch(()=>{});
  let moving=false;
- const preview=active=>{moving=active;images.forEach((image,i)=>{const layer=cached.layers[i],url=active&&layer.preview||layer.url;if(image.getAttribute('href')!==url)image.setAttribute('href',url);});};
- Promise.all(cached.layers.map(layer=>layer.previewTask)).then(()=>{if(generation===previewGeneration&&svg.isConnected){terrain.dataset.previewReady=String(cached.layers.every(layer=>layer.preview));if(moving)preview(true);}});
+ const preview=(active,view,scale)=>{moving=active;images.forEach((image,i)=>{const layer=cached.layers[i],url=layer.preview||layer.url;if(image.getAttribute('href')!==url)image.setAttribute('href',url);});if(view)detailTiles.update(view,scale,active);};
+ preview.destroy=()=>detailTiles.destroy();
+ Promise.all(cached.layers.map(layer=>layer.previewTask)).then(()=>{if(generation===previewGeneration&&svg.isConnected){terrain.dataset.previewReady=String(cached.layers.every(layer=>layer.preview));preview(moving);}});
  return preview;
 }
 export function mapAsset(s,ui){const m=art.active&&art.pack.worldMap,url=m?.images?.[ui.mapSeason||'summer'];return url&&!art.failed.has(url)&&s.cities.every(c=>m.cities[c.id])?url:null;}
@@ -117,12 +124,28 @@ export function attachStrategicMap(root,ui,onFailure){
  const listen=(node,event,handler,options={})=>node?.addEventListener(event,handler,{...options,signal:bindings.signal});
  const svg=root.querySelector('.strategy-world-art');if(!svg)return;
  const national=svg.dataset.national==='true';
- const terrainPreview=national?prepareTerrain(svg):null;
- const restoreEffects=national?prepareMapEffects(svg):null;
+ const deferResources=national&&art.catalogPending;
+ if(deferResources)svg.classList.add('map-resource-pending');else svg.classList.remove('map-resource-pending');
+ const gpu=national&&svg.dataset.mapGPUDisabled!=='true'?prepareMapGPU(root,svg,{season:ui.mapSeason||'summer',onFailure:error=>{
+  console.warn('GPU map fallback:',error.message);svg.dataset.mapGPUDisabled='true';
+  // Let the owner restore its route editor and current camera with the fallback.
+  if(onFailure){onFailure();return;}
+  detachStrategicMap(root);const v=ui.strategicMapView;if(v)svg.setAttribute('viewBox',[v.x,v.y,v.width,v.height].join(' '));attachStrategicMap(root,ui);
+ }}):null;
+ if(national&&!gpu&&!deferResources&&svg.dataset.gpuMarkup==='true'){
+  const terrain=svg.querySelector('.national-map-terrain');if(terrain?.querySelector('[data-gpu-terrain]'))terrain.innerHTML=nationalTerrain(ui.mapSeason);
+  for(const place of svg.querySelectorAll('.node-city,.node-metropolitan-site')){const source=place.querySelector('[data-city-model],[data-city-public-model]'),compact=place.querySelector('.map-city-model');if(source&&compact){const model=JSON.parse(source.textContent);compact.outerHTML=source.matches('[data-city-public-model]')?cityLocationModelMarkup(model):cityCompactMarkup(model,{season:ui.mapSeason});}place.querySelector('[data-city-scene]')?.replaceChildren();}
+  delete svg.dataset.gpuMarkup;
+ }
+ if(gpu){svg.classList.add('map-resource-pending');svg.classList.remove('map-camera-moving');}
+ const terrainPreview=gpu?((active,view)=>gpu.apply(view,active)):national&&!deferResources?prepareTerrain(svg):null;
+ const restoreEffects=national&&!gpu&&!deferResources?prepareMapEffects(svg):null;
  let buildingCard=null;
  const closeBuilding=()=>{buildingCard?.remove();buildingCard=null;};
  const [x,y,width,height]=svg.getAttribute('viewBox').split(/\s+/).map(Number);
- let view={x,y,width,height},drag=null,frame=0,animation=null,previewTimer=0,cameraPreview=null,previewClick=null;
+ let view={x,y,width,height},drag=null,frame=0,restoreFrame=0,animation=null,previewTimer=0;
+ const camera=national?prepareMapCameraRenderer(svg):null,sprites=gpu||(national&&!deferResources?prepareMapSprites(svg):null);
+ let screenGlyphs=[],layoutScale=1,focusedCity=null,focusedLabelOffset=0;
  const commandMap=!!svg.closest('.map-command-screen'),workspace=svg.closest('.strategy-map-first');
  const detailLabel=root.querySelector('[data-map-detail-label]');
  const detailButtons=[...root.querySelectorAll('[data-map-view="metropolis"],[data-map-view="settlements"],[data-map-view="city"]')];
@@ -144,6 +167,12 @@ export function attachStrategicMap(root,ui,onFailure){
   place.overviewArtBounds={x:ax,y:ay,w:aw,h:ah};
  }
  const placeByNode=new Map(places.map(place=>[place.node,place]));
+ const registerSprite=(place,node,kind)=>sprites?.register(node,kind+'|'+(ui.mapSeason||'summer'),()=>{
+  place.mapSites=[...place.node.querySelectorAll('[data-map-building]')];place.sites=[...place.node.querySelectorAll('[data-city-building]')];
+  for(const site of place.mapSites){site.setAttribute('tabindex',place.mapInteractive?'0':'-1');site.setAttribute('role',commandMap?'presentation':'button');}
+  for(const site of place.sites){site.setAttribute('tabindex',place.interactive?'0':'-1');site.setAttribute('role',place.interactive?'button':'presentation');}
+ });
+ for(const place of places)if(place.compact)registerSprite(place,place.compact,'compact');
  const priority=node=>Number(node.dataset.mapTarget==='selected')*8+node.classList.contains('selected')*4+node.classList.contains('node-city')*2+(node.dataset.citySize==='large');
  const nodes=[...svg.querySelectorAll('.national-node,.node-metropolitan-site')].sort((a,b)=>priority(b)-priority(a)).map(node=>({node,x:+node.dataset.x,y:+node.dataset.y,selected:node.dataset.mapTarget==='selected'||node.classList.contains('selected'),city:node.classList.contains('node-city'),staff:!!node.querySelector('.map-staff-status'),name:node.querySelector('.national-place-name,.junction-name')?.textContent||'',labels:[...node.querySelectorAll('.map-city-banner,.national-place-name,.map-city-strength,.map-city-grain,.map-staff-status,.junction-name')]}));
  if(commandMap)for(const {node} of nodes){
@@ -151,6 +180,12 @@ export function attachStrategicMap(root,ui,onFailure){
   if(glyph&&!glyph.querySelector('.command-target-hit')){const hit=document.createElementNS('http://www.w3.org/2000/svg','circle');hit.setAttribute('class','command-target-hit');hit.setAttribute('r','20');glyph.prepend(hit);}
  }
  for(const {node} of nodes.filter(p=>p.node.dataset.mapTarget==='selected'))node.parentNode.append(node);
+ const cullSlots=new Map(nodes.map(item=>{const slot=document.createComment('map-place');item.node.before(slot);return [item.node,slot];}));
+ const showNode=(item,show)=>{
+  const slot=cullSlots.get(item.node);
+  if(show){if(item.node.parentNode!==slot.parentNode)slot.after(item.node);if(item.node.style.display)item.node.style.display='';}
+  else if(item.node.parentNode)item.node.remove();
+ };
  const glyphs=[...svg.querySelectorAll('[data-map-glyph]')].filter(node=>!node.closest('[data-metropolis-focus]')).map(node=>({node,place:node.closest('.node-city,.node-metropolitan-site')}));
  const banners=[...svg.querySelectorAll('.map-city-banner')];
  const overviewGlyphs=[...svg.querySelectorAll('[data-map-overview-glyph]')].map(node=>({node,label:node.querySelector('.overview-place-name'),place:placeByNode.get(node.closest('.node-city,.node-metropolitan-site'))}));
@@ -177,38 +212,49 @@ export function attachStrategicMap(root,ui,onFailure){
   ['.map-road',b=>.55+b.settlements*.45]
  ].map(([selector,value])=>({nodes:[...svg.querySelectorAll(selector)],value,last:null})):[];
  const attr=(node,key,value)=>{value=String(value);if(node.getAttribute(key)!==value)node.setAttribute(key,value);};
+ const detailStatus=level=>{
+  if(national&&svg.dataset.mapDetail!==level)svg.dataset.mapDetail=level;
+  const text=MAP_DETAIL_NAMES[level];if(detailLabel&&detailLabel.textContent!==text)detailLabel.textContent=text;
+  for(const button of detailButtons)attr(button,'aria-pressed',({metropolis:'metropolis',settlements:'settlements',city:'interior'})[button.dataset.mapView]===level);
+ };
  const visible=(p,margin)=>p.x>=view.x-margin&&p.x<=view.x+view.width+margin&&p.y>=view.y-margin&&p.y<=view.y+view.height+margin;
  const point=(surface,e)=>new DOMPoint(e.clientX,e.clientY).matrixTransform(surface.getScreenCTM().inverse());
  const apply=(manual=true,animate=false,continuous=false)=>{
   if(frame){cancelAnimationFrame(frame);frame=0;}
-  // The movement texture needs only camera arithmetic. Reading layout here
-  // would flush the whole restored vector scene on the first wheel event.
-  if(continuous&&national&&Math.min(view.width,view.height)>90&&cameraPreview?.ready()){
+  // Camera transforms and screen-sized overlays are independent of entity
+  // resource construction and the slower label collision pass.
+  if(continuous&&national){
    view=clampMapView(view);if(manual)ui.mapCameraManual=true;ui.strategicMapView={...view};
-   animation?.remove();animation=null;cameraPreview(view);
-   svg.classList.add('map-camera-moving');terrainPreview?.(true);return;
+   detailStatus(mapDetailLevel(view));
+   animation?.remove();animation=null;camera.apply(view);
+   const pixelScale=(Math.min(view.width,view.height)>=720?.9:Math.min(1.45,Math.max(1.05,bounds.height/720)))/camera.scale(view);
+   for(const item of screenGlyphs)if(item.node.isConnected&&item.node.style.display!=='none'&&!item.node.closest('.is-marker-hidden'))attr(item.node,'transform',`scale(${pixelScale/layoutScale}) ${item.transform}`);
+   for(const glyph of glyphs)if(glyph.node.isConnected&&glyph.node.style.display!=='none')attr(glyph.node,'transform',`${glyph.place===focusedCity?`translate(0 ${focusedLabelOffset}) `:''}scale(${pixelScale})`);
+   for(const {node,x,y,transform}of geography)if(node.style.display!=='none')attr(node,'transform',`${transform} translate(${x} ${y}) scale(${pixelScale}) translate(${-x} ${-y})`);
+   for(const item of nodes)showNode(item,placeByNode.get(item.node)?.renderable!==false&&visible(item,Math.max(40,100*pixelScale)));
+   sprites?.pause();
+   terrainPreview?.(true,view,camera.scale(view)*(globalThis.devicePixelRatio||1));
+   if(gpu)svg.dataset.mapCameraMoving='true';else svg.classList.add('map-camera-moving');return;
   }
   // Read layout before changing styles, classes, viewBox or city geometry.
   const screenWidth=svg.clientWidth,screenHeight=svg.clientHeight;
   const labelLimit=Math.max(6,Math.min(28,Math.floor(screenWidth*screenHeight/26000)));
   const screenBox=svg.getBoundingClientRect(),occluders=workspace?[...workspace.querySelectorAll('.sovereign-hud,.world-toolbar,.faction-navigation,.world-turn,.world-commands,.map-information,.map-search[open] .national-search,.national-legend[open]>div,.strategy-notice,.national-map-tools,.encounter-callout,.map-workspace-actions,.map-quick-directory')].map(node=>node.getBoundingClientRect()).filter(r=>r.width&&r.height):[];
   const previous=animate?svg.viewBox.animVal:null,from=previous?{x:previous.x,y:previous.y,width:previous.width,height:previous.height}:null;
-  if(!continuous)clearTimeout(previewTimer);
-  svg.classList.toggle('map-camera-moving',continuous);
+  if(!continuous){clearTimeout(previewTimer);cancelAnimationFrame(restoreFrame);restoreFrame=0;}
+  if(gpu)svg.dataset.mapCameraMoving=String(continuous);else svg.classList.toggle('map-camera-moving',continuous);
   const terrainPixels=Math.min(screenWidth/view.width,screenHeight/view.height)*(globalThis.devicePixelRatio||1);
-  terrainPreview?.(continuous||terrainPixels<=2);
+  terrainPreview?.(continuous,view,terrainPixels);
   animation?.remove();animation=null;
   if(national)view=clampMapView(view);else {view.x=clamp(view.x,0,1024-view.width);view.y=clamp(view.y,0,1024-view.height);}
   if(manual)ui.mapCameraManual=true;
   ui.strategicMapView={...view};
-  cameraPreview?.(false);
-  svg.setAttribute('viewBox',`${view.x} ${view.y} ${view.width} ${view.height}`);svg.classList.toggle('map-detail',Math.min(view.width,view.height)<=420);svg.classList.toggle('map-overview',Math.min(view.width,view.height)>=720);
+  if(camera)camera.apply(view);else svg.setAttribute('viewBox',`${view.x} ${view.y} ${view.width} ${view.height}`);svg.classList.toggle('map-detail',Math.min(view.width,view.height)<=420);svg.classList.toggle('map-overview',Math.min(view.width,view.height)>=720);
   const level=mapDetailLevel(view),blend=mapDetailBlend(view),distant=national?overviewSymbolBlend(view):0,overview=Math.min(view.width,view.height)>=720,close=national&&level==='interior';
   svg.classList.toggle('map-distant-symbols',distant>0);svg.dataset.distantBlend=String(distant);
   for(const layer of opacityLayers){const value=layer.value(blend,distant);if(value!==layer.last){for(const node of layer.nodes){node.style.setProperty('opacity',value,'important');node.style.display=value?'':'none';}layer.last=value;}}
-  if(national){if(svg.dataset.mapDetail!==level)svg.dataset.mapDetail=level;for(const key of Object.keys(MAP_DETAIL_NAMES))svg.classList.toggle('map-layer-'+key,key===level);}
-  const detailText=MAP_DETAIL_NAMES[level];if(detailLabel&&detailLabel.textContent!==detailText)detailLabel.textContent=detailText;
-  for(const button of detailButtons)attr(button,'aria-pressed',({metropolis:'metropolis',settlements:'settlements',city:'interior'})[button.dataset.mapView]===level);
+  if(national)for(const key of Object.keys(MAP_DETAIL_NAMES))svg.classList.toggle('map-layer-'+key,key===level);
+  detailStatus(level);
   svg.classList.toggle('map-close',close);svg.classList.toggle('map-interior',close&&Math.min(view.width,view.height)<=90);
   workspace?.classList.toggle('city-view',close);
   if(!close&&buildingCard?.dataset.compact!=='true')closeBuilding();
@@ -216,6 +262,7 @@ export function attachStrategicMap(root,ui,onFailure){
   const sceneFocus=blend.interior>0?nearby.reduce((best,p)=>!best||Math.hypot(p.x-center.x,p.y-center.y)<Math.hypot(best.x-center.x,best.y-center.y)?p:best,null)?.node:null;
   const cityFocus=close?sceneFocus:null;
   const focusLabelOffset=places.find(p=>p.node===cityFocus)?.labelOffset||0;
+  focusedCity=cityFocus;focusedLabelOffset=focusLabelOffset;
   const pixelScale=(overview?.9:Math.min(1.45,Math.max(1.05,screenHeight/720)))/(Math.min(screenWidth/view.width,screenHeight/view.height)||1);
   const focusMetropolis=places.find(p=>p.id===ui.city)?.metropolisId;
   const overviewSites=layoutOverviewSites(places,{view,scale:pixelScale,selectedId:ui.city,limit:labelLimit});
@@ -240,7 +287,7 @@ export function attachStrategicMap(root,ui,onFailure){
     const display=show?'':'none';if(scene.style.display!==display)scene.style.display=display;
     const opacity=String(blend.interior);if(scene.style.opacity!==opacity)scene.style.opacity=opacity;
     let created=false;
-    if(show&&!scene.childElementCount){scene.innerHTML=citySceneMarkup(JSON.parse(source.textContent),{season:ui.mapSeason});art.decorate(scene);place.sites=[...scene.querySelectorAll('[data-city-building]')];created=true;}
+    if(show&&!scene.childElementCount){scene.innerHTML=citySceneMarkup(JSON.parse(source.textContent),{season:ui.mapSeason,gpu:!!gpu});art.decorate(scene);place.sites=[...scene.querySelectorAll('[data-city-building]')];registerSprite(place,scene.querySelector('.city-scene'),'interior');created=true;}
     const interactive=node===cityFocus&&!commandMap;
     if(created||interactive!==place.interactive){for(const site of place.sites){attr(site,'tabindex',interactive?'0':'-1');attr(site,'role',interactive?'button':'presentation');}place.interactive=interactive;}
    }
@@ -257,7 +304,7 @@ export function attachStrategicMap(root,ui,onFailure){
   const labels=[];
   for(const item of nodes){
    const {node,staff,selected,city}=item,show=placeByNode.get(node)?.renderable!==false&&visible(item,Math.max(40,100*pixelScale));
-   const display=show?'':'none';if(node.style.display!==display)node.style.display=display;
+   showNode(item,show);
    if(!show||!blend.settlements)continue;
    const labelWidth=city?(staff?78:54):Math.max(24,[...item.name].length*13),port=node.classList.contains('node-port');
    const x=item.x+(city?-(staff?39:27):port?-labelWidth/2:9)*pixelScale,y=item.y+(node===cityFocus?focusLabelOffset:0)+(city?12:port?9:-9)*pixelScale,w=labelWidth*pixelScale,h=(city?(commandMap?20:staff?55:overview?18:38):18)*pixelScale;
@@ -310,8 +357,10 @@ export function attachStrategicMap(root,ui,onFailure){
    attr(marker.line,'x2',choice.dx);attr(marker.line,'y2',choice.dy+marker.height);
   }
   for(const {node,hidden} of metropolises)attr(node,'tabindex',level==='metropolis'&&!hidden?'0':'-1');
+  layoutScale=pixelScale;screenGlyphs=[...overviewGlyphs.map(i=>i.node),...metropolises.map(i=>i.glyph),...markers.map(i=>i.glyph),...encounters.map(i=>i.glyph),...bandits.map(i=>i.glyph)].filter(Boolean).map(node=>({node,transform:node.getAttribute('transform')||''}));
+  sprites?.update(view,Math.min(screenWidth/view.width,screenHeight/view.height)*(globalThis.devicePixelRatio||1),continuous);
   // SVG animation keeps the saved/base view synchronized with the final camera.
-  if(animate&&!matchMedia('(prefers-reduced-motion: reduce)').matches){
+  if(animate&&!national&&!matchMedia('(prefers-reduced-motion: reduce)').matches){
    animation=document.createElementNS('http://www.w3.org/2000/svg','animate');
    for(const [key,value]of Object.entries({attributeName:'viewBox',from:Object.values(from).join(' '),to:Object.values(view).join(' '),dur:'220ms',begin:'indefinite',calcMode:'spline',keyTimes:'0;1',keySplines:'.2 .7 .3 1','data-camera-animation':''}))animation.setAttribute(key,value);
    svg.append(animation);animation.beginElement();
@@ -321,8 +370,14 @@ export function attachStrategicMap(root,ui,onFailure){
   if(national)view=clampMapView(view);
   ui.mapCameraManual=true;ui.strategicMapView={...view};
   const restore=()=>{if(!svg.isConnected)return;if(drag||frame){previewTimer=setTimeout(restore,180);return;}apply(true,false,false);};
-  clearTimeout(previewTimer);previewTimer=setTimeout(restore,180);
-  if(!frame)frame=requestAnimationFrame(()=>{frame=0;if(svg.isConnected)apply(true,false,true);});
+  clearTimeout(previewTimer);cancelAnimationFrame(restoreFrame);restoreFrame=0;
+  if(!frame)frame=requestAnimationFrame(()=>{
+   frame=0;if(!svg.isConnected)return;apply(true,false,true);
+   // Start the quiet period after the movement frame has been presented.
+   // Otherwise a slow first paint consumes the timer and restores vectors
+   // before the next wheel input, repeating that expensive paint each step.
+   restoreFrame=requestAnimationFrame(()=>{restoreFrame=0;previewTimer=setTimeout(restore,180);});
+  });
  };
  let bounds=svg.getBoundingClientRect();
  const fitTheater=()=>{const aspect=bounds.width/bounds.height,height=Math.min(1024,view.height,1024/aspect);view=centeredMapView({x:view.x+view.width/2,y:view.y+view.height/2},height*aspect,height);};
@@ -350,12 +405,12 @@ export function attachStrategicMap(root,ui,onFailure){
   else {view={...THEATER_VIEW};fitTheater();}ui.mapCameraManual=false;apply(false);
  };
  const nearestPlace=()=>{
-  const sites=[...svg.querySelectorAll('.node-city,.node-metropolitan-site')],cx=view.x+view.width/2,cy=view.y+view.height/2;
+  const sites=places.map(p=>p.node),cx=view.x+view.width/2,cy=view.y+view.height/2;
   return sites.sort((a,b)=>Math.hypot(+a.dataset.x-cx,+a.dataset.y-cy)-Math.hypot(+b.dataset.x-cx,+b.dataset.y-cy))[0];
  };
  const placeId=node=>node?.dataset.city||node?.dataset.commandCity||node?.dataset.junction;
  const selectedPlace=()=>{
-  const site=[...svg.querySelectorAll('.node-city,.node-metropolitan-site')].find(n=>placeId(n)===ui.city);
+  const site=places.find(p=>placeId(p.node)===ui.city)?.node;
   return site&&+site.dataset.x>=view.x&&+site.dataset.x<=view.x+view.width&&+site.dataset.y>=view.y&&+site.dataset.y<=view.y+view.height?site:nearestPlace();
  };
  const expandMetropolis=id=>{
@@ -367,7 +422,7 @@ export function attachStrategicMap(root,ui,onFailure){
  };
  const inspectCity=id=>{
   if(!national||svg.closest('.map-command-screen'))return;
-  const sites=[...svg.querySelectorAll('.node-city,.node-metropolitan-site')];
+  const sites=places.map(p=>p.node);
   const node=sites.find(n=>placeId(n)===id)||nearestPlace();
   if(!node)return;
   const ratio=bounds.width/bounds.height;
@@ -380,17 +435,18 @@ export function attachStrategicMap(root,ui,onFailure){
   else if(key==='settlements'){const metro=metropolisForSelection();if(metro)expandMetropolis(metro.dataset.metropolisFocus);}
   else if(key==='metropolis'){const metro=metropolisForSelection();if(metro){view=metropolitanOverviewView({x:+metro.dataset.x,y:+metro.dataset.y},bounds.width/bounds.height);apply();}}
   else if(key==='territory'){
-   if(svg.dataset.cameraViewBox)apply(true,false,false);
+   if(svg.classList.contains('map-camera-moving')||svg.dataset.mapCameraMoving==='true')apply(true,false,false);
    svg.classList.toggle('hide-territory');ui.mapTerritoryHidden=svg.classList.contains('hide-territory');b.setAttribute('aria-pressed',String(!ui.mapTerritoryHidden));
-   cameraPreview?.destroy();cameraPreview=prepareMapCameraPreview(svg);
+   gpu?.update(view);
   }else if(key==='selected')focus();else {view={...(key==='national'?NATIONAL_VIEW:THEATER_VIEW)};apply();}
  });
  for(const [selector,key] of [['.map-search','mapSearchOpen'],['.national-legend','mapLegendOpen']])listen(root.querySelector(selector),'toggle',e=>{ui[key]=e.target.open;scheduleApply();});
- listen(root.querySelector('#national-city-search'),'change',e=>{const node=svg.querySelector(`[data-city="${e.target.value}"],[data-command-city="${e.target.value}"],[data-junction="${e.target.value}"]`);if(!node)return;ui.mapSearchOpen=false;const search=root.querySelector('.map-search');if(search)search.open=false;view=centeredMapView({x:+node.dataset.x,y:+node.dataset.y},360*bounds.width/bounds.height,360);apply();node.dispatchEvent(new MouseEvent('click',{bubbles:true}));});
+ listen(root.querySelector('#national-city-search'),'change',e=>{const node=nodes.find(p=>[p.node.dataset.city,p.node.dataset.commandCity,p.node.dataset.junction].includes(e.target.value))?.node;if(!node)return;ui.mapSearchOpen=false;const search=root.querySelector('.map-search');if(search)search.open=false;view=centeredMapView({x:+node.dataset.x,y:+node.dataset.y},360*bounds.width/bounds.height,360);apply();node.dispatchEvent(new MouseEvent('click',{bubbles:true}));});
  const inspectMetropolis=e=>{const node=e.target.closest?.('[data-metropolis-focus]');if(!node||svg.dataset.mapDetail!=='metropolis')return;e.preventDefault();e.stopPropagation();closeBuilding();expandMetropolis(node.dataset.metropolisFocus);};
  listen(svg,'click',inspectMetropolis);
  listen(svg,'wheel',e=>{
   e.preventDefault();if(!e.deltaY)return;
+  if(camera){zoom(mapWheelRatio(e.deltaY,e.deltaMode,bounds.height),camera.point(e,view),true);return;}
   const p=point(svg,e),displayed=svg.viewBox.animVal;
   // Several inputs can arrive before painting. Map the cursor onto the
   // pending camera as well, so a moving zoom anchor does not drift.
@@ -412,15 +468,7 @@ export function attachStrategicMap(root,ui,onFailure){
  listen(svg,'keydown',e=>{if(e.key==='Escape'){closeBuilding();return;}if(['Enter',' '].includes(e.key)){inspectMetropolis(e);inspectBuilding(e);}});
  listen(root,'keydown',e=>{if(e.key==='Escape')closeBuilding();});
  listen(svg,'contextmenu',e=>e.preventDefault());
- listen(svg,'pointerdown',e=>{
-  previewClick=null;if(!svg.dataset.cameraViewBox)return;apply(true,false,false);
-  if(e.button===0)previewClick={x:e.clientX,y:e.clientY,target:document.elementFromPoint(e.clientX,e.clientY)};
- },{capture:true});
- listen(svg,'click',e=>{
-  const hit=previewClick;previewClick=null;
-  if(hit&&e.target===svg&&hit.target!==svg&&hit.target?.isConnected&&Math.hypot(e.clientX-hit.x,e.clientY-hit.y)<4){e.stopImmediatePropagation();hit.target.dispatchEvent(new MouseEvent('click',{bubbles:true,cancelable:true,clientX:e.clientX,clientY:e.clientY}));}
- },{capture:true});
- listen(svg,'pointerdown',e=>{if(![0,2].includes(e.button)||(e.button===0&&(previewClick?.target||e.target).closest('[data-road-from],[data-junction],[data-city],[data-command-city],[data-campaign-army],[data-transport-officer],[data-action],[data-metropolis-focus]')))return;closeBuilding();ui.mapObject=null;ui.mapSupplyArmy=null;root.querySelector('.map-object-menu')?.remove();root.querySelector('.army-supply-route')?.remove();forgetMarkup(root);const m=svg.getScreenCTM();drag={x:e.clientX,y:e.clientY,view:{...view},scaleX:m.a,scaleY:m.d};svg.setPointerCapture(e.pointerId);});
+ listen(svg,'pointerdown',e=>{if(![0,2].includes(e.button)||(e.button===0&&e.target.closest('[data-road-from],[data-junction],[data-city],[data-command-city],[data-campaign-army],[data-transport-officer],[data-action],[data-metropolis-focus]')))return;closeBuilding();ui.mapObject=null;ui.mapSupplyArmy=null;root.querySelector('.map-object-menu')?.remove();root.querySelector('.army-supply-route')?.remove();forgetMarkup(root);const m=camera?{a:camera.scale(view),d:camera.scale(view)}:svg.getScreenCTM();drag={x:e.clientX,y:e.clientY,view:{...view},scaleX:m.a,scaleY:m.d};svg.setPointerCapture(e.pointerId);});
  listen(svg,'pointermove',e=>{if(!drag)return;view={...drag.view,x:drag.view.x-(e.clientX-drag.x)/drag.scaleX,y:drag.view.y-(e.clientY-drag.y)/drag.scaleY};scheduleApply();});
  for(const event of ['pointerup','pointercancel','lostpointercapture'])listen(svg,event,()=>{drag=null;});
  const keyboard=e=>{
@@ -432,19 +480,20 @@ export function attachStrategicMap(root,ui,onFailure){
  listen(svg,'keydown',keyboard);
  listen(document,'sango-art-ready',event=>{
   if(event.detail==='officers'){art.decorate(root);return;}
-  cameraPreview?.(false);cameraPreview?.destroy();cameraPreview=null;
+  if(['map-catalog','catalog'].includes(event.detail)&&!gpu&&(deferResources||assetCatalog.mapGPU)&&svg.dataset.mapGPUDisabled!=='true'){attachStrategicMap(root,ui,onFailure);return;}
+  if(gpu&&['map-catalog','catalog'].includes(event.detail))return;
   for(const place of places){
    if(!place.source||!place.compact)continue;
    place.compact.outerHTML=cityCompactMarkup(JSON.parse(place.source.textContent),{season:ui.mapSeason});
    place.compact=place.node.querySelector('.map-city-model');place.scene?.replaceChildren();
+   registerSprite(place,place.compact,'compact');
    place.sites=[];place.interactive=null;place.mapInteractive=null;place.mapSites=[...place.node.querySelectorAll('[data-map-building]')];
   }
-  apply(false);if(national)cameraPreview=prepareMapCameraPreview(svg);
+  apply(false);
  });
  apply(false);
- if(national)cameraPreview=prepareMapCameraPreview(svg);
- const sizeObserver=new ResizeObserver(()=>{if(!svg.isConnected)sizeObserver.disconnect();else {bounds=svg.getBoundingClientRect();if(!national)fitTheater();else if(commandMap)fitCommandViewport();apply(false);}});
+ const sizeObserver=new ResizeObserver(()=>{if(!svg.isConnected){sizeObserver.disconnect();detachStrategicMap(root);}else {bounds=svg.getBoundingClientRect();camera?.resize();if(!national)fitTheater();else if(commandMap)fitCommandViewport();apply(false);}});
  sizeObserver.observe(svg);
- mapControllers.set(root,()=>{bindings.abort();sizeObserver.disconnect();cancelAnimationFrame(frame);clearTimeout(previewTimer);animation?.remove();cameraPreview?.destroy();restoreEffects?.();closeBuilding();});
+ mapControllers.set(root,()=>{bindings.abort();sizeObserver.disconnect();cancelAnimationFrame(frame);cancelAnimationFrame(restoreFrame);clearTimeout(previewTimer);animation?.remove();sprites?.destroy();terrainPreview?.destroy?.();for(const [node,slot]of cullSlots){slot.after(node);slot.remove();}camera?.destroy();restoreEffects?.();closeBuilding();});
  if(matchMedia('(prefers-reduced-motion: reduce)').matches)svg.querySelectorAll('animateTransform').forEach(n=>n.remove());
 }

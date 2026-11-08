@@ -39,10 +39,23 @@ test('turning follows the shortest angle and is independent of redraw frequency 
 });
 test('control, reduced motion, shielding and damage keep their distinct movement boundaries',()=>{
  const state=unitStatusMotion([{key:'root'}],.2),rooted=sampleTroopPose({moving:true,moveProgress:.4,progress:.5,state}),stunned=sampleTroopPose({progress:.5,state:unitStatusMotion([{key:'stun'}],.2)});
- for(const leg of rooted.legs)assert.ok(Math.abs(footPosition(leg,.73+rooted.bodyDrop).z)<1e-9);
- assert.equal(stunned.arms[1].x,0);
- const guard=sampleTroopPose({guardImpact:1}),hit=sampleTroopPose({reaction:.17});assert.equal(guard.headX,0);assert.equal(guard.bodyX,0);assert.ok(guard.arms[0].x<0);assert.ok(hit.bodyX<0&&hit.headX>0);
+ const planted=sampleTroopPose({state});
+ for(let j=0;j<2;j++)assert.ok(Math.abs(footPosition(rooted.legs[j],.73+rooted.bodyDrop).z-footPosition(planted.legs[j],.73+planted.bodyDrop).z)<1e-9);
+ assert.deepEqual(stunned.arms,sampleTroopPose({state:unitStatusMotion([{key:'stun'}],.2)}).arms);
+ const resting=sampleTroopPose(),guard=sampleTroopPose({guardImpact:1}),hit=sampleTroopPose({reaction:.17});assert.equal(guard.headX,resting.headX);assert.equal(guard.bodyX,resting.bodyX);assert.ok(guard.arms[0].x<resting.arms[0].x);assert.ok(hit.bodyX<resting.bodyX&&hit.headX>resting.headX);
  const reduced=time=>sampleTroopPose({time,moving:true,progress:.4,moveProgress:time%1,reaction:1,reduced:true});assert.equal(JSON.stringify(reduced(.2)),JSON.stringify(reduced(.7)));
+});
+test('idle guards bend both knees, plant staggered feet and retain distinct weapon roles',()=>{
+ for(const [type,family]of [['spear','spear'],['halberd','halberd'],['archer','archer'],['crossbow','archer']]){
+  const pose=sampleTroopPose({type,family,reduced:true}),feet=pose.legs.map(leg=>footPosition(leg,.73+pose.bodyDrop));
+  assert.ok(pose.bodyDrop<-.06&&pose.bodyX>.05,type);assert.ok(pose.legs.every(leg=>leg.knee>.35),type);
+  assert.ok(feet[0].z-feet[1].z>.18,type);assert.ok(feet.every(foot=>Math.abs(foot.y)<.001),type);
+  assert.ok(pose.arms.every(arm=>arm.x<-.25),type);
+  assert.equal(JSON.stringify(pose),JSON.stringify(sampleTroopPose({type,family,reduced:true,time:99})));
+ }
+ const spear=sampleTroopPose({family:'spear'}),bow=sampleTroopPose({type:'archer',family:'archer'}),rider=sampleTroopPose({family:'cavalry'});
+ assert.ok(spear.weaponTilt>.8&&bow.weaponTilt===0);assert.ok(Math.abs(bow.bodyY)>Math.abs(spear.bodyY));assert.ok(rider.bodyX>.15);
+ const ranks=Array.from({length:9},(_,index)=>sampleTroopPose({index,time:2}));assert.ok(new Set(ranks.map(p=>p.bodyY)).size>3);
 });
 test('every status produces finite animation without modifying its input',()=>{
  for(const key of Object.keys(STATUS_BODY_CHANNELS)){

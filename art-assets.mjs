@@ -1,6 +1,6 @@
 // Presentation only. This module must never be imported by the simulation.
 import {OFFICER_ART_ASSET_KEYS,OFFICER_ART_SOURCE_KEYS,OFFICER_ART_SOURCE_FALLBACKS,OFFICER_ART_VIEWS,officerArtView,validArtCrop} from './officer-art-scenes.mjs';
-import {assetCatalog,applyAssetCatalog} from './asset-catalog.mjs';
+import {assetCatalog,applyAssetCatalog,publicAssetURL} from './asset-catalog.mjs';
 const builtin={version:1,id:'builtin',label:'默认图形',portraits:{},generatedPortraits:{male:[],female:[]},criticals:{},troops:{},models:{},effects:{},backgrounds:{}};
 const MAX_CACHED_IMAGES=64;
 async function readArtJSON(url){
@@ -45,14 +45,27 @@ export const art={pack:{...builtin},_officers:{},generatedOfficers:new Map(),has
  async init({onChange=()=>{}}={}){
   const generation=this.generation=(this.generation||0)+1;
   this.enabled=true;
+  this.catalogPending=true;
   this.pack={...builtin};this.officers={};this.images.clear();this.imageListeners.clear();this.failed.clear();
   applyAssetCatalog({version:1,id:'none'});
   await Promise.allSettled([
    (async()=>{const raw=await readArtJSON('./local-art/manifest.json');if(raw&&generation===this.generation){const pack=sanitizePack(raw);if(pack.id!=='builtin'){this.pack=pack;onChange('pack');}}})(),
    (async()=>{
-    const catalog=await readArtJSON('./assets/manifest.json');
-    if(!catalog||generation!==this.generation)return;
-    applyAssetCatalog(catalog);onChange('catalog');
+    const catalog=await readArtJSON('./assets/manifest.json').catch(()=>null);
+    if(generation!==this.generation)return;
+    this.catalogPending=false;
+    if(!catalog){onChange('map-catalog');return;}
+    applyAssetCatalog({...catalog,battlefield:{}});onChange('map-catalog');
+    // Decode environment artwork before publishing it so missing/corrupt
+    // optional files retain the complete procedural terrain fallback.
+    const prepared={...catalog,battlefield:{...catalog.battlefield}};
+    if(typeof Image!=='undefined')await Promise.all(Object.entries(prepared.battlefield).map(async([key,url])=>{
+     if(!publicAssetURL(url)){prepared.battlefield[key]='';return;}
+     try{await new Promise((ok,no)=>{const img=new Image(),timeout=setTimeout(()=>no(Error('environment image timeout')),6000);img.onload=()=>{clearTimeout(timeout);img.naturalWidth?ok():no(Error('empty image'));};img.onerror=()=>{clearTimeout(timeout);no(Error('missing image'));};img.src=url;});}
+     catch{prepared.battlefield[key]='';}
+    }));
+    if(generation!==this.generation)return;
+    applyAssetCatalog(prepared);onChange('catalog');
     if(!assetCatalog.officers)return;
     const raw=await readArtJSON(assetCatalog.officers);if(raw&&generation===this.generation){this.officers=sanitizeOfficerArt(raw);onChange('officers');}
    })()

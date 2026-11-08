@@ -968,8 +968,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-02T10:17:15.805Z",
-    "sourceHash": "7ab8325eca09625de582b4f87e6c43cdc375107bf86426c02af0224b538ccb3e"
+    "capturedAt": "2026-11-08T09:55:49.610Z",
+    "sourceHash": "620c0d0f3f4911d01b7dd44a9f645bcc1454c5aa002e6a6257fdddbde0d839bd"
   },
   "council": {
     "title": "军议设置与底部后备席",
@@ -980,8 +980,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-02T10:17:16.651Z",
-    "sourceHash": "7ab8325eca09625de582b4f87e6c43cdc375107bf86426c02af0224b538ccb3e"
+    "capturedAt": "2026-11-08T09:55:50.160Z",
+    "sourceHash": "620c0d0f3f4911d01b7dd44a9f645bcc1454c5aa002e6a6257fdddbde0d839bd"
   },
   "battle-appointments": {
     "title": "按实际军团任命指挥",
@@ -992,8 +992,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-02T10:17:17.154Z",
-    "sourceHash": "7ab8325eca09625de582b4f87e6c43cdc375107bf86426c02af0224b538ccb3e"
+    "capturedAt": "2026-11-08T09:55:50.591Z",
+    "sourceHash": "620c0d0f3f4911d01b7dd44a9f645bcc1454c5aa002e6a6257fdddbde0d839bd"
   },
   "retreat-settings": {
     "title": "单队和批量自动撤离人数",
@@ -1004,8 +1004,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-02T10:17:17.809Z",
-    "sourceHash": "7ab8325eca09625de582b4f87e6c43cdc375107bf86426c02af0224b538ccb3e"
+    "capturedAt": "2026-11-08T09:55:51.127Z",
+    "sourceHash": "620c0d0f3f4911d01b7dd44a9f645bcc1454c5aa002e6a6257fdddbde0d839bd"
   },
   "battle-intent": {
     "title": "开战前意图与重置阵型",
@@ -1016,8 +1016,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-02T10:17:18.370Z",
-    "sourceHash": "7ab8325eca09625de582b4f87e6c43cdc375107bf86426c02af0224b538ccb3e"
+    "capturedAt": "2026-11-08T09:55:51.608Z",
+    "sourceHash": "620c0d0f3f4911d01b7dd44a9f645bcc1454c5aa002e6a6257fdddbde0d839bd"
   },
   "reserve-position": {
     "title": "为真实后备选择入场位置",
@@ -1028,23 +1028,23 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-02T10:17:19.139Z",
-    "sourceHash": "7ab8325eca09625de582b4f87e6c43cdc375107bf86426c02af0224b538ccb3e"
+    "capturedAt": "2026-11-08T09:55:52.270Z",
+    "sourceHash": "620c0d0f3f4911d01b7dd44a9f645bcc1454c5aa002e6a6257fdddbde0d839bd"
   },
   "battle-unit": {
-    "title": "部队简报优先显示兵力、战意、护盾与战法，完整属性按需展开",
+    "title": "部队实际属性与战法",
     "file": "images/player-actions/battle-unit.webp",
-    "group": "officerInspection",
-    "sample": "独立战役部队信息核阅",
+    "group": "battle",
+    "sample": "独立战役八队布阵演示",
     "viewport": {
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-03T16:01:14.444Z",
-    "sourceHash": "9a1ba8973c4f5731502f3a093084baa40fe648318cd067bbf37de0c7bd76209f"
+    "capturedAt": "2026-11-08T09:55:52.780Z",
+    "sourceHash": "620c0d0f3f4911d01b7dd44a9f645bcc1454c5aa002e6a6257fdddbde0d839bd"
   },
   "deployment-preview": {
-    "title": "站位修改先预览再确认",
+    "title": "详情点选站位保留预览确认",
     "file": "images/player-actions/deployment-preview.webp",
     "group": "battle",
     "sample": "独立战役八队布阵演示",
@@ -1052,8 +1052,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-02T10:17:20.395Z",
-    "sourceHash": "7ab8325eca09625de582b4f87e6c43cdc375107bf86426c02af0224b538ccb3e"
+    "capturedAt": "2026-11-08T09:55:53.324Z",
+    "sourceHash": "620c0d0f3f4911d01b7dd44a9f645bcc1454c5aa002e6a6257fdddbde0d839bd"
   },
   "stratagem-list": {
     "title": "可用军略的来源充能与次数",
@@ -1064,8 +1064,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-02T10:17:22.778Z",
-    "sourceHash": "7ab8325eca09625de582b4f87e6c43cdc375107bf86426c02af0224b538ccb3e"
+    "capturedAt": "2026-11-08T09:55:55.743Z",
+    "sourceHash": "620c0d0f3f4911d01b7dd44a9f645bcc1454c5aa002e6a6257fdddbde0d839bd"
   },
   "stratagem-area": {
     "title": "军略范围落点旋转与实际目标",
@@ -1076,8 +1076,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-02T10:17:23.467Z",
-    "sourceHash": "7ab8325eca09625de582b4f87e6c43cdc375107bf86426c02af0224b538ccb3e"
+    "capturedAt": "2026-11-08T09:55:56.262Z",
+    "sourceHash": "620c0d0f3f4911d01b7dd44a9f645bcc1454c5aa002e6a6257fdddbde0d839bd"
   },
   "stratagem-landscape": {
     "title": "横屏范围军略与施放按钮",
@@ -1088,8 +1088,8 @@
       "width": 844,
       "height": 390
     },
-    "capturedAt": "2026-11-02T10:17:24.083Z",
-    "sourceHash": "7ab8325eca09625de582b4f87e6c43cdc375107bf86426c02af0224b538ccb3e"
+    "capturedAt": "2026-11-08T09:55:56.668Z",
+    "sourceHash": "620c0d0f3f4911d01b7dd44a9f645bcc1454c5aa002e6a6257fdddbde0d839bd"
   },
   "stratagem-result": {
     "title": "确认后执行军略并扣除资源",
@@ -1100,8 +1100,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-02T10:17:25.968Z",
-    "sourceHash": "7ab8325eca09625de582b4f87e6c43cdc375107bf86426c02af0224b538ccb3e"
+    "capturedAt": "2026-11-08T09:55:57.783Z",
+    "sourceHash": "620c0d0f3f4911d01b7dd44a9f645bcc1454c5aa002e6a6257fdddbde0d839bd"
   },
   "reinforcement": {
     "title": "援军已抵达进入军议",
@@ -1112,8 +1112,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-02T10:17:27.992Z",
-    "sourceHash": "7ab8325eca09625de582b4f87e6c43cdc375107bf86426c02af0224b538ccb3e"
+    "capturedAt": "2026-11-08T09:55:59.500Z",
+    "sourceHash": "620c0d0f3f4911d01b7dd44a9f645bcc1454c5aa002e6a6257fdddbde0d839bd"
   },
   "reinforcement-roles": {
     "title": "援军与原军各自的合法指挥人选",
@@ -1124,8 +1124,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-02T10:17:28.489Z",
-    "sourceHash": "7ab8325eca09625de582b4f87e6c43cdc375107bf86426c02af0224b538ccb3e"
+    "capturedAt": "2026-11-08T09:55:59.920Z",
+    "sourceHash": "620c0d0f3f4911d01b7dd44a9f645bcc1454c5aa002e6a6257fdddbde0d839bd"
   },
   "captive": {
     "title": "己方被俘武将与赎金",
@@ -1916,8 +1916,8 @@
       "width": 1440,
       "height": 900
     },
-    "capturedAt": "2026-11-01T07:31:47.276Z",
-    "sourceHash": "066f3b28f97930b90dfab6cef2a96a4168f96e2c12a6d455d79f522ee6ca7a17"
+    "capturedAt": "2026-11-08T08:46:26.295Z",
+    "sourceHash": "7a0dab29c49856aa2297ab6ed1cc0bf7ad1738febeab8144e869ddc6ecea4dc5"
   },
   "troop-officer-landscape": {
     "title": "横屏比较主将能力适性任职与事务",
@@ -2734,5 +2734,17 @@
     },
     "capturedAt": "2026-11-08T07:50:02.354Z",
     "sourceHash": "ee7b3f990bd013d3ebe42241fdca42c7d8117ff83864591f9d8b7a4e87163067"
+  },
+  "deployment-drop": {
+    "title": "拖动松手立即换位，羁绊栏保持显示",
+    "file": "images/player-actions/deployment-drop.webp",
+    "group": "battle",
+    "sample": "独立战役八队布阵演示",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-11-08T09:55:53.913Z",
+    "sourceHash": "620c0d0f3f4911d01b7dd44a9f645bcc1454c5aa002e6a6257fdddbde0d839bd"
   }
 }

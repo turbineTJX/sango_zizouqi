@@ -1,3 +1,4 @@
+import {readMapView} from './map-camera-ui-helpers.mjs';
 import {spawn} from 'node:child_process';
 import {mkdir,writeFile} from 'node:fs/promises';
 import {createRequire} from 'node:module';
@@ -66,7 +67,7 @@ try{
  await select();await menu.getByRole('button',{name:'城市情报',exact:true}).click();await page.locator('.modal').waitFor();assert.match(await page.locator('#modal-title').innerText(),/许昌/);
  await select('chenliu');await compact();assert.match(await menu.locator('h3').innerText(),/陈留/);await menu.getByRole('button',{name:'城市情报',exact:true}).click();assert.match(await page.locator('#modal-title').innerText(),/陈留/);await close();
  await select();await page.keyboard.press('Escape');await page.locator('.national-world [data-city="xuchang"] .map-city-banner').dblclick();assert.equal(await page.locator('.national-world').getAttribute('data-map-detail'),'interior');await page.keyboard.press('Escape');
- const world=page.locator('.national-world');await world.focus();await page.keyboard.press('Home');for(let i=0;i<8&&await world.evaluate(el=>Math.min(el.viewBox.baseVal.width,el.viewBox.baseVal.height)>420);i++)await page.keyboard.press('+');
+ const world=page.locator('.national-world');await world.focus();await page.keyboard.press('Home');for(let i=0;i<8&&await world.evaluate(readMapView).then(v=>Math.min(v.width,v.height)>420);i++)await page.keyboard.press('+');
  await page.locator('.national-world [data-city="xuchang"] [data-map-glyph]').click();await compact();
  await select('chenliu');assert.match(await menu.locator('h3').innerText(),/陈留/);assert.equal(await menu.count(),1);
  await page.keyboard.press('Escape');assert.equal(await menu.count(),0);

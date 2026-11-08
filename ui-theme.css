@@ -268,7 +268,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .replay-unit-name { fill:var(--ui-text); font:600 var(--ui-text-title) var(--ui-font-body); }
 @media(max-height:500px) and (min-width:600px) { .replay-unit-name { font-size:var(--ui-text-page); } }
 .replay-unit-track { fill:var(--ui-panel-recessed); }
-.replay-unit-health { fill:var(--replay-faction); }
+.replay-unit-health { fill:var(--ui-health); }
 progress { accent-color:var(--ui-accent); background:var(--ui-panel-recessed); border:1px solid var(--ui-line-soft); border-radius:var(--ui-radius); }
 progress::-webkit-progress-bar { background:var(--ui-panel-recessed); }
 progress::-webkit-progress-value { background:var(--ui-accent); }

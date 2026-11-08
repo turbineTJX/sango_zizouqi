@@ -42,9 +42,10 @@ export class BattleLabels{
   const board=this.board.getBoundingClientRect();if(!board.width||!board.height)return;
   const entries=[...this.board.querySelectorAll('[data-unit]')].map(el=>{
    const caption=el.querySelector('.unit-map-caption');if(!caption)return null;
-   const rect=el.getBoundingClientRect(),y=rect.top-board.top+rect.height/2,rise=this.modelRises?.get(el.dataset.unit);return {id:el.dataset.unit,el,caption,rect,x:rect.left-board.left+rect.width/2,y,headY:rise==null?rect.top-board.top:y-rise,width:caption.offsetWidth,height:caption.offsetHeight};
+   const rect=el.getBoundingClientRect(),y=rect.top-board.top+rect.height/2,rise=this.modelRises?.get(el.dataset.unit);return {id:el.dataset.unit,el,caption,rect,x:rect.left-board.left+rect.width/2,y,headY:rise==null?rect.top-board.top:y-rise,width:caption.offsetWidth,height:caption.offsetHeight,portraitWidth:caption.querySelector('.map-portrait-row')?.offsetWidth||0};
   }).filter(Boolean);
-  const next=placeBattleCaptions(entries,board.width,board.height,this.positions);this.positions.clear();for(const [id,p]of next)this.positions.set(id,p);
+  const header=this.board.closest('.arena-page')?.querySelector('#battle-header')?.getBoundingClientRect();
+  const next=placeBattleCaptions(entries,board.width,board.height,this.positions,{top:header?header.bottom-board.top+3:2});this.positions.clear();for(const [id,p]of next)this.positions.set(id,p);
   for(const e of entries){const p=this.positions.get(e.id);e.caption.style.left=(p.x-(e.rect.left-board.left))+'px';e.caption.style.top=(p.y-(e.rect.top-board.top))+'px';e.caption.style.transform='none';}
  }
  destroy(){this.resize.disconnect();this.unitResize.disconnect();this.watched.clear();cancelAnimationFrame(this.motionFrame);this.root.removeEventListener('transitionend',this.moved);this.root.removeEventListener('pointerover',this.enter);this.root.removeEventListener('focusin',this.enter);this.root.removeEventListener('pointerleave',this.leave);this.root.removeEventListener('focusout',this.leave);}

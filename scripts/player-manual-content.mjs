@@ -72,14 +72,14 @@ const mapping=`
 自动编制守城|defense defense-auto
 放弃无兵守城|defense defense-confirm defense-result
 任命参战指挥|battle-appointments reinforcement-roles
-排列出阵顺序|battlefield council|在底部后备席拖动顺序 → 松手预览 → 确认|后备席常驻，队伍较多时横向滚动；待援部队单独标明。
-调整首发站位|battle-unit deployment-preview|桌面或手机直接拖动我军图形、头像或名牌至合法格或另一支我军 → 松手预览 → 确认|轻点查看详情；取消、无效落点或手势中断保留原位置与存档。详情中的“调整站位”点选入口仍可使用。
+排列出阵顺序|battlefield council|在底部后备席拖动顺序 → 松手立即生效|后备席常驻，队伍较多时横向滚动；待援部队单独标明。
+调整首发站位|battle-unit deployment-drop|桌面或手机直接拖动我军图形、头像至合法格或另一支我军 → 松手立即换位|拖动过程中羁绊栏保持显示。轻点查看详情；取消手势、无效落点或手势中断保留原位置与存档。详情中的“调整站位”点选入口仍保留预览确认。
 设置后备入场位置|battlefield reserve-position|底部后备席 → 点部队查看详情 → 入场位置 → 点合法位置 → 预览确认|详情“自动入场”可清除指定位置，待援部队抵达后才能设置。
 设置战斗意图|battle-intent
 设置自动撤离人数|retreat-settings|军议 → 撤离设置 → 填单队人数，或勾选多队 → 兵力下限 → 应用|留空关闭自动撤离。
 设置撤离目的地|retreat-node
 重置阵型|battle-intent
-开始战斗|battlefield council|完成任命与部署 → 用勾号确认或叉号取消站位预览 → 开战
+开始战斗|battlefield council|完成任命与部署 → 开战|拖动换位已在松手时生效；使用详情点选站位时须先确认或取消该预览。
 查看战场与部队|battlefield battle-unit battle-buffs battle-buffs-landscape battle-support-kit battle-support-power battle-support-power-landscape|点部队或头像 → 战况简报 → 状态 → 按需展开属性影响、完整属性或战法说明|只列个人实际获得的战法，武技、谋略、营务均有大小战法，详情显示当前对应威力。状态直接显示名称、效果、来源与剩余回合或次数。返回战场、关闭或 Esc 保持暂停；普通战斗中点“继续战斗”才恢复。羁绊浮层可收起、切换敌我。
 暂停与变速|battlefield stratagem-result|点击播放或暂停图标 → 点击速度按钮切换倍速|主动暂停、查看部队详情时所有战场同步暂停；继续后同步推进。确认切换视图并加载完成会自动继续，玩家同时只指挥一场。
 施放全军型军略|stratagem-army stratagem-army-result|军略（暂停） → 查看充能与次数 → 点击可用军略 → 自动继续战斗|成功后短暂标记作用对象。

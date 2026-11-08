@@ -1,3 +1,4 @@
+import {mapResourcesReady} from './map-camera-ui-helpers.mjs';
 import assert from 'node:assert/strict';
 import {spawn} from 'node:child_process';
 import {mkdir,writeFile} from 'node:fs/promises';
@@ -15,7 +16,7 @@ try{
  browser=await chromium.launch({channel:'msedge',headless:true});const page=await browser.newPage({viewport:{width:1440,height:1000},serviceWorkers:'block'}),errors=[];
  page.on('pageerror',error=>errors.push(error.message));
  await page.addInitScript(raw=>{localStorage.setItem('sango-sovereign-v2',raw);localStorage.setItem('sango-page-guides-v1',JSON.stringify({version:1,enabled:false,seen:[]}));},raw);
- await page.goto(`http://127.0.0.1:${port}/#strategy`);await page.waitForFunction(()=>document.querySelector('.national-world')?.dataset.cameraPreviewReady==='true');
+ await page.goto(`http://127.0.0.1:${port}/#strategy`);await page.waitForFunction(mapResourcesReady);
  await page.evaluate(async()=>{
   const {patchMarkup}=await import('/strategic-dom.mjs'),root=document.createElement('div');
   const markup=model=>`<div class="node-city" data-city="fixture"><script data-city-model type="application/json">${JSON.stringify(model)}</script><svg data-city-scene></svg></div><input value=""><input type="checkbox"><textarea>draft</textarea><select><option value="a" selected>A</option><option value="b">B</option></select>`;
@@ -29,9 +30,9 @@ try{
   patchMarkup(header,heading('first'));header.querySelector('header').insertAdjacentHTML('afterbegin','<button data-guide-action="open">指引</button>');
   patchMarkup(header,heading('second'));if(header.querySelectorAll('[data-action="close"]').length!==1||header.querySelector('[data-action="close"]').textContent!=='×')throw Error('runtime sibling replaced the logical close control');
  });
- await page.evaluate(()=>{globalThis.identity={svg:document.querySelector('.national-world'),terrain:document.querySelector('.ancient-atlas-terrain'),preview:document.querySelector('[data-camera-preview]')};});
+ await page.evaluate(()=>{globalThis.identity={svg:document.querySelector('.national-world'),terrain:document.querySelector('.ancient-atlas-terrain'),scene:document.querySelector('[data-map-camera-scene]')};});
  for(let i=0;i<3;i++){await page.locator('[data-action="journal"]').first().click();await page.locator('.modal-header [data-action="close"]').click();}
- assert.ok(await page.evaluate(()=>identity.svg===document.querySelector('.national-world')&&identity.terrain===document.querySelector('.ancient-atlas-terrain')&&identity.preview===document.querySelector('[data-camera-preview]')),'read-only close preserves the live map and its decoded texture');
+ assert.ok(await page.evaluate(()=>identity.svg===document.querySelector('.national-world')&&identity.terrain===document.querySelector('.ancient-atlas-terrain')&&identity.scene===document.querySelector('[data-map-camera-scene]')),'read-only close preserves the live map and its decoded texture');
  await page.locator('[data-action="faction-directory"][data-kind="officer"]').click();
  const query=page.locator('#faction-directory-query');await query.fill('曹');
  await page.waitForFunction(()=>{const text=document.querySelector('.modal-body tbody')?.textContent;return text?.includes('曹操')&&!text.includes('夏侯惇');});
@@ -47,8 +48,8 @@ try{
  await page.locator('.modal-header [data-action="close"]').click();await page.locator('[data-action="scout-open"]').click();
  await page.locator('.map-command-screen header [data-action="close"]').click();assert.equal(await page.locator('.national-world .ancient-atlas-terrain').count(),1,'return from a command page restores real terrain in one render');
  // Measure background save validation after the newly restored map has finished
- // preparing its unrelated movement texture.
- await page.waitForFunction(()=>document.querySelector('.national-world')?.dataset.cameraPreviewReady==='true');
+ // preparing its unrelated terrain and entity resources.
+ await page.waitForFunction(mapResourcesReady);
  const archives=await page.evaluate(async raw=>{
   const {ArchiveReader}=await import('/archive-reader.mjs'),{openSaveStorage}=await import('/save-storage.mjs'),{writeArchive,listArchives,readArchive}=await import('/save-archives.mjs'),{validateGameSave}=await import('/game-save-validation.mjs'),{serializeCampaign}=await import('/strategic-campaign.mjs');
   const reader=new ArchiveReader(),options={inspect:(...args)=>reader.inspect(...args)},store=await openSaveStorage({database:'sango-ui-performance-archives'});

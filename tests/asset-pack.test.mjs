@@ -46,6 +46,19 @@ test('asset mount config uses the code root and permits a separate art checkout'
  assert.equal(resolveAssetRoot(code,{SANGO_ASSET_ROOT:'../replacement'}),join(dir,'replacement'));
  assert.throws(()=>assetFile('./assets/../../secret',join(dir,'art')),/leaves/);
 });
+test('optional battlefield textures survive renamed-file bundling and clear with a code-only pack',async t=>{
+ const {root,dir,catalog}=await fixture(t),previous=structuredClone(assetCatalog);
+ const art={ground:'./assets/terrain-revision-2.webp',tree:'./assets/tree-revision-7.png'};
+ catalog.battlefield=art;
+ await writeFile(join(root,'manifest.json'),JSON.stringify(catalog));
+ for(const url of Object.values(art))await writeFile(assetFile(url,root),'runtime texture');
+ const out=join(dir,'battlefield-bundle'),pack=await bundleAssetPack(out,root);
+ assert.equal(pack.files.size,5);assert.deepEqual((await validateAssetPack(out)).catalog.battlefield,art);
+ try{
+  applyAssetCatalog(catalog);assert.deepEqual(assetCatalog.battlefield,art);
+  applyAssetCatalog({version:1,id:'empty'});assert.deepEqual(assetCatalog.battlefield,{ground:'',tree:''});
+ }finally{applyAssetCatalog(previous);}
+});
 test('the real HTTP asset route reads an external pack and observes updates without a server restart',async t=>{
  const {root}=await fixture(t),server=createServer(async(req,res)=>{if(!await serveAssets(new URL(req.url,'http://localhost').pathname,res,root)){res.writeHead(404);res.end();}});
  await new Promise(ok=>server.listen(0,'127.0.0.1',ok));t.after(()=>new Promise(ok=>server.close(ok)));

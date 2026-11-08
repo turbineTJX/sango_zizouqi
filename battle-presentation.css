@@ -1,7 +1,7 @@
 /* Target identities expand only while aiming or briefly after a real cast. */
 .arena-page .battle-unit.stratagem-affected .unit-map-caption,
 .arena-page .battle-unit.stratagem-affected:not(.has-unit-art) .unit-map-caption{
- width:64px;height:32px;min-height:32px;grid-template-columns:12px 38px;grid-template-rows:3px 3px 14px;gap:3px;padding:3px;
+ width:calc(var(--battle-caption-portrait) + var(--battle-caption-bar) + 5px);height:calc(var(--battle-caption-portrait) + 18px);min-height:calc(var(--battle-caption-portrait) + 18px);grid-template-columns:var(--battle-caption-portrait) var(--battle-caption-bar);grid-template-rows:calc((var(--battle-caption-portrait) - 4px)/2) calc((var(--battle-caption-portrait) - 4px)/2) 14px;gap:4px 5px;padding:0;
 }
 .arena-page .battle-unit.stratagem-affected .unit-map-caption>b{display:block;grid-column:1 / -1;grid-row:3;line-height:14px;text-align:center;overflow:visible}
 .arena-page .battle-unit.stratagem-affected .unit-map-caption::after{content:'';position:absolute;right:-5px;top:-5px;width:8px;height:8px;transform:rotate(45deg)}
@@ -330,38 +330,41 @@ body.battle-view{overflow:hidden}
 .deployment-bench .reserve-waiting-label{position:absolute;bottom:4px;right:5px;font:9px/12px var(--sans);color:#ecd9a2}
 .arena-page .deployment-bench .reserve-new-arrival .council-unit{border-color:#e0c780}
 .deployment-bench .reserve-empty-slot{flex:1 0 44px;min-width:44px;height:44px;border:1px dashed #8aa88b66;border-radius:3px;background:#aacb9710}
-/* Tiny identities travel with their troops; bonds use compact symbols. */
+/* Faces remain legible on the board, including short landscape screens. */
+.arena-page .battle-unit{--battle-caption-portrait:44px;--battle-caption-bar:44px}
 .arena-page .battle-board #battle-units .battle-unit{pointer-events:none}
 #battle-units .battle-unit.caption-priority{z-index:40}
-.arena-page .unit-hit-target{position:absolute;inset:15% 20%;pointer-events:auto}
+.arena-page .unit-hit-target{position:absolute;inset:8% 10%;pointer-events:auto}
 .arena-page .battle-bonds .bond-panel h4,.arena-page .battle-bonds .bond-heading,.arena-page .battle-bonds .bond-tier{display:none}
 .arena-page .battle-bonds .bond-list,.arena-page.is-deploying .battle-bonds .bond-list{display:grid;grid-template-columns:44px;align-content:start;justify-content:center;gap:4px;padding:0}
 .arena-page .battle-bonds .bond-row{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:44px;padding:3px}
 .arena-page .battle-bonds .bond-icon{width:20px;height:20px}
 .arena-page .battle-bonds .bond-points{display:block;font:10px/12px var(--sans);color:inherit;font-variant-numeric:tabular-nums}
-.arena-page .battle-unit .unit-map-caption,.arena-page .battle-unit:not(.has-unit-art) .unit-map-caption{width:41px;height:14px;min-height:14px;grid-template-columns:12px 26px;grid-template-rows:3px 3px;gap:3px;align-content:center;padding:0;border:0;border-radius:0;background:none;filter:drop-shadow(0 1px 1px #0008)}
+.arena-page .battle-unit .unit-map-caption,.arena-page .battle-unit:not(.has-unit-art) .unit-map-caption{width:calc(var(--battle-caption-portrait) + var(--battle-caption-bar) + 5px);height:var(--battle-caption-portrait);min-height:var(--battle-caption-portrait);grid-template-columns:var(--battle-caption-portrait) var(--battle-caption-bar);grid-template-rows:calc((var(--battle-caption-portrait) - 4px)/2) calc((var(--battle-caption-portrait) - 4px)/2);gap:4px 5px;align-content:center;padding:0;border:0;border-radius:0;background:none;filter:drop-shadow(0 1px 1px #0008);pointer-events:none}
+.arena-page .unit-map-caption :is(.map-portrait-row,.map-health-bar,.map-intent-pips,.map-statuses,b){pointer-events:auto}
 .arena-page .battle-unit.side-1 .unit-map-caption{background:none;border:0}
-.arena-page .unit-map-caption .map-portrait-row{display:block;grid-column:1;grid-row:1 / 3;width:12px;height:14px;align-self:center}
-.arena-page .unit-map-caption .map-portrait-ring{display:block;padding:0;border:0;background:none;box-shadow:none;border-radius:1px}
-.arena-page .unit-map-caption .portrait.small{display:block;width:12px;height:14px;min-width:0;margin:0;border:0;border-radius:1px}
-.arena-page .unit-map-caption .portrait>span{font-size:10px;line-height:14px}
+.arena-page .unit-map-caption .map-portrait-row{position:relative;display:block;grid-column:1;grid-row:1 / 3;width:var(--battle-caption-portrait);height:var(--battle-caption-portrait);align-self:center}
+.arena-page .unit-map-caption .map-portrait-row::after{content:'';position:absolute;inset:-2px;border-radius:50%;pointer-events:auto}
+.arena-page .unit-map-caption .map-portrait-ring{display:block;box-sizing:border-box;width:100%;height:100%;padding:1px;border:1px solid var(--ui-accent);background:#17252a;box-shadow:none;border-radius:50%;overflow:hidden}
+.arena-page .unit-map-caption .portrait.small{display:block;width:calc(var(--battle-caption-portrait) - 4px);height:calc(var(--battle-caption-portrait) - 4px);min-width:0;margin:0;border:0;border-radius:50%}
+.arena-page .unit-map-caption .portrait>span{font-size:20px;line-height:calc(var(--battle-caption-portrait) - 4px)}
 .arena-page .unit-map-caption .map-troop-type,.arena-page .unit-map-caption .portrait>i{display:none}
 .arena-page .unit-map-caption>b,.arena-page .unit-map-caption .map-troops{display:none}
-.arena-page .unit-map-caption .map-health-bar,.arena-page .unit-map-caption .map-intent-pips{display:block;grid-column:2;width:26px;height:3px;min-height:3px;margin:0;padding:0;border:0;background:#101a18b3;box-shadow:0 0 0 1px #0a181859;overflow:hidden}
+.arena-page .unit-map-caption .map-health-bar,.arena-page .unit-map-caption .map-intent-pips{display:block;grid-column:2;width:var(--battle-caption-bar);height:4px;min-height:4px;margin:0;padding:0;border:0;background:#101a18b3;box-shadow:0 0 0 1px #0a181859;overflow:hidden}
+.arena-page .unit-map-caption .map-health-bar{height:5px;align-self:end}
 .arena-page .unit-map-caption .map-health-bar{grid-row:1;background:linear-gradient(to right,#c9b27b 0 var(--troop-recoverable,100%),#13201d var(--troop-recoverable,100%) 100%)}
-.arena-page .unit-map-caption .map-intent-pips{grid-row:2;background:#3c637380}
+.arena-page .unit-map-caption .map-intent-pips{grid-row:2;background:#3c637380;align-self:start}
 .arena-page .unit-map-caption .map-health-bar>i,.arena-page .unit-map-caption .map-intent-pips>i{display:block;height:100%}
-.arena-page .unit-map-caption .map-health-bar>i{width:var(--troop-health);background:#a6cd7c}
-.arena-page .side-1 .unit-map-caption .map-health-bar>i{background:#df987f}
+.arena-page .unit-map-caption .map-health-bar>i{width:var(--troop-health);background:var(--ui-health)}
 .arena-page .unit-map-caption .map-intent-pips>i{background:#8ebed7}
 .arena-page .deployment-bench .reserve-card{width:44px;min-width:44px}
 .arena-page .deployment-bench .council-unit{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:3px;padding:3px}
-.arena-page .deployment-bench .portrait.small{width:18px;height:22px}
+.arena-page .deployment-bench .portrait.small{width:28px;height:28px}
 .arena-page .deployment-bench .unit-label-copy{display:grid;grid-template-rows:2px 2px;gap:3px;flex:none;width:30px}
 .arena-page .deployment-bench .unit-label-copy>b,.arena-page .deployment-bench .unit-label-copy>span,.arena-page .deployment-bench .reserve-order{display:none}
 .arena-page .deployment-bench .unit-label-copy .label-health,.arena-page .deployment-bench .unit-label-copy .label-intent{display:block;width:30px;height:2px;margin:0;background:#101a18b3}
 .arena-page .deployment-bench .unit-label-copy .label-health{background:linear-gradient(to right,#c9b27b 0 var(--troop-recoverable,100%),#13201d var(--troop-recoverable,100%) 100%)}
-.arena-page .deployment-bench .unit-label-copy .label-health em{background:#a6cd7c}
+.arena-page .deployment-bench .unit-label-copy .label-health em{background:var(--ui-health)}
 .arena-page .deployment-bench .unit-label-copy .label-intent{background:#3c637380}
 .arena-page .deployment-bench .unit-label-copy .label-intent em{background:#8ebed7}
 .deployment-bench .reserve-waiting-label{top:2px;bottom:auto;right:1px;font:8px/10px var(--sans)}
@@ -376,10 +379,7 @@ body.battle-view{overflow:hidden}
  .arena-page.is-deploying .roster-side>header{height:16px}
  .arena-page.is-deploying #deployment-guide{bottom:54px;max-height:calc(100% - 96px)}
  .arena-page.is-deploying #deployment-preview{bottom:54px}
- .arena-page .battle-unit .unit-map-caption,.arena-page .battle-unit:not(.has-unit-art) .unit-map-caption{width:36px;height:12px;min-height:12px;grid-template-columns:10px 23px;grid-template-rows:3px 3px;gap:2px 3px}
- .arena-page .unit-map-caption .map-portrait-row,.arena-page .unit-map-caption .portrait.small{width:10px;height:12px}
- .arena-page .unit-map-caption .portrait>span{font-size:9px;line-height:12px}
- .arena-page .unit-map-caption .map-health-bar,.arena-page .unit-map-caption .map-intent-pips{width:23px}
+ .arena-page .battle-unit{--battle-caption-portrait:40px;--battle-caption-bar:32px}
 }
 
 /* The map owns the viewport; bond controls float over it like a small drawer. */
@@ -402,7 +402,7 @@ body.battle-view{overflow:hidden}
 .arena-page #battle-unit-labels .roster-side{display:flex;flex:1;min-height:0;height:auto;width:44px;grid-template-columns:none;grid-template-rows:none;gap:0}
 .arena-page #battle-unit-labels .battle-bonds{display:flex;flex:1;min-height:0}
 .arena-page #battle-unit-labels .bond-list{gap:3px}
-.arena-page.deployment-selecting #battle-unit-labels{opacity:0;pointer-events:none}
+.arena-page.deployment-selecting #battle-unit-labels{pointer-events:none}
 .arena-page.deployment-selecting #battle-header{opacity:.2}
 /* Inspection is a short battlefield brief; expanded material scrolls inside it. */
 #overlay-root .battle-inspection:has(.battle-unit-inspection){padding:var(--ui-space-2)}
@@ -439,8 +439,7 @@ body.battle-view{overflow:hidden}
 .battle-unit-inspection .battle-unit-brief{margin:0;padding:0}
 .battle-brief-health>div{display:flex;align-items:baseline;justify-content:space-between;gap:var(--ui-space-2)}
 .battle-inspection-health{display:block;height:5px;margin-top:var(--ui-space-1);overflow:hidden;background:linear-gradient(to right,#c9b27b 0 var(--troop-recoverable,100%),#13201d var(--troop-recoverable,100%) 100%)}
-.battle-inspection-health>i{display:block;width:var(--troop-health);height:100%;background:#a6cd7c}
-.battle-unit-brief[data-side="1"] .battle-inspection-health>i{background:#df987f}
+.battle-inspection-health>i{display:block;width:var(--troop-health);height:100%;background:var(--ui-health)}
 .battle-brief-meters{display:grid;grid-template-columns:1fr 1fr;gap:var(--ui-space-3);margin:var(--ui-space-2) 0 0}
 .battle-brief-meters>div{display:flex;align-items:baseline;justify-content:space-between;gap:var(--ui-space-1)}
 .battle-brief-meters dd{margin:0}

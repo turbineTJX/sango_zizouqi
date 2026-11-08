@@ -190,7 +190,14 @@ export function validateStrategyDesigns(t){
  const network=t.roadNetwork;
  if(fields(network,['trailCost','bypasses','nodeNames','nodePositions','geography','crossings','historical'],'roadNetwork')){
   const geo=network.geography,edgeKey=e=>[...e].sort().join(':');
-  if(fields(geo,['remove','add','terrain'],'roadNetwork.geography')){
+  if(fields(geo,['remove','add','terrain','paths'],'roadNetwork.geography')){
+   check(Array.isArray(geo.paths),'roadNetwork.geography.paths','岸路须为具名道路的折点数组');
+   const paths=new Set();for(const path of geo.paths||[]){
+    if(!fields(path,['source','points','reason'],'roadNetwork.geography.paths'))continue;
+    const valid=Array.isArray(path.source)&&path.source.length===2&&path.source[0]!==path.source[1]&&path.source.every(id=>t.cities.some(c=>c.id===id)),key=valid?edgeKey(path.source):'';
+    check(valid&&t.roads.some(e=>edgeKey(e)===key)&&!paths.has(key),'roadNetwork.geography.paths','岸路必须引用唯一的真实道路');paths.add(key);
+    check(Array.isArray(path.points)&&path.points.length>0&&path.points.every(p=>Array.isArray(p)&&p.length===2&&p.every(x=>num(x,0,1515)))&&typeof path.reason==='string'&&path.reason.length>0,'roadNetwork.geography.paths','岸路须有有限的底图折点和绕行依据');
+   }
    for(const kind of ['remove','add']){
     check(Array.isArray(geo[kind]),'roadNetwork.geography.'+kind,'地理连接须为道路数组');
     const seen=new Set();

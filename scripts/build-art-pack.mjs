@@ -9,6 +9,7 @@ import {sanitizeOfficerArt} from '../art-assets.mjs';
 
 export async function buildArtArchive(destination,root=ASSET_ROOT){
  const pack=await validateAssetPack(root),entries={},files=[];
+ if(pack.catalog.mapGPU){const {buildMapAssets}=await import('./build-map-assets.mjs');await buildMapAssets({root,check:true});}
  entries['manifest.json']=Buffer.from(JSON.stringify(pack.catalog));
  const officers=pack.officers?{version:1,id:'original-officers',officers:sanitizeOfficerArt(pack.officers)}:null;
  if(officers)for(const [id,scenes] of Object.entries(officers.officers))for(const [scene,entry] of Object.entries(scenes))entry.sha256=pack.officers.officers[id][scene].sha256;

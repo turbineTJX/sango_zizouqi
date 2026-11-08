@@ -41,6 +41,12 @@ test('mobile flags remain associated with actual soldier centers after resizing 
  const placed=placeBattleCaptions(entries,474,236,stale);
  for(const e of entries){const p=placed.get(e.id);assert.ok(Math.hypot(p.x+p.width/2-e.x,p.y+p.height/2-e.y)<33,'cannot drift two or three mobile rows');}
 });
+test('large portraits keep their full face below the header and inside the viewport',()=>{
+ const entries=[{id:'upper',x:120,y:55,headY:12,width:77,height:40},{id:'edge',x:680,y:310,headY:285,width:77,height:40}];
+ const placed=placeBattleCaptions(entries,700,344,new Map(),{top:42});
+ for(const p of placed.values())assert.ok(p.y>=42&&p.y+p.height<=342&&p.x>=2&&p.x+p.width<=698);
+ assert.deepEqual(placed,placeBattleCaptions(entries,700,344,placed,{top:42}));
+});
 test('hovered intentions use observable events and movement, and never name a hidden enemy',()=>{
  const own={id:'a',side:0,status:'active',name:'我将',action:'接近敌将'},foe={id:'b',side:1,status:'active',name:'敌将',statuses:{}};
  const b={tick:3,sides:[{units:[own]},{units:[foe]}],effects:[]},before=JSON.stringify(b);

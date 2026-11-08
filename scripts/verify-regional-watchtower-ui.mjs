@@ -1,3 +1,4 @@
+import {readMapView} from './map-camera-ui-helpers.mjs';
 import {spawn} from 'node:child_process';
 import {mkdirSync,writeFileSync} from 'node:fs';
 import {createRequire} from 'node:module';
@@ -21,7 +22,7 @@ try{
  await page.goto(`http://127.0.0.1:${port}/#strategy`);
  const load=async raw=>{await importSaveFixture(page,raw);await page.reload();await page.locator('.national-world').waitFor();for(let i=0;i<4&&await page.locator('.modal-header [data-action="close"]').isVisible();i++)await page.locator('.modal-header [data-action="close"]').click();};
  const tower=()=>page.locator(`[data-region-watchtower="${c.id}"]`);
- const focus=async()=>{const main=page.locator('.national-world');await main.focus();for(let i=0;i<16;i++){const height=await main.evaluate(n=>n.viewBox.baseVal.height);if(height<=160)break;await page.keyboard.press('+');}await panMapTo(page,position);};
+ const focus=async()=>{const main=page.locator('.national-world');await main.focus();for(let i=0;i<16;i++){const height=(await main.evaluate(readMapView)).height;if(height<=160)break;await page.keyboard.press('+');}await panMapTo(page,position);};
  await load(construction);assert.equal(await tower().count(),1);assert.match(await tower().getAttribute('class'),/is-building/);
  assert.equal(await tower().getAttribute('transform'),`translate(${position.x} ${position.y})`);await focus();await page.screenshot({path:out+'/construction.png'});
  await load(complete);await focus();assert.doesNotMatch(await tower().getAttribute('class'),/is-building/);assert.match(await tower().getAttribute('aria-label'),/视野半径 32/);

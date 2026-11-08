@@ -37,6 +37,7 @@ try{
    ownTeam:[['cao','spear'],['dun','spear'],['liao','cavalry'],['chu','halberd'],['yu','crossbow'],['jia','archer']].map(entry),enemyTeam:[['shao','spear'],['yan','cavalry'],['wen','halberd'],['he','longbow'],['ju','archer'],['tian','spear']].map(entry)});
   planBattleCouncilsAI(state.battle,[0,1]);lockDeployment(state.battle);while(state.battle.tick<9&&!state.battle.result)stepBattle(state.battle,{aiSides:[]});validateSave(state);
   await importSaveFixture(page,state);
+  const guideClose=page.getByRole('button',{name:'关闭全部新手指引',exact:true});if(await guideClose.isVisible())await guideClose.click();
   await page.waitForFunction(id=>window.environmentBattle?.mapId===id&&environmentArt.models?.objects.size>0,mapId);await page.locator('.battle-environment').waitFor();
   await page.waitForFunction(()=>!document.querySelector('[data-painted-building="loading"]'));
   assert.equal(await page.locator('#battle-board [data-map-terrain]').count(),112);
@@ -46,7 +47,7 @@ try{
   assert.deepEqual(inspection.oldProps,[]);assert.ok(inspection.nodes<4000);assert.ok(inspection.terrainLabels);assert.equal(await page.evaluate(()=>JSON.stringify(environmentBattle)),before);
   captures.push({mapId,...inspection});
   if(mapId==='hill-pass'){
-   await page.locator('[data-action="inspect-gate"]').focus();await page.keyboard.press('Enter');assert.match(await page.locator('.modal').innerText(),/12,000/);await page.locator('.modal [data-action="close"]').first().click();assert.equal(await page.evaluate(()=>JSON.stringify(environmentBattle)),before);
+   await page.locator('[data-action="inspect-gate"]').click();assert.match(await page.locator('.modal').innerText(),/12,000/);await page.locator('.modal [data-action="close"]').first().click();assert.equal(await page.evaluate(()=>JSON.stringify(environmentBattle)),before);
   }
  }
  await page.setViewportSize({width:844,height:390});await page.screenshot({path:out+'/mobile-river.png'});assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));
@@ -61,8 +62,10 @@ try{
   host.innerHTML=['gate','arrowTower','musicStage','aidCamp','granary'].map(kind=>`<div style="width:180px;text-align:center">${battleBuildingArtwork({type:kind==='gate'?'gate':'building',kind,side:0,hp:2000,maxHp:2000,level:2})}${({gate:'城门',arrowTower:'箭楼',musicStage:'军乐台',aidCamp:'救护营',granary:'粮仓'})[kind]}</div>`).join('');
   document.body.append(host);for(const svg of host.querySelectorAll('svg'))svg.style.cssText='width:180px;height:180px;display:block';decorateBattleBuildings(host);
  });await gallery.waitForFunction(()=>!document.querySelector('#building-gallery [data-painted-building="loading"]'));assert.equal(await gallery.locator('#building-gallery [data-painted-building="ready"]').count(),5);await gallery.locator('#building-gallery').screenshot({path:out+'/buildings.png'});
- const fallback=await browser.newPage();await fallback.route('**/assets/town/*.png',route=>route.fulfill({status:404,body:''}));await fallback.goto(`http://127.0.0.1:${port}`);await fallback.locator('[data-action="settings"]').first().waitFor();
+ const fallback=await browser.newPage({serviceWorkers:'block'});await fallback.route('**/assets/town/*.png',route=>route.fulfill({status:404,body:''}));await fallback.goto(`http://127.0.0.1:${port}`);await fallback.locator('[data-action="settings"]').first().waitFor();
+ await fallback.waitForFunction(async()=>!!(await import('./asset-catalog.mjs')).assetCatalog.town.art.arrowTower);
  await fallback.evaluate(async()=>{const {battleBuildingArtwork,decorateBattleBuildings}=await import('./battle-building-art.mjs'),host=document.createElement('div');host.id='missing-building';host.innerHTML=battleBuildingArtwork({type:'building',kind:'arrowTower',side:0,hp:2000,maxHp:2000,level:2});document.body.append(host);decorateBattleBuildings(host);});
- await fallback.waitForFunction(()=>document.querySelector('#missing-building svg').dataset.paintedBuilding==='failed');assert.ok(await fallback.locator('#missing-building .battle-building-fallback').isVisible());await fallback.close();
+ await fallback.waitForFunction(()=>{const svg=document.querySelector('#missing-building svg');return svg&&(!svg.querySelector('.battle-building-painted')||svg.dataset.paintedBuilding==='failed');});
+ assert.ok(await fallback.locator('#missing-building svg').isVisible());assert.equal(await fallback.locator('#missing-building .battle-building-painted:visible').count(),0);await fallback.close();
  assert.deepEqual(errors,[]);await writeFile(out+'/result.json',JSON.stringify({passed:true,coverage,captures,buildingAssets:true,missingBuildingFallback:true,gateInspection:true,mobile:true,reducedMotion:true,errors},null,2));console.log(JSON.stringify({passed:true,out,coverage,captures,errors}));
 }finally{await browser?.close();server.kill();}

@@ -3,7 +3,7 @@
   "workflows": 112,
   "chapters": 14,
   "screenshots": 215,
-  "referenceHash": "bd81dede2b174a40af563a2b8039da1174c73b9c7a92ccb57f09b620aa5d3656",
+  "referenceHash": "db417cdd296aac63af0e44d2f38573c0e1b56ad10cea93f5b9e96c6a5c1d952f",
   "items": [
     {
       "id": "action-85",
@@ -722,7 +722,7 @@
       "name": "调整首发站位",
       "screenshots": [
         "battle-unit",
-        "deployment-preview"
+        "deployment-drop"
       ]
     },
     {

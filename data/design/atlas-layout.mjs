@@ -1,12 +1,15 @@
 import {ATLAS_CITY_POINTS,atlasPosition} from './ancient-atlas.mjs';
 import {ATLAS_ADDITIONS,ATLAS_REPLACED_ROADS,atlasCitySize} from './atlas-cities.mjs';
 import {ROAD_NETWORK_DESIGN} from './road-network.mjs';
+import {HISTORICAL_GEOGRAPHY_DESIGN} from './historical-geography.mjs';
 const edgeKey=(a,b)=>[a,b].sort().join(':');
 export function applyAtlasLayout(sourceCities,sourceRoads){
  const additions=new Map(ATLAS_ADDITIONS.map((c,index)=>[c.id,{id:c.id,sourceId:c.sourceId??1000+index,name:c.name,...atlasPosition(c.point),kind:c.kind,province:c.province,subtitle:c.province+' · '+({city:'州郡城池',gate:'险要关隘',port:'水陆港口'}[c.kind]),owner:'neutral'}]));
  const cities=sourceCities.map(c=>{const point=ATLAS_CITY_POINTS[c.id];if(!point)throw Error('古地图缺少据点坐标：'+c.id);return {...c,...(additions.get(c.id)||{}),...atlasPosition(point)};});
  for(const c of additions.values())if(!cities.some(n=>n.id===c.id))cities.push(c);
- for(const c of cities)if(c.kind==='city'){
+ for(const c of cities){
+  const attrs=HISTORICAL_GEOGRAPHY_DESIGN.places[c.id];if(attrs){Object.assign(c,attrs);c.subtitle=c.subtitle?.replace(/^[^·]+/,c.province+' ');}
+  if(c.kind!=='city')continue;
   c.citySize=atlasCitySize(c.id);
   c.subtitle=c.province+' · '+(c.citySize==='large'?'大城':'小城');
  }

@@ -19,11 +19,12 @@ export function editRouteWaypoint(draft,from,target,index,id,build){
 }
 export function attachMapRouteEditor(root,s,{from,target,route,waypoints=[],candidates,edit,onError}){
  const svg=root.querySelector('.strategy-world-art');if(!svg||!route?.length)return;
+ const surface=svg.querySelector('[data-map-camera-scene]')||svg;
  const bindings=new AbortController();
  const ns='http://www.w3.org/2000/svg',create=(tag,attrs,parent)=>{const n=document.createElementNS(ns,tag);for(const [k,v]of Object.entries(attrs))n.setAttribute(k,v);parent.append(n);return n;};
- const inverse=svg.getScreenCTM().inverse(),locations=new Map([...svg.querySelectorAll('[data-command-city]')].map(el=>{const m=inverse.multiply(el.getScreenCTM());return [el.dataset.commandCity,{x:m.e,y:m.f}];}));
+ const inverse=surface.getScreenCTM().inverse(),locations=new Map([...svg.querySelectorAll('[data-command-city]')].map(el=>{const m=inverse.multiply(el.getScreenCTM());return [el.dataset.commandCity,{x:m.e,y:m.f}];}));
  const position=id=>locations.get(id)||mapNode(s,id);
- const points=[from,...route],layer=create('g',{class:'map-route-editor'},svg);
+ const points=[from,...route],layer=create('g',{class:'map-route-editor'},surface);
  const line=create('polyline',{class:'route-draft-line',points:points.map(id=>{const p=position(id);return `${p.x},${p.y}`;}).join(' ')},layer);
  const origin=new Map();
  const add=(index,p,label,pinned=false)=>{
@@ -37,14 +38,14 @@ export function attachMapRouteEditor(root,s,{from,target,route,waypoints=[],cand
  }
  const sizeHandles=()=>{
   if(!svg.isConnected){resize.disconnect();changes.disconnect();bindings.abort();return;}
-  const m=svg.getScreenCTM(),unit=Math.hypot(m.a,m.b)||1;
+  const m=surface.getScreenCTM(),unit=Math.hypot(m.a,m.b)||1;
   for(const h of origin.keys())for(const [cls,r]of [['touch',18],['hit',8],['dot',3]])h.querySelector('.route-handle-'+cls).setAttribute('r',r/unit);
  };
- const resize=new ResizeObserver(sizeHandles),changes=new MutationObserver(sizeHandles);resize.observe(svg);changes.observe(svg,{attributes:true,attributeFilter:['viewBox']});sizeHandles();
+ const resize=new ResizeObserver(sizeHandles),changes=new MutationObserver(sizeHandles);resize.observe(svg);changes.observe(svg,{attributes:true,attributeFilter:['viewBox']});if(surface!==svg)changes.observe(surface,{attributes:true,attributeFilter:['transform']});sizeHandles();
  let drag=null,suppressClick=false;
  const restore=h=>{const p=origin.get(h);h.setAttribute('transform',`translate(${p.x} ${p.y})`);h.classList.remove('dragging','snapped');};
  const nearest=e=>{
-  const matrix=svg.getScreenCTM();let best=null,distance=40;
+  const matrix=surface.getScreenCTM();let best=null,distance=40;
   for(const id of new Set([from,target,...candidates])){const p=position(id);if(!p)continue;const screen=new DOMPoint(p.x,p.y).matrixTransform(matrix),d=Math.hypot(screen.x-e.clientX,screen.y-e.clientY);if(d<distance){distance=d;best=id;}}
   return best;
  };
@@ -52,7 +53,7 @@ export function attachMapRouteEditor(root,s,{from,target,route,waypoints=[],cand
   const h=e.target.closest('[data-route-handle]');if(!h||e.button!==0)return;e.preventDefault();e.stopPropagation();
   drag={handle:h,index:Number(h.dataset.routeHandle),pointerId:e.pointerId,start:{x:e.clientX,y:e.clientY}};h.classList.add('dragging');h.setPointerCapture(e.pointerId);
  });
- layer.addEventListener('pointermove',e=>{if(!drag)return;e.preventDefault();const p=svg.createSVGPoint();p.x=e.clientX;p.y=e.clientY;const id=nearest(e),at=id?position(id):p.matrixTransform(svg.getScreenCTM().inverse());drag.handle.setAttribute('transform',`translate(${at.x} ${at.y})`);drag.handle.classList.toggle('snapped',!!id);});
+ layer.addEventListener('pointermove',e=>{if(!drag)return;e.preventDefault();const p=svg.createSVGPoint();p.x=e.clientX;p.y=e.clientY;const id=nearest(e),at=id?position(id):p.matrixTransform(surface.getScreenCTM().inverse());drag.handle.setAttribute('transform',`translate(${at.x} ${at.y})`);drag.handle.classList.toggle('snapped',!!id);});
  layer.addEventListener('pointerup',e=>{
   if(!drag)return;e.preventDefault();e.stopPropagation();const d=drag;drag=null;restore(d.handle);
   if(Math.hypot(e.clientX-d.start.x,e.clientY-d.start.y)<4)return;
@@ -73,5 +74,5 @@ export function attachMapRouteEditor(root,s,{from,target,route,waypoints=[],cand
   const h=e.target.closest('[data-route-handle]');if(!h)return;
   if(e.key==='Delete'||e.key==='Backspace'){e.preventDefault();e.stopPropagation();edit(Number(h.dataset.routeHandle),from);}
  });
- return {line};
+ return {line,destroy(){resize.disconnect();changes.disconnect();bindings.abort();layer.remove();}};
 }

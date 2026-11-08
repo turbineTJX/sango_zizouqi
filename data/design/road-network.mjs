@@ -43,6 +43,7 @@ export const ROAD_NETWORK_DESIGN = {
   // The atlas rebuild applies these edits after city additions, so inherited
   // city links cannot silently reopen a mountain pass or river crossing.
   geography: {
+    paths:[{source:['atlas-hefei','town-61'],points:[[1110,761],[1118,791],[1146,792]],reason:'合肥陆路沿巢湖西南岸接濡须，不横穿湖面'}],
     remove: [
       ['luoyang','xuchang'], ['jinyang','town-43'], ['luoyang','town-65'], ['town-1','town-2'],
       ['town-18','town-48'], ['town-21','town-37'],
@@ -52,7 +53,7 @@ export const ROAD_NETWORK_DESIGN = {
       ['town-28','atlas-wuchang'], ['atlas-wuchang','town-74'], ['atlas-wuchang','town-78'],
       ['town-39','town-41'], ['town-40','town-41'], ['atlas-longbian','town-42'],
       ['atlas-fuling','town-39'], ['atlas-fuling','town-36'],
-      ['town-11','runan'], ['town-30','town-80'],
+      ['town-11','runan'], ['town-31','town-80'],
       // 黄河两岸：经高唐、临济、顿丘、白马、官渡等真实港口转接。
       ['town-5','town-8'], ['town-5','town-12'], ['ye','town-12'], ['ye','chenliu'],
       ['atlas-linshi','town-5'], ['atlas-leling','atlas-linshi'],
@@ -88,7 +89,7 @@ export const ROAD_NETWORK_DESIGN = {
       ['atlas-wuchang','town-27'], ['atlas-xunyang','atlas-wuchang'], ['atlas-baling','atlas-wuchang'],
       ['town-39','atlas-jiangzhou-port'], ['atlas-jiangzhou-port','atlas-nanjin-port'],
       ['atlas-nanjin-port','town-41'], ['atlas-nanjin-port','atlas-fuling'],
-      ['town-80','town-31'],
+      ['town-30','town-80'],
       ['atlas-wuchang','town-75'],
     ],
     // Explicit terrain is shared by real marching, previews, ships, supply,

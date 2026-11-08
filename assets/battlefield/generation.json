@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "date": "2026-11-08",
+  "method": "Built-in image_gen imagegen",
+  "purpose": "Realistic battlefield ground and tree imagery, with original masters retained.",
+  "assets": [
+    {
+      "id": "ground",
+      "master": "assets/battlefield/masters/grass-v1.png",
+      "runtime": "assets/battlefield/grass-v1.webp",
+      "generationId": "exec-71050f5f-14a2-4c72-ace7-93df17955c1d",
+      "transparent": false,
+      "prompt": "Use case: photorealistic-natural. Asset type: seamless ground albedo texture for a historically grounded Three Kingdoms tactical battlefield game. Generate ONE landscape image, 1536x1024 or similar 3:2. Entire image is a uniform-scale aerial close view of natural worn short meadow grass, dull olive and straw green, exposed dry brown earth blending irregularly between grass, subtle trampling and fine individual grass blades. Restrained saturation, authentic rough uneven organic texture, realistic outdoor photography / premium realistic strategy game ground texture, diffuse overcast daylight with extremely subtle upper-left illumination. Texture covers entire frame with consistent detail scale and no horizon, no perspective vanishing point, no skyline. Larger quiet mottled earth patches, irregular grass density, visually calm enough under small game soldiers. Seamless or visually tileable edges. NO trees, bushes, rocks, paths, roads, trenches, structures, soldiers, footprints, grid, text, numbers, borders, vignette, baked strong shadows, smoke, fire, UI, illustration, cartoon, balls, decorative sprigs or repeating obvious motifs.",
+      "masterSha256": "b4929cf72275deff043e1b89cdf9931bd71a943da310abc7345e779762fc9804",
+      "masterBytes": 4371759,
+      "runtimeSha256": "79fbc4c3da6c4738e015d1435f7a218873f497377ebf8a743c4ad4fb211becba",
+      "runtimeBytes": 700938,
+      "width": 1536,
+      "height": 1024,
+      "hasAlpha": false
+    },
+    {
+      "id": "tree",
+      "master": "assets/battlefield/masters/elm-v1.png",
+      "runtime": "assets/battlefield/elm-v1.webp",
+      "generationId": "exec-3ab925c6-62ee-434d-8f72-93054a4bcfd6",
+      "transparent": true,
+      "prompt": "Use case: photorealistic-natural. Asset type: isolated realistic tree sprite for a Three Kingdoms historical strategy battlefield. ONE mature irregular Chinese deciduous elm tree with dark olive and muted sage foliage, a little dry straw green, thousands of tiny distinct natural leaves, sparse visible branching and a short rough trunk. Orthographic aerial three-quarter view, looking downward at roughly 50 degrees above the ground. Broad asymmetrical canopy, realistic organic silhouette with airy gaps and uneven leaf clusters, subtle fine twigs, tree trunk and exposed roots end at a single natural ground contact point. Mature tree about 6m high. Restrained realistic strategy game asset, physically believable fine leaf texture, diffuse upper-left daylight, muted contrast, no glossy highlights. Single entire tree centered with 12% clear padding on all sides, all branches and trunk entirely in frame. GENUINELY TRANSPARENT BACKGROUND, clean alpha, no ground plane, no cast shadow, no backdrop, no sky, no frame, no letters, no watermark, no scenery or other trees. NOT cartoon, NOT vector, NOT round lollipop clusters, NOT plastic, NOT symmetrical, NOT stylized low polygon.",
+      "masterSha256": "b59720b95b125779f3060e873b1b326db785c65d788dd0d6d4e48f8d3c2cfb6e",
+      "masterBytes": 2425861,
+      "runtimeSha256": "7cef8c25856972e02af83b1c62ae185300dc62bd80f780a13246d41790d44ba5",
+      "runtimeBytes": 130230,
+      "width": 512,
+      "height": 465,
+      "hasAlpha": true
+    }
+  ],
+  "integration": "Images are resolved by stable catalogue IDs. Missing or corrupt imagery keeps the procedural environment. Ground is sampled with mirrored edges to preserve fine scale without visible joins. Authored terrain cells, combat, RNG and saves are unaffected."
+}

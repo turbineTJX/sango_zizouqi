@@ -43,7 +43,7 @@ try{
  for(let i=0;i<60;i++){
   await page.evaluate(t=>animationGallery.render(t),i*.06);
   if([17,23,30].includes(i))await page.locator('#animation-gallery').screenshot({path:out+`/pose-${i}.png`});
-  const raw=await sharp(await page.locator('#animation-gallery').screenshot()).resize({width:1100}).ensureAlpha().raw().toBuffer({resolveWithObject:true});frames.push(raw.data);info=raw.info;
+  const raw=await sharp(await page.locator('#animation-gallery').screenshot()).resize({width:800}).ensureAlpha().raw().toBuffer({resolveWithObject:true});frames.push(raw.data);info=raw.info;
  }
  await sharp(Buffer.concat(frames),{raw:{width:info.width,height:info.height*frames.length,channels:4,pageHeight:info.height}}).gif({loop:0,delay:frames.map(()=>60),colours:160,effort:3}).toFile(out+'/troop-actions.gif');
  await page.evaluate(()=>animationGallery.render(1.35));const frozen=await page.locator('#animation-gallery').screenshot();await page.evaluate(()=>animationGallery.render(1.35));assert.deepEqual(await page.locator('#animation-gallery').screenshot(),frozen);

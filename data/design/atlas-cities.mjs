@@ -41,8 +41,8 @@ export const ATLAS_POINT_REVISIONS = {
  'town-1':[1340,133], 'town-2':[1105,272], 'town-4':[1080,369],
  'town-5':[1079,422], 'town-8':[1221,510], 'town-9':[1190,587],
  'town-10':[1095,577], 'town-26':[1089,816], 'town-27':[1067,925],
- 'town-28':[992,847], 'town-29':[894,732], 'town-33':[878,946],
- 'town-34':[941,1078], 'town-35':[887,1120], 'town-42':[400,1226],
+ 'town-28':[982.375,839.844], 'town-29':[894,732], 'town-33':[878,946],
+ 'town-34':[941,1078], 'town-35':[887,1120], 'town-39':[618.42,929.771], 'town-42':[409.449,1213.355],
 };
 // Every addition has an explicit region, point, scenario owners and neighbors.
 // Neutral border towns stay neutral; no officers or garrisons are fabricated.
@@ -56,7 +56,7 @@ export const ATLAS_CITY_ADDITIONS = [
  {id:'atlas-suifang',name:'绥方',point:[709,402],province:'并州',neighbors:['atlas-lishi','town-20'],owners:['neutral','yuan']},
  {id:'atlas-pingcheng',name:'平城',point:[907,258],province:'并州',neighbors:['atlas-yanmen','atlas-jundu'],owners:['yuan','yuan']},
  {id:'atlas-zhongshan',name:'中山',point:[997,350],province:'冀州',neighbors:['town-3','town-4','atlas-jingxing'],owners:['yuan','yuan']},
- {id:'atlas-pingyang',name:'平阳',point:[837,519],province:'并州',neighbors:['jinyang','town-65','atlas-lishi'],owners:['yuan','cao']},
+ {id:'atlas-pingyang',name:'平阳',point:[838.541,507.113],province:'并州',neighbors:['jinyang','town-65','atlas-lishi'],owners:['yuan','cao']},
  {id:'atlas-linshi',name:'临淄',label:'广固',regionalSubstitute:true,point:[1172,446],province:'青州',neighbors:['town-8','town-5','atlas-donglai'],owners:['cao','yuan']},
  {id:'atlas-pengcheng',name:'彭城',point:[1130,600],province:'徐州',neighbors:['town-10','town-9','atlas-qiao','atlas-zhongli'],owners:['cao','sunce']},
  {id:'atlas-qiao',name:'谯',label:'谯城',point:[1062,633],province:'豫州',neighbors:['xuchang','runan','town-11','town-10'],owners:['cao','cao']},
@@ -70,7 +70,7 @@ export const ATLAS_CITY_ADDITIONS = [
  {id:'atlas-wuchang',name:'武昌',point:[1042,853],province:'荆北',neighbors:['town-28','town-27','town-78','town-74'],owners:['force-7','sunce']},
  {id:'atlas-zhongli',name:'钟离',point:[1165,686],province:'徐州',neighbors:['town-11','atlas-hefei','atlas-guangling'],owners:['cao','sunce']},
  {id:'atlas-hefei',name:'合肥',point:[1121,748],province:'扬州',neighbors:['town-11','town-26','town-61'],owners:['cao','cao']},
- {id:'atlas-guangling',name:'广陵',point:[1258,699],province:'徐州',neighbors:['town-60','town-23','atlas-jingkou'],owners:['cao','sunce']},
+ {id:'atlas-guangling',name:'广陵',point:[1253.663,685.592],province:'徐州',neighbors:['town-60','town-23','atlas-jingkou'],owners:['cao','sunce']},
  {id:'atlas-jingkou',name:'京口',point:[1260,716],province:'扬州',neighbors:['town-23','town-24','town-71'],owners:['sunce','sunce']},
  {id:'atlas-houguan',name:'侯官',label:'晋安',point:[1311,1088],province:'扬州',neighbors:['town-25','atlas-linchuan'],owners:['neutral','sunce']},
  {id:'atlas-xunyang',name:'寻阳',point:[1100,892],province:'扬州',neighbors:['town-27','atlas-wuchang','town-74','atlas-yuzhang'],owners:['sunce','sunce']},
@@ -88,12 +88,12 @@ export const ATLAS_GATE_ADDITIONS = [
 ];
 // River crossing nodes have no city economy or invented opening garrison.
 export const ATLAS_PORT_ADDITIONS = [
- {id:'atlas-jincheng-port',sourceId:1100,name:'金城港',point:[455,535],province:'凉州',neighbors:[]},
- {id:'atlas-huai-port',sourceId:1101,name:'淮水港',point:[1140,710],province:'扬州',neighbors:[]},
- {id:'atlas-jincheng-east-port',sourceId:1102,name:'金城东港',point:[489,535],province:'凉州',neighbors:[]},
- {id:'atlas-huainan-port',sourceId:1103,name:'淮南港',point:[1145,736],province:'扬州',neighbors:[]},
- {id:'atlas-jiangzhou-port',sourceId:1104,name:'江州港',point:[606,942],province:'益州',neighbors:[]},
- {id:'atlas-nanjin-port',sourceId:1105,name:'南津港',point:[606,966],province:'益州',neighbors:[]},
+ {id:'atlas-jincheng-port',sourceId:1100,name:'金城港',point:[453.603,540.461],province:'凉州',neighbors:[]},
+ {id:'atlas-huai-port',sourceId:1101,name:'淮水港',point:[1141.187,707.777],province:'扬州',neighbors:[]},
+ {id:'atlas-jincheng-east-port',sourceId:1102,name:'金城东港',point:[478.845,531.951],province:'凉州',neighbors:[]},
+ {id:'atlas-huainan-port',sourceId:1103,name:'淮南港',point:[1144.793,729.557],province:'扬州',neighbors:[]},
+ {id:'atlas-jiangzhou-port',sourceId:1104,name:'江州港',point:[597.697,944.472],province:'益州',neighbors:[]},
+ {id:'atlas-nanjin-port',sourceId:1105,name:'南津港',point:[614.429,967.406],province:'益州',neighbors:[]},
 ];
 export const ATLAS_ADDITIONS = [...ATLAS_CITY_ADDITIONS.map(c=>({...c,kind:'city'})),...ATLAS_GATE_ADDITIONS.map(c=>({...c,kind:'gate'})),...ATLAS_PORT_ADDITIONS.map(c=>({...c,kind:'port'}))];
 export const ATLAS_REPLACED_ROADS = [['town-3','jinyang']];
@@ -103,3 +103,48 @@ export const ATLAS_NAME_SOURCES = [
  ['侯官／晋安','https://www.fzja.gov.cn/xjwz/qzfc/jagk/jzyg/202107/t20210706_4134658.htm'],
  ['柳城区域沿革','https://www.cyx.gov.cn/cyxzf/mlcyx/index.html'],
 ];
+
+// Physical bank for each port. Ports need a water edge, never a road intersection.
+export const ATLAS_PORT_WATERS = {
+  "town-53": "liaoshui",
+  "town-57": "coast",
+  "town-59": "coast",
+  "town-72": "coast",
+  "town-54": "huanghe",
+  "town-55": "huanghe",
+  "baima": "huanghe",
+  "town-58": "huanghe",
+  "town-62": "huanghe",
+  "guandu": "huanghe",
+  "town-64": "huanghe",
+  "town-65": "huanghe",
+  "town-67": "huanghe",
+  "atlas-jincheng-port": "huanghe",
+  "atlas-jincheng-east-port": "huanghe",
+  "town-60": "changjiang",
+  "town-61": "rushui",
+  "town-69": "changjiang",
+  "town-70": "changjiang",
+  "town-71": "changjiang",
+  "town-73": "changjiang",
+  "town-74": "changjiang",
+  "town-75": "changjiang",
+  "town-78": "changjiang",
+  "town-81": "changjiang",
+  "town-83": "changjiang",
+  "town-86": "changjiang",
+  "town-87": "changjiang",
+  "atlas-jiangzhou-port": "changjiang",
+  "atlas-nanjin-port": "changjiang",
+  "town-68": "dushui",
+  "town-79": "hanshui",
+  "town-80": "hanshui",
+  "town-82": "hanshui",
+  "town-77": "ganshui",
+  "town-84": "洞庭湖",
+  "town-85": "洞庭湖",
+  "town-76": "鄱阳湖",
+  "atlas-huai-port": "huaihe",
+  "atlas-huainan-port": "huaihe",
+  "town-66": "weishui"
+};

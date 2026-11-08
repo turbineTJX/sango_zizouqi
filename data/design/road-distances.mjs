@@ -232,8 +232,8 @@ export const ROAD_DISTANCE_DESIGNS = {
   "atlas-jiangzhou-port:atlas-nanjin-port": 30,
   "atlas-nanjin-port:town-41": 160,
   "atlas-fuling:atlas-nanjin-port": 50,
-  "town-31:town-80": 40,
   "atlas-wuchang:town-75": 45,
+  "town-30:town-80": 30,
   "junction:town-4:ye:junction:town-5:ye": 26,
   "junction:atlas-qiao:xuchang:junction:chenliu:xuchang": 24,
   "junction:town-29:wan:junction:wan:xuchang": 13.1

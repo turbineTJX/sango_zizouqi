@@ -6,6 +6,7 @@ import {CITY_DESIGNS} from '../data/design/cities.mjs';
 import {NATIONAL_ROAD_DESIGNS} from '../data/design/roads.mjs';
 import {ROAD_DISTANCE_DESIGNS} from '../data/design/road-distances.mjs';
 import {buildRoadNetwork,edgeKey,mapNode} from '../road-network.mjs';
+import {historicalGeographyIssues} from '../historical-geography-validation.mjs';
 const layout=applyAtlasLayout(CITY_DESIGNS,NATIONAL_ROAD_DESIGNS);
 for(const c of layout.cities)if(!ATLAS_CITY_POINTS[c.id])throw Error('Missing atlas point '+c.id);
 const citiesPath=new URL('../data/design/cities.mjs',import.meta.url),citySource=await readFile(citiesPath,'utf8');
@@ -23,10 +24,12 @@ for(const [key,point] of Object.entries(ATLAS_JUNCTION_POINTS)){
 // projection. Existing route budgets stay explicit and are not recomputed.
 // Author parent road budgets here; the runtime derives crossing sections.
 const network=buildRoadNetwork(layout.cities,layout.roads,{requireLengths:false,includeCrossings:false});
+const placementIssues=historicalGeographyIssues([...layout.cities,...network.junctions],network.roads);
+if(placementIssues.length)throw Error('历史地理校核失败，未写入地图：'+JSON.stringify(placementIssues));
 const world={cities:layout.cities,...network},distances={};
 for(const [a,b] of network.roads){const key=edgeKey(a,b),x=mapNode(world,a),y=mapNode(world,b);distances[key]=ROAD_DISTANCE_DESIGNS[key]??network.roadSegments[key]?.distance??Math.max(30,Math.round(Math.hypot(x.x-y.x,x.y-y.y)*.5));}
 NATIONAL_MAP.cities=structuredClone(layout.cities);NATIONAL_MAP.roads=structuredClone(layout.roads);
-NATIONAL_MAP.source.note='城池名单、规模与地形参考用户提供古地图；同城保留三国古名。山脊禁行、关隘和渡河港口由道路网络设计表约束，水路只连接港口；渡口两岸点位及路线为地理游戏适配，非历史GIS。行程长度独立维护。';
+NATIONAL_MAP.source.note='构图与投影参考用户提供西晋底图；汉末三国地名、城湖关系、古关与接港道路按CHGIS、地方志及研究资料校核，依据见historical-geography设计表。水路仅连港口，山脊禁连和湖岸绕行由路网约束。坐标及岸线为游戏适配，非历史GIS；行程长度独立维护。';
 await writeFile(citiesPath,'// Authoritative city design; atlas inventory synchronized by scripts/reconstruct-ancient-atlas.mjs\nexport const CITY_DESIGNS = '+JSON.stringify(layout.cities,null,2)+';\n\n'+demoCity);
 await writeFile(roadsPath,'// Authoritative road design; atlas links synchronized by scripts/reconstruct-ancient-atlas.mjs\nexport const NATIONAL_ROAD_DESIGNS = '+JSON.stringify(layout.roads,null,2)+';\n\n'+demoRoad);
 await writeFile(junctionPath,junctionSource);

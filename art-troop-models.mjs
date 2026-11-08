@@ -6,15 +6,15 @@ import {sampleTroopPose,sampleFacing} from './troop-animation.mjs';
 import {treasureAppearance} from './treasure-appearance.mjs';
 
 const TAU=Math.PI*2;
-const baseMaterial=new T.MeshStandardMaterial({vertexColors:true,roughness:.76,metalness:.16});
-const steel='#697274',edge='#9a9c8d',dark='#283032',leather='#4c3929',wood='#806444',skin='#ba9675';
+const baseMaterial=new T.MeshStandardMaterial({vertexColors:true,roughness:.94,metalness:.05});
+const steel='#59605d',edge='#969586',dark='#323936',leather='#584534',wood='#766044',skin='#ad876b';
 const matrix=new T.Matrix4(),rotation=new T.Quaternion(),scaleVector=new T.Vector3();
 let contactShadowMaterial;
 function contactShadow(){
  if(!contactShadowMaterial){
   const size=32,pixels=new Uint8Array(size*size*4);
   for(let y=0;y<size;y++)for(let x=0;x<size;x++){
-   const r=Math.hypot((x-size/2)/(size/2),(y-size/2)/(size/2));pixels[(y*size+x)*4+3]=Math.round(Math.max(0,1-r)**1.5*80);
+   const r=Math.hypot((x-size/2)/(size/2),(y-size/2)/(size/2));pixels[(y*size+x)*4+3]=Math.round(Math.max(0,1-r)**1.4*145);
   }
   const map=new T.DataTexture(pixels,size,size);map.magFilter=T.LinearFilter;map.minFilter=T.LinearFilter;map.needsUpdate=true;
   contactShadowMaterial=new T.MeshBasicMaterial({map,transparent:true,depthWrite:false});
@@ -30,7 +30,14 @@ function part(name,build){
   let g=geometry.index?geometry.toNonIndexed():geometry;rotation.setFromEuler(new T.Euler(rx,ry,rz));
   matrix.compose(new T.Vector3(x,y,z),rotation,scaleVector.set(sx,sy,sz));g.applyMatrix4(matrix);
   g.deleteAttribute('uv');g.deleteAttribute('uv1');const colors=new Float32Array(g.attributes.position.count*3),c=new T.Color(color);
-  for(let i=0;i<colors.length;i+=3){colors[i]=c.r;colors[i+1]=c.g;colors[i+2]=c.b;}
+  // Weathered surfaces vary coherently across each plate or cloth fold.
+  // Equal positions keep equal shades so triangles never look like confetti.
+  const p=g.attributes.position;
+  for(let i=0;i<p.count;i++){
+   const x=p.getX(i),y=p.getY(i),z=p.getZ(i),grain=Math.sin(x*79+y*113+z*61)*Math.sin(x*43-y*57+z*101);
+   const shade=.9+grain*.065+Math.sin(y*23+x*7)*.035;
+   colors[i*3]=c.r*shade;colors[i*3+1]=c.g*shade;colors[i*3+2]=c.b*shade;
+  }
   g.setAttribute('color',new T.BufferAttribute(colors,3));geometries.push(g);if(g!==geometry)geometry.dispose();
  };
  const sphere=(color,x,y,z,sx,sy=sx,sz=sx)=>add(new T.SphereGeometry(1,12,8),color,x,y,z,sx,sy,sz);
@@ -55,12 +62,13 @@ function torso(cloth,heavy=false){
  return part('torso-mesh',({add,sphere,box,beam})=>{
   const outline=[[.16,0],[.23,.08],[.25,.25],[.31,.5],[.28,.67],[.19,.71]].map(([r,y])=>new T.Vector2(r,y));
   add(new T.LatheGeometry(outline,16),cloth,0,0,0,1,1,.7);
-  sphere(dark,0,.38,.025,.29,.35,.21);
+  const cuirass=[[.22,.07],[.255,.17],[.27,.41],[.25,.6],[.18,.69]].map(([r,y])=>new T.Vector2(r,y));
+  add(new T.LatheGeometry(cuirass,16),dark,0,0,.015,1,1,.73);
   // Individual overlapping lamellae catch the light without a painted pixel grid.
   for(let row=0;row<5;row++)for(let col=0;col<7;col++){
    const a=(col-3)*.22,x=Math.sin(a)*.275,z=.025+Math.cos(a)*.225;
-   add(new T.BoxGeometry(.074,.09,.028),row%2?steel:dark,x,.15+row*.09,z,1,1,1,0,a,0);
-   if(row%2===0)for(const dx of [-.018,.018])sphere('#8f8670',x+dx,.18+row*.09,z+.02,.009);
+   for(const sign of [-1,1])add(new T.BoxGeometry(.074,.09,.028),row%2?steel:'#49534e',x,.15+row*.09,sign*z,1,1,1,0,sign*a,0);
+   if(row%2===0)for(const dx of [-.018,.018])box('#8f8670',x+dx,.18+row*.09,z+.02,.012,.014,.009);
   }
   box(leather,0,.05,.025,.51,.07,.36);box('#ab9060',0,.05,.22,.075,.065,.028);
   for(const sign of [-1,1])beam(leather,[sign*.18,.62,.14],[sign*.12,.05,.19],.022);
@@ -159,7 +167,7 @@ function treasureWeapon(a){
  });
 }
 function soldier(type,cloth,index,{mounted=false,heavy=false,rattan=false,treasure=null,armor=null}={}){
- const root=new T.Group();root.name='soldier-'+index;
+ const root=new T.Group();root.name='soldier-'+index;root.scale.set(.86,1,.87);
  const body=joint(root,'body',0,mounted?1.45:.76,0,torso(cloth,heavy));
  if(armor?.shape==='robe')body.add(part('treasure-robe',({box,curve})=>{box(armor.trim,0,.2,-.23,.65,.75,.06);for(const x of [-.25,-.12,0,.12,.25])curve(armor.metal,[[x,.54,-.27],[x*.7,.2,-.28],[x*1.1,-.14,-.29]],.014);}));
  else if(armor)body.add(part('treasure-mirror-armor',({sphere,box})=>{if(!armor.armorStyle||armor.armorStyle==='mirror'){for(const x of armor.armorStyle? [0]:[-.15,.15])sphere(armor.metal,x,.46,.24,armor.armorStyle ? .21 : .15,.17,.055);}else{for(let row=0;row<4;row++)for(let col=0;col<5;col++){const x=(col-2)*.105,y=.19+row*.12;if(armor.armorStyle==='chain')sphere(armor.metal,x,y,.24,.065,.07,.025);else box(armor.metal,x,y,.245,.095,.105,.035);} }box(armor.trim,0,.12,.24,.56,.08,.06);}));
@@ -212,15 +220,26 @@ export function createTroopModel(type,side=0,treasureId=null){
  const family=TROOP_DESIGNS[type]?.family;if(!['spear','halberd','cavalry','archer'].includes(family))return null;
  const root=new T.Group();root.name='troop-'+type;root.userData.nativeTroop=true;root.userData.type=type;root.userData.side=side;
  const ids=(Array.isArray(treasureId)?treasureId:String(treasureId||'').split('+')).filter(treasureAppearance),looks=ids.map(treasureAppearance),treasure=looks.find(a=>!['armor','horse','wagon','robe'].includes(a.shape)),armor=looks.find(a=>['armor','robe'].includes(a.shape)),wagon=looks.find(a=>a.shape==='wagon'),mount=looks.find(a=>a.shape==='horse');root.userData.treasureIds=ids;
- const cloth=side?'#8a4737':'#496858',mounted=family==='cavalry',heavy=['greatHalberd','tigerCavalry'].includes(type);
+ const cloth=side?'#874c40':'#455e72',mounted=family==='cavalry',heavy=['greatHalberd','tigerCavalry'].includes(type);
  const weaponType=type==='crossbow'?'crossbow':type==='longbow'?'longbow':family==='archer'?'archer':family==='halberd'?'halberd':'spear';
- const layout=mounted?[[-.5,0],[.5,-.28]]:[[-.36,-.33],[.36,-.33],[-.36,.33],[.36,.33]];
+ // A unit is a small formation. Central files come first so compact views can
+ // keep a balanced detachment without changing the unit's ground anchor.
+ const layout=mounted?[[-.5,-.72],[.5,.72],[.5,-.72],[-.5,.72]]:
+  [[0,0],[-.72,-.8],[.72,.8],[.72,-.8],[-.72,.8],[0,-.8],[0,.8],[-.72,0],[.72,0]];
+ let follower;
  layout.forEach(([x,z],i)=>{
   const member=new T.Group();member.name='member-'+i;member.position.set(x,0,z);member.userData.rest=[x,0,z];member.userData.index=i;
-  if(mounted)member.add(horse(cloth,i,type==='whiteHorse',i===0?mount:null));
-  member.add(soldier(weaponType,cloth,i,{mounted,heavy,rattan:type==='rattan',treasure:i===0?treasure:null,armor:i===0?armor:null}));root.add(member);
+  member.scale.setScalar([1,.96,1.025,.98,1.015][i%5]);
+  if(i>1){
+   for(const child of follower.children){const copy=child.clone(true);if(copy.name.startsWith('horse-'))copy.name='horse-'+i;member.add(copy);}
+  }else{
+   if(mounted)member.add(horse(cloth,i,type==='whiteHorse',i===0?mount:null));
+   member.add(soldier(weaponType,cloth,i,{mounted,heavy,rattan:type==='rattan',treasure:i===0?treasure:null,armor:i===0?armor:null}));
+   if(i===1)follower=member;
+  }
+  root.add(member);
  });
- const standard=pennant(cloth);standard.position.set(-.62,0,-.42);root.add(standard);
+ const standard=pennant(cloth);standard.position.set(-.9,0,-.8);root.add(standard);
  if(wagon){const cart=treasureWagon(wagon);cart.position.set(.85,0,-.35);root.add(cart);}
  if(!mounted&&mount){const companion=horse(cloth,'treasure',false,mount);companion.position.set(.96,0,-.2);companion.scale.setScalar(.84);root.add(companion);}
  // Soft contact patches are flat ground shadows, not selection or status rings.
@@ -238,12 +257,12 @@ function rigs(model){
   neck:member.getObjectByName('horse-neck'),tail:member.getObjectByName('horse-tail'),bow,strings:bow?['bow-string-upper','bow-string-lower'].map(name=>bow.getObjectByName(name)):[],arrow:bow?.getObjectByName('nocked-arrow'),weapon:member.getObjectByName('weapon')};
  });
 }
-export function animateTroopModel(obj,{time=0,progress=1,moving=false,moveProgress,kind='strike',statuses=[],reduced=false,facing=1,death=0,compact=false,reaction=0,guardImpact=0}={}){
+export function animateTroopModel(obj,{time=0,progress=1,moving=false,moveProgress,kind='strike',statuses=[],reduced=false,facing=1,death=0,compact=false,maxMembers=compact?2:Infinity,reaction=0,guardImpact=0}={}){
  if(!obj.model?.userData.nativeTroop)return;
  obj.troopRig ||= rigs(obj.model);
  const type=obj.model.userData.type,family=TROOP_DESIGNS[type]?.family,mounted=family==='cavalry';
  for(const [i,rig]of obj.troopRig.entries()){
-  rig.member.visible=!compact||mounted||i<2;
+  rig.member.visible=i<maxMembers;
   if(!rig.member.visible)continue;
   const state=unitStatusMotion(statuses,time,i,reduced),rest=rig.member.userData.rest;
   const pose=sampleTroopPose({type,family,progress,time,index:i,moving,moveProgress,state,kind,reaction,guardImpact,reduced,death});
@@ -251,10 +270,10 @@ export function animateTroopModel(obj,{time=0,progress=1,moving=false,moveProgre
   rig.member.position.set(rest[0]*state.spread+state.x*.3,rest[1]-death*.08,rest[2]*state.spread+state.y*.3);
   rig.member.rotation.set(0,rig.turn.value,pose.fall);
   rig.body.rotation.set(pose.bodyX,pose.bodyY,pose.bodyZ);rig.body.position.y=(mounted?1.45:.76)+pose.bodyDrop;rig.body.position.z=pose.bodyForward;
-  rig.head.rotation.set(pose.headX,0,pose.headZ);
+  rig.head.rotation.set(pose.headX,pose.headY,pose.headZ);
   for(let j=0;j<2;j++){
    rig.arms[j].rotation.set(pose.arms[j].x,pose.arms[j].y,pose.arms[j].z);rig.forearms[j].rotation.x=pose.forearms[j];
-   const leg=rig.legs[j],angles=pose.legs[j];leg.position.y=mounted?1.5+pose.horseBob:.73+pose.bodyDrop;leg.rotation.x=angles.hip;
+   const leg=rig.legs[j],angles=pose.legs[j];leg.position.x=(j?1:-1)*(.13+pose.legSpread);leg.position.y=mounted?1.5+pose.horseBob:.73+pose.bodyDrop;leg.rotation.x=angles.hip;
    rig.knees[j].rotation.x=angles.knee;rig.ankles[j].rotation.x=angles.ankle;
   }
   if(rig.weapon){const hand=rig.bow?0:1;rig.weapon.rotation.x=pose.weaponTilt-pose.arms[hand].x-pose.forearms[hand]-pose.bodyX;}

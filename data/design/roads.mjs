@@ -833,12 +833,12 @@ export const NATIONAL_ROAD_DESIGNS = [
     "atlas-fuling"
   ],
   [
-    "town-80",
-    "town-31"
-  ],
-  [
     "atlas-wuchang",
     "town-75"
+  ],
+  [
+    "town-30",
+    "town-80"
   ]
 ];
 

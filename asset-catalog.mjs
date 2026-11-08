@@ -2,6 +2,7 @@
 export const TOWN_ART_KEYS=['background','buildings','construction','arrowTower','musicStage','aidCamp'];
 export const TOWN_TERRAIN_KEYS=['plain','mountain','river','frontier'];
 export const TOWN_FOUNDATION_KEYS=['large','small','gate','port'];
+export const BATTLEFIELD_ART_KEYS=['ground','tree'];
 export function publicAssetURL(value,{manifest=false}={}){
  if(typeof value!=='string'||!/^\.\/assets\/(?:[A-Za-z0-9_-]+\/)*[A-Za-z0-9_.-]+$/.test(value))return null;
  if(value.slice(2).split('/').some(part=>part.startsWith('.')))return null;
@@ -23,19 +24,21 @@ export function sanitizeVoiceCatalog(raw){
   return /^[a-z][a-z0-9-]*$/.test(id)&&url&&typeof e.text==='string'&&e.text.length>0&&e.text.length<=80&&Number.isFinite(e.duration)&&e.duration>0&&e.duration<=12&&/^[a-f0-9]{64}$/.test(e.sha256||'')?[[id,{url,text:e.text,duration:e.duration,sha256:e.sha256}]]:[];
  }));
 }
-export const assetCatalog={version:1,id:'none',revision:'none',officers:null,treasures:{},music:{},musicCredits:null,voices:{},voiceCredits:null,town:{art:empty(TOWN_ART_KEYS),terrains:empty(TOWN_TERRAIN_KEYS),foundations:empty(TOWN_FOUNDATION_KEYS)}};
+export const assetCatalog={version:1,id:'none',revision:'none',mapGPU:null,officers:null,treasures:{},music:{},musicCredits:null,voices:{},voiceCredits:null,battlefield:empty(BATTLEFIELD_ART_KEYS),town:{art:empty(TOWN_ART_KEYS),terrains:empty(TOWN_TERRAIN_KEYS),foundations:empty(TOWN_FOUNDATION_KEYS)}};
 export function sanitizeAssetCatalog(raw){
  if(raw?.version!==1||typeof raw.id!=='string'||!/^[a-z0-9-]+$/.test(raw.id))throw Error('Unsupported asset catalog');
  const group=(name,keys)=>Object.fromEntries(keys.map(key=>[key,publicAssetURL(raw.town?.[name]?.[key])||'']));
- return {version:1,id:raw.id,revision:String(raw.revision||''),officers:publicAssetURL(raw.officers,{manifest:true}),treasures:Object.fromEntries(Object.entries(raw.treasures||{}).filter(([id,url])=>/^[a-z][A-Za-z0-9]*$/.test(id)&&publicAssetURL(url))),music:sanitizeMusicCatalog(raw.music),musicCredits:publicAssetURL(raw.musicCredits,{manifest:true}),voices:sanitizeVoiceCatalog(raw.voices),voiceCredits:publicAssetURL(raw.voiceCredits,{manifest:true}),town:{art:group('art',TOWN_ART_KEYS),terrains:group('terrains',TOWN_TERRAIN_KEYS),foundations:group('foundations',TOWN_FOUNDATION_KEYS)}};
+ const battlefield=Object.fromEntries(BATTLEFIELD_ART_KEYS.map(key=>[key,publicAssetURL(raw.battlefield?.[key])||'']));
+ return {version:1,id:raw.id,revision:String(raw.revision||''),mapGPU:publicAssetURL(raw.mapGPU,{manifest:true}),officers:publicAssetURL(raw.officers,{manifest:true}),treasures:Object.fromEntries(Object.entries(raw.treasures||{}).filter(([id,url])=>/^[a-z][A-Za-z0-9]*$/.test(id)&&publicAssetURL(url))),music:sanitizeMusicCatalog(raw.music),musicCredits:publicAssetURL(raw.musicCredits,{manifest:true}),voices:sanitizeVoiceCatalog(raw.voices),voiceCredits:publicAssetURL(raw.voiceCredits,{manifest:true}),battlefield,town:{art:group('art',TOWN_ART_KEYS),terrains:group('terrains',TOWN_TERRAIN_KEYS),foundations:group('foundations',TOWN_FOUNDATION_KEYS)}};
 }
 export function applyAssetCatalog(raw){
  const catalog=sanitizeAssetCatalog(raw);
- for(const key of ['version','id','revision','officers','treasures','music','musicCredits','voices','voiceCredits'])assetCatalog[key]=catalog[key];
+ for(const key of ['version','id','revision','mapGPU','officers','treasures','music','musicCredits','voices','voiceCredits'])assetCatalog[key]=catalog[key];
  for(const key of ['art','terrains','foundations'])Object.assign(assetCatalog.town[key],catalog.town[key]);
+ Object.assign(assetCatalog.battlefield,catalog.battlefield);
  return assetCatalog;
 }
 export function catalogAssetURLs(raw){
  const catalog=sanitizeAssetCatalog(raw);
- return [...new Set([catalog.officers,catalog.musicCredits,catalog.voiceCredits,...Object.values(catalog.treasures),...Object.values(catalog.music).map(entry=>entry.url),...Object.values(catalog.voices).map(entry=>entry.url),...Object.values(catalog.town).flatMap(Object.values)].filter(Boolean))];
+ return [...new Set([catalog.mapGPU,catalog.officers,catalog.musicCredits,catalog.voiceCredits,...Object.values(catalog.battlefield),...Object.values(catalog.treasures),...Object.values(catalog.music).map(entry=>entry.url),...Object.values(catalog.voices).map(entry=>entry.url),...Object.values(catalog.town).flatMap(Object.values)].filter(Boolean))];
 }

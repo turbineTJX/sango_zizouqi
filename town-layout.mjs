@@ -1,4 +1,5 @@
-import {RIVERS,MOUNTAINS} from './national-geography.mjs';
+import {RIVERS,MOUNTAINS,nearestWaterPoint,isLandPoint} from './national-geography.mjs';
+import {ATLAS_PORT_WATERS} from './data/design/atlas-cities.mjs';
 import {TOWN_SITES,TOWN_FRAME} from './town-art.mjs';
 import {CITY_DESIGNS} from './data/design/cities.mjs';
 import {ROAD_NETWORK_DESIGN} from './data/design/road-network.mjs';
@@ -7,9 +8,12 @@ import {crossingNodes} from './road-crossings.mjs';
 export const TOWN_MAP_SCALE=.06;
 const footprint=place=>place.kind==='junction'?.38:place.kind==='gate'?.58:place.kind==='port'?.65:place.citySize==='small'?.72:1;
 const settlements=[...CITY_DESIGNS,...Object.entries(ROAD_NETWORK_DESIGN.nodePositions).map(([key,[x,y]])=>({id:'junction:'+key,kind:'junction',x,y})),...crossingNodes];
+const scaleCache=new Map();
 // Keep atlas anchors fixed and reserve countryside between all settlement footprints.
 // Authored neighbors make this stable across ownership, construction and saves.
 function mapScale(place){
+ const key=[place.id,place.kind,place.citySize,place.x,place.y].join(':');
+ if(scaleCache.has(key))return scaleCache.get(key);
  const base=TOWN_MAP_SCALE*footprint(place);
  let density=1;
  const height=2*Math.max(Math.abs(TOWN_FRAME.y),Math.abs(TOWN_FRAME.y+TOWN_FRAME.height));
@@ -18,7 +22,17 @@ function mapScale(place){
   const separation=Math.max(Math.abs(place.x-other.x)/TOWN_FRAME.width,Math.abs(place.y-other.y)/height);
   density=Math.min(density,.6*separation/((base+TOWN_MAP_SCALE*footprint(other))/2));
  }
- return Math.floor(base*density*10000)/10000;
+ let scale=base*density;
+ // Moving a neighboring port must not let a coastal city expand into the sea.
+ // Ports retain their waterfront footprint; only city foundations need dry land.
+ if(place.kind==='city'&&isLandPoint(place.x,place.y)){
+  const fits=()=>{for(let i=0;i<=4;i++)for(let j=0;j<=4;j++){
+   const x=place.x+(TOWN_FRAME.x+TOWN_FRAME.width*i/4)*scale,y=place.y+(TOWN_FRAME.y+TOWN_FRAME.height*j/4)*scale;
+   if(x<=0||x>=1024||y<=0||y>=1024||!isLandPoint(x,y))return false;
+  }return true;};
+  while(scale>.0001&&!fits())scale*=.95;
+ }
+ const result=Math.floor(scale*10000)/10000;scaleCache.set(key,result);return result;
 }
 
 const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
@@ -42,7 +56,7 @@ function nearestLine(point,lines){
 }
 // Geometry and identity only: ownership, simulation RNG and building levels cannot move a city.
 export function townLayout(place){
- const seed=hash(place.id),river=nearestLine(place,RIVERS),mountain=nearestLine(place,MOUNTAINS);
+ const seed=hash(place.id),river=place.kind==='port'?nearestWaterPoint(place,ATLAS_PORT_WATERS[place.id]):nearestLine(place,RIVERS),mountain=nearestLine(place,MOUNTAINS);
  const region=place.kind==='port'?'river':place.province==='凉州'?'frontier':place.kind==='gate'||mountain.distance<20||['益州','南中'].includes(place.province)?'mountain':river.distance<22||['扬州','荆南','交州'].includes(place.province)?'river':'plain';
  const kind=place.kind==='junction'?'prefecture':['gate','port'].includes(place.kind)?place.kind:place.citySize==='large'?'large':'small',spaceKind=kind==='prefecture'?'small':kind;
  const flip=region==='river'?river.x>place.x:!!(seed&1),spreadX=.88+(seed%5)*.025,spreadY=.84+((seed>>>4)%5)*.035;

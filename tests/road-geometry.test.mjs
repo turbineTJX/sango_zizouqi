@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {nationalWorld} from '../national-scenarios.mjs';
 import {mapNode} from '../road-network.mjs';
+import {chosenRoad} from '../road-metrics.mjs';
 import {roadPoint,roadPath} from '../strategic-movement.mjs';
 import {roadCurve} from '../road-geometry.mjs';
 import {RIVERS,isLandPoint} from '../national-geography.mjs';
@@ -27,6 +28,7 @@ test('winding atlas roads share endpoints, reverse travel and evenly spaced prog
 });
 test('bends introduce no new river crossings or excursions beyond the existing coastline',()=>{
  for(const [a,b]of world.roads){
+  if(chosenRoad(world,a,b).terrain==='water')continue;
   const from=mapNode(world,a),to=mapNode(world,b),curve=roadCurve(from,to);if(!curve)continue;
   const section=crossingRoadSection(a,b),source=section?section.source.map(id=>mapNode(world,id)):[from,to];
   for(const river of RIVERS)for(let i=1;i<river.points.length;i++){

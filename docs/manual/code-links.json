@@ -77,6 +77,9 @@
         "road-network.mjs",
         "data/design/road-network.mjs",
         "art-strategic-map.mjs",
+        "map-camera-renderer.mjs",
+        "map-sprite-cache.mjs",
+        "map-terrain-tiles.mjs",
         "map-effect-cache.mjs",
         "strategic-army-markers.mjs",
         "strategic-scout-model.mjs",
@@ -84,10 +87,20 @@
         "prefecture-village.mjs",
         "town-layout.mjs",
         "road-geometry.mjs",
+        "waterway-geometry.mjs",
         "road-crossings.mjs",
         "data/design/road-crossings.mjs",
         "data/design/historical-road-plan.mjs",
-        "data/design/road-link-policy.mjs"
+        "data/design/historical-geography.mjs",
+        "data/design/road-link-policy.mjs",
+        "map-gpu-renderer.mjs",
+        "map-gpu-resources.mjs",
+        "map-gpu-assets.mjs",
+        "map-gpu-city.mjs",
+        "map-texture-worker.mjs",
+        "map-screen-labels.mjs",
+        "town-geometry.mjs",
+        "map-gpu-geometry.mjs"
       ]
     },
     {

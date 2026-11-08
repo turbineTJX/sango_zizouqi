@@ -74,6 +74,7 @@ export async function buildCodeRelease(out){
   bundle:true,format:'esm',platform:'browser',target:'es2022',minify:true,outfile:resolve(out,'data-loader.js'),legalComments:'external'});
  await bundleBrowser(pack,{outfile:resolve(out,'app.js'),metafile:true});
  await bundleBrowser(pack,{entryPoints:[resolve(ROOT,'campaign-worker.mjs')],outfile:resolve(out,'campaign-worker.mjs')});
+ await build({entryPoints:[resolve(ROOT,'map-texture-worker.mjs')],bundle:true,format:'esm',platform:'browser',target:'es2022',minify:true,outfile:resolve(out,'map-texture-worker.mjs')});
  const original=await readFile(resolve(ROOT,'index.html'),'utf8');
  const styles=[...original.matchAll(/<link[^>]*rel="stylesheet"[^>]*href="([^"]+)"[^>]*>/g)].map(match=>match[1]);
  await build({stdin:{contents:styles.map(path=>`@import ${JSON.stringify(path)};`).join('\n'),resolveDir:ROOT,loader:'css'},
@@ -90,7 +91,7 @@ export async function buildCodeRelease(out){
  await writeFile(resolve(out,'package.json'),JSON.stringify(serverPackage,null,2)+'\n');
  await copyFile(resolve(ROOT,'start-game.cmd'),resolve(out,'start-game.cmd'));
  await mkdir(resolve(out,'licenses'),{recursive:true});
- for(const [name,path] of Object.entries({notoSerifSC:'ui-fonts/OFL.txt',three:'vendor/three/LICENSE.txt',messagepack:'node_modules/@msgpack/msgpack/LICENSE',fflate:'node_modules/fflate/LICENSE',
+ for(const [name,path] of Object.entries({notoSerifSC:'ui-fonts/OFL.txt',three:'vendor/three/LICENSE.txt',pixi:'vendor/pixi/LICENSE.txt',messagepack:'node_modules/@msgpack/msgpack/LICENSE',fflate:'node_modules/fflate/LICENSE',
   capacitor:'node_modules/@capacitor/core/LICENSE',capacitorAndroid:'node_modules/@capacitor/android/LICENSE',
   capacitorApp:'node_modules/@capacitor/app/LICENSE',capacitorFilesystem:'node_modules/@capacitor/filesystem/LICENSE',capacitorShare:'node_modules/@capacitor/share/LICENSE'}))await copyFile(resolve(ROOT,path),resolve(out,'licenses',name+'.txt'));
  try{await copyFile(resolve(out,'app.js.LEGAL.txt'),resolve(out,'licenses','bundled-code.txt'));}catch(error){if(error.code!=='ENOENT')throw error;}

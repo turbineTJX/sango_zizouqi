@@ -1,6 +1,7 @@
 {
   "rulesVersion": 151,
   "files": [
+    "docs/主城与府分层设计候选.md",
     "docs/布阵与自动战斗重设计.md",
     "docs/军略组合与代价.md",
     "docs/短控联动试玩.md",

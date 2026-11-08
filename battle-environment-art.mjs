@@ -1,4 +1,7 @@
 import {hexCenter,HEX_GRID} from './hex-grid.mjs';
+// Optional image paths arrive from the caller; this shared map renderer never
+// reads an asset catalogue or makes art state part of a battle definition.
+const publicAssetURL=value=>typeof value==='string'&&/^\.\/assets\/(?:[A-Za-z0-9_-]+\/)*[A-Za-z0-9_-][A-Za-z0-9_.-]*\.(?:png|jpe?g|webp)$/.test(value)?value:null;
 
 export const ENVIRONMENT_WIDTH=HEX_GRID.width*100,ENVIRONMENT_HEIGHT=HEX_GRID.height*200/Math.sqrt(3);
 const tileHeight=200/Math.sqrt(3),f=n=>Number(n.toFixed(2));
@@ -41,20 +44,21 @@ export function terrainAreaPath(tiles,types){
  }).join('');
 }
 
-function definitions(id){
+function definitions(id,art={}){
  const gradient=(name,stops,radial=false)=>`<${radial?'radialGradient':'linearGradient'} id="${id}-${name}" ${radial?'cx="35%" cy="25%" r="75%"':'x1="0" y1="0" x2=".85" y2="1"'}>${stops.map(([offset,color,opacity=1])=>`<stop offset="${offset}" stop-color="${color}" stop-opacity="${opacity}"/>`).join('')}</${radial?'radialGradient':'linearGradient'}>`;
  const trees=Array.from({length:4},(_,v)=>{
-  const seed=hash('tree-'+v),leaves=Array.from({length:19},(_,i)=>{
-   const a=i*2.4,r=Math.sqrt(i/19)*23,cx=f(Math.cos(a)*r),cy=f(-31+Math.sin(a)*r*.68),rx=f(8+sample(seed,i)*6);
-   return `<ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${f(rx*.73)}" fill="url(#${id}-leaf-${(i+v)%3})"/>`;
+  if(publicAssetURL(art.tree))return `<g id="${id}-tree-${v}"><ellipse cx="12" cy="8" rx="36" ry="12" fill="#182019" opacity=".27" transform="rotate(18)"/><image data-environment-asset="tree" href="${art.tree}" x="-49" y="-92" width="98" height="105" preserveAspectRatio="xMidYMax meet" transform="${v%2?'translate(0 0) scale(-1 1)':''}"/></g>`;
+  const seed=hash('tree-'+v),leaves=Array.from({length:31},(_,i)=>{
+   const a=i*2.4,r=Math.sqrt(i/31)*25,cx=f(Math.cos(a)*r),cy=f(-27+Math.sin(a)*r*.62),rx=f(4+sample(seed,i)*6);
+   return `<ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${f(rx*.6)}" fill="url(#${id}-leaf-${(i+v)%3})"/><path d="M${cx-2} ${cy-2}l4 -2m-1 4l3 -1" stroke="#a4ac76" stroke-width=".7" opacity=".23"/>`;
   }).join('');
   return `<g id="${id}-tree-${v}"><ellipse cx="11" cy="10" rx="30" ry="13" fill="#14271f" opacity=".3" transform="rotate(22)"/><path d="M-3 6L0 -29L5 5Z" fill="#67513b"/><path d="M1 -11L-13 -28M2 -18L15 -37" fill="none" stroke="#786044" stroke-width="3"/>${leaves}<path d="M-19 -37q7 -8 17 -8m-6 14q8 -8 17 -6" stroke="#bdc085" stroke-width="1" opacity=".19" fill="none"/></g>`;
  }).join('');
  const grasses=Array.from({length:4},(_,v)=>`<g id="${id}-grass-${v}" fill="none" stroke-linecap="round"><path d="M0 0q-1 -6 -4 -10M0 0q2 -9 5 -12M0 0q5 -5 9 -6M-1 1q-5 -3 -7 -3" stroke="${['#8d9a61','#a8a370','#667d4f','#b1ad7a'][v]}" stroke-width="1.15" opacity=".54"/><path d="M0 0l1 -8" stroke="#46583b" stroke-width="1.5"/></g>`).join('');
  const rocks=Array.from({length:3},(_,v)=>`<g id="${id}-stone-${v}"><ellipse cx="7" cy="7" rx="30" ry="13" fill="#202b24" opacity=".32"/><path d="M-28 6Q-33 -5 -20 -18L-7 -30Q6 -33 18 -19L29 -4Q32 10 13 16L-14 15Z" fill="url(#${id}-stone)"/><path d="M-20 -18L-3 -10L-7 -30M-3 -10L13 16M-3 -10L18 -19L29 -4" stroke="#454b40" stroke-width="1.7" opacity=".7" fill="none"/><path d="M-24 -7L-18 -16L-8 -24M2 -23L15 -16" stroke="#c3b99a" opacity=".5" fill="none" stroke-width="1.7"/><path d="M-19 10q10 -4 18 3" stroke="#60704d" stroke-width="4" opacity=".7"/></g>`).join('');
  return gradient('ground',[['0%','#727b4b'],['38%','#626f43'],['100%','#4d613e']])+gradient('soil',[['0%','#aea17b'],['100%','#847d59']])+gradient('hill',[['0%','#b5b17c',.7],['42%','#8b9560',.45],['100%','#314e35',.35]],true)+gradient('water',[['0%','#71958d'],['38%','#467774'],['100%','#2b555a']])+gradient('stone',[['0%','#a29e82'],['42%','#797e65'],['100%','#454f42']])+gradient('leaf-0',[['0%','#8d9c60'],['45%','#586f40'],['100%','#2d4b32']],true)+gradient('leaf-1',[['0%','#a0a36a'],['45%','#6a7e48'],['100%','#355538']],true)+gradient('leaf-2',[['0%','#71864e'],['45%','#47673c'],['100%','#284934']],true)+gradient('edge',[['0%','#121e1b',0],['68%','#17271e',0],['100%','#14241c',.42]],true)+
- `<filter id="${id}-grain" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".085" numOctaves="3" seed="17" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncA type="linear" slope=".2"/></feComponentTransfer><feBlend in="SourceGraphic" mode="soft-light"/></filter>`+
- `<filter id="${id}-soft" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="7"/></filter>`+trees+grasses+rocks;
+ `<filter id="${id}-grain" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".035 .065" numOctaves="4" seed="17" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncA type="linear" slope=".28"/></feComponentTransfer><feBlend in="SourceGraphic" mode="soft-light" result="earth"/><feTurbulence type="fractalNoise" baseFrequency=".52 .8" numOctaves="2" seed="23" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncA type="linear" slope=".12"/></feComponentTransfer><feBlend in="earth" mode="soft-light"/></filter>`+
+ `<filter id="${id}-soft" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="7"/></filter><filter id="${id}-road-wear" x="-3%" y="-8%" width="106%" height="116%"><feTurbulence type="fractalNoise" baseFrequency=".065 .11" numOctaves="2" seed="31" result="wear"/><feDisplacementMap in="SourceGraphic" in2="wear" scale="7" xChannelSelector="R" yChannelSelector="G"/></filter>`+trees+grasses+rocks;
 }
 
 function bridgeDetail(tiles,x,y){
@@ -62,10 +66,10 @@ function bridgeDetail(tiles,x,y){
  return `<g transform="rotate(${angle})"><ellipse cx="7" cy="12" rx="58" ry="23" fill="#213b32" opacity=".35"/><path d="M-57 -17L57 -17V18L-57 18Z" fill="#584e39"/><path d="M-57 -20L57 -20V12L-57 12Z" fill="#aa9870"/>${Array.from({length:18},(_,i)=>`<path d="M${-54+i*6} -19v30m1 -25v16" stroke="${i%3?'#685f47':'#d0ba8c'}" stroke-width="1.2"/>`).join('')}<path d="M-58 13H58M-58 -19H58" stroke="#493e2c" stroke-width="3"/>${[-54,-32,-10,12,34,56].flatMap(px=>[-23,17].map(py=>`<path d="M${px} ${py+4}v-16" stroke="#534835" stroke-width="3"/><path d="M${px-1} ${py-11}h3" stroke="#c3ac7d" stroke-width="2"/>`)).join('')}<path d="M-57 -34H57M-57 6H57" stroke="#b2a078" stroke-width="3"/></g>`;
 }
 
-function terrainDetails(ground,x,y,tiles,id,seed){
+function terrainDetails(ground,x,y,tiles,id,seed,textured=false){
  const r=i=>sample(seed,i),use=(name,dx,dy,s=1,angle=0)=>`<use href="#${id}-${name}" transform="translate(${f(dx)} ${f(dy)}) rotate(${f(angle)}) scale(${f(s)})"/>`;
  let result='';
- if(!['water','bridge','rock'].includes(ground))for(let i=0;i<(ground==='forest'?5:11);i++)result+=use('grass-'+i%4,(r(i*4)-.5)*86,(r(i*4+1)-.5)*76,.5+r(i*4+2)*.55);
+ if(!['water','bridge','rock'].includes(ground))for(let i=0;i<(textured?3:ground==='forest'?7:20);i++)result+=use('grass-'+i%4,(r(i*4)-.5)*94,(r(i*4+1)-.5)*84,.2+r(i*4+2)*.4,r(i*4+3)*35-17);
  if(ground==='forest'){
   const trees=Array.from({length:5},(_,i)=>({x:(r(70+i*3)-.5)*68,y:(r(71+i*3)-.5)*56,s:.72+r(72+i*3)*.36})).sort((a,b)=>a.y-b.y);
   result+=trees.map((t,i)=>use('tree-'+(x+y+i)%4,t.x,t.y,t.s)).join('');
@@ -96,15 +100,20 @@ function roadPath(path){
  return result;
 }
 
-export function battleEnvironmentArtwork(map,{prefix='battlefield'}={}){
+export function battleEnvironmentArtwork(map,{prefix='battlefield',art={}}={}){
  const id=prefix+'-env',seed=hash(JSON.stringify(map.tiles)),area=types=>terrainAreaPath(map.tiles,types);
  const water=area(['water','bridge']),dry=area(['land','forest','hill','marsh','bridge']),forest=area(['forest']),hills=area(['hill']),rock=area(['rock']),marsh=area(['marsh']);
  const cells=map.tiles.flatMap((row,y)=>row.map((ground,x)=>({ground,x,y}))),roads=map.roads.map(roadPath).filter(Boolean).map(d=>`<path d="${d}"/>`).join('');
  const patches=Array.from({length:95},(_,i)=>`<ellipse cx="${f(sample(seed,i*4)*ENVIRONMENT_WIDTH)}" cy="${f(sample(seed,i*4+1)*ENVIRONMENT_HEIGHT)}" rx="${f(15+sample(seed,i*4+2)*85)}" ry="${f(7+sample(seed,i*4+3)*24)}" fill="${i%3?'#bcc18a':'#324f33'}" opacity="${i%3?'.07':'.11'}"/>`).join('');
  const slopes=cells.filter(c=>c.ground==='hill').map(c=>`<ellipse cx="${f(point(c.x,c.y)[0]-12)}" cy="${f(point(c.x,c.y)[1]-9)}" rx="78" ry="56" fill="url(#${id}-hill)"/>`).join('');
- const details=cells.map(({ground,x,y})=>`<g data-map-terrain="${ground}" data-map-x="${x}" data-map-y="${y}" transform="translate(${pair(point(x,y))})">${terrainDetails(ground,x,y,map.tiles,id,seed^hash(x+':'+y))}</g>`).join('');
+ const textured=!!publicAssetURL(art.ground);
+ // Reflected sampling keeps grass fine enough for the soldier scale and joins
+ // identical edge pixels, without baking a fixed map into the texture asset.
+ const textureDefinition=textured?`<pattern id="${id}-ground-texture" width="1450" height="966.66" patternUnits="userSpaceOnUse"><image id="${id}-grass-image" data-environment-asset="ground" href="${art.ground}" width="725" height="483.33" preserveAspectRatio="none"/><use href="#${id}-grass-image" transform="translate(1450 0) scale(-1 1)"/><use href="#${id}-grass-image" transform="translate(0 966.66) scale(1 -1)"/><use href="#${id}-grass-image" transform="translate(1450 966.66) scale(-1 -1)"/></pattern>`:'';
+ const surface=textured?`<rect class="environment-texture" width="${ENVIRONMENT_WIDTH}" height="${ENVIRONMENT_HEIGHT}" fill="url(#${id}-ground-texture)"/>`:'';
+ const details=cells.map(({ground,x,y})=>`<g data-map-terrain="${ground}" data-map-x="${x}" data-map-y="${y}" transform="translate(${pair(point(x,y))})">${terrainDetails(ground,x,y,map.tiles,id,seed^hash(x+':'+y),textured)}</g>`).join('');
  const ripples=water?`<g class="environment-ripples" clip-path="url(#${id}-water)" opacity=".12" stroke="#b3d3c1" stroke-width="1" fill="none">${Array.from({length:45},(_,i)=>`<path d="M0 ${i*17}q180 -12 360 0t360 0t360 0t400 0"/>`).join('')}</g>`:'';
- return `<g class="battle-map-art battle-environment" pointer-events="none"><defs>${definitions(id)}<clipPath id="${id}-frame"><rect width="${ENVIRONMENT_WIDTH}" height="${ENVIRONMENT_HEIGHT}"/></clipPath><clipPath id="${id}-dry"><path d="${dry}"/></clipPath><clipPath id="${id}-water"><path d="${water}"/></clipPath></defs><g clip-path="url(#${id}-frame)"><rect class="environment-ground" width="${ENVIRONMENT_WIDTH}" height="${ENVIRONMENT_HEIGHT}" fill="url(#${id}-ground)" filter="url(#${id}-grain)"/>${patches}<path d="${forest}" fill="#294e32" opacity=".5" filter="url(#${id}-soft)"/><path d="${hills}" fill="#79885a" opacity=".6" filter="url(#${id}-soft)"/><g filter="url(#${id}-soft)">${slopes}</g><path d="${marsh}" fill="#6b8261" opacity=".65" filter="url(#${id}-soft)"/><path d="${rock}" fill="#5d6953" stroke="#344b36" stroke-width="15" stroke-opacity=".3"/><path d="${water}" fill="url(#${id}-water)" stroke="#7d8b68" stroke-width="10"/><path d="${water}" fill="none" stroke="#aeb696" stroke-width="1.5" opacity=".25"/>${ripples}<g clip-path="url(#${id}-dry)" stroke-linecap="round" fill="none" stroke-linejoin="round"><g stroke="#3e5034" stroke-width="33" opacity=".22">${roads}</g><g stroke="#918d64" stroke-width="24" opacity=".7">${roads}</g><g stroke="url(#${id}-soil)" stroke-width="18">${roads}</g><g stroke="#6c6a4e" stroke-width="1.4" stroke-dasharray="23 9 8 19" opacity=".34" transform="translate(0 5)">${roads}</g><g stroke="#d2c39b" stroke-width="1" opacity=".28" transform="translate(0 -5)">${roads}</g></g>${details}<rect width="${ENVIRONMENT_WIDTH}" height="${ENVIRONMENT_HEIGHT}" fill="url(#${id}-edge)"/></g></g>`;
+ return `<g class="battle-map-art battle-environment" pointer-events="none"><defs>${definitions(id,art)}${textureDefinition}<clipPath id="${id}-frame"><rect width="${ENVIRONMENT_WIDTH}" height="${ENVIRONMENT_HEIGHT}"/></clipPath><clipPath id="${id}-dry"><path d="${dry}"/></clipPath><clipPath id="${id}-water"><path d="${water}"/></clipPath></defs><g clip-path="url(#${id}-frame)"><rect class="environment-ground" width="${ENVIRONMENT_WIDTH}" height="${ENVIRONMENT_HEIGHT}" fill="url(#${id}-ground)" filter="url(#${id}-grain)"/>${surface}${patches}<path d="${forest}" fill="#294e32" opacity=".5" filter="url(#${id}-soft)"/><path d="${hills}" fill="#79885a" opacity=".6" filter="url(#${id}-soft)"/><g filter="url(#${id}-soft)">${slopes}</g><path d="${marsh}" fill="#6b8261" opacity=".65" filter="url(#${id}-soft)"/><path d="${rock}" fill="#5d6953" stroke="#344b36" stroke-width="15" stroke-opacity=".3"/><path d="${water}" fill="url(#${id}-water)" stroke="#7d8b68" stroke-width="10"/><path d="${water}" fill="none" stroke="#aeb696" stroke-width="1.5" opacity=".25"/>${ripples}<g filter="url(#${id}-road-wear)" clip-path="url(#${id}-dry)" stroke-linecap="round" fill="none" stroke-linejoin="round"><g stroke="#3e5034" stroke-width="33" opacity=".22">${roads}</g><g stroke="#918469" stroke-width="24" opacity=".3">${roads}</g><g stroke="url(#${id}-soil)" stroke-width="16" opacity=".36">${roads}</g><g stroke="#6c6a4e" stroke-width=".8" stroke-dasharray="23 9 8 19" opacity=".34" transform="translate(0 5)">${roads}</g><g stroke="#c2b18d" stroke-width="1" opacity=".12" transform="translate(0 -5)">${roads}</g></g>${details}<rect width="${ENVIRONMENT_WIDTH}" height="${ENVIRONMENT_HEIGHT}" fill="url(#${id}-edge)"/></g></g>`;
 }
 
 export function battleBuildingArtwork(g){

@@ -1,0 +1,18 @@
+import {mkdir,writeFile} from 'node:fs/promises';
+import {nationalWorld,NATIONAL_SCENARIOS} from '../national-scenarios.mjs';
+import {SCENARIO_MAIN_CITY_IDS} from '../data/design/atlas-cities.mjs';
+import {metropolitanCenter} from '../metropolitan-areas.mjs';
+import {SETTLEMENT_TIER_PROPOSAL as plan} from '../data/design/settlement-tier-proposal.mjs';
+const out='outputs/historical-geography-20261108';await mkdir(out,{recursive:true});
+const original=nationalWorld('guandu-200'),world=structuredClone(original),byId=new Map(world.cities.map(c=>[c.id,c]));
+const main=plan.regions.flatMap(r=>r.main),small=plan.prefectures.map(p=>p.id),all=[...main,...small],issues=[];
+if(new Set(all).size!==all.length||all.length!==world.cities.length||all.some(id=>!byId.has(id)))issues.push('候选名单须完整覆盖76座城池且不重复');
+for(const id of SCENARIO_MAIN_CITY_IDS)if(!main.includes(id))issues.push('改动已确认的固定主城：'+id);
+for(const c of world.cities)c.citySize=main.includes(c.id)?'large':'small';
+const openings=NATIONAL_SCENARIOS.map(spec=>{const s=nationalWorld(spec.id),missing=spec.factions.filter(f=>!s.cities.some(c=>c.owner===f&&main.includes(c.id)));if(missing.length)issues.push(spec.id+' 缺少主城：'+missing.join(','));return {scenario:spec.id,factions:spec.factions.length,missing};});
+const changes=world.cities.filter(c=>c.citySize!==original.cities.find(n=>n.id===c.id).citySize).map(c=>({id:c.id,name:c.name,from:original.cities.find(n=>n.id===c.id).citySize,to:c.citySize}));
+const prefectures=plan.prefectures.map(p=>({id:p.id,name:byId.get(p.id).name,recommendedCenter:byId.get(p.center)?.name,currentRoadCenter:metropolitanCenter(world,byId.get(p.id)).name,role:p.role}));
+const result={status:plan.status,checkScope:'名单完整、固定主城保留、七剧本开局主城覆盖；不代表运行版本已改级',passed:!issues.length,readyForRuntime:false,main:main.length,cityPrefectures:small.length,roadPrefectures:world.junctions.filter(n=>n.kind==='junction').length,changes,openings,prefectures,pendingCenterAssignments:prefectures.filter(p=>p.recommendedCenter!==p.currentRoadCenter),issues};
+await writeFile(out+'/settlement-proposal.json',JSON.stringify(result,null,2));
+console.log(JSON.stringify({...result,prefectures:prefectures.filter(p=>p.recommendedCenter!==p.currentRoadCenter)},null,2));
+if(issues.length)process.exitCode=1;

@@ -1,3 +1,4 @@
+import {readMapView} from './map-camera-ui-helpers.mjs';
 import {createRequire} from 'node:module';
 import {spawn} from 'node:child_process';
 import {mkdir,writeFile,readFile} from 'node:fs/promises';
@@ -12,7 +13,7 @@ try{
  await page.locator('[data-action="select-national-scenario"][data-scenario="guandu-200"]').click();await page.locator('[data-action="select-national-faction"][data-faction="cao"]').click();await page.locator('[data-action="launch-national"]').click();await page.locator('.national-world').waitFor();assert.equal(await page.locator('.national-world [data-city]').count(),76);assert.equal(await page.locator('.node-city').count(),76);assert.equal(await page.locator('.node-gate').count(),12);assert.equal(await page.locator('.node-port').count(),35);await page.screenshot({path:out+'/map-desktop.png',fullPage:true});
  const savedBeforeMap=await page.evaluate(async ()=>await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2'));
  await page.locator('#national-city-search').selectOption('town-42');assert.match(await page.locator('.strategy-panel-body h2').innerText(),/云南/);assert.match(await page.locator('.national-world').getAttribute('class'),/map-detail/);await page.screenshot({path:out+'/southwest-detail.png',fullPage:true});
- await page.locator('[data-map-view="national"]').click();assert.equal(await page.locator('.national-world').getAttribute('viewBox'),'0 0 1024 1024');
+ await page.locator('[data-map-view="national"]').click();assert.deepEqual(await page.locator('.national-world').evaluate(readMapView),{x:0,y:0,width:1024,height:1024});
  await page.locator('#map-season').selectOption('winter');assert.equal(await page.locator('.drawn-terrain').getAttribute('data-season'),'winter');
  assert.equal(await page.evaluate(async ()=>await (await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2')),savedBeforeMap,'map controls leave the game save unchanged');
  await page.reload();assert.equal(await page.locator('.national-world [data-city]').count(),76);assert.match(await page.locator('.strategy-heading').innerText(),/官渡风云/);

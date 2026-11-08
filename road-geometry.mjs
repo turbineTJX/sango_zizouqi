@@ -1,8 +1,10 @@
 // Public, deterministic geography shared by roads, travel and map previews.
-import {RIVERS,MOUNTAINS,isLandPoint} from './national-geography.mjs';
+import {RIVERS,MOUNTAINS,isLandPoint,isLakePoint} from './national-geography.mjs';
+import {atlasPoint} from './data/design/ancient-atlas.mjs';
 import {CITY_DESIGNS} from './data/design/cities.mjs';
 import {ROAD_NETWORK_DESIGN} from './data/design/road-network.mjs';
 import {crossingNodes,crossingRoadSection} from './road-crossings.mjs';
+import {waterwayPoints} from './waterway-geometry.mjs';
 const places=[...CITY_DESIGNS,...Object.entries(ROAD_NETWORK_DESIGN.nodePositions).map(([key,[x,y]])=>({id:'junction:'+key,x,y,kind:'junction'}))];
 const atlas=new Map([...places,...crossingNodes].map(p=>[p.id,p])),cache=new Map(),baseCurves=new Map();
 function baseCurve(a,b){
@@ -18,6 +20,8 @@ const mountainSegments=MOUNTAINS.flatMap(r=>r.points.slice(1).map((b,i)=>({a:r.p
 const side=(a,b,p)=>(b.x-a.x)*(p.y-a.y)-(b.y-a.y)*(p.x-a.x);
 const crossing=(a,b,c,d)=>side(a,b,c)*side(a,b,d)<0&&side(c,d,a)*side(c,d,b)<0;
 function makeCurve(a,b){
+ const authored=ROAD_NETWORK_DESIGN.geography.paths?.find(r=>r.source.includes(a.id)&&r.source.includes(b.id));
+ if(authored){const stops=authored.points.map(p=>{const [x,y]=atlasPoint(p);return {x,y};});if(authored.source[0]!==a.id)stops.reverse();return [a,...stops,b];}
  const dx=b.x-a.x,dy=b.y-a.y,length=Math.hypot(dx,dy),seed=hash(a.id+':'+b.id);
  const nearRivers=riverSegments.filter(r=>nearest(a,r.a,r.b)+nearest(b,r.a,r.b)<length+45);
  const nearMountains=mountainSegments.filter(r=>nearest(a,r.a,r.b)+nearest(b,r.a,r.b)<length+50);
@@ -35,6 +39,7 @@ function makeCurve(a,b){
   let score=0,blocked=false;
   for(let i=1;i<curve.length;i++){
    const p=curve[i],t=i/64,edge=Math.min(1,t*7,(1-t)*7);
+   if(isLakePoint(p)){blocked=true;break;}
    if(!isLandPoint(p.x,p.y)&&isLandPoint(baseline[i].x,baseline[i].y)){blocked=true;break;}
    for(const r of nearRivers){
     if(!riverBaseline.has(r)&&crossing(curve[i-1],p,{x:r.a[0],y:r.a[1]},{x:r.b[0],y:r.b[1]})){blocked=true;break;}
@@ -53,12 +58,13 @@ function makeCurve(a,b){
 export function roadCurve(from,to){
  const a=from.id<to.id?from:to,b=from.id<to.id?to:from,originalA=atlas.get(a.id),originalB=atlas.get(b.id);
  // A separately projected theater and synthetic battle fixtures retain their own coordinates.
- if(!originalA||!originalB||Math.hypot(a.x-originalA.x,a.y-originalA.y)>.01||Math.hypot(b.x-originalB.x,b.y-originalB.y)>.01||originalA.kind==='port'&&originalB.kind==='port')return null;
+ if(!originalA||!originalB||Math.hypot(a.x-originalA.x,a.y-originalA.y)>.01||Math.hypot(b.x-originalB.x,b.y-originalB.y)>.01)return null;
  const key=a.id+':'+b.id;
  if(!cache.has(key)){
   const section=crossingRoadSection(a.id,b.id);
   let points;
-  if(section){
+  if(originalA.kind==='port'&&originalB.kind==='port')points=waterwayPoints(a,b);
+  else if(section){
    const source=baseCurve(...section.source.map(id=>atlas.get(id))),last=source.length-1;
    points=[atlas.get(section.from),...source.filter((_,i)=>i>section.start*last&&i<section.end*last),atlas.get(section.to)];
    if(section.from!==a.id)points.reverse();

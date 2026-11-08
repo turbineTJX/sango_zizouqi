@@ -67,9 +67,9 @@ try{
   const map=await context.newPage();
   for(const path of ['manifest.json','officers/manifest.json'])await map.route('**/assets/'+path,async route=>{await new Promise(ok=>setTimeout(ok,path==='manifest.json'?2200:800));await route.continue();});
   const ready=map.waitForResponse(response=>response.url().endsWith('/assets/officers/manifest.json'));await map.goto(base);await importSaveFixture(map,serializeCampaign(newCampaign(81,'guandu-200')));await map.locator('.national-world').waitFor();
-  const previous=await map.locator('.national-world').evaluate(el=>{globalThis.mapBeforeArt=el;return el.getAttribute('viewBox');});
+  const previous=await map.locator('.national-world').evaluate(el=>{globalThis.mapBeforeArt=el;return (el.dataset.cameraViewBox||el.getAttribute('viewBox'));});
   const saved=await map.evaluate(async()=>await(await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2'));
-  await ready;await map.waitForTimeout(200);result.lateCatalogPreservesMap=await map.locator('.national-world').evaluate((el,previous)=>el===mapBeforeArt&&el.getAttribute('viewBox')===previous,previous);assert.ok(result.lateCatalogPreservesMap);
+  await ready;await map.waitForTimeout(200);result.lateCatalogPreservesMap=await map.locator('.national-world').evaluate((el,previous)=>el===mapBeforeArt&&(el.dataset.cameraViewBox||el.getAttribute('viewBox'))===previous,previous);assert.ok(result.lateCatalogPreservesMap);
   assert.equal(await map.evaluate(async()=>await(await import('/save-storage.mjs')).readSavedGame('sango-sovereign-v2')),saved);await map.close();
  }
  result.portraitSynthetic832=await page.evaluate(async()=>{

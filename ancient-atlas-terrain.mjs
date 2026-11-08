@@ -4,6 +4,7 @@ import {reliefMarkup,landscapeMarkup} from './strategic-relief.mjs';
 const palettes={spring:['#b6b48f','#bdb393','#989d86'],summer:['#b5ad89','#c1b291','#969b83'],autumn:['#bba681','#c5af88','#a09b80'],winter:['#c6c6b3','#cfc5aa','#aab3a6']};
 const cache=new Map();
 const shape=ps=>polygonPath(ps.map(atlasPoint));
+export const atlasProvinceLabels=()=>`<g class="atlas-province-labels" font-family="serif" font-size="22" letter-spacing="6" fill="#694e35" opacity=".3">${PROVINCE_LABELS.map(({name,point:[x,y]})=>`<text x="${x}" y="${y}" text-anchor="middle">${name}</text>`).join('')}</g>`;
 export function ancientAtlasTerrain(season='summer'){
  if(!Object.hasOwn(palettes,season))season='summer';
  if(cache.has(season))return cache.get(season);

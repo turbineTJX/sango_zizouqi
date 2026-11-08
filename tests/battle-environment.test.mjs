@@ -24,3 +24,14 @@ test('actual facility durability and completion select intact, damaged, rubble a
  assert.notEqual(intact,battleBuildingArtwork({...g,hp:500}));assert.notEqual(intact,battleBuildingArtwork({...g,hp:0}));assert.notEqual(intact,battleBuildingArtwork({...g,level:0}));
  for(const kind of ['gate','arrowTower','musicStage','aidCamp','granary','farm'])assert.doesNotMatch(battleBuildingArtwork({...g,kind,type:kind==='gate'?'gate':'building'}),/NaN|Infinity/);
 });
+test('optional environment art is caller-owned, changes cached artwork, and cannot alter terrain or inject markup',()=>{
+ const battle={mapId:'plain-open'},before=structuredClone(battle),plain=battleMapArtwork(battle);
+ const art={ground:'./assets/battlefield/ground-renamed.webp',tree:'./assets/battlefield/tree-renamed.png'};
+ const painted=battleMapArtwork(battle,{art});
+ assert.match(painted,/ground-renamed\.webp/);assert.match(painted,/tree-renamed\.png/);
+ assert.equal((painted.match(/data-map-terrain=/g)||[]).length,112);
+ assert.notEqual(painted,plain);assert.equal(battleMapArtwork(battle),plain);assert.deepEqual(battle,before);
+ for(const url of ['https://example.com/x.png','./assets/../secret.png','./assets/x.png" onload="evil']){
+  assert.equal(battleMapArtwork(battle,{art:{ground:url,tree:url}}),plain);
+ }
+});

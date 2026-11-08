@@ -26,7 +26,18 @@ export function sampleTroopPose({type='spear',family='spear',progress=1,time=0,i
  const walk=moving&&!state.rooted&&!reduced&&death<=0?easePose(moveProgress/.1)*(1-window(moveProgress,.84,1)):0;
  const cycle=moveProgress*(mounted?1.5:1)+index*.067,phase=cycle*TAU,pace=clamp(state.gait??1,.45,1.4);
  const impact=reduced?0:clamp(reaction/.22,0,1.4),guard=reduced?0:clamp(guardImpact);
- const pose={bodyX:state.lean||0,bodyY:0,bodyZ:0,bodyDrop:-(state.stance||0)*.45,bodyForward:0,headX:0,headZ:0,
+ // Armed troops keep a planted, asymmetric guard between actions. These are
+ // model-space stances, not extra movement, attacks or random battle state.
+ const variation=[-.7,.25,.8,-.2,.5][index%5],crossbow=type==='crossbow';
+ const crouch=mounted?.025:ranged?(crossbow?.09:.075):family==='halberd'?.13:.105;
+ const lean=mounted?.3:ranged?.14:family==='halberd'?.24:.2;
+ const twist=(ranged?(crossbow?-.13:-.32):family==='halberd'?.16:-.12)+variation*.05;
+ const carry=1-weight*.85,still=1-walk;
+ const restArms=mounted?[[-.55,.06,-.08],[-.4,-.08,.1]]:ranged?
+  crossbow?[[-1.1,-.12,-.12],[-1.15,.06,.12]]:[[-.52,-.1,-.18],[-.38,-.18,.12]]:
+  family==='halberd'?[[-.55,.08,-.12],[-.46,-.18,.1]]:[[-.62,.08,-.12],[-.46,-.08,.1]];
+ const restForearms=mounted?[-.72,-.62]:ranged?crossbow?[-.7,-.55]:[-.42,-.92]:[-.72,-.58];
+ const pose={bodyX:state.lean||0,bodyY:0,bodyZ:0,bodyDrop:-(state.stance||0)*.45,bodyForward:0,headX:0,headY:0,headZ:0,legSpread:mounted?0:(ranged?.035:.065),
   arms:[{x:Math.sin(phase+Math.PI)*.28*walk,y:0,z:0},{x:Math.sin(phase)*.28*walk,y:0,z:0}],
   forearms:[-.28,-.28],weaponTilt:0,legs:[],horseLegs:[],horseBob:0,neck:0,tail:0,bowDraw:0,arrowVisible:true,flag:0,fall:0};
  if(!reduced){
@@ -61,6 +72,20 @@ export function sampleTroopPose({type='spear',family='spear',progress=1,time=0,i
  // A blocked impact braces the shield arm; only real troop damage bends the
  // body and head back. Existing receipt timing supplies both inputs.
  if(!ranged){pose.arms[0].x-=guard*.35+impact*.12;pose.forearms[0]-=guard*.28;}
+ pose.bodyDrop-=(crouch+variation*.012)*(1-walk*.55);
+ pose.bodyX+=(lean+variation*.02)*(1-walk*.35)*carry;pose.bodyY+=twist*carry;pose.bodyZ+=variation*.022*carry;
+ pose.bodyForward+=mounted?.025:.02*carry;
+ pose.headX-=lean*.55*carry;pose.headY=-twist*.7*carry;
+ for(let j=0;j<2;j++){
+  pose.arms[j].x+=(restArms[j][0]+variation*(j?.06:-.03))*carry;pose.arms[j].y+=restArms[j][1]*carry;pose.arms[j].z+=restArms[j][2]*carry;
+  pose.forearms[j]+=(restForearms[j]+.28+variation*.04)*carry;
+ }
+ pose.weaponTilt+=(ranged?0:(mounted?.78:family==='halberd'?.92:1.04)+variation*.07)*carry;
+ if(!reduced){
+  const breath=Math.sin(time*1.45+index*.79);
+  pose.bodyX+=breath*.012*still;pose.bodyZ+=Math.sin(time*.8+index)*.009*still;
+  pose.headY+=Math.sin(time*.43+index*.91)*.035*still;
+ }
  if(!mounted)pose.bodyDrop-=strike*.025;
  if(death>0&&!reduced)pose.bodyDrop-=easePose(death/.4)*.13;
  const hipHeight=.73+pose.bodyDrop;
@@ -68,16 +93,17 @@ export function sampleTroopPose({type='spear',family='spear',progress=1,time=0,i
   if(mounted)pose.legs.push({hip:-.15+walk*.035*Math.sin(phase),knee:.48,ankle:-.33});
   else{
    const foot=sampleFoot(cycle+j*.5,{stride:.34*pace}),lunge=!state.rooted&&!ranged&&!magic?(j===0?.13:-.035)*strike:0;
-   pose.legs.push(solveLeg(foot.z*walk+lunge,foot.lift*walk,hipHeight));
+   const stagger=(j===0?1:-1)*(ranged?.105:.15)+variation*.018;
+   pose.legs.push(solveLeg(foot.z*walk+stagger*still+lunge,foot.lift*walk,hipHeight));
   }
  }
  if(mounted){
-  const gait=walk*Math.sin(phase),bob=walk*((1-Math.cos(phase*2))*.017-.045);
+  const gait=walk*Math.sin(phase),bob=-.014+walk*((1-Math.cos(phase*2))*.017-.045);
   pose.horseBob=bob;pose.bodyDrop+=bob;pose.bodyX-=gait*.045;
-  pose.neck=gait*.07;pose.tail=Math.sin(phase+.6)*walk*.15;
+  pose.neck=-.045+gait*.07;pose.tail=variation*.04+Math.sin(phase+.6)*walk*.15;
   for(let j=0;j<4;j++){
    const foot=sampleFoot(cycle+[0,.5,.5,0][j],{stride:.42*pace,height:.14,stance:.57});
-   pose.horseLegs.push(solveLeg(foot.z*walk,foot.lift*walk,.82+bob,{upper:.36,lower:.39,ankle:.07}));
+   pose.horseLegs.push(solveLeg(foot.z*walk+[.035,-.025,-.015,.025][j]*still,foot.lift*walk,.82+bob,{upper:.36,lower:.39,ankle:.07}));
   }
  }
  if(death>0&&!reduced){pose.fall=easePose(death/.7)*1.35;pose.headX+=easePose(death/.7)*.2;}

@@ -1,0 +1,64 @@
+import assert from 'node:assert/strict';
+import {spawn} from 'node:child_process';
+import {access,mkdir,writeFile} from 'node:fs/promises';
+import {join} from 'node:path';
+import {_electron} from 'playwright';
+import {ROOT} from './release-lib.mjs';
+import {prepareDesktopPreview} from './start-desktop.mjs';
+import {RULES_VERSION} from '../combat-rules.mjs';
+import {createScenario} from '../scenarios.mjs';
+import {importSaveFixture} from './save-fixture-ui-helpers.mjs';
+
+const out=join(ROOT,'.local','verify-desktop-preview-'+Date.now()),profile=join(out,'profile');
+await mkdir(out,{recursive:true});
+const errors=[],checks=[],started=Date.now(),prepared=await prepareDesktopPreview();
+assert.equal(prepared.rulesVersion,RULES_VERSION);
+assert.notEqual(prepared.env.SANGO_USER_DATA,join(process.env.APPDATA,'SangoSovereign'));
+const env={...prepared.env,SANGO_USER_DATA:profile,SANGO_VERIFY:'1'};
+let application,page;
+async function launch(snapshot){
+ application=await _electron.launch({executablePath:snapshot.executablePath,args:[snapshot.stage],env:{...snapshot.env,...env},timeout:60000});
+ page=await application.firstWindow();page.on('pageerror',e=>errors.push(e.message));
+ await page.locator('#app [data-action]').first().waitFor({timeout:60000});
+}
+try{
+ await launch(prepared);
+ const launchMs=Date.now()-started;
+ assert.equal(await page.evaluate(()=>location.origin),'sango://game');
+ assert.match(await application.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].getTitle()),/项目最新版/);
+ assert.equal(await page.evaluate(()=>typeof window.sangoDesktop?.openManual),'function');
+ assert.equal(await page.evaluate(()=>typeof window.require),'undefined');
+ assert.deepEqual(await application.evaluate(({BrowserWindow})=>{const p=BrowserWindow.getAllWindows()[0].webContents.getLastWebPreferences();return {nodeIntegration:p.nodeIntegration,contextIsolation:p.contextIsolation,sandbox:p.sandbox};}),{nodeIntegration:false,contextIsolation:true,sandbox:true});
+ const assets=await page.evaluate(async()=>({art:await(await fetch('/assets/manifest.json')).json(),playtest:await(await fetch('/local-art/manifest.json')).json(),release:await(await fetch('/release.json')).json()}));
+ assert.equal(assets.release.rulesVersion,RULES_VERSION);assert.equal(assets.playtest.id,'local-playtest');
+ assert.ok(assets.art.battlefield?.ground);assert.equal(await page.evaluate(async path=>(await fetch(path)).status,assets.art.battlefield.ground),200);
+ checks.push('native current project with isolated profile, current rules, source artwork and sandboxed desktop bridge');
+ await page.locator('[data-action="settings"]').first().click();
+ const readerPromise=application.waitForEvent('window');await page.locator('[data-guide-action="manual"]').click();
+ const reader=await readerPromise;await reader.getByRole('heading',{name:'开始普通模式',exact:true}).waitFor();await reader.close();
+ checks.push('built-in desktop manual opens from settings');
+ const fixture=createScenario('custom-battle',20261108,null,null,{seed:20261108,terrain:'land',ownTeam:[{id:'cao',type:'spear',level:10,troops:3000}],enemyTeam:[{id:'shao',type:'spear',level:10,troops:3000}]});
+ await importSaveFixture(page,fixture);await page.locator('#battle-board').waitFor();
+ assert.equal(await page.locator('.hex-formation,.formation-cell-label').count(),0);
+ const route=await page.evaluate(()=>location.hash),saveKey=route==='#historical-battle'?'sango-historical-battle-v1':route==='#battle-lab'?'sango-battle-lab-v1':'sango-sovereign-v2';
+ const saved=await page.evaluate(async key=>await(await import('/save-storage.mjs')).readSavedGame(key),saveKey);
+ assert.ok(saved);assert.equal(JSON.parse(saved).rulesVersion,RULES_VERSION);
+ const skip=page.getByRole('button',{name:'关闭全部新手指引',exact:true});if(await skip.isVisible())await skip.click();
+ await page.locator('[data-action="battle-panel"][data-panel="tools"]').click();
+ await page.locator('[data-action="settings"]:visible').first().click();await page.locator('[data-action="export"]').click();await page.getByText('存档已导出',{exact:true}).waitFor();
+ checks.push('real battle import, no retired formation markers, native export');
+ const again=await prepareDesktopPreview();
+ const second=spawn(again.executablePath,[again.stage],{env,stdio:'ignore',windowsHide:true});
+ const exitCode=await new Promise((ok,no)=>{const timer=setTimeout(()=>{second.kill();no(Error('Second launch did not focus the existing window'));},15000);second.once('error',e=>{clearTimeout(timer);no(e);});second.once('exit',code=>{clearTimeout(timer);ok(code);});});
+ assert.equal(exitCode,0);assert.equal(application.windows().length,1);assert.equal(page.isClosed(),false);
+ checks.push('second launch keeps the existing game and save intact');
+ await application.close();application=null;
+ await assert.rejects(access(join(prepared.stage,'main.cjs')));
+ const restart=await prepareDesktopPreview();await launch(restart);await page.goto('sango://game/'+route);await page.reload();
+ await page.locator('#battle-board').waitFor();
+ assert.equal(await page.evaluate(async key=>await(await import('/save-storage.mjs')).readSavedGame(key),saveKey),saved);
+ checks.push('save survives a fresh generated snapshot and process restart; closed run snapshots are removed');
+ assert.deepEqual(errors,[]);
+ await writeFile(join(out,'result.json'),JSON.stringify({passed:true,launchMs,rulesVersion:RULES_VERSION,checks,errors},null,2)+'\n');
+ console.log(JSON.stringify({passed:true,out,launchMs,rulesVersion:RULES_VERSION,checks}));
+}finally{await application?.close();}

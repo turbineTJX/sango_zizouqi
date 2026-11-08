@@ -1,3 +1,4 @@
+import {readMapView} from './map-camera-ui-helpers.mjs';
 import {panMapTo} from './map-target-ui-helpers.mjs';
 import {spawn} from 'node:child_process';
 import {mkdirSync,writeFileSync} from 'node:fs';
@@ -39,7 +40,7 @@ try{
   await page.screenshot({path:`${out}/${name}-interior.png`});
   await main.focus();await page.keyboard.press('Escape');
   for(let i=0;i<10;i++){
-   const size=await main.evaluate(el=>Math.min(el.viewBox.baseVal.width,el.viewBox.baseVal.height));if(size>=110)break;
+   const size=await main.evaluate(readMapView).then(v=>Math.min(v.width,v.height));if(size>=110)break;
    await page.locator('[data-map-view="out"]').click();
   }
   await panMapTo(page,{x:741,y:440});

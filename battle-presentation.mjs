@@ -68,24 +68,30 @@ export function observedUnitAction(b,u){
 
 // Place compact identity flags inside the board. Stable ID order and a small
 // preference for the previous position prevent labels swapping on every hit.
-export function placeBattleCaptions(entries,width,height,previous=new Map()){
- const placed=[],result=new Map(),padding=3;
+export function placeBattleCaptions(entries,width,height,previous=new Map(),{top=2}={}){
+ const placed=[],placedFaces=[],result=new Map(),padding=3;
  const overlap=(a,b)=>Math.max(0,Math.min(a.x+a.width+padding,b.x+b.width+padding)-Math.max(a.x,b.x))*Math.max(0,Math.min(a.y+a.height+padding,b.y+b.height+padding)-Math.max(a.y,b.y));
  for(const entry of [...entries].sort((a,b)=>a.id.localeCompare(b.id))){
   const {id,x,y}=entry,w=Math.min(entry.width,width-4),h=Math.min(entry.height,height-4);
-  const hex=width/14.5,maxDistance=hex*.85;
+  const minY=Math.min(height-h-2,Math.max(2,top));
+  const hex=width/14.5,maxDistance=hex*(entry.portraitWidth?1.15:.85);
   const head=entry.headY??y-hex*.27;
-  const anchor={x:clamp(x-w/2,2,width-w-2),y:clamp(head-h-2,2,height-h-2)};
-  const offsets=[[0,0],[-hex*.18,0],[hex*.18,0],[0,-h-3]];
+  const anchor={x:clamp(x-w/2,2,width-w-2),y:clamp(head-h-2,minY,height-h-2)};
+  const offsets=[[0,0],[-hex*.18,0],[hex*.18,0],[0,-h-3],[-hex*.45,0],[hex*.45,0],[-hex*.75,0],[hex*.75,0],[-hex,0],[hex,0],[0,hex],[-hex*.4,-hex*.45],[hex*.4,-hex*.45],[0,hex*.8],[-hex*.2,hex*.65],[hex*.2,hex*.65]];
   // A crowded label may overlap locally, but must not become another unit's
   // apparent nameplate. Focus raises the actual unit and its own caption.
   for(let dy=-1;dy<=0;dy++)for(let dx=-1;dx<=1;dx++)offsets.push([dx*hex*.22,dy*hex*.22]);
-  let candidates=offsets.map(([dx,dy])=>({x:clamp(anchor.x+dx,2,width-w-2),y:clamp(anchor.y+dy,2,height-h-2),width:w,height:h})).filter(p=>entry.headY===undefined?Math.hypot(p.x+w/2-x,p.y+h/2-y)<=maxDistance:Math.hypot(p.x-anchor.x,p.y-anchor.y)<=maxDistance);
-  if(!candidates.length)candidates=[entry.headY===undefined?{x:clamp(x-w/2,2,width-w-2),y:clamp(y-h/2,2,height-h-2),width:w,height:h}:{...anchor,width:w,height:h}];
+  let candidates=offsets.map(([dx,dy])=>({x:clamp(anchor.x+dx,2,width-w-2),y:clamp(anchor.y+dy,minY,height-h-2),width:w,height:h})).filter(p=>entry.headY===undefined?Math.hypot(p.x+w/2-x,p.y+h/2-y)<=maxDistance:Math.hypot(p.x-anchor.x,p.y-anchor.y)<=maxDistance);
+  if(!candidates.length)candidates=[entry.headY===undefined?{x:clamp(x-w/2,2,width-w-2),y:clamp(y-h/2,minY,height-h-2),width:w,height:h}:{...anchor,width:w,height:h}];
   const old=previous.get(id);
-  const cost=p=>placed.reduce((n,q)=>n+overlap(p,q),0)+Math.hypot(p.x-anchor.x,p.y-anchor.y)*2+(old?Math.hypot(p.x-old.x,p.y-old.y)*.12:0);
+  const cost=p=>{
+   const size=entry.portraitWidth||0,face={...p,width:size,height:size},protectedSize=hex*.22;
+   const bodyOverlap=size?entries.filter(e=>e.id!==id).reduce((n,e)=>n+overlap(face,{x:e.x-protectedSize/2,y:e.y-protectedSize/2,width:protectedSize,height:protectedSize}),0):0;
+   const faceOverlap=size?placed.reduce((n,q)=>n+overlap(face,q),0)+placedFaces.reduce((n,q)=>n+overlap(p,q),0):0;
+   return placed.reduce((n,q)=>n+overlap(p,q),0)+faceOverlap*12+bodyOverlap*2+Math.hypot(p.x-anchor.x,p.y-anchor.y)*2+(old?Math.hypot(p.x-old.x,p.y-old.y)*.12:0);
+  };
   candidates.sort((a,b)=>cost(a)-cost(b));let best=candidates[0];
-  placed.push(best);result.set(id,best);
+  placed.push(best);if(entry.portraitWidth)placedFaces.push({...best,width:entry.portraitWidth,height:entry.portraitWidth});result.set(id,best);
  }
  return result;
 }

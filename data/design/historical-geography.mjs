@@ -1,0 +1,36 @@
+// Evidence constrains names, banks and regional order, not surveyed coordinates.
+// The supplied Western-Jin scan is a layout aid, not a Han/Three-Kingdoms census.
+export const HISTORICAL_GEOGRAPHY_DESIGN={
+ version:1,
+ sources:{
+  atlas:{title:'用户提供的西晋参考图',file:'assets/maps/ancient-atlas-reference.jpg',use:'地形和聚落相对方位；不移植图中的西晋疆域、族名及后起地名'},
+  chgis:{title:'Harvard / 复旦 CHGIS',url:'https://gis.harvard.edu/china-historical-gis',use:'核对古地名时检查有效年代，不把清代断面当作汉末地图'},
+  rtk11:{title:'光荣《三國志11》地图介绍',url:'https://www.gamecity.ne.jp/sangokushi/11/chi/',use:'城、关、港的地形分工参考；不复制游戏贴图或把游戏布局当成史实'},
+  wuling:{title:'常德市政府：武陵概况',url:'https://www.changde.gov.cn/ztlmu/wdcdapp/zjcd/cdgk1/cdgk2/wlqu1/content_943588',use:'武陵位于洞庭湖西部，城不在湖面中'},
+  dongting:{title:'岳阳市档案局：不同时期洞庭湖区域范围',url:'https://daj.yueyang.gov.cn/6658/6667/content_370350.html',use:'区分湖盆、季节水面和城市；不声称复原某年的岸线'},
+  baling:{title:'岳阳市政府：岳阳概况',url:'https://www.yueyang.gov.cn/yygk/content_200119.html',use:'巴陵在江湖交汇区、洞庭东北岸'},
+  yuzhang:{title:'南昌市政府：地理资源',url:'https://www.nc.gov.cn/ncszf/dlzy/2021_wztt.shtml',use:'南昌在赣江下游，鄱阳湖位于东北；仅核对地理关系'},
+  luling:{title:'复旦 CHGIS：庐陵郡（191—590）',url:'https://chgis.hudci.org/tgaz/placename/hvd_32540',use:'改正卢陵误字，港名仍是游戏转接点'},
+  zhonglu:{title:'复旦 CHGIS：中庐县',url:'https://tgaz.fudan.edu.cn/tgaz/placename/hvd_45695',use:'中庐属襄阳郡、位于襄阳西南；港口为该地区的游戏适配接岸点'},
+  linchuan:{title:'临川区政府工作报告',url:'https://www.jxlc.gov.cn/art/2026/5/18/art_21417_4448351.html',use:'抚河与临川关系；不拿现代行政边界作为三国边界'},
+  rushui:{title:'《学术月刊》：六朝建康水道军事防御体系',url:'https://www.xsyk021.com/fileXSYK/journal/article/xsyk/2025/10/PDF/xsyk-57-10-187.pdf',use:'合肥—巢湖—濡须水—长江通道，不把濡须港强行贴到主江'},
+  yangping:{title:'汉中市地方志：古阳平关遗址',url:'https://hzdqw.hanzhong.gov.cn/hzdfz/zjsy/202608/ca8a0e6df08c465985a51202e338b581.shtml',use:'古阳平关为勉县古关、汉中西门，不套用现代宁强同名镇'},
+  hangu:{title:'中国丝绸博物馆：新安汉函谷关',url:'https://iidos.cn/SilkRoadHeritage/info.aspx?itemid=8954&lcid=19',use:'汉关位于新安、洛阳以西；区分灵宝秦关与后起魏关'},
+  taihang:{title:'长治市政府：壶关矿产规划',url:'https://www.changzhi.gov.cn/xxgkml/czsrmzf/zfwj_3465/201808/W020180807614433909548.pdf',use:'南太行、长治东南方向的区域依据，不等同现代县城实测古关点'},
+ },
+ places:{jinyang:{province:'并州'},'town-43':{province:'并州'},'town-55':{province:'并州'},wan:{province:'荆北'},'town-19':{province:'荆北'},'town-68':{province:'荆北'},'town-77':{name:'庐陵港'}},
+ relations:[
+  {name:'关中至河洛',axis:'x',ids:['town-18','town-45','town-46','luoyang','town-44'],sources:['hangu']},
+  {name:'汉中西门',axis:'x',ids:['town-48','town-37'],sources:['yangping']},
+  {name:'阳平关在汉中西北通道',axis:'y',ids:['town-48','town-37'],sources:['yangping']},
+  {name:'南太行关道在长子东南',axis:'x',ids:['atlas-changzi','town-43','ye'],sources:['taihang']},
+  {name:'南太行关道的南北关系',axis:'y',ids:['atlas-changzi','town-43'],sources:['taihang']},
+  {name:'江陵—武陵—零陵',axis:'y',ids:['town-31','town-33','town-35'],sources:['atlas','wuling']},
+  {name:'柴桑—豫章—临川',axis:'y',ids:['town-27','atlas-yuzhang','atlas-linchuan'],sources:['atlas','yuzhang','linchuan']},
+  {name:'建业—吴—会稽',axis:'y',ids:['town-23','town-24','town-25'],sources:['atlas']},
+  {name:'中庐位于襄阳西南',axis:'x',ids:['town-80','town-30'],sources:['zhonglu']},
+  {name:'中庐与襄阳南北关系',axis:'y',ids:['town-30','town-80'],sources:['zhonglu']},
+ ],
+ lakeRivers:{'洞庭湖':['xiangshui','yuanshui','lishui','dongting-outlet'],'鄱阳湖':['ganshui','fushui','poyang-outlet'],'巢湖':['rushui']},
+ portApproaches:[{port:'town-80',city:'town-30',closed:'town-31',source:'zhonglu'}],
+};
