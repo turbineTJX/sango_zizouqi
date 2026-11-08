@@ -1,0 +1,58 @@
+import assert from 'node:assert/strict';
+import {spawn} from 'node:child_process';
+import {mkdir,writeFile} from 'node:fs/promises';
+import {chromium} from 'playwright';
+import {generateBattle} from '../battle-generator.mjs';
+import {defaultCustomBattle} from '../custom-battle.mjs';
+import {lockDeployment,stepBattle,validateSave} from '../engine.mjs';
+import {unitTactics,setStatus} from '../tactics.mjs';
+import {OFFICER_CATALOG} from '../officer-catalog.mjs';
+const id=name=>OFFICER_CATALOG.find(u=>u.name===name).id;
+const lure=process.argv.includes('--lure'),bondName=lure?'诱敌':'倾国',aimField=lure?'lureAims':'beautyAims',sourceName=lure?'陈宫':'貂蝉';
+const own=lure?['陈宫','袁胤','郝萌','牛辅','王门','郭马','法正','陈到'].map(name=>[name,'archer']):[['貂蝉','archer'],['甄氏','archer'],['大乔','archer'],['小乔','archer'],['邓芝','archer'],['诸葛瑾','archer'],['法正','archer'],['陈到','baier']];
+const foe=[['袁绍','spear'],['颜良','cavalry'],['文丑','halberd'],['张郃','cavalry'],['沮授','archer'],['田丰','archer']];
+const entries=a=>a.map(([name,type])=>({id:id(name),type,troops:3000,level:10}));
+const state=generateBattle({...defaultCustomBattle(),seed:812321,terrain:'land',mapId:'plain-open',battleKind:'field',events:[],ownTroopBudget:24000,ownTeam:entries(own),enemyTeam:entries(foe)});
+validateSave(structuredClone(state));
+const out=lure?'work/lure-bonds-ui':'work/strong-bonds-ui',port=4339;await mkdir(out,{recursive:true});
+const server=spawn(process.execPath,['server.mjs'],{env:{...process.env,PORT:String(port)},stdio:'pipe',windowsHide:true});let browser;
+try{
+ await new Promise((ok,no)=>{server.stdout.once('data',ok);server.once('error',no);server.once('exit',code=>no(Error('server '+code)));});
+ browser=await chromium.launch({channel:'msedge',headless:true});
+ const page=await browser.newPage({viewport:{width:1600,height:1000},serviceWorkers:'block'}),errors=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.addInitScript(()=>localStorage.setItem('sango-page-guides-v1',JSON.stringify({version:1,enabled:false,seen:[]})));
+ await page.goto('http://127.0.0.1:'+port);
+ await page.locator('[data-action="settings"]').first().waitFor({state:'visible'});
+ await page.evaluate(async()=>{const {BattleEffects}=await import('./battle-effects.mjs'),original=BattleEffects.prototype.update;BattleEffects.prototype.update=function(b,options){window.positioningBattle=b;return original.call(this,b,options);};});
+ async function load(s,name){if(!await page.locator('[data-action="settings"]').first().isVisible())await page.getByRole('button',{name:'战斗工具',exact:true}).click();await page.locator('[data-action="settings"]').first().click();await page.locator('#import-file').setInputFiles({name,mimeType:'application/json',buffer:Buffer.from(JSON.stringify(s))});await page.locator('#battle-board').waitFor();}
+ // A real cast creates the lock, then a displaced target supplies a UI fixture
+ // for an empty impact. This is mechanism/UI evidence, not natural gameplay.
+ let pending=structuredClone(state),b=pending.battle;lockDeployment(b);
+ b.sides[0].units.filter(u=>u.status==='active').forEach((u,i)=>Object.assign(u,{x:i?1:4,y:i?i-1:3}));
+ b.sides[1].units.forEach((u,i)=>Object.assign(u,{x:i?11+i%3:6,y:i?i-1:3}));
+ for(const u of b.sides.flatMap(s=>s.units)){setStatus(b,u,'root',999);u.cooldown=999;u.intent=0;u.skillReady=Object.fromEntries(unitTactics(u).map(t=>[t.id,999]));}
+ const base=structuredClone(pending);let shooter;
+ for(let seed=1;seed<=80;seed++){
+  pending=structuredClone(base);b=pending.battle;b.seed=Math.imul(seed,134775813)>>>0;
+  shooter=b.sides[0].units.find(u=>u.id===id(sourceName));shooter.cooldown=0;
+  stepBattle(b,{aiSides:[]});if(shooter[aimField]?.length)break;
+ }
+ assert.ok(shooter[aimField]?.length);shooter.cooldown=999;Object.assign(b.sides[1].units.find(u=>u.id===shooter[aimField][0].targetId),{x:8,y:6});validateSave(structuredClone(pending));
+ await load(pending,'pending-positioning.json');
+ if(await page.locator('.modal-backdrop').count())await page.keyboard.press('Escape');
+ assert.ok(await page.locator('[data-tactic-aim="'+shooter.id+'"]').count()>0);
+ await page.screenshot({path:out+'/desktop-locked-area.png',fullPage:true});
+ await page.setViewportSize({width:844,height:390});
+ assert.ok(await page.locator('[data-tactic-aim="'+shooter.id+'"]').count()>0);
+ await page.screenshot({path:out+'/mobile-locked-area.png',fullPage:true});
+ await page.setViewportSize({width:1600,height:1000});
+ await page.locator('[data-action="pause"]').first().click();
+ await page.waitForFunction(name=>positioningBattle.logs.some(l=>l.text.includes(name)&&l.text.includes('落空')),bondName);
+ if((await page.locator('[data-action="pause"]').first().getAttribute('aria-label')).includes('暂停'))await page.locator('[data-action="pause"]').first().click();
+ await page.getByRole('button',{name:'战斗日志',exact:true}).click();
+ assert.match(await page.locator('#battle-journal').innerText(),/落空/);await page.screenshot({path:out+'/desktop-miss.png',fullPage:true});
+ await page.setViewportSize({width:844,height:390});await page.screenshot({path:out+'/mobile-miss.png',fullPage:true});
+ assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+2));assert.deepEqual(errors,[]);
+ await writeFile(out+'/result.json',JSON.stringify({passed:true,errors,mechanismFixture:true},null,2));
+ console.log('PASS '+bondName+' locked cells and miss log, desktop/mobile');
+}finally{await browser?.close();server.kill();}

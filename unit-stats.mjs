@@ -1,5 +1,5 @@
 import {combatType,combatFamily} from './troop-equipment.mjs';
-import {statusValue,statusOn} from './battle-status-rules.mjs';
+import {statusValue,statusOn,effectiveStatus} from './battle-status-rules.mjs';
 import {bondBlocksEffect} from './bonds.mjs';
 import {passiveAttributes} from './passives.mjs';
 import {statusFraction} from './tactic-power.mjs';
@@ -7,6 +7,7 @@ import {terrainMoveFactor,unitTerrain,TERRAIN_NAMES} from './battlefield.mjs';
 // Shared, derived battle attributes. Never store a second mutable copy in saves.
 import {TROOP_DESIGNS} from './data/design/troops.mjs';
 import {BOND_DESIGNS} from './data/design/bonds.mjs';
+import {FORMATION} from './combat-rules.mjs';
 export const TROOPS = structuredClone(TROOP_DESIGNS);
 export const isRear=u=>['archer','siege'].includes(combatFamily(u))&&TROOPS[combatType(u)].range>1;
 export const ATTRIBUTE_LABELS={attack:'攻击',defense:'防御',move:'移速',range:'射程',siege:'攻城',attackSpeed:'攻速',discipline:'军纪',martialPower:'武技威力',strategyPower:'谋略威力',supportPower:'营务威力'};
@@ -35,7 +36,7 @@ export function unitAttributes(u,b=null,{ignoreBonds=false}={}) {
  const atk=[],def=[],martial=[],strategy=[],move=[],range=[],discipline=[];
  const supplyPenalty=battleSupplyPenalty(u,b);
  if(supplyPenalty){const m={label:'缺粮',factor:1-supplyPenalty};atk.push(m);martial.push(m);strategy.push(m);}
- if(b?.terrain&&u.status==='active'){
+ if((b?.terrain||b?.mapId)&&u.status==='active'){
    const factor=terrainMoveFactor(b,u);
    if(factor!==1)move.push({label:TERRAIN_NAMES[unitTerrain(b,u)]+'行军',factor});
  }
@@ -48,10 +49,12 @@ export function unitAttributes(u,b=null,{ignoreBonds=false}={}) {
  if(u.advisorBonus)strategy.push({label:'军师智力',factor:1+u.advisorBonus});
  if(on('valor'))atk.push({label:'奋战',factor:1+statusFraction(u,'valor',.25)});
  if(on('weaken'))atk.push({label:'疲弱',factor:1-(u.statuses.weaken.fraction??statusFraction(u,'weaken',.2))});
- if(on('powerDown')){const m={label:'挫锐',factor:1-(u.statuses.powerDown.fraction??statusFraction(u,'powerDown',.2))};martial.push(m);strategy.push(m);}
- if(on('armorBreak'))def.push({label:'破甲',factor:1-(u.statuses.armorBreak.fraction??statusFraction(u,'armorBreak',.2))});
+ const debuffFraction=key=>{const s=effectiveStatus(b||{tick},u,key);return s?.fraction??.2*(s?.potency??1);};
+ if(on('powerDown')){const m={label:'挫锐',factor:1-debuffFraction('powerDown')};martial.push(m);strategy.push(m);}
+ if(on('armorBreak'))def.push({label:'破甲',factor:1-debuffFraction('armorBreak')});
+ if(on('disciplineDown'))discipline.push({label:'乱纪',factor:1-debuffFraction('disciplineDown')});
  if(on('rapidAdvance'))move.push({label:'兵贵神速',add:statusValue(u,'rapidAdvance','moveBonus')});
- if(!on('rapidAdvance')&&on('haste'))move.push({label:'疾行（同类不叠加）',add:1});
+ if(!on('rapidAdvance')&&on('haste'))move.push({label:'疾行（同类不叠加）',add:FORMATION.hasteMove});
  if(on('slow'))move.push({label:'迟滞',factor:1-statusFraction(u,'slow',.5)});
  if(on('phalanx')||on('root')||on('stun'))move.push({label:on('stun')?'眩晕':on('root')?'定身':'方阵',factor:0});
  stat('supportPower',80,politics*1.4+(u.intellect||0)*.6,'政治 × 140% ＋ 智力 × 60%',supplyPenalty?[{label:'缺粮',factor:1-supplyPenalty}]:[]);
@@ -59,7 +62,7 @@ export function unitAttributes(u,b=null,{ignoreBonds=false}={}) {
  stat('defense',t.defense,leadership*.65,'统率 × 65%',def);
  if(t.range>1){const extra=Math.max(on('longRange')?statusValue(u,'longRange','amount'):0,on('emplaced')?1:0,on('anchored')?statusValue(u,'anchored','amount'):0)-(on('shortRange')?statusValue(u,'shortRange','amount'):0);range.length=0;if(extra)range.push({label:'射程状态（同类取最高）',add:Math.max((t.minRange||1)-t.range,extra)});}
  if(!u.formType&&u.equipment?.siege&&t.move>TROOPS[u.equipment.siege].move)move.push({label:'携带兵器',factor:TROOPS[u.equipment.siege].move/t.move});
- stat('move',t.move,0,'兵种决定',move);stat('range',t.range,0,'兵种决定',range);stat('siege',out.attack*t.siegeFactor,0,`${t.name}攻城系数 × ${Math.round(t.siegeFactor*100)}%（已计入基础）`);
+ stat('move',t.move,0,'兵种决定',move);if(out.move>FORMATION.maxMove){breakdown.move.modifiers.push({label:'每回合逐格移动上限',factor:FORMATION.maxMove/out.move});out.move=FORMATION.maxMove;breakdown.move.value=out.move;}stat('range',t.range,0,'兵种决定',range);stat('siege',out.attack*t.siegeFactor,0,`${t.name}攻城系数 × ${Math.round(t.siegeFactor*100)}%（已计入基础）`);
  const intervalFactor=(on('attackSlow')?1+statusValue(u,'attackSlow','fraction'):1)*(1-Math.max(on('attackHaste')?statusValue(u,'attackHaste','fraction'):0,on('rapidAdvance')?statusValue(u,'rapidAdvance','attackFraction'):0));
  stat('attackSpeed',1000/(700*t.interval),0,'兵种攻击间隔 '+Math.round(t.interval*700)+' 毫秒',[{label:'攻速状态',factor:1/intervalFactor}]);out.attackInterval=t.interval*intervalFactor/(passives.attackSpeed||[]).reduce((n,m)=>n*(m.factor??1),1);out.minRange=t.minRange||0;
  stat('discipline',t.discipline,politics*.8,'政治 × 80%',discipline);

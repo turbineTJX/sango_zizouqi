@@ -11,9 +11,9 @@ import {scheduleBattleActions} from '../battle-presentation.mjs';
 const unit=(id,levels,extra={})=>({id,side:0,status:'active',hp:3000,maxHp:3000,x:2,y:3,bondGrowth:{levels},...extra});
 const battle=(units)=>({id:'bond-fx',tick:0,deploymentLocked:false,effects:[],sides:[{units},{units:[]}]});
 const update=(fx,b,options={},clock=0,events=[])=>fx.update(b,events,[],clock,{paused:false,speed:1,...options});
-test('all thirty-three bond glyphs are distinct and share SVG/canvas artwork',()=>{
+test('all bond glyphs are distinct and share SVG/canvas artwork',()=>{
  assert.deepEqual(Object.keys(BOND_VISUALS).sort(),Object.keys(BOND_DESIGNS).sort());
- assert.equal(new Set(Object.values(BOND_VISUALS).map(g=>g.path)).size,33);
+ assert.equal(new Set(Object.values(BOND_VISUALS).map(g=>g.path)).size,Object.keys(BOND_DESIGNS).length);
  const calls=[],c=new Proxy({},{get:(_,name)=>(...args)=>{calls.push(name);for(const n of args)if(typeof n==='number')assert.ok(Number.isFinite(n));},set:()=>true});
  for(const [id,g]of Object.entries(BOND_VISUALS)){assert.ok(bondIcon(id).includes(g.path));drawBondGlyph(c,id,100,100,24);}
  assert.ok(calls.includes('bezierCurveTo'));assert.ok(calls.includes('stroke'));
@@ -64,6 +64,48 @@ test('a later ordinary orb does not borrow attribution from spent entry equipmen
  const fx=new BattleBondEffects();update(fx,b);
  const e={from:'sage',to:'enemy',attackOrb:'curse',label:'挫志',damage:30,start:0,duration:480};update(fx,b,{},0,[e]);
  assert.equal(fx.items.length,0);
+});
+
+function applyDebuffReceipt(b,source,targets,id='bondEnfeeble',tier=1){
+ const d=BOND_DESIGNS[id],cast={id,tier,sourceId:source.id,castTick:b.tick,until:b.tick+d.debuffSteps+1,holders:[{id:source.id,points:source.bondGrowth.levels[id]}],treasurePoints:0,targets:targets.map(u=>u.id)};
+ (b.sides[source.side].bondDebuffCasts ||= []).push(cast);
+ for(const target of targets){target.statuses ||= {};target.statuses[d.statusKey]={sourceId:source.id,sourceBond:id,castTick:b.tick,until:cast.until,fraction:d.values[tier-1]};}
+ return cast;
+}
+
+test('a later actual debuff cast shows one animation with its affected targets, even after its live tier falls',()=>{
+ for(const side of [0,1]){
+  const source=unit('caster',{bondEnfeeble:3},{side}),target=unit('recipient',{}, {side:1-side}),other=unit('other',{}, {side:1-side}),b=battle([]);b.sides[side].units=[source];b.sides[1-side].units=[target,other];b.deploymentLocked=true;b.tick=20;
+  const fx=new BattleBondEffects();update(fx,b);assert.equal(fx.items.length,0);
+  b.tick=21;const cast=applyDebuffReceipt(b,source,[target,other]);source.bondGrowth.levels.bondEnfeeble=1;
+  const before=JSON.stringify(b);update(fx,b,{},2000);assert.equal(JSON.stringify(b),before);
+  const receipts=fx.items.filter(e=>e.id==='bondEnfeeble');assert.equal(receipts.length,1);assert.equal(receipts[0].kind,'proc');assert.equal(receipts[0].sourceId,cast.sourceId);assert.equal(receipts[0].tier,cast.tier);assert.deepEqual(receipts[0].targets,['recipient','other']);
+  fx.items=[];source.bondGrowth.levels.bondEnfeeble=3;b.sides[side].units.push(unit('new-holder',{bondEnfeeble:2},{side}));b.sides[1-side].units.push(unit('later-target',{}, {side:1-side}));b.tick++;update(fx,b,{},5000);assert.ok(!fx.items.some(e=>e.id==='bondEnfeeble'),'tier increases, holders and later targets must not replay a cast');
+ }
+});
+
+test('initial debuff cast animates once and shares slots with positive opening badges',()=>{
+ const source=unit('caster',{bondEnfeeble:3,bondPower:3}),target=unit('recipient',{}, {side:1}),b=battle([source]);b.sides[1].units=[target];const fx=new BattleBondEffects();update(fx,b,{paused:true});b.deploymentLocked=true;applyDebuffReceipt(b,source,[target]);
+ update(fx,b,{paused:true});assert.equal(fx.items.length,0);update(fx,b);
+ assert.equal(fx.items.filter(e=>e.id==='bondEnfeeble').length,1);assert.equal(fx.items.find(e=>e.id==='bondEnfeeble').kind,'opening');assert.equal(new Set(fx.items.map(e=>e.slot)).size,2);assert.ok(fx.items.every(e=>e.count===2));
+ update(fx,b,{},3000);assert.equal(fx.items.length,0,'opening is not replayed after it ends');
+});
+
+test('restoring, paused stepping, hidden sources and immune targets do not invent or replay debuff animations',()=>{
+ const source=unit('caster',{bondEnfeeble:3}),target=unit('recipient',{}, {side:1}),b=battle([source]);b.sides[1].units=[target];b.deploymentLocked=true;b.tick=40;applyDebuffReceipt(b,source,[target]);
+ const loaded=new BattleBondEffects();update(loaded,b);update(loaded,b,{},1000);assert.equal(loaded.items.length,0);
+ const paused=new BattleBondEffects(),p=battle([unit('later',{bondEnfeeble:3})]);p.sides[1].units=[unit('victim',{}, {side:1})];p.deploymentLocked=true;update(paused,p);p.tick=10;applyDebuffReceipt(p,p.sides[0].units[0],p.sides[1].units);update(paused,p,{paused:true,silent:true});update(paused,p);assert.equal(paused.items.length,0);
+ const live=new BattleBondEffects(),q=battle([unit('provider',{bondEnfeeble:3})]);q.sides[1].units=[unit('immune',{}, {side:1})];q.deploymentLocked=true;update(live,q);q.tick=12;applyDebuffReceipt(q,q.sides[0].units[0],q.sides[1].units);delete q.sides[1].units[0].statuses.powerDown;update(live,q);assert.equal(live.items.length,1);assert.deepEqual(live.items[0].targets,[]);
+});
+
+test('a defeated provider still gives visible recipients their trigger feedback without revealing hidden targets',()=>{
+ const source=unit('caster',{bondEnfeeble:3}),target=unit('recipient',{}, {side:1}),hiddenTarget=unit('hidden',{}, {side:1,statuses:{stealth:{until:20}}}),b=battle([source]);b.sides[1].units=[target,hiddenTarget];b.deploymentLocked=true;const fx=new BattleBondEffects();update(fx,b);b.tick=1;applyDebuffReceipt(b,source,[target,hiddenTarget]);source.hp=0;source.status='defeated';update(fx,b);
+ assert.equal(fx.items.length,1);assert.equal(fx.items[0].unit,target.id);assert.equal(fx.items[0].sourceId,source.id);assert.ok(!fx.items[0].targets.includes(hiddenTarget.id));
+});
+
+test('hidden providers use visible recipient feedback without revealing their position or replaying on reveal',()=>{
+ const source=unit('hidden-provider',{bondEnfeeble:3},{side:1,statuses:{stealth:{until:20}}}),target=unit('recipient',{}),b=battle([target]);b.sides[1].units=[source];b.deploymentLocked=true;const fx=new BattleBondEffects();update(fx,b);b.tick=1;applyDebuffReceipt(b,source,[target]);update(fx,b);
+ assert.equal(fx.items.length,1);assert.equal(fx.items[0].unit,target.id);assert.ok(!fx.visible.has(source.id));fx.items=[];source.statuses.stealth.until=1;b.tick++;update(fx,b);assert.equal(fx.items.length,0);
 });
 test('natural combat produces attributed bond effects using unchanged engine events and random state',()=>{
  const id=name=>Object.values(O).find(o=>o.name===name).id,team=names=>names.map(name=>({id:id(name),type:'archer',troops:3000,level:10}));

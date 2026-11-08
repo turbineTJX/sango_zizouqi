@@ -22,11 +22,11 @@ export function equipmentEntry(id,type){
  const slot=TROOP_DESIGNS[type]?.equipmentSlot;
  return {id,type:slot==='ship'?'archer':slot?'halberd':type,...(slot?{equipment:{...emptyEquipment(),[slot]:type}}:{}),troops:3000,level:1,retreatAt:null};
 }
-export function currentBattle(skill,type,{side=0,seed=91,requireS=false,enemyTypes=null}={}){
+export function currentBattle(skill,type,{side=0,seed=91,requireS=false,enemyTypes=null,allyType=null}={}){
  const id=tacticHolder(skill,type,[],requireS),others=OFFICER_CATALOG.filter(o=>o.id!==id).slice(0,1+(enemyTypes?.length??2)).map(o=>o.id);
  const entry=equipmentEntry;
  const slot=TROOP_DESIGNS[type]?.equipmentSlot;
- const own=[entry(id,type),entry(others[0],slot==='ship'?'ship':'spear')],enemy=others.slice(1).map((id,i)=>entry(id,slot==='ship'?'ship':enemyTypes?.[i]??(i?'archer':'spear')));
+ const own=[entry(id,type),entry(others[0],allyType??(slot==='ship'?'ship':'spear'))],enemy=others.slice(1).map((id,i)=>entry(id,slot==='ship'?'ship':enemyTypes?.[i]??(i?'archer':'spear')));
  const state=createScenario('custom-battle',seed,slot==='siege'?0:20,null,{seed,terrain:slot==='ship'?'river':'land',battleKind:slot==='siege'?(side?'defense':'siege'):'field',gateHp:50000,shieldPercent:0,ownTeam:side?enemy:own,enemyTeam:side?own:enemy});
  const b=state.battle;lockDeployment(b);
  const [u,ally]=b.sides[side].units,[target,rear]=b.sides[1-side].units;
@@ -41,7 +41,7 @@ export function currentBattle(skill,type,{side=0,seed=91,requireS=false,enemyTyp
 }
 export function readyCurrent(x,id){
  const skill=unitTactics(x.u).find(t=>t.id===id);assert.ok(skill);x.u.intent=100;
- for(const key of Object.keys(x.u.skillReady))if(TACTICS_BOOK[key]&&tacticSlot(TACTICS_BOOK[key])===tacticSlot(skill))x.u.skillReady[key]=0;
+ for(const key of Object.keys(x.u.skillReady))if(TACTICS_BOOK[key]&&tacticSlot(TACTICS_BOOK[key],x.u)===tacticSlot(skill,x.u))x.u.skillReady[key]=0;
  x.u.skillReady[id]=0;
 }
 export function resumeCurrent(x,steps=8){

@@ -1,6 +1,7 @@
 {
-  "rulesVersion": 142,
+  "rulesVersion": 151,
   "files": [
+    "docs/布阵与自动战斗重设计.md",
     "docs/军略组合与代价.md",
     "docs/短控联动试玩.md",
     "docs/战法分层与状态覆盖草案.md",
@@ -122,13 +123,16 @@
     "docs/玩家决策与AI统一接口.md",
     "docs/design-tables/规则来源一览表.md",
     "docs/固定贼寨与讨伐.md",
-    "docs/design-tables/固定贼寨与随机贼将一览表.md"
+    "docs/design-tables/固定贼寨与随机贼将一览表.md",
+    "docs/势力AI统一规划与执行架构实现-20261105.md",
+    "docs/势力AI统一规划与执行架构调研-20261105.md",
+    "docs/后期进攻停滞诊断-20261104.md"
   ],
   "runtimeVersions": {
-    "rules": 142,
-    "campaign": 73,
-    "ai": 20,
+    "rules": 151,
+    "campaign": 74,
+    "ai": 23,
     "strategy": 14,
-    "domestic": 27
+    "domestic": 28
   }
 }

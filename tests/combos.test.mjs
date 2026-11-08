@@ -12,7 +12,7 @@ import {newGame,orderArmy,advanceTurn,startBattle,lockDeployment,stepBattle,vali
 import {availableTactics,unitTactics,TACTICS_BOOK} from '../tactics.mjs';
 function campaign(seed){const s=newGame(seed);orderArmy(s,'a1','guandu');advanceTurn(s);startBattle(s);lockDeployment(s.battle);return s;}
 function scene(score=100,kits=Array.from({length:4},()=>['repeat','crossbow'])){
- const ids=[],ownTeam=kits.map(([skill,type])=>{const id=tacticHolder(skill,type,ids,true);ids.push(id);return{id,type,troops:3000,level:1,retreatAt:null};});
+ const ids=[],ownTeam=kits.map(([skill,type])=>{const id=tacticHolder(skill,type,ids,false);ids.push(id);return{id,type,troops:3000,level:1,retreatAt:null};});
  const enemyIds=['jin','yuanxia','person-1','person-2','person-3','person-4'].filter(id=>!ids.includes(id)).slice(0,2);assert.equal(enemyIds.length,2);
  const state=createScenario('custom-battle',19,20,null,{seed:19,terrain:'land',ownTeam,enemyTeam:enemyIds.map(id=>({id,type:'spear',troops:3000,level:1,retreatAt:null}))}),b=state.battle;lockDeployment(b);
  const coords=[[3,2],[3,3],[3,4],[4,5]];b.sides[0].units.forEach((u,i)=>{[u.x,u.y]=coords[i];});

@@ -33,6 +33,7 @@ import {endingCampaign} from '../tests/helpers/ending-campaign.mjs';
 import {pendingArmyAppointments} from '../postbattle-appointments.mjs';
 import {recommendArmyAppointments} from '../army-appointments.mjs';
 import {setStatus} from '../tactics.mjs';
+import {currentBattle} from '../tests/helpers/current-battle.mjs';
 
 if(process.argv[2]==='desktop'){process.argv.push('--capture');await import('./verify-desktop-manual.mjs');process.exit(0);}
 if(process.argv[2]==='navigation'){process.argv.push('--capture');await import('./verify-battle-navigation-ui.mjs');process.exit(0);}
@@ -55,6 +56,7 @@ if(group==='loyalty')files.push('talent-core.mjs','talent-lifecycle.mjs','data/d
 if(group==='armyOrders')files.push('strategic-campaign.mjs','strategic-orders.mjs','strategic-vision.mjs','strategic-army-markers.mjs','map-target-picker.mjs');
 if(group==='reports')files.push('reward-presentation.mjs','reward-reports.css','activity-nodes.mjs');
 if(['battleHelp','officerInspection'].includes(group))files.push('status-inspection.mjs','data/design/tactics.mjs');
+if(group==='tacticPowers')files.push('data/design/tactics.mjs','data/design/assignments.mjs','data/design/tactic-selection.mjs','tactics.mjs','tactic-learning.mjs','tactic-power.mjs','tactic-tempo.mjs','engine.mjs');
 const hash=createHash('sha256');for(const f of [...files,'personnel-movement.mjs','strategic-retreat.mjs','data/design/movement-rules.mjs','data/design/traits.mjs','ui-tokens.css','ui-theme.css','ui-fonts/font-face.css','ui-fonts/noto-serif-sc.woff2','ui-materials/ink-grain.svg','ui-materials/cloud-jade-frame.png','ui-materials/ink-silk-panel.png'])hash.update(f).update(await readFile(f));const sourceHash=hash.digest('hex');
 const server=spawn(process.execPath,['server.mjs'],{env:{...process.env,PORT:String(port),SANGO_ART:'on'},windowsHide:true,stdio:'pipe'});
 let browser,page,context,sample='',errors=[];
@@ -290,6 +292,13 @@ const groups={
   await shot('battle-unit','部队简报优先显示兵力、战意、护盾与战法，完整属性按需展开');
   await click('unit-officer');assert.equal(await page.locator('[data-aptitude-family]').count(),4);
   await shot('battle-officer-aptitudes','战场所属武将的四系适性','.catalog-aptitudes');
+ },
+ async tacticPowers(){
+  const x=currentBattle('relief','spear');await load(x.state,'真实固定营务小战法与大战法，仅演示查阅，不作为自然战斗证据',true);
+  await page.locator('.battle-unit[data-unit="'+x.u.id+'"]').click();await page.locator('.battle-brief-tactics').waitFor();
+  await shot('battle-support-kit','同一武将实际携带营务小战法镇静与营务大战法救援');
+  await page.locator('.battle-brief-tactic[data-skill="relief"]').click();await shot('battle-support-power','营务大战法说明与部队当前营务威力');
+  await page.setViewportSize({width:844,height:390});await shot('battle-support-power-landscape','手机横屏查阅营务大战法');
  },
  async configuration(){
   await load();await click('campaign-info');await page.locator('[data-action="info-menu-scope"][data-scope="all"]').click();await shot('intelligence-menu','按势力范围和对象类别查询');await page.locator('[data-action="info-menu-list"][data-kind="city"]').click();await shot('intelligence-directory','据点当前视野与带日期情报');

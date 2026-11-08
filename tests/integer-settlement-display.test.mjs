@@ -41,14 +41,16 @@ test('remaining work never shows zero days, incomplete research never shows comp
 });
 
 test('integer rate displays preserve sub-unit speed and fractional calculations until settlement',()=>{
- const {b,u}=currentBattle('thrust','spear');setStatus(b,u,'slow',4,{potency:1.15});
+ const {b,u}=currentBattle('thrust','spear'),baseMove=unitAttributes(u,b).move;setStatus(b,u,'slow',4,{potency:1.15});
  const stats=unitAttributes(u,b),before=structuredClone(b);
  assert.ok(stats.move>0&&stats.move<1);
- assert.equal(attributeText('move',stats.move),'43%');
+ const expectedMove=baseMove*(1-.5*1.15),expectedPercent=Math.round(expectedMove*100);
+ assert.equal(stats.move,expectedMove);
+ assert.equal(attributeText('move',stats.move),expectedPercent+'%');
  assert.notEqual(attributeText('attackSpeed',stats.attackSpeed),'0%');
  const html=battleInspectionStatusesMarkup(b,u);
  assert.doesNotMatch(visible(html),/\d+\.\d+/);
- assert.match(visible(html),/100 → 43%/);
+ assert.match(visible(html),new RegExp(Math.round(baseMove*100)+' → '+expectedPercent+'%'));
  assert.deepEqual(b,before,'viewing a rounded preview must not round the stored calculation');
 });
 

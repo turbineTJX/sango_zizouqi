@@ -1,5 +1,6 @@
 // Authoritative shared status definitions. Runtime and exported tables read this file.
 export const STATUS_DEFINITIONS = {
+  "disciplineDown": {"name":"乱纪","icon":"seal","tone":"debuff","priority":10,"fraction":0.2,"description":"军纪降低，削弱谋略抗性与控制时长减免；同类取较强值，可整军解除"},
   "commandInvincible": {"name":"军阵无敌","icon":"shield","tone":"buff","priority":0,"description":"军略赋予短暂伤害免疫，仍可行动；不驱散控制，不免除缺粮或主动代价"},
   "stun": {"name":"眩晕","icon":"confuse","tone":"control","priority":1,"description":"停止移动、普攻、反击与战法，不产生ZOC；打断待结算战法，可驱散，遵守魔免、坚定和控制保护"},
   "swiftRush": {"name":"突进","icon":"move","tone":"buff","priority":2,"description":"疾驰窗口内移动力提高、无视ZOC并优先合法后排；仍须实际在场、具有激活羁绊且可以行动，受占位、地形和定身约束"},
@@ -220,7 +221,7 @@ export const STATUS_DEFINITIONS = {
     "icon": "move",
     "tone": "buff",
     "priority": 30,
-    "description": "移动力增加 1"
+    "description": "移速增加25个百分点；有效移速最多100%（每回合1格）"
   },
   "valor": {
     "name": "奋战",
@@ -348,6 +349,7 @@ export const REMEDIES = {
   ],
   "rally": [
     "powerDown",
+    "disciplineDown",
     "root",
     "disarm",
     "seal",

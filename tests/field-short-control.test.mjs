@@ -11,8 +11,8 @@ import {STATUS_DEFINITIONS} from '../data/design/battle-statuses.mjs';
 test('field short control and guard taunt occupy the existing fixed intellect slot',()=>{
  assert.notEqual(TACTICS_BOOK.ward.name,STATUS_DEFINITIONS.stun.name);assert.equal(TACTICS_BOOK.ward.range,2);assert.equal(TACTICS_BOOK.ward.maxUses,2);
  assert.deepEqual(TACTICS_BOOK.ward.power.checks,['stun']);assert.notEqual(TACTICS_BOOK.phalanx.name,STATUS_DEFINITIONS.phalanx.name);
- for(const type of ['spear','qingzhou'])assert.deepEqual(tacticPools(type).low,['phalanx','ward']);
- assert.deepEqual(tacticPools('baier').low,['phalanx','taunt']);assert.equal(TACTICS_BOOK.taunt.range,5);
+ for(const type of ['spear','qingzhou'])assert.ok(['phalanx','ward'].every(id=>tacticPools(type).low.includes(id)));
+ assert.ok(['phalanx','taunt','bodyguard'].every(id=>tacticPools('baier').low.includes(id)));assert.equal(TACTICS_BOOK.taunt.range,5);
  assert.equal(TACTICS_BOOK.tremor.name,'震军');assert.equal(TACTICS_BOOK.bombard.control,undefined);
 });
 for(const side of [0,1]){

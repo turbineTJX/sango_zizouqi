@@ -351,7 +351,6 @@ table.info-directory { display:table; width:100%; }
 @media(max-width:600px){.bond-panel{padding:4px 6px;margin:2px 0}.bond-chip{padding:4px 6px}.arena-page .battle-layout{height:52dvh;min-height:320px}.arena-page .deployment-guide{justify-content:flex-start}}
 
 /* Military formation markers are visible during deployment and share the engine cells. */
-.hex-grid polygon.hex-formation{stroke:#d8b858;stroke-width:3;fill:#625522;fill-opacity:.35}.hex-grid polygon.hex-formation.formation-active{fill:#968239;fill-opacity:.48}.hex-grid polygon.hex-formation.formation-1{stroke:#ca8b88;fill:#75514a}.formation-cell-label{fill:#f1d98e;font-size:17px;font-weight:700;text-anchor:middle;pointer-events:none}.formation-council-note{color:#dec986}
 
 /* Grade is a palette cue; all descriptions stay in secondary details. */
 .bond-chip.bond-grade-basic.bond-lit{border-color:#79a8ab99;background:#6a9e9f18}.bond-chip.bond-grade-advanced.bond-lit{border-color:#be94d499;background:#a579bb18}.unit-trait-name.bond-grade-advanced{color:#d7b5e9}
@@ -383,3 +382,17 @@ button.info-portrait{width:calc(100% + 28px);padding:0;border:0;cursor:pointer}
 .treasure-slots .treasure-name{flex-wrap:wrap;padding:4px}
 
 @media(max-width:600px){.treasure-table td:nth-child(5){grid-column:1 / -1}.treasure-table td:nth-child(5)::before{content:"操作";display:block;font-size:11px;opacity:.65;margin:6px 0}}
+
+/* Deployment-only, read-only support preview; no permanent combat relationship lines. */
+#deployment-support-overlay{position:absolute;inset:0;pointer-events:none;z-index:12}
+#deployment-support-overlay>*{position:absolute;transform:translate(-50%,-50%);width:6.5%;height:13%;box-sizing:border-box}
+.support-range-cell{background:color-mix(in srgb,var(--ui-selected) 25%,transparent);clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
+.support-target-cell{border:1px dashed var(--ui-edge);border-radius:3px}
+.support-target-cell.support-preferred{border:3px solid var(--ui-accent)}
+.support-source-cell{border:2px solid var(--ui-text);border-radius:3px}
+.formation-peer{border-style:dashed!important}
+.formation-strong-cell{background:color-mix(in srgb,var(--ui-danger) 22%,transparent)}
+.deployment-support-info{position:absolute;top:78px;right:16px;z-index:24;max-width:330px;pointer-events:auto}
+.deployment-support-info[hidden]{display:none}
+.support-preview-skills{display:flex;gap:4px;flex-wrap:wrap}.support-preview-skills button{min-height:42px;padding:4px 8px;font-size:13px}.support-preview-skills button[aria-pressed="true"]{background:var(--ui-selected);border-color:var(--ui-accent)}
+@media(max-height:550px){.deployment-support-info{top:55px;right:8px;max-width:250px}}

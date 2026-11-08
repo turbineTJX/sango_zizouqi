@@ -26,11 +26,12 @@ for(const healer of ['liu'])test(`自然击溃守军后，${healer}继续使用�
  // after the defenders fall. No intent, cooldown or wounded ledger injection.
  const fixture={...SCENARIOS.find(s=>s.id==='siege'),id:'engine-gate-support',ownName:'攻城验证军',enemyName:'守城验证军',terrain:'land',gateHp:60000,limit:480,waves:[],ownTeamRoles:{leader:'person-396',advisor:'yu',},enemyTeamRoles:{leader:'jin',advisor:'jin',},ownTeam:[unit('person-396','cavalry',6000),unit(healer==='liu'?'person-636':'person-433','spear',3000),unit('yu','crossbow',3000)],enemyTeam:[unit('jin','spear',1800),unit('yuanxia','archer',1800),unit('person-610','crossbow',1800)]};
  SCENARIOS.push(fixture);t.after(()=>SCENARIOS.splice(SCENARIOS.indexOf(fixture),1));
- // Current legal troop kits: seed 2 leaves real wounded and one support use after defenders fall.
+ // The healer starts on the far flank so its real support is still available
+ // after the defenders fall; no intent, cooldown or wounded state is injected.
  const state=createScenario(fixture.id,2),b=state.battle;b.sides.forEach(s=>s.tactic='balanced');
  // Freeze the authored contact lanes; this tests post-defender support,
  // independently of changes to automatic council deployment.
- for(const [side,positions] of [[0,[['person-396',3,0],['person-636',3,3],['yu',1,3]]],[1,[['jin',9,3],['yuanxia',11,4],['person-610',11,3]]]])for(const [id,x,y] of positions)assert.equal(deployUnit(b,id,x,y,side),null);
+ for(const [side,positions] of [[0,[['person-396',3,0],['person-636',0,7],['yu',1,3]]],[1,[['jin',9,3],['yuanxia',11,4],['person-610',11,3]]]])for(const [id,x,y] of positions)assert.equal(deployUnit(b,id,x,y,side),null);
  if(healer==='liu')learnFixtureTactics(b.sides[0].units.find(u=>u.id==='person-636'),['unique-person-636','phalanx','strike']);
 
  validateSave(structuredClone(syncFixtureLearning(state)));lockDeployment(b);

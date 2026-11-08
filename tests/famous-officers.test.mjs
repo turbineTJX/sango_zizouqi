@@ -39,6 +39,7 @@ test('every exclusive tactic resolves through the real engine and enters only it
   assert.equal(u.tacticCasts[s.id],1,id+' should cast');
   assert.equal(u.skillReady[s.id],b.tick+s.cooldown,id+' cooldown');
   assert.ok(b.effects.some(e=>e.from===id&&e.skillId===s.id)||b.effects.some(e=>e.from===id&&e.label===s.name),id+' visible event');
+  while(u.tacticAim)stepBattle(b);
   if(s.mode==='attack')assert.ok(d.hp<before,id+' damage');
   if(s.mode==='support'&&s.shield)assert.ok(shieldAmount(b,ally)>0,id+' support');
   stepBattle(b);assert.equal(u.tacticCasts[s.id],1,id+' cannot repeat');
@@ -50,10 +51,11 @@ test('area AI selects the larger cluster and includes the anchor despite enemy a
  Object.assign(d,{x:5,y:0});Object.assign(b.sides[1].units[1],{x:13,y:7});
  const a={...structuredClone(d),id:'cluster-a',x:6,y:3},c={...structuredClone(d),id:'cluster-c',x:6,y:4};
  b.sides[1].units.push(a,c);
+  for(const enemy of [a,c])setStatus(b,enemy,'root',20);
  const target=tacticTarget(b,u,s,3);assert.notEqual(target.id,d.id);
  const selected=famousTargets(b,u,s,target);assert.equal(selected[0],target);assert.equal(selected.length,2);
  assert.ok(selected.every(t=>t.id!==d.id));
- stepBattle(b);assert.equal(d.hp,3000);assert.ok(a.hp<3000&&c.hp<3000);
+ stepBattle(b);while(u.tacticAim)stepBattle(b);assert.equal(d.hp,3000);assert.ok(a.hp<3000&&c.hp<3000);
 });
 
 test('multi-hit and multi-target exclusive attacks do not charge the caster',()=>{
@@ -68,8 +70,8 @@ test('Liu Bei support waits for recoverable wounds instead of casting on an empt
 
 test('exclusive control respects resolve and discipline; deaths do not acquire new statuses',()=>{
  const x=fixture('person-433');setStatus(x.b,x.d,'resolve',5);
- stepBattle(x.b);assert.ok(!hasStatus(x.b,x.d,'confuse'));assert.ok(x.d.hp<3000);
- let controlled=false;for(let seed=1;seed<=30&&!controlled;seed++){const y=fixture('liao');y.b.seed=seed;y.d.x=6;y.d.politics=100;stepBattle(y.b);assert.equal(y.u.tacticCasts.terror,1);if(hasStatus(y.b,y.d,'confuse')){controlled=true;assert.ok(y.d.statuses.confuse.until-y.b.tick<=3);}}assert.ok(controlled);
+ stepBattle(x.b);while(x.u.tacticAim)stepBattle(x.b);assert.ok(!hasStatus(x.b,x.d,'confuse'));assert.ok(x.d.hp<3000);
+ let controlled=false;for(let seed=1;seed<=30&&!controlled;seed++){const y=fixture('liao');y.b.seed=seed;y.d.x=6;y.d.politics=100;stepBattle(y.b);assert.equal(y.u.tacticCasts.terror,1);for(let i=0;i<20&&y.u.movementAim;i++)stepBattle(y.b);if(hasStatus(y.b,y.d,'confuse')){controlled=true;assert.ok(y.d.statuses.confuse.until-y.b.tick<=3);}}assert.ok(controlled);
  const z=fixture('person-99');z.d.hp=1;stepBattle(z.b);
  assert.equal(z.d.hp,0);assert.ok(!z.d.statuses.armorBreak);
 });

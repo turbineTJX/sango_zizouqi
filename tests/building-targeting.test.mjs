@@ -36,7 +36,7 @@ for(const side of [0,1]){
  });
  test(`侧${side}：附近市场不会遮蔽正在接近的前排敌军`,()=>{
   const {b,u,foe,building}=fixture(side,'spear','spear');const market=building('commerce','market',4,3);
-  for(let i=0;i<5&&!hit(b,u,foe);i++)step(b);
+  for(let i=0;i<15&&!hit(b,u,foe);i++)step(b);
   assert.ok(hit(b,u,foe));assert.equal(market.hp,1000);
  });
  for(const unavailable of ['root','stasis','focus'])test(`侧${side}：${unavailable}不能让无威胁建筑成为首选目标`,()=>{

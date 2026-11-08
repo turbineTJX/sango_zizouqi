@@ -35,7 +35,7 @@ test('mixed damage and control report actual duration; resisted control is not c
   for(const protectedTarget of [false,true]){
     const {b,a,d}=scene('halberd','person-433');
     if(protectedTarget)setStatus(b,d,'resolve',20);
-    primeTactic(a,'unique-person-433');const hp=d.hp;stepBattle(b);
+    primeTactic(a,'unique-person-433');const hp=d.hp;stepBattle(b);while(a.tacticAim)stepBattle(b);
     const target=b.effects.find(e=>e.outcome).outcome.find(t=>t.id===d.id);
     assert.equal(target.damage,hp-d.hp);
     const roll=b.effects.find(e=>e.resolution?.effect==='confuse').resolution;

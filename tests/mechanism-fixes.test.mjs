@@ -1,4 +1,4 @@
-import {equipmentEntry,readyCurrent,resumeCurrent} from './helpers/current-battle.mjs';
+import {equipmentEntry,readyCurrent,resumeCurrent,currentBattle,tacticHolder} from './helpers/current-battle.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {generateBattle} from '../battle-generator.mjs';
@@ -7,9 +7,9 @@ import {grantBondEntries,validBondEntry} from '../bonds.mjs';
 import {TACTICS_BOOK,tacticTarget} from '../tactics.mjs';
 const unit=(id,type='spear')=>({...equipmentEntry(id,type),troops:2000,level:5});
 for(const side of [0,1])test(`short range naturally fires at normal tower distance, side ${side}, with finite uses and replay`,()=>{
- const a=[unit('person-2','tower'),unit('cao')].map(u=>({...u,troops:5000,level:10})),z=[unit('shao','archer'),unit('dun')].map(u=>({...u,troops:5000,level:10}));
+ const holder=tacticHolder('cutRange','tower');const a=[unit(holder,'tower'),unit('cao')].map(u=>({...u,troops:5000,level:10})),z=[unit('shao','archer'),unit('dun')].map(u=>({...u,troops:5000,level:10}));
  const state=generateBattle({seed:810001,terrain:'land',battleKind:side?'defense':'siege',shieldPercent:0,gateHp:60000,ownTeam:side?z:a,enemyTeam:side?a:z}),b=state.battle;lockDeployment(b);
- const u=b.sides[side].units.find(u=>u.id==='person-2');assert.ok(u.equipment.siege==='tower');const positions=[[9,3],[7,1],[11,1],[11,5]];for(const [i,v]of [...b.sides[side].units,...b.sides[1-side].units].entries()){v.retreatAt=null;v.x=side?13-positions[i][0]:positions[i][0];v.y=side?7-positions[i][1]:positions[i][1];}syncCombatForm(b,u,b.siege.gate);
+ const u=b.sides[side].units.find(u=>u.id===holder);assert.ok(u.equipment.siege==='tower');const positions=[[9,3],[7,1],[11,1],[11,5]];for(const [i,v]of [...b.sides[side].units,...b.sides[1-side].units].entries()){v.retreatAt=null;v.x=side?13-positions[i][0]:positions[i][0];v.y=side?7-positions[i][1]:positions[i][1];}syncCombatForm(b,u,b.siege.gate);
  let copy;while(!b.result){stepBattle(b);if(copy)stepBattle(copy.battle);if(!copy&&u.tacticCasts.cutRange)copy=validateSave(structuredClone(state));}
  assert.ok(copy);assert.ok(u.tacticCasts.cutRange>=1&&u.tacticCasts.cutRange<=2);assert.deepEqual(copy.battle,b);validateSave(state);
 });
@@ -25,7 +25,6 @@ for(const side of [0,1])test(`unentered reserves withdraw without entry rewards,
  const forged=structuredClone(reserves[0]);forged.x=0;assert.equal(validBondEntry(b,forged),false);forged.x=-1;forged.participated=true;assert.equal(validBondEntry(b,forged),false);
  const copy=validateSave(structuredClone(state));while(!b.result){stepBattle(b);stepBattle(copy.battle);}assert.deepEqual(copy.battle,b);validateSave(state);
 });
-import {currentBattle} from './helpers/current-battle.mjs';
 for(const side of [0,1])test(`unreachable rear focus attacks its blocking line without a disengagement loop, side ${side}`,()=>{
  const {state,b,u,ally}=currentBattle('rush','cavalry',{side,requireS:true,enemyTypes:['spear','spear','spear','spear','archer']});
  const wall=b.sides[1-side].units.slice(0,4),rear=b.sides[1-side].units[4];Object.assign(ally,{x:0,y:7});wall.forEach((v,i)=>{Object.assign(v,{x:5,y:1+i*2});v.statuses.phalanx={until:999};});Object.assign(rear,{x:7,y:3,hp:300,battleDamage:2700});rear.statuses.phalanx={until:999};u.x=1;u.cooldown=0;b.sides[side].focus=rear.id;b.sides[side].focusUntil=99;

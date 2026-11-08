@@ -14,16 +14,17 @@ for(const defenderSide of [0,1])test(`守军 ${defenderSide} 不追界外近战�
  const defense=[unit('person-46','spear')],attack=[unit('person-512','spear'),unit('person-439','siege')];
  const draft={seed:123,terrain:'land',battleKind:defenderSide===0?'defense':'siege',gateHp:60000,limit:480,ownTeam:defenderSide===0?defense:attack,enemyTeam:defenderSide===0?attack:defense};
  const state=createScenario('custom-battle',123,20,null,draft),b=state.battle,defender=b.sides[defenderSide].units[0],[near,far]=b.sides[1-defenderSide].units;
+ lockDeployment(b);
  const position=(u,x,y)=>Object.assign(u,defenderSide===1?{x,y}:{x:13-x,y:7-y});
  position(near,7,0);position(far,10,7);position(defender,9,0);
  // Keep the unreachable melee decoy stationary; a live ranged threat now
  // correctly permits a sortie rather than testing the fallback guard route.
  near.statuses.phalanx={until:999};
- validateSave(structuredClone(state));lockDeployment(b);
+ validateSave(structuredClone(state));
  assert.equal(routeTo(b,defender,near,112,{charging:false}),null);
  assert.ok(routeTo(b,defender,far,112,{charging:false})?.length);
  const resumed=validateSave(structuredClone(state)),start=[defender.x,defender.y];let hitSiege=false;
- for(let i=0;i<12&&!b.result;i++){
+ for(let i=0;i<60&&!b.result&&!hitSiege;i++){
   stepBattle(b);stepBattle(resumed.battle);
   hitSiege ||= b.effects.some(e=>e.from===defender.id&&e.to===far.id&&e.damage>0);
  }

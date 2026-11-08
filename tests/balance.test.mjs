@@ -38,9 +38,11 @@ test('only the current rule version loads, and intent is validated without norma
 });
 
 test('spearmen close the gap instead of immobilizing outside attack range',()=>{
-  const {b,a,d}=duel();d.type='archer';d.x=7;
-  learnFixtureTactics(a,['phalanx','thrust']);a.skillReady=Object.fromEntries(unitTactics(a).filter(t=>!['phalanx','thrust'].includes(t.id)).map(t=>[t.id,999]));a.intent=65;
-  stepBattle(b);assert.equal(hasStatus(b,a,'phalanx'),false);assert.equal(hexDistance(a,d),1);
+  const {b,u:a,target:d}=currentBattle('phalanx','spear',{requireS:true});d.type='archer';d.x=6;d.statuses.root={until:99};
+  a.skillReady=Object.fromEntries(unitTactics(a).map(t=>[t.id,t.id==='phalanx'?0:999]));a.intent=65;
+  stepBattle(b);assert.equal(hasStatus(b,a,'phalanx'),false);
+  for(let i=0;i<10&&hexDistance(a,d)>1;i++){stepBattle(b);assert.equal(hasStatus(b,a,'phalanx'),false);}
+  assert.equal(hexDistance(a,d),1);
   stepBattle(b);assert.ok(hasStatus(b,a,'phalanx'));
 });
 

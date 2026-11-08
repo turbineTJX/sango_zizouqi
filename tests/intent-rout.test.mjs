@@ -19,7 +19,7 @@ function routScene(side=0,troops=[3000,3000,3000]){
 
 test('nonfatal direct hits retain reduced income while elapsed time never adds or subtracts intent',()=>{
  for(const shield of [false,true]){
-  const x=currentBattle('fire','crossbow');x.target.intent=50;x.u.cooldown=0;x.rear.x=13;
+  const x=currentBattle('pierce','crossbow');x.target.intent=50;x.u.cooldown=0;x.rear.x=13;
   if(shield)setStatus(x.b,x.target,'shield',20,{amount:9999,source:'test'});
   stepBattle(x.b);assert.equal(x.target.intent,shield?50:52);
   x.u.cooldown=999;const before=x.target.intent;for(let i=0;i<12;i++)stepBattle(x.b);assert.equal(x.target.intent,before);

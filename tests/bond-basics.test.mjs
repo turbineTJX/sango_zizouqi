@@ -22,8 +22,9 @@ const teams={
  bondSuppress:['张宝','张梁','程远志','波才','邓茂','龚都']
 };
 const id=name=>Object.values(O).find(o=>o.name===name).id;
-function scene(key,{count=6,side=0,type='archer',enemyNames=['刘禅','刘璋','韩玄','刘度']}={}){
- const make=names=>names.map(name=>({id:id(name),type,level:10,troops:4000})),own=make(teams[key].slice(0,count)),foes=make(enemyNames);
+function scene(key,{count=6,side=0,type='archer',enemyNames=['刘禅','刘璋','韩玄','刘度'],actorName=null}={}){
+ const ownNames=teams[key].slice(0,count);if(actorName)ownNames[0]=actorName;
+ const make=names=>names.map(name=>({id:id(name),type,level:10,troops:4000})),own=make(ownNames),foes=make(enemyNames);
  const state=createScenario('custom-battle',9901,20,null,{seed:9901,terrain:'land',ownTeam:side?foes:own,enemyTeam:side?own:foes}),b=state.battle;lockDeployment(b);
  for(const u of b.sides.flatMap(s=>s.units)){u.intent=0;u.cooldown=999;u.retreatAt=null;u.statuses.root={until:999};u.skillReady=Object.fromEntries(unitTactics(u).map(s=>[s.id,999]));}
  const us=b.sides[side].units,es=b.sides[1-side].units,u=us[0],enemy=es[0];
@@ -116,7 +117,7 @@ test('lower Intercept tiers can both succeed and fail with seeded, independently
 test('Intercept cannot proc from full shields, DOT, tactics, decoys, allies or sources outside the field',()=>{
  const shielded=scene('bondSuppress');setStatus(shielded.b,shielded.enemy,'shield',4,{amount:4000,source:'fixture',label:'护盾'});basic(shielded);assert.ok(shieldAmount(shielded.b,shielded.enemy)>0);assert.equal(hits(shielded)[0].intentDenied,undefined);assert.equal(shielded.enemy.intent,0);
  const fire=scene('bondSuppress');fire.enemy.intent=40;setStatus(fire.b,fire.enemy,'burn',3,{amount:5,sourceId:fire.u.id,sourceName:fire.u.name,sourceSkillName:'火攻'});stepBattle(fire.b);assert.ok(fire.enemy.hp<4000);assert.equal(fire.enemy.intent,40);assert.ok(!fire.b.effects.some(e=>e.intentDenied));
- const tactic=scene('bondSuppress');tactic.enemy.intent=40;primeTactic(tactic.u,'scatter');let landed=false;for(let i=0;i<12&&!landed;i++){tactic.u.cooldown=999;stepBattle(tactic.b);landed=tactic.b.effects.some(e=>e.from===tactic.u.id&&e.skill&&e.damage>0);}assert.equal(tactic.u.tacticCasts.scatter,1);assert.ok(tactic.b.effects.some(e=>e.from===tactic.u.id&&e.skill&&e.damage>0));assert.equal(tactic.enemy.intent,40+intentIncome(tactic.enemy).hit);assert.ok(!tactic.b.effects.some(e=>e.intentDenied));
+ const tactic=scene('bondSuppress',{actorName:'蒋济'});tactic.enemy.intent=40;primeTactic(tactic.u,'wildfire');let landed=false;for(let i=0;i<12&&!landed;i++){tactic.u.cooldown=999;stepBattle(tactic.b);landed=tactic.b.effects.some(e=>e.from===tactic.u.id&&e.skill&&e.damage>0);}assert.equal(tactic.u.tacticCasts.wildfire,1);assert.ok(tactic.b.effects.some(e=>e.from===tactic.u.id&&e.skill&&e.damage>0));assert.equal(tactic.enemy.intent,40+intentIncome(tactic.enemy).hit);assert.ok(!tactic.b.effects.some(e=>e.intentDenied));
  const x=scene('bondSuppress');assert.equal(bondHitIntentDenialChance(x.b,x.u,{...x.enemy,isDecoy:true}),0);assert.equal(bondHitIntentDenialChance(x.b,x.u,x.us[1]),0);withdraw(x.u);assert.equal(bondHitIntentDenialChance(x.b,x.u,x.enemy),0);
 });
 

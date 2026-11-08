@@ -8,16 +8,18 @@ import {passiveDamageTaken} from './passives.mjs';
 import {fireTerrainFactor} from './terrain-rules.mjs';
 import {hasStatus,shieldLayers,shieldAmount} from './tactics.mjs';
 import {bondBlocksEffect} from './bonds.mjs';
+import {effectiveStatus} from './battle-status-rules.mjs';
 
 const entry=(name,icon,tone,priority,description)=>({name,icon,tone,priority,description});
 export function statusDescription(key,state={}){
   if(key==='attackOrb')return attackOrbDescription(state.skillId);
-  const factor=state.potency??1,p=n=>roundResult(state.fraction!==undefined&&['powerDown','weaken','armorBreak'].includes(key)?state.fraction*100:n*factor);
+  const factor=state.potency??1,p=n=>roundResult(state.fraction!==undefined&&['powerDown','weaken','armorBreak','disciplineDown'].includes(key)?state.fraction*100:n*factor);
   const dynamic={
     hunger:`攻击、武技威力、谋略威力与营务威力降低 ${Math.round((state.fraction??0)*100)}%；按事件期限结束，无法镇静`,
     despair:`持续流失战意`,intentSuppression:`攻击与受击战意获取减少 ${integerText((state.fraction??.3)*100)}%`,decoy:`幻象耐久 ${state.hp??0}，承受200%伤害；不能攻击、不占上场名额`,
     attackHaste:`普攻间隔缩短 ${integerText((state.fraction??.2)*100)}%`,longRange:`远程普攻最大射程 +${state.amount??1}`,shortRange:`远程普攻最大射程 −${state.amount??1}`,
     powerDown:`武技威力与谋略威力降低 ${p(20)}%；可整军解除`,armorBreak:`防御降低 ${p(20)}%`,weaken:`攻击降低 ${p(20)}%`,valor:`攻击提高 ${p(25)}%`,
+    disciplineDown:`军纪降低 ${p(20)}%，削弱谋略抗性与控制时长减免；可整军解除`,
     phalanx:`减伤 ${p(30)}%，停止移动并免疫击退`,anchored:`停止移动，普攻最大射程 +1`,
     bulwark:`防御 +${p(30)}%、军纪 +${p(20)}%，移动减半`,camp:`防御提高 ${p(25)}%`,
     nexus:`谋略威力与军纪提高 ${p(20)}%`,emplaced:`攻击 +${p(20)}%、普攻与投石射程 +1，停止移动`,
@@ -25,7 +27,7 @@ export function statusDescription(key,state={}){
     plague:`持续损失兵力，受到救治降低 ${p(50)}%；可救护解除`,
     ward:`减少所受直接伤害 ${integerText(state.percent??0)}%`,
   };
-  return dynamic[key]||STATUS_DISPLAY[key]?.description||'';
+  return (dynamic[key]||STATUS_DISPLAY[key]?.description||'')+(state.sourceBond?'；羁绊满足条件时一次施加，可驱散':'');
 }
 export const STATUS_DISPLAY=STATUS_DEFINITIONS;
 const ICONS={
@@ -50,7 +52,7 @@ export function statusTimeLabel(until,tick){
   return steps?'生效中':'即将结束';
 }
 export function visibleStatuses(b,u){
-  const statuses=Object.entries(u.statuses||{}).filter(([key])=>hasStatus(b,u,key)).map(([key,s])=>({key,...STATUS_DISPLAY[key],description:statusDescription(key,s),state:key==='shield'?{...s,amount:shieldAmount(b,u),layers:shieldLayers(b,u)}:s,...(key==='heavyAttack'?{remaining:s.charges,time:'剩余 '+s.charges+' 次物理主动普攻'}:key==='attackOrb'?{remaining:s.charges,time:'剩余 '+s.charges+' 次部队普攻 · 不随时间消耗'}:{remaining:statusRemaining(s.until,b.tick),time:statusTimeLabel(s.until,b.tick)})}));
+  const statuses=Object.entries(u.statuses||{}).filter(([key])=>hasStatus(b,u,key)).map(([key,stored])=>{const s=effectiveStatus(b,u,key)||stored;return ({key,...STATUS_DISPLAY[key],description:statusDescription(key,s),state:key==='shield'?{...s,amount:shieldAmount(b,u),layers:shieldLayers(b,u)}:s,...(key==='heavyAttack'?{remaining:s.charges,time:'剩余 '+s.charges+' 次物理主动普攻'}:key==='attackOrb'?{remaining:s.charges,time:'剩余 '+s.charges+' 次部队普攻 · 不随时间消耗'}:{remaining:statusRemaining(s.until,b.tick),time:statusTimeLabel(s.until,b.tick)})});});
   if(u.supplyPenalty)statuses.push({key:'hunger',...STATUS_DISPLAY.hunger,description:`攻击、武技威力、谋略威力与营务威力降低 ${Math.round(u.supplyPenalty*100)}%，需恢复粮道与供粮，无法镇静`,state:{},remaining:'粮',time:'随军团补给更新'});
   return statuses.sort((a,c)=>a.priority-c.priority);
 }

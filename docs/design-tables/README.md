@@ -62,7 +62,7 @@
 | 兵种 | `attack/defense/discipline` 基础数值；`move` 移速；`interval` 普攻间隔；`range/minRange` 射程；`siegeFactor` 攻城系数；`beats` 克制兵种ID |
 | 武将 | `leadership/force/intellect/politics/charm` 五维；`aptitudes` 当前兵种适性，0/1/2/3=C/B/A/S；`relations` 人物关系ID；`type/formation` 默认兵种／编制位置；`skill/trait` 原有武将展示文案，不额外产生能力 |
 | 城市 | `id/sourceId` 游戏／来源标识；`name/kind/province/subtitle` 展示资料；`x/y` 地图坐标；`owner` 基础来源归属，剧本可覆盖；入门数据还包含初始 `garrison` |
-| 分配 | `traits/stratagems` 固定能力ID数组；`specialTactic` 专属战法ID或null；兵种配置固定指定武技小战法、谋略小战法、大战法各一项 |
+| 分配 | `traits/stratagems` 固定能力ID数组；`specialTactic` 专属战法ID或null；常规与舰船池三类威力均有大小战法，人物最多固定选2小1大；兵器唯一大招使用合成威力 |
 
 内政建设动作只保存 kind/value/stat/cooperation，其名称、方向、费用与工期通过 `domestic-designs.mjs` 读取建筑表，不重复维护。大地图道路是双向据点ID对，距离由坐标计算，路口与横向小路由正式路网定义；同一连接仅保留一条道路。
 

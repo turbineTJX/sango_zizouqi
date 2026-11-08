@@ -17,7 +17,7 @@ function scene(names,side=0,seed=17){
  b.sides[1-side].units.forEach((u,i)=>Object.assign(u,{x:i===2?6:5,y:i===1?2:3}));
  return {state,b,own:b.sides[side].units,enemy:b.sides[1-side].units};
 }
-function cast(x,u){const s=unitTactics(u)[0];u.intent=s.threshold;u.skillReady[s.id]=0;stepBattle(x.b);assert.equal(u.tacticCasts[s.id],1);return s;}
+function cast(x,u){const s=unitTactics(u)[0];u.intent=s.threshold;u.skillReady[s.id]=0;stepBattle(x.b);assert.equal(u.tacticCasts[s.id],1);while(u.tacticAim)stepBattle(x.b);return s;}
 function resume(x){const copy=validateSave(structuredClone(x.state));for(let i=0;i<8;i++){stepBattle(x.b);stepBattle(copy.battle);}assert.deepEqual(x.state,copy);}
 
 test('张飞先制造真实混乱，关羽使用已有窗口追击，双方相同并可续战',()=>{
@@ -55,11 +55,13 @@ test('庞统无火源即可连接存活敌军，黄忠后续命中真实传导�
  for(const side of [0,1]){
   const x=scene([['庞统','halberd'],['黄忠','archer']],side),[pang,huang]=x.own;cast(x,pang);
   assert.ok(x.enemy.every(t=>hasStatus(x.b,t,'link')&&!hasStatus(x.b,t,'burn')));
-  assert.equal(new Set(x.enemy.map(t=>t.statuses.link.group)).size,1);assert.ok(x.enemy.every(t=>t.statuses.link.fraction===.35));
+  assert.equal(new Set(x.enemy.map(t=>t.statuses.link.group)).size,1);assert.ok(x.enemy.every(t=>t.statuses.link.fraction===.2));
+  assert.ok(x.enemy.every(t=>!hasStatus(x.b,t,'slow')&&t.statuses.link.until===x.b.tick+4));
+  assert.equal(TACTICS_BOOK['unique-person-558'].scale,.6);
   assert.equal(x.b.effects.filter(e=>e.text==='连环传导').length,0,'opening cast must not conduct itself');
   cast(x,huang);const transfer=x.b.effects.filter(e=>e.text==='连环传导'&&e.damage>0),direct=x.b.effects.filter(e=>e.from===huang.id&&e.damage>0&&e.text!=='连环传导');
   assert.ok(transfer.length>0&&transfer.length<=2,'a hit conducts once to at most two other members');
-  assert.ok(transfer.reduce((n,e)=>n+e.damage,0)<=Math.round(direct.reduce((n,e)=>n+e.damage,0)*.35),'total conduction is bounded and nonrecursive');resume(x);
+  assert.ok(transfer.reduce((n,e)=>n+e.damage,0)<=Math.round(direct.reduce((n,e)=>n+e.damage,0)*.2),'total conduction is bounded and nonrecursive');resume(x);
  }
 });
 test('孙策优先补足可用门槛，不鼓舞耗尽、后备、异军或无需战意的队友',()=>{
@@ -85,6 +87,32 @@ test('连环不覆盖已有组，单目标、死者、魔免及无敌不能加�
   else assert.ok(x.enemy.every(t=>!hasStatus(x.b,t,'link')),protection);
  }
 });
+test('庞统连接后，朱然普攻铺火与周瑜范围火攻可在短窗口中实际联动',()=>{
+ let observed=false;
+ for(let seed=1;seed<=30&&!observed;seed++){
+  const x=scene([['庞统','archer'],['周瑜','archer'],['朱然','archer']],0,seed),[pang,zhou,zhu]=x.own;
+  cast(x,pang);const deadline=x.enemy[0].statuses.link.until;
+  zhu.cooldown=0;cast(x,zhou);
+  if(!x.b.effects.some(e=>e.from===zhou.id&&e.openingTrigger==='setup'))continue;
+  assert.ok(x.b.tick<deadline);assert.ok(x.b.effects.some(e=>e.from===zhou.id&&e.text==='连环传导'&&e.damage>0));resume(x);observed=true;
+ }
+ assert.ok(observed,'real Fire basic hit and Zhou Yu exploit must fit the Pang Tong window');
+});
+
+test('庞统保留更强连环、替换较弱连环且不继承长时限；延误后续攻击会错过窗口',()=>{
+ for(const fraction of [.1,.4]){
+  const x=scene([['庞统','halberd'],['黄忠','archer']]),[a,b,c]=x.enemy;
+  setStatus(x.b,a,'link',20,{group:'original',fraction});const until=a.statuses.link.until;
+  cast(x,x.own[0]);
+  if(fraction===.4){assert.equal(a.statuses.link.group,'original');assert.equal(a.statuses.link.fraction,.4);assert.equal(a.statuses.link.until,until);assert.equal(b.statuses.link.group,c.statuses.link.group);}
+  else {assert.equal(a.statuses.link.fraction,.2);assert.equal(a.statuses.link.group,b.statuses.link.group);assert.equal(a.statuses.link.until,x.b.tick+4);}
+  assert.doesNotThrow(()=>validateSave(structuredClone(x.state)));
+ }
+ const late=scene([['庞统','halberd'],['黄忠','archer']]);cast(late,late.own[0]);
+ for(let i=0;i<4;i++)stepBattle(late.b);
+ assert.ok(late.enemy.every(t=>!hasStatus(late.b,t,'link')));cast(late,late.own[1]);assert.ok(!late.b.effects.some(e=>e.text==='连环传导'));
+});
+
 test('朱然真实火攻先行后陆逊乘灼烧；火烧连营自己新增的灼烧不触发加成',()=>{
  const s=TACTICS_BOOK['unique-person-603'];assert.equal(tacticOpening({tick:0},s,{intent:0,statuses:{}}).scale,0);
  for(const side of [0,1]){

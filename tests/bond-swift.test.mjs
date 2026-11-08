@@ -19,9 +19,9 @@ import {primeTactic} from './helpers/prime-tactic.mjs';
 const holders=['公孙瓒','张燕','曹彰','马岱','张绣','魏续'];
 const id=name=>Object.values(O).find(o=>o.name===name).id;
 const foeNames=['刘禅','刘璋','韩玄','刘度','孔伷','张鲁'];
-function scene({count=6,names=holders.slice(0,count),side=0,type='cavalry',foes=2,terrain='land'}={}){
+function scene({count=6,names=holders.slice(0,count),side=0,type='cavalry',foes=2,terrain='land',frontType='spear'}={}){
  const own=names.map(name=>({id:id(name),type,level:10,troops:4000}));
- const enemy=foeNames.slice(0,foes).map((name,i)=>({id:id(name),type:i===1?'archer':'spear',level:10,troops:4000}));
+ const enemy=foeNames.slice(0,foes).map((name,i)=>({id:id(name),type:i===1?'archer':frontType,level:10,troops:4000}));
  const state=createScenario('custom-battle',9601,20,null,{seed:9601,terrain,ownTeam:side?enemy:own,enemyTeam:side?own:enemy}),b=state.battle;lockDeployment(b);
  for(const u of b.sides.flatMap(s=>s.units)){u.cooldown=999;u.intent=0;u.retreatAt=null;u.statuses.root={until:999};u.skillReady=Object.fromEntries(unitTactics(u).map(s=>[s.id,999]));}
  const us=b.sides[side].units,es=b.sides[1-side].units,u=us[0];
@@ -42,7 +42,7 @@ test('Swift uses all three temporary tiers on either side, expires exactly and r
   stepBattle(x.b);const cast=x.u.statuses.swiftRush;
   assert.equal(cast.until,1+D.bondSwift.burstSteps[i]);assert.equal(x.u.bondState.swiftReady,13);
   assert.equal(bondSwiftEffect(x.b,x.u).moveBonus,D.bondSwift.values[i]);assert.equal(unitAttributes(x.u,x.b).move,base*(1+D.bondSwift.values[i]));
-  assert.equal(unitAttributes(x.u,x.b).range,unitAttributes(x.u).range);assert.deepEqual(interceptorsAt(x.b,x.u),[]);
+  assert.equal(unitAttributes(x.u,x.b).range,unitAttributes(x.u).range);assert.deepEqual(interceptorsAt(x.b,x.u).map(u=>u.id),[x.front.id]);
   freeze(x.u);while(x.b.tick<cast.until-1)stepBattle(x.b);assert.ok(bondSwiftEffect(x.b,x.u));
   stepBattle(x.b);assert.equal(bondSwiftEffect(x.b,x.u),null);assert.equal(x.u.statuses.swiftRush,undefined);
   assert.equal(x.u.bondState.swiftReady,13);while(x.b.tick<12)stepBattle(x.b);assert.equal(x.u.statuses.swiftRush,undefined);
@@ -51,18 +51,12 @@ test('Swift uses all three temporary tiers on either side, expires exactly and r
  }
 });
 
-test('Swift moves past a live front ZOC without disengaging and lands real rear attacks',()=>{
+test('Swift follows empty routes past ordinary halberd ZOC over several one-hex moves',()=>{
  for(const side of [0,1]){
-  const x=scene({side});x.u.cooldown=0;assert.equal(routeTo(x.b,x.u,x.rear,12),null);
-  stepBattle(x.b);assert.ok(x.u.statuses.swiftRush);assert.equal(x.u.disengage,null);
-  assert.ok(hexDistance(x.u,x.rear)<=1);assert.ok(!x.es.some(e=>e.x===x.u.x&&e.y===x.u.y));
-  assert.ok(canStrikeFrom(x.b,x.u,x.rear));assert.equal(hits(x).length,0);
-  stepBattle(x.b);assert.ok(hits(x).some(e=>e.to===x.rear.id));
-  // Equal-length routes may reach the rear while still adjacent to the front.
-  // Swift bypasses interception, not the shared adjacent-attack damage budget.
-  assert.equal(hits(x).some(e=>e.to===x.front.id),hexDistance(x.u,x.front)<=1);
-  if(hexDistance(x.u,x.front)<=1)assert.ok(hits(x).every(e=>e.damageShare===.5));
-  assert.equal(x.u.passiveState.shots,1);assert.ok(x.u.cooldown>0);
+  const x=scene({side,frontType:'halberd'});x.u.cooldown=0;assert.equal(routeTo(x.b,x.u,x.rear,12),null);
+  let rearHit=false;
+  for(let i=0;i<8&&!rearHit;i++){const before={x:x.u.x,y:x.u.y};stepBattle(x.b);assert.ok(hexDistance(before,x.u)<=1);assert.equal(x.u.disengage,null);rearHit=hits(x).some(e=>e.to===x.rear.id);}
+  assert.ok(rearHit);assert.ok(!x.es.some(e=>e.x===x.u.x&&e.y===x.u.y));assert.ok(x.u.passiveState.shots>0);
   assert.doesNotThrow(()=>validateSave(structuredClone(x.state)));
  }
 });
@@ -131,10 +125,10 @@ test('losing the shared threshold disables a stored window and requalification c
 
 test('actual fixed offensive tactics can strike the rear through ignored ZOC; no extra tactic is injected',()=>{
  for(const side of [0,1]){
-  const x=scene({side});stepBattle(x.b);Object.assign(x.u,{x:side?9:4,y:3});
-  primeTactic(x.u,'harass');assert.ok(unitTactics(x.u).some(s=>s.id==='harass'));
-  const chosen=tacticTarget(x.b,x.u,TACTICS_BOOK.harass,unitAttributes(x.u,x.b).range);
-  assert.equal(chosen,x.rear);stepBattle(x.b);assert.equal(x.u.tacticCasts.harass,1);assert.ok(x.b.effects.some(e=>e.from===x.u.id&&e.to===x.rear.id&&e.skill));
+  const x=scene({side,frontType:'halberd'});stepBattle(x.b);Object.assign(x.u,{x:side?9:4,y:3});
+  primeTactic(x.u,'rush');assert.ok(unitTactics(x.u).some(s=>s.id==='rush'));
+  const chosen=tacticTarget(x.b,x.u,TACTICS_BOOK.rush,unitAttributes(x.u,x.b).range);
+  assert.equal(chosen,x.rear);stepBattle(x.b);assert.equal(x.u.tacticCasts.rush,1);for(let i=0;i<12&&x.u.movementAim;i++)stepBattle(x.b);assert.ok(x.b.effects.some(e=>e.from===x.u.id&&e.to===x.rear.id&&e.skill&&e.damage>0));
   assert.doesNotThrow(()=>validateSave(structuredClone(x.state)));
  }
 });

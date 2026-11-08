@@ -2699,6 +2699,42 @@
     "capturedAt": "2026-11-03T15:57:59.336Z",
     "sourceHash": "3ae9c4705f96ca091fae03ea058a52b39750f9f8e935f920550dff3b85910fdf"
   },
+  "battle-support-kit": {
+    "title": "同一武将实际携带营务小战法镇静与营务大战法救援",
+    "file": "images/player-actions/battle-support-kit.webp",
+    "group": "tacticPowers",
+    "sample": "真实固定营务小战法与大战法，仅演示查阅，不作为自然战斗证据",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-11-08T07:50:01.093Z",
+    "sourceHash": "ee7b3f990bd013d3ebe42241fdca42c7d8117ff83864591f9d8b7a4e87163067"
+  },
+  "battle-support-power": {
+    "title": "营务大战法说明与部队当前营务威力",
+    "file": "images/player-actions/battle-support-power.webp",
+    "group": "tacticPowers",
+    "sample": "真实固定营务小战法与大战法，仅演示查阅，不作为自然战斗证据",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "capturedAt": "2026-11-08T07:50:01.603Z",
+    "sourceHash": "ee7b3f990bd013d3ebe42241fdca42c7d8117ff83864591f9d8b7a4e87163067"
+  },
+  "battle-support-power-landscape": {
+    "title": "手机横屏查阅营务大战法",
+    "file": "images/player-actions/battle-support-power-landscape.webp",
+    "group": "tacticPowers",
+    "sample": "真实固定营务小战法与大战法，仅演示查阅，不作为自然战斗证据",
+    "viewport": {
+      "width": 844,
+      "height": 390
+    },
+    "capturedAt": "2026-11-08T07:50:02.354Z",
+    "sourceHash": "ee7b3f990bd013d3ebe42241fdca42c7d8117ff83864591f9d8b7a4e87163067"
+  },
   "report-detail": {
     "title": "所选事项的前后变化、费用与办理结果",
     "file": "images/player-actions/report-detail.webp",

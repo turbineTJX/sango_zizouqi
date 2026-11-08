@@ -25,13 +25,13 @@ export const FAMOUS_OFFICERS={
  tian:entry('田丰','封技谋攻','archer',mental('刚谏破谋',70,28,4,1.05,{debuff:'seal',steps:3})),
  gao:entry('高览','前线承压','cavalry',physical('奋武坚阵',60,26,1,1.35,{selfWard:18})),
  'person-636':entry('刘备','义勇救援','spear',support('义勇援军',40,28,{targets:2,heal:.08,intent:10,buffs:{camp:.6},buffSteps:6,requiresWounded:true,tempo:{cost:12,role:'持续专属'}}),['benevolence','discipline','shield','calm'],cap('昭烈')),
- 'person-99':entry('关羽','破甲斩将','cavalry',physical('青龙偃月',100,34,1,2,{execute:.6,exploit:{statuses:['armorBreak','confuse','slow'],scale:.9},debuff:'armorBreak',steps:5,tempo:{cost:65,role:'决胜专属'}}),['martial','spirit','rider','joint'],cap('武圣')),
+ 'person-99':entry('关羽','破甲斩将','cavalry',physical('青龙偃月',100,34,1,2,{execute:.6,exploit:{anyNegative:true,scale:.9},debuff:'armorBreak',steps:5,tempo:{cost:65,role:'决胜专属'}}),['martial','spirit','rider','joint'],cap('武圣')),
  'person-433':entry('张飞','邻阵震慑','spear',physical('长坂怒喝',85,32,1,.9,{targets:3,radius:1,control:'confuse',steps:3,selfWard:15,selfWardSteps:6,tempo:{cost:45,role:'决胜专属'}}),['assault','endurance','spearGeneral','desperate'],cap('燕人')),
  'person-396':entry('赵云','攻守救援','cavalry',physical('七进七出',60,26,2,1.45,{selfCleanse:true,selfWard:12}),['martial','discipline','rider','calm'],cap('龙胆')),
  'person-516':entry('马超','骑阵破防','cavalry',physical('西凉铁骑',70,28,1,1.2,{targets:2,radius:1,debuff:'armorBreak',steps:4}),['assault','martial','rider','joint'],cap('锦骑')),
  'person-186':entry('黄忠','远距点杀','archer',physical('百步穿杨',70,28,5,1.65,{execute:.45}),['assault','spirit','bow','joint'],cap('老健')),
  'person-290':entry('诸葛亮','破谋控场','crossbow',mental('八阵奇门',90,36,4,.65,{targets:3,radius:1,debuff:'seal',steps:4,drain:12,exploit:{statuses:['slow','curse'],scale:.45},tempo:{cost:50,role:'决胜专属'}}),['scholar','discipline','combo','calm'],cap('卧龙')),
- 'person-558':entry('庞统','连环谋攻','archer',mental('连环奇计',70,30,4,.9,{targets:3,radius:1,debuff:'slow',steps:4}),['scholar','spirit','combo','discipline'],cap('凤雏')),
+ 'person-558':entry('庞统','连环谋攻','archer',mental('连环奇计',50,30,4,.6,{targets:3,radius:1,link:{steps:3,fraction:.2}}),['scholar','spirit','combo','discipline'],cap('凤雏')),
  'person-137':entry('姜维','文武压制','spear',mental('麒麟破阵',65,26,3,1.15,{drain:20}),['martial','scholar','discipline','combo'],cap('幼麟')),
  'person-125':entry('魏延','孤军斩击','spear',physical('子午奇袭',65,26,1,1.65,{execute:.4}),['assault','martial','joint','desperate'],cap('奇兵')),
  'person-368':entry('孙权','制衡援军','spear',support('江东制衡',50,28,{targets:2,excludeSelf:true,cleanse:true,cooldownReduction:3,ward:12,tempo:{cost:18,role:'持续专属'}}),['iron','discipline','shield','calm'],cap('碧眼')),
@@ -58,8 +58,10 @@ export function famousTacticDescription(s){
  const parts=[`${s.range} 格内${s.mode==='support'?'友军':'敌军'}，最多 ${s.targets||1} 队`];
  if(s.targets>1&&s.mode==='attack')parts.push(`目标周围 ${s.radius} 格，优先覆盖更多敌军`);
  if(s.scale)parts.push(`造成${s.category==='force'?'武技':'谋略'}伤害${s.hits?'，连续攻击 '+s.hits+' 次':''}`);
+ if(s.link)parts.push(`命中后至少两队合法存活敌军连环${s.link.steps}回合，后续直接兵力伤害的${Math.round(s.link.fraction*100)}%作为额外传导总额由其余成员平分；已有连环取较强效果，不叠加、不递归`);
  if(s.execute)parts.push(`目标兵力低于 40% 时伤害提高`);
- if(s.exploit)parts.push(`施放前目标已有${s.exploit.statuses.map(key=>({armorBreak:'破甲',slow:'迟滞',confuse:'混乱',stun:'眩晕',burn:'灼烧',curse:'衰咒'})[key]).join('／')}时，伤害提高；本次新施加的状态不触发`);
+ if(s.exploit?.anyNegative)parts.push('命中前目标已有任意生效中的战斗异常时提高伤害，多项异常不重复叠加');
+ if(s.exploit?.statuses)parts.push(`施放前目标已有${s.exploit.statuses.map(key=>({armorBreak:'破甲',slow:'迟滞',confuse:'混乱',stun:'眩晕',burn:'灼烧',curse:'衰咒'})[key]).join('／')}时，伤害提高；本次新施加的状态不触发`);
  if(s.highIntent)parts.push(`施放前目标战意至少 ${s.highIntent.threshold} 时，提高伤害并削减 ${s.highIntent.drain||0} 战意`);
  if(s.excludeSelf)parts.push('只支援其他友军，不作用于自身');
  if(s.debuff)parts.push(`${({armorBreak:'防御 −20%',weaken:'攻击 −20%',slow:'移动减慢',seal:'封技',shaken:'普攻间隔 +25%、谋略威力 −15%'})[s.debuff]} ${s.steps} 日`);

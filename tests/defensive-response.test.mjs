@@ -12,7 +12,7 @@ for(const side of [0,1])test(`防守方 ${side} 接近界外射手反击并确�
  const b=state.battle,d=b.sides[side].units[0],a=b.sides[1-side].units[0];
  b.sides[side].tactic='defensive';
  const place=(u,x,y)=>Object.assign(u,side===1?{x,y}:{x:13-x,y:7-y});
- place(d,9,3);place(a,7,3);lockDeployment(b);
+ lockDeployment(b);place(d,9,3);place(a,7,3);
  assert.ok(routeTo(b,d,a,112,{charging:false})?.length);
  const resumed=validateSave(structuredClone(state));let counter=false,leftLine=false;
  for(let n=0;n<30&&!b.result;n++){

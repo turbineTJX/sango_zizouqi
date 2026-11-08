@@ -90,7 +90,7 @@ test('boat carriers can deploy on land and river deployment is legal and unique'
 });
 
 test('replacement choices and combat remain deterministic after save/resume, without changing initiative order',()=>{
-  const s=encounter([['spear',500],['archer',600],['cavalry',700],['spear'],['crossbow'],['cavalry'],['halberd'],['halberd'],['archer']]),b=deploy(s);
+  const s=encounter([['spear',500],['archer',600],['cavalry',700],['spear',1000],['crossbow',1000],['cavalry',1000],['halberd',1000],['halberd',1000],['archer',1000]]),b=deploy(s);
   const order=b.sides.map(side=>side.units.map(u=>u.id));lockDeployment(b);
   for(let i=0;i<8&&!b.result;i++)stepBattle(b);
   const copy=validateSave(JSON.parse(JSON.stringify(s)));

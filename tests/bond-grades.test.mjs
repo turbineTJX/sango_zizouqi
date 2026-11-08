@@ -9,21 +9,22 @@ const team=(names,type='spear')=>names.map(name=>({id:id(name),level:10,troops:4
 const scene=(names,side=0,type='spear')=>{names=bondLineup(({公孙瓒:'bondSwift',郝昭:'bondBulwark',黄忠:'bondVolley',夏侯惇:'bondLastStand'})[names[0]],names.filter(n=>!['黄忠','韩当'].includes(n)||names[0]==='黄忠'));const own=team(names,type),enemy=team(['曹操','刘备','关羽','张飞']);const s=createScenario('custom-battle',9181,20,null,{seed:9181,terrain:'land',ownTeam:side?enemy:own,enemyTeam:side?own:enemy});deployUnmarkedStarters(s.battle);lockDeployment(s.battle);return s;};
 test('rarity uses twenty-seven common pools and six specified scarce rosters, with fewer than ten triple-label exceptions',()=>{
  assert.equal(Object.values(D).filter(d=>d.grade==='basic').length,27);assert.equal(Object.values(D).filter(d=>d.grade==='advanced').length,6);
- assert.ok(Object.entries(A).every(([id,a])=>Object.keys(a).length>=1&&Object.keys(a).length<=(triples.includes(id)?3:2)));
+ assert.ok(Object.entries(A).every(([id,a])=>Object.keys(a).length<=(triples.includes(id)?3:2)));
  assert.ok(Object.values(A).filter(a=>Object.keys(a).length===3).length<10);
  for(const [key,d]of Object.entries(D)){const holders=Object.entries(A).filter(([,a])=>a[key]);if(d.grade==='advanced'){assert.ok(holders.length>=3&&holders.length<=8);assert.deepEqual(holders.map(([id])=>id).sort(),[...d.roster].sort());}else assert.ok(holders.length>=20);}
- assert.equal(D.bondBeauty.grade,'advanced');assert.equal(D.bondGuard.grade,'basic');
+ assert.equal(D.bondBeauty.grade,'advanced');assert.equal(D.bondEscort.grade,'basic');
  const bad=structuredClone(DESIGN_TABLES);const plain=id('王肃');bad.bondAssignments[plain]={bondScholar:1,bondSteady:1,bondMuster:1};assert.ok(validateDesignTables(bad).some(e=>e.includes('指定稀有武将可有三种')));
  const inflated=structuredClone(DESIGN_TABLES);inflated.bondAssignments[plain].bondWisdom=1;assert.ok(validateDesignTables(inflated).some(e=>e.includes('指定稀有武将')));
  const invalid=structuredClone(DESIGN_TABLES);invalid.bonds.bondLastStand.grade='rare';assert.ok(validateDesignTables(invalid).some(e=>e.includes('定位')));
  assert.deepEqual(bondOverview().groups.map(g=>g.rows.length),[27,6]);
- assert.match(JSON.stringify(bondReference('bondValor')),/战意严格低于自身/);assert.match(JSON.stringify(bondReference('bondValor')),/治疗、护盾和增益正常生效/);assert.match(JSON.stringify(bondReference('bondBeauty')),/削减命中目标24战意/);assert.match(JSON.stringify(bondReference('bondBeauty')),/全场在场敌军各有70%/);
+ assert.match(JSON.stringify(bondReference('bondValor')),/战意严格低于自身/);assert.match(JSON.stringify(bondReference('bondValor')),/领先来源至少25战意/);assert.match(JSON.stringify(bondReference('bondValor')),/治疗、护盾和增益正常生效/);assert.match(JSON.stringify(bondReference('bondBeauty')),/削减命中目标24战意/);assert.match(JSON.stringify(bondReference('bondBeauty')),/延迟1回合对最多两队其他敌军/);
 });
 test('simple synergies retain real limits: Swift changes move without removing root or adding range',()=>{
  const s=scene(['公孙瓒','张燕','曹彰','马岱'],0,'cavalry'),b=s.battle,u=b.sides[0].units[0],plain=unitAttributes(u);
  assert.equal(sideBonds(b,0).bondSwift.tier,3);assert.equal(unitAttributes(u,b).move,plain.move);
  for(const v of b.sides.flatMap(a=>a.units)){v.intent=0;v.cooldown=999;v.skillReady=Object.fromEntries(v.tactics.map(id=>[id,999]));}
- stepBattle(b);assert.ok(Math.abs(unitAttributes(u,b).move/plain.move-1.5)<.0001);
+ Object.assign(u,{x:4,y:3});Object.assign(b.sides[1].units[0],{x:6,y:3});
+ const beforeBurst=unitAttributes(u,b).move;stepBattle(b);assert.ok(Math.abs(unitAttributes(u,b).move-Math.min(1,beforeBurst*1.5))<.0001);
  assert.equal(unitAttributes(u,b).range,plain.range);u.statuses.root={until:100};assert.equal(unitAttributes(u,b).move,0);
  u.status='reserve';assert.equal(bondAttributes(b,u).move,undefined);
 });

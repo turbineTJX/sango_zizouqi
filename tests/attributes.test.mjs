@@ -27,21 +27,23 @@ test('basic, martial and intellect damage use distinct offense and resistance pa
  assert.equal(damage(x=>setStatus(x.b,x.a,'valor',99),'tremor'),intellect);assert.ok(damage(x=>setStatus(x.b,x.a,'valor',99))>basic);
 });
 test('attribute breakdown reproduces effective values, statuses expire and offense includes current soldiers',()=>{
- const {a,b}=scene();setStatus(b,a,'valor',1);setStatus(b,a,'longRange',1,{amount:2});setStatus(b,a,'slow',3);setStatus(b,a,'weaken',3);
+ const {a,b}=scene();const baseMove=unitAttributes(a,b).move;setStatus(b,a,'valor',1);setStatus(b,a,'longRange',1,{amount:2});setStatus(b,a,'slow',3);setStatus(b,a,'weaken',3);
  const s=unitAttributes(a,b);for(const [key,d] of Object.entries(s.breakdown)){let value=d.base+d.officer;for(const m of d.modifiers)value=m.add===undefined?value*m.factor:value+m.add;assert.equal(value,s[key]);}
- assert.equal(s.range,6);assert.equal(s.move,.5);b.tick=2;assert.equal(unitAttributes(a,b).range,4);assert.ok(unitAttributes(a,b).attack<s.attack);
+ assert.equal(s.range,6);assert.equal(s.move,baseMove*.5);b.tick=2;assert.equal(unitAttributes(a,b).range,4);assert.ok(unitAttributes(a,b).attack<s.attack);
  a.id='person-533';for(const key of ['attack','martialPower','strategyPower','siege']){assert.equal(unitAttributes({...a,hp:a.maxHp/4},b)[key],unitAttributes(a,b)[key]/4);assert.equal(unitAttributes({...a,hp:0},b)[key],0);}
 });
 test('troop attack speed changes actual basic attack cadence but not tactic cooldown',()=>{
  for(const type of ['archer','crossbow']){const {a,b}=scene(type);stepBattle(b);assert.equal(a.cooldown,TROOPS[type].interval);for(let i=0;i<TROOPS[type].interval-1;i++){stepBattle(b);assert.equal(b.effects.filter(e=>e.from===a.id&&e.damage).length,0);}stepBattle(b);assert.ok(b.effects.some(e=>e.from===a.id&&e.damage));}
  const {a,d,b}=scene();a.cooldown=10;a.intent=100;a.skillReady.repeat=0;stepBattle(b);assert.equal(a.cast,null);assert.equal(a.skillReady.repeat,b.tick+22);assert.equal(a.cooldown,9);
 });
-test('slow movement accumulates half-steps and active haste cannot stack twice',()=>{
- const {a,d,b}=scene('spear');a.x=0;d.x=10;d.statuses.phalanx={until:99};setStatus(b,a,'slow',9);
- stepBattle(b);assert.equal(a.x,0);assert.equal(a.moveProgress,.5);stepBattle(b);assert.equal(a.x,1);assert.equal(a.moveProgress,0);
- setStatus(b,a,'haste',9);b.sides[0].hasteUntil=99;assert.equal(unitAttributes(a,b).move,1);
+test('slow movement retains fractional progress and active haste cannot stack twice',()=>{
+ const {a,d,b}=scene('spear');a.x=0;d.x=10;d.statuses.phalanx={until:99};setStatus(b,a,'slow',99);
+ const speed=unitAttributes(a,b).move,steps=Math.ceil(1/speed);
+ for(let i=1;i<steps;i++){stepBattle(b);assert.equal(a.x,0);assert.ok(Math.abs(a.moveProgress-speed*i)<1e-8);}
+ stepBattle(b);assert.equal(a.x,1);assert.ok(Math.abs(a.moveProgress-(speed*steps-1))<1e-8);
+ setStatus(b,a,'haste',9);const hasted=unitAttributes(a,b).move;b.sides[0].hasteUntil=99;assert.equal(unitAttributes(a,b).move,hasted);assert.ok(hasted<=1);
 });
-test('discipline controls duration with an actual current physical control source',()=>{let found=false;for(let seed=1;seed<=30&&!found;seed++){const x=currentBattle('terror','cavalry',{seed});x.target.x=6;x.rear.x=12;primeTactic(x.u,'terror');stepBattle(x.b);if(x.target.statuses.confuse){found=true;assert.ok(x.target.statuses.confuse.until-x.b.tick<=3);}}assert.ok(found);const {d,b}=scene();assert.ok(disciplineDuration(b,{...d,politics:0},4)>=disciplineDuration(b,{...d,politics:100},4));assert.equal(disciplineDuration(b,{...d,politics:10000},1),1);});
+test('discipline controls duration with an actual current physical control source',()=>{let found=false;for(let seed=1;seed<=30&&!found;seed++){const x=currentBattle('terror','cavalry',{seed});x.target.x=6;x.rear.x=12;primeTactic(x.u,'terror');stepBattle(x.b);for(let i=0;i<20&&x.u.movementAim;i++)stepBattle(x.b);if(x.target.statuses.confuse){found=true;assert.ok(x.target.statuses.confuse.until-x.b.tick<=3);}}assert.ok(found);const {d,b}=scene();assert.ok(disciplineDuration(b,{...d,politics:0},4)>=disciplineDuration(b,{...d,politics:100},4));assert.equal(disciplineDuration(b,{...d,politics:10000},1),1);});
 test('shield sources refresh separately, expire separately, cap at capacity and absorb earliest first',()=>{
  const {a,b}=scene();setStatus(b,a,'shield',2,{amount:100,source:'early',label:'早盾'});setStatus(b,a,'shield',8,{amount:300,source:'late',label:'迟盾'});
  assert.equal(shieldAmount(b,a),400);assert.equal(absorbShield(b,a,150),0);assert.equal(shieldAmount(b,a),250);assert.equal(shieldLayers(b,a)[0].source,'late');

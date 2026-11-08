@@ -94,7 +94,7 @@ export const GAME_RECORDS=OFFICER_MASTER_RECORDS.map(base=>{
  const available=availableTactics(u);r.availableIds=available.map(s=>s.id).join('、');r.availableNames=available.map(s=>s.name).join('、');
  r.specialId=special?.id||'';r.specialPower=special?.powerDescription||'不适用';r.specialTerrain=special?.terrainDescription||'不适用';
  for(let i=0;i<4;i++)for(const part of ['id','category','threshold','cooldown','description','powerDescription','terrainDescription'])r[`equipped${i}-${part}`]='未学会';
- unitTactics(u).forEach((s,i)=>{for(const part of ['id','category','threshold','cooldown','description','powerDescription','terrainDescription'])r[`equipped${i}-${part}`]=part==='category'?(s.category==='force'?'武力':'智力'):(s[part]??'无额外地形规则');});
+ unitTactics(u).forEach((s,i)=>{for(const part of ['id','category','threshold','cooldown','description','powerDescription','terrainDescription'])r[`equipped${i}-${part}`]=part==='category'?(s.powerSource==='combined'?'合成':s.category==='force'?'武技':s.category==='politics'?'营务':'谋略'):(s[part]??'无额外地形规则');});
  for(const role of TACTIC_ROLES[u.type])r[`role-${role.id}`]=`${role.name}：${role.ids.map(k=>TACTICS_BOOK[k].name).join(' → ')}；${role.position}；代价：${role.cost}`;
  const stratagems=officerStratagems(u.id);r.stratagemIds=stratagems.join('、');r.stratagemEffects=stratagems.map(k=>`${STRATAGEMS[k].name}：${stratagemEffectText(stratagemProfile(k,u))}`).join('；')||'无个人军略';
  r.campaignPlacement=placements.get(u.id)||'未编入默认战役';

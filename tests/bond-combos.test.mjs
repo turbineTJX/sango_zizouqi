@@ -14,6 +14,7 @@ import {primeTactic} from './helpers/prime-tactic.mjs';
 
 const id=n=>Object.values(O).find(o=>o.name===n).id;
 const teams={
+ midFinisher:['张郃','华雄','阎行'],
  song:['曹操','袁术','袁谭','大乔','甄氏','小乔'],
  crusher:['徐晃','阎行','郭汜','华雄','鄂焕','周仓'],
  doubt:['贾诩','尹大目','郭图','桓范','魏讽','沮鹄'],
@@ -59,18 +60,69 @@ test('Song settles a landed attack before retaliation can defeat its provider',(
  const x=scene('song',0,'spear'),recipient=x.us[4];Object.assign(recipient,{x:4,y:2,intent:40});Object.assign(x.enemy,{x:5,y:3});hp(x.u,1);setStatus(x.b,x.enemy,'riposte',5,{...source(x.enemy),lastTick:0});basic(x);assert.equal(x.u.status,'defeated');assert.equal(recipient.intent,40+10-INTENT_STATE.defeatLoss-INTENT_STATE.nearbyDefeatLoss);assert.equal(x.b.effects.filter(e=>e.label==='战歌').length,1);assert.equal(x.b.effects.find(e=>e.label==='战歌').intentGained,10);
 });
 
-test('Crusher rolls seeded armor break, drains only after a successful top-tier break, and does not refresh it',()=>{
- const x=findProc('crusher','armorBreak',x=>{x.enemy.intent=40;});
- const remaining=hits=>40+intentIncome(x.enemy).hit*hits-D.bondCrusher.intentDrain;
- assert.equal(x.enemy.intent,remaining(1));assert.equal(x.b.effects.find(e=>e.label==='摧锋'&&e.intentDrained)?.intentDrained,D.bondCrusher.intentDrain);
- assert.equal(x.enemy.statuses.armorBreak.until,x.b.tick+D.bondCrusher.statusSteps+1);const until=x.enemy.statuses.armorBreak.until;basic(x);assert.equal(x.enemy.statuses.armorBreak.until,until);assert.equal(x.enemy.intent,remaining(2));assert.ok(!x.b.effects.some(e=>e.label==='摧锋'&&e.intentDrained));
- let hits=0,misses=0;for(let seed=1;seed<=30;seed++){const y=scene('crusher');y.b.seed=Math.imul(seed,134775813)>>>0;basic(y);hasStatus(y.b,y.enemy,'armorBreak')?hits++:misses++;}assert.ok(hits&&misses);
- const immune=scene('crusher');setStatus(immune.b,immune.enemy,'stasis',5);basic(immune);assert.ok(!hasStatus(immune.b,immune.enemy,'armorBreak'));
+test('Crusher applies at opening and later hits neither drain intent nor refresh its duration',()=>{
+ for(const side of [0,1]){const x=scene('crusher',side);assert.ok(x.es.every(u=>hasStatus(x.b,u,'armorBreak')));x.enemy.intent=40;const until=x.enemy.statuses.armorBreak.until;assert.equal(until,D.bondCrusher.debuffSteps+1);
+ basic(x);assert.equal(x.enemy.intent,40+intentIncome(x.enemy).hit);basic(x);assert.equal(x.enemy.intent,40+2*intentIncome(x.enemy).hit);assert.equal(x.enemy.statuses.armorBreak.until,until);assert.ok(!x.b.effects.some(e=>e.label==='摧锋'&&e.intentDrained));assert.doesNotThrow(()=>validateSave(structuredClone(x.state)));}
 });
 
 test('Finisher guarantees real basic criticals only on broken armor at or below half strength',()=>{
- for(const side of [0,1])for(const amount of [2000,2001])for(const broken of [true,false]){const x=scene('finisher',side),u=x.us[1];Object.assign(x.u,{x:0,y:0});Object.assign(u,{x:4,y:3});hp(x.enemy,amount);if(broken)setStatus(x.b,x.enemy,'armorBreak',6,source(u));assert.equal(bondFinisherCritical(x.b,u,x.enemy),broken&&amount===2000);const hit=basic(x,u)[0];assert.equal(hit.bondCritical==='bondFinisher',broken&&amount===2000);if(hit.bondCritical){assert.equal(hit.critical,true);assert.equal(hit.critChance,1);}assert.doesNotThrow(()=>validateSave(structuredClone(x.state)));}
+ for(const side of [0,1])for(const amount of [2000,2001])for(const broken of [true,false]){const x=scene('finisher',side),u=x.us[1];Object.assign(x.u,{x:0,y:0});Object.assign(u,{x:4,y:3});hp(x.enemy,amount);if(!broken)delete x.enemy.statuses.armorBreak;if(broken)setStatus(x.b,x.enemy,'armorBreak',6,source(u));assert.equal(bondFinisherCritical(x.b,u,x.enemy),broken&&amount===2000?1:0);const hit=basic(x,u)[0];assert.equal(hit.bondCritical==='bondFinisher',broken&&amount===2000);if(hit.bondCritical){assert.equal(hit.critical,true);assert.equal(hit.critChance,1);}assert.doesNotThrow(()=>validateSave(structuredClone(x.state)));}
  const x=scene('finisher',0,'spear'),u=x.us[1];Object.assign(x.u,{x:0,y:0});Object.assign(u,{x:4,y:3});Object.assign(x.enemy,{x:5,y:3});hp(x.enemy,2000);setStatus(x.b,x.enemy,'armorBreak',6,source(u));primeTactic(u,'thrust');let landed=false;for(let i=0;i<12&&!landed;i++){u.cooldown=999;stepBattle(x.b);landed=x.b.effects.some(e=>e.from===u.id&&e.skill&&e.damage>0);}assert.ok(x.b.effects.some(e=>e.from===u.id&&e.skill&&e.damage>0));assert.ok(!x.b.effects.some(e=>e.bondCritical));
+});
+
+test('three officers reach mid Finisher: seeded half-chance criticals use pre-hit armor and strength, and resume',()=>{
+ for(const side of [0,1]){
+  let critical=0,normal=0;
+  for(let seed=1;seed<=24;seed++){
+   const x=scene('midFinisher',side);assert.equal(sideBonds(x.b,side).bondFinisher.tier,2);
+   hp(x.enemy,2000);setStatus(x.b,x.enemy,'armorBreak',6,source(x.u));
+   assert.equal(bondFinisherCritical(x.b,x.u,x.enemy),.5);x.b.seed=Math.imul(seed,134775813)>>>0;
+   x.u.cooldown=0;const copy=validateSave(structuredClone(x.state));const hit=basic(x)[0];stepBattle(copy.battle);assert.deepEqual(x.state,copy);
+   if(hit.bondCritical){critical++;assert.equal(hit.critChance,.5);}else normal++;
+   assert.doesNotThrow(()=>validateSave(structuredClone(x.state)));
+  }
+  assert.ok(critical&&normal,'both seeded outcomes must occur');
+  const high=scene('midFinisher',side);hp(high.enemy,2001);setStatus(high.b,high.enemy,'armorBreak',6,source(high.u));assert.equal(bondFinisherCritical(high.b,high.u,high.enemy),0);assert.ok(!basic(high)[0].bondCritical);
+  const absent=scene('midFinisher',side);hp(absent.enemy,2000);assert.ok(!basic(absent)[0].bondCritical);
+  const expired=scene('midFinisher',side);hp(expired.enemy,2000);expired.enemy.statuses.armorBreak={until:expired.b.tick};assert.equal(bondFinisherCritical(expired.b,expired.u,expired.enemy),0);
+ }
+ // Opening Crusher is already present before the first hit, so Finisher can use it.
+ let observed=false;
+ for(let seed=1;seed<=40&&!observed;seed++){const x=scene('midFinisher');Object.assign(x.u,{x:0,y:0});const u=x.us[1];Object.assign(u,{x:4,y:3});hp(x.enemy,2000);assert.ok(hasStatus(x.b,x.enemy,'armorBreak'));x.b.seed=Math.imul(seed,134775813)>>>0;observed=basic(x,u)[0].bondCritical==='bondFinisher';}
+ assert.ok(observed);
+});
+
+test('Lure locks cells, permits escape and entry, caps targets and resumes without recursive slowing',()=>{
+ for(const side of [0,1]){
+  let x;
+  for(let seed=1;seed<=80;seed++){
+   const candidate=scene('lure',side);Object.assign(candidate.es[1],{x:7,y:3});candidate.b.seed=Math.imul(seed,134775813)>>>0;basic(candidate);
+   if(candidate.u.lureAims?.length){x=candidate;break;}
+  }
+  assert.ok(x);assert.ok(!hasStatus(x.b,x.es[1],'slow'));x.u.cooldown=999;
+  for(const corrupt of [a=>a.cells=[],a=>a.resolveAt++,a=>a.targetId='missing']){
+   const bad=structuredClone(x.state);corrupt(bad.battle.sides[side].units[0].lureAims[0]);assert.throws(()=>validateSave(bad),/诱敌锁定范围/);
+  }
+  Object.assign(x.es[1],{x:12,y:7});Object.assign(x.enemy,{x:12,y:6});
+  [[6,3],[7,3],[6,2]].forEach(([x0,y],i)=>Object.assign(x.es[i+2],{x:x0,y}));
+  const copy=validateSave(structuredClone(x.state));stepBattle(x.b);stepBattle(copy.battle);assert.deepEqual(x.state,copy);
+  assert.ok(!hasStatus(x.b,x.es[1],'slow'));assert.ok(!hasStatus(x.b,x.enemy,'slow'));
+  assert.equal(x.es.slice(2,5).filter(u=>hasStatus(x.b,u,'slow')).length,2);
+  assert.equal(x.u.lureAims.length,0);assert.ok(x.es.every(u=>!u.lureAims?.length));
+  assert.doesNotThrow(()=>validateSave(structuredClone(x.state)));
+  stepBattle(x.b);assert.equal(x.u.lureAims.length,0);
+ }
+});
+
+test('Lure does not chase an empty region, and cancels when the source exits or the full tier is lost',()=>{
+ for(const mode of ['miss','withdraw','downgrade','immune']){
+  const x=findProc('lure','taunt');x.u.cooldown=999;
+  if(mode==='withdraw')x.u.withdrawing=true;
+  if(mode==='downgrade')x.us.at(-1).status='reserve';
+  if(mode==='immune'){Object.assign(x.es[1],{x:7,y:3});setStatus(x.b,x.es[1],'magicImmune',6);}
+  stepBattle(x.b);assert.ok(x.es.every(u=>!hasStatus(x.b,u,'slow')));assert.equal(x.u.lureAims.length,0);
+  if(mode==='miss')assert.ok(x.b.effects.some(e=>e.label==='诱敌'&&e.missed&&e.bondSpread));
+ }
 });
 
 test('Doubt waits six rounds, rolls nearby enemies independently and cannot act outside legal attack range',()=>{
@@ -85,8 +137,8 @@ test('Volley exploits effective control at distance and penetrates physical defe
  x.enemy.x=5;assert.equal(bondDefenseIgnore(x.b,u,x.enemy,'basic'),0);assert.equal(bondDamage(x.b,u,x.enemy,'basic'),1);
 });
 
-test('Lure actually taunts a hit enemy and slows its nearby companions while isolated hits grant Skirmish phase',()=>{
- const x=findProc('lure','taunt',x=>Object.assign(x.es[1],{x:7,y:3}));assert.equal(x.enemy.statuses.taunt.sourceId,x.u.id);assert.ok(hasStatus(x.b,x.es[1],'slow'));assert.ok(!hasStatus(x.b,x.u,'phase'));
+test('Lure taunts immediately and slows nearby companions one tick later while isolated hits grant Skirmish phase',()=>{
+ const x=findProc('lure','taunt',x=>Object.assign(x.es[1],{x:7,y:3}));assert.equal(x.enemy.statuses.taunt.sourceId,x.u.id);assert.ok(!hasStatus(x.b,x.es[1],'slow'));assert.equal(x.u.lureAims.length,1);x.u.cooldown=999;stepBattle(x.b);assert.ok(hasStatus(x.b,x.es[1],'slow'));assert.ok(!hasStatus(x.b,x.u,'phase'));
  const isolated=scene('skirmish');basic(isolated);assert.ok(hasStatus(isolated.b,isolated.u,'phase'));assert.equal(isolated.u.statuses.phase.until,isolated.b.tick+3);assert.doesNotThrow(()=>validateSave(structuredClone(isolated.state)));
  const protectedEnemy=scene('lure');setStatus(protectedEnemy.b,protectedEnemy.enemy,'resolve',8);for(let i=0;i<3;i++)basic(protectedEnemy);assert.ok(!hasStatus(protectedEnemy.b,protectedEnemy.enemy,'taunt'));
 });
@@ -132,6 +184,16 @@ test('six combinations continue identically from real battle saves with their tr
 
 import {BOND_ASSIGNMENTS} from '../data/design/bond-assignments.mjs';
 import {pulseBondCombos} from '../bond-combos.mjs';
+test('stronger Chain can replace Pang Tong strength, without stacking or inheriting the old lifetime',()=>{
+ const x=scene('chain'),u=x.us[1];Object.assign(x.u,{x:0,y:0});Object.assign(u,{x:4,y:3});Object.assign(x.es[1],{x:7,y:3});
+ for(const v of [x.enemy,x.es[1]])setStatus(x.b,v,'link',20,{group:'previous',fraction:.2});
+ setStatus(x.b,x.enemy,'burn',10,{...source(u),amount:1});basic(x,u);
+ assert.equal(x.enemy.statuses.link.fraction,.4);assert.equal(x.enemy.statuses.link.until,x.b.tick+4);
+ assert.equal(x.enemy.statuses.link.group,x.es[1].statuses.link.group);assert.notEqual(x.enemy.statuses.link.group,'previous');
+ const original=structuredClone(x.enemy.statuses.link);setStatus(x.b,x.enemy,'link',20,{group:'weaker',fraction:.2});assert.deepEqual(x.enemy.statuses.link,original);
+ assert.doesNotThrow(()=>validateSave(structuredClone(x.state)));
+});
+
 test('Escort support stops outside its radius and ignores withdrawing sources',()=>{
  const ids=Object.entries(BOND_ASSIGNMENTS).filter(([,a])=>a.bondEscort).slice(0,3).map(([id])=>id),units=ids.map((id,i)=>({...makeOfficer(id,3000,0,10),side:0,hp:3000,maxHp:3000,status:'active',x:i+2,y:3,statuses:{},bondState:{}}));
  const b={tick:0,sides:[{units},{units:[]}]},target={...makeOfficer('person-1',3000,0,1),side:0,hp:1200,maxHp:3000,status:'active',x:3,y:4,statuses:{},bondState:{}};b.sides[0].units.push(target);assert.ok(sideBonds(b,0).bondEscort?.tier);assert.equal(bondProtection(b,target,'basic'),1);

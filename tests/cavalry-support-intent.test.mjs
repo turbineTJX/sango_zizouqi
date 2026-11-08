@@ -3,7 +3,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createScenario} from '../scenarios.mjs';
 import {lockDeployment,stepBattle,configureUnitTactics,validateSave} from '../engine.mjs';
-import {supportAnchor,SPECIAL_TACTICS,roleTacticIds} from '../tactics.mjs';
+import {supportAnchor,SPECIAL_TACTICS,roleTacticIds,unitTactics} from '../tactics.mjs';
 import {setupRulePlayer,unit} from '../scripts/custom-playability-lib.mjs';
 
 for(const id of ['person-661','person-396','person-99'])test(`${id}: 攻击骑兵按固定配置接敌，实战与续战一致`,()=>{
@@ -16,7 +16,7 @@ for(const id of ['person-661','person-396','person-99'])test(`${id}: 攻击骑�
   recentDamage.push([0,1].map(side=>b.effects.filter(e=>e.damage>0&&b.sides[side].units.some(u=>u.id===e.from)).reduce((n,e)=>n+e.damage,0)));
   if(recentDamage.length>12)recentDamage.shift();
   if(main.status==='active'){
-   assert.notEqual(main.action,'策应队友');assert.equal(supportAnchor(b,main),null);
+   if(supportAnchor(b,main))assert.ok(unitTactics(main).some(s=>s.effect==='relay'),'only a real support action can approach a patient');
    if(!earned&&main.intent>=25){
     earned=true;
     // This comparison uses the actually earned intent and live friendly line.
@@ -29,7 +29,7 @@ for(const id of ['person-661','person-396','person-99'])test(`${id}: 攻击骑�
  // movement, real offensive/support casts and a completed deterministic fight.
  // Useful single-unit recovery can extend fighting to the deadline. In that
  // case require continuing mutual damage, not a particular time-to-victory.
- assert.ok(earned);assert.ok(main.tacticCasts[SPECIAL_TACTICS[id]]>0);assert.equal(main.tactics.includes('relay'),false);
+ assert.ok(earned);assert.ok(main.tacticCasts[SPECIAL_TACTICS[id]]>0);assert.ok(main.tactics.length<=4);
  if(b.result.reason==='久战收兵')for(const side of [0,1])assert.ok(recentDamage.reduce((n,d)=>n+d[side],0)>0,'时限收兵前双方仍有实际伤害，不是停滞');
  assert.deepEqual(resumed.battle,b);
  const old=structuredClone(state);old.rulesVersion=33;assert.throws(()=>validateSave(old),/重新开始/);

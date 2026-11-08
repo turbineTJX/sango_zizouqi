@@ -81,16 +81,18 @@ test('a real decoy inside a locked sweep absorbs its hit without damaging its ow
  assert.equal(owner.hp,hp);assert.equal(owner.battleDamage,0);
  assert.equal(p.u.tacticCasts.cleave,1);resume(p);
 });
-test('rally follows forward placement rather than always feeding the lowest-intent ally on both sides',()=>{
+test('rally without an initial anchor falls back to forward placement on both sides',()=>{
  for(const side of [0,1]){
   const p=scene('rally','archer',{side,allies:3,enemies:1}),[front,back]=p.friends;
   Object.assign(front,{x:p.x(5),y:3,intent:20});Object.assign(back,{x:p.x(3),y:3,intent:0});
+  p.u.deploymentBehavior.intentId=null;
   assert.equal(basicSupportTargets(p.b,p.u,TACTICS_BOOK.rally)[0],front);launch(p,'rally');assert.ok(front.intent>20);assert.equal(back.intent,0);resume(p);
  }
 });
 test('column support protects the intended allies and still requires a real useful recipient',()=>{
  const p=scene('baier-guard','baier',{allies:4,enemies:1}),[one,two,other]=p.friends;
  [[one,4,2],[two,4,4],[other,5,3]].forEach(([u,x,y])=>{Object.assign(u,{x,y,hp:2500,battleDamage:500});});
+ p.u.deploymentBehavior.careIds=[];
  const s=TACTICS_BOOK['baier-guard'];assert.deepEqual(famousTargets(p.b,p.u,s),[one,two].sort((a,c)=>a.id.localeCompare(c.id)));
  launch(p,'baier-guard');assert.ok(one.statuses.shield&&two.statuses.shield);assert.ok(!other.statuses.shield);resume(p);
 });

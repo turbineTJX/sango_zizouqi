@@ -8,14 +8,16 @@ import {routeTo,unitTactics,TACTICS_BOOK,tacticTarget} from '../tactics.mjs';
 import {zocCells,interceptorsAt} from '../engagement.mjs';
 import {primeTactic} from './helpers/prime-tactic.mjs';
 
-function line(){const supportId=tacticHolder('harass','cavalry'),chargerId=tacticHolder('rush','cavalry',[supportId]);const unit=(id,type)=>({id,type,level:1,troops:3000});const state=createScenario('custom-battle',1,20,null,{seed:1,terrain:'land',ownTeam:[unit(supportId,'cavalry'),unit(chargerId,'cavalry')],enemyTeam:[unit('person-342','spear'),unit('person-186','archer')]});const b=state.battle;lockDeployment(b);const[support,charger]=b.sides[0].units,[front,rear]=b.sides[1].units;Object.assign(support,{x:3,y:3});Object.assign(charger,{x:4,y:3});Object.assign(front,{x:5,y:3});Object.assign(rear,{x:7,y:3,intent:100});for(const u of [support,charger,front,rear]){u.cooldown=999;u.skillReady=Object.fromEntries(unitTactics(u).map(s=>[s.id,999]));}front.statuses.phalanx={until:999};rear.statuses.phalanx={until:999};primeTactic(support,'harass');primeTactic(charger,'rush');return{state,b,support,charger,front,rear};}
+function line(supportTroops=3000){const supportId=tacticHolder('harass','cavalry'),chargerId=tacticHolder('rush','cavalry',[supportId]);const unit=(id,type)=>({id,type,level:1,troops:id===supportId?supportTroops:3000});const state=createScenario('custom-battle',1,20,null,{seed:1,terrain:'land',ownTeam:[unit(supportId,'cavalry'),unit(chargerId,'cavalry')],enemyTeam:[unit('person-342','spear'),unit('person-186','archer')]});const b=state.battle;lockDeployment(b);const[support,charger]=b.sides[0].units,[front,rear]=b.sides[1].units;Object.assign(support,{x:3,y:3});Object.assign(charger,{x:4,y:3});Object.assign(front,{x:5,y:3});Object.assign(rear,{x:7,y:3,intent:100});for(const u of [support,charger,front,rear]){u.cooldown=999;u.skillReady=Object.fromEntries(unitTactics(u).map(s=>[s.id,999]));}front.statuses.phalanx={until:999};rear.statuses.phalanx={until:999};primeTactic(support,'harass');primeTactic(charger,'rush');return{state,b,support,charger,front,rear};}
 
 test('a real control cast opens ZOC and the next allied charge exploits it',()=>{
-  const {b,support,charger,front,rear}=line();
+  const {b,support,charger,front,rear}=line();Object.assign(rear,{x:6,y:4});
   assert.equal(routeTo(b,charger,rear,3),null);
   assert.equal(tacticTarget(b,support,TACTICS_BOOK.harass,4),front,'support targets the blocking front over a high-intent rear');
   stepBattle(b);
   assert.equal(support.tacticCasts.harass,1);assert.equal(charger.tacticCasts.rush,1);
+  assert.ok(charger.movementAim,'the charge travels at its real speed');
+  for(let i=0;i<20&&charger.movementAim;i++)stepBattle(b);
   assert.ok(front.hp>0);assert.ok(b.effects.some(e=>e.from===charger.id&&e.to===rear.id&&e.damage>0));
   assert.ok(front.statuses.disrupted);assert.ok(b.effects.some(e=>e.text==='突入后阵'));
 });

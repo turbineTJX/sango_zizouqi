@@ -1,4 +1,4 @@
-import {currentBattle} from './helpers/current-battle.mjs';
+import {currentBattle,tacticHolder} from './helpers/current-battle.mjs';
 import {initializeTacticLearning} from '../tactic-learning.mjs';
 import {unitTactics} from '../tactics.mjs';
 import test from 'node:test';
@@ -11,7 +11,7 @@ import {primeTactic} from './helpers/prime-tactic.mjs';
 function duel(){
   const b=createScenario('field',751).battle,a=b.sides[0].units[0],d=b.sides[1].units[0];
   b.sides[0].units=[a];b.sides[1].units=[d];
-  for(const [u,id,x] of [[a,'cao',4],[d,'target',6]]){
+  for(const [u,id,x] of [[a,tacticHolder('repeat','crossbow',[],true),4],[d,'target',6]]){
     Object.assign(u,{id,level:1,type:'crossbow',x,y:2,hp:3000,maxHp:3000,initial:3000,battleDamage:0,healed:0,intent:0,statuses:{},cooldown:999});
     initializeTacticLearning(u,751);u.skillReady=Object.fromEntries(unitTactics(u).map(s=>[s.id,999]));
   }
